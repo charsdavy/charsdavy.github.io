@@ -193,7 +193,7 @@
         <p>4.关键代码</p> 
         <p>&nbsp;以上这些问题，本人在“Refactor Code”插件中全部实现，现在放上关键方法。</p> 
         <p>1）添加菜单</p> 
-        <div class="cnblogs_code"> 
+   <!--     <div class="cnblogs_code"> 
          <pre>-(<span style="color: #0000ff;">void</span><span style="color: #000000;">) setupMenuItem
 {
     </span><span style="color: #008000;">//</span><span style="color: #008000;"> Menu Item:</span>
@@ -211,6 +211,29 @@
         [refactorCodeMenu addItem:menuItem];
         
         NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">Refactor Code</span><span style="color: #800000;">&quot;</span> action:nil keyEquivalent:<span style="color: #800000;">@&quot;&quot;</span><span style="color: #000000;">];
+        [refactorCodeMenuItem setSubmenu:refactorCodeMenu];
+        [[editMenuItem submenu] addItem:refactorCodeMenuItem];
+    }
+}</span></pre> 
+        </div> -->
+        <div class="cnblogs_code"> 
+         <pre>-(<span>void</span><span>) setupMenuItem
+{
+    </span><span>//</span><span> Menu Item:</span>
+<span>    
+    NSMenuItem </span>*editMenuItem = [[NSApp mainMenu] itemWithTitle:<span>@&quot;</span><span>Edit</span><span>&quot;</span><span>];
+    
+    </span><span>if</span><span> (editMenuItem) {
+        [[editMenuItem submenu] addItem:[NSMenuItem separatorItem]];
+        
+        NSMenu </span>*refactorCodeMenu = [[NSMenu alloc] initWithTitle:<span >@&quot;</span><span>Refactor Code</span><span>&quot;</span><span>];
+        
+        NSMenuItem </span>*<span >menuItem;
+        menuItem </span>= [[NSMenuItem alloc] initWithTitle:<span >@&quot;</span><span>Refactor Method Style</span><span>&quot;</span> action:@selector(refactorMethodStyleMenuAction) keyEquivalent:<span >@&quot;&quot;</span><span >];
+        [menuItem setTarget:self];
+        [refactorCodeMenu addItem:menuItem];
+        
+        NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span >@&quot;</span><span>Refactor Code</span><span>&quot;</span> action:nil keyEquivalent:<span >@&quot;&quot;</span><span >];
         [refactorCodeMenuItem setSubmenu:refactorCodeMenu];
         [[editMenuItem submenu] addItem:refactorCodeMenuItem];
     }
