@@ -90,7 +90,7 @@
         </section> 
         <section class="switch-part switch-part4"> 
          <div id="js-aboutme">
-          Chars@ZAKER。竞技体育纪录片爱好者，希望有生之年玩遍各种运动。
+           Chars@ZAKER。竞技体育纪录片爱好者，希望有生之年玩遍各种运动。 
          </div> 
         </section> 
        </div> 
@@ -130,7 +130,7 @@
       </header> 
      </div> 
     </nav> 
-    <div class="body-wrap">
+    <div class="body-wrap"> 
      <article id="post-new" class="article article-type-post" itemscope="" itemprop="blogPost"> 
       <div class="article-meta"> 
        <a href="/2016/04/08/iOS-Xcode-Plugin/" class="article-date"> <time datetime="2016-04-08T01:53:03.000Z" itemprop="datePublished">2016-04-08</time> </a> 
@@ -142,8 +142,8 @@
        </header> 
        <div class="article-info article-info-post"> 
         <div class="article-tag tagcloud"> 
-         <ul class="article-tag-list">
-          <li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li>
+         <ul class="article-tag-list"> 
+          <li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li> 
          </ul> 
         </div> 
         <div class="clearfix"></div> 
@@ -193,29 +193,6 @@
         <p>4.关键代码</p> 
         <p>&nbsp;以上这些问题，本人在“Refactor Code”插件中全部实现，现在放上关键方法。</p> 
         <p>1）添加菜单</p> 
-   <!--     <div class="cnblogs_code"> 
-         <pre>-(<span style="color: #0000ff;">void</span><span style="color: #000000;">) setupMenuItem
-{
-    </span><span style="color: #008000;">//</span><span style="color: #008000;"> Menu Item:</span>
-<span style="color: #000000;">    
-    NSMenuItem </span>*editMenuItem = [[NSApp mainMenu] itemWithTitle:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">Edit</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">];
-    
-    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (editMenuItem) {
-        [[editMenuItem submenu] addItem:[NSMenuItem separatorItem]];
-        
-        NSMenu </span>*refactorCodeMenu = [[NSMenu alloc] initWithTitle:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">Refactor Code</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">];
-        
-        NSMenuItem </span>*<span style="color: #000000;">menuItem;
-        menuItem </span>= [[NSMenuItem alloc] initWithTitle:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">Refactor Method Style</span><span style="color: #800000;">&quot;</span> action:@selector(refactorMethodStyleMenuAction) keyEquivalent:<span style="color: #800000;">@&quot;&quot;</span><span style="color: #000000;">];
-        [menuItem setTarget:self];
-        [refactorCodeMenu addItem:menuItem];
-        
-        NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">Refactor Code</span><span style="color: #800000;">&quot;</span> action:nil keyEquivalent:<span style="color: #800000;">@&quot;&quot;</span><span style="color: #000000;">];
-        [refactorCodeMenuItem setSubmenu:refactorCodeMenu];
-        [[editMenuItem submenu] addItem:refactorCodeMenuItem];
-    }
-}</span></pre> 
-        </div> -->
         <div class="cnblogs_code"> 
          <pre>-(<span>void</span><span>) setupMenuItem
 {
@@ -226,14 +203,14 @@
     </span><span>if</span><span> (editMenuItem) {
         [[editMenuItem submenu] addItem:[NSMenuItem separatorItem]];
         
-        NSMenu </span>*refactorCodeMenu = [[NSMenu alloc] initWithTitle:<span >@&quot;</span><span>Refactor Code</span><span>&quot;</span><span>];
+        NSMenu </span>*refactorCodeMenu = [[NSMenu alloc] initWithTitle:<span>@&quot;</span><span>Refactor Code</span><span>&quot;</span><span>];
         
-        NSMenuItem </span>*<span >menuItem;
-        menuItem </span>= [[NSMenuItem alloc] initWithTitle:<span >@&quot;</span><span>Refactor Method Style</span><span>&quot;</span> action:@selector(refactorMethodStyleMenuAction) keyEquivalent:<span >@&quot;&quot;</span><span >];
+        NSMenuItem </span>*<span>menuItem;
+        menuItem </span>= [[NSMenuItem alloc] initWithTitle:<span>@&quot;</span><span>Refactor Method Style</span><span>&quot;</span> action:@selector(refactorMethodStyleMenuAction) keyEquivalent:<span>@&quot;&quot;</span><span>];
         [menuItem setTarget:self];
         [refactorCodeMenu addItem:menuItem];
         
-        NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span >@&quot;</span><span>Refactor Code</span><span>&quot;</span> action:nil keyEquivalent:<span >@&quot;&quot;</span><span >];
+        NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span>@&quot;</span><span>Refactor Code</span><span>&quot;</span> action:nil keyEquivalent:<span>@&quot;&quot;</span><span>];
         [refactorCodeMenuItem setSubmenu:refactorCodeMenu];
         [[editMenuItem submenu] addItem:refactorCodeMenuItem];
     }
@@ -243,22 +220,22 @@
         <p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135707035-2105407027.png" alt="" width="390" height="417" /></p> 
         <p>2）显示操作面板</p> 
         <div class="cnblogs_code"> 
-         <pre>- (<span style="color: #0000ff;">void</span><span style="color: #000000;">)refactorMethodStyleMenuAction
+         <pre>- (<span>void</span><span>)refactorMethodStyleMenuAction
 {
     [self.operateController showWindow:nil];
     
-    NSURL </span>*url = [[NSBundle bundleForClass:[self <span style="color: #0000ff;">class</span>]] URLForResource:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">DZOperateController</span><span style="color: #800000;">&quot;</span> withExtension:<span style="color: #800000;">@&quot;</span><span style="color: #800000;">nib</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">];
+    NSURL </span>*url = [[NSBundle bundleForClass:[self <span>class</span>]] URLForResource:<span>@&quot;</span><span>DZOperateController</span><span>&quot;</span> withExtension:<span>@&quot;</span><span>nib</span><span>&quot;</span><span>];
     
-    </span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">url) {
-        NSAlert </span>*alert =<span style="color: #000000;"> [[NSAlert alloc] init];
-        alert.messageText </span>= <span style="color: #800000;">@&quot;</span><span style="color: #800000;">Refactor Method Style could not be shown because the plugin is corrupted.</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">;
-        alert.informativeText </span>= <span style="color: #800000;">@&quot;</span><span style="color: #800000;">If you build the plugin from sources using Xcode, make sure to perform “Clean Build Folder“ in <br />　　　　　　　　Xcode and then build the plugin again.\n\nIf you installed the plugin via Alctraz, there is a pending issue causing <br />　　　　　　　　some files to be missing in the plugin. Prefer to install it via the plugin webpage.</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">;
-        [alert addButtonWithTitle:</span><span style="color: #800000;">@&quot;</span><span style="color: #800000;">Download Latest</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">];
-        [alert addButtonWithTitle:</span><span style="color: #800000;">@&quot;</span><span style="color: #800000;">Cancel</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">];
-        NSModalResponse result </span>=<span style="color: #000000;"> [alert runModal];
+    </span><span>if</span> (!<span>url) {
+        NSAlert </span>*alert =<span> [[NSAlert alloc] init];
+        alert.messageText </span>= <span>@&quot;</span><span>Refactor Method Style could not be shown because the plugin is corrupted.</span><span>&quot;</span><span>;
+        alert.informativeText </span>= <span>@&quot;</span><span>If you build the plugin from sources using Xcode, make sure to perform “Clean Build Folder“ in <br />　　　　　　　　Xcode and then build the plugin again.\n\nIf you installed the plugin via Alctraz, there is a pending issue causing <br />　　　　　　　　some files to be missing in the plugin. Prefer to install it via the plugin webpage.</span><span>&quot;</span><span>;
+        [alert addButtonWithTitle:</span><span>@&quot;</span><span>Download Latest</span><span>&quot;</span><span>];
+        [alert addButtonWithTitle:</span><span>@&quot;</span><span>Cancel</span><span>&quot;</span><span>];
+        NSModalResponse result </span>=<span> [alert runModal];
         
-        </span><span style="color: #0000ff;">if</span> (result ==<span style="color: #000000;"> NSAlertFirstButtonReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:</span><span style="color: #800000;">@&quot;</span><span style="color: #800000;">https://github.com/CharsDavy/RefactorCodePlugin-Xcode</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">]];
+        </span><span>if</span> (result ==<span> NSAlertFirstButtonReturn) {
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:</span><span>@&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode</span><span>&quot;</span><span>]];
         }
     }
 }</span></pre> 
@@ -275,17 +252,17 @@
         <p>3.Fork这个仓库，再克隆到本地。</p> 
         <p>4.以添加”Refactor Code”插件为例，打开packages.json文件，在”plugins”数组里加入：</p> 
         <div class="cnblogs_code"> 
-         <pre><span style="color: #000000;">    {
-        </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">name</span><span style="color: #800000;">&quot;</span>: <span style="color: #800000;">&quot;</span><span style="color: #800000;">Refactor Code</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">,
-        </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">url</span><span style="color: #800000;">&quot;</span>: <span style="color: #800000;">&quot;</span><span style="color: #800000;">https://github.com/CharsDavy/RefactorCodePlugin-Xcode.git</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">,
-        </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">description</span><span style="color: #800000;">&quot;</span>: <span style="color: #800000;">&quot;</span><span style="color: #800000;">Refactor code style,such as setter method.</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">,
-        </span><span style="color: #800000;">&quot;</span><span style="color: #800000;">screenshot</span><span style="color: #800000;">&quot;</span>: <span style="color: #800000;">&quot;</span><span style="color: #800000;">https://github.com/CharsDavy/RefactorCodePlugin-Xcode/raw/master/Screenshots/window.png</span><span style="color: #800000;">&quot;</span><span style="color: #000000;">
+         <pre><span>    {
+        </span><span>&quot;</span><span>name</span><span>&quot;</span>: <span>&quot;</span><span>Refactor Code</span><span>&quot;</span><span>,
+        </span><span>&quot;</span><span>url</span><span>&quot;</span>: <span>&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode.git</span><span>&quot;</span><span>,
+        </span><span>&quot;</span><span>description</span><span>&quot;</span>: <span>&quot;</span><span>Refactor code style,such as setter method.</span><span>&quot;</span><span>,
+        </span><span>&quot;</span><span>screenshot</span><span>&quot;</span>: <span>&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode/raw/master/Screenshots/window.png</span><span>&quot;</span><span>
     }</span></pre> 
         </div> 
         <p>5.提交代码到Fork的地址，再提交一个pull request到Master即可。</p> 
         <p>6.merged成功之后，即可看见以下效果图</p> 
         <p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401092906176-1572332699.png" alt="" /></p> 
-        <p>&nbsp;希望对大家有所帮助~</p> 
+        <p>&nbsp;希望对大家有所帮助。</p> 
        </div> 
       </div> 
       <nav id="article-nav"> 
@@ -315,16 +292,16 @@
       <!-- 多说评论框 end --> 
       <!-- 多说公共JS代码 start (一个网页只需插入一次) --> 
       <script type="text/javascript">
-	var duoshuoQuery = {short_name:"charsdavy"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script> 
+  var duoshuoQuery = {short_name:"charsdavy"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script> 
       <!-- 多说公共JS代码 end --> 
      </div> 
     </div> 
@@ -340,17 +317,17 @@
    </div> 
    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" /> 
    <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
+  var yiliaConfig = {
+    fancybox: true,
+    mathjax: true,
+    animate: true,
+    isHome: false,
+    isPost: true,
+    isArchive: false,
+    isTag: false,
+    isCategory: false,
+    open_in_new: false
+  }
 </script> 
    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script> 
    <script src="/js/main.js" type="text/javascript"></script> 
