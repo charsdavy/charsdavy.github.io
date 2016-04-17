@@ -171,42 +171,60 @@
       <li>将<code>Markdown</code>转换为<code>HTML</code></li>
     </ul>
     <p>默认的转换，只是将 Markdown 内容转换为 HTML 标签，所以只能看到浏览器的默认样式。</p>
-    <p><code>pandoc -o hello.html hello.md</code></p>
+    <div class="cnblogs_code">
+      <span>pandoc -o hello.html hello.md</span>
+    </div>
     <ul>
       <li>自定义将<code>Markdown</code>转换为<code>HTML</code></li>
     </ul>
     <p>可以执行下面的命令，为导出的 HTML 添加自定义样式。</p>
-    <p><code>pandoc -o hello.html -c style.css hello.md</code></p>
+    <div class="cnblogs_code">
+      <span>pandoc -o hello.html -c style.css hello.md</span>
+    </div>
     <p>style.css 仍然是以 <code>&lt;link&gt;</code> 的方式关联到 HTML 文档中的，所以在发布的时候需要将 CSS 一同发布出去。</p>
 
     <!-- class-dump 工具 -->
     <h1 id="toc_0">class-dump 工具</h1>
-	<h2 id="toc_1">简介</h2>
-	<p>class-dump is a command-line utility for examining the Objective-C segment of Mach-O files. It generates declarations for the classes, categories and protocols. This is the same information provided by using &#39;otool -ov&#39;, but presented as normal Objective-C declarations.</p>
-	<p>这是class-dump的官方解释，我们用的最多就是做iOS的逆向工程。class-dump，是可以把Objective-C运行时的声明的信息导出来的工具。其实就是可以导出.h文件。用class-dump可以把未经加密的app的头文件导出来。</p>
-	<p>官方网址：<a href="http://stevenygard.com/projects/class-dump/">http://stevenygard.com/projects/class-dump/</a></p>
-	<h2 id="toc_2">安装</h2>
-	<p>class-dump的下载地址：<a href="http://stevenygard.com/download/class-dump-3.5.tar.gz">http://stevenygard.com/download/class-dump-3.5.tar.gz</a></p>
-	<p>点击下载后解压后会有class-dump和源码文件。将class-dump 复制到/usr/bin/class-dump。如果是OS X 10.11，因为没有/usr/bin文件夹的写权限，所以将class-dump复制到/usr/local/bin/class-dump即可。</p>
-	<p>同时打开Terminal，执行命令赋予其执行权限：</p>
-	<p><code>sudo chmod 777 /usr/bin/class-dump</code></p>
-	<h2 id="toc_3">使用</h2>
-	<p>使用class-dump导出头文件的命令格式：</p>
-	<p><code>class-dump -H 需要导出的框架路径 -o 导出的头文件存放路径</code></p>
-	<p><strong>示例：</strong>导出Xcode中DVTKit框架的头文件</p>
-	<p>1）找到DVTKit框架路径；
-	2）使用上述的操作命令格式：</p>
-	<p><code>class-dump -H /Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/DVTKit -o ~/local/DVTKit</code></p>
-	<h2 id="toc_4">附录</h2>
-	<p><code>class-dump AppKit:
-	    class-dump /System/Library/Frameworks/AppKit.framework</code></p>
-	<p><code>class-dump UIKit:
-	    class-dump /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework</code></p>
-	<p><code>class-dump UIKit and all the frameworks it uses:
-	    class-dump /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework -r --sdk-ios 4.3</code></p>
-	<p><code>class-dump UIKit (and all the frameworks it uses) from developer tools that have been installed in /Dev42 instead of /Developer:
-	    class-dump /Dev42/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/UIKit.framework -r --sdk-root /Dev42/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk</code></p>
-	<p>以上就是安装并使用class-dump的全部过程。</p>
+  	<h2 id="toc_1">简介</h2>
+  	<p>class-dump is a command-line utility for examining the Objective-C segment of Mach-O files. It generates declarations for the classes, categories and protocols. This is the same information provided by using &#39;otool -ov&#39;, but presented as normal Objective-C declarations.</p>
+  	<p>这是class-dump的官方解释，我们用的最多就是做iOS的逆向工程。class-dump，是可以把Objective-C运行时的声明的信息导出来的工具。其实就是可以导出.h文件。用class-dump可以把未经加密的app的头文件导出来。</p>
+  	<p>官方网址：<a href="http://stevenygard.com/projects/class-dump/">http://stevenygard.com/projects/class-dump/</a></p>
+  	<h2 id="toc_2">安装</h2>
+  	<p>class-dump的下载地址：<a href="http://stevenygard.com/download/class-dump-3.5.tar.gz">http://stevenygard.com/download/class-dump-3.5.tar.gz</a></p>
+  	<p>点击下载后解压后会有class-dump和源码文件。将class-dump 复制到/usr/bin/class-dump。如果是OS X 10.11，因为没有/usr/bin文件夹的写权限，所以将class-dump复制到/usr/local/bin/class-dump即可。</p>
+  	<p>同时打开Terminal，执行命令赋予其执行权限：</p>
+    <div class="cnblogs_code">
+  	 <span>sudo chmod 777 /usr/bin/class-dump</span>
+    </div>
+  	<h2 id="toc_3">使用</h2>
+  	<p>使用class-dump导出头文件的命令格式：</p>
+    <div class="cnblogs_code">
+  	 <span>class-dump -H 需要导出的框架路径 -o 导出的头文件存放路径</span>
+    </div>
+  	<p><strong>示例：</strong>导出Xcode中DVTKit框架的头文件</p>
+  	<p>1）找到DVTKit框架路径；</p>
+  	<p>2）使用上述的操作命令格式：</p>
+    <div class="cnblogs_code">
+  	 <span>class-dump -H /Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/DVTKit -o ~/local/DVTKit</span>
+    </div>
+  	<h2 id="toc_4">附录</h2>
+  	<p><code>class-dump AppKit:</code></p>
+    <div class="cnblogs_code">
+  	    <span>class-dump /System/Library/Frameworks/AppKit.framework</span>
+    </div>
+  	<p><code>class-dump UIKit:</code></p>
+    <div class="cnblogs_code">
+  	    <span>class-dump /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework</span>
+    </div>
+  	<p><code>class-dump UIKit and all the frameworks it uses:</code></p>
+    <div class="cnblogs_code">
+  	    <span>class-dump /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework -r --sdk-ios 4.3</span>
+    </div>
+  	<p><code>class-dump UIKit (and all the frameworks it uses) from developer tools that have been installed in /Dev42 instead of /Developer:</code></p>
+    <div class="cnblogs_code">
+  	    <span>class-dump /Dev42/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/UIKit.framework -r --sdk-root /Dev42/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk</span>
+    </div>
+  	<p>以上就是安装并使用class-dump的全部过程。</p>
 
   </div> 
   <nav id="article-nav"> 
