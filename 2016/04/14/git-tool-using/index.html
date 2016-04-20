@@ -55,6 +55,7 @@
        <li>菜单</li> 
        <li>标签</li> 
        <li>友情链接</li> 
+       <li>关于我</li>
      </ul> 
    </div> 
  </div> 
@@ -92,6 +93,17 @@
     <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">Casa Taloyum</a></li>
   </ul> 
 </div> 
+</section> 
+<section class="switch-part switch-part4"> 
+ <p>Chars Davy @ ZAKER</p>
+ <p>立志成为全栈工程师。</p>
+ <p>爱好户外运动，喜欢登山、游泳。喜欢一个人静静的写代码。</p>
+</br> </br>
+<ul>
+  <li><a href="img/weixin-pay.png">微信打赏支持</a></li>
+  <li><a href="img/ali-pay.jpg">支付宝打赏支持</a></li>
+</ul>
+
 </section> 
 </div> 
 </div> 
@@ -173,7 +185,8 @@
     <p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
     <div><pre><code class="language-none">$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></pre></div>
     <p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
-    <div><pre><code class="language-none">$ git clone http[s]://example.com/path/to/repo.git/
+    <div><pre><code class="language-none">
+      $ git clone http[s]://example.com/path/to/repo.git/
       $ git clone ssh://example.com/path/to/repo.git/
       $ git clone git://example.com/path/to/repo.git/
       $ git clone /opt/git/project.git 
@@ -189,12 +202,14 @@
       <div><pre><code class="language-none">$ git remote
         origin</code></pre></div>
         <p>使用-v选项，可以参看远程主机的网址。</p>
-        <div><pre><code class="language-none">$ git remote -v
+        <div><pre><code class="language-none">
+          $ git remote -v
           origin  git@github.com:jquery/jquery.git (fetch)
           origin  git@github.com:jquery/jquery.git (push)</code></pre></div>
           <p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
           <p>克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用<code>git clone</code>命令的-o选项指定。</p>
-          <div><pre><code class="language-none">$ git clone -o Weibo https://github.com/charsdavy/iWeibo.git
+          <div><pre><code class="language-none">
+            $ git clone -o Weibo https://github.com/charsdavy/iWeibo.git
             $ git remote
             Weibo</code></pre></div>
             <p>上面命令表示，克隆的时候，指定远程主机叫做Weibo。</p>
@@ -219,7 +234,8 @@
                     <div><pre><code class="language-none">$ git fetch origin master</code></pre></div>
                     <p>所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</p>
                     <p><code>git branch</code>命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。</p>
-                    <div><pre><code class="language-none">$ git branch -r
+                    <div><pre><code class="language-none">
+                      $ git branch -r
                       origin/master
 
                       $ git branch -a
@@ -230,7 +246,8 @@
                       <div><pre><code class="language-none">$ git checkout -b newBrach origin/master</code></pre></div>
                       <p>上面命令表示，在origin/master的基础上，创建一个新分支。</p>
                       <p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
-                      <div><pre><code class="language-none">$ git merge origin/master
+                      <div><pre><code class="language-none">
+                        $ git merge origin/master
                         # 或者
                         $ git rebase origin/master</code></pre></div>
                         <p>上面命令表示在当前分支上，合并origin/master。</p>
@@ -242,7 +259,8 @@
                         <p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
                         <div><pre><code class="language-none">$ git pull origin next</code></pre></div>
                         <p>上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
-                        <div><pre><code class="language-none">$ git fetch origin
+                        <div><pre><code class="language-none">
+                          $ git fetch origin
                           $ git merge origin/next</code></pre></div>
                           <p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动&quot;追踪&quot;origin/master分支。</p>
                           <p>Git也允许手动建立追踪关系。</p>
@@ -258,7 +276,8 @@
                           <div><pre><code class="language-none">$ git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></pre></div>
                           <p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
                           <p>但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。</p>
-                          <div><pre><code class="language-none">$ git pull -p
+                          <div><pre><code class="language-none">
+                            $ git pull -p
                             # 等同于下面的命令
                             $ git fetch --prune origin 
                             $ git fetch -p</code></pre></div>
@@ -270,7 +289,8 @@
                             <div><pre><code class="language-none">$ git push origin master</code></pre></div>
                             <p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
                             <p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
-                            <div><pre><code class="language-none">$ git push origin :master
+                            <div><pre><code class="language-none">
+                              $ git push origin :master
                               # 等同于
                               $ git push origin --delete master</code></pre></div>
                               <p>上面命令表示删除origin主机的master分支。</p>
@@ -283,7 +303,8 @@
                               <div><pre><code class="language-none">$ git push -u origin master</code></pre></div>
                               <p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
                               <p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
-                              <div><pre><code class="language-none">$ git config --global push.default matching
+                              <div><pre><code class="language-none">
+                                $ git config --global push.default matching
                                 # 或者
                                 $ git config --global push.default simple</code></pre></div>
                                 <p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。</p>
@@ -328,15 +349,15 @@
                             <!-- 多说评论框 end --> 
                             <!-- 多说公共JS代码 start (一个网页只需插入一次) --> 
                             <script type="text/javascript">
-                              var duoshuoQuery = {short_name:"charsdavy"};
-                              (function() {
-                                var ds = document.createElement('script');
-                                ds.type = 'text/javascript';ds.async = true;
-                                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                                ds.charset = 'UTF-8';
-                                (document.getElementsByTagName('head')[0] 
-                                 || document.getElementsByTagName('body')[0]).appendChild(ds);
-                              })();
+                            var duoshuoQuery = {short_name:"charsdavy"};
+                            (function() {
+                              var ds = document.createElement('script');
+                              ds.type = 'text/javascript';ds.async = true;
+                              ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                              ds.charset = 'UTF-8';
+                              (document.getElementsByTagName('head')[0] 
+                               || document.getElementsByTagName('body')[0]).appendChild(ds);
+                            })();
                             </script> 
                             <!-- 多说公共JS代码 end --> 
                           </div> 
@@ -353,38 +374,38 @@
                    </div> 
                    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" /> 
                    <script>
-                    var yiliaConfig = {
-                      fancybox: true,
-                      mathjax: true,
-                      animate: true,
-                      isHome: false,
-                      isPost: true,
-                      isArchive: false,
-                      isTag: false,
-                      isCategory: false,
-                      open_in_new: false
-                    }
+                   var yiliaConfig = {
+                    fancybox: true,
+                    mathjax: true,
+                    animate: true,
+                    isHome: false,
+                    isPost: true,
+                    isArchive: false,
+                    isTag: false,
+                    isCategory: false,
+                    open_in_new: false
+                  }
                   </script> 
                   <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script> 
                   <script src="/js/main.js" type="text/javascript"></script> 
                   <script type="text/x-mathjax-config">
-                    MathJax.Hub.Config({
+                  MathJax.Hub.Config({
                     tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-                    processEscapes: true,
-                    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-                  }
-                });
+                      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                      processEscapes: true,
+                      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                    }
+                  });
 
-                MathJax.Hub.Queue(function() {
-                var all = MathJax.Hub.getAllJax(), i;
-                for(i=0; i < all.length; i += 1) {
-                all[i].SourceElement().parentNode.className += ' has-jax';                 
-              }       
-            });
-          </script> 
-          <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-          </script> 
-        </div>  
-      </body>
-      </html>
+                  MathJax.Hub.Queue(function() {
+                    var all = MathJax.Hub.getAllJax(), i;
+                    for(i=0; i < all.length; i += 1) {
+                      all[i].SourceElement().parentNode.className += ' has-jax';                 
+                    }       
+                  });
+                  </script> 
+                  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+                  </script> 
+                </div>  
+              </body>
+              </html>
