@@ -185,15 +185,14 @@
 							<p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
 							<div><pre><code class="language-none">$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></pre></div>
 							<p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
-							<pre>
-								$ git clone http[s]://example.com/path/to/repo.git/
-								$ git clone ssh://example.com/path/to/repo.git/
-								$ git clone git://example.com/path/to/repo.git/
-								$ git clone /opt/git/project.git 
-								$ git clone file:///opt/git/project.git
-								$ git clone ftp[s]://example.com/path/to/repo.git/
-								$ git clone rsync://example.com/path/to/repo.git/
-							</pre>
+							<div><pre><code class="language-none">$ git clone http[s]://example.com/path/to/repo.git/</code></pre>								
+								<pre><code class="language-none">$ git clone ssh://example.com/path/to/repo.git/</code></pre>
+								<pre><code class="language-none">$ git clone git://example.com/path/to/repo.git/</code></pre>
+								<pre><code class="language-none">$ git clone /opt/git/project.git</code></pre> 
+								<pre><code class="language-none">$ git clone file:///opt/git/project.git</code></pre>
+								<pre><code class="language-none">$ git clone ftp[s]://example.com/path/to/repo.git/</code></pre>
+								<pre><code class="language-none">$ git clone rsync://example.com/path/to/repo.git/</code></pre>
+							</div>
 							<p>SSH协议还有另一种写法：</p>
 							<div><pre><code class="language-none">$ git clone [user@]example.com:path/to/repo.git/</code></pre></div>
 							<p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols">官方文档</a>。</p>
@@ -263,7 +262,7 @@
 												<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
 												<div><pre><code class="language-none">$ git pull origin next</code></pre></div>
 												<p>上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
-												
+
 												<pre>
 													$ git fetch origin
 													$ git merge origin/next
