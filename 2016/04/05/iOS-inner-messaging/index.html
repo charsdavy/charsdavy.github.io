@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
- <head> 
+<head> 
   <meta charset="utf-8" /> 
   <title>iOS页面内消息通信机制 | Chars Davy</title> 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <meta name="description" content="iOS开发中，经常需要在各个模块或者组件间进行消息通信，主要分为两种类别，一种是页面之间的（跨越不同的ViewController），一种是页面内部的（在同一个ViewController），两种类别由于场景不同采用的技术方案也不同，本文主要探讨的是页面内部的消息通知机制。
-现有常用的几种页面内消息通信方式 delegate
-委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受" /> 
+  现有常用的几种页面内消息通信方式 delegate
+  委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受" /> 
   <meta property="og:type" content="article" /> 
   <meta property="og:title" content="iOS页面内消息通信机制" /> 
   <meta property="og:url" content="http://yoursite.com/2016/04/05/iOS-inner-messaging/index.html" /> 
   <meta property="og:site_name" content="Chars Davy" /> 
   <meta property="og:description" content="iOS开发中，经常需要在各个模块或者组件间进行消息通信，主要分为两种类别，一种是页面之间的（跨越不同的ViewController），一种是页面内部的（在同一个ViewController），两种类别由于场景不同采用的技术方案也不同，本文主要探讨的是页面内部的消息通知机制。
-现有常用的几种页面内消息通信方式 delegate
-委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受" /> 
+  现有常用的几种页面内消息通信方式 delegate
+  委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受" /> 
   <meta property="og:image" content="http://i13.tietuku.cn/6995026fb352afb8.png" /> 
   <meta property="og:image" content="http://i4.tietuku.cn/6274c577f841776c.png" /> 
   <meta property="og:updated_time" content="2016-04-05T06:05:22.000Z" /> 
   <meta name="twitter:card" content="summary" /> 
   <meta name="twitter:title" content="iOS页面内消息通信机制" /> 
   <meta name="twitter:description" content="iOS开发中，经常需要在各个模块或者组件间进行消息通信，主要分为两种类别，一种是页面之间的（跨越不同的ViewController），一种是页面内部的（在同一个ViewController），两种类别由于场景不同采用的技术方案也不同，本文主要探讨的是页面内部的消息通知机制。
-现有常用的几种页面内消息通信方式 delegate
-委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受" /> 
+  现有常用的几种页面内消息通信方式 delegate
+  委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受" /> 
   <link rel="alternative" href="/atom.xml" title="Chars Davy" type="application/atom+xml" /> 
   <link rel="icon" href="/favicon.png" /> 
   <link rel="stylesheet" href="/css/style.css" type="text/css" /> 
- </head> 
- <body> 
+</head> 
+<body> 
   <div id="container"> 
    <div class="left-col"> 
     <div class="overlay"></div> 
@@ -35,215 +35,228 @@
       <a href="/" class="profilepic"> <img lazy-src="/img/myAvatar.png" class="js-avatar" /> </a> 
       <hgroup> 
        <h1 class="header-author"><a href="/">Chars Davy</a></h1> 
-      </hgroup> 
-      <p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
-      <div class="switch-btn"> 
+     </hgroup> 
+     <p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
+     <div class="switch-btn"> 
        <div class="icon"> 
         <div class="icon-ctn"> 
          <div class="icon-wrap icon-house" data-idx="0"> 
           <div class="birdhouse"></div> 
           <div class="birdhouse_holes"></div> 
-         </div> 
-         <div class="icon-wrap icon-ribbon hide" data-idx="1"> 
+        </div> 
+        <div class="icon-wrap icon-ribbon hide" data-idx="1"> 
           <div class="ribbon"></div> 
-         </div> 
-         <div class="icon-wrap icon-link hide" data-idx="2"> 
+        </div> 
+        <div class="icon-wrap icon-link hide" data-idx="2"> 
           <div class="loopback_l"></div> 
           <div class="loopback_r"></div> 
-         </div> 
-         <div class="icon-wrap icon-me hide" data-idx="3"> 
+        </div> 
+        <div class="icon-wrap icon-me hide" data-idx="3"> 
           <div class="user"></div> 
           <div class="shoulder"></div> 
-         </div> 
         </div> 
-       </div> 
-       <div class="tips-box hide"> 
-        <div class="tips-arrow"></div> 
-        <ul class="tips-inner"> 
-         <li>菜单</li> 
-         <li>标签</li> 
-         <li>友情链接</li> 
-        </ul> 
-       </div> 
       </div> 
-      <div class="switch-area"> 
-       <div class="switch-wrap"> 
-        <section class="switch-part switch-part1"> 
-         <nav class="header-menu"> 
-          <ul> 
-           <li><a href="/">主页</a></li> 
-           <li><a href="/archives">所有文章</a></li> 
-          </ul> 
-         </nav> 
-         <nav class="header-nav"> 
-          <div class="social"> 
-           <a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
-           <a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
-           <a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
-           <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
-          </div> 
-         </nav> 
-        </section> 
-        <section class="switch-part switch-part2"> 
-         <div class="widget tagcloud" id="js-tagcloud"> 
-          <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> 
-          <a href="/tags/效率/" style="font-size: 10px;">效率</a> 
-          <a href="/tags/碎碎念/" style="font-size: 10px;">碎碎念</a> 
-          <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
-         </div> 
-        </section> 
-        <section class="switch-part switch-part3"> 
-         <div id="js-friends"> 
-          <ul>
-            <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://exodia.net/">Exodia</a> </li>
-            <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">Casa Taloyum</a></li>
-          </ul>
-         </div> 
-        </section> 
-       </div> 
-      </div> 
-     </header> 
     </div> 
+    <div class="tips-box hide"> 
+      <div class="tips-arrow"></div> 
+      <ul class="tips-inner"> 
+       <li>菜单</li> 
+       <li>标签</li> 
+       <li>友情链接</li> 
+       <li>关于我</li>
+     </ul> 
    </div> 
-   <div class="mid-col"> 
-    <nav id="mobile-nav"> 
-     <div class="overlay"> 
-      <div class="slider-trigger"></div> 
-      <h1 class="header-author js-mobile-header hide">Chars Davy</h1> 
-     </div> 
-     <div class="intrude-less"> 
-      <header id="header" class="inner"> 
-       <div class="profilepic"> 
-        <img lazy-src="/img/myAvatar.png" class="js-avatar" /> 
-       </div> 
-       <hgroup> 
-        <h1 class="header-author">Chars Davy</h1> 
-       </hgroup> 
-       <p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
-       <nav class="header-menu"> 
-        <ul> 
-         <li><a href="/">主页</a></li> 
-         <li><a href="/archives">所有文章</a></li> 
-         <div class="clearfix"></div> 
-        </ul> 
-       </nav> 
-       <nav class="header-nav"> 
-        <div class="social"> 
-         <a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
-         <a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
-         <a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
-         <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
-        </div> 
-       </nav> 
-      </header> 
-     </div> 
-    </nav> 
-    <div class="body-wrap">
-     <article id="post-iOS-inner-messaging" class="article article-type-post" itemscope="" itemprop="blogPost"> 
-      <div class="article-meta"> 
-       <a href="/2016/04/05/iOS-inner-messaging/" class="article-date"> <time datetime="2016-04-05T06:05:22.000Z" itemprop="datePublished">2016-04-05</time> </a> 
-      </div> 
-      <div class="article-inner"> 
-       <input type="hidden" class="isFancy" /> 
-       <header class="article-header"> 
-        <h1 class="article-title" itemprop="name"> iOS页面内消息通信机制 </h1> 
-       </header> 
-       <div class="article-info article-info-post"> 
-        <div class="article-tag tagcloud"> 
-         <ul class="article-tag-list">
-          <li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li>
-         </ul> 
-        </div> 
-        <div class="clearfix"></div> 
-       </div> 
-       <div class="article-entry" itemprop="articleBody"> 
-        <p>iOS开发中，经常需要在各个模块或者组件间进行消息通信，主要分为两种类别，一种是页面之间的（跨越不同的ViewController），一种是页面内部的（在同一个ViewController），两种类别由于场景不同采用的技术方案也不同，本文主要探讨的是页面内部的消息通知机制。</p> 
-        <h3 id="现有常用的几种页面内消息通信方式"><strong>现有常用的几种页面内消息通信方式</strong></h3>
-        <p> <strong>delegate</strong></p> 
-        <p>委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受者的具体类型，在需要回调的时候，判断delegate是否实现相应的方法然后进行调用即可。委托机制中接受者必须直接持有发送者对象才能设置delegate为自己，如果是复杂的页面对象之间层级比较多的情况，委托机制不适用。</p> 
-        <p><strong>block</strong></p> 
-        <p>block和委托机制比较类似，和delegate比较更适用于回调方法数量比较少的情况，同样在对象之间层级较多的时候并不适用。</p> 
-        <p> <strong>notification</strong></p> 
-        <p>消息通知在两个对象的关联性比较小的时候使用得比较普遍，发送者不需要知道接受者，接受者也不需要知晓发送者，做到了完全解耦。但是实践过程中也有以下缺点：</p> 
-        <ul> 
-         <li>消息通知是全局的，如果不做好命名规范容易发生通知的冲突</li> 
-         <li>必须在dealloc中移除监听</li> 
-         <li>当对象发生了内存泄露的时候，仍在接受通知，这时候就会发生一些意想不到的bug，这些bug也很难调试</li> 
-        </ul> 
-        <h3 id="基于组件树的定向消息通信"><strong>基于组件树的定向消息通信</strong></h3>
-        <p>基于上述的几种通信方式的优缺点，并且参考了前端的Angular实现方式，实现了基于组件树的定向消息通信机制。<br />如图所示：<br /><img src="http://i13.tietuku.cn/6995026fb352afb8.png" alt="" /><br />应用层采用的是典型的MVVM结构，每个view都有相应的component用来做数据绑定源，component在MVVM结构中可以看做提供配置view信息的ViewModel角色，消息在组件之间单向传递，emit是子组件沿着组件树向上发送消息，broadcast是父组件向所有子组件发送消息。当某个组件接受到消息后，判断是否订阅了这个消息，如果没有的话就继续传递，如果有订阅的话可以选择是否拦截事件，如果不拦截事件就继续传递，默认是拦截的。</p> 
-        <h3 id="实现方式"><strong>实现方式</strong></h3>
-        <p><img src="http://i4.tietuku.cn/6274c577f841776c.png" alt="" /><br />FMComponent表示组件，FMComponent(Messaging)是个category，用FMMessageSubject来表示订阅的事件，事件用字符串表示，发送事件可以传递data信息，和系统的notification类似。<br />主要代码：</p> 
-        <figure class="highlight objectivec">
-         <table>
-          <tbody>
-           <tr>
-            <td class="gutter"><pre><span class="line">1</span><br /><span class="line">2</span><br /><span class="line">3</span><br /><span class="line">4</span><br /><span class="line">5</span><br /><span class="line">6</span><br /><span class="line">7</span><br /><span class="line">8</span><br /><span class="line">9</span><br /><span class="line">10</span><br /><span class="line">11</span><br /><span class="line">12</span><br /><span class="line">13</span><br /><span class="line">14</span><br /><span class="line">15</span><br /><span class="line">16</span><br /><span class="line">17</span><br /><span class="line">18</span><br /><span class="line">19</span><br /><span class="line">20</span><br /><span class="line">21</span><br /><span class="line">22</span><br /><span class="line">23</span><br /><span class="line">24</span><br /><span class="line">25</span><br /><span class="line">26</span><br /><span class="line">27</span><br /><span class="line">28</span><br /><span class="line">29</span><br /><span class="line">30</span><br /><span class="line">31</span><br /><span class="line">32</span><br /><span class="line">33</span><br /><span class="line">34</span><br /><span class="line">35</span><br /><span class="line">36</span><br /><span class="line">37</span><br /><span class="line">38</span><br /><span class="line">39</span><br /><span class="line">40</span><br /><span class="line">41</span><br /><span class="line">42</span><br /><span class="line">43</span><br /><span class="line">44</span><br /><span class="line">45</span><br /><span class="line">46</span><br /><span class="line">47</span><br /><span class="line">48</span><br /><span class="line">49</span><br /><span class="line">50</span><br /><span class="line">51</span><br /><span class="line">52</span><br /><span class="line">53</span><br /><span class="line">54</span><br /><span class="line">55</span><br /><span class="line">56</span><br /><span class="line">57</span><br /><span class="line">58</span><br /><span class="line">59</span><br /><span class="line">60</span><br /><span class="line">61</span><br /><span class="line">62</span><br /><span class="line">63</span><br /></pre></td>
-            <td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">FMComponent</span> (<span class="title">Messaging</span>)</span></span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)emit:(<span class="built_in">NSString</span> *)eventName data:(<span class="keyword">id</span>)data {</span><br /><span class="line">	    <span class="keyword">if</span> (![<span class="keyword">self</span><span class="variable">.parentComponent</span> receive:eventName data:data]) {</span><br /><span class="line">	        [<span class="keyword">self</span><span class="variable">.parentComponent</span> emit:eventName data:data];</span><br /><span class="line">	    }</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)broadCast:(<span class="built_in">NSString</span> *)eventName data:(<span class="keyword">id</span>)data {</span><br /><span class="line">	    <span class="built_in">NSArray</span> *childComponents = [<span class="keyword">self</span> childComponents];</span><br /><span class="line">	    [childComponents enumerateObjectsUsingBlock:^(FMComponent *childComponent, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) {</span><br /><span class="line">	        <span class="keyword">if</span> (![childComponent receive:eventName data:data]) {</span><br /><span class="line">	            [childComponent broadCast:eventName data:data];</span><br /><span class="line">	        }</span><br /><span class="line">	    }];</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)onEvent:(<span class="built_in">NSString</span> *)eventName action:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> data))actionBlock intercept:(<span class="built_in">BOOL</span>)intercept {</span><br /><span class="line">	    __block FMMessageSubject *matchEventSubject = <span class="literal">nil</span>;</span><br /><span class="line">	    [<span class="keyword">self</span><span class="variable">.eventSubjects</span> enumerateObjectsUsingBlock:^(FMMessageSubject *eventSubject, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) {</span><br /><span class="line">	        <span class="keyword">if</span> ([[eventSubject name] isEqualToString:eventName]) {</span><br /><span class="line">	            matchEventSubject = eventSubject;</span><br /><span class="line">	        }</span><br /><span class="line">	    }];</span><br /><span class="line">	    <span class="keyword">if</span> (!matchEventSubject) {</span><br /><span class="line">	        matchEventSubject = [FMMessageSubject subject];</span><br /><span class="line">	        matchEventSubject<span class="variable">.intercept</span> = intercept;</span><br /><span class="line">	    }</span><br /><span class="line">	    [matchEventSubject setName:eventName];</span><br /><span class="line">	    [<span class="keyword">self</span><span class="variable">.eventSubjects</span> addObject:matchEventSubject];</span><br /><span class="line">	    [matchEventSubject subscribeNext:^(<span class="keyword">id</span> data) {</span><br /><span class="line">	        actionBlock(data);</span><br /><span class="line">	    }];</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)onEvent:(<span class="built_in">NSString</span> *)eventName action:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> data))actionBlock {</span><br /><span class="line">	    [<span class="keyword">self</span> onEvent:eventName action:actionBlock intercept:<span class="literal">YES</span>];</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="built_in">BOOL</span>)receive:(<span class="built_in">NSString</span> *)receiveEventName data:(<span class="keyword">id</span>)data {</span><br /><span class="line">	    __block <span class="built_in">BOOL</span> interceptEvent = <span class="literal">NO</span>;</span><br /><span class="line">	    [<span class="keyword">self</span><span class="variable">.eventSubjects</span> enumerateObjectsUsingBlock:^(FMMessageSubject *eventSubject, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) {</span><br /><span class="line">	        <span class="keyword">if</span> ([[eventSubject name] isEqualToString:receiveEventName]) {</span><br /><span class="line">	            [eventSubject sendNext:data];</span><br /><span class="line">	            interceptEvent = eventSubject<span class="variable">.intercept</span>;</span><br /><span class="line">	        }</span><br /><span class="line">	    }];</span><br /><span class="line">	    <span class="keyword">return</span> interceptEvent;</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="built_in">NSMutableArray</span> *)eventSubjects {</span><br /><span class="line">	    <span class="built_in">NSMutableArray</span> *eventSignals = objc_getAssociatedObject(<span class="keyword">self</span>, _cmd);</span><br /><span class="line">	    <span class="keyword">if</span> (eventSignals) {</span><br /><span class="line">	        <span class="keyword">return</span> eventSignals;</span><br /><span class="line">	    }</span><br /><span class="line">	    eventSignals = [<span class="built_in">NSMutableArray</span> array];</span><br /><span class="line">	    objc_setAssociatedObject(<span class="keyword">self</span>, _cmd, eventSignals, OBJC_ASSO<span class="built_in">CIATION_RETAIN_NONATOMIC</span>);</span><br /><span class="line">	    <span class="keyword">return</span> eventSignals;</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	</span><br /><span class="line">	<span class="keyword">@end</span></span><br /></pre></td>
-           </tr>
-          </tbody>
-         </table>
-        </figure> 
-        <h3 id="小结"><strong>小结</strong></h3>
-        <p>基于组件树的定向消息通信机制使得消息的传递在模块间互相隔离，避免了全局的notification机制带来的缺点，而且在对象层级多的时候也比较方便，并且对象之间互相解耦，消息的发送者和接受者互相不需要知道对方的类型信息。</p> 
-       </div> 
-      </div> 
-      <nav id="article-nav"> 
-       <a href="/2016/04/08/iOS-Xcode-Plugin/" id="article-nav-newer" class="article-nav-link-wrap"> <strong class="article-nav-caption">&lt;</strong> 
-        <div class="article-nav-title">
-         Xcode插件开发教程指南
-        </div> </a> 
-       <a href="/2016/04/04/iOS-memory-leak/" id="article-nav-older" class="article-nav-link-wrap"> 
-        <div class="article-nav-title">
-         谈谈iOS内存泄露
-        </div> <strong class="article-nav-caption">&gt;</strong> </a> 
-      </nav> 
-     </article> 
-     <div class="share"> 
-      <!-- JiaThis Button BEGIN --> 
-      <div class="jiathis_style"> 
-       <span class="jiathis_txt">分享到：</span> 
-       <a class="jiathis_button_tsina"></a> 
-       <a class="jiathis_button_cqq"></a> 
-       <a class="jiathis_button_douban"></a> 
-       <a class="jiathis_button_weixin"></a> 
-       <a class="jiathis_button_tumblr"></a> 
-       <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a> 
-      </div> 
-      <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script> 
-      <!-- JiaThis Button END --> 
-     </div> 
-     <div class="duoshuo"> 
-      <!-- 多说评论框 start --> 
-      <div class="ds-thread" data-thread-key="iOS-inner-messaging" data-title="iOS页面内消息通信机制" data-url="http://yoursite.com/2016/04/05/iOS-inner-messaging/"></div> 
-      <!-- 多说评论框 end --> 
-      <!-- 多说公共JS代码 start (一个网页只需插入一次) --> 
-      <script type="text/javascript">
-	var duoshuoQuery = {short_name:"charsdavy"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script> 
-      <!-- 多说公共JS代码 end --> 
-     </div> 
+ </div> 
+ <div class="switch-area"> 
+   <div class="switch-wrap"> 
+    <section class="switch-part switch-part1"> 
+     <nav class="header-menu"> 
+      <ul> 
+       <li><a href="/">主页</a></li> 
+       <li><a href="/archives">所有文章</a></li> 
+     </ul> 
+   </nav> 
+   <nav class="header-nav"> 
+    <div class="social"> 
+     <a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
+     <a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
+     <a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
+     <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
+   </div> 
+ </nav> 
+</section> 
+<section class="switch-part switch-part2"> 
+ <div class="widget tagcloud" id="js-tagcloud"> 
+  <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> 
+  <a href="/tags/效率/" style="font-size: 10px;">效率</a> 
+  <a href="/tags/碎碎念/" style="font-size: 10px;">碎碎念</a> 
+  <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+  <a href="/tags/script/" style="font-size: 10px;">script</a>
+</div> 
+</section> 
+<section class="switch-part switch-part3"> 
+ <div id="js-friends"> 
+  <ul>
+    <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://exodia.net/">Exodia</a> </li>
+    <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">Casa Taloyum</a></li>
+  </ul>
+</div> 
+</section> 
+<section class="switch-part switch-part4"> 
+  <p>Chars Davy @ ZAKER</p>
+  <p>立志成为全栈工程师。</p>
+  <p>爱好户外运动，喜欢登山、游泳。喜欢一个人静静的写代码。</p>
+</br> </br>
+<ul>
+  <li><a href="/img/weixin-pay.png">微信打赏支持</a></li>
+  <li><a href="/img/ali-pay.jpg">支付宝打赏支持</a></li>
+</ul>
+
+</section> 
+</div> 
+</div> 
+</header> 
+</div> 
+</div> 
+<div class="mid-col"> 
+  <nav id="mobile-nav"> 
+   <div class="overlay"> 
+    <div class="slider-trigger"></div> 
+    <h1 class="header-author js-mobile-header hide">Chars Davy</h1> 
+  </div> 
+  <div class="intrude-less"> 
+    <header id="header" class="inner"> 
+     <div class="profilepic"> 
+      <img lazy-src="/img/myAvatar.png" class="js-avatar" /> 
     </div> 
-    <footer id="footer"> 
-     <div class="outer"> 
-      <div id="footer-info"> 
-       <div class="footer-left">
-         &copy; 2016 Chars Davy
-       </div> 
-      </div> 
-     </div> 
-    </footer> 
+    <hgroup> 
+      <h1 class="header-author">Chars Davy</h1> 
+    </hgroup> 
+    <p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
+    <nav class="header-menu"> 
+      <ul> 
+       <li><a href="/">主页</a></li> 
+       <li><a href="/archives">所有文章</a></li> 
+       <div class="clearfix"></div> 
+     </ul> 
+   </nav> 
+   <nav class="header-nav"> 
+    <div class="social"> 
+     <a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
+     <a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
+     <a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
+     <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
    </div> 
-   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" /> 
-   <script>
+ </nav> 
+</header> 
+</div> 
+</nav> 
+<div class="body-wrap">
+ <article id="post-iOS-inner-messaging" class="article article-type-post" itemscope="" itemprop="blogPost"> 
+  <div class="article-meta"> 
+   <a href="/2016/04/05/iOS-inner-messaging/" class="article-date"> <time datetime="2016-04-05T06:05:22.000Z" itemprop="datePublished">2016-04-05</time> </a> 
+ </div> 
+ <div class="article-inner"> 
+   <input type="hidden" class="isFancy" /> 
+   <header class="article-header"> 
+    <h1 class="article-title" itemprop="name"> iOS页面内消息通信机制 </h1> 
+  </header> 
+  <div class="article-info article-info-post"> 
+    <div class="article-tag tagcloud"> 
+     <ul class="article-tag-list">
+      <li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li>
+    </ul> 
+  </div> 
+  <div class="clearfix"></div> 
+</div> 
+<div class="article-entry" itemprop="articleBody"> 
+  <p>iOS开发中，经常需要在各个模块或者组件间进行消息通信，主要分为两种类别，一种是页面之间的（跨越不同的ViewController），一种是页面内部的（在同一个ViewController），两种类别由于场景不同采用的技术方案也不同，本文主要探讨的是页面内部的消息通知机制。</p> 
+  <h3 id="现有常用的几种页面内消息通信方式"><strong>现有常用的几种页面内消息通信方式</strong></h3>
+  <p> <strong>delegate</strong></p> 
+  <p>委托机制通过protocol声明了一系列的回调方法，发送者不需要知道接受者的具体类型，在需要回调的时候，判断delegate是否实现相应的方法然后进行调用即可。委托机制中接受者必须直接持有发送者对象才能设置delegate为自己，如果是复杂的页面对象之间层级比较多的情况，委托机制不适用。</p> 
+  <p><strong>block</strong></p> 
+  <p>block和委托机制比较类似，和delegate比较更适用于回调方法数量比较少的情况，同样在对象之间层级较多的时候并不适用。</p> 
+  <p> <strong>notification</strong></p> 
+  <p>消息通知在两个对象的关联性比较小的时候使用得比较普遍，发送者不需要知道接受者，接受者也不需要知晓发送者，做到了完全解耦。但是实践过程中也有以下缺点：</p> 
+  <ul> 
+   <li>消息通知是全局的，如果不做好命名规范容易发生通知的冲突</li> 
+   <li>必须在dealloc中移除监听</li> 
+   <li>当对象发生了内存泄露的时候，仍在接受通知，这时候就会发生一些意想不到的bug，这些bug也很难调试</li> 
+ </ul> 
+ <h3 id="基于组件树的定向消息通信"><strong>基于组件树的定向消息通信</strong></h3>
+ <p>基于上述的几种通信方式的优缺点，并且参考了前端的Angular实现方式，实现了基于组件树的定向消息通信机制。<br />如图所示：<br /><img src="http://i13.tietuku.cn/6995026fb352afb8.png" alt="" /><br />应用层采用的是典型的MVVM结构，每个view都有相应的component用来做数据绑定源，component在MVVM结构中可以看做提供配置view信息的ViewModel角色，消息在组件之间单向传递，emit是子组件沿着组件树向上发送消息，broadcast是父组件向所有子组件发送消息。当某个组件接受到消息后，判断是否订阅了这个消息，如果没有的话就继续传递，如果有订阅的话可以选择是否拦截事件，如果不拦截事件就继续传递，默认是拦截的。</p> 
+ <h3 id="实现方式"><strong>实现方式</strong></h3>
+ <p><img src="http://i4.tietuku.cn/6274c577f841776c.png" alt="" /><br />FMComponent表示组件，FMComponent(Messaging)是个category，用FMMessageSubject来表示订阅的事件，事件用字符串表示，发送事件可以传递data信息，和系统的notification类似。<br />主要代码：</p> 
+ <figure class="highlight objectivec">
+   <table>
+    <tbody>
+     <tr>
+      <td class="gutter"><pre><span class="line">1</span><br /><span class="line">2</span><br /><span class="line">3</span><br /><span class="line">4</span><br /><span class="line">5</span><br /><span class="line">6</span><br /><span class="line">7</span><br /><span class="line">8</span><br /><span class="line">9</span><br /><span class="line">10</span><br /><span class="line">11</span><br /><span class="line">12</span><br /><span class="line">13</span><br /><span class="line">14</span><br /><span class="line">15</span><br /><span class="line">16</span><br /><span class="line">17</span><br /><span class="line">18</span><br /><span class="line">19</span><br /><span class="line">20</span><br /><span class="line">21</span><br /><span class="line">22</span><br /><span class="line">23</span><br /><span class="line">24</span><br /><span class="line">25</span><br /><span class="line">26</span><br /><span class="line">27</span><br /><span class="line">28</span><br /><span class="line">29</span><br /><span class="line">30</span><br /><span class="line">31</span><br /><span class="line">32</span><br /><span class="line">33</span><br /><span class="line">34</span><br /><span class="line">35</span><br /><span class="line">36</span><br /><span class="line">37</span><br /><span class="line">38</span><br /><span class="line">39</span><br /><span class="line">40</span><br /><span class="line">41</span><br /><span class="line">42</span><br /><span class="line">43</span><br /><span class="line">44</span><br /><span class="line">45</span><br /><span class="line">46</span><br /><span class="line">47</span><br /><span class="line">48</span><br /><span class="line">49</span><br /><span class="line">50</span><br /><span class="line">51</span><br /><span class="line">52</span><br /><span class="line">53</span><br /><span class="line">54</span><br /><span class="line">55</span><br /><span class="line">56</span><br /><span class="line">57</span><br /><span class="line">58</span><br /><span class="line">59</span><br /><span class="line">60</span><br /><span class="line">61</span><br /><span class="line">62</span><br /><span class="line">63</span><br /></pre></td>
+      <td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">FMComponent</span> (<span class="title">Messaging</span>)</span></span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)emit:(<span class="built_in">NSString</span> *)eventName data:(<span class="keyword">id</span>)data {</span><br /><span class="line">	    <span class="keyword">if</span> (![<span class="keyword">self</span><span class="variable">.parentComponent</span> receive:eventName data:data]) {</span><br /><span class="line">	        [<span class="keyword">self</span><span class="variable">.parentComponent</span> emit:eventName data:data];</span><br /><span class="line">	    }</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)broadCast:(<span class="built_in">NSString</span> *)eventName data:(<span class="keyword">id</span>)data {</span><br /><span class="line">	    <span class="built_in">NSArray</span> *childComponents = [<span class="keyword">self</span> childComponents];</span><br /><span class="line">	    [childComponents enumerateObjectsUsingBlock:^(FMComponent *childComponent, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) {</span><br /><span class="line">	        <span class="keyword">if</span> (![childComponent receive:eventName data:data]) {</span><br /><span class="line">	            [childComponent broadCast:eventName data:data];</span><br /><span class="line">	        }</span><br /><span class="line">	    }];</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)onEvent:(<span class="built_in">NSString</span> *)eventName action:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> data))actionBlock intercept:(<span class="built_in">BOOL</span>)intercept {</span><br /><span class="line">	    __block FMMessageSubject *matchEventSubject = <span class="literal">nil</span>;</span><br /><span class="line">	    [<span class="keyword">self</span><span class="variable">.eventSubjects</span> enumerateObjectsUsingBlock:^(FMMessageSubject *eventSubject, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) {</span><br /><span class="line">	        <span class="keyword">if</span> ([[eventSubject name] isEqualToString:eventName]) {</span><br /><span class="line">	            matchEventSubject = eventSubject;</span><br /><span class="line">	        }</span><br /><span class="line">	    }];</span><br /><span class="line">	    <span class="keyword">if</span> (!matchEventSubject) {</span><br /><span class="line">	        matchEventSubject = [FMMessageSubject subject];</span><br /><span class="line">	        matchEventSubject<span class="variable">.intercept</span> = intercept;</span><br /><span class="line">	    }</span><br /><span class="line">	    [matchEventSubject setName:eventName];</span><br /><span class="line">	    [<span class="keyword">self</span><span class="variable">.eventSubjects</span> addObject:matchEventSubject];</span><br /><span class="line">	    [matchEventSubject subscribeNext:^(<span class="keyword">id</span> data) {</span><br /><span class="line">	        actionBlock(data);</span><br /><span class="line">	    }];</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="keyword">void</span>)onEvent:(<span class="built_in">NSString</span> *)eventName action:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> data))actionBlock {</span><br /><span class="line">	    [<span class="keyword">self</span> onEvent:eventName action:actionBlock intercept:<span class="literal">YES</span>];</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="built_in">BOOL</span>)receive:(<span class="built_in">NSString</span> *)receiveEventName data:(<span class="keyword">id</span>)data {</span><br /><span class="line">	    __block <span class="built_in">BOOL</span> interceptEvent = <span class="literal">NO</span>;</span><br /><span class="line">	    [<span class="keyword">self</span><span class="variable">.eventSubjects</span> enumerateObjectsUsingBlock:^(FMMessageSubject *eventSubject, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) {</span><br /><span class="line">	        <span class="keyword">if</span> ([[eventSubject name] isEqualToString:receiveEventName]) {</span><br /><span class="line">	            [eventSubject sendNext:data];</span><br /><span class="line">	            interceptEvent = eventSubject<span class="variable">.intercept</span>;</span><br /><span class="line">	        }</span><br /><span class="line">	    }];</span><br /><span class="line">	    <span class="keyword">return</span> interceptEvent;</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	</span><br /><span class="line">	- (<span class="built_in">NSMutableArray</span> *)eventSubjects {</span><br /><span class="line">	    <span class="built_in">NSMutableArray</span> *eventSignals = objc_getAssociatedObject(<span class="keyword">self</span>, _cmd);</span><br /><span class="line">	    <span class="keyword">if</span> (eventSignals) {</span><br /><span class="line">	        <span class="keyword">return</span> eventSignals;</span><br /><span class="line">	    }</span><br /><span class="line">	    eventSignals = [<span class="built_in">NSMutableArray</span> array];</span><br /><span class="line">	    objc_setAssociatedObject(<span class="keyword">self</span>, _cmd, eventSignals, OBJC_ASSO<span class="built_in">CIATION_RETAIN_NONATOMIC</span>);</span><br /><span class="line">	    <span class="keyword">return</span> eventSignals;</span><br /><span class="line">	}</span><br /><span class="line">	</span><br /><span class="line">	</span><br /><span class="line">	<span class="keyword">@end</span></span><br /></pre></td>
+    </tr>
+  </tbody>
+</table>
+</figure> 
+<h3 id="小结"><strong>小结</strong></h3>
+<p>基于组件树的定向消息通信机制使得消息的传递在模块间互相隔离，避免了全局的notification机制带来的缺点，而且在对象层级多的时候也比较方便，并且对象之间互相解耦，消息的发送者和接受者互相不需要知道对方的类型信息。</p> 
+</div> 
+</div> 
+<nav id="article-nav"> 
+ <a href="/2016/04/08/iOS-Xcode-Plugin/" id="article-nav-newer" class="article-nav-link-wrap"> <strong class="article-nav-caption">&lt;</strong> 
+  <div class="article-nav-title">
+   Xcode插件开发教程指南
+ </div> </a> 
+ <a href="/2016/04/04/iOS-memory-leak/" id="article-nav-older" class="article-nav-link-wrap"> 
+  <div class="article-nav-title">
+   谈谈iOS内存泄露
+ </div> <strong class="article-nav-caption">&gt;</strong> </a> 
+</nav> 
+</article> 
+<div class="share"> 
+  <!-- JiaThis Button BEGIN --> 
+  <div class="jiathis_style"> 
+   <span class="jiathis_txt">分享到：</span> 
+   <a class="jiathis_button_tsina"></a> 
+   <a class="jiathis_button_cqq"></a> 
+   <a class="jiathis_button_douban"></a> 
+   <a class="jiathis_button_weixin"></a> 
+   <a class="jiathis_button_tumblr"></a> 
+   <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a> 
+ </div> 
+ <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script> 
+ <!-- JiaThis Button END --> 
+</div> 
+<div class="duoshuo"> 
+  <!-- 多说评论框 start --> 
+  <div class="ds-thread" data-thread-key="iOS-inner-messaging" data-title="iOS页面内消息通信机制" data-url="http://yoursite.com/2016/04/05/iOS-inner-messaging/"></div> 
+  <!-- 多说评论框 end --> 
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) --> 
+  <script type="text/javascript">
+   var duoshuoQuery = {short_name:"charsdavy"};
+   (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+<!-- 多说公共JS代码 end --> 
+</div> 
+</div> 
+<footer id="footer"> 
+ <div class="outer"> 
+  <div id="footer-info"> 
+   <div class="footer-left">
+     &copy; 2016 Chars Davy
+   </div> 
+ </div> 
+</div> 
+</footer> 
+</div> 
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" /> 
+<script>
 	var yiliaConfig = {
 		fancybox: true,
 		mathjax: true,
@@ -256,26 +269,26 @@
 		open_in_new: false
 	}
 </script> 
-   <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script> 
-   <script src="/js/main.js" type="text/javascript"></script> 
-   <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script> 
+<script src="/js/main.js" type="text/javascript"></script> 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+  processEscapes: true,
+  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+}
 });
 
 MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
+var all = MathJax.Hub.getAllJax(), i;
+for(i=0; i < all.length; i += 1) {
+all[i].SourceElement().parentNode.className += ' has-jax';                 
+}       
 });
 </script> 
-   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script> 
-  </div>  
- </body>
+</div>  
+</body>
 </html>

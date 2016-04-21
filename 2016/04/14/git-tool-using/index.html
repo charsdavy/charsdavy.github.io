@@ -1,427 +1,423 @@
 <!DOCTYPE html>
 <html>
 <head> 
-  <meta charset="utf-8" /> 
-  <title>Git 使用 | Chars Davy</title> 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-  <meta name="description" content="Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。" /> 
-  <meta property="og:type" content="article" /> 
-  <meta property="og:title" content="Git使用" /> 
-  <meta property="og:url" content="http://yoursite.com/2016/04/14/git-tool-using/index.html" /> 
-  <meta property="og:site_name" content="Chars Davy" /> 
-  <meta property="og:description" content="Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。" /> 
-  <meta property="og:updated_time" content="2016-04-14T21:53:03.000Z" /> 
-  <meta name="twitter:card" content="summary" /> 
-  <meta name="twitter:title" content="Git使用" /> 
-  <meta name="twitter:description" content="Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。" /> 
-  <link rel="alternative" href="/atom.xml" title="Chars Davy" type="application/atom+xml" /> 
-  <link rel="icon" href="/favicon.png" /> 
-  <link rel="stylesheet" href="/css/style.css" type="text/css" /> 
+	<meta charset="utf-8" /> 
+	<title>Git 使用 | Chars Davy</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+	<meta name="description" content="Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。" /> 
+	<meta property="og:type" content="article" /> 
+	<meta property="og:title" content="Git使用" /> 
+	<meta property="og:url" content="http://yoursite.com/2016/04/14/git-tool-using/index.html" /> 
+	<meta property="og:site_name" content="Chars Davy" /> 
+	<meta property="og:description" content="Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。" /> 
+	<meta property="og:updated_time" content="2016-04-14T21:53:03.000Z" /> 
+	<meta name="twitter:card" content="summary" /> 
+	<meta name="twitter:title" content="Git使用" /> 
+	<meta name="twitter:description" content="Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。" /> 
+	<link rel="alternative" href="/atom.xml" title="Chars Davy" type="application/atom+xml" /> 
+	<link rel="icon" href="/favicon.png" /> 
+	<link rel="stylesheet" href="/css/style.css" type="text/css" /> 
 </head> 
 <body> 
-  <div id="container"> 
-   <div class="left-col"> 
-    <div class="overlay"></div> 
-    <div class="intrude-less"> 
-     <header id="header" class="inner"> 
-      <a href="/" class="profilepic"> <img lazy-src="/img/myAvatar.png" class="js-avatar" /> </a> 
-      <hgroup> 
-       <h1 class="header-author"><a href="/">Chars Davy</a></h1> 
-     </hgroup> 
-     <p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
-     <div class="switch-btn"> 
-       <div class="icon"> 
-        <div class="icon-ctn"> 
-         <div class="icon-wrap icon-house" data-idx="0"> 
-          <div class="birdhouse"></div> 
-          <div class="birdhouse_holes"></div> 
-        </div> 
-        <div class="icon-wrap icon-ribbon hide" data-idx="1"> 
-          <div class="ribbon"></div> 
-        </div> 
-        <div class="icon-wrap icon-link hide" data-idx="2"> 
-          <div class="loopback_l"></div> 
-          <div class="loopback_r"></div> 
-        </div> 
-        <div class="icon-wrap icon-me hide" data-idx="3"> 
-          <div class="user"></div> 
-          <div class="shoulder"></div> 
-        </div> 
-      </div> 
-    </div> 
-    <div class="tips-box hide"> 
-      <div class="tips-arrow"></div> 
-      <ul class="tips-inner"> 
-       <li>菜单</li> 
-       <li>标签</li> 
-       <li>友情链接</li> 
-       <li>关于我</li>
-     </ul> 
-   </div> 
- </div> 
- <div class="switch-area"> 
-   <div class="switch-wrap"> 
-    <section class="switch-part switch-part1"> 
-     <nav class="header-menu"> 
-      <ul> 
-       <li><a href="/">主页</a></li> 
-       <li><a href="/archives">所有文章</a></li> 
-     </ul> 
-   </nav> 
-   <nav class="header-nav"> 
-    <div class="social"> 
-     <a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
-     <a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
-     <a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
-     <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
-   </div> 
- </nav> 
-</section> 
-<section class="switch-part switch-part2"> 
- <div class="widget tagcloud" id="js-tagcloud"> 
-  <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> 
-  <a href="/tags/效率/" style="font-size: 10px;">效率</a> 
-  <a href="/tags/碎碎念/" style="font-size: 10px;">碎碎念</a> 
-  <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
-  <a href="/tags/script/" style="font-size: 10px;">script</a>
-</div> 
-</section> 
-<section class="switch-part switch-part3"> 
- <div id="js-friends"> 
-  <ul>
-    <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://exodia.net/">Exodia</a> </li>
-    <li><a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">Casa Taloyum</a></li>
-  </ul> 
-</div> 
-</section> 
-<section class="switch-part switch-part4"> 
- <p>Chars Davy @ ZAKER</p>
- <p>立志成为全栈工程师。</p>
- <p>爱好户外运动，喜欢登山、游泳。喜欢一个人静静的写代码。</p>
-</br> </br>
-<ul>
-  <li><a href="/img/weixin-pay.png">微信打赏支持</a></li>
-  <li><a href="/img/ali-pay.jpg">支付宝打赏支持</a></li>
-</ul>
+	<div id="container"> 
+		<div class="left-col"> 
+			<div class="overlay"></div> 
+			<div class="intrude-less"> 
+				<header id="header" class="inner"> 
+					<a href="/" class="profilepic"> <img lazy-src="/img/myAvatar.png" class="js-avatar" /> </a> 
+					<hgroup> 
+						<h1 class="header-author"><a href="/">Chars Davy</a></h1> 
+					</hgroup> 
+					<p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
+					<div class="switch-btn"> 
+						<div class="icon"> 
+							<div class="icon-ctn"> 
+								<div class="icon-wrap icon-house" data-idx="0"> 
+									<div class="birdhouse"></div> 
+									<div class="birdhouse_holes"></div> 
+								</div> 
+								<div class="icon-wrap icon-ribbon hide" data-idx="1"> 
+									<div class="ribbon"></div> 
+								</div> 
+								<div class="icon-wrap icon-link hide" data-idx="2"> 
+									<div class="loopback_l"></div> 
+									<div class="loopback_r"></div> 
+								</div> 
+								<div class="icon-wrap icon-me hide" data-idx="3"> 
+									<div class="user"></div> 
+									<div class="shoulder"></div> 
+								</div> 
+							</div> 
+						</div> 
+						<div class="tips-box hide"> 
+							<div class="tips-arrow"></div> 
+							<ul class="tips-inner"> 
+								<li>菜单</li> 
+								<li>标签</li> 
+								<li>友情链接</li> 
+								<li>关于我</li>
+							</ul> 
+						</div> 
+					</div> 
+					<div class="switch-area"> 
+						<div class="switch-wrap"> 
+							<section class="switch-part switch-part1"> 
+								<nav class="header-menu"> 
+									<ul> 
+										<li><a href="/">主页</a></li> 
+										<li><a href="/archives">所有文章</a></li> 
+									</ul> 
+								</nav> 
+								<nav class="header-nav"> 
+									<div class="social"> 
+										<a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
+										<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
+										<a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
+										<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
+									</div> 
+								</nav> 
+							</section> 
+							<section class="switch-part switch-part2"> 
+								<div class="widget tagcloud" id="js-tagcloud"> 
+									<a href="/tags/iOS/" style="font-size: 20px;">iOS</a> 
+									<a href="/tags/效率/" style="font-size: 10px;">效率</a> 
+									<a href="/tags/碎碎念/" style="font-size: 10px;">碎碎念</a> 
+									<a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+									<a href="/tags/script/" style="font-size: 10px;">script</a>
+								</div> 
+							</section> 
+							<section class="switch-part switch-part3"> 
+								<div id="js-friends"> 
+									<ul>
+										<li><a target="_blank" class="main-nav-link switch-friends-link" href="http://exodia.net/">Exodia</a> </li>
+										<li><a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">Casa Taloyum</a></li>
+									</ul> 
+								</div> 
+							</section> 
+							<section class="switch-part switch-part4"> 
+								<p>Chars Davy @ ZAKER</p>
+								<p>立志成为全栈工程师。</p>
+								<p>爱好户外运动，喜欢登山、游泳。喜欢一个人静静的写代码。</p>
+							</br> </br>
+							<ul>
+								<li><a href="/img/weixin-pay.png">微信打赏支持</a></li>
+								<li><a href="/img/ali-pay.jpg">支付宝打赏支持</a></li>
+							</ul>
 
-</section> 
-</div> 
-</div> 
-</header> 
-</div> 
-</div> 
-<div class="mid-col"> 
-  <nav id="mobile-nav"> 
-   <div class="overlay"> 
-    <div class="slider-trigger"></div> 
-    <h1 class="header-author js-mobile-header hide">Chars Davy</h1> 
-  </div> 
-  <div class="intrude-less"> 
-    <header id="header" class="inner"> 
-     <div class="profilepic"> 
-      <img lazy-src="/img/myAvatar.png" class="js-avatar" /> 
-    </div> 
-    <hgroup> 
-      <h1 class="header-author">Chars Davy</h1> 
-    </hgroup> 
-    <p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
-    <nav class="header-menu"> 
-      <ul> 
-       <li><a href="/">主页</a></li> 
-       <li><a href="/archives">所有文章</a></li> 
-       <div class="clearfix"></div> 
-     </ul> 
-   </nav> 
-   <nav class="header-nav"> 
-    <div class="social"> 
-     <a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
-     <a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
-     <a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
-     <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
-   </div> 
- </nav> 
-</header> 
-</div> 
-</nav> 
-<div class="body-wrap"> 
- <article id="post-new" class="article article-type-post" itemscope="" itemprop="blogPost"> 
-  <div class="article-meta"> 
-   <a href="/2016/04/14/git-tool-using/" class="article-date"> <time datetime="2016-04-14T21:53:03.000Z" itemprop="datePublished">2016-04-14</time> </a> 
- </div> 
- <div class="article-inner"> 
-   <input type="hidden" class="isFancy" /> 
-   <header class="article-header"> 
-    <h1 class="article-title" itemprop="name"> Git 使用 </h1> 
-  </header> 
-  <div class="article-info article-info-post"> 
-    <div class="article-tag tagcloud"> 
-     <ul class="article-tag-list"> 
-      <li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/效率/">效率</a></li> 
-    </ul> 
-  </div> 
-  <div class="clearfix"></div> 
-</div> 
-<div class="article-entry" itemprop="articleBody"> 
-  <!-- 简介 -->
-  <p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
-  <p><a target="_blank" href="http://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
-  <p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是 Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
+						</section> 
+					</div> 
+				</div> 
+			</header> 
+		</div> 
+	</div> 
+	<div class="mid-col"> 
+		<nav id="mobile-nav"> 
+			<div class="overlay"> 
+				<div class="slider-trigger"></div> 
+				<h1 class="header-author js-mobile-header hide">Chars Davy</h1> 
+			</div> 
+			<div class="intrude-less"> 
+				<header id="header" class="inner"> 
+					<div class="profilepic"> 
+						<img lazy-src="/img/myAvatar.png" class="js-avatar" /> 
+					</div> 
+					<hgroup> 
+						<h1 class="header-author">Chars Davy</h1> 
+					</hgroup> 
+					<p class="header-subtitle">无所谓的态度，过着随遇而安的生活</p> 
+					<nav class="header-menu"> 
+						<ul> 
+							<li><a href="/">主页</a></li> 
+							<li><a href="/archives">所有文章</a></li> 
+							<div class="clearfix"></div> 
+						</ul> 
+					</nav> 
+					<nav class="header-nav"> 
+						<div class="social"> 
+							<a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a> 
+							<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/chars" title="zhihu">zhihu</a> 
+							<a class="mail" target="_blank" href="mailto:chars_d@126.com" title="e-mail">email</a>
+							<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a> 
+						</div> 
+					</nav> 
+				</header> 
+			</div> 
+		</nav> 
+		<div class="body-wrap"> 
+			<article id="post-new" class="article article-type-post" itemscope="" itemprop="blogPost"> 
+				<div class="article-meta"> 
+					<a href="/2016/04/14/git-tool-using/" class="article-date"> <time datetime="2016-04-14T21:53:03.000Z" itemprop="datePublished">2016-04-14</time> </a> 
+				</div> 
+				<div class="article-inner"> 
+					<input type="hidden" class="isFancy" /> 
+					<header class="article-header"> 
+						<h1 class="article-title" itemprop="name"> Git 使用 </h1> 
+					</header> 
+					<div class="article-info article-info-post"> 
+						<div class="article-tag tagcloud"> 
+							<ul class="article-tag-list"> 
+								<li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/效率/">效率</a></li> 
+							</ul> 
+						</div> 
+						<div class="clearfix"></div> 
+					</div> 
+					<div class="article-entry" itemprop="articleBody"> 
+						<!-- 简介 -->
+						<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
+						<p><a target="_blank" href="http://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+						<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是 Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
 
-  <!-- 目录 -->
-  <h1 id="toc_0">目录</h1>
-  <ul>
-    <li><a href="#1">1 远程操作</a></li>
-  </ul>
+						<!-- 目录 -->
+						<h1 id="toc_0">目录</h1>
+						<ul>
+							<li><a href="#1">1 远程操作</a></li>
+						</ul>
 
-  <!-- 远程操作 -->
-  <h1 id="1">远程操作 </h1>
-  <p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。这一部分，将主要介绍几个常用的Git远程操作命令。
-    <img src="/2016/04/14/git-tool-using/imges/bg2014061202.jpg" alt="one"></p>
-    <h2 id="toc_1">git clone</h2>
-    <p>远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到<code>git clone</code>命令。</p>
-    <div><pre><code>$ git clone &lt;版本库的网址&gt;</code></pre></div>
-    <p>比如，克隆Weibo的版本库。</p>
-    <div><pre><code>$ git clone https://github.com/charsdavy/iWeibo.git</code></pre></div>
-    <p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
-    <div><pre><code>$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></pre></div>
-    <p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
-    <pre><code>
-      $ git clone http[s]://example.com/path/to/repo.git/
-      $ git clone ssh://example.com/path/to/repo.git/
-      $ git clone git://example.com/path/to/repo.git/
-      $ git clone /opt/git/project.git 
-      $ git clone file:///opt/git/project.git
-      $ git clone ftp[s]://example.com/path/to/repo.git/
-      $ git clone rsync://example.com/path/to/repo.git/
-    </code>
-  </pre>
-  <p>SSH协议还有另一种写法：</p>
-  <div><pre><code class="language-none">$ git clone [user@]example.com:path/to/repo.git/</code></pre></div>
-  <p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols">官方文档</a>。</p>
-  <h2 id="toc_2">git remote</h2>
-  <p>为了便于管理，Git要求每个远程主机都必须指定一个主机名。<code>git remote</code>命令就用于管理主机名。</p>
-  <p>不带选项的时候，<code>git remote</code>命令列出所有远程主机。</p>
-  <div><pre><code class="language-none">$ git remote
-    origin</code></pre></div>
-    <p>使用-v选项，可以参看远程主机的网址。</p>
-    <div><pre><code class="language-none">
-      $ git remote -v
-      origin  git@github.com:jquery/jquery.git (fetch)
-      origin  git@github.com:jquery/jquery.git (push)
-    </code>
-  </pre>
-</div>
-<p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
-<p>克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用<code>git clone</code>命令的-o选项指定。</p>
-<div>
-  <pre>
-    <code class="language-none">
-      $ git clone -o Weibo https://github.com/charsdavy/iWeibo.git
-      $ git remote
-      Weibo
-    </code>
-  </pre>
-</div>
-<p>上面命令表示，克隆的时候，指定远程主机叫做Weibo。</p>
-<ul>
-  <li><p>git remote show命令加上主机名，可以查看该主机的详细信息。</p>
-    <p><code>$ git remote show &lt;主机名&gt;</code></p></li>
-    <li><p>git remote add命令用于添加远程主机。</p>
-      <p><code>$ git remote add &lt;主机名&gt; &lt;网址&gt;</code></p></li>
-      <li><p>git remote rm命令用于删除远程主机。</p>
-        <p><code>$ git remote rm &lt;主机名&gt;</code></p></li>
-        <li><p>git remote rename命令用于远程主机的改名。</p>
-          <p><code>$ git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p></li>
-        </ul>
-        <h2 id="toc_3">git fetch</h2>
-        <p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到<code>git fetch</code>命令。</p>
-        <div><pre><code class="language-none">$ git fetch &lt;远程主机名&gt;</code></pre></div>
-        <p>上面命令将某个远程主机的更新，全部取回本地。</p>
-        <p><code>git fetch</code>命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
-        <p>默认情况下，<code>git fetch</code>取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</p>
-        <div><pre><code class="language-none">$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</code></pre></div>
-        <p>比如，取回origin主机的master分支。</p>
-        <div><pre><code class="language-none">$ git fetch origin master</code></pre></div>
-        <p>所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</p>
-        <p><code>git branch</code>命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。</p>
-        <div><pre><code class="language-none">
-          $ git branch -r
-          origin/master
+						<!-- 远程操作 -->
+						<h1 id="1">远程操作 </h1>
+						<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。这一部分，将主要介绍几个常用的Git远程操作命令。
+							<img src="/2016/04/14/git-tool-using/imges/bg2014061202.jpg" alt="one"></p>
+							<h2 id="toc_1">git clone</h2>
+							<p>远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到<code>git clone</code>命令。</p>
+							<div><pre><code>$ git clone &lt;版本库的网址&gt;</code></pre></div>
+							<p>比如，克隆Weibo的版本库。</p>
+							<div><pre><code>$ git clone https://github.com/charsdavy/iWeibo.git</code></pre></div>
+							<p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
+							<div><pre><code>$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></pre></div>
+							<p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
+							<div class="cnblogs_code">
+								<pre>
+									<span>$ git clone http[s]://example.com/path/to/repo.git/</span>
+									<span>$ git clone ssh://example.com/path/to/repo.git/</span>
+									<span>$ git clone git://example.com/path/to/repo.git/</span>
+									<span>$ git clone /opt/git/project.git</span> 
+									<span>$ git clone file:///opt/git/project.git</span>
+									<span>$ git clone ftp[s]://example.com/path/to/repo.git/</span>
+									<span>$ git clone rsync://example.com/path/to/repo.git/</span>
+								</pre>
+							</div>
+							<p>SSH协议还有另一种写法：</p>
+							<div><pre><code class="language-none">$ git clone [user@]example.com:path/to/repo.git/</code></pre></div>
+							<p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols">官方文档</a>。</p>
+							<h2 id="toc_2">git remote</h2>
+							<p>为了便于管理，Git要求每个远程主机都必须指定一个主机名。<code>git remote</code>命令就用于管理主机名。</p>
+							<p>不带选项的时候，<code>git remote</code>命令列出所有远程主机。</p>
+							<div><pre><code class="language-none">$ git remote
+								origin</code></pre></div>
+								<p>使用-v选项，可以参看远程主机的网址。</p>
+								<div class="cnblogs_code"><pre>
+									<span>$ git remote -v</span>
+									<span>origin  git@github.com:jquery/jquery.git (fetch)</span>
+									<span>origin  git@github.com:jquery/jquery.git (push)</span>
+								</pre>
+							</div>
+							<p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
+							<p>克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用<code>git clone</code>命令的-o选项指定。</p>
+							<div class="cnblogs_code">
+								<pre>
+									<span>$ git clone -o Weibo https://github.com/charsdavy/iWeibo.git</span>
+									<span>$ git remote</span>
+									<span>Weibo</span>
+								</pre>
+							</div>
+							<p>上面命令表示，克隆的时候，指定远程主机叫做Weibo。</p>
+							<ul>
+								<li><p>git remote show命令加上主机名，可以查看该主机的详细信息。</p>
+									<p><code>$ git remote show &lt;主机名&gt;</code></p></li>
+									<li><p>git remote add命令用于添加远程主机。</p>
+										<p><code>$ git remote add &lt;主机名&gt; &lt;网址&gt;</code></p></li>
+										<li><p>git remote rm命令用于删除远程主机。</p>
+											<p><code>$ git remote rm &lt;主机名&gt;</code></p></li>
+											<li><p>git remote rename命令用于远程主机的改名。</p>
+												<p><code>$ git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p></li>
+											</ul>
+											<h2 id="toc_3">git fetch</h2>
+											<p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到<code>git fetch</code>命令。</p>
+											<div><pre><code class="language-none">$ git fetch &lt;远程主机名&gt;</code></pre></div>
+											<p>上面命令将某个远程主机的更新，全部取回本地。</p>
+											<p><code>git fetch</code>命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
+											<p>默认情况下，<code>git fetch</code>取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</p>
+											<div><pre><code class="language-none">$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</code></pre></div>
+											<p>比如，取回origin主机的master分支。</p>
+											<div><pre><code class="language-none">$ git fetch origin master</code></pre></div>
+											<p>所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</p>
+											<p><code>git branch</code>命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。</p>
+											<div class="cnblogs_code"><pre>
+												<span>$ git branch -r</span>
+												<span>origin/master</span>
 
-          $ git branch -a
-          * master
-          remotes/origin/master
-        </code>
-      </pre>
-    </div>
-    <p>上面命令表示，本地主机的当前分支是master，远程分支是origin/master。</p>
-    <p>取回远程主机的更新以后，可以在它的基础上，使用<code>git checkout</code>命令创建一个新的分支。</p>
-    <div><pre><code class="language-none">$ git checkout -b newBrach origin/master</code></pre></div>
-    <p>上面命令表示，在origin/master的基础上，创建一个新分支。</p>
-    <p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
-    <div><pre><code class="language-none">
-      $ git merge origin/master
-      # 或者
-      $ git rebase origin/master
-    </code>
-  </pre>
-</div>
-<p>上面命令表示在当前分支上，合并origin/master。</p>
-<h2 id="toc_4">git pull</h2>
-<p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
-<div><pre><code class="language-none">$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></pre></div>
-<p>比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。</p>
-<div><pre><code class="language-none">$ git pull origin next:master</code></pre></div>
-<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
-<div><pre><code class="language-none">$ git pull origin next</code></pre></div>
-<p>上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
-<div><pre><code class="language-none">
-  $ git fetch origin
-  $ git merge origin/next</code></pre></div>
-  <p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动&quot;追踪&quot;origin/master分支。</p>
-  <p>Git也允许手动建立追踪关系。</p>
-  <div><pre><code class="language-none">git branch --set-upstream master origin/next</code></pre></div>
-  <p>上面命令指定master分支追踪origin/next分支。</p>
-  <p>如果当前分支与远程分支存在追踪关系，<code>git pull</code>就可以省略远程分支名。</p>
-  <div><pre><code class="language-none">$ git pull origin</code></pre></div>
-  <p>上面命令表示，本地的当前分支自动与对应的origin主机&quot;追踪分支&quot;（remote-tracking branch）进行合并。</p>
-  <p>如果当前分支只有一个追踪分支，连远程主机名都可以省略。</p>
-  <div><pre><code class="language-none">$ git pull</code></pre></div>
-  <p>上面命令表示，当前分支自动与唯一一个追踪分支进行合并。</p>
-  <p>如果合并需要采用rebase模式，可以使用--rebase选项。</p>
-  <div><pre><code class="language-none">$ git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></pre></div>
-  <p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
-  <p>但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。</p>
-  <div><pre><code class="language-none">
-    $ git pull -p
-    # 等同于下面的命令
-    $ git fetch --prune origin 
-    $ git fetch -p</code></pre></div>
-    <h2 id="toc_5">git push</h2>
-    <p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
-    <div><pre><code class="language-none">$ git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></pre></div>
-    <p>注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
-    <p>如果省略远程分支名，则表示将本地分支推送与之存在&quot;追踪关系&quot;的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
-    <div><pre><code class="language-none">$ git push origin master</code></pre></div>
-    <p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
-    <p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
-    <div><pre><code class="language-none">
-      $ git push origin :master
-      # 等同于
-      $ git push origin --delete master</code></pre></div>
-      <p>上面命令表示删除origin主机的master分支。</p>
-      <p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。</p>
-      <div><pre><code class="language-none">$ git push origin</code></pre></div>
-      <p>上面命令表示，将当前分支推送到origin主机的对应分支。</p>
-      <p>如果当前分支只有一个追踪分支，那么主机名都可以省略。</p>
-      <div><pre><code class="language-none">$ git push</code></pre></div>
-      <p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用<code>git push</code>。</p>
-      <div><pre><code class="language-none">$ git push -u origin master</code></pre></div>
-      <p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
-      <p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
-      <div><pre><code class="language-none">
-        $ git config --global push.default matching
-        # 或者
-        $ git config --global push.default simple</code></pre></div>
-        <p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。</p>
-        <div><pre><code class="language-none">$ git push --all origin</code></pre></div>
-        <p>上面命令表示，将所有本地分支都推送到origin主机。</p>
-        <p>如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做<code>git pull</code>合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用--force选项。</p>
-        <div><pre><code class="language-none">$ git push --force origin </code></pre></div>
-        <p>上面命令使用--force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用--force选项。</p>
-        <p>最后，<code>git push</code>不会推送标签（tag），除非使用--tags选项。</p>
-        <div><pre><code class="language-none">$ git push origin --tags</code></pre></div>
+												<span>$ git branch -a</span>
+												<span>* master</span>
+												<span>remotes/origin/master</span>
+											</pre>
+										</div>
+										<p>上面命令表示，本地主机的当前分支是master，远程分支是origin/master。</p>
+										<p>取回远程主机的更新以后，可以在它的基础上，使用<code>git checkout</code>命令创建一个新的分支。</p>
+										<div><pre><code class="language-none">$ git checkout -b newBrach origin/master</code></pre></div>
+										<p>上面命令表示，在origin/master的基础上，创建一个新分支。</p>
+										<p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
+										<div class="cnblogs_code"><pre>
+											<span>$ git merge origin/master</span>
+											<span># 或者</span>
+											<span>$ git rebase origin/master</span>
+										</pre>
+									</div>
+									<p>上面命令表示在当前分支上，合并origin/master。</p>
+									<h2 id="toc_4">git pull</h2>
+									<p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
+									<div><pre><code class="language-none">$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></pre></div>
+									<p>比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。</p>
+									<div><pre><code class="language-none">$ git pull origin next:master</code></pre></div>
+									<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
+									<div><pre><code class="language-none">$ git pull origin next</code></pre></div>
+									<p>上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
+									<div class="cnblogs_code"><pre>
+										<span>$ git fetch origin</span>
+										<span>$ git merge origin/next</span></pre></div>
+										<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动&quot;追踪&quot;origin/master分支。</p>
+										<p>Git也允许手动建立追踪关系。</p>
+										<div><pre><code class="language-none">git branch --set-upstream master origin/next</code></pre></div>
+										<p>上面命令指定master分支追踪origin/next分支。</p>
+										<p>如果当前分支与远程分支存在追踪关系，<code>git pull</code>就可以省略远程分支名。</p>
+										<div><pre><code class="language-none">$ git pull origin</code></pre></div>
+										<p>上面命令表示，本地的当前分支自动与对应的origin主机&quot;追踪分支&quot;（remote-tracking branch）进行合并。</p>
+										<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略。</p>
+										<div><pre><code class="language-none">$ git pull</code></pre></div>
+										<p>上面命令表示，当前分支自动与唯一一个追踪分支进行合并。</p>
+										<p>如果合并需要采用rebase模式，可以使用--rebase选项。</p>
+										<div><pre><code class="language-none">$ git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></pre></div>
+										<p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
+										<p>但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。</p>
+										<div class="cnblogs_code"><pre>
+											<span>$ git pull -p</span>
+											<span># 等同于下面的命令</span>
+											<span>$ git fetch --prune origin</span> 
+											<span>$ git fetch -p</span></pre></div>
+											<h2 id="toc_5">git push</h2>
+											<p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
+											<div><pre><code class="language-none">$ git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></pre></div>
+											<p>注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
+											<p>如果省略远程分支名，则表示将本地分支推送与之存在&quot;追踪关系&quot;的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
+											<div><pre><code class="language-none">$ git push origin master</code></pre></div>
+											<p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
+											<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+											<div class="cnblogs_code"><pre>
+												<span>$ git push origin :master</span>
+												<span># 等同于</span>
+												<span>$ git push origin --delete master</span></pre></div>
+												<p>上面命令表示删除origin主机的master分支。</p>
+												<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。</p>
+												<div><pre><code class="language-none">$ git push origin</code></pre></div>
+												<p>上面命令表示，将当前分支推送到origin主机的对应分支。</p>
+												<p>如果当前分支只有一个追踪分支，那么主机名都可以省略。</p>
+												<div><pre><code class="language-none">$ git push</code></pre></div>
+												<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用<code>git push</code>。</p>
+												<div><pre><code class="language-none">$ git push -u origin master</code></pre></div>
+												<p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
+												<p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
+												<div class="cnblogs_code"><pre>
+													<span>$ git config --global push.default matching</span>
+													<span># 或者</span>
+													<span>$ git config --global push.default simple</span></pre></div>
+													<p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。</p>
+													<div><pre><code class="language-none">$ git push --all origin</code></pre></div>
+													<p>上面命令表示，将所有本地分支都推送到origin主机。</p>
+													<p>如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做<code>git pull</code>合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用--force选项。</p>
+													<div><pre><code class="language-none">$ git push --force origin </code></pre></div>
+													<p>上面命令使用--force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用--force选项。</p>
+													<p>最后，<code>git push</code>不会推送标签（tag），除非使用--tags选项。</p>
+													<div><pre><code class="language-none">$ git push origin --tags</code></pre></div>
 
-      </div> 
-      <nav id="article-nav"> 
-       <a href="/2016/04/17/code-tool-using/" id="article-nav-newer" class="article-nav-link-wrap"> <strong class="article-nav-caption">&lt;</strong> 
-        <div class="article-nav-title">
-          编程实用工具集锦
-        </div> </a>
+												</div> 
+												<nav id="article-nav"> 
+													<a href="/2016/04/17/code-tool-using/" id="article-nav-newer" class="article-nav-link-wrap"> <strong class="article-nav-caption">&lt;</strong> 
+														<div class="article-nav-title">
+															编程实用工具集锦
+														</div> </a>
 
-        <a href="/2016/04/12/ruby-regular-pattern/" id="article-nav-older" class="article-nav-link-wrap"> 
-          <div class="article-nav-title">
-           正则表达式 - Ruby
-         </div> <strong class="article-nav-caption">&gt;</strong> </a>
-       </nav> 
-     </article> 
-     <div class="share"> 
-      <!-- JiaThis Button BEGIN --> 
-      <div class="jiathis_style"> 
-       <span class="jiathis_txt">分享到：</span> 
-       <a class="jiathis_button_tsina"></a> 
-       <a class="jiathis_button_cqq"></a> 
-       <a class="jiathis_button_douban"></a> 
-       <a class="jiathis_button_weixin"></a> 
-       <a class="jiathis_button_tumblr"></a> 
-       <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a> 
-     </div> 
-     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script> 
-     <!-- JiaThis Button END --> 
-   </div> 
-   <div class="duoshuo"> 
-    <!-- 多说评论框 start --> 
-    <div class="ds-thread" data-thread-key="git-tool-using" data-title="Git使用" data-url="http://yoursite.com/2016/04/14/git-tool-using/"></div> 
-    <!-- 多说评论框 end --> 
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) --> 
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"charsdavy"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0] 
-       || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script> 
-    <!-- 多说公共JS代码 end --> 
-  </div> 
-</div> 
-<footer id="footer"> 
- <div class="outer"> 
-  <div id="footer-info"> 
-   <div class="footer-left">
-     &copy; 2016 Chars Davy
-   </div> 
- </div> 
-</div> 
-</footer> 
-</div> 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" /> 
-<script>
-var yiliaConfig = {
-  fancybox: true,
-  mathjax: true,
-  animate: true,
-  isHome: false,
-  isPost: true,
-  isArchive: false,
-  isTag: false,
-  isCategory: false,
-  open_in_new: false
-}
-</script> 
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script> 
-<script src="/js/main.js" type="text/javascript"></script> 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  }
-});
+														<a href="/2016/04/12/ruby-regular-pattern/" id="article-nav-older" class="article-nav-link-wrap"> 
+															<div class="article-nav-title">
+																正则表达式 - Ruby
+															</div> <strong class="article-nav-caption">&gt;</strong> </a>
+														</nav> 
+													</article> 
+													<div class="share"> 
+														<!-- JiaThis Button BEGIN --> 
+														<div class="jiathis_style"> 
+															<span class="jiathis_txt">分享到：</span> 
+															<a class="jiathis_button_tsina"></a> 
+															<a class="jiathis_button_cqq"></a> 
+															<a class="jiathis_button_douban"></a> 
+															<a class="jiathis_button_weixin"></a> 
+															<a class="jiathis_button_tumblr"></a> 
+															<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a> 
+														</div> 
+														<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script> 
+														<!-- JiaThis Button END --> 
+													</div> 
+													<div class="duoshuo"> 
+														<!-- 多说评论框 start --> 
+														<div class="ds-thread" data-thread-key="git-tool-using" data-title="Git使用" data-url="http://yoursite.com/2016/04/14/git-tool-using/"></div> 
+														<!-- 多说评论框 end --> 
+														<!-- 多说公共JS代码 start (一个网页只需插入一次) --> 
+														<script type="text/javascript">
+															var duoshuoQuery = {short_name:"charsdavy"};
+															(function() {
+																var ds = document.createElement('script');
+																ds.type = 'text/javascript';ds.async = true;
+																ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+																ds.charset = 'UTF-8';
+																(document.getElementsByTagName('head')[0] 
+																	|| document.getElementsByTagName('body')[0]).appendChild(ds);
+															})();
+														</script> 
+														<!-- 多说公共JS代码 end --> 
+													</div> 
+												</div> 
+												<footer id="footer"> 
+													<div class="outer"> 
+														<div id="footer-info"> 
+															<div class="footer-left">
+																&copy; 2016 Chars Davy
+															</div> 
+														</div> 
+													</div> 
+												</footer> 
+											</div> 
+											<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" /> 
+											<script>
+												var yiliaConfig = {
+													fancybox: true,
+													mathjax: true,
+													animate: true,
+													isHome: false,
+													isPost: true,
+													isArchive: false,
+													isTag: false,
+													isCategory: false,
+													open_in_new: false
+												}
+											</script> 
+											<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script> 
+											<script src="/js/main.js" type="text/javascript"></script> 
+											<script type="text/x-mathjax-config">
+												MathJax.Hub.Config({
+												tex2jax: {
+												inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+												processEscapes: true,
+												skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+											}
+										});
 
-MathJax.Hub.Queue(function() {
-  var all = MathJax.Hub.getAllJax(), i;
-  for(i=0; i < all.length; i += 1) {
-    all[i].SourceElement().parentNode.className += ' has-jax';                 
-  }       
-});
-</script> 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> 
-</div>  
-</body>
-</html>
+										MathJax.Hub.Queue(function() {
+										var all = MathJax.Hub.getAllJax(), i;
+										for(i=0; i < all.length; i += 1) {
+										all[i].SourceElement().parentNode.className += ' has-jax';                 
+									}       
+								});
+							</script> 
+							<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+							</script> 
+						</div>  
+					</body>
+					</html>
