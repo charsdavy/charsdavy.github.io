@@ -17,644 +17,731 @@
 
 	<entry>
 		<title><![CDATA[Git 使用]]></title>
-		<link href="http://charsdavy.github.io/2016/04/14/git-tool-using/"/>
-		<id>http://charsdavy.github.io/2016/04/14/git-tool-using/</id>
-		<published>2016-04-14T21:53:03.000Z</published>
-		<updated>2016-04-23T21:53:03.000Z</updated>
+		<link href="http://charsdavy.github.io/2016/04/17/code-tool-using/"/>
+		<id>http://charsdavy.github.io/2016/04/17/code-tool-using/</id>
+		<published>2016-04-17T21:53:03.000Z</published>
+		<updated>2016-04-17T21:53:03.000Z</updated>
 		<content type="html"><![CDATA[
-			<!-- 简介 -->
-			<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
-			<p><a target="_blank" href="http://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
-			<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是 Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
-
-			<!-- 目录 -->
-			<h1 id="toc_0">目录</h1>
-			<ul>
-				<li><a href="#1">1 远程操作</a></li>
-			</ul>
-
-			<!-- 远程操作 -->
-			<h1 id="1">远程操作 </h1>
-			<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。这一部分，将主要介绍几个常用的Git远程操作命令。
-				<img src="/2016/04/14/git-tool-using/imges/bg2014061202.jpg" alt="one"></p>
-				<h2 id="toc_1">git clone</h2>
-				<p>远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到<code>git clone</code>命令。</p>
-				<div><p><code>$ git clone &lt;版本库的网址&gt;</code></p></div>
-				<p>比如，克隆Weibo的版本库。</p>
-				<div><p><code>$ git clone https://github.com/charsdavy/iWeibo.git</code></p></div>
-				<p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
-				<div><p><code>$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></p></div>
-				<p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
-				<div class="cnblogs_code">
-					<p>$ git clone http[s]://example.com/path/to/repo.git/</p>						
-					<p>$ git clone ssh://example.com/path/to/repo.git/</p>
-					<p>$ git clone git://example.com/path/to/repo.git/</p>
-					<p>$ git clone /opt/git/project.git</p>
-					<p>$ git clone file:///opt/git/project.git</p>
-					<p>$ git clone ftp[s]://example.com/path/to/repo.git/</p>
-					<p>$ git clone rsync://example.com/path/to/repo.git/</p>
-				</div>
-				<p>SSH协议还有另一种写法：</p>
-				<div><p><code>$ git clone [user@]example.com:path/to/repo.git/</code></p></div>
-				<p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols">官方文档</a>。</p>
-				<h2 id="toc_2">git remote</h2>
-				<p>为了便于管理，Git要求每个远程主机都必须指定一个主机名。<code>git remote</code>命令就用于管理主机名。</p>
-				<p>不带选项的时候，<code>git remote</code>命令列出所有远程主机。</p>
-				<div><p><code>$ git remote</br>
-				origin</code></p></div>
-				<p>使用-v选项，可以参看远程主机的网址。</p>
-				<div class="cnblogs_code">
-					<p>$ git remote -v</p>
-					<p>origin  git@github.com:jquery/jquery.git (fetch)</p>
-					<p>origin  git@github.com:jquery/jquery.git (push)</p>
-				</div>
-				<p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
-				<p>克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用<code>git clone</code>命令的-o选项指定。</p>
-				<div class="cnblogs_code">
-					<p>$ git clone -o Weibo https://github.com/charsdavy/iWeibo.git</p>
-					<p>$ git remote</p>
-					<p>Weibo</p>
-				</div>
-				<p>上面命令表示，克隆的时候，指定远程主机叫做Weibo。</p>
+			<p>俗语云，“工欲善其事，必先利其器”。那作为程序员应该有哪些“器”呢？应该说是哪几个方面，如一一列举，不仅不能穷尽，还会遗漏。博主毕业进入职场时间不长，
+				特别还经历了方向转变，似有点心有余而力不怠。现只能根据工作的前后不同，环境不同，暂开篇专辑，缓缓图之，以其完整。目的在于能够将程序员在工作中，使用到的，
+				需要的尽力罗列出来，并附以相关记录。正如前文<a href="/2016/04/14/git-tool-using/">《Git 使用》</a>一般，徐徐前进，缓缓图之。</p>
+				<p>程序员偏好、需要的工具，无非“提交代码、创作代码、分享代码、发布应用”。围绕这四个方向可以衍生很多具体细节。</p>
+				
+				<!-- pandoc 工具 -->
+				<h1 id="pandoc-工具">pandoc 工具</h1>
+				<p>随着<code>Markdown</code>的风靡，大家更多地愿意使用它，因为方便易用。这一类的的编辑器也是层出不穷。众所周知的<code>Mou</code>、<code>MacDown</code>都是很好的<code>Markdown</code>编辑器。此外，很多网站也支持<code>Markdown</code>，例如：github、简书等。</p>
+				<p>但是，对于博主来说，后台使用HTML完成网页push，而文章是定期推送，当然需要使用方便的编辑方式以及转换方式。大家都说程序员是一群懒人。这里，就分享一个叫做<code>pandoc</code>的工具。</p>
+				<p><code>pandoc</code>可以将<code>Markdown</code>文件转换成<code>HTML</code>，实现代码生成功能。这正是博主需要的利器。</p>
+				<h2 id="安装">安装</h2>
+				<p>安装<a href="https://github.com/jgm/pandoc/releases">pandoc</a></p>
+				<h2 id="使用命令">使用命令</h2>
+				<p><strong>注意：在需要转换的Markdown文档目录下执行命令。</strong></p>
 				<ul>
-					<li><p>git remote show命令加上主机名，可以查看该主机的详细信息。</p>
-					<p><code>$ git remote show &lt;主机名&gt;</code></p></li>
-					<li><p>git remote add命令用于添加远程主机。</p>
-					<p><code>$ git remote add &lt;主机名&gt; &lt;网址&gt;</code></p></li>
-					<li><p>git remote rm命令用于删除远程主机。</p>
-					<p><code>$ git remote rm &lt;主机名&gt;</code></p></li>
-					<li><p>git remote rename命令用于远程主机的改名。</p>
-					<p><code>$ git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p></li>
+					<li>将<code>Markdown</code>转换为<code>HTML</code></li>
 				</ul>
-				<h2 id="toc_3">git fetch</h2>
-				<p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到<code>git fetch</code>命令。</p>
-				<div><p><code>$ git fetch &lt;远程主机名&gt;</code></p></div>
-				<p>上面命令将某个远程主机的更新，全部取回本地。</p>
-				<p><code>git fetch</code>命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
-				<p>默认情况下，<code>git fetch</code>取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</p>
-				<div><p><code>$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</code></p></div>
-				<p>比如，取回origin主机的master分支。</p>
-				<div><p><code>$ git fetch origin master</code></p></div>
-				<p>所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</p>
-				<p><code>git branch</code>命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。</p>
+				<p>默认的转换，只是将 Markdown 内容转换为 HTML 标签，所以只能看到浏览器的默认样式。</p>
 				<div class="cnblogs_code">
-					<p>$ git branch -r</p>
-					<p>origin/master</p>
+					<span>pandoc -o hello.html hello.md</span>
+				</div>
+				<ul>
+					<li>自定义将<code>Markdown</code>转换为<code>HTML</code></li>
+				</ul>
+				<p>可以执行下面的命令，为导出的 HTML 添加自定义样式。</p>
+				<div class="cnblogs_code">
+					<span>pandoc -o hello.html -c style.css hello.md</span>
+				</div>
+				<p>style.css 仍然是以 <code>&lt;link&gt;</code> 的方式关联到 HTML 文档中的，所以在发布的时候需要将 CSS 一同发布出去。</p>
 
-					<p>$ git branch -a</p>
-					<p>* master</p>
-					<p>remotes/origin/master</p>
-				</div>
-				<p>上面命令表示，本地主机的当前分支是master，远程分支是origin/master。</p>
-				<p>取回远程主机的更新以后，可以在它的基础上，使用<code>git checkout</code>命令创建一个新的分支。</p>
-				<div><p><code>$ git checkout -b newBrach origin/master</code></p></div>
-				<p>上面命令表示，在origin/master的基础上，创建一个新分支。</p>
-				<p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
+				<!-- class-dump 工具 -->
+				<h1 id="toc_0">class-dump 工具</h1>
+				<h2 id="toc_1">简介</h2>
+				<p>class-dump is a command-line utility for examining the Objective-C segment of Mach-O files. It generates declarations for the classes, categories and protocols. This is the same information provided by using &#39;otool -ov&#39;, but presented as normal Objective-C declarations.</p>
+				<p>这是class-dump的官方解释，我们用的最多就是做iOS的逆向工程。class-dump，是可以把Objective-C运行时的声明的信息导出来的工具。其实就是可以导出.h文件。用class-dump可以把未经加密的app的头文件导出来。</p>
+				<p>官方网址：<a href="http://stevenygard.com/projects/class-dump/">http://stevenygard.com/projects/class-dump/</a></p>
+				<h2 id="toc_2">安装</h2>
+				<p>class-dump的下载地址：<a href="http://stevenygard.com/download/class-dump-3.5.tar.gz">http://stevenygard.com/download/class-dump-3.5.tar.gz</a></p>
+				<p>点击下载后解压后会有class-dump和源码文件。将class-dump 复制到/usr/bin/class-dump。如果是OS X 10.11，因为没有/usr/bin文件夹的写权限，所以将class-dump复制到/usr/local/bin/class-dump即可。</p>
+				<p>同时打开Terminal，执行命令赋予其执行权限：</p>
 				<div class="cnblogs_code">
-					<p>$ git merge origin/master</p>
-					<p># 或者</p>
-					<p>$ git rebase origin/master</p>
+					<span>sudo chmod 777 /usr/bin/class-dump</span>
 				</div>
-				<p>上面命令表示在当前分支上，合并origin/master。</p>
-				<h2 id="toc_4">git pull</h2>
-				<p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
-				<div><p><code>$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p></div>
-				<p>比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。</p>
-				<div><p><code>$ git pull origin next:master</code></p></div>
-				<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
-				<div><p><code>$ git pull origin next</code></p></div>
-				<p>上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
+				<h2 id="toc_3">使用</h2>
+				<p>使用class-dump导出头文件的命令格式：</p>
 				<div class="cnblogs_code">
-					<p>$ git fetch origin</p>
-					<p>$ git merge origin/next</p>
+					<span>class-dump -H 需要导出的框架路径 -o 导出的头文件存放路径</span>
 				</div>
-				<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动&quot;追踪&quot;origin/master分支。</p>
-				<p>Git也允许手动建立追踪关系。</p>
-				<div><p><code>git branch --set-upstream master origin/next</code></p></div>
-				<p>上面命令指定master分支追踪origin/next分支。</p>
-				<p>如果当前分支与远程分支存在追踪关系，<code>git pull</code>就可以省略远程分支名。</p>
-				<div><p><code>$ git pull origin</code></p></div>
-				<p>上面命令表示，本地的当前分支自动与对应的origin主机&quot;追踪分支&quot;（remote-tracking branch）进行合并。</p>
-				<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略。</p>
-				<div><p><code >$ git pull</code></p></div>
-				<p>上面命令表示，当前分支自动与唯一一个追踪分支进行合并。</p>
-				<p>如果合并需要采用rebase模式，可以使用--rebase选项。</p>
-				<div><p><code >$ git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p></div>
-				<p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
-				<p>但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。</p>
+				<p><strong>示例：</strong>导出Xcode中DVTKit框架的头文件</p>
+				<p>1）找到DVTKit框架路径；</p>
+				<p>2）使用上述的操作命令格式：</p>
 				<div class="cnblogs_code">
-					<p>$ git pull -p</p>
-					<p># 等同于下面的命令</p>
-					<p>$ git fetch --prune origin </p>
-					<p>$ git fetch -p</p>
+					<span>class-dump -H /Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Versions/DVTKit -o ~/local/DVTKit</span>
 				</div>
-				<h2 id="toc_5">git push</h2>
-				<p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
-				<div><p><code>$ git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p></div>
-				<p>注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
-				<p>如果省略远程分支名，则表示将本地分支推送与之存在&quot;追踪关系&quot;的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
-				<div><p><code>$ git push origin master</code></p></div>
-				<p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
-				<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+				<h2 id="toc_4">附录</h2>
+				<p><code>class-dump AppKit:</code></p>
 				<div class="cnblogs_code">
-					<p>$ git push origin :master</p>
-					<p># 等同于</p>
-					<p>$ git push origin --delete master</p>
+					<span>class-dump /System/Library/Frameworks/AppKit.framework</span>
 				</div>
-				<p>上面命令表示删除origin主机的master分支。</p>
-				<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。</p>
-				<div><p><code>$ git push origin</code></p></div>
-				<p>上面命令表示，将当前分支推送到origin主机的对应分支。</p>
-				<p>如果当前分支只有一个追踪分支，那么主机名都可以省略。</p>
-				<div><p><code>$ git push</code></p></div>
-				<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用<code>git push</code>。</p>
-				<div><p><code >$ git push -u origin master</code></p></div>
-				<p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
-				<p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
+				<p><code>class-dump UIKit:</code></p>
 				<div class="cnblogs_code">
-					<p>$ git config --global push.default matching</p>
-					<p># 或者</p>
-					<p>$ git config --global push.default simple</p>
+					<span>class-dump /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework</span>
 				</div>
-				<p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。</p>
-				<div><p><code>$ git push --all origin</code></p></div>
-				<p>上面命令表示，将所有本地分支都推送到origin主机。</p>
-				<p>如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做<code>git pull</code>合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用--force选项。</p>
-				<div><p><code>$ git push --force origin </code></p></div>
-				<p>上面命令使用--force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用--force选项。</p>
-				<p>最后，<code>git push</code>不会推送标签（tag），除非使用--tags选项。</p>
-				<div><p><code>$ git push origin --tags</code></p></div>
+				<p><code>class-dump UIKit and all the frameworks it uses:</code></p>
+				<div class="cnblogs_code">
+					<span>class-dump /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework -r --sdk-ios 4.3</span>
+				</div>
+				<p><code>class-dump UIKit (and all the frameworks it uses) from developer tools that have been installed in /Dev42 instead of /Developer:</code></p>
+				<div class="cnblogs_code">
+					<span>class-dump /Dev42/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/UIKit.framework -r --sdk-root /Dev42/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk</span>
+				</div>
+				<p>以上就是安装并使用class-dump的全部过程。</p>
 				]]></content>
 				<summary type="html">
-					<![CDATA[<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
-					<p><a target="_blank" href="http://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
-					<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是 Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>]]>
+					<![CDATA[俗语云，“工欲善其事，必先利其器”。那作为程序员应该有哪些“器”呢？应该说是哪几个方面，如一一列举，不仅不能穷尽，还会遗漏。博主毕业进入职场时间不长，
+					特别还经历了方向转变，似有点心有余而力不怠。现只能根据工作的前后不同，环境不同，暂开篇专辑，缓缓图之，以其完整。目的在于能够将程序员在工作中，使用到的，
+					需要的尽力罗列出来，并附以相关记录。正如前文《Git 使用》一般，徐徐前进，缓缓图之。]]>
 				</summary>				
 			</entry>
 
 			<entry>
-				<title><![CDATA[正则表达式 - Ruby]]></title>
-				<link href="http://charsdavy.github.io/2016/04/12/ruby-regular-pattern/"/>
-				<id>http://charsdavy.github.io/2016/04/12/ruby-regular-pattern/</id>
-				<published>2016-04-12T21:53:03.000Z</published>
-				<updated>2016-04-12T21:53:03.000Z</updated>
+				<title><![CDATA[Git 使用]]></title>
+				<link href="http://charsdavy.github.io/2016/04/14/git-tool-using/"/>
+				<id>http://charsdavy.github.io/2016/04/14/git-tool-using/</id>
+				<published>2016-04-14T21:53:03.000Z</published>
+				<updated>2016-04-23T21:53:03.000Z</updated>
 				<content type="html"><![CDATA[
-					<p>Ruby是一种开源的面向对象程序设计的服务器端脚本语言，在20世纪90年代中期由日本的松本行弘（Yukihiro Matsumoto）设计并开发。在Ruby社区，
-						松本也被称为马茨（Matz）。Ruby可运行于多种平台，如Windows、MAC OS和UNIX的各种版本。</p> 
-						<p>正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找其他字符串或字符串集合。</p> 
-						<p>实际上很多脚本语言或非脚本语言都支持正则表达式，Objective-C也不例外。但是每一种语言对正则表达式的支持都有所不同。本文主要讲解Ruby中的正则表达式。</p>
+					<!-- 简介 -->
+					<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
+					<p><a target="_blank" href="http://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+					<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是 Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
 
-						<h1>Ruby <span class="color_h1">正则表达式</span></h1>
+					<!-- 目录 -->
+					<h1 id="toc_0">目录</h1>
+					<ul>
+						<li><a href="#1">1 远程操作</a></li>
+					</ul>
 
-						<p><b>正则表达式</b>是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找字符串集合。</p>
-						<p>正则表达式用事先定义好的一些特定字符、及这些特定字符的组合，组成一个"规则字符串"，这个"规则字符串"用来表达对字符串的一种过滤逻辑。</p>
+					<!-- 远程操作 -->
+					<h1 id="1">远程操作 </h1>
+					<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。这一部分，将主要介绍几个常用的Git远程操作命令。
+						<img src="/2016/04/14/git-tool-using/imges/bg2014061202.jpg" alt="one"></p>
+						<h2 id="toc_1">git clone</h2>
+						<p>远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到<code>git clone</code>命令。</p>
+						<div><p><code>$ git clone &lt;版本库的网址&gt;</code></p></div>
+						<p>比如，克隆Weibo的版本库。</p>
+						<div><p><code>$ git clone https://github.com/charsdavy/iWeibo.git</code></p></div>
+						<p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
+						<div><p><code>$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></p></div>
+						<p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
+						<div class="cnblogs_code">
+							<p>$ git clone http[s]://example.com/path/to/repo.git/</p>						
+							<p>$ git clone ssh://example.com/path/to/repo.git/</p>
+							<p>$ git clone git://example.com/path/to/repo.git/</p>
+							<p>$ git clone /opt/git/project.git</p>
+							<p>$ git clone file:///opt/git/project.git</p>
+							<p>$ git clone ftp[s]://example.com/path/to/repo.git/</p>
+							<p>$ git clone rsync://example.com/path/to/repo.git/</p>
+						</div>
+						<p>SSH协议还有另一种写法：</p>
+						<div><p><code>$ git clone [user@]example.com:path/to/repo.git/</code></p></div>
+						<p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols">官方文档</a>。</p>
+						<h2 id="toc_2">git remote</h2>
+						<p>为了便于管理，Git要求每个远程主机都必须指定一个主机名。<code>git remote</code>命令就用于管理主机名。</p>
+						<p>不带选项的时候，<code>git remote</code>命令列出所有远程主机。</p>
+						<div><p><code>$ git remote</br>
+						origin</code></p></div>
+						<p>使用-v选项，可以参看远程主机的网址。</p>
+						<div class="cnblogs_code">
+							<p>$ git remote -v</p>
+							<p>origin  git@github.com:jquery/jquery.git (fetch)</p>
+							<p>origin  git@github.com:jquery/jquery.git (push)</p>
+						</div>
+						<p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
+						<p>克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用<code>git clone</code>命令的-o选项指定。</p>
+						<div class="cnblogs_code">
+							<p>$ git clone -o Weibo https://github.com/charsdavy/iWeibo.git</p>
+							<p>$ git remote</p>
+							<p>Weibo</p>
+						</div>
+						<p>上面命令表示，克隆的时候，指定远程主机叫做Weibo。</p>
+						<ul>
+							<li><p>git remote show命令加上主机名，可以查看该主机的详细信息。</p>
+							<p><code>$ git remote show &lt;主机名&gt;</code></p></li>
+							<li><p>git remote add命令用于添加远程主机。</p>
+							<p><code>$ git remote add &lt;主机名&gt; &lt;网址&gt;</code></p></li>
+							<li><p>git remote rm命令用于删除远程主机。</p>
+							<p><code>$ git remote rm &lt;主机名&gt;</code></p></li>
+							<li><p>git remote rename命令用于远程主机的改名。</p>
+							<p><code>$ git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p></li>
+						</ul>
+						<h2 id="toc_3">git fetch</h2>
+						<p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到<code>git fetch</code>命令。</p>
+						<div><p><code>$ git fetch &lt;远程主机名&gt;</code></p></div>
+						<p>上面命令将某个远程主机的更新，全部取回本地。</p>
+						<p><code>git fetch</code>命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
+						<p>默认情况下，<code>git fetch</code>取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</p>
+						<div><p><code>$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</code></p></div>
+						<p>比如，取回origin主机的master分支。</p>
+						<div><p><code>$ git fetch origin master</code></p></div>
+						<p>所取回的更新，在本地主机上要用&quot;远程主机名/分支名&quot;的形式读取。比如origin主机的master，就要用origin/master读取。</p>
+						<p><code>git branch</code>命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。</p>
+						<div class="cnblogs_code">
+							<p>$ git branch -r</p>
+							<p>origin/master</p>
 
-						<h2 class="tutheader">语法</h2>
-						<p><b>正则表达式</b>从字面上看是一种介于斜杠之间或介于跟在 %r 后的任意分隔符之间的模式，如下所示：</p>
-						<pre>
-							/pattern/
-							/pattern/im    # 可以指定选项
-							%r!/usr/local! # 使用分隔符的正则表达式
-						</pre>
-
-						<h2 class="tutheader">实例</h2>
-						<pre>
-							#!/usr/bin/ruby
-
-							line1 = "Cats are smarter than dogs";
-							line2 = "Dogs also like meat";
-
-							if ( line1 =~ /Cats(.*)/ )
-							puts "Line1 contains Cats"
-							end
-							if ( line2 =~ /Cats(.*)/ )
-							puts "Line2 contains  Dogs"
-							end
-						</pre>
-						<p>以上实例运行输出结果为：</p>
-						<pre>
-							Line1 contains Cats
-						</pre>
-
-						<h2 class="tutheader">正则表达式修饰符</h2>
-						<p>正则表达式从字面上看可能包含一个可选的修饰符，用于控制各方面的匹配。修饰符在第二个斜杠字符后指定，如上面实例所示。下标列出了 可能的修饰符：</p>
-						<table class="reference">
-							<tr><th style="width:25%">修饰符</th><th>描述</th></tr>
-							<tr><td>i</td><td>当匹配文本时忽略大小写。</td></tr>
-							<tr><td>o</td><td>只执行一次 #{} 插值，正则表达式在第一次时就进行判断。</td></tr>
-							<tr><td>x</td><td>忽略空格，允许在整个表达式中放入空白符和注释。</td></tr>
-							<tr><td>m</td><td>匹配多行，把换行字符识别为正常字符。</td></tr>
-							<tr><td>u,e,s,n</td><td>把正则表达式解释为 Unicode（UTF-8）、EUC、SJIS 或 ASCII。如果没有指定修饰符，则认为正则表达式使用的是源编码。</td></tr>
-						</table>
-						<p>就像字符串通过 %Q 进行分隔一样，Ruby 允许您以 %r 作为正则表达式的开头，后面跟着任意分隔符。这在描述包含大量您不想转义的斜杠字符时非常有用。</p>
-						<pre>
-							# 下面匹配单个斜杠字符，不转义
-							%r|/|               
-
-							# Flag 字符可通过下面的语法进行匹配
-							%r[&lt;/(.*)&gt;]i  
-						</pre>
-
-						<h2 class="tutheader">正则表达式模式</h2>
-						<p>除了控制字符，<b>(+ ? . * ^ $ ( ) [ ] { } | \)</b>，其他所有字符都匹配本身。您可以通过在控制字符前放置一个反斜杠来对控制字符进行转义。</p>
-						<p>下表列出了 Ruby 中可用的正则表达式语法。</p>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">模式</th><th>描述</th></tr>
-							<tr><td>^</td><td>匹配行的开头。</td></tr>
-							<tr><td>$</td><td>匹配行的结尾。</td></tr>
-							<tr><td>.</td><td>匹配除了换行符以外的任意单字符。使用 m 选项时，它也可以匹配换行符。</td></tr>
-							<tr><td>[...]</td><td>匹配在方括号中的任意单字符。</td></tr>
-							<tr><td>[^...]</td><td>匹配不在方括号中的任意单字符。</td></tr>
-							<tr><td>re*</td><td>匹配前面的子表达式零次或多次。</td></tr>
-							<tr><td>re+</td><td>匹配前面的子表达式一次或多次。</td></tr>
-							<tr><td>re?</td><td>匹配前面的子表达式零次或一次。</td></tr>
-							<tr><td>re{ n}</td><td>匹配前面的子表达式 n 次。</td></tr>
-							<tr><td>re{ n,}</td><td>匹配前面的子表达式 n 次或 n 次以上。</td></tr>
-							<tr><td>re{ n, m}</td><td>匹配前面的子表达式至少 n 次至多 m 次。</td></tr>
-							<tr><td>a| b</td><td>匹配 a 或 b。</td></tr>
-							<tr><td>(re)</td><td>对正则表达式进行分组，并记住匹配文本。</td></tr>
-							<tr><td>(?imx)</td><td>暂时打开正则表达式内的 i、 m 或 x 选项。如果在圆括号中，则只影响圆括号内的部分。</td></tr>
-							<tr><td>(?-imx)</td><td>暂时关闭正则表达式内的 i、 m 或 x 选项。如果在圆括号中，则只影响圆括号内的部分。</td></tr>
-							<tr><td>(?: re)</td><td>对正则表达式进行分组，但不记住匹配文本。</td></tr>
-							<tr><td>(?imx: re)</td><td>暂时打开圆括号内的 i、 m 或 x 选项。</td></tr>
-							<tr><td>(?-imx: re)</td><td>暂时关闭圆括号内的 i、 m 或 x 选项。</td></tr>
-							<tr><td>(?#...)</td><td>注释。</td></tr>
-							<tr><td>(?= re)</td><td>使用模式指定位置。没有范围。</td></tr>
-							<tr><td>(?! re)</td><td>使用模式的否定指定位置。没有范围。</td></tr>
-							<tr><td>(?&gt; re)</td><td>匹配无回溯的独立模式。</td></tr>
-							<tr><td>\w</td><td>匹配单词字符。</td></tr>
-							<tr><td>\W</td><td>匹配非单词字符。</td></tr>
-							<tr><td>\s</td><td>匹配空白字符。等价于 [\t\n\r\f]。</td></tr>
-							<tr><td>\S</td><td>匹配非空白字符。</td></tr>
-							<tr><td>\d</td><td>匹配数字。等价于 [0-9]。</td></tr>
-							<tr><td>\D</td><td>匹配非数字。</td></tr>
-							<tr><td>\A</td><td>匹配字符串的开头。</td></tr>
-							<tr><td>\Z</td><td>匹配字符串的结尾。如果存在换行符，则只匹配到换行符之前。</td></tr>
-							<tr><td>\z</td><td>匹配字符串的结尾。</td></tr>
-							<tr><td>\G</td><td>匹配最后一个匹配完成的点。</td></tr>
-							<tr><td>\b</td><td>当在括号外时匹配单词边界，当在括号内时匹配退格键（0x08）。</td></tr>
-							<tr><td>\B</td><td>匹配非单词边界。</td></tr>
-							<tr><td>\n, \t, etc.</td><td>匹配换行符、回车符、制表符，等等。</td></tr>
-							<tr><td>\1...\9</td><td>匹配第 n 个分组子表达式。</td></tr>
-							<tr><td>\10</td><td>如果已匹配过，则匹配第 n 个分组子表达式。否则指向字符编码的八进制表示。</td></tr>
-						</table>
-						<br />
-
-						<h2 class="tutheader">正则表达式实例</h2>
-						<h2>字符</h2>
-						<table class="reference">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/ruby/</td><td>匹配 "ruby"</td></tr>
-							<tr><td>&yen;</td><td>匹配 Yen 符号。Ruby 1.9 和 Ruby 1.8 支持多个字符。</td></tr>
-						</table>
-						<h2>字符类</h2>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/[Rr]uby/ </td><td>匹配 "Ruby" 或 "ruby"</td></tr>
-							<tr><td>/rub[ye]/ </td><td>匹配 "ruby" 或 "rube"</td></tr>
-							<tr><td>/[aeiou]/</td><td>匹配任何一个小写元音字母</td></tr>
-							<tr><td>/[0-9]/ </td><td>匹配任何一个数字，与 /[0123456789]/ 相同</td></tr>
-							<tr><td>/[a-z]/</td><td>匹配任何一个小写 ASCII 字母</td></tr>
-							<tr><td>/[A-Z]/</td><td>匹配任何一个大写 ASCII 字母</td></tr>
-							<tr><td>/[a-zA-Z0-9]/</td><td>匹配任何一个括号内的字符</td></tr>
-							<tr><td>/[^aeiou]/ </td><td>匹配任何一个非小写元音字母的字符</td></tr>
-							<tr><td>/[^0-9]/</td><td>匹配任何一个非数字字符</td></tr>
-						</table>
-						<h2>特殊字符类</h2>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/./ </td><td>匹配除了换行符以外的其他任意字符</td></tr>
-							<tr><td>/./m </td><td>在多行模式下，也能匹配换行符</td></tr>
-							<tr><td>/\d/</td><td>匹配一个数字，等同于 /[0-9]/</td></tr>
-							<tr><td>/\D/ </td><td>匹配一个非数字，等同于 /[^0-9]/</td></tr>
-							<tr><td>/\s/</td><td>匹配一个空白字符，等同于 /[ \t\r\n\f]/</td></tr>
-							<tr><td>/\S/ </td><td>匹配一个非空白字符，等同于 /[^ \t\r\n\f]/</td></tr>
-							<tr><td>/\w/ </td><td>匹配一个单词字符，等同于 /[A-Za-z0-9_]/</td></tr>
-							<tr><td>/\W/</td><td>匹配一个非单词字符，等同于 /[^A-Za-z0-9_]/</td></tr>
-						</table>
-						<h2>重复</h2>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/ruby?/ </td><td>匹配 "rub" 或 "ruby"。其中，y 是可有可无的。</td></tr>
-							<tr><td>/ruby*/ </td><td>匹配 "rub" 加上 0 个或多个的 y。</td></tr>
-							<tr><td>/ruby+/</td><td>匹配 "rub" 加上 1 个或多个的 y。</td></tr>
-							<tr><td>/\d{3}/</td><td>刚好匹配 3 个数字。</td></tr>
-							<tr><td>/\d{3,}/</td><td>匹配 3 个或多个数字。</td></tr>
-							<tr><td>/\d{3,5}/</td><td>匹配 3 个、4 个或 5 个数字。</td></tr>
-						</table>
-						<h2>非贪婪重复</h2>
-						<p>这会匹配最小次数的重复。</p>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/&lt;.*&gt;/</td><td>贪婪重复：匹配 "&lt;ruby&gt;perl&gt;"</td></tr>
-							<tr><td>/&lt;.*?&gt;/ </td><td>非贪婪重复：匹配 "&lt;ruby&gt;perl&gt;" 中的 "&lt;ruby&gt;"</td></tr>
-						</table>
-						<h2>通过圆括号进行分组</h2>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/\D\d+/ </td><td>无分组： + 重复 \d</td></tr>
-							<tr><td>/(\D\d)+/ </td><td>分组： + 重复 \D\d 对</td></tr>
-							<tr><td>/([Rr]uby(, )?)+/</td><td>匹配 "Ruby"、"Ruby, ruby, ruby"，等等</td></tr>
-						</table>
-						<h2>反向引用</h2>
-						<p>这会再次匹配之前匹配过的分组。</p>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/([Rr])uby&amp;\1ails/</td><td>匹配 ruby&amp;rails 或 Ruby&amp;Rails</td></tr>
-							<tr><td> /(['"])(?:(?!\1).)*\1/</td><td>单引号或双引号字符串。\1 匹配第一个分组所匹配的字符，\2 匹配第二个分组所匹配的字符，依此类推。</td></tr>
-						</table>
-						<h2>替换</h2>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/ruby|rube/</td><td>匹配 "ruby" 或 "rube"</td></tr>
-							<tr><td>/rub(y|le))/</td><td>匹配 "ruby" 或 "ruble"</td></tr>
-							<tr><td>/ruby(!+|\?)/ </td><td>"ruby" 后跟一个或多个 ! 或者跟一个 ?</td></tr>
-						</table>
-						<h2>锚</h2>
-						<p>这需要指定匹配位置。</p>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/^Ruby/</td><td>匹配以 "Ruby" 开头的字符串或行</td></tr>
-							<tr><td>/Ruby$/ </td><td>匹配以 "Ruby" 结尾的字符串或行</td></tr>
-							<tr><td>/\ARuby/ </td><td>匹配以 "Ruby" 开头的字符串</td></tr>
-							<tr><td>/Ruby\Z/</td><td>匹配以 "Ruby" 结尾的字符串</td></tr>
-							<tr><td>/\bRuby\b/</td><td>匹配单词边界的 "Ruby"</td></tr>
-							<tr><td>/\brub\B/</td><td>\B 是非单词边界：匹配 "rube" 和 "ruby" 中的 "rub"，但不匹配单独的 "rub"</td></tr>
-							<tr><td>/Ruby(?=!)/</td><td>如果 "Ruby" 后跟着一个感叹号，则匹配 "Ruby"</td></tr>
-							<tr><td>/Ruby(?!!)/ </td><td>如果 "Ruby" 后没有跟着一个感叹号，则匹配 "Ruby"</td></tr>
-						</table>
-						<h2>圆括号的特殊语法</h2>
-						<table class="reference notranslate">
-							<tr><th style="width:25%">实例</th><th>描述</th></tr>
-							<tr><td>/R(?#comment)/ </td><td>匹配 "R"。所有剩余的字符都是注释。</td></tr>
-							<tr><td>/R(?i)uby/ </td><td>当匹配 "uby" 时不区分大小写。</td></tr>
-							<tr><td>/R(?i:uby)/ </td><td>与上面相同。</td></tr>
-							<tr><td>/rub(?:y|le))/</td><td>只分组，不进行 \1 反向引用</td></tr>
-						</table>
-						<br />
-
-						<h2 class="tutheader">搜索和替换</h2>
-						<p><b>sub</b> 和 <b>gsub</b> 及它们的替代变量 <b>sub!</b> 和 <b>gsub!</b> 是使用正则表达式时重要的字符串方法。</p>
-						<p>所有这些方法都是使用正则表达式模式执行搜索与替换操作。<b>sub</b> 和 <b>sub!</b> 替换模式的第一次出现，<b>gsub</b> 和 <b>gsub!</b> 替换模式的所有出现。</p>
-						<p><b>sub</b> 和 <b>gsub</b> 返回一个新的字符串，保持原始的字符串不被修改，而 <b>sub!</b> 和 <b>gsub!</b> 则会修改它们调用的字符串。</p>
-						<p>下面是一个实例：</p>
-						<pre>
-							#!/usr/bin/ruby
-							# -*- coding: UTF-8 -*-
-
-							phone = "138-3453-1111 #这是一个电话号码"
-
-							# 删除 Ruby 的注释
-							phone = phone.sub!(/#.*$/, "")   
-							puts "电话号码 : #{phone}"
-
-							# 移除数字以外的其他字符
-							phone = phone.gsub!(/\D/, "")    
-							puts "电话号码 : #{phone}"
-						</pre>
-						<p>以上实例运行输出结果为：</p>
-						<pre>
-							电话号码 : 138-3453-1111 
-							电话号码 : 13834531111
-						</pre>
-						<p>下面是另一个实例：</p>
-						<pre>
-							#!/usr/bin/ruby
-							# -*- coding: UTF-8 -*-
-
-							text = "rails 是 rails,  Ruby on Rails 非常好的 Ruby 框架"
-
-							# 把所有的 "rails" 改为 "Rails"
-							text.gsub!("rails", "Rails")
-
-							# 把所有的单词 "Rails" 都改成首字母大写
-							text.gsub!(/\brails\b/, "Rails")
-
-							puts "#{text}"
-						</pre>
-						<p>以上实例运行输出结果为：</p>
-						<pre>
-							Rails 是 Rails,  Ruby on Rails 非常好的 Ruby 框架
-						</pre>
+							<p>$ git branch -a</p>
+							<p>* master</p>
+							<p>remotes/origin/master</p>
+						</div>
+						<p>上面命令表示，本地主机的当前分支是master，远程分支是origin/master。</p>
+						<p>取回远程主机的更新以后，可以在它的基础上，使用<code>git checkout</code>命令创建一个新的分支。</p>
+						<div><p><code>$ git checkout -b newBrach origin/master</code></p></div>
+						<p>上面命令表示，在origin/master的基础上，创建一个新分支。</p>
+						<p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
+						<div class="cnblogs_code">
+							<p>$ git merge origin/master</p>
+							<p># 或者</p>
+							<p>$ git rebase origin/master</p>
+						</div>
+						<p>上面命令表示在当前分支上，合并origin/master。</p>
+						<h2 id="toc_4">git pull</h2>
+						<p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
+						<div><p><code>$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p></div>
+						<p>比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。</p>
+						<div><p><code>$ git pull origin next:master</code></p></div>
+						<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
+						<div><p><code>$ git pull origin next</code></p></div>
+						<p>上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
+						<div class="cnblogs_code">
+							<p>$ git fetch origin</p>
+							<p>$ git merge origin/next</p>
+						</div>
+						<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动&quot;追踪&quot;origin/master分支。</p>
+						<p>Git也允许手动建立追踪关系。</p>
+						<div><p><code>git branch --set-upstream master origin/next</code></p></div>
+						<p>上面命令指定master分支追踪origin/next分支。</p>
+						<p>如果当前分支与远程分支存在追踪关系，<code>git pull</code>就可以省略远程分支名。</p>
+						<div><p><code>$ git pull origin</code></p></div>
+						<p>上面命令表示，本地的当前分支自动与对应的origin主机&quot;追踪分支&quot;（remote-tracking branch）进行合并。</p>
+						<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略。</p>
+						<div><p><code >$ git pull</code></p></div>
+						<p>上面命令表示，当前分支自动与唯一一个追踪分支进行合并。</p>
+						<p>如果合并需要采用rebase模式，可以使用--rebase选项。</p>
+						<div><p><code >$ git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p></div>
+						<p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
+						<p>但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。</p>
+						<div class="cnblogs_code">
+							<p>$ git pull -p</p>
+							<p># 等同于下面的命令</p>
+							<p>$ git fetch --prune origin </p>
+							<p>$ git fetch -p</p>
+						</div>
+						<h2 id="toc_5">git push</h2>
+						<p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
+						<div><p><code>$ git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p></div>
+						<p>注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
+						<p>如果省略远程分支名，则表示将本地分支推送与之存在&quot;追踪关系&quot;的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
+						<div><p><code>$ git push origin master</code></p></div>
+						<p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
+						<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+						<div class="cnblogs_code">
+							<p>$ git push origin :master</p>
+							<p># 等同于</p>
+							<p>$ git push origin --delete master</p>
+						</div>
+						<p>上面命令表示删除origin主机的master分支。</p>
+						<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。</p>
+						<div><p><code>$ git push origin</code></p></div>
+						<p>上面命令表示，将当前分支推送到origin主机的对应分支。</p>
+						<p>如果当前分支只有一个追踪分支，那么主机名都可以省略。</p>
+						<div><p><code>$ git push</code></p></div>
+						<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用<code>git push</code>。</p>
+						<div><p><code >$ git push -u origin master</code></p></div>
+						<p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
+						<p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
+						<div class="cnblogs_code">
+							<p>$ git config --global push.default matching</p>
+							<p># 或者</p>
+							<p>$ git config --global push.default simple</p>
+						</div>
+						<p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。</p>
+						<div><p><code>$ git push --all origin</code></p></div>
+						<p>上面命令表示，将所有本地分支都推送到origin主机。</p>
+						<p>如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做<code>git pull</code>合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用--force选项。</p>
+						<div><p><code>$ git push --force origin </code></p></div>
+						<p>上面命令使用--force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用--force选项。</p>
+						<p>最后，<code>git push</code>不会推送标签（tag），除非使用--tags选项。</p>
+						<div><p><code>$ git push origin --tags</code></p></div>
 						]]></content>
 						<summary type="html">
-							<![CDATA[<p>Ruby是一种开源的面向对象程序设计的服务器端脚本语言，在20世纪90年代中期由日本的松本行弘（Yukihiro Matsumoto）设计并开发。在Ruby社区，松本也被称为马茨（Matz）。Ruby可运行于多种平台，如Windows、MAC OS和UNIX的各种版本。正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找其他字符串或字符串集合。</p>]]>
-						</summary>
-
+							<![CDATA[<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
+							<p><a target="_blank" href="http://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+							<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是 Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>]]>
+						</summary>				
 					</entry>
 
 					<entry>
-						<title><![CDATA[设计模式简介]]></title>
-						<link href="http://charsdavy.github.io/2016/04/10/design-pattern-brief/"/>
-						<id>http://charsdavy.github.io/2016/04/10/design-pattern-brief/</id>
-						<published>2016-04-10T15:53:03.000Z</published>
-						<updated>2016-04-10T15:53:03.000Z</updated>
+						<title><![CDATA[正则表达式 - Ruby]]></title>
+						<link href="http://charsdavy.github.io/2016/04/12/ruby-regular-pattern/"/>
+						<id>http://charsdavy.github.io/2016/04/12/ruby-regular-pattern/</id>
+						<published>2016-04-12T21:53:03.000Z</published>
+						<updated>2016-04-12T21:53:03.000Z</updated>
 						<content type="html"><![CDATA[
-							<p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p> 
-							<p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码 可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用 设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决 方案，这也是设计模式能被广泛应用的原因。</p> 
-							<h1 id="什么是gofgang-of-four">什么是GOF（Gang of Four）</h1> 
-							<p>在 1994 年，由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本名为《 Design Patterns - Elements of Reusable Object-Oriented Software》（中文译名：设计模式 - 可复用的面向对象软件元素） 的书，该书首次提到了软件开发中设计模式的概念。</p> 
-							<p>四位作者合称 GOF（四人帮，全拼 Gang of Four）。他们所提出的设计模式主要是基于以下的面向对象设计原则。</p> 
-							<ul> 
-								<li>对接口编程而不是对实现编程。</li> 
-								<li>优先使用对象组合而不是继承。</li> 
-							</ul> 
-							<h1 id="设计模式的使用">设计模式的使用</h1> 
-							<p>设计模式在软件开发中的两个主要用途。 ##开发人员的共同平台 设计模式提供了一个标准的术语系统，且具体到特定的情景。例如，单例设计模式意味着使用单个对象，这样所有熟悉单例设计模式的开发人员都能使用单个对象，并且可以通过这种方式告诉对方，程序使用的是单例模式。 ##最佳的实践 设计模式已经经历了很长一段时间的发展，它们提供了软件开发过程中面临的一般问题的最佳解决方案。学习这些模式有助于经验不足的开发人员通过一种简单快捷的方式来学习软件设计。 #设计模式的类型 根据设计模式的参考书《 Design Patterns - Elements of Reusable Object-Oriented Software》（中文译名：设计模式 - 可复用的面向对象软件元素） 中所提到的，总共有 23 种设计模式。这些模式可以分为三大类：创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）。当然，我们还会讨论另一类设计模式：J2EE 设计模式。 ##创建型模式 这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用新的运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。</p> 
-							<ul> 
-								<li>工厂模式（Factory Pattern）</li> 
-								<li>抽象工厂模式（Abstract Factory Pattern）</li> 
-								<li>单例模式（Singleton Pattern）</li> 
-								<li>建造者模式（Builder Pattern）</li> 
-								<li>原型模式（Prototype Pattern）</li> 
-							</ul> 
-							<h2 id="结构型模式">结构型模式</h2> 
-							<p>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。</p> 
-							<ul> 
-								<li>适配器模式（Adapter Pattern）</li> 
-								<li>桥接模式（Bridge Pattern）</li> 
-								<li>过滤器模式（Filter Pattern）</li> 
-								<li>组合模式（Composite Pattern）</li> 
-								<li>装饰器模式（Decorator Pattern）</li> 
-								<li>外观模式（Facade Pattern）</li> 
-								<li>享元模式（Flyweight Pattern）</li> 
-								<li>代理模式（Proxy Pattern）</li> 
-							</ul> 
-							<h2 id="行为型模式">行为型模式</h2> 
-							<p>这些设计模式特别关注对象之间的通信。</p> 
-							<ul> 
-								<li>责任链模式（Chain Responsibility Pattern）</li> 
-								<li>命令模式（Command Pattern）</li> 
-								<li>解释器模式（Interpreter Pattern）</li> 
-								<li>迭代器模式（Iterator Pattern）</li> 
-								<li>中介者模式（Mediator Pattern）</li> 
-								<li>备忘录模式（Memento Pattern）</li> 
-								<li>观察者模式（Observer Pattern）</li> 
-								<li>状态模式（State Pattern）</li> 
-								<li>空对象模式（Null Object Pattern）</li> 
-								<li>策略模式（Strategy Pattern）</li> 
-								<li>模板模式（Template Pattern）</li> 
-								<li>访问者模式（Visitor Pattern）</li> 
-							</ul> 
-							<h2 id="j2ee模式">J2EE模式</h2> 
-							<p>这些设计模式特别关注表示层。这些模式是由 Sun Java Center 鉴定的。</p> 
-							<ul> 
-								<li>MVC模式（MVC Pattern）</li> 
-								<li>业务代表模式（Business Delegate Pattern）</li> 
-								<li>组合实体模式（Composite Entity Pattern）</li> 
-								<li>数据访问对象模式（Data Access Object Pattern）</li> 
-								<li>前端控制器模式（Front Controller Pattern）</li> 
-								<li>拦截过滤器模式（Intercepting Filter Pattern）</li> 
-								<li>服务定位器模式（Service Locator Pattern）</li> 
-								<li>传输对象模式（Transfer Object Pattern）</li> 
-							</ul> 
-							<h1 id="设计模式的六大原则">设计模式的六大原则</h1> 
-							<p>1、开闭原则（Open Close Principle）</p> 
-							<p>开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。</p> 
-							<p>2、里氏代换原则（Liskov Substitution Principle）</p> 
-							<p>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代 换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤 的规范。</p> 
-							<p>3、依赖倒转原则（Dependence Inversion Principle）</p> 
-							<p>这个原则是开闭原则的基础，具体内容：针对对接口编程，依赖于抽象而不依赖于具体。</p> 
-							<p>4、接口隔离原则（Interface Segregation Principle）</p> 
-							<p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p> 
-							<p>5、迪米特法则，又称最少知道原则（Demeter Principle）</p> 
-							<p>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p> 
-							<p>6、合成复用原则（Composite Reuse Principle）</p> 
-							<p>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p> 
-							]]></content>
-							<summary type="html">
-								<![CDATA[<p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>]]>
-							</summary>
+							<p>Ruby是一种开源的面向对象程序设计的服务器端脚本语言，在20世纪90年代中期由日本的松本行弘（Yukihiro Matsumoto）设计并开发。在Ruby社区，
+								松本也被称为马茨（Matz）。Ruby可运行于多种平台，如Windows、MAC OS和UNIX的各种版本。</p> 
+								<p>正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找其他字符串或字符串集合。</p> 
+								<p>实际上很多脚本语言或非脚本语言都支持正则表达式，Objective-C也不例外。但是每一种语言对正则表达式的支持都有所不同。本文主要讲解Ruby中的正则表达式。</p>
 
-						</entry>
+								<h1>Ruby <span class="color_h1">正则表达式</span></h1>
 
-						<entry>
-							<title><![CDATA[Xcode插件开发教程指南]]></title>
-							<link href="http://charsdavy.github.io/2016/04/08/iOS-Xcode-Plugin/"/>
-							<id>http://charsdavy.github.io/2016/04/08/iOS-Xcode-Plugin/</id>
-							<published>2016-04-08T01:53:03.000Z</published>
-							<updated>2016-04-08T01:53:03.000Z</updated>
-							<content type="html"><![CDATA[
-								<p>在平时开发过程中我们使用了很多的Xcode插件，虽然官方对于插件制作没有提供任何支持，但是加载三方的插件，默认还是被允许的。第三方的插件，存放在 ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins文件夹中，后缀名必须是.xcplugin ，其实际上是一种bundle。所以我们创建一个插件工程，直接创建bundle工程即可。然后通过修改后缀名为.xcplugin，将其放到~/Library/Application Support/Developer/Shared/Xcode/Plug-ins目录中即可。</p> 
-								<p>Xcode插件开发现在主要通过两种方式实现，其实也就是一种，只不过其中一种是使用别人提供的开发模板来省去很多中间步骤而已。文章会依次详细介绍两种的实现方法。</p> 
-								<h1>准备工作</h1> 
-								<h2>方式一：通过Bundle实现</h2> 
-								<p>&nbsp;1.创建Bundle工程</p> 
-								<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330144728207-192574452.png" alt="" /></p> 
-								<p>2.工程设置</p> 
-								<p id="首先是工程的plist文件">插件工程和普通的bundle工程还是有区别的,所以需要进行特殊的设置。</p> 
-								<p>1）工程的plist文件</p> 
-								<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330144905629-871612988.png" alt="" /></p> 
-								<p>添加三项： <br /> XCPluginHasUI = NO <br /> XC4Compatible = YES <br /> DVTPlugInCompatibilityUUIDs 这是一个数组。数组内容字符串，指示了该插件兼容的Xcode版本，只有对应版本的Xcode的UIID加入这个数组，插件才能被加载。否则，即使将插件放入Xcode的插件文件夹，插件也不会被加载。<br /> 获取当前版本的Xcode的UUID方式：</p> 
-								<p>在terminal中输入命令：</p> 
-								<p> defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID </p> 
-								<p>terminal会返回一串字符串，这就是Xcode的DVTPlugInCompatibilityUUID。</p> 
-								<p id="接下来是-build-setting了">2）Build Setting</p> 
-								<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145158129-342161810.png" alt="" /></p> 
-								<p>&nbsp;</p> 
-								<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145210144-303815379.png" alt="" /></p> 
-								<p>Installation Build Products Location 设置为 ${HOME} [显示的时候,显示的是你的用户目录]，这个是products的根目录。</p> 
-								<p>Installation Directory 设置为 /Library/Application Support/Developer/Shared/Xcode/Plug-ins，这个是指定你的插件安装的目录。 注意，这里填入的其实是相对目录。插件的绝对目录是这样的，例如 /Users/yohunl/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/Alcatraz.xcplugin ，最后的绝对目录是 Installation Build Products Location和Installation Directory的结合，这也是为什么两者都要设置的原因。</p> 
-								<p>Deployment Location 设置为 YES，这个是指示该工程不使用设置里的build location，而是用Installation Directory来确定build后放置的位置。</p> 
-								<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145434019-1733725866.png" alt="" /></p> 
-								<p>默认工程生成的相关文件位置都是 Build Locations指定的，通过Deployment Location 设置为 YES告诉工程，我们不使用这个默认的设置，而是我们自定义的。</p> 
-								<p>Wrapper extension 设置为 xcplugin，后缀名必须为xcplugin，否则不会被加载。</p> 
-								<h2>方式二：通过模板实现</h2> 
-								<p>&nbsp;1）下载Xcode插件开发模板</p> 
-								<p>地址：<a href="https://github.com/kattrali/Xcode-Plugin-Template" target="_blank">https://github.com/kattrali/Xcode-Plugin-Template</a><br /><br />2）将下载下来的template复制到 ~/Library/Developer/Xcode/Templates/Project Templates/Application Plug-in/Xcode Plugin.xctemplate文件夹中，如果没有对应的文件夹就自己手动创建一个。<br /><br />3）重启Xcode，当你新建一个工程的时候就可以在OS X中看到一个Application Plug-in的选项，里面有一个Xcode Plug-in模板。</p> 
-								<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330150045894-1159966575.png" alt="" /></p> 
-								<h1>实现</h1> 
-								<p>通过以上的两种准备方式，我们已可以创建Xcode插件工程，接下来就是如何实现插件功能。</p> 
-								<p>&nbsp;1.功能需求</p> 
-								<p>在当前选中文件中实现代码风格重构，目前主要实现setter方法这一风格重构。例如，</p> 
-								<p>[self setName:@&quot;Davy&quot;]; ==&gt; self.name = @&quot;Davy&quot;;</p> 
-								<p>2.思路分析</p> 
-								<p>1）找到当前文件中符合setter方法命名风格的方法调用。</p> 
-								<p>2）替换找到的符合重构风格的代码，提醒用户保存。</p> 
-								<p>3.技术难点</p> 
-								<p>1）Xcode代码编辑框文件内容操作。</p> 
-								<p>2）正则表达式书写。</p> 
-								<p>3）Xcode代码编辑框提醒用户保存文件。</p> 
-								<p>关于最后一点，因为Xcode对于没有保存的已修改过的文件会显灰以提示用户该文件需要保存，我们可以借鉴这种方式。另外，在查找时，如果能够实现高亮并且跟随滚动，效果会更佳。</p> 
-								<p>4.关键代码</p> 
-								<p>&nbsp;以上这些问题，本人在“Refactor Code”插件中全部实现，现在放上关键方法。</p> 
-								<p>1）添加菜单</p> 
-								<div class="cnblogs_code"> 
-									<pre>-(<span>void</span><span>) setupMenuItem
-									{
-								</span><span>//</span><span> Menu Item:</span>
-								<span>    
-									NSMenuItem </span>*editMenuItem = [[NSApp mainMenu] itemWithTitle:<span>@&quot;</span><span>Edit</span><span>&quot;</span><span>];
+								<p><b>正则表达式</b>是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找字符串集合。</p>
+								<p>正则表达式用事先定义好的一些特定字符、及这些特定字符的组合，组成一个"规则字符串"，这个"规则字符串"用来表达对字符串的一种过滤逻辑。</p>
 
-								</span><span>if</span><span> (editMenuItem) {
-								[[editMenuItem submenu] addItem:[NSMenuItem separatorItem]];
+								<h2 class="tutheader">语法</h2>
+								<p><b>正则表达式</b>从字面上看是一种介于斜杠之间或介于跟在 %r 后的任意分隔符之间的模式，如下所示：</p>
+								<pre>
+									/pattern/
+									/pattern/im    # 可以指定选项
+									%r!/usr/local! # 使用分隔符的正则表达式
+								</pre>
 
-								NSMenu </span>*refactorCodeMenu = [[NSMenu alloc] initWithTitle:<span>@&quot;</span><span>Refactor Code</span><span>&quot;</span><span>];
+								<h2 class="tutheader">实例</h2>
+								<pre>
+									#!/usr/bin/ruby
 
-								NSMenuItem </span>*<span>menuItem;
-								menuItem </span>= [[NSMenuItem alloc] initWithTitle:<span>@&quot;</span><span>Refactor Method Style</span><span>&quot;</span> action:@selector(refactorMethodStyleMenuAction) keyEquivalent:<span>@&quot;&quot;</span><span>];
-								[menuItem setTarget:self];
-								[refactorCodeMenu addItem:menuItem];
+									line1 = "Cats are smarter than dogs";
+									line2 = "Dogs also like meat";
 
-								NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span>@&quot;</span><span>Refactor Code</span><span>&quot;</span> action:nil keyEquivalent:<span>@&quot;&quot;</span><span>];
-								[refactorCodeMenuItem setSubmenu:refactorCodeMenu];
-								[[editMenuItem submenu] addItem:refactorCodeMenuItem];
+									if ( line1 =~ /Cats(.*)/ )
+									puts "Line1 contains Cats"
+									end
+									if ( line2 =~ /Cats(.*)/ )
+									puts "Line2 contains  Dogs"
+									end
+								</pre>
+								<p>以上实例运行输出结果为：</p>
+								<pre>
+									Line1 contains Cats
+								</pre>
+
+								<h2 class="tutheader">正则表达式修饰符</h2>
+								<p>正则表达式从字面上看可能包含一个可选的修饰符，用于控制各方面的匹配。修饰符在第二个斜杠字符后指定，如上面实例所示。下标列出了 可能的修饰符：</p>
+								<table class="reference">
+									<tr><th style="width:25%">修饰符</th><th>描述</th></tr>
+									<tr><td>i</td><td>当匹配文本时忽略大小写。</td></tr>
+									<tr><td>o</td><td>只执行一次 #{} 插值，正则表达式在第一次时就进行判断。</td></tr>
+									<tr><td>x</td><td>忽略空格，允许在整个表达式中放入空白符和注释。</td></tr>
+									<tr><td>m</td><td>匹配多行，把换行字符识别为正常字符。</td></tr>
+									<tr><td>u,e,s,n</td><td>把正则表达式解释为 Unicode（UTF-8）、EUC、SJIS 或 ASCII。如果没有指定修饰符，则认为正则表达式使用的是源编码。</td></tr>
+								</table>
+								<p>就像字符串通过 %Q 进行分隔一样，Ruby 允许您以 %r 作为正则表达式的开头，后面跟着任意分隔符。这在描述包含大量您不想转义的斜杠字符时非常有用。</p>
+								<pre>
+									# 下面匹配单个斜杠字符，不转义
+									%r|/|               
+
+									# Flag 字符可通过下面的语法进行匹配
+									%r[&lt;/(.*)&gt;]i  
+								</pre>
+
+								<h2 class="tutheader">正则表达式模式</h2>
+								<p>除了控制字符，<b>(+ ? . * ^ $ ( ) [ ] { } | \)</b>，其他所有字符都匹配本身。您可以通过在控制字符前放置一个反斜杠来对控制字符进行转义。</p>
+								<p>下表列出了 Ruby 中可用的正则表达式语法。</p>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">模式</th><th>描述</th></tr>
+									<tr><td>^</td><td>匹配行的开头。</td></tr>
+									<tr><td>$</td><td>匹配行的结尾。</td></tr>
+									<tr><td>.</td><td>匹配除了换行符以外的任意单字符。使用 m 选项时，它也可以匹配换行符。</td></tr>
+									<tr><td>[...]</td><td>匹配在方括号中的任意单字符。</td></tr>
+									<tr><td>[^...]</td><td>匹配不在方括号中的任意单字符。</td></tr>
+									<tr><td>re*</td><td>匹配前面的子表达式零次或多次。</td></tr>
+									<tr><td>re+</td><td>匹配前面的子表达式一次或多次。</td></tr>
+									<tr><td>re?</td><td>匹配前面的子表达式零次或一次。</td></tr>
+									<tr><td>re{ n}</td><td>匹配前面的子表达式 n 次。</td></tr>
+									<tr><td>re{ n,}</td><td>匹配前面的子表达式 n 次或 n 次以上。</td></tr>
+									<tr><td>re{ n, m}</td><td>匹配前面的子表达式至少 n 次至多 m 次。</td></tr>
+									<tr><td>a| b</td><td>匹配 a 或 b。</td></tr>
+									<tr><td>(re)</td><td>对正则表达式进行分组，并记住匹配文本。</td></tr>
+									<tr><td>(?imx)</td><td>暂时打开正则表达式内的 i、 m 或 x 选项。如果在圆括号中，则只影响圆括号内的部分。</td></tr>
+									<tr><td>(?-imx)</td><td>暂时关闭正则表达式内的 i、 m 或 x 选项。如果在圆括号中，则只影响圆括号内的部分。</td></tr>
+									<tr><td>(?: re)</td><td>对正则表达式进行分组，但不记住匹配文本。</td></tr>
+									<tr><td>(?imx: re)</td><td>暂时打开圆括号内的 i、 m 或 x 选项。</td></tr>
+									<tr><td>(?-imx: re)</td><td>暂时关闭圆括号内的 i、 m 或 x 选项。</td></tr>
+									<tr><td>(?#...)</td><td>注释。</td></tr>
+									<tr><td>(?= re)</td><td>使用模式指定位置。没有范围。</td></tr>
+									<tr><td>(?! re)</td><td>使用模式的否定指定位置。没有范围。</td></tr>
+									<tr><td>(?&gt; re)</td><td>匹配无回溯的独立模式。</td></tr>
+									<tr><td>\w</td><td>匹配单词字符。</td></tr>
+									<tr><td>\W</td><td>匹配非单词字符。</td></tr>
+									<tr><td>\s</td><td>匹配空白字符。等价于 [\t\n\r\f]。</td></tr>
+									<tr><td>\S</td><td>匹配非空白字符。</td></tr>
+									<tr><td>\d</td><td>匹配数字。等价于 [0-9]。</td></tr>
+									<tr><td>\D</td><td>匹配非数字。</td></tr>
+									<tr><td>\A</td><td>匹配字符串的开头。</td></tr>
+									<tr><td>\Z</td><td>匹配字符串的结尾。如果存在换行符，则只匹配到换行符之前。</td></tr>
+									<tr><td>\z</td><td>匹配字符串的结尾。</td></tr>
+									<tr><td>\G</td><td>匹配最后一个匹配完成的点。</td></tr>
+									<tr><td>\b</td><td>当在括号外时匹配单词边界，当在括号内时匹配退格键（0x08）。</td></tr>
+									<tr><td>\B</td><td>匹配非单词边界。</td></tr>
+									<tr><td>\n, \t, etc.</td><td>匹配换行符、回车符、制表符，等等。</td></tr>
+									<tr><td>\1...\9</td><td>匹配第 n 个分组子表达式。</td></tr>
+									<tr><td>\10</td><td>如果已匹配过，则匹配第 n 个分组子表达式。否则指向字符编码的八进制表示。</td></tr>
+								</table>
+								<br />
+
+								<h2 class="tutheader">正则表达式实例</h2>
+								<h2>字符</h2>
+								<table class="reference">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/ruby/</td><td>匹配 "ruby"</td></tr>
+									<tr><td>&yen;</td><td>匹配 Yen 符号。Ruby 1.9 和 Ruby 1.8 支持多个字符。</td></tr>
+								</table>
+								<h2>字符类</h2>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/[Rr]uby/ </td><td>匹配 "Ruby" 或 "ruby"</td></tr>
+									<tr><td>/rub[ye]/ </td><td>匹配 "ruby" 或 "rube"</td></tr>
+									<tr><td>/[aeiou]/</td><td>匹配任何一个小写元音字母</td></tr>
+									<tr><td>/[0-9]/ </td><td>匹配任何一个数字，与 /[0123456789]/ 相同</td></tr>
+									<tr><td>/[a-z]/</td><td>匹配任何一个小写 ASCII 字母</td></tr>
+									<tr><td>/[A-Z]/</td><td>匹配任何一个大写 ASCII 字母</td></tr>
+									<tr><td>/[a-zA-Z0-9]/</td><td>匹配任何一个括号内的字符</td></tr>
+									<tr><td>/[^aeiou]/ </td><td>匹配任何一个非小写元音字母的字符</td></tr>
+									<tr><td>/[^0-9]/</td><td>匹配任何一个非数字字符</td></tr>
+								</table>
+								<h2>特殊字符类</h2>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/./ </td><td>匹配除了换行符以外的其他任意字符</td></tr>
+									<tr><td>/./m </td><td>在多行模式下，也能匹配换行符</td></tr>
+									<tr><td>/\d/</td><td>匹配一个数字，等同于 /[0-9]/</td></tr>
+									<tr><td>/\D/ </td><td>匹配一个非数字，等同于 /[^0-9]/</td></tr>
+									<tr><td>/\s/</td><td>匹配一个空白字符，等同于 /[ \t\r\n\f]/</td></tr>
+									<tr><td>/\S/ </td><td>匹配一个非空白字符，等同于 /[^ \t\r\n\f]/</td></tr>
+									<tr><td>/\w/ </td><td>匹配一个单词字符，等同于 /[A-Za-z0-9_]/</td></tr>
+									<tr><td>/\W/</td><td>匹配一个非单词字符，等同于 /[^A-Za-z0-9_]/</td></tr>
+								</table>
+								<h2>重复</h2>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/ruby?/ </td><td>匹配 "rub" 或 "ruby"。其中，y 是可有可无的。</td></tr>
+									<tr><td>/ruby*/ </td><td>匹配 "rub" 加上 0 个或多个的 y。</td></tr>
+									<tr><td>/ruby+/</td><td>匹配 "rub" 加上 1 个或多个的 y。</td></tr>
+									<tr><td>/\d{3}/</td><td>刚好匹配 3 个数字。</td></tr>
+									<tr><td>/\d{3,}/</td><td>匹配 3 个或多个数字。</td></tr>
+									<tr><td>/\d{3,5}/</td><td>匹配 3 个、4 个或 5 个数字。</td></tr>
+								</table>
+								<h2>非贪婪重复</h2>
+								<p>这会匹配最小次数的重复。</p>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/&lt;.*&gt;/</td><td>贪婪重复：匹配 "&lt;ruby&gt;perl&gt;"</td></tr>
+									<tr><td>/&lt;.*?&gt;/ </td><td>非贪婪重复：匹配 "&lt;ruby&gt;perl&gt;" 中的 "&lt;ruby&gt;"</td></tr>
+								</table>
+								<h2>通过圆括号进行分组</h2>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/\D\d+/ </td><td>无分组： + 重复 \d</td></tr>
+									<tr><td>/(\D\d)+/ </td><td>分组： + 重复 \D\d 对</td></tr>
+									<tr><td>/([Rr]uby(, )?)+/</td><td>匹配 "Ruby"、"Ruby, ruby, ruby"，等等</td></tr>
+								</table>
+								<h2>反向引用</h2>
+								<p>这会再次匹配之前匹配过的分组。</p>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/([Rr])uby&amp;\1ails/</td><td>匹配 ruby&amp;rails 或 Ruby&amp;Rails</td></tr>
+									<tr><td> /(['"])(?:(?!\1).)*\1/</td><td>单引号或双引号字符串。\1 匹配第一个分组所匹配的字符，\2 匹配第二个分组所匹配的字符，依此类推。</td></tr>
+								</table>
+								<h2>替换</h2>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/ruby|rube/</td><td>匹配 "ruby" 或 "rube"</td></tr>
+									<tr><td>/rub(y|le))/</td><td>匹配 "ruby" 或 "ruble"</td></tr>
+									<tr><td>/ruby(!+|\?)/ </td><td>"ruby" 后跟一个或多个 ! 或者跟一个 ?</td></tr>
+								</table>
+								<h2>锚</h2>
+								<p>这需要指定匹配位置。</p>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/^Ruby/</td><td>匹配以 "Ruby" 开头的字符串或行</td></tr>
+									<tr><td>/Ruby$/ </td><td>匹配以 "Ruby" 结尾的字符串或行</td></tr>
+									<tr><td>/\ARuby/ </td><td>匹配以 "Ruby" 开头的字符串</td></tr>
+									<tr><td>/Ruby\Z/</td><td>匹配以 "Ruby" 结尾的字符串</td></tr>
+									<tr><td>/\bRuby\b/</td><td>匹配单词边界的 "Ruby"</td></tr>
+									<tr><td>/\brub\B/</td><td>\B 是非单词边界：匹配 "rube" 和 "ruby" 中的 "rub"，但不匹配单独的 "rub"</td></tr>
+									<tr><td>/Ruby(?=!)/</td><td>如果 "Ruby" 后跟着一个感叹号，则匹配 "Ruby"</td></tr>
+									<tr><td>/Ruby(?!!)/ </td><td>如果 "Ruby" 后没有跟着一个感叹号，则匹配 "Ruby"</td></tr>
+								</table>
+								<h2>圆括号的特殊语法</h2>
+								<table class="reference notranslate">
+									<tr><th style="width:25%">实例</th><th>描述</th></tr>
+									<tr><td>/R(?#comment)/ </td><td>匹配 "R"。所有剩余的字符都是注释。</td></tr>
+									<tr><td>/R(?i)uby/ </td><td>当匹配 "uby" 时不区分大小写。</td></tr>
+									<tr><td>/R(?i:uby)/ </td><td>与上面相同。</td></tr>
+									<tr><td>/rub(?:y|le))/</td><td>只分组，不进行 \1 反向引用</td></tr>
+								</table>
+								<br />
+
+								<h2 class="tutheader">搜索和替换</h2>
+								<p><b>sub</b> 和 <b>gsub</b> 及它们的替代变量 <b>sub!</b> 和 <b>gsub!</b> 是使用正则表达式时重要的字符串方法。</p>
+								<p>所有这些方法都是使用正则表达式模式执行搜索与替换操作。<b>sub</b> 和 <b>sub!</b> 替换模式的第一次出现，<b>gsub</b> 和 <b>gsub!</b> 替换模式的所有出现。</p>
+								<p><b>sub</b> 和 <b>gsub</b> 返回一个新的字符串，保持原始的字符串不被修改，而 <b>sub!</b> 和 <b>gsub!</b> 则会修改它们调用的字符串。</p>
+								<p>下面是一个实例：</p>
+								<pre>
+									#!/usr/bin/ruby
+									# -*- coding: UTF-8 -*-
+
+									phone = "138-3453-1111 #这是一个电话号码"
+
+									# 删除 Ruby 的注释
+									phone = phone.sub!(/#.*$/, "")   
+									puts "电话号码 : #{phone}"
+
+									# 移除数字以外的其他字符
+									phone = phone.gsub!(/\D/, "")    
+									puts "电话号码 : #{phone}"
+								</pre>
+								<p>以上实例运行输出结果为：</p>
+								<pre>
+									电话号码 : 138-3453-1111 
+									电话号码 : 13834531111
+								</pre>
+								<p>下面是另一个实例：</p>
+								<pre>
+									#!/usr/bin/ruby
+									# -*- coding: UTF-8 -*-
+
+									text = "rails 是 rails,  Ruby on Rails 非常好的 Ruby 框架"
+
+									# 把所有的 "rails" 改为 "Rails"
+									text.gsub!("rails", "Rails")
+
+									# 把所有的单词 "Rails" 都改成首字母大写
+									text.gsub!(/\brails\b/, "Rails")
+
+									puts "#{text}"
+								</pre>
+								<p>以上实例运行输出结果为：</p>
+								<pre>
+									Rails 是 Rails,  Ruby on Rails 非常好的 Ruby 框架
+								</pre>
+								]]></content>
+								<summary type="html">
+									<![CDATA[<p>Ruby是一种开源的面向对象程序设计的服务器端脚本语言，在20世纪90年代中期由日本的松本行弘（Yukihiro Matsumoto）设计并开发。在Ruby社区，松本也被称为马茨（Matz）。Ruby可运行于多种平台，如Windows、MAC OS和UNIX的各种版本。正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找其他字符串或字符串集合。</p>]]>
+								</summary>
+
+							</entry>
+
+							<entry>
+								<title><![CDATA[设计模式简介]]></title>
+								<link href="http://charsdavy.github.io/2016/04/10/design-pattern-brief/"/>
+								<id>http://charsdavy.github.io/2016/04/10/design-pattern-brief/</id>
+								<published>2016-04-10T15:53:03.000Z</published>
+								<updated>2016-04-10T15:53:03.000Z</updated>
+								<content type="html"><![CDATA[
+									<p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p> 
+									<p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码 可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用 设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决 方案，这也是设计模式能被广泛应用的原因。</p> 
+									<h1 id="什么是gofgang-of-four">什么是GOF（Gang of Four）</h1> 
+									<p>在 1994 年，由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本名为《 Design Patterns - Elements of Reusable Object-Oriented Software》（中文译名：设计模式 - 可复用的面向对象软件元素） 的书，该书首次提到了软件开发中设计模式的概念。</p> 
+									<p>四位作者合称 GOF（四人帮，全拼 Gang of Four）。他们所提出的设计模式主要是基于以下的面向对象设计原则。</p> 
+									<ul> 
+										<li>对接口编程而不是对实现编程。</li> 
+										<li>优先使用对象组合而不是继承。</li> 
+									</ul> 
+									<h1 id="设计模式的使用">设计模式的使用</h1> 
+									<p>设计模式在软件开发中的两个主要用途。 ##开发人员的共同平台 设计模式提供了一个标准的术语系统，且具体到特定的情景。例如，单例设计模式意味着使用单个对象，这样所有熟悉单例设计模式的开发人员都能使用单个对象，并且可以通过这种方式告诉对方，程序使用的是单例模式。 ##最佳的实践 设计模式已经经历了很长一段时间的发展，它们提供了软件开发过程中面临的一般问题的最佳解决方案。学习这些模式有助于经验不足的开发人员通过一种简单快捷的方式来学习软件设计。 #设计模式的类型 根据设计模式的参考书《 Design Patterns - Elements of Reusable Object-Oriented Software》（中文译名：设计模式 - 可复用的面向对象软件元素） 中所提到的，总共有 23 种设计模式。这些模式可以分为三大类：创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）。当然，我们还会讨论另一类设计模式：J2EE 设计模式。 ##创建型模式 这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用新的运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。</p> 
+									<ul> 
+										<li>工厂模式（Factory Pattern）</li> 
+										<li>抽象工厂模式（Abstract Factory Pattern）</li> 
+										<li>单例模式（Singleton Pattern）</li> 
+										<li>建造者模式（Builder Pattern）</li> 
+										<li>原型模式（Prototype Pattern）</li> 
+									</ul> 
+									<h2 id="结构型模式">结构型模式</h2> 
+									<p>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。</p> 
+									<ul> 
+										<li>适配器模式（Adapter Pattern）</li> 
+										<li>桥接模式（Bridge Pattern）</li> 
+										<li>过滤器模式（Filter Pattern）</li> 
+										<li>组合模式（Composite Pattern）</li> 
+										<li>装饰器模式（Decorator Pattern）</li> 
+										<li>外观模式（Facade Pattern）</li> 
+										<li>享元模式（Flyweight Pattern）</li> 
+										<li>代理模式（Proxy Pattern）</li> 
+									</ul> 
+									<h2 id="行为型模式">行为型模式</h2> 
+									<p>这些设计模式特别关注对象之间的通信。</p> 
+									<ul> 
+										<li>责任链模式（Chain Responsibility Pattern）</li> 
+										<li>命令模式（Command Pattern）</li> 
+										<li>解释器模式（Interpreter Pattern）</li> 
+										<li>迭代器模式（Iterator Pattern）</li> 
+										<li>中介者模式（Mediator Pattern）</li> 
+										<li>备忘录模式（Memento Pattern）</li> 
+										<li>观察者模式（Observer Pattern）</li> 
+										<li>状态模式（State Pattern）</li> 
+										<li>空对象模式（Null Object Pattern）</li> 
+										<li>策略模式（Strategy Pattern）</li> 
+										<li>模板模式（Template Pattern）</li> 
+										<li>访问者模式（Visitor Pattern）</li> 
+									</ul> 
+									<h2 id="j2ee模式">J2EE模式</h2> 
+									<p>这些设计模式特别关注表示层。这些模式是由 Sun Java Center 鉴定的。</p> 
+									<ul> 
+										<li>MVC模式（MVC Pattern）</li> 
+										<li>业务代表模式（Business Delegate Pattern）</li> 
+										<li>组合实体模式（Composite Entity Pattern）</li> 
+										<li>数据访问对象模式（Data Access Object Pattern）</li> 
+										<li>前端控制器模式（Front Controller Pattern）</li> 
+										<li>拦截过滤器模式（Intercepting Filter Pattern）</li> 
+										<li>服务定位器模式（Service Locator Pattern）</li> 
+										<li>传输对象模式（Transfer Object Pattern）</li> 
+									</ul> 
+									<h1 id="设计模式的六大原则">设计模式的六大原则</h1> 
+									<p>1、开闭原则（Open Close Principle）</p> 
+									<p>开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。</p> 
+									<p>2、里氏代换原则（Liskov Substitution Principle）</p> 
+									<p>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代 换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤 的规范。</p> 
+									<p>3、依赖倒转原则（Dependence Inversion Principle）</p> 
+									<p>这个原则是开闭原则的基础，具体内容：针对对接口编程，依赖于抽象而不依赖于具体。</p> 
+									<p>4、接口隔离原则（Interface Segregation Principle）</p> 
+									<p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p> 
+									<p>5、迪米特法则，又称最少知道原则（Demeter Principle）</p> 
+									<p>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p> 
+									<p>6、合成复用原则（Composite Reuse Principle）</p> 
+									<p>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p> 
+									]]></content>
+									<summary type="html">
+										<![CDATA[<p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>]]>
+									</summary>
+
+								</entry>
+
+								<entry>
+									<title><![CDATA[Xcode插件开发教程指南]]></title>
+									<link href="http://charsdavy.github.io/2016/04/08/iOS-Xcode-Plugin/"/>
+									<id>http://charsdavy.github.io/2016/04/08/iOS-Xcode-Plugin/</id>
+									<published>2016-04-08T01:53:03.000Z</published>
+									<updated>2016-04-08T01:53:03.000Z</updated>
+									<content type="html"><![CDATA[
+										<p>在平时开发过程中我们使用了很多的Xcode插件，虽然官方对于插件制作没有提供任何支持，但是加载三方的插件，默认还是被允许的。第三方的插件，存放在 ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins文件夹中，后缀名必须是.xcplugin ，其实际上是一种bundle。所以我们创建一个插件工程，直接创建bundle工程即可。然后通过修改后缀名为.xcplugin，将其放到~/Library/Application Support/Developer/Shared/Xcode/Plug-ins目录中即可。</p> 
+										<p>Xcode插件开发现在主要通过两种方式实现，其实也就是一种，只不过其中一种是使用别人提供的开发模板来省去很多中间步骤而已。文章会依次详细介绍两种的实现方法。</p> 
+										<h1>准备工作</h1> 
+										<h2>方式一：通过Bundle实现</h2> 
+										<p>&nbsp;1.创建Bundle工程</p> 
+										<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330144728207-192574452.png" alt="" /></p> 
+										<p>2.工程设置</p> 
+										<p id="首先是工程的plist文件">插件工程和普通的bundle工程还是有区别的,所以需要进行特殊的设置。</p> 
+										<p>1）工程的plist文件</p> 
+										<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330144905629-871612988.png" alt="" /></p> 
+										<p>添加三项： <br /> XCPluginHasUI = NO <br /> XC4Compatible = YES <br /> DVTPlugInCompatibilityUUIDs 这是一个数组。数组内容字符串，指示了该插件兼容的Xcode版本，只有对应版本的Xcode的UIID加入这个数组，插件才能被加载。否则，即使将插件放入Xcode的插件文件夹，插件也不会被加载。<br /> 获取当前版本的Xcode的UUID方式：</p> 
+										<p>在terminal中输入命令：</p> 
+										<p> defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID </p> 
+										<p>terminal会返回一串字符串，这就是Xcode的DVTPlugInCompatibilityUUID。</p> 
+										<p id="接下来是-build-setting了">2）Build Setting</p> 
+										<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145158129-342161810.png" alt="" /></p> 
+										<p>&nbsp;</p> 
+										<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145210144-303815379.png" alt="" /></p> 
+										<p>Installation Build Products Location 设置为 ${HOME} [显示的时候,显示的是你的用户目录]，这个是products的根目录。</p> 
+										<p>Installation Directory 设置为 /Library/Application Support/Developer/Shared/Xcode/Plug-ins，这个是指定你的插件安装的目录。 注意，这里填入的其实是相对目录。插件的绝对目录是这样的，例如 /Users/yohunl/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/Alcatraz.xcplugin ，最后的绝对目录是 Installation Build Products Location和Installation Directory的结合，这也是为什么两者都要设置的原因。</p> 
+										<p>Deployment Location 设置为 YES，这个是指示该工程不使用设置里的build location，而是用Installation Directory来确定build后放置的位置。</p> 
+										<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145434019-1733725866.png" alt="" /></p> 
+										<p>默认工程生成的相关文件位置都是 Build Locations指定的，通过Deployment Location 设置为 YES告诉工程，我们不使用这个默认的设置，而是我们自定义的。</p> 
+										<p>Wrapper extension 设置为 xcplugin，后缀名必须为xcplugin，否则不会被加载。</p> 
+										<h2>方式二：通过模板实现</h2> 
+										<p>&nbsp;1）下载Xcode插件开发模板</p> 
+										<p>地址：<a href="https://github.com/kattrali/Xcode-Plugin-Template" target="_blank">https://github.com/kattrali/Xcode-Plugin-Template</a><br /><br />2）将下载下来的template复制到 ~/Library/Developer/Xcode/Templates/Project Templates/Application Plug-in/Xcode Plugin.xctemplate文件夹中，如果没有对应的文件夹就自己手动创建一个。<br /><br />3）重启Xcode，当你新建一个工程的时候就可以在OS X中看到一个Application Plug-in的选项，里面有一个Xcode Plug-in模板。</p> 
+										<p><img src="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330150045894-1159966575.png" alt="" /></p> 
+										<h1>实现</h1> 
+										<p>通过以上的两种准备方式，我们已可以创建Xcode插件工程，接下来就是如何实现插件功能。</p> 
+										<p>&nbsp;1.功能需求</p> 
+										<p>在当前选中文件中实现代码风格重构，目前主要实现setter方法这一风格重构。例如，</p> 
+										<p>[self setName:@&quot;Davy&quot;]; ==&gt; self.name = @&quot;Davy&quot;;</p> 
+										<p>2.思路分析</p> 
+										<p>1）找到当前文件中符合setter方法命名风格的方法调用。</p> 
+										<p>2）替换找到的符合重构风格的代码，提醒用户保存。</p> 
+										<p>3.技术难点</p> 
+										<p>1）Xcode代码编辑框文件内容操作。</p> 
+										<p>2）正则表达式书写。</p> 
+										<p>3）Xcode代码编辑框提醒用户保存文件。</p> 
+										<p>关于最后一点，因为Xcode对于没有保存的已修改过的文件会显灰以提示用户该文件需要保存，我们可以借鉴这种方式。另外，在查找时，如果能够实现高亮并且跟随滚动，效果会更佳。</p> 
+										<p>4.关键代码</p> 
+										<p>&nbsp;以上这些问题，本人在“Refactor Code”插件中全部实现，现在放上关键方法。</p> 
+										<p>1）添加菜单</p> 
+										<div class="cnblogs_code"> 
+											<pre>-(<span>void</span><span>) setupMenuItem
+											{
+										</span><span>//</span><span> Menu Item:</span>
+										<span>    
+											NSMenuItem </span>*editMenuItem = [[NSApp mainMenu] itemWithTitle:<span>@&quot;</span><span>Edit</span><span>&quot;</span><span>];
+
+										</span><span>if</span><span> (editMenuItem) {
+										[[editMenuItem submenu] addItem:[NSMenuItem separatorItem]];
+
+										NSMenu </span>*refactorCodeMenu = [[NSMenu alloc] initWithTitle:<span>@&quot;</span><span>Refactor Code</span><span>&quot;</span><span>];
+
+										NSMenuItem </span>*<span>menuItem;
+										menuItem </span>= [[NSMenuItem alloc] initWithTitle:<span>@&quot;</span><span>Refactor Method Style</span><span>&quot;</span> action:@selector(refactorMethodStyleMenuAction) keyEquivalent:<span>@&quot;&quot;</span><span>];
+										[menuItem setTarget:self];
+										[refactorCodeMenu addItem:menuItem];
+
+										NSMenuItem </span>*refactorCodeMenuItem = [[NSMenuItem alloc] initWithTitle:<span>@&quot;</span><span>Refactor Code</span><span>&quot;</span> action:nil keyEquivalent:<span>@&quot;&quot;</span><span>];
+										[refactorCodeMenuItem setSubmenu:refactorCodeMenu];
+										[[editMenuItem submenu] addItem:refactorCodeMenuItem];
+										}
+										}</span></pre> 
+									</div> 
+									<p>效果图如下：</p> 
+									<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135707035-2105407027.png" alt="" width="390" height="417" /></p> 
+									<p>2）显示操作面板</p> 
+									<div class="cnblogs_code"> 
+										<pre>- (<span>void</span><span>)refactorMethodStyleMenuAction
+										{
+										[self.operateController showWindow:nil];
+
+										NSURL </span>*url = [[NSBundle bundleForClass:[self <span>class</span>]] URLForResource:<span>@&quot;</span><span>DZOperateController</span><span>&quot;</span> withExtension:<span>@&quot;</span><span>nib</span><span>&quot;</span><span>];
+
+									</span><span>if</span> (!<span>url) {
+									NSAlert </span>*alert =<span> [[NSAlert alloc] init];
+									alert.messageText </span>= <span>@&quot;</span><span>Refactor Method Style could not be shown because the plugin is corrupted.</span><span>&quot;</span><span>;
+									alert.informativeText </span>= <span>@&quot;</span><span>If you build the plugin from sources using Xcode, make sure to perform “Clean Build Folder“ in <br />　　　　　　　　Xcode and then build the plugin again.\n\nIf you installed the plugin via Alctraz, there is a pending issue causing <br />　　　　　　　　some files to be missing in the plugin. Prefer to install it via the plugin webpage.</span><span>&quot;</span><span>;
+									[alert addButtonWithTitle:</span><span>@&quot;</span><span>Download Latest</span><span>&quot;</span><span>];
+									[alert addButtonWithTitle:</span><span>@&quot;</span><span>Cancel</span><span>&quot;</span><span>];
+									NSModalResponse result </span>=<span> [alert runModal];
+
+								</span><span>if</span> (result ==<span> NSAlertFirstButtonReturn) {
+								[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:</span><span>@&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode</span><span>&quot;</span><span>]];
+								}
 								}
 								}</span></pre> 
 							</div> 
 							<p>效果图如下：</p> 
-							<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135707035-2105407027.png" alt="" width="390" height="417" /></p> 
-							<p>2）显示操作面板</p> 
+							<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135950379-1172628646.png" alt="" /></p> 
+							<p>3）查找替换代码风格</p> 
+							<p>这一部分是重点部分，包括如何书写正则表达式，并且利用正则表达式生成替换字符。还包括高亮代码，具体可以参见本人源码：<a href="https://github.com/CharsDavy/RefactorCodePlugin-Xcode" target="_blank">https://github.com/CharsDavy/RefactorCodePlugin-Xcode</a></p> 
+							<p>4）最终效果图</p> 
+							<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401140322598-323202767.png" alt="" /></p> 
+							<h1>提交插件至Alcatraz</h1> 
+							<p>1.打开Alcatraz的插件包仓库，地址：<a href="https://github.com/supermarin/alcatraz-packages" target="_blank">https://github.com/supermarin/alcatraz-packages</a></p> 
+							<p>2.在简介里可以看到Alcatraz的包分为三类，分别为：插件(plugins)，配色方案(color schemes)和模板(templates)。<br /> 每个包都必须包含”name”、”url”和”description”字段，还有一个可选的”screenshot”字段。</p> 
+							<p>3.Fork这个仓库，再克隆到本地。</p> 
+							<p>4.以添加”Refactor Code”插件为例，打开packages.json文件，在”plugins”数组里加入：</p> 
 							<div class="cnblogs_code"> 
-								<pre>- (<span>void</span><span>)refactorMethodStyleMenuAction
-								{
-								[self.operateController showWindow:nil];
+								<pre><span>    {
+								</span><span>&quot;</span><span>name</span><span>&quot;</span>: <span>&quot;</span><span>Refactor Code</span><span>&quot;</span><span>,
+							</span><span>&quot;</span><span>url</span><span>&quot;</span>: <span>&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode.git</span><span>&quot;</span><span>,
+						</span><span>&quot;</span><span>description</span><span>&quot;</span>: <span>&quot;</span><span>Refactor code style,such as setter method.</span><span>&quot;</span><span>,
+					</span><span>&quot;</span><span>screenshot</span><span>&quot;</span>: <span>&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode/raw/master/Screenshots/window.png</span><span>&quot;</span><span>
+					}</span></pre> 
+				</div> 
+				<p>5.提交代码到Fork的地址，再提交一个pull request到Master即可。</p> 
+				<p>6.merged成功之后，即可看见以下效果图</p> 
+				<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401092906176-1572332699.png" alt="" /></p> 
+				<p>&nbsp;希望对大家有所帮助。</p> 
+				]]></content>
+				<summary type="html">
+					<![CDATA[<p>在平时开发过程中我们使用了很多的Xcode插件，虽然官方对于插件制作没有提供任何支持，但是加载三方的插件，默认还是被允许的。第三方的插件，存放在 ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins文件夹中，后缀名必须是.xcplugin ，其实际上是一种bundle。所以我们创建一个插件工程，直接创建bundle工程即可。然后通过修改后缀名为.xcplugin，将其放到~/Library/Application Support/Developer/Shared/Xcode/Plug-ins目录中即可。</p>]]>
+				</summary>
 
-								NSURL </span>*url = [[NSBundle bundleForClass:[self <span>class</span>]] URLForResource:<span>@&quot;</span><span>DZOperateController</span><span>&quot;</span> withExtension:<span>@&quot;</span><span>nib</span><span>&quot;</span><span>];
-
-							</span><span>if</span> (!<span>url) {
-							NSAlert </span>*alert =<span> [[NSAlert alloc] init];
-							alert.messageText </span>= <span>@&quot;</span><span>Refactor Method Style could not be shown because the plugin is corrupted.</span><span>&quot;</span><span>;
-							alert.informativeText </span>= <span>@&quot;</span><span>If you build the plugin from sources using Xcode, make sure to perform “Clean Build Folder“ in <br />　　　　　　　　Xcode and then build the plugin again.\n\nIf you installed the plugin via Alctraz, there is a pending issue causing <br />　　　　　　　　some files to be missing in the plugin. Prefer to install it via the plugin webpage.</span><span>&quot;</span><span>;
-							[alert addButtonWithTitle:</span><span>@&quot;</span><span>Download Latest</span><span>&quot;</span><span>];
-							[alert addButtonWithTitle:</span><span>@&quot;</span><span>Cancel</span><span>&quot;</span><span>];
-							NSModalResponse result </span>=<span> [alert runModal];
-
-						</span><span>if</span> (result ==<span> NSAlertFirstButtonReturn) {
-						[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:</span><span>@&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode</span><span>&quot;</span><span>]];
-						}
-						}
-						}</span></pre> 
-					</div> 
-					<p>效果图如下：</p> 
-					<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135950379-1172628646.png" alt="" /></p> 
-					<p>3）查找替换代码风格</p> 
-					<p>这一部分是重点部分，包括如何书写正则表达式，并且利用正则表达式生成替换字符。还包括高亮代码，具体可以参见本人源码：<a href="https://github.com/CharsDavy/RefactorCodePlugin-Xcode" target="_blank">https://github.com/CharsDavy/RefactorCodePlugin-Xcode</a></p> 
-					<p>4）最终效果图</p> 
-					<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401140322598-323202767.png" alt="" /></p> 
-					<h1>提交插件至Alcatraz</h1> 
-					<p>1.打开Alcatraz的插件包仓库，地址：<a href="https://github.com/supermarin/alcatraz-packages" target="_blank">https://github.com/supermarin/alcatraz-packages</a></p> 
-					<p>2.在简介里可以看到Alcatraz的包分为三类，分别为：插件(plugins)，配色方案(color schemes)和模板(templates)。<br /> 每个包都必须包含”name”、”url”和”description”字段，还有一个可选的”screenshot”字段。</p> 
-					<p>3.Fork这个仓库，再克隆到本地。</p> 
-					<p>4.以添加”Refactor Code”插件为例，打开packages.json文件，在”plugins”数组里加入：</p> 
-					<div class="cnblogs_code"> 
-						<pre><span>    {
-						</span><span>&quot;</span><span>name</span><span>&quot;</span>: <span>&quot;</span><span>Refactor Code</span><span>&quot;</span><span>,
-					</span><span>&quot;</span><span>url</span><span>&quot;</span>: <span>&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode.git</span><span>&quot;</span><span>,
-				</span><span>&quot;</span><span>description</span><span>&quot;</span>: <span>&quot;</span><span>Refactor code style,such as setter method.</span><span>&quot;</span><span>,
-			</span><span>&quot;</span><span>screenshot</span><span>&quot;</span>: <span>&quot;</span><span>https://github.com/CharsDavy/RefactorCodePlugin-Xcode/raw/master/Screenshots/window.png</span><span>&quot;</span><span>
-			}</span></pre> 
-		</div> 
-		<p>5.提交代码到Fork的地址，再提交一个pull request到Master即可。</p> 
-		<p>6.merged成功之后，即可看见以下效果图</p> 
-		<p><img src="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401092906176-1572332699.png" alt="" /></p> 
-		<p>&nbsp;希望对大家有所帮助。</p> 
-		]]></content>
-		<summary type="html">
-			<![CDATA[<p>在平时开发过程中我们使用了很多的Xcode插件，虽然官方对于插件制作没有提供任何支持，但是加载三方的插件，默认还是被允许的。第三方的插件，存放在 ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins文件夹中，后缀名必须是.xcplugin ，其实际上是一种bundle。所以我们创建一个插件工程，直接创建bundle工程即可。然后通过修改后缀名为.xcplugin，将其放到~/Library/Application Support/Developer/Shared/Xcode/Plug-ins目录中即可。</p>]]>
-		</summary>
-
-	</entry>
+			</entry>
 
 
-</feed>
+		</feed>
