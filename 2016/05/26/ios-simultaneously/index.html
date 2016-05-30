@@ -4,18 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>ios-simultaneously | Chars&#39;s Tech Blog</title>
+  <title>iOS 并发概念浅析 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="iOS 并发概念浅析在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解">
+  <meta name="description" content="前言在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。
+一、线程和任">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ios-simultaneously">
+<meta property="og:title" content="iOS 并发概念浅析">
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/26/ios-simultaneously/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="iOS 并发概念浅析在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解">
-<meta property="og:updated_time" content="2016-05-26T11:43:18.000Z">
+<meta property="og:description" content="前言在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。
+一、线程和任">
+<meta property="og:updated_time" content="2016-05-27T12:49:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ios-simultaneously">
-<meta name="twitter:description" content="iOS 并发概念浅析在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解">
+<meta name="twitter:title" content="iOS 并发概念浅析">
+<meta name="twitter:description" content="前言在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。
+一、线程和任">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -115,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
+						<a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a>
 					</div>
 				</section>
 				
@@ -208,7 +211,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ios-simultaneously
+      iOS 并发概念浅析
     </h1>
   
 
@@ -222,7 +225,7 @@
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	<a class="article-category-link" href="/categories/develop/">移动开发</a>
 	</div>
 
 
@@ -232,7 +235,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="iOS-并发概念浅析"><a href="#iOS-并发概念浅析" class="headerlink" title="iOS 并发概念浅析"></a>iOS 并发概念浅析</h1><p>在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。</p>
 <h1 id="一、线程和任务"><a href="#一、线程和任务" class="headerlink" title="一、线程和任务"></a>一、线程和任务</h1><p>线程（thread） 和任务（task）是其他并发概念的基础，因此也是首要需理清的概念，以下是其要点，详细可参考<a href="https://en.wikipedia.org/wiki/Thread_%28computing%29" target="_blank" rel="external">Thread (computing)</a>和<a href="https://en.wikipedia.org/wiki/Task_%28computing" target="_blank" rel="external">Task (computing)</a>。</p>
 <h2 id="1）任务（task）"><a href="#1）任务（task）" class="headerlink" title="1）任务（task）"></a>1）任务（task）</h2><p>a）任务（task）是从程序中划分出来，可以独立执行的代码片段；</p>
 <p>b）任务间可以添加依赖关系，如B任务依赖A任务，taskB.addDependency(taskA)，这意味着B任务的执行以A任务完成为前提。</p>
@@ -310,6 +313,15 @@
     
 <nav id="article-nav">
   
+    <a href="/2016/05/27/YYModel-reading/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          YYModel源代码阅读 - 基础知识
+        
+      </div>
+    </a>
+  
   
     <a href="/2016/05/25/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Hello World</div>
@@ -383,7 +395,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false
+		open_in_new: true
 	}
 </script>
 <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
