@@ -6,19 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>iOS 并发概念浅析 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。
-一、线程和任">
+  <meta name="description" content="摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 并发概念浅析">
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/26/ios-simultaneously/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="前言在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。
-一、线程和任">
-<meta property="og:updated_time" content="2016-05-31T11:24:31.000Z">
+<meta property="og:description" content="摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
+<meta property="og:updated_time" content="2016-06-02T00:00:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 并发概念浅析">
-<meta name="twitter:description" content="前言在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。
-一、线程和任">
+<meta name="twitter:description" content="摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -120,7 +117,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a>
+						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -239,8 +236,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。</p>
-<h1 id="一、线程和任务"><a href="#一、线程和任务" class="headerlink" title="一、线程和任务"></a>一、线程和任务</h1><p>线程（thread） 和任务（task）是其他并发概念的基础，因此也是首要需理清的概念，以下是其要点，详细可参考<a href="https://en.wikipedia.org/wiki/Thread_%28computing%29" target="_blank" rel="external">Thread (computing)</a>和<a href="https://en.wikipedia.org/wiki/Task_%28computing" target="_blank" rel="external">Task (computing)</a>。</p>
+        <p>摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。</p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。</p>
+<h1 id="一、线程和任务"><a href="#一、线程和任务" class="headerlink" title="一、线程和任务"></a>一、线程和任务</h1><p>线程（thread） 和任务（task）是其他并发概念的基础，因此也是首要需理清的概念，以下是其要点，详细可参考<a href="https://en.wikipedia.org/wiki/Thread_%28computing%29">Thread (computing)</a>和<a href="https://en.wikipedia.org/wiki/Task_%28computing">Task (computing)</a>。</p>
 <h2 id="1）任务（task）"><a href="#1）任务（task）" class="headerlink" title="1）任务（task）"></a>1）任务（task）</h2><p>a）任务（task）是从程序中划分出来，可以独立执行的代码片段；</p>
 <p>b）任务间可以添加依赖关系，如B任务依赖A任务，taskB.addDependency(taskA)，这意味着B任务的执行以A任务完成为前提。</p>
 <p>需要注意的是一个任务是否可以添加依赖，完全取决于任务封装类和其相关管理类的具体实现，GCD不支持任务依赖，NSOperationQueue就支持任务依赖。</p>
@@ -296,7 +295,7 @@
 <p>而异步和并行就更相同了，不等任务执行完成，就直接返回，反应的就是并发任务之间的独立性。</p>
 <p>当然，同异步所暗含的串行和并行是当前线程的任务与新线程的任务之间的相互关系。</p>
 <h1 id="三、GCD与NSOperationQueue"><a href="#三、GCD与NSOperationQueue" class="headerlink" title="三、GCD与NSOperationQueue"></a>三、GCD与NSOperationQueue</h1><p>GCD(grand central dispatch)和NSOperationQueue二者均是系统级的多线程封装，在使用时，我们只需创建任务队列即可，其他的如线程创立、任务分配等，均由系统自动处理。不得不说，这让多线程编程变得更高效，更简单，当然并不是没有坑。<br>需要强调的是，GCD和NSOperationQueue的使用核心是任务（task）和任务队列（task queue），暂时可以忘了线程（thread）这烦人的概念。</p>
-<p>关于GCD和NSOperationQueue网上已经有不少高质量的文章对其详细介绍，推荐<a href="http://www.cocoachina.com/ios/20160201/15179.html" target="_blank" rel="external">《iOS并行开发：从NSOperation和调度队列开始》</a>，其对基本概念、使用方法等的介绍非常清晰详尽，这里就不再赘述，只写一些个人认为容易忽略却影响认知深度的小知识点。当然如果你英语过硬，去直接看官方文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">《ConcurrencyProgrammingGuide》</a>是最好的。</p>
+<p>关于GCD和NSOperationQueue网上已经有不少高质量的文章对其详细介绍，推荐<a href="http://www.cocoachina.com/ios/20160201/15179.html">《iOS并行开发：从NSOperation和调度队列开始》</a>，其对基本概念、使用方法等的介绍非常清晰详尽，这里就不再赘述，只写一些个人认为容易忽略却影响认知深度的小知识点。当然如果你英语过硬，去直接看官方文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html">《ConcurrencyProgrammingGuide》</a>是最好的。</p>
 <h2 id="1）GCD"><a href="#1）GCD" class="headerlink" title="1）GCD"></a>1）GCD</h2><p>GCD是基于C的API，因此比较底层。</p>
 <p>GCD所管理的调度队列（dispatch queue）主要有三类：串行队列（private dispatch queue）、并发队列 （global dispatch queue，又称全局调度队列）和主队列（main dispatch queue）。</p>
 <p>我们常用的 dispatch_get_global<em>queue(</em>: _:)所获得的dispatch queue就是全局调度队列(global dispatch queue)，并发，而且全局调度队列是全局共用的，每一个优先级的全局调度队列只有一个实体。四种不同优先级的全局调度队列对应的四种优先级的线程，同一个优先级的全局调度队列可以同时拥有多条相应优先级的线程。</p>

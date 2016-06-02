@@ -6,25 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>YYModel源代码阅读 - 基础知识 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这段时间因为工作需要，阅读了YYModel这个开源框架，至于它能做什么，最直白的讲述就是JSON与Model之间的相互转化。
-源代码在Github，大家可以自行git clone或者download。
-接下来，笔者主要分析阅读源代码而引出的各种问题与知识点，不足之处请大家指正。
-NS_ASSUME_NONNULL_BEGIN &amp;amp; NS_ASSUME_NONNULL_END这组宏是成对使用的">
+  <meta name="description" content="摘要：YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="YYModel源代码阅读 - 基础知识">
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/27/YYModel-reading/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="这段时间因为工作需要，阅读了YYModel这个开源框架，至于它能做什么，最直白的讲述就是JSON与Model之间的相互转化。
-源代码在Github，大家可以自行git clone或者download。
-接下来，笔者主要分析阅读源代码而引出的各种问题与知识点，不足之处请大家指正。
-NS_ASSUME_NONNULL_BEGIN &amp;amp; NS_ASSUME_NONNULL_END这组宏是成对使用的">
-<meta property="og:updated_time" content="2016-05-31T11:24:31.000Z">
+<meta property="og:description" content="摘要：YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。">
+<meta property="og:updated_time" content="2016-06-02T00:05:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="YYModel源代码阅读 - 基础知识">
-<meta name="twitter:description" content="这段时间因为工作需要，阅读了YYModel这个开源框架，至于它能做什么，最直白的讲述就是JSON与Model之间的相互转化。
-源代码在Github，大家可以自行git clone或者download。
-接下来，笔者主要分析阅读源代码而引出的各种问题与知识点，不足之处请大家指正。
-NS_ASSUME_NONNULL_BEGIN &amp;amp; NS_ASSUME_NONNULL_END这组宏是成对使用的">
+<meta name="twitter:description" content="摘要：YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -126,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN &amp;amp; NS_ASSUME_NONNULL_END这组宏是成对使用�
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a>
+						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -245,8 +236,10 @@ NS_ASSUME_NONNULL_BEGIN &amp;amp; NS_ASSUME_NONNULL_END这组宏是成对使用�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这段时间因为工作需要，阅读了YYModel这个开源框架，至于它能做什么，最直白的讲述就是JSON与Model之间的相互转化。</p>
-<p>源代码在<a href="https://github.com/ibireme/YYModel" target="_blank" rel="external">Github</a>，大家可以自行<code>git clone</code>或者download。</p>
+        <p>摘要：YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。</p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这段时间因为工作需要，阅读了YYModel这个开源框架，至于它能做什么，最直白的讲述就是JSON与Model之间的相互转化。</p>
+<p>源代码在<a href="https://github.com/ibireme/YYModel">Github</a>，大家可以自行<code>git clone</code>或者download。</p>
 <p>接下来，笔者主要分析阅读源代码而引出的各种问题与知识点，不足之处请大家指正。</p>
 <h1 id="NS-ASSUME-NONNULL-BEGIN-amp-NS-ASSUME-NONNULL-END"><a href="#NS-ASSUME-NONNULL-BEGIN-amp-NS-ASSUME-NONNULL-END" class="headerlink" title="NS_ASSUME_NONNULL_BEGIN &amp; NS_ASSUME_NONNULL_END"></a>NS_ASSUME_NONNULL_BEGIN &amp; NS_ASSUME_NONNULL_END</h1><p>这组宏是成对使用的，不得不说我们自己写代码的时候使用的很少，以至于遗漏这个知识点，现在我们就来看看这两个宏会引出什么问题。</p>
 <p>这组宏会引出几个关于Objective-C新特性的知识点：</p>

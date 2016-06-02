@@ -6,25 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>手把手教 GitHub + Hexo 搭建博客 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在很久以前，博主就想着要有自主的博客专栏或者网站。经历了博客园这个需要所谓的编辑审核，一直比较困惑，这些编辑是什么出身，怎么知道技术博客的价值性。
-接下来找到了开源中国，这个可以自由发言的地方。不过，不知道是不是受众面不广，访问量都不是很理想。
-再然后就来自己动手开始搭建博客。从手写html发布文章，到使用jekyll，最后到了hexo阵营。
-终于，有种找到家的赶脚。hexo不仅搭建方便，而且">
+  <meta name="description" content="摘要：本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手把手教 GitHub + Hexo 搭建博客">
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="前言在很久以前，博主就想着要有自主的博客专栏或者网站。经历了博客园这个需要所谓的编辑审核，一直比较困惑，这些编辑是什么出身，怎么知道技术博客的价值性。
-接下来找到了开源中国，这个可以自由发言的地方。不过，不知道是不是受众面不广，访问量都不是很理想。
-再然后就来自己动手开始搭建博客。从手写html发布文章，到使用jekyll，最后到了hexo阵营。
-终于，有种找到家的赶脚。hexo不仅搭建方便，而且">
-<meta property="og:updated_time" content="2016-06-01T12:40:04.000Z">
+<meta property="og:description" content="摘要：本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。">
+<meta property="og:updated_time" content="2016-06-01T23:54:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手教 GitHub + Hexo 搭建博客">
-<meta name="twitter:description" content="前言在很久以前，博主就想着要有自主的博客专栏或者网站。经历了博客园这个需要所谓的编辑审核，一直比较困惑，这些编辑是什么出身，怎么知道技术博客的价值性。
-接下来找到了开源中国，这个可以自由发言的地方。不过，不知道是不是受众面不广，访问量都不是很理想。
-再然后就来自己动手开始搭建博客。从手写html发布文章，到使用jekyll，最后到了hexo阵营。
-终于，有种找到家的赶脚。hexo不仅搭建方便，而且">
+<meta name="twitter:description" content="摘要：本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -126,7 +117,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a>
+						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -245,14 +236,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在很久以前，博主就想着要有自主的博客专栏或者网站。经历了博客园这个需要所谓的编辑审核，一直比较困惑，这些编辑是什么出身，怎么知道技术博客的价值性。</p>
+        <p>摘要：本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。</p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在很久以前，博主就想着要有自主的博客专栏或者网站。经历了博客园这个需要所谓的编辑审核，一直比较困惑，这些编辑是什么出身，怎么知道技术博客的价值性。</p>
 <p>接下来找到了开源中国，这个可以自由发言的地方。不过，不知道是不是受众面不广，访问量都不是很理想。</p>
 <p>再然后就来自己动手开始搭建博客。从手写html发布文章，到使用jekyll，最后到了hexo阵营。</p>
 <p>终于，有种找到家的赶脚。hexo不仅搭建方便，而且在后续的功能扩展以及文章发布都是非常方便的。不仅如此，还可以本地调试，预览效果。最方便的是支持markdown编写文档。</p>
 <p>本文就是介绍如何安装使用hexo搭建属于自己的博客。从此不再担心投稿被莫名拒绝。可以在自己的一亩三分地讲述着自己的故事。</p>
 <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>MAC OS X 是自带Git命令行工具。</p>
 <p>Windows 可以安装Git Bash。</p>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>前往<a href="https://nodejs.org/en/" target="_blank" rel="external">官网地址</a>，根据教程安装即可。</p>
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>前往<a href="https://nodejs.org/en/">官网地址</a>，根据教程安装即可。</p>
 <h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
 <h1 id="使用hexo"><a href="#使用hexo" class="headerlink" title="使用hexo"></a>使用hexo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 创建hexo文件夹</span><br><span class="line">$ mkdir hexo</span><br><span class="line"></span><br><span class="line"># 进入hexo文件夹</span><br><span class="line">$ cd hexo</span><br><span class="line"></span><br><span class="line"># 初始化hexo</span><br><span class="line">$ hexo init</span><br><span class="line"></span><br><span class="line"># 安装依赖包</span><br><span class="line">$ npm install</span><br><span class="line"></span><br><span class="line"># 本地查看</span><br><span class="line"># 先运行下面的命令，再在浏览器输入localhost:4000即可</span><br><span class="line">$ hexo server</span><br><span class="line"></span><br><span class="line"># 问题：执行hexo server提示找不到该指令</span><br><span class="line"># 解决办法：在Hexo 3.0 后server被单独出来了，需要安装server，安装的命令如下：</span><br><span class="line">$ npm install hexo -server --save</span><br></pre></td></tr></table></figure>
 <h2 id="生成静态网站"><a href="#生成静态网站" class="headerlink" title="生成静态网站"></a>生成静态网站</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
