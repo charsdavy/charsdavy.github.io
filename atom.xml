@@ -174,7 +174,7 @@
       <category term="应用实战" scheme="http://charsdavy.github.io/categories/apply/"/>
     
     
-      <category term="hexo" scheme="http://charsdavy.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="http://charsdavy.github.io/tags/script/"/>
     
   </entry>
   
@@ -545,6 +545,323 @@
   </entry>
   
   <entry>
+    <title>Charles 安装与使用</title>
+    <link href="http://charsdavy.github.io/2016/04/20/charles-using/"/>
+    <id>http://charsdavy.github.io/2016/04/20/charles-using/</id>
+    <published>2016-04-20T13:21:14.000Z</published>
+    <updated>2016-06-02T13:35:05.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：Charles是在 Mac 下常用的网络封包截取工具，在做 移动开发时，我们为了调试与服务器端的网络通讯协议，常常需要截取网络封包来分析。&lt;/p&gt;
+&lt;p&gt;Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成，从而实现了网络封包的截取和分析。&lt;/p&gt;
+&lt;p&gt;除了在做移动开发中调试端口外，Charles 也可以用于分析第三方应用的通讯协议。配合 Charles 的 SSL 功能，Charles 还可以分析 Https 协议。&lt;/p&gt;
+&lt;p&gt;Charles 是收费软件，可以免费试用 30 天。试用期过后，未付费的用户仍然可以继续使用，但是每次使用时间不能超过 30 分钟，并且启动时将会有 10 秒种的延时。因此，该付费方案对广大用户还是相当友好的，即使你长期不付费，也能使用完整的软件功能。只是当你需要长时间进行封包调试时，会因为 Charles 强制关闭而遇到影响。&lt;/p&gt;
+&lt;p&gt;本文将分享如何使用Charles，并且发放福利喔。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot; title=&quot;概要&quot;&gt;&lt;/a&gt;概要&lt;/h1&gt;&lt;p&gt;Charles 主要的功能包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;截取 Http 和 Https 网络封包。&lt;/li&gt;
+&lt;li&gt;支持重发网络请求，方便后端调试。&lt;/li&gt;
+&lt;li&gt;支持修改网络请求参数。&lt;/li&gt;
+&lt;li&gt;支持网络请求的截获并动态修改。&lt;/li&gt;
+&lt;li&gt;支持模拟慢速网络。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;安装Charles&quot;&gt;&lt;a href=&quot;#安装Charles&quot; class=&quot;headerlink&quot; title=&quot;安装Charles&quot;&gt;&lt;/a&gt;安装Charles&lt;/h1&gt;&lt;p&gt;1.&lt;a href=&quot;http://www.charlesproxy.com&quot;&gt;官网下载&lt;/a&gt; , 然后安装即可。&lt;/p&gt;
+&lt;p&gt;2.&lt;a href=&quot;http://download.csdn.net/detail/dengw0716/9320153&quot;&gt;下载破解版软件&lt;/a&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;将Charles设置成系统代理&quot;&gt;&lt;a href=&quot;#将Charles设置成系统代理&quot; class=&quot;headerlink&quot; title=&quot;将Charles设置成系统代理&quot;&gt;&lt;/a&gt;将Charles设置成系统代理&lt;/h1&gt;&lt;p&gt;使用Charles的第一步就是要将其设置成系统的代理服务器。启动Charles，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-52d2b6671cc81cac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;第一次Charles会请求你给它设置系统代理的权限，你可以输入登录密码授予Charles该权限，也可以选择忽略，然后在需要将Charles设置成系统代理时，选择菜单中的“Proxy”–&amp;gt;“Mac OS X Proxy”来将Charles设置成系统代理，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-2e6dd96610a9cde0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;此后，就可以看见源源不绝的网络请求出现在Charles的界面中。&lt;/p&gt;
+&lt;p&gt;需要注意的是，Chrome 和 Firefox 浏览器默认并不使用系统的代理服务器设置，而 Charles 是通过将自己设置成代理服务器来完成封包截取的，所以在默认情况下无法截取 Chrome 和 Firefox 浏览器的网络通讯内容。如果你需要截取的话，在 Chrome 中设置成使用系统的代理服务器设置即可，或者直接将代理服务器设置成 127.0.0.1:8888也可达到相同效果。&lt;/p&gt;
+&lt;h1 id=&quot;Charles主界面&quot;&gt;&lt;a href=&quot;#Charles主界面&quot; class=&quot;headerlink&quot; title=&quot;Charles主界面&quot;&gt;&lt;/a&gt;Charles主界面&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-7ed45b164722d75f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;图中，structure和sequence是两种视图模式，structure视图将网络请求按访问的域名分类，sequence视图将网络请求按访问的时间排序，Filter处可以设置过滤关键词，Request显示请求内容，Response显示响应内容。&lt;/p&gt;
+&lt;h1 id=&quot;过滤网络请求&quot;&gt;&lt;a href=&quot;#过滤网络请求&quot; class=&quot;headerlink&quot; title=&quot;过滤网络请求&quot;&gt;&lt;/a&gt;过滤网络请求&lt;/h1&gt;&lt;p&gt;方法多种，以下列举几种常用的：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法一：&lt;/strong&gt;在主界面的中部的 Filter 栏中填入需要过滤出来的关键字。例如我们的服务器的地址是：&lt;a href=&quot;http://www.baidu.com&quot;&gt;http://www.baidu.com&lt;/a&gt;, 那么只需要在 Filter 栏中填入 baidu 即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法二：&lt;/strong&gt;在 Charles 的菜单栏选择 “Proxy”–&amp;gt;“Recording Settings”，然后选择 Include 栏，选择添加一个项目，然后填入需要监控的协议，主机地址，端口号。这样就可以只截取目标网站的封包了。如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-c6dc7ecde76b7a51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;通常情况下，我们使用方法一做一些临时性的封包过滤，使用方法二做一些经常性的封包过滤。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法三：&lt;/strong&gt;在想过滤的网络请求上右击，选择 “Focus”，之后在 Filter 一栏勾选上 Focussed 一项，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-dcbd0b8320d695fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这种方式可以临时性的，快速地过滤出一些没有通过关键字的一类网络请求。&lt;/p&gt;
+&lt;h1 id=&quot;截取移动设备上的网络封包&quot;&gt;&lt;a href=&quot;#截取移动设备上的网络封包&quot; class=&quot;headerlink&quot; title=&quot;截取移动设备上的网络封包&quot;&gt;&lt;/a&gt;截取移动设备上的网络封包&lt;/h1&gt;&lt;p&gt;下面我们以iPhone为例，讲解步骤。&lt;/p&gt;
+&lt;h2 id=&quot;Charles上的设置&quot;&gt;&lt;a href=&quot;#Charles上的设置&quot; class=&quot;headerlink&quot; title=&quot;Charles上的设置&quot;&gt;&lt;/a&gt;Charles上的设置&lt;/h2&gt;&lt;p&gt;要截取 iPhone 上的网络请求，我们首先需要将 Charles 的代理功能打开。在 Charles 的菜单栏上选择 “Proxy”–&amp;gt;“Proxy Settings”，填入代理端口 8888，并且勾上 “Enable transparent HTTP proxying” 就完成了在 Charles 上的设置。如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-3b7561d3558f6ab3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;iPhone上的设置&quot;&gt;&lt;a href=&quot;#iPhone上的设置&quot; class=&quot;headerlink&quot; title=&quot;iPhone上的设置&quot;&gt;&lt;/a&gt;iPhone上的设置&lt;/h2&gt;&lt;p&gt;首先我们需要获取 Charles 运行所在电脑的 IP 地址，Charles 的顶部菜单的 “Help”–&amp;gt;“Local IP Address”，即可在弹出的对话框中看到 IP 地址，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-2e9f4ad408a9fec2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在 iPhone 的 “ 设置 ”–&amp;gt;“ 无线局域网 ” 中，可以看到当前连接的 wifi 名，通过点击右边的详情键，可以看到当前连接上的 wifi 的详细信息，包括 IP 地址，子网掩码等信息。在其最底部有“HTTP 代理”一项，我们将其切换成手动，然后填上 Charles 运行所在的电脑的 IP，以及端口号 8888，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-9ab66dca91a35895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;设置好之后，我们打开 iPhone 上的任意需要网络通讯的程序，就可以看到 Charles 弹出 iPhone 请求连接的确认菜单，点击 “Allow” 即可完成设置。&lt;/p&gt;
+&lt;h1 id=&quot;截取HTTPS通讯信息&quot;&gt;&lt;a href=&quot;#截取HTTPS通讯信息&quot; class=&quot;headerlink&quot; title=&quot;截取HTTPS通讯信息&quot;&gt;&lt;/a&gt;截取HTTPS通讯信息&lt;/h1&gt;&lt;h2 id=&quot;安装证书&quot;&gt;&lt;a href=&quot;#安装证书&quot; class=&quot;headerlink&quot; title=&quot;安装证书&quot;&gt;&lt;/a&gt;安装证书&lt;/h2&gt;&lt;p&gt;如果你需要截取分析 Https 协议相关的内容。那么需要安装 Charles 的 CA 证书。具体步骤如下。&lt;/p&gt;
+&lt;p&gt;首先我们需要在 Mac 电脑上安装证书。点击 Charles 的顶部菜单，选择 “Help” –&amp;gt; “SSL Proxying” –&amp;gt; “Install Charles Root Certificate”，然后输入系统的帐号密码，即可在 KeyChain 看到添加好的证书。如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-0027214882afff9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;需要注意的是，即使是安装完证书之后，Charles 默认也并不截取 Https 网络通讯的信息，如果你想对截取某个网站上的所有 HTTPS 网络请求，可以在该请求上右击，选择 SSL proxy，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-2ec9c2dc00ea9685.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这样，对于该 Host 的所有 SSL 请求可以被截取到了。&lt;/p&gt;
+&lt;p&gt;##截取移动设备中的HTTPS通讯信息&lt;br&gt;如果我们需要在 iOS 或 Android 机器上截取 Https 协议的通讯内容，还需要在手机上安装相应的证书。点击 Charles 的顶部菜单，选择 “Help” –&amp;gt; “SSL Proxying” –&amp;gt; “Install Charles Root Certificate on a Mobile Device or Remote Browser”，然后就可以看到 Charles 弹出的简单的安装教程。&lt;/p&gt;
+&lt;p&gt;按照我们之前说的教程，在设备上设置好 Charles 为代理后，在手机浏览器中访问地址：&lt;a href=&quot;http://charlesproxy.com/getssl&quot;&gt;http://charlesproxy.com/getssl&lt;/a&gt; ，即可打开证书安装的界面，安装完证书后，就可以截取手机上的 Https 通讯内容了。不过同样需要注意，默认情况下 Charles 并不做截取，你还需要在要截取的网络请求上右击，选择 SSL proxy 菜单项。&lt;/p&gt;
+&lt;p&gt;#模拟慢速网络&lt;br&gt;在做移动开发的时候，我们常常需要模拟慢速网络或者高延迟的网络，以测试在移动网络下，应用的表现是否正常。Charles 对此需求提供了很好的支持。&lt;/p&gt;
+&lt;p&gt;在 Charles 的菜单上，选择 “Proxy”–&amp;gt;“Throttle Setting” 项，在之后弹出的对话框中，我们可以勾选上 “Enable Throttling”，并且可以设置 Throttle Preset 的类型。如下图：&lt;br&gt;　　&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-bfce67398359e8ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;br&gt;如果我们只想模拟指定网站的慢速网络，可以再勾选上图中的 “Only for selected hosts” 项，然后在对话框的下半部分设置中增加指定的 hosts 项即可。&lt;/p&gt;
+&lt;p&gt;#修改网络请求内容&lt;br&gt;有些时候为了调试服务器的接口，我们需要反复尝试不同参数的网络请求。Charles 可以方便地提供网络请求的修改和重发功能。只需要在以往的网络请求上点击右键，选择 “Edit”，即可创建一个可编辑的网络请求。如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-8c55f4db22645692.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们可以修改该请求的任何信息，包括 URL 地址、端口、参数等，之后点击 “Execute” 即可发送该修改后的网络请求（如下图）。Charles 支持我们多次修改和发送该请求，这对于我们和服务器端调试接口非常方便，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-9b0addbb07994003.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;给服务器做压力测试&quot;&gt;&lt;a href=&quot;#给服务器做压力测试&quot; class=&quot;headerlink&quot; title=&quot;给服务器做压力测试&quot;&gt;&lt;/a&gt;给服务器做压力测试&lt;/h1&gt;&lt;p&gt;我们可以使用 Charles 的 Repeat 功能来简单地测试服务器的并发处理能力，方法如下。&lt;/p&gt;
+&lt;p&gt;我们在想打压的网络请求上（POST 或 GET 请求均可）右击，然后选择“Repeat Advanced”菜单项，如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-e415b3c12343c6d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;接着我们就可以在弹出的对话框中，选择打压的并发线程数以及打压次数，确定之后，即可开始打压。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-a3c7ee2f0a58eeb1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;弱弱的说一句，一些写得很弱的投票网站，也可以用这个办法来快速投票。当然，我也拿 Charles 的 Repeat 功能给一些诈骗的钓鱼网站喂了不少垃圾数据，上次不小心还把一个钓鱼网站的数据库打挂了，嗯，请叫我雷锋。&lt;/p&gt;
+&lt;h1 id=&quot;修改服务器返回内容&quot;&gt;&lt;a href=&quot;#修改服务器返回内容&quot; class=&quot;headerlink&quot; title=&quot;修改服务器返回内容&quot;&gt;&lt;/a&gt;修改服务器返回内容&lt;/h1&gt;&lt;p&gt;有些时候我们想让服务器返回一些指定的内容，方便我们调试一些特殊情况。例如列表页面为空的情况，数据异常的情况，部分耗时的网络请求超时的情况等。如果没有 Charles，要服务器配合构造相应的数据显得会比较麻烦。这个时候，使用 Charles 相关的功能就可以满足我们的需求。&lt;/p&gt;
+&lt;p&gt;根据具体的需求，Charles 提供了 Map 功能、 Rewrite 功能以及 Breakpoints 功能，都可以达到修改服务器返回内容的目的。这三者在功能上的差异是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Map 功能适合长期地将某一些请求重定向到另一个网络地址或本地文件。&lt;/li&gt;
+&lt;li&gt;Rewrite 功能适合对网络请求进行一些正则替换。&lt;/li&gt;
+&lt;li&gt;Breakpoints 功能适合做一些临时性的修改。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Map-功能&quot;&gt;&lt;a href=&quot;#Map-功能&quot; class=&quot;headerlink&quot; title=&quot;Map 功能&quot;&gt;&lt;/a&gt;Map 功能&lt;/h2&gt;&lt;p&gt;Charles 的 Map 功能分 Map Remote 和 Map Local 两种，顾名思义，Map Remote 是将指定的网络请求重定向到另一个网址请求地址，Map Local 是将指定的网络请求重定向到本地文件。&lt;/p&gt;
+&lt;p&gt;在 Charles 的菜单中，选择 “Tools”–&amp;gt;“Map Remote” 或 “Map Local” 即可进入到相应功能的设置页面。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-1f11c25aa2df07e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;对于 Map Remote 功能，我们需要分别填写网络重定向的源地址和目的地址，对于不需要限制的条件，可以留空。下图是一个示例，我将www.sohu.com的请求重定向到了 www.baidu.com&lt;br&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-586421f5f4cdd9a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;对于 Map Local 功能，我们需要填写的重定向的源地址和本地的目标文件。对于有一些复杂的网络请求结果，我们可以先使用 Charles 提供的 “Save Response…” 功能，将请求结果保存到本地（如下图），然后稍加修改，成为我们的目标映射文件。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-ecfddc2942d2667b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Rewrite-功能&quot;&gt;&lt;a href=&quot;#Rewrite-功能&quot; class=&quot;headerlink&quot; title=&quot;Rewrite 功能&quot;&gt;&lt;/a&gt;Rewrite 功能&lt;/h2&gt;&lt;p&gt;Rewrite 功能功能适合对某一类网络请求进行一些正则替换，以达到修改结果的目的。&lt;/p&gt;
+&lt;h2 id=&quot;Breakpoints-功能&quot;&gt;&lt;a href=&quot;#Breakpoints-功能&quot; class=&quot;headerlink&quot; title=&quot;Breakpoints 功能&quot;&gt;&lt;/a&gt;Breakpoints 功能&lt;/h2&gt;&lt;p&gt;上面提供的 Rewrite 功能最适合做批量和长期的替换，但是很多时候，我们只是想临时修改一次网络请求结果，这个时候，使用 Rewrite 功能虽然也可以达到目的，但是过于麻烦，对于临时性的修改，我们最好使用 Breakpoints 功能。&lt;/p&gt;
+&lt;p&gt;Breakpoints 功能类似我们在 Xcode 中设置的断点一样，当指定的网络请求发生时，Charles 会截获该请求，这个时候，我们可以在 Charles 中临时修改网络请求的返回内容。&lt;/p&gt;
+&lt;h1 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h1&gt;&lt;p&gt;通过 Charles 软件，我们可以很方便地在日常开发中，截取和调试网络请求内容，分析封包协议以及模拟慢速网络。Charles 可以极大的方便我们对于带有网络请求的 App 的开发和调试。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：Charles是在 Mac 下常用的网络封包截取工具，在做 移动开发时，我们为了调试与服务器端的网络通讯协议，常常需要截取网络封包来分析。&lt;/p&gt;
+&lt;p&gt;Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成，从而实现了网络封包的截取和分析。&lt;/p&gt;
+&lt;p&gt;除了在做移动开发中调试端口外，Charles 也可以用于分析第三方应用的通讯协议。配合 Charles 的 SSL 功能，Charles 还可以分析 Https 协议。&lt;/p&gt;
+&lt;p&gt;Charles 是收费软件，可以免费试用 30 天。试用期过后，未付费的用户仍然可以继续使用，但是每次使用时间不能超过 30 分钟，并且启动时将会有 10 秒种的延时。因此，该付费方案对广大用户还是相当友好的，即使你长期不付费，也能使用完整的软件功能。只是当你需要长时间进行封包调试时，会因为 Charles 强制关闭而遇到影响。&lt;/p&gt;
+&lt;p&gt;本文将分享如何使用Charles，并且发放福利喔。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://charsdavy.github.io/categories/tool/"/>
+    
+    
+      <category term="开发助手" scheme="http://charsdavy.github.io/tags/assistant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VFL 语言简介</title>
+    <link href="http://charsdavy.github.io/2016/04/17/VFL-introduction/"/>
+    <id>http://charsdavy.github.io/2016/04/17/VFL-introduction/</id>
+    <published>2016-04-17T13:49:29.000Z</published>
+    <updated>2016-06-02T13:55:43.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;什么是VFL语言&quot;&gt;&lt;a href=&quot;#什么是VFL语言&quot; class=&quot;headerlink&quot; title=&quot;什么是VFL语言&quot;&gt;&lt;/a&gt;什么是VFL语言&lt;/h1&gt;&lt;p&gt;VFL（Visual Format Language），“可视化格式语言”。&lt;/p&gt;
+&lt;p&gt;VFL 是苹果公司为了简化autolayout的编码而推出的抽象语言。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-97f98b166f068033.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;语法说明&quot;&gt;&lt;a href=&quot;#语法说明&quot; class=&quot;headerlink&quot; title=&quot;语法说明&quot;&gt;&lt;/a&gt;语法说明&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;H:[cancelButton(72)]-12-[acceptButton(50)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cancelButton宽72，acceptButton宽50，它们之间间距12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;H:[wideView(&amp;gt;=60@700)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wideView宽度大于等于60point，该约束条件优先级为700（优先级最大值为1000，优先级越高的约束条件越先被满足）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;V:[redBox][yellowBox(==redBox)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;垂直方向上，先有一个redBox，其下方紧接一个高度等于redBox高度的yellowBox&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;H:|-10-[Find]-[FindNext]-[FindField(&amp;gt;=20)]-|&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;水平方向上，Find距离父view左边缘间隔10，之后是FindNext距离Find间隔默认宽度；再之后是宽度不小于20的FindField，它和FindNext以及父view右边边缘的间距都是默认宽度。（竖线“|”表示superview的边缘）。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;使用方法&quot;&gt;&lt;a href=&quot;#使用方法&quot; class=&quot;headerlink&quot; title=&quot;使用方法&quot;&gt;&lt;/a&gt;使用方法&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;使用VFL来创建约束数组&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+(NSArray *)constraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary *)metrics views:(NSDictionary *)views;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;format：VFL语句&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;opts：约束类型&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;metrics：VFL语句中用到的具体数值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;views：VFL语句中用到的控件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;创建一个字典（内部包含VFL语句中用到的控件）的快捷宏定义&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSDictionaryOfVariableBindings(...)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;实例展示&quot;&gt;&lt;a href=&quot;#实例展示&quot; class=&quot;headerlink&quot; title=&quot;实例展示&quot;&gt;&lt;/a&gt;实例展示&lt;/h1&gt;&lt;p&gt;效果图如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-dcd649f93914b79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-1ddb3f7e5926f466.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;实现代码&quot;&gt;&lt;a href=&quot;#实现代码&quot; class=&quot;headerlink&quot; title=&quot;实现代码&quot;&gt;&lt;/a&gt;实现代码&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(void)horizontalLayout&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //1.添加两个控件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    UIView *blueView = [[UIView alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    blueView.backgroundColor = [UIColor blueColor];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    blueView.translatesAutoresizingMaskIntoConstraints = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addSubview:blueView];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    UIView *redView = [[UIView alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    redView.backgroundColor = [UIColor redColor];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    redView.translatesAutoresizingMaskIntoConstraints = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addSubview:redView];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2.添加约束&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2.1水平方向的约束&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSString *hVFL = @&amp;quot;H:|-30-[blueView]-30-[redView(==blueView)]-30-|&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSArray *hCons = [NSLayoutConstraint constraintsWithVisualFormat:hVFL options:NSLayoutFormatAlignAllBottom | NSLayoutFormatAlignAllTop metrics:nil views:@&amp;#123;@&amp;quot;blueView&amp;quot;:blueView, @&amp;quot;redView&amp;quot;:redView&amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addConstraints:hCons];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2.2垂直方向的约束&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSString *vVFL = @&amp;quot;V:[blueView(50)]-30-|&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSArray *vCons = [NSLayoutConstraint constraintsWithVisualFormat:vVFL options:0 metrics:nil views:@&amp;#123;@&amp;quot;blueView&amp;quot;:blueView&amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addConstraints:vCons];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)verticalLayout&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //1.添加两个控件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    UIView *blueView = [[UIView alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    blueView.backgroundColor = [UIColor blueColor];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    blueView.translatesAutoresizingMaskIntoConstraints = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addSubview:blueView];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    UIView *redView = [[UIView alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    redView.backgroundColor = [UIColor redColor];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    redView.translatesAutoresizingMaskIntoConstraints = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addSubview:redView];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2.添加约束&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2.1水平方向的约束&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSString *hVFL = @&amp;quot;H:|-30-[blueView]-30-|&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSArray *hCons = [NSLayoutConstraint constraintsWithVisualFormat:hVFL options:0 metrics:nil views:@&amp;#123;@&amp;quot;blueView&amp;quot;:blueView&amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addConstraints:hCons];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2.2垂直方向的约束&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSString *vVFL = @&amp;quot;V:|-30-[blueView(50)]-30-[redView(==blueView)]&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSArray *vCons = [NSLayoutConstraint constraintsWithVisualFormat:vVFL options:NSLayoutFormatAlignAllRight metrics:nil views:@&amp;#123;@&amp;quot;blueView&amp;quot;:blueView, @&amp;quot;redView&amp;quot;:redView&amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addConstraints:vCons];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLayoutConstraint *redLeftCon = [NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:blueView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view addConstraint:redLeftCon];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;小结&lt;/h1&gt;&lt;p&gt;最后对格式的字符串作一个总结介绍：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;th&gt;表达式&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;水平方向&lt;/td&gt;
+&lt;td&gt;H:&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;垂直方向&lt;/td&gt;
+&lt;td&gt;V:&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Views&lt;/td&gt;
+&lt;td&gt;[view]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SuperView&lt;/td&gt;
+&lt;td&gt;竖线符号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;关系&lt;/td&gt;
+&lt;td&gt;&amp;gt;=,==,&amp;lt;=&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;空间，间隙&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;优先级&lt;/td&gt;
+&lt;td&gt;@value&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="移动开发" scheme="http://charsdavy.github.io/categories/develop/"/>
+    
+    
+      <category term="iOS" scheme="http://charsdavy.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CocoaPods安装与使用</title>
+    <link href="http://charsdavy.github.io/2016/04/16/cocoapods-using/"/>
+    <id>http://charsdavy.github.io/2016/04/16/cocoapods-using/</id>
+    <published>2016-04-16T13:38:49.000Z</published>
+    <updated>2016-06-02T13:45:25.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：CocoaPods 是iOS最常用的第三方库依赖管理工具，且绝大多数优秀的开源框架都支持CocoaPods。&lt;/p&gt;
+&lt;p&gt;CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 月 12 日，开发 iOS 项目不可避免地要使用第三方开源库，CocoaPods 的出现使得我们可以节省设置和更新第三方开源库的时间。&lt;/p&gt;
+&lt;p&gt;文章分享在自己的工程中如何使用CocoaPods 工具管理第三方库。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h1&gt;&lt;p&gt;CocoaPods 是将所有的依赖库都放到另一个名为 Pods 项目中，然后让主项目依赖 Pods 项目，这样，源码管理工作都从主项目移到了 Pods 项目中。&lt;/p&gt;
+&lt;p&gt;1)Pods 项目最终会编译成一个名为 libPods.a 的文件，主项目只需要依赖这个 .a 文件即可。&lt;/p&gt;
+&lt;p&gt;2)对于资源文件，CocoaPods 提供了一个名为 Pods-resources.sh 的 bash 脚本，该脚本在每次项目编译的时候都会执行，将第三方库的各种资源文件复制到目标目录中。&lt;/p&gt;
+&lt;p&gt;3)CocoaPods 通过一个名为 Pods.xcconfig 的文件来在编译时设置所有的依赖和参数。&lt;/p&gt;
+&lt;h1 id=&quot;CocoaPods-的安装&quot;&gt;&lt;a href=&quot;#CocoaPods-的安装&quot; class=&quot;headerlink&quot; title=&quot;CocoaPods 的安装&quot;&gt;&lt;/a&gt;CocoaPods 的安装&lt;/h1&gt;&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;安装方式异常简单 , Mac 下都自带 ruby，使用 ruby 的 gem 命令即可下载安装：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo gem install cocoapods&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ pod setup&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果你的 gem 太老，可能也会有问题，可以尝试用如下命令升级 gem:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo gem update --system&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然而这样执行命令，却会出错，&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-7f248f5b44775695.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这是因为ruby 的软件源 &lt;a href=&quot;https://rubygems.org&quot;&gt;https://rubygems.org&lt;/a&gt; 因为使用的是亚马逊的云服务，所以被墙了，需要更新一下 ruby 的源，使用如下代码将官方的 ruby 源替换成国内淘宝的源：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ gem sources --remove https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//rubygems.org/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ gem sources -a https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//ruby.taobao.org/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ gem sources -l&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后再执行之前的命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo gem install cocoapods&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ pod setup&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;有一点需要注意，pod setup在执行时，会输出Setting up CocoaPods master repo，但是会等待比较久的时间。这一步其实是 Cocoapods 在将它的信息下载到 ~/.cocoapods目录下，如果你等太久，可以试着 cd 到那个目录，用du -sh *来查看下载进度。你也可以使用 cocoapods 的镜像来提高下载速度。&lt;/p&gt;
+&lt;h2 id=&quot;使用-CocoaPods-的镜像索引&quot;&gt;&lt;a href=&quot;#使用-CocoaPods-的镜像索引&quot; class=&quot;headerlink&quot; title=&quot;使用 CocoaPods 的镜像索引&quot;&gt;&lt;/a&gt;使用 CocoaPods 的镜像索引&lt;/h2&gt;&lt;p&gt;所有的项目的 Podspec 文件都托管在&lt;a href=&quot;https://github.com/CocoaPods/Specs&quot;&gt;https://github.com/CocoaPods/Specs&lt;/a&gt; 。第一次执行pod setup时，CocoaPods 会将这些podspec索引文件更新到本地的 ~/.cocoapods/&lt;br&gt;目录下，这个索引文件比较大，有 80M 左右。所以第一次更新时非常慢。&lt;/p&gt;
+&lt;p&gt;一个叫 akinliu 的朋友在 gitcafe 和 oschina 上建立了 CocoaPods 索引库的镜像，因为 gitcafe 和 oschina 都是国内的服务器，所以在执行索引更新操作时，会快很多。如下操作可以将 CocoaPods 设置成使用 gitcafe 镜像：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ pod repo remove master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ pod repo add master https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//gitcafe.com/akuandev/Specs.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ pod repo update&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;将以上代码中的 &lt;a href=&quot;https://gitcafe.com/akuandev/Specs.git&quot;&gt;https://gitcafe.com/akuandev/Specs.git&lt;/a&gt; 替换成 &lt;a href=&quot;http://git.oschina.net/akuandev/Specs.git&quot;&gt;http://git.oschina.net/akuandev/Specs.git&lt;/a&gt; 即可使用 oschina 上的镜像。&lt;/p&gt;
+&lt;h2 id=&quot;使用-CocoaPods&quot;&gt;&lt;a href=&quot;#使用-CocoaPods&quot; class=&quot;headerlink&quot; title=&quot;使用 CocoaPods&quot;&gt;&lt;/a&gt;使用 CocoaPods&lt;/h2&gt;&lt;p&gt;使用时需要新建一个名为 Podfile 的文件，以如下格式，将依赖的库名字依次列在文件中即可&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;platform :ios&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;apos;JSONKit&amp;apos;,  &amp;apos;~&amp;gt; 1.4&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;apos;Reachability&amp;apos;, &amp;apos;~&amp;gt; 3.0.0&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后将编辑好的 Podfile 文件放到项目根目录中，执行如下命令即可：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ cd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;quot;your project home&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ pod install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在，所有的第三方库都已经下载完成并且设置好了编译参数和依赖，需要记住如下两点：&lt;/p&gt;
+&lt;p&gt;1)使用 CocoaPods 生成的 &lt;em&gt;.xcworkspace &lt;/em&gt;文件来打开工程，而不是以前的&lt;em&gt; &lt;/em&gt;.xcodeproj 文件。&lt;br&gt;2)每次更改了 Podfile 文件，需要重新执行一次pod update命令。&lt;/p&gt;
+&lt;h2 id=&quot;查找第三方库&quot;&gt;&lt;a href=&quot;#查找第三方库&quot; class=&quot;headerlink&quot; title=&quot;查找第三方库&quot;&gt;&lt;/a&gt;查找第三方库&lt;/h2&gt;&lt;p&gt;如果不知道 cocoaPods 管理的库中，是否有你想要的库，那么可以通过 pod search 命令进行查找，以下是用 pod search json 查找到的所有可用的库：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;span class=&amp;quot;nv&amp;quot;&amp;gt;$ pod search json&amp;lt;/span&amp;gt;&amp;lt;br&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-&amp;gt; AFJSONPRequestOperation (1.0.0)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AFNetworking Extension for the JSONP format.   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;apos;AFJSONPRequestOperation&amp;apos;,&amp;apos;~&amp;gt; 1.0.0&amp;apos;   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Homepage: https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//github.com/acerbetti/AFJSONPRequestOperation   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Source:   https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//github.com/acerbetti/AFJSONPRequestOperation.git   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Versions: 1.0.0 [master repo]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-&amp;gt; AFJSONRPCClient (2.1.1)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;A JSON-RPC client build on AFNetworking.   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;apos;AFJSONRPCClient&amp;apos;,&amp;apos;~&amp;gt; 2.1.1&amp;apos;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Homepage: https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//github.com/AFNetworking/AFJSONRPCClient  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Source:   https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//github.com/AFNetworking/AFJSONRPCClient.git &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Versions: 2.1.1, 2.1.0, 2.0.0, 1.0.0, 0.4.0, 0.3.1, 0.3.0 [master repo]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-&amp;gt; ARSafeJSON (0.0.7)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ARSafeJSON is a small library that will strip all occurences of NSNull from a JSON of any depth.   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;apos;ARSafeJSON&amp;apos;, &amp;apos;~&amp;gt; 0.0.7&amp;apos;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Homepage: https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//bitbucket.org/antoine_r/arsafejson   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Source:   https:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//bitbucket.org/antoine_r/arsafejson.git &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- Versions: 0.0.7, 0.0.3 [master repo]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//以下省去若干行&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;关于-Podfile-lock&quot;&gt;&lt;a href=&quot;#关于-Podfile-lock&quot; class=&quot;headerlink&quot; title=&quot;关于 Podfile.lock&quot;&gt;&lt;/a&gt;关于 Podfile.lock&lt;/h1&gt;&lt;p&gt;当执行pod install之后，除了 Podfile 外，CocoaPods 还会生成一个名为Podfile.lock的文件，Podfile.lock 应该加入到版本控制里面，不应该把这个文件加入到.gitignore中。因为Podfile.lock会锁定当前各依赖库的版本，之后如果多次执行pod install不会更改版本，要pod update才会改Podfile.lock了。这样多人协作的时候，可以防止第三方库升级时造成大家各自的第三方库版本不一致。&lt;/p&gt;
+&lt;p&gt;CocoaPods 的这篇 官方文档 也在What is a Podfile.lock一节中介绍了Podfile.lock的作用，并且指出：&lt;br&gt;　　“This file should always be kept under version control.”&lt;br&gt;为自己的项目创建 podspec 文件我们可以为自己的开源项目创建podspec文件，首先通过如下命令初始化一个podspec文件：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ pod spec create your_pod_spec_name&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;该命令执行之后，CocoaPods 会生成一个名为your_pod_spec_name.podspec的文件，然后我们修改其中的相关内容即可。&lt;/p&gt;
+&lt;p&gt;具体步骤可以参看：&lt;/p&gt;
+&lt;p&gt;《如何编写一个 CocoaPods 的 spec 文件》&lt;/p&gt;
+&lt;p&gt;《Cocoapods 入门》。&lt;/p&gt;
+&lt;h1 id=&quot;使用私有的-pods&quot;&gt;&lt;a href=&quot;#使用私有的-pods&quot; class=&quot;headerlink&quot; title=&quot;使用私有的 pods&quot;&gt;&lt;/a&gt;使用私有的 pods&lt;/h1&gt;&lt;p&gt;我们可以直接指定某一个依赖的podspec，这样就可以使用团队内部的私有库。该方案有利于使团队内部的公共项目支持 CocoaPods。如下是一个示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ pod&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;apos;MyCommon&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;, :podspec =&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;apos;https://yuantiku.com/common/myCommon.podspec&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;不更新-podspec&quot;&gt;&lt;a href=&quot;#不更新-podspec&quot; class=&quot;headerlink&quot; title=&quot;不更新 podspec&quot;&gt;&lt;/a&gt;不更新 podspec&lt;/h2&gt;&lt;p&gt;CocoaPods 在执行&lt;code&gt;pod install&lt;/code&gt;和&lt;code&gt;pod update&lt;/code&gt;时，会默认先更新一次podspec索引。使用–no-repo-update参数可以禁止其做索引更新操作。如下所示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ pod install --no-repo-update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ pod update --no-repo-update&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;生成第三方库的帮助文档&quot;&gt;&lt;a href=&quot;#生成第三方库的帮助文档&quot; class=&quot;headerlink&quot; title=&quot;生成第三方库的帮助文档&quot;&gt;&lt;/a&gt;生成第三方库的帮助文档&lt;/h1&gt;&lt;p&gt;如果想利用 CococaPods 生成第三方库的帮助文档，并集成到 Xcode 中，那么用 brew 安装 appledoc 即可：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ brew install appledoc&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;关于 appledoc，可以参看 《使用 Objective-C 的文档生成工具:appledoc》 中有专门介绍。它最大的优点是可以将帮助文档集成到 Xcode 中，这样你在敲代码的时候，按住 option 键单击类名或方法名，就可以显示出相应的帮助文档。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：CocoaPods 是iOS最常用的第三方库依赖管理工具，且绝大多数优秀的开源框架都支持CocoaPods。&lt;/p&gt;
+&lt;p&gt;CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 月 12 日，开发 iOS 项目不可避免地要使用第三方开源库，CocoaPods 的出现使得我们可以节省设置和更新第三方开源库的时间。&lt;/p&gt;
+&lt;p&gt;文章分享在自己的工程中如何使用CocoaPods 工具管理第三方库。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://charsdavy.github.io/categories/tool/"/>
+    
+    
+      <category term="开发助手" scheme="http://charsdavy.github.io/tags/assistant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>认识与入门 - Markdown</title>
+    <link href="http://charsdavy.github.io/2016/04/15/markdown-introduction/"/>
+    <id>http://charsdavy.github.io/2016/04/15/markdown-introduction/</id>
+    <published>2016-04-15T13:09:44.000Z</published>
+    <updated>2016-06-02T13:19:16.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：Markdown 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。文章介绍markdown基本使用方法，放心，看过之后你肯定会爱上它，无法自拔。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;一、认识-Markdown&quot;&gt;&lt;a href=&quot;#一、认识-Markdown&quot; class=&quot;headerlink&quot; title=&quot;一、认识 Markdown&quot;&gt;&lt;/a&gt;一、认识 Markdown&lt;/h1&gt;&lt;p&gt;在刚才的导语里提到，Markdown 是一种用来写作的轻量级「标记语言」，它用简洁的语法代替排版，而不像一般我们用的字处理软件 Word 或 Pages 有大量的排版、字体设置。它使我们专心于码字，用「标记」语法，来代替常见的排版格式。例如此文从内容到格式，甚至插图，键盘就可以通通搞定了。目前来看，支持 Markdown 语法的编辑器有很多，包括很多网站（例如简书）也支持了 Markdown 的文字录入。Markdown 从写作到完成，导出格式随心所欲，你可以导出 HTML 格式的文件用来网站发布，也可以十分方便的导出 PDF 格式，这种格式写出的简历更能得到 HR 的好感。甚至可以利用 CloudApp 这种云服务工具直接上传至网页用来分享你的文章，全球最大的轻博客平台 Tumblr，也支持使用 Mou 这类 Markdown 工具进行编辑并直接上传。&lt;/p&gt;
+&lt;h2 id=&quot;Markdown-官方文档&quot;&gt;&lt;a href=&quot;#Markdown-官方文档&quot; class=&quot;headerlink&quot; title=&quot;Markdown 官方文档&quot;&gt;&lt;/a&gt;Markdown 官方文档&lt;/h2&gt;&lt;p&gt;这里可以看到官方的 Markdown 语法规则文档，当然，后文我也会用自己的方式，阐述这些语法在实际使用中的用法。&lt;/p&gt;
+&lt;p&gt;创始人 John Gruber 的 Markdown 语法说明&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://daringfireball.net/projects/markdown/syntax&quot;&gt;http://daringfireball.net/projects/markdown/syntax&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Markdown 中文版语法说明&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://wowubuntu.com/markdown/#list&quot;&gt;http://wowubuntu.com/markdown/#list&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;使用-Markdown-的优点&quot;&gt;&lt;a href=&quot;#使用-Markdown-的优点&quot; class=&quot;headerlink&quot; title=&quot;使用 Markdown 的优点&quot;&gt;&lt;/a&gt;使用 Markdown 的优点&lt;/h2&gt;&lt;p&gt;专注你的文字内容而不是排版样式。&lt;/p&gt;
+&lt;p&gt;轻松的导出 HTML、PDF 和本身的 .md 文件。&lt;/p&gt;
+&lt;p&gt;纯文本内容，兼容所有的文本编辑器与字处理软件。&lt;/p&gt;
+&lt;p&gt;可读，直观。适合所有人的写作语言。&lt;/p&gt;
+&lt;h2 id=&quot;我该用什么工具&quot;&gt;&lt;a href=&quot;#我该用什么工具&quot; class=&quot;headerlink&quot; title=&quot;我该用什么工具&quot;&gt;&lt;/a&gt;我该用什么工具&lt;/h2&gt;&lt;h3 id=&quot;Mac-平台&quot;&gt;&lt;a href=&quot;#Mac-平台&quot; class=&quot;headerlink&quot; title=&quot;Mac 平台&quot;&gt;&lt;/a&gt;Mac 平台&lt;/h3&gt;&lt;p&gt;在 Mac OS X 上，我强烈建议你用 Mou 这款免费且十分好用的 Markdown 编辑器，它支持实时预览，既左边是你编辑 Markdown 语言，右边会实时的生成预览效果，笔者文章就是 Mou 这款应用写出来的。&lt;/p&gt;
+&lt;p&gt;其次还有很多同类选择。如果你是个编辑作者，我强烈建议你购买 Ulysses Ⅲ，这款应用入围了苹果去年 Mac App Store 的 The Best of 2013，相比 Mou 它支持更多的写作格式、多文档的支持。Mou、iA Writer 这些应用都是基于单文档的管理方式，而 Ulysses Ⅲ 支持 Folder、Filter 的管理，一个 Folder 里面可以创建多个 Sheet，Sheet 之间还可以进行 Combine 处理。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;Windows、iOS、Web-平台&quot;&gt;&lt;a href=&quot;#Windows、iOS、Web-平台&quot; class=&quot;headerlink&quot; title=&quot;Windows、iOS、Web 平台&quot;&gt;&lt;/a&gt;Windows、iOS、Web 平台&lt;/h3&gt;&lt;p&gt;笔者并未使用过 Windows 下的 Markdown 工具，但经朋友介绍，有两款还算不错，一款叫 MarkdownPad ，另一款叫 MarkPad。&lt;/p&gt;
+&lt;p&gt;iOS 端已有相当多的 app 支持 Markdown 语法编辑，例如 Drafts、Day One、iA Writer 等。&lt;/p&gt;
+&lt;p&gt;Web 端上，笔者强烈推荐 简书 这款产品，上面有无数热爱文字的人在不停的创造、分享。在 Web 端使用 Markdown 没有比简书更舒服的地方了，它同样支持左右两栏的实时预览，字体优雅、简洁。&lt;/p&gt;
+&lt;p&gt;同样是 Web 端，Draftin 这款在线 MD 编辑器也近乎完美。&lt;/p&gt;
+&lt;h1 id=&quot;二、Markdown-语法的简要规则&quot;&gt;&lt;a href=&quot;#二、Markdown-语法的简要规则&quot; class=&quot;headerlink&quot; title=&quot;二、Markdown 语法的简要规则&quot;&gt;&lt;/a&gt;二、Markdown 语法的简要规则&lt;/h1&gt;&lt;h2 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-3f6606d01e29d996.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;标题.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。&lt;/p&gt;
+&lt;h1 id=&quot;一级标题&quot;&gt;&lt;a href=&quot;#一级标题&quot; class=&quot;headerlink&quot; title=&quot;一级标题&quot;&gt;&lt;/a&gt;一级标题&lt;/h1&gt;&lt;h2 id=&quot;二级标题&quot;&gt;&lt;a href=&quot;#二级标题&quot; class=&quot;headerlink&quot; title=&quot;二级标题&quot;&gt;&lt;/a&gt;二级标题&lt;/h2&gt;&lt;h3 id=&quot;三级标题&quot;&gt;&lt;a href=&quot;#三级标题&quot; class=&quot;headerlink&quot; title=&quot;三级标题&quot;&gt;&lt;/a&gt;三级标题&lt;/h3&gt;&lt;p&gt;以此类推，总共六级标题，建议在#号后加一个空格，这是最标准的 Markdown 语法。&lt;/p&gt;
+&lt;h2 id=&quot;列表&quot;&gt;&lt;a href=&quot;#列表&quot; class=&quot;headerlink&quot; title=&quot;列表&quot;&gt;&lt;/a&gt;列表&lt;/h2&gt;&lt;p&gt;熟悉 HTML 的同学肯定知道有序列表与无序列表的区别，在 Markdown 下，列表的显示只需要在文字前加上 - 或 * 即可变为无序列表，有序列表则直接在文字前加 1. 2. 3. 符号要和文字之间加上一个字符的空格。&lt;/p&gt;
+&lt;h2 id=&quot;引用&quot;&gt;&lt;a href=&quot;#引用&quot; class=&quot;headerlink&quot; title=&quot;引用&quot;&gt;&lt;/a&gt;引用&lt;/h2&gt;&lt;p&gt;如果你需要引用一小段别处的句子，那么就要用引用的格式。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;例如这样&lt;br&gt;只需要在文本前加入 &amp;gt; 这种尖括号（大于号）即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-89dff7c1bf5167de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;引用.png&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;图片与链接&quot;&gt;&lt;a href=&quot;#图片与链接&quot; class=&quot;headerlink&quot; title=&quot;图片与链接&quot;&gt;&lt;/a&gt;图片与链接&lt;/h2&gt;&lt;p&gt;插入链接与插入图片的语法很像，区别在一个 !号&lt;br&gt;插入图片的地址需要图床，这里推荐 CloudApp 的服务，生成URL地址即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-aa3bd9ef3b8cfb9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片与链接.png&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;粗体与斜体&quot;&gt;&lt;a href=&quot;#粗体与斜体&quot; class=&quot;headerlink&quot; title=&quot;粗体与斜体&quot;&gt;&lt;/a&gt;粗体与斜体&lt;/h2&gt;&lt;p&gt;Markdown 的粗体和斜体也非常简单，用两个 &lt;em&gt; 包含一段文本就是粗体的语法，用一个 &lt;/em&gt; 包含一段文本就是斜体的语法。&lt;/p&gt;
+&lt;p&gt;例如：&lt;strong&gt;这里是粗体&lt;/strong&gt; &lt;em&gt;这里是斜体&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;表格&quot;&gt;&lt;a href=&quot;#表格&quot; class=&quot;headerlink&quot; title=&quot;表格&quot;&gt;&lt;/a&gt;表格&lt;/h2&gt;&lt;p&gt;表格是我觉得 Markdown 比较累人的地方，例子如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-70d3dcdde3f27fde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;表格.png&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;代码框&quot;&gt;&lt;a href=&quot;#代码框&quot; class=&quot;headerlink&quot; title=&quot;代码框&quot;&gt;&lt;/a&gt;代码框&lt;/h2&gt;&lt;p&gt;如果你是个程序猿，需要在文章里优雅的引用代码框，在 Markdown 下实现也非常简单，只需要用两个 连续三个顿点符号 把中间的代码包裹起来，如 ：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-2a96aad92c711885.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;代码框.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;使用 tab 键即可缩进。&lt;/p&gt;
+&lt;h2 id=&quot;分割线&quot;&gt;&lt;a href=&quot;#分割线&quot; class=&quot;headerlink&quot; title=&quot;分割线&quot;&gt;&lt;/a&gt;分割线&lt;/h2&gt;&lt;p&gt;分割线的语法只需要另起一行，连续输入三个星号 &lt;em&gt;*&lt;/em&gt; 即可。&lt;/p&gt;
+&lt;h2 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;小结&lt;/h2&gt;&lt;p&gt;到这里，Markdown 的基本语法在日常的使用中基本就没什么大问题了，只要多加练习，配合好用的工具，写起东西来肯定会行云流水。更多的语法规则，其实 Mou 的 Help 文档例子很好，当你第一次使用 Mou 时，就会显示该文档，其次，你也可在撰写过程中，使用 CMD+R 快捷键来快速打开文档，以随时查阅和学习语法。&lt;/p&gt;
+&lt;h1 id=&quot;三、与-Markdown-相关的一些推荐&quot;&gt;&lt;a href=&quot;#三、与-Markdown-相关的一些推荐&quot; class=&quot;headerlink&quot; title=&quot;三、与 Markdown 相关的一些推荐&quot;&gt;&lt;/a&gt;三、与 Markdown 相关的一些推荐&lt;/h1&gt;&lt;h2 id=&quot;可配套使用的工具&quot;&gt;&lt;a href=&quot;#可配套使用的工具&quot; class=&quot;headerlink&quot; title=&quot;可配套使用的工具&quot;&gt;&lt;/a&gt;可配套使用的工具&lt;/h2&gt;&lt;p&gt;Droplr&lt;/p&gt;
+&lt;p&gt;Cloudapp&lt;/p&gt;
+&lt;p&gt;ezShare for Mac&lt;/p&gt;
+&lt;p&gt;围脖图床修复计划&lt;/p&gt;
+&lt;p&gt;马克飞象，专为印象笔记打造的 Markdown 编辑器，非常推荐&lt;/p&gt;
+&lt;h2 id=&quot;相关文章阅读&quot;&gt;&lt;a href=&quot;#相关文章阅读&quot; class=&quot;headerlink&quot; title=&quot;相关文章阅读&quot;&gt;&lt;/a&gt;相关文章阅读&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://apple4us.com/2012/02/why-writers-should-use-markdown&quot;&gt;为什么作家应该用 Markdown 保存自己的文稿&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.yangzhiping.com/tech/r-markdown-knitr.html&quot;&gt;Markdown 写作浅谈&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.appinn.com/markdown-tools&quot;&gt;Markdown 工具补完&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.jianshu.com/p/63HYZ6&quot;&gt;Drafts + Scriptogr.am + Dropbox 打造移动端 Markdown 风格博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.ituring.com.cn/article/23&quot;&gt;图灵社区 - 怎样使用 Markdown&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://news.cnblogs.com/n/139649&quot;&gt;为什么我们要学习 Markdown 的三个理由&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;最后，分享一个MarkDown开源编辑工具MacDown，源代码地址&lt;br&gt;&lt;a href=&quot;https://github.com/uranusjr/macdown&quot;&gt;https://github.com/uranusjr/macdown&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：Markdown 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。文章介绍markdown基本使用方法，放心，看过之后你肯定会爱上它，无法自拔。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="应用实战" scheme="http://charsdavy.github.io/categories/apply/"/>
+    
+    
+      <category term="markdown" scheme="http://charsdavy.github.io/tags/script/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GCD（Grand Central Dispatch）</title>
     <link href="http://charsdavy.github.io/2016/04/14/Grand-Central-Dispatch/"/>
     <id>http://charsdavy.github.io/2016/04/14/Grand-Central-Dispatch/</id>
@@ -800,7 +1117,7 @@
       <category term="应用实战" scheme="http://charsdavy.github.io/categories/apply/"/>
     
     
-      <category term="hexo" scheme="http://charsdavy.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="http://charsdavy.github.io/tags/script/"/>
     
   </entry>
   

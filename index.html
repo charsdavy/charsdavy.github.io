@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
+						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 15px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/algorithm/" style="font-size: 10px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -358,7 +358,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/script/">hexo</a></li></ul>
 	</div>
 
       
@@ -644,11 +644,11 @@
 
 
   
-    <article id="post-Grand-Central-Dispatch" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-charles-using" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/14/Grand-Central-Dispatch/" class="article-date">
-  	<time datetime="2016-04-14T00:24:46.000Z" itemprop="datePublished">2016-04-14</time>
+      <a href="/2016/04/20/charles-using/" class="article-date">
+  	<time datetime="2016-04-20T13:21:14.000Z" itemprop="datePublished">2016-04-20</time>
 </a>
     </div>
   
@@ -661,7 +661,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/14/Grand-Central-Dispatch/">GCD（Grand Central Dispatch）</a>
+      <a class="article-title" href="/2016/04/20/charles-using/">Charles 安装与使用</a>
     </h1>
   
 
@@ -670,7 +670,75 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>摘要：GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。</p>
+        <p>摘要：Charles是在 Mac 下常用的网络封包截取工具，在做 移动开发时，我们为了调试与服务器端的网络通讯协议，常常需要截取网络封包来分析。</p>
+<p>Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成，从而实现了网络封包的截取和分析。</p>
+<p>除了在做移动开发中调试端口外，Charles 也可以用于分析第三方应用的通讯协议。配合 Charles 的 SSL 功能，Charles 还可以分析 Https 协议。</p>
+<p>Charles 是收费软件，可以免费试用 30 天。试用期过后，未付费的用户仍然可以继续使用，但是每次使用时间不能超过 30 分钟，并且启动时将会有 10 秒种的延时。因此，该付费方案对广大用户还是相当友好的，即使你长期不付费，也能使用完整的软件功能。只是当你需要长时间进行封包调试时，会因为 Charles 强制关闭而遇到影响。</p>
+<p>本文将分享如何使用Charles，并且发放福利喔。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/tool/">工具</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/04/20/charles-using/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-VFL-introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/17/VFL-introduction/" class="article-date">
+  	<time datetime="2016-04-17T13:49:29.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/17/VFL-introduction/">VFL 语言简介</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要：VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。</p>
       
     </div>
     
@@ -689,7 +757,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/14/Grand-Central-Dispatch/#more">more >></a>
+          <a  href="/2016/04/17/VFL-introduction/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -708,11 +776,11 @@
 
 
   
-    <article id="post-singleton-pattern" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-cocoapods-using" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/13/singleton-pattern/" class="article-date">
-  	<time datetime="2016-04-13T00:23:37.000Z" itemprop="datePublished">2016-04-13</time>
+      <a href="/2016/04/16/cocoapods-using/" class="article-date">
+  	<time datetime="2016-04-16T13:38:49.000Z" itemprop="datePublished">2016-04-16</time>
 </a>
     </div>
   
@@ -725,7 +793,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/singleton-pattern/">单例模式</a>
+      <a class="article-title" href="/2016/04/16/cocoapods-using/">CocoaPods安装与使用</a>
     </h1>
   
 
@@ -734,7 +802,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
+        <p>摘要：CocoaPods 是iOS最常用的第三方库依赖管理工具，且绝大多数优秀的开源框架都支持CocoaPods。</p>
+<p>CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 月 12 日，开发 iOS 项目不可避免地要使用第三方开源库，CocoaPods 的出现使得我们可以节省设置和更新第三方开源库的时间。</p>
+<p>文章分享在自己的工程中如何使用CocoaPods 工具管理第三方库。</p>
       
     </div>
     
@@ -742,82 +812,18 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
 	</div>
 
       
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/advance/">进阶</a>
+	<a class="article-category-link" href="/categories/tool/">工具</a>
 	</div>
 
 
       
         <p class="article-more-link">
-          <a  href="/2016/04/13/singleton-pattern/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-design-pattern-introduction" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/12/design-pattern-introduction/" class="article-date">
-  	<time datetime="2016-04-12T00:08:59.000Z" itemprop="datePublished">2016-04-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/design-pattern-introduction/">设计模式 - 概述</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/advance/">进阶</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/12/design-pattern-introduction/#more">more >></a>
+          <a  href="/2016/04/16/cocoapods-using/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
