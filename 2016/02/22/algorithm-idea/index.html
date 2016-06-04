@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>常用的算法思想总结 | Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的算法思想总结">
+<meta property="og:url" content="http://charsdavy.github.io/2016/02/22/algorithm-idea/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。">
+<meta property="og:updated_time" content="2016-06-04T04:18:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的算法思想总结">
+<meta name="twitter:description" content="摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。">
+  
+    <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Chars Davy</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+							<li><a href="/atom.xml">Rss</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/bd2336d8f946/latest_articles">Chars</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">casatwy</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cenalulu.github.io/">cenalulu</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Chars @ ZAKER 立志成为全栈攻城狮。喜欢游泳，羽毛球。 爱好一个人静静写代码，看代码，看书。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Chars Davy</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Chars Davy</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+					<li><a href="/atom.xml">Rss</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-algorithm-idea" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/22/algorithm-idea/" class="article-date">
+  	<time datetime="2016-02-22T04:17:11.000Z" itemprop="datePublished">2016-02-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用的算法思想总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">算法</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/advance/">进阶</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。</p>
+<a id="more"></a>
+<h1 id="一、穷举法思想"><a href="#一、穷举法思想" class="headerlink" title="一、穷举法思想"></a>一、穷举法思想</h1><p>穷举法，又称为强力法。它是一种最为直接，实现最为简单，同时又最为耗时的一种解决实际问题的算法思想。</p>
+<p>基本思想：在可能的解空间中穷举出每一种可能的解，并对每一个可能解进行判断，从中得到问题的答案。</p>
+<p>使用穷举法思想解决实际问题，最关键的步骤是划定问题的解空间，并在该解空间中一一枚举每一个可能的解。这里有两点需要注意，一是解空间的划定必须保证覆盖问题的全部解，二是解空间集合及问题的解集一定是离散的集合，也就是说集合中的元素是可列的、有限的。</p>
+<p>穷举法用时间上的牺牲换来了解的全面性保证，因此穷举法的优势在于确保得到问题的全部解，而瓶颈在于运算效率十分低下。但是穷举法算法思想简单，易于实现，在解决一些规模不是很大的问题，使用穷举法不失为一种很好地选择。</p>
+<p>现在我们通过具体的实例来理解穷举法思想。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  实例：寻找[1,100]之间的素数</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> *  判断n是否是素数，是则返回1，不是则返回0</span><br><span class="line"> */</span><br><span class="line">int isPrime(int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 0;</span><br><span class="line">    for (i = 2; i &lt; n; i++) &#123;</span><br><span class="line">        if (0 == n % i) &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> *  寻找[low,high]之间的素数</span><br><span class="line"> */</span><br><span class="line">void getPrime(int low, int high)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 0;</span><br><span class="line">    for (i = low; i &lt;= high; i++) &#123;</span><br><span class="line">        if (isPrime(i)) &#123;</span><br><span class="line">            printf(&quot;%d &quot;, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    // insert code here...</span><br><span class="line">    int low = 0, high = 0;</span><br><span class="line">    printf(&quot;Please input the domain for searching prime\n&quot;);</span><br><span class="line">    printf(&quot;low limitation:&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;low);</span><br><span class="line">    printf(&quot;high limitation:&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;high);</span><br><span class="line">    printf(&quot;The whole primes in this domain are\n&quot;);</span><br><span class="line">    getPrime(low, high);</span><br><span class="line">    getchar();</span><br><span class="line">     </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Please input the domain for searching prime</span><br><span class="line">low limitation:1</span><br><span class="line">high limitation:100</span><br><span class="line">The whole primes in this domain are</span><br><span class="line">1 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97</span><br></pre></td></tr></table></figure>
+<h1 id="二、递归与分治思想"><a href="#二、递归与分治思想" class="headerlink" title="二、递归与分治思想"></a>二、递归与分治思想</h1><p>递归与分治的算法思想往往是相伴而生的，它们在各类算法中使用非常频繁，应用递归和分治的算法思想有时可以设计出代码简洁且比较高效的算法来。</p>
+<p>在解决一些比较复杂的问题，特别是解决一些规模较大得问题时，常常将问题进行分解。具体来说，就是将一个规模较大的问题分割成规模较小的同类问题，然后将这些小问题的子问题逐个加以解决，最终也就将整个大问题解决了。这种思想称之为分治。在解决一些问题比较复杂、计算量庞大的问题时经常被用到。</p>
+<p>最为经典的使用分治思想设计的算法就是“折半查找算法”。折半查找算法利用了元素之间的顺序关系（有序序列），采用分而治之的策略，不断缩小问题的规模，每次都将问题的规模减小至上一次的一半。</p>
+<p>而递归思想也是一种常见的算法设计思想，所谓递归算法，就是一种直接或间接地调用原算法本身的一种算法。</p>
+<p>接下来我们通过实例代码来理解递归、分治思想。</p>
+<p>分治思想：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  有一个数组A[10]，里面存放了10个整数，顺序递增</span><br><span class="line"> *  A[10] = &#123;2, 3, 5, 7, 8, 10, 12, 15, 19, 21&#125;</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int bin_search(int A[], int n, int key)</span><br><span class="line">&#123;</span><br><span class="line">    int low = 0, high = 0, mid = 0;</span><br><span class="line">    high = n - 1;</span><br><span class="line">    while (low &lt;= high) &#123;</span><br><span class="line">        mid = (low + high) / 2;</span><br><span class="line">        if (A[mid] == key) &#123; //查找成功，返回mid</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">        if (A[mid] &lt; key) &#123; //在后半序列中查找</span><br><span class="line">            low = mid + 1;</span><br><span class="line">        &#125;</span><br><span class="line">        if (A[mid] &gt; key) &#123; //在前半序列中查找</span><br><span class="line">            high = mid - 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return -1; //查找失败</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    // insert code here...</span><br><span class="line">    int A[10] = &#123;2, 3, 5, 7, 8, 10, 12, 15, 19, 21&#125;;</span><br><span class="line">    int i = 0, n = 0, addr = 0;</span><br><span class="line">    printf(&quot;The contents of the Array A[10] are\n&quot;);</span><br><span class="line">    for (i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        printf(&quot;%d &quot;,A[i]); //显示数组A中的内容</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\nPlease input a interger for search\n&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;n); //输入待查找得元素</span><br><span class="line">    addr = bin_search(A, 10, n); //折半查找，返回该元素在数组中的下标</span><br><span class="line">    if (-1 != addr) &#123;</span><br><span class="line">        printf(&quot;%d is at the %dth unit is array A\n&quot;, n, addr);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        printf(&quot;There is no %d in array A\n&quot;, n); //查找失败</span><br><span class="line">    &#125;</span><br><span class="line">    getchar();</span><br><span class="line">     </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The contents of the Array A[10] are</span><br><span class="line">2 3 5 7 8 10 12 15 19 21</span><br><span class="line">Please input a interger for search</span><br><span class="line">12</span><br><span class="line">12 is at the 6th unit is array A</span><br></pre></td></tr></table></figure>
+<p>递归思想：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  计算n的阶乘n!</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int factorial(int n)</span><br><span class="line">&#123;</span><br><span class="line">    if (0 == n) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return n * factorial(n - 1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    // insert code here...</span><br><span class="line">    int n = 0, result = 0;</span><br><span class="line">    printf(&quot;Please input factorial number\n&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">    result = factorial(n);</span><br><span class="line">    printf(&quot;result is %d&quot;, result);</span><br><span class="line">    getchar();</span><br><span class="line">     </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Please input factorial number</span><br><span class="line">6</span><br><span class="line">result is 720</span><br></pre></td></tr></table></figure>
+<h1 id="三、贪心算法思想"><a href="#三、贪心算法思想" class="headerlink" title="三、贪心算法思想"></a>三、贪心算法思想</h1><p>贪心算法的思想非常简单且算法效率很高，在一些问题的解决上有着明显的优势。</p>
+<p>先来看一个生活中的例子。假设有3种硬币，面值分别为1元、5角、1角。这3种硬币各自的数量不限，现在要找给顾客3元6角钱，请问怎样找才能使得找给顾客的硬币数量最少呢？你也许会不假思索的说出答案：找给顾客3枚1元硬币，1枚5角硬币，1枚1角硬币。其实也可以找给顾客7枚5角硬币，1枚1角硬币。可是在这里不符合题意。在这里，我们下意识地应用了所谓贪心算法解决这个问题。</p>
+<p>所谓贪心算法，就是总是做出在当前看来是最好的选择的一种方法。以上述的题目为例，为了找给顾客的硬币数量最少，在选择硬币的面值时，当然是尽可能地选择面值大的硬币。因此，下意识地遵循了以下方案：</p>
+<p>（1）首先找出一个面值不超过3元6角的最大硬币，即1元硬币。</p>
+<p>（2）然后从3元6角中减去1元，得到2元6角，再找出一个面值不超过2元6角的最大硬币，即1元硬币。</p>
+<p>（3）然后从2元6角中减去1元，得到1元6角，再找出一个面值不超过1元6角的最大硬币，即1元硬币。</p>
+<p>（4）然后从1元6角中减去1元，得到6角，再找出一个面值不超过6角的最大硬币，即5角硬币。</p>
+<p>（5）然后从6角中减去5角，得到1角，再找出一个面值不超过1角的最大硬币，即1角硬币。</p>
+<p>（6）找零钱的过程结束。</p>
+<p>这个过程就是一个典型的贪心算法思想。</p>
+<p>因此，不难看出应用贪心算法求解问题，并不从问题的整体最优上加以考虑，它所作出的每一步选择只是在某种意义上得局部最优选择。因此，严格意义上讲，要使用贪心算法求解问题，该问题应当具备以下性质。</p>
+<p>（1）贪心选择性质</p>
+<p>所谓贪心选择性质，就是指所求解的问题的整体最优解可以通过一系列的局部最优解得到。所谓局部最优解，就是指在当前的状态下做出的最好选择。</p>
+<p>（2）最优子结构性质</p>
+<p>当一个问题的最优解包含着它的子问题的最优解时，就称此问题具有最优子结构性质。</p>
+<p>我们经常使用的哈夫曼（Huffman Tree）编码算法，求解最小生成树的克鲁斯卡尔（Kruskal）算法和普利姆（Prim）算法，求解图的单源最短路径的迪克斯特拉（Dijkstra）算法都是基于贪心算法的思想设计的。</p>
+<p>下面，我们来通过实例代码来理解贪心算法思想。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  最优装船问题</span><br><span class="line"> *  有一批集装箱要装入一个载质量为C的货船中，每个集装箱的质量由用户自己输入指定，在货船的装载体积不限的前提下，如何装载集装箱才能尽可能多地将集装箱装入货船中。</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">void sort(int w[], int t[], int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 0, j = 0, tmp = 0;</span><br><span class="line">    //存放w[]中的内容，用于排序</span><br><span class="line">    int *w_tmp = (int *)malloc(sizeof(int) * n);</span><br><span class="line">     </span><br><span class="line">    for (i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        t[i] = i;  //初始化数组t</span><br><span class="line">    &#125;</span><br><span class="line">    for (i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        w_tmp[i] = w[i];</span><br><span class="line">    &#125;</span><br><span class="line">    for (i = 0; i &lt; n - 1; i++) &#123; //冒泡排序</span><br><span class="line">        for (j = 0; j &lt; n - i - 1; j++) &#123;</span><br><span class="line">            if (w_tmp[j] &gt; w_tmp[j+1]) &#123;</span><br><span class="line">                tmp = w_tmp[j];</span><br><span class="line">                w_tmp[j] = w_tmp[j+1];</span><br><span class="line">                w_tmp[j+1] = tmp;</span><br><span class="line">                tmp = t[j];</span><br><span class="line">                t[j] = t[j+1];</span><br><span class="line">                t[j+1] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void Loading(int x[], int w[], int c, int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 0;</span><br><span class="line">    //存放w[]的下标，如果t[i]、t[j]、i&lt;j，则w[i]&lt;=w[j]</span><br><span class="line">    int *t = (int *)malloc(sizeof(int) * n);</span><br><span class="line">    //排序，用数组t[[]存放w[]的下标</span><br><span class="line">    sort(w, t, n);</span><br><span class="line">    for (i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        x[i] = 0;  //初始化数组x[]</span><br><span class="line">    &#125;</span><br><span class="line">    for (i = 0; i &lt; n &amp;&amp; w[t[i]] &lt;= c; i++) &#123;</span><br><span class="line">        x[t[i]] = 1; //将第t[i]个集装箱装入货船中</span><br><span class="line">        c = c - w[t[i]]; //变量c中存放货船的剩余载质量</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    // insert code here...</span><br><span class="line">    int x[5], w[5], c = 0, i = 0;</span><br><span class="line">    printf(&quot;Please input the maximum loading of the sheep\n&quot;);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;c); //</span><br><span class="line">    printf(&quot;Please input the weight of FIVE box\n&quot;);</span><br><span class="line">    for (i = 0; i &lt; 5; i++) &#123; //</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    Loading(x, w, c, 5); //</span><br><span class="line">    printf(&quot;The following boxes will be loaded\n&quot;);</span><br><span class="line">    for (i = 0; i &lt; 5; i++) &#123; //</span><br><span class="line">        if (1 == x[i]) &#123;</span><br><span class="line">            printf(&quot;BOX:%d &quot;, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    getchar();</span><br><span class="line">     </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Please input the maximum loading of the sheep</span><br><span class="line">13</span><br><span class="line">Please input the weight of FIVE box</span><br><span class="line">5 7 6 3 2</span><br><span class="line">The following boxes will be loaded</span><br><span class="line">BOX:0 BOX:3 BOX:4</span><br></pre></td></tr></table></figure>
+<p>以上，就是对算法设计中几个常见的思想的总结。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/10/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/18/apk-decompile/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Apk 反编译</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'charstechblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Chars Davy
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/18878021.js"></script>
+<noscript><a href="http://www.51.la/?18878021" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/18878021.asp" style="border:none" /></a></noscript>
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

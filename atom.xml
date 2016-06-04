@@ -965,6 +965,525 @@
   </entry>
   
   <entry>
+    <title>Ruby 正则表达式</title>
+    <link href="http://charsdavy.github.io/2016/04/13/ruby-regular-expression/"/>
+    <id>http://charsdavy.github.io/2016/04/13/ruby-regular-expression/</id>
+    <published>2016-04-13T14:17:11.000Z</published>
+    <updated>2016-06-04T05:01:11.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找字符串集合。&lt;br&gt;正则表达式用事先定义好的一些特定字符、及这些特定字符的组合，组成一个”规则字符串”，这个”规则字符串”用来表达对字符串的一种过滤逻辑。&lt;br&gt;文章分享关于Ruby中的正则表达式的相关知识与使用。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;语法&quot;&gt;&lt;a href=&quot;#语法&quot; class=&quot;headerlink&quot; title=&quot;语法&quot;&gt;&lt;/a&gt;语法&lt;/h1&gt;&lt;p&gt;正则表达式从字面上看是一种介于斜杠之间或介于跟在 %r 后的任意分隔符之间的模式，如下所示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/pattern/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/pattern/im    # 可以指定选项&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%r!/usr/local! # 使用分隔符的正则表达式&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;实例&quot;&gt;&lt;a href=&quot;#实例&quot; class=&quot;headerlink&quot; title=&quot;实例&quot;&gt;&lt;/a&gt;实例&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#!/usr/bin/ruby&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;line1 = &amp;quot;Cats are smarter than dogs&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;line2 = &amp;quot;Dogs also like meat&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if ( line1 =~ /Cats(.*)/ )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  puts &amp;quot;Line1 contains Cats&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if ( line2 =~ /Cats(.*)/ )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  puts &amp;quot;Line2 contains  Dogs&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;实例运行输出结果为：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Line1 contains Cats&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;正则表达式修饰符&quot;&gt;&lt;a href=&quot;#正则表达式修饰符&quot; class=&quot;headerlink&quot; title=&quot;正则表达式修饰符&quot;&gt;&lt;/a&gt;正则表达式修饰符&lt;/h1&gt;&lt;p&gt;正则表达式从字面上看可能包含一个可选的修饰符，用于控制各方面的匹配。修饰符在第二个斜杠字符后指定，如上面实例所示。下标列出了 可能的修饰符：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;修饰符&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;当匹配文本时忽略大小写。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;o&lt;/td&gt;
+&lt;td&gt;只执行一次 #{} 插值，正则表达式在第一次时就进行判断。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;x&lt;/td&gt;
+&lt;td&gt;忽略空格，允许在整个表达式中放入空白符和注释。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;m&lt;/td&gt;
+&lt;td&gt;匹配多行，把换行字符识别为正常字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;u,e,s,n&lt;/td&gt;
+&lt;td&gt;把正则表达式解释为 Unicode（UTF-8）、EUC、SJIS 或 ASCII。如果没有指定修饰符，则认为正则表达式使用的是源编码。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;就像字符串通过 %Q 进行分隔一样，Ruby 允许您以 %r 作为正则表达式的开头，后面跟着任意分隔符。这在描述包含大量您不想转义的斜杠字符时非常有用。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# 下面匹配单个斜杠字符，不转义&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%r|/|&lt;/code&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# Flag 字符可通过下面的语法进行匹配&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%r[&amp;lt;/(.*)&amp;gt;]i&lt;/code&gt; &lt;/p&gt;
+&lt;h1 id=&quot;正则表达式模式&quot;&gt;&lt;a href=&quot;#正则表达式模式&quot; class=&quot;headerlink&quot; title=&quot;正则表达式模式&quot;&gt;&lt;/a&gt;正则表达式模式&lt;/h1&gt;&lt;p&gt;除了控制字符，(+ ? . * ^ $ ( ) [ ] { } | )，其他所有字符都匹配本身。您可以通过在控制字符前放置一个反斜杠来对控制字符进行转义。&lt;/p&gt;
+&lt;p&gt;下表列出了 Ruby 中可用的正则表达式语法。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;模式&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;^&lt;/td&gt;
+&lt;td&gt;匹配行的开头。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;$&lt;/td&gt;
+&lt;td&gt;匹配行的结尾。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;.&lt;/td&gt;
+&lt;td&gt;匹配除了换行符以外的任意单字符。使用 m 选项时，它也可以匹配换行符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[…]&lt;/td&gt;
+&lt;td&gt;匹配在方括号中的任意单字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[^…]&lt;/td&gt;
+&lt;td&gt;匹配不在方括号中的任意单字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;re*&lt;/td&gt;
+&lt;td&gt;匹配前面的子表达式零次或多次。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;re+&lt;/td&gt;
+&lt;td&gt;匹配前面的子表达式一次或多次。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;re?&lt;/td&gt;
+&lt;td&gt;匹配前面的子表达式零次或一次。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;re{ n}&lt;/td&gt;
+&lt;td&gt;匹配前面的子表达式 n 次。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;re{ n,}&lt;/td&gt;
+&lt;td&gt;匹配前面的子表达式 n 次或 n 次以上。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;re{ n, m}&lt;/td&gt;
+&lt;td&gt;匹配前面的子表达式至少 n 次至多 m 次。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(re)&lt;/td&gt;
+&lt;td&gt;对正则表达式进行分组，并记住匹配文本。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?imx)&lt;/td&gt;
+&lt;td&gt;暂时打开正则表达式内的 i、 m 或 x 选项。如果在圆括号中，则只影响圆括号内的部分。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?-imx)&lt;/td&gt;
+&lt;td&gt;暂时关闭正则表达式内的 i、 m 或 x 选项。如果在圆括号中，则只影响圆括号内的部分。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?: re)&lt;/td&gt;
+&lt;td&gt;对正则表达式进行分组，但不记住匹配文本。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?imx: re)&lt;/td&gt;
+&lt;td&gt;暂时打开圆括号内的 i、 m 或 x 选项。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?-imx: re)&lt;/td&gt;
+&lt;td&gt;暂时关闭圆括号内的 i、 m 或 x 选项。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?#…)&lt;/td&gt;
+&lt;td&gt;注释。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?= re)&lt;/td&gt;
+&lt;td&gt;使用模式指定位置。没有范围。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?! re)&lt;/td&gt;
+&lt;td&gt;使用模式的否定指定位置。没有范围。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(?&amp;gt; re)&lt;/td&gt;
+&lt;td&gt;匹配无回溯的独立模式。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\w&lt;/td&gt;
+&lt;td&gt;匹配单词字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\W&lt;/td&gt;
+&lt;td&gt;匹配非单词字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\s&lt;/td&gt;
+&lt;td&gt;匹配空白字符。等价于 [\t\n\r\f]。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\S&lt;/td&gt;
+&lt;td&gt;匹配非空白字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\d&lt;/td&gt;
+&lt;td&gt;匹配数字。等价于 [0-9]。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\D&lt;/td&gt;
+&lt;td&gt;匹配非数字。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\A&lt;/td&gt;
+&lt;td&gt;匹配字符串的开头。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\Z&lt;/td&gt;
+&lt;td&gt;匹配字符串的结尾。如果存在换行符，则只匹配到换行符之前。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\z&lt;/td&gt;
+&lt;td&gt;匹配字符串的结尾。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\G&lt;/td&gt;
+&lt;td&gt;匹配最后一个匹配完成的点。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\b&lt;/td&gt;
+&lt;td&gt;当在括号外时匹配单词边界，当在括号内时匹配退格键（0x08）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\B&lt;/td&gt;
+&lt;td&gt;匹配非单词边界。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\n, \t, etc.&lt;/td&gt;
+&lt;td&gt;匹配换行符、回车符、制表符，等等。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\1…\9&lt;/td&gt;
+&lt;td&gt;匹配第 n 个分组子表达式。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\10&lt;/td&gt;
+&lt;td&gt;如果已匹配过，则匹配第 n 个分组子表达式。否则指向字符编码的八进制表示。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;补充：&lt;/strong&gt; &lt;code&gt;a|b&lt;/code&gt; ：匹配 a 或 b。&lt;/p&gt;
+&lt;h1 id=&quot;正则表达式实例&quot;&gt;&lt;a href=&quot;#正则表达式实例&quot; class=&quot;headerlink&quot; title=&quot;正则表达式实例&quot;&gt;&lt;/a&gt;正则表达式实例&lt;/h1&gt;&lt;h2 id=&quot;字符&quot;&gt;&lt;a href=&quot;#字符&quot; class=&quot;headerlink&quot; title=&quot;字符&quot;&gt;&lt;/a&gt;字符&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/ruby/&lt;/td&gt;
+&lt;td&gt;匹配 “ruby”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;¥&lt;/td&gt;
+&lt;td&gt;匹配 Yen 符号。Ruby 1.9 和 Ruby 1.8 支持多个字符。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;字符类&quot;&gt;&lt;a href=&quot;#字符类&quot; class=&quot;headerlink&quot; title=&quot;字符类&quot;&gt;&lt;/a&gt;字符类&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/[Rr]uby/&lt;/td&gt;
+&lt;td&gt;匹配 “Ruby” 或 “ruby”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/rub[ye]/&lt;/td&gt;
+&lt;td&gt;匹配 “ruby” 或 “rube”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[aeiou]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个小写元音字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[0-9]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个数字，与 /[0123456789]/ 相同&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[a-z]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个小写 ASCII 字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[A-Z]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个大写 ASCII 字母&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[a-zA-Z0-9]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个括号内的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[^aeiou]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个非小写元音字母的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/[^0-9]/&lt;/td&gt;
+&lt;td&gt;匹配任何一个非数字字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;特殊字符类&quot;&gt;&lt;a href=&quot;#特殊字符类&quot; class=&quot;headerlink&quot; title=&quot;特殊字符类&quot;&gt;&lt;/a&gt;特殊字符类&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/./&lt;/td&gt;
+&lt;td&gt;匹配除了换行符以外的其他任意字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/./m&lt;/td&gt;
+&lt;td&gt;在多行模式下，也能匹配换行符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\d/&lt;/td&gt;
+&lt;td&gt;匹配一个数字，等同于 /[0-9]/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\D/&lt;/td&gt;
+&lt;td&gt;匹配一个非数字，等同于 /[^0-9]/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\s/&lt;/td&gt;
+&lt;td&gt;匹配一个空白字符，等同于 /[ \t\r\n\f]/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\S/&lt;/td&gt;
+&lt;td&gt;匹配一个非空白字符，等同于 /[^ \t\r\n\f]/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\w/&lt;/td&gt;
+&lt;td&gt;匹配一个单词字符，等同于 /[A-Za-z0-9_]/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\W/&lt;/td&gt;
+&lt;td&gt;匹配一个非单词字符，等同于 /[^A-Za-z0-9_]/&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;重复&quot;&gt;&lt;a href=&quot;#重复&quot; class=&quot;headerlink&quot; title=&quot;重复&quot;&gt;&lt;/a&gt;重复&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/ruby?/&lt;/td&gt;
+&lt;td&gt;匹配 “rub” 或 “ruby”。其中，y 是可有可无的。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/ruby*/&lt;/td&gt;
+&lt;td&gt;匹配 “rub” 加上 0 个或多个的 y。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/ruby+/&lt;/td&gt;
+&lt;td&gt;匹配 “rub” 加上 1 个或多个的 y。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\d{3}/&lt;/td&gt;
+&lt;td&gt;刚好匹配 3 个数字。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\d{3,}/&lt;/td&gt;
+&lt;td&gt;匹配 3 个或多个数字。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\d{3,5}/&lt;/td&gt;
+&lt;td&gt;匹配 3 个、4 个或 5 个数字。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;非贪婪重复&quot;&gt;&lt;a href=&quot;#非贪婪重复&quot; class=&quot;headerlink&quot; title=&quot;非贪婪重复&quot;&gt;&lt;/a&gt;非贪婪重复&lt;/h2&gt;&lt;p&gt;这会匹配最小次数的重复。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/&amp;lt;.*&amp;gt;/&lt;/td&gt;
+&lt;td&gt;贪婪重复：匹配 “&lt;ruby&gt;perl&amp;gt;”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/&amp;lt;.*?&amp;gt;/&lt;/td&gt;
+&lt;td&gt;非贪婪重复：匹配 “&lt;ruby&gt;perl&amp;gt;” 中的 “&lt;ruby&gt;“&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;通过圆括号进行分组&quot;&gt;&lt;a href=&quot;#通过圆括号进行分组&quot; class=&quot;headerlink&quot; title=&quot;通过圆括号进行分组&quot;&gt;&lt;/a&gt;通过圆括号进行分组&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/\D\d+/&lt;/td&gt;
+&lt;td&gt;无分组： + 重复 \d&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/(\D\d)+/&lt;/td&gt;
+&lt;td&gt;分组： + 重复 \D\d 对&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/([Rr]uby(, )?)+/&lt;/td&gt;
+&lt;td&gt;匹配 “Ruby”、”Ruby, ruby, ruby”，等等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;反向引用&quot;&gt;&lt;a href=&quot;#反向引用&quot; class=&quot;headerlink&quot; title=&quot;反向引用&quot;&gt;&lt;/a&gt;反向引用&lt;/h2&gt;&lt;p&gt;这会再次匹配之前匹配过的分组。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/([Rr])uby&amp;amp;\1ails/&lt;/td&gt;
+&lt;td&gt;匹配 ruby&amp;amp;rails 或 Ruby&amp;amp;Rails&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/([‘“])(?:(?!\1).)*\1/&lt;/td&gt;
+&lt;td&gt;单引号或双引号字符串。\1 匹配第一个分组所匹配的字符，\2 匹配第二个分组所匹配的字符，依此类推。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;替换&quot;&gt;&lt;a href=&quot;#替换&quot; class=&quot;headerlink&quot; title=&quot;替换&quot;&gt;&lt;/a&gt;替换&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/ruby&lt;/td&gt;
+&lt;td&gt;rube/&lt;/td&gt;
+&lt;td&gt;匹配 “ruby” 或 “rube”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/rub(y&lt;/td&gt;
+&lt;td&gt;le))/&lt;/td&gt;
+&lt;td&gt;匹配 “ruby” 或 “ruble”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/ruby(!+&lt;/td&gt;
+&lt;td&gt;\?)/&lt;/td&gt;
+&lt;td&gt;“ruby” 后跟一个或多个 ! 或者跟一个 ?&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;锚&quot;&gt;&lt;a href=&quot;#锚&quot; class=&quot;headerlink&quot; title=&quot;锚&quot;&gt;&lt;/a&gt;锚&lt;/h2&gt;&lt;p&gt;这需要指定匹配位置。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/^Ruby/&lt;/td&gt;
+&lt;td&gt;匹配以 “Ruby” 开头的字符串或行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/Ruby$/&lt;/td&gt;
+&lt;td&gt;匹配以 “Ruby” 结尾的字符串或行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\ARuby/&lt;/td&gt;
+&lt;td&gt;匹配以 “Ruby” 开头的字符串&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/Ruby\Z/&lt;/td&gt;
+&lt;td&gt;匹配以 “Ruby” 结尾的字符串&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\bRuby\b/&lt;/td&gt;
+&lt;td&gt;匹配单词边界的 “Ruby”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/\brub\B/&lt;/td&gt;
+&lt;td&gt;\B 是非单词边界：匹配 “rube” 和 “ruby” 中的 “rub”，但不匹配单独的 “rub”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/Ruby(?=!)/&lt;/td&gt;
+&lt;td&gt;如果 “Ruby” 后跟着一个感叹号，则匹配 “Ruby”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/Ruby(?!!)/&lt;/td&gt;
+&lt;td&gt;如果 “Ruby” 后没有跟着一个感叹号，则匹配 “Ruby”&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;圆括号的特殊语法&quot;&gt;&lt;a href=&quot;#圆括号的特殊语法&quot; class=&quot;headerlink&quot; title=&quot;圆括号的特殊语法&quot;&gt;&lt;/a&gt;圆括号的特殊语法&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;实例&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/R(?#comment)/&lt;/td&gt;
+&lt;td&gt;匹配 “R”。所有剩余的字符都是注释。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/R(?i)uby/&lt;/td&gt;
+&lt;td&gt;当匹配 “uby” 时不区分大小写。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/R(?i:uby)/&lt;/td&gt;
+&lt;td&gt;与上面相同。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;补充&lt;/strong&gt; &lt;code&gt;/rub(?:y|le))/&lt;/code&gt; ：只分组，不进行 \1 反向引用&lt;/p&gt;
+&lt;h1 id=&quot;搜索和替换&quot;&gt;&lt;a href=&quot;#搜索和替换&quot; class=&quot;headerlink&quot; title=&quot;搜索和替换&quot;&gt;&lt;/a&gt;搜索和替换&lt;/h1&gt;&lt;p&gt;sub 和 gsub 及它们的替代变量 sub! 和 gsub! 是使用正则表达式时重要的字符串方法。&lt;/p&gt;
+&lt;p&gt;所有这些方法都是使用正则表达式模式执行搜索与替换操作。sub 和 sub! 替换模式的第一次出现，gsub 和 gsub! 替换模式的所有出现。&lt;/p&gt;
+&lt;p&gt;sub 和 gsub 返回一个新的字符串，保持原始的字符串不被修改，而 sub! 和 gsub! 则会修改它们调用的字符串。&lt;/p&gt;
+&lt;p&gt;下面是一个实例：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#!/usr/bin/ruby&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# -*- coding: UTF-8 -*-&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;phone = &amp;quot;138-3453-1111 #这是一个电话号码&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 删除 Ruby 的注释&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;phone = phone.sub!(/#.*$/, &amp;quot;&amp;quot;)   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   puts &amp;quot;电话号码 : #&amp;#123;phone&amp;#125;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 移除数字以外的其他字符&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;phone = phone.gsub!(/\D/, &amp;quot;&amp;quot;)    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    puts &amp;quot;电话号码 : #&amp;#123;phone&amp;#125;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;以上实例运行结果：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;电话号码 : 138-3453-1111 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;电话号码 : 13834531111&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;下面是另一个实例：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#!/usr/bin/ruby&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# -*- coding: UTF-8 -*-&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text = &amp;quot;rails 是 rails,  Ruby on Rails 非常好的 Ruby 框架&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 把所有的 &amp;quot;rails&amp;quot; 改为 &amp;quot;Rails&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text.gsub!(&amp;quot;rails&amp;quot;, &amp;quot;Rails&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 把所有的单词 &amp;quot;Rails&amp;quot; 都改成首字母大写&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text.gsub!(/\brails\b/, &amp;quot;Rails&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;puts &amp;quot;#&amp;#123;text&amp;#125;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上实例运行结果：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Rails 是 Rails,  Ruby on Rails 非常好的 Ruby 框架&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找字符串集合。&lt;br&gt;正则表达式用事先定义好的一些特定字符、及这些特定字符的组合，组成一个”规则字符串”，这个”规则字符串”用来表达对字符串的一种过滤逻辑。&lt;br&gt;文章分享关于Ruby中的正则表达式的相关知识与使用。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Ruby" scheme="http://charsdavy.github.io/categories/script/"/>
+    
+    
+      <category term="正则表达式" scheme="http://charsdavy.github.io/tags/script/"/>
+    
+  </entry>
+  
+  <entry>
     <title>单例模式</title>
     <link href="http://charsdavy.github.io/2016/04/13/singleton-pattern/"/>
     <id>http://charsdavy.github.io/2016/04/13/singleton-pattern/</id>
@@ -1118,6 +1637,184 @@
     
     
       <category term="hexo" scheme="http://charsdavy.github.io/tags/script/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用的算法思想总结</title>
+    <link href="http://charsdavy.github.io/2016/02/22/algorithm-idea/"/>
+    <id>http://charsdavy.github.io/2016/02/22/algorithm-idea/</id>
+    <published>2016-02-22T04:17:11.000Z</published>
+    <updated>2016-06-04T04:18:57.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;一、穷举法思想&quot;&gt;&lt;a href=&quot;#一、穷举法思想&quot; class=&quot;headerlink&quot; title=&quot;一、穷举法思想&quot;&gt;&lt;/a&gt;一、穷举法思想&lt;/h1&gt;&lt;p&gt;穷举法，又称为强力法。它是一种最为直接，实现最为简单，同时又最为耗时的一种解决实际问题的算法思想。&lt;/p&gt;
+&lt;p&gt;基本思想：在可能的解空间中穷举出每一种可能的解，并对每一个可能解进行判断，从中得到问题的答案。&lt;/p&gt;
+&lt;p&gt;使用穷举法思想解决实际问题，最关键的步骤是划定问题的解空间，并在该解空间中一一枚举每一个可能的解。这里有两点需要注意，一是解空间的划定必须保证覆盖问题的全部解，二是解空间集合及问题的解集一定是离散的集合，也就是说集合中的元素是可列的、有限的。&lt;/p&gt;
+&lt;p&gt;穷举法用时间上的牺牲换来了解的全面性保证，因此穷举法的优势在于确保得到问题的全部解，而瓶颈在于运算效率十分低下。但是穷举法算法思想简单，易于实现，在解决一些规模不是很大的问题，使用穷举法不失为一种很好地选择。&lt;/p&gt;
+&lt;p&gt;现在我们通过具体的实例来理解穷举法思想。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  实例：寻找[1,100]之间的素数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  判断n是否是素数，是则返回1，不是则返回0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int isPrime(int n)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 2; i &amp;lt; n; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (0 == n % i) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  寻找[low,high]之间的素数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void getPrime(int low, int high)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = low; i &amp;lt;= high; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (isPrime(i)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            printf(&amp;quot;%d &amp;quot;, i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int main(int argc, const char * argv[]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // insert code here...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int low = 0, high = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;Please input the domain for searching prime\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;low limitation:&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    scanf(&amp;quot;%d&amp;quot;, &amp;amp;low);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;high limitation:&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    scanf(&amp;quot;%d&amp;quot;, &amp;amp;high);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;The whole primes in this domain are\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    getPrime(low, high);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    getchar();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;程序运行结果：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Please input the domain for searching prime&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;low limitation:1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;high limitation:100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;The whole primes in this domain are&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;二、递归与分治思想&quot;&gt;&lt;a href=&quot;#二、递归与分治思想&quot; class=&quot;headerlink&quot; title=&quot;二、递归与分治思想&quot;&gt;&lt;/a&gt;二、递归与分治思想&lt;/h1&gt;&lt;p&gt;递归与分治的算法思想往往是相伴而生的，它们在各类算法中使用非常频繁，应用递归和分治的算法思想有时可以设计出代码简洁且比较高效的算法来。&lt;/p&gt;
+&lt;p&gt;在解决一些比较复杂的问题，特别是解决一些规模较大得问题时，常常将问题进行分解。具体来说，就是将一个规模较大的问题分割成规模较小的同类问题，然后将这些小问题的子问题逐个加以解决，最终也就将整个大问题解决了。这种思想称之为分治。在解决一些问题比较复杂、计算量庞大的问题时经常被用到。&lt;/p&gt;
+&lt;p&gt;最为经典的使用分治思想设计的算法就是“折半查找算法”。折半查找算法利用了元素之间的顺序关系（有序序列），采用分而治之的策略，不断缩小问题的规模，每次都将问题的规模减小至上一次的一半。&lt;/p&gt;
+&lt;p&gt;而递归思想也是一种常见的算法设计思想，所谓递归算法，就是一种直接或间接地调用原算法本身的一种算法。&lt;/p&gt;
+&lt;p&gt;接下来我们通过实例代码来理解递归、分治思想。&lt;/p&gt;
+&lt;p&gt;分治思想：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  有一个数组A[10]，里面存放了10个整数，顺序递增&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  A[10] = &amp;#123;2, 3, 5, 7, 8, 10, 12, 15, 19, 21&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int bin_search(int A[], int n, int key)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int low = 0, high = 0, mid = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    high = n - 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    while (low &amp;lt;= high) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mid = (low + high) / 2;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (A[mid] == key) &amp;#123; //查找成功，返回mid&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            return mid;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (A[mid] &amp;lt; key) &amp;#123; //在后半序列中查找&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            low = mid + 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (A[mid] &amp;gt; key) &amp;#123; //在前半序列中查找&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            high = mid - 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return -1; //查找失败&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int main(int argc, const char * argv[]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // insert code here...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int A[10] = &amp;#123;2, 3, 5, 7, 8, 10, 12, 15, 19, 21&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0, n = 0, addr = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;The contents of the Array A[10] are\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; 10; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        printf(&amp;quot;%d &amp;quot;,A[i]); //显示数组A中的内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;\nPlease input a interger for search\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    scanf(&amp;quot;%d&amp;quot;, &amp;amp;n); //输入待查找得元素&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    addr = bin_search(A, 10, n); //折半查找，返回该元素在数组中的下标&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (-1 != addr) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        printf(&amp;quot;%d is at the %dth unit is array A\n&amp;quot;, n, addr);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        printf(&amp;quot;There is no %d in array A\n&amp;quot;, n); //查找失败&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    getchar();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;The contents of the Array A[10] are&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2 3 5 7 8 10 12 15 19 21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Please input a interger for search&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12 is at the 6th unit is array A&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;递归思想：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  计算n的阶乘n!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int factorial(int n)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (0 == n) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return n * factorial(n - 1);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int main(int argc, const char * argv[]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // insert code here...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int n = 0, result = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;Please input factorial number\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    scanf(&amp;quot;%d&amp;quot;, &amp;amp;n);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    result = factorial(n);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;result is %d&amp;quot;, result);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    getchar();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Please input factorial number&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;result is 720&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;三、贪心算法思想&quot;&gt;&lt;a href=&quot;#三、贪心算法思想&quot; class=&quot;headerlink&quot; title=&quot;三、贪心算法思想&quot;&gt;&lt;/a&gt;三、贪心算法思想&lt;/h1&gt;&lt;p&gt;贪心算法的思想非常简单且算法效率很高，在一些问题的解决上有着明显的优势。&lt;/p&gt;
+&lt;p&gt;先来看一个生活中的例子。假设有3种硬币，面值分别为1元、5角、1角。这3种硬币各自的数量不限，现在要找给顾客3元6角钱，请问怎样找才能使得找给顾客的硬币数量最少呢？你也许会不假思索的说出答案：找给顾客3枚1元硬币，1枚5角硬币，1枚1角硬币。其实也可以找给顾客7枚5角硬币，1枚1角硬币。可是在这里不符合题意。在这里，我们下意识地应用了所谓贪心算法解决这个问题。&lt;/p&gt;
+&lt;p&gt;所谓贪心算法，就是总是做出在当前看来是最好的选择的一种方法。以上述的题目为例，为了找给顾客的硬币数量最少，在选择硬币的面值时，当然是尽可能地选择面值大的硬币。因此，下意识地遵循了以下方案：&lt;/p&gt;
+&lt;p&gt;（1）首先找出一个面值不超过3元6角的最大硬币，即1元硬币。&lt;/p&gt;
+&lt;p&gt;（2）然后从3元6角中减去1元，得到2元6角，再找出一个面值不超过2元6角的最大硬币，即1元硬币。&lt;/p&gt;
+&lt;p&gt;（3）然后从2元6角中减去1元，得到1元6角，再找出一个面值不超过1元6角的最大硬币，即1元硬币。&lt;/p&gt;
+&lt;p&gt;（4）然后从1元6角中减去1元，得到6角，再找出一个面值不超过6角的最大硬币，即5角硬币。&lt;/p&gt;
+&lt;p&gt;（5）然后从6角中减去5角，得到1角，再找出一个面值不超过1角的最大硬币，即1角硬币。&lt;/p&gt;
+&lt;p&gt;（6）找零钱的过程结束。&lt;/p&gt;
+&lt;p&gt;这个过程就是一个典型的贪心算法思想。&lt;/p&gt;
+&lt;p&gt;因此，不难看出应用贪心算法求解问题，并不从问题的整体最优上加以考虑，它所作出的每一步选择只是在某种意义上得局部最优选择。因此，严格意义上讲，要使用贪心算法求解问题，该问题应当具备以下性质。&lt;/p&gt;
+&lt;p&gt;（1）贪心选择性质&lt;/p&gt;
+&lt;p&gt;所谓贪心选择性质，就是指所求解的问题的整体最优解可以通过一系列的局部最优解得到。所谓局部最优解，就是指在当前的状态下做出的最好选择。&lt;/p&gt;
+&lt;p&gt;（2）最优子结构性质&lt;/p&gt;
+&lt;p&gt;当一个问题的最优解包含着它的子问题的最优解时，就称此问题具有最优子结构性质。&lt;/p&gt;
+&lt;p&gt;我们经常使用的哈夫曼（Huffman Tree）编码算法，求解最小生成树的克鲁斯卡尔（Kruskal）算法和普利姆（Prim）算法，求解图的单源最短路径的迪克斯特拉（Dijkstra）算法都是基于贪心算法的思想设计的。&lt;/p&gt;
+&lt;p&gt;下面，我们来通过实例代码来理解贪心算法思想。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  最优装船问题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; *  有一批集装箱要装入一个载质量为C的货船中，每个集装箱的质量由用户自己输入指定，在货船的装载体积不限的前提下，如何装载集装箱才能尽可能多地将集装箱装入货船中。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void sort(int w[], int t[], int n)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0, j = 0, tmp = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //存放w[]中的内容，用于排序&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int *w_tmp = (int *)malloc(sizeof(int) * n);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; n; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        t[i] = i;  //初始化数组t&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; n; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        w_tmp[i] = w[i];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; n - 1; i++) &amp;#123; //冒泡排序&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (j = 0; j &amp;lt; n - i - 1; j++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if (w_tmp[j] &amp;gt; w_tmp[j+1]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                tmp = w_tmp[j];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                w_tmp[j] = w_tmp[j+1];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                w_tmp[j+1] = tmp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                tmp = t[j];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                t[j] = t[j+1];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                t[j+1] = tmp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void Loading(int x[], int w[], int c, int n)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //存放w[]的下标，如果t[i]、t[j]、i&amp;lt;j，则w[i]&amp;lt;=w[j]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int *t = (int *)malloc(sizeof(int) * n);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //排序，用数组t[[]存放w[]的下标&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sort(w, t, n);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; n; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        x[i] = 0;  //初始化数组x[]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; n &amp;amp;&amp;amp; w[t[i]] &amp;lt;= c; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        x[t[i]] = 1; //将第t[i]个集装箱装入货船中&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        c = c - w[t[i]]; //变量c中存放货船的剩余载质量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int main(int argc, const char * argv[]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // insert code here...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int x[5], w[5], c = 0, i = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;Please input the maximum loading of the sheep\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    scanf(&amp;quot;%d&amp;quot;, &amp;amp;c); //&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;Please input the weight of FIVE box\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; 5; i++) &amp;#123; //&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        scanf(&amp;quot;%d&amp;quot;, &amp;amp;w[i]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Loading(x, w, c, 5); //&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    printf(&amp;quot;The following boxes will be loaded\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; 5; i++) &amp;#123; //&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (1 == x[i]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            printf(&amp;quot;BOX:%d &amp;quot;, i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    getchar();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Please input the maximum loading of the sheep&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Please input the weight of FIVE box&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5 7 6 3 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;The following boxes will be loaded&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;BOX:0 BOX:3 BOX:4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上，就是对算法设计中几个常见的思想的总结。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="进阶" scheme="http://charsdavy.github.io/categories/advance/"/>
+    
+    
+      <category term="算法" scheme="http://charsdavy.github.io/tags/algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Apk 反编译</title>
+    <link href="http://charsdavy.github.io/2016/02/18/apk-decompile/"/>
+    <id>http://charsdavy.github.io/2016/02/18/apk-decompile/</id>
+    <published>2016-02-18T14:17:11.000Z</published>
+    <updated>2016-06-04T04:41:18.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：最近看见一些正版软件，便想到pc端软件的破解，便在网络上大肆搜索，终于找到了一个办公软件破解key的软件，对其实现非常感兴趣，想着反编译其apk，在网上也找了很多相关的实现方式，这里，本文介绍博主使用的简约方法与工具。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;步骤&quot;&gt;&lt;a href=&quot;#步骤&quot; class=&quot;headerlink&quot; title=&quot;步骤&quot;&gt;&lt;/a&gt;步骤&lt;/h1&gt;&lt;p&gt;1、将apk文件解压，得到其中的classes.dex（java文件编译再通过dx工具打包而成的）。&lt;/p&gt;
+&lt;p&gt;将classes.dex复制到d2j-dex2jar.bat所在目录dex2jar-0.0.9.13文件夹。 &lt;/p&gt;
+&lt;p&gt;在命令行下定位到d2j-dex2jar.bat所在目录，运行&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;d2j-dex2jar.bat&lt;/code&gt;    &lt;code&gt;classes.dex&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;生成&lt;code&gt;classes_dex2jar.jar&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://download.csdn.net/detail/dengw0716/5270008&quot;&gt;dex2jar工具下载&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2、使用jdgui.exe打开classes_dex2jar.jar，即可看见源码。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://download.csdn.net/detail/dengw0716/5270043&quot;&gt;jdgui工具下载&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;只需以上两步，即可获得apk源码。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：最近看见一些正版软件，便想到pc端软件的破解，便在网络上大肆搜索，终于找到了一个办公软件破解key的软件，对其实现非常感兴趣，想着反编译其apk，在网上也找了很多相关的实现方式，这里，本文介绍博主使用的简约方法与工具。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="移动开发" scheme="http://charsdavy.github.io/categories/develop/"/>
+    
+    
+      <category term="开发助手" scheme="http://charsdavy.github.io/tags/assistant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>内存对齐详解</title>
+    <link href="http://charsdavy.github.io/2016/02/10/memory-alignment/"/>
+    <id>http://charsdavy.github.io/2016/02/10/memory-alignment/</id>
+    <published>2016-02-10T12:17:11.000Z</published>
+    <updated>2016-06-04T04:35:44.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。&lt;br&gt;本文分享博主对内存对齐的一些理解。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;一、什么是内存对齐&quot;&gt;&lt;a href=&quot;#一、什么是内存对齐&quot; class=&quot;headerlink&quot; title=&quot;一、什么是内存对齐&quot;&gt;&lt;/a&gt;一、什么是内存对齐&lt;/h1&gt;&lt;p&gt;现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。&lt;/p&gt;
+&lt;h1 id=&quot;二、内存对齐的原因&quot;&gt;&lt;a href=&quot;#二、内存对齐的原因&quot; class=&quot;headerlink&quot; title=&quot;二、内存对齐的原因&quot;&gt;&lt;/a&gt;二、内存对齐的原因&lt;/h1&gt;&lt;p&gt;1、平台原因（移植原因）：不是所有的硬件平台都能访问任意地址上的任意数据的；某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常。&lt;/p&gt;
+&lt;p&gt;2、性能原因：数据结构（尤其是栈）应该尽可能地在自然边界上对齐。原因在于，为了访问未对齐的内存，处理器需要作两次内存访问；而对齐的内存访问仅需要一次访问。&lt;/p&gt;
+&lt;h1 id=&quot;三、对齐规则&quot;&gt;&lt;a href=&quot;#三、对齐规则&quot; class=&quot;headerlink&quot; title=&quot;三、对齐规则&quot;&gt;&lt;/a&gt;三、对齐规则&lt;/h1&gt;&lt;p&gt;每个特定平台上的编译器都有自己的默认“对齐系数”（也叫对齐模数）。程序员可以通过预编译命令#pragma pack(n)，n=1,2,4,8,16 来改变这一系数，其中的n 就是你要指定的“对齐系数”。&lt;/p&gt;
+&lt;h2 id=&quot;规则1&quot;&gt;&lt;a href=&quot;#规则1&quot; class=&quot;headerlink&quot; title=&quot;规则1&quot;&gt;&lt;/a&gt;规则1&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据成员对齐规则：&lt;/strong&gt;结构(struct)(或联合(union))的数据成员，第一个数据成员放在offset为0 的地方，以后每个数据成员的对齐按照#pragma pack 指定的数值和这个数据成员自身长度中，比较小的那个进行。&lt;/p&gt;
+&lt;h2 id=&quot;规则2&quot;&gt;&lt;a href=&quot;#规则2&quot; class=&quot;headerlink&quot; title=&quot;规则2&quot;&gt;&lt;/a&gt;规则2&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;结构（或联合）的整体对齐规则：&lt;/strong&gt;在数据成员完成各自对齐之后，结构（或联合）本身也要进行对齐，对齐将按照#pragma pack 指定的数值和结构（或联合）最大数据成员长度中，比较小的那个进行。&lt;/p&gt;
+&lt;h2 id=&quot;规则3&quot;&gt;&lt;a href=&quot;#规则3&quot; class=&quot;headerlink&quot; title=&quot;规则3&quot;&gt;&lt;/a&gt;规则3&lt;/h2&gt;&lt;p&gt;结合1、2 可推断：当#pragma pack 的n 值等于或超过所有数据成员长度的时候，这个n值的大小将不产生任何效果。&lt;/p&gt;
+&lt;h1 id=&quot;四、试验&quot;&gt;&lt;a href=&quot;#四、试验&quot; class=&quot;headerlink&quot; title=&quot;四、试验&quot;&gt;&lt;/a&gt;四、试验&lt;/h1&gt;&lt;p&gt;接下来我们通过实际例子来说明这些规则。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;试验环境：&lt;/strong&gt;编译器包括GCC 3.4.2 和VC6.0 的C 编译器。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;平台：&lt;/strong&gt;Windows XP SP2。&lt;/p&gt;
+&lt;p&gt;我们将用典型的struct 对齐来说明。首先我们定义一个struct：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack(n) /* n = 1, 2, 4, 8, 16 */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct test_t&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char d;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#pragma pack(n)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;首先我们首先确认在试验平台上的各个类型的size，经验证两个编译器的输出均为：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sizeof(char) = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sizeof(short) = 2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sizeof(int) = 4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;验证过程如下：通过#pragma pack(n)改变“对齐系数”，然后查看sizeof(struct test_t)的值。&lt;/p&gt;
+&lt;h2 id=&quot;字节对齐-pragma-pack-1&quot;&gt;&lt;a href=&quot;#字节对齐-pragma-pack-1&quot; class=&quot;headerlink&quot; title=&quot;字节对齐(#pragma pack(1))&quot;&gt;&lt;/a&gt;字节对齐(#pragma pack(1))&lt;/h2&gt;&lt;p&gt;输出结果：sizeof(struct test_t) = 8 [两个编译器输出一致]&lt;/p&gt;
+&lt;p&gt;分析过程：&lt;/p&gt;
+&lt;h3 id=&quot;成员数据对齐&quot;&gt;&lt;a href=&quot;#成员数据对齐&quot; class=&quot;headerlink&quot; title=&quot;成员数据对齐&quot;&gt;&lt;/a&gt;成员数据对齐&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct test_t &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度4 &amp;lt; 1 按1 对齐；起始offset=0 0%1=0；存放位置区间[0,3] */   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 = 1 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度2 &amp;gt; 1 按1 对齐；起始offset=5 5%1=0；存放位置区间[5,6] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 = 1 按1 对齐；起始offset=7 7%1=0；存放位置区间[7] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char d;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#pragma pack()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;成员总大小=8&lt;/p&gt;
+&lt;h3 id=&quot;整体对齐&quot;&gt;&lt;a href=&quot;#整体对齐&quot; class=&quot;headerlink&quot; title=&quot;整体对齐&quot;&gt;&lt;/a&gt;整体对齐&lt;/h3&gt;&lt;p&gt;整体对齐系数= min((max(int,short,char), 1) = 1&lt;/p&gt;
+&lt;p&gt;整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 8 /&lt;em&gt; 8%1=0 &lt;/em&gt;/ [注1]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[注1] 什么是圆整&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;举例说明：如上面的8 字节对齐中的“整体对齐”，整体大小=9 按4 圆整= 12&lt;/p&gt;
+&lt;p&gt;圆整的过程：从9 开始每次加一，看是否能被4 整除，这里9，10，11 均不能被4 整除，到12 时可以，则圆整结束。&lt;/p&gt;
+&lt;h2 id=&quot;字节对齐-pragma-pack-2&quot;&gt;&lt;a href=&quot;#字节对齐-pragma-pack-2&quot; class=&quot;headerlink&quot; title=&quot;字节对齐(#pragma pack(2))&quot;&gt;&lt;/a&gt;字节对齐(#pragma pack(2))&lt;/h2&gt;&lt;p&gt;输出结果：sizeof(struct test_t) = 10 [两个编译器输出一致]&lt;/p&gt;
+&lt;p&gt;分析过程：&lt;/p&gt;
+&lt;h3 id=&quot;成员数据对齐-1&quot;&gt;&lt;a href=&quot;#成员数据对齐-1&quot; class=&quot;headerlink&quot; title=&quot;成员数据对齐&quot;&gt;&lt;/a&gt;成员数据对齐&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack(2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct test_t &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度4 &amp;gt; 2 按2 对齐；起始offset=0 0%2=0；存放位置区间[0,3] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     /* 长度1 &amp;lt; 2 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度2 = 2 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 2 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char d;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#pragma pack()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;成员总大小=9&lt;/p&gt;
+&lt;h3 id=&quot;整体对齐-1&quot;&gt;&lt;a href=&quot;#整体对齐-1&quot; class=&quot;headerlink&quot; title=&quot;整体对齐&quot;&gt;&lt;/a&gt;整体对齐&lt;/h3&gt;&lt;p&gt;整体对齐系数= min((max(int,short,char), 2) = 2&lt;/p&gt;
+&lt;p&gt;整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 10 /&lt;em&gt; 10%2=0 &lt;/em&gt;/&lt;/p&gt;
+&lt;h2 id=&quot;字节对齐-pragma-pack-4&quot;&gt;&lt;a href=&quot;#字节对齐-pragma-pack-4&quot; class=&quot;headerlink&quot; title=&quot;字节对齐(#pragma pack(4))&quot;&gt;&lt;/a&gt;字节对齐(#pragma pack(4))&lt;/h2&gt;&lt;p&gt;输出结果：sizeof(struct test_t) = 12 [两个编译器输出一致]&lt;/p&gt;
+&lt;p&gt;分析过程：&lt;/p&gt;
+&lt;h3 id=&quot;成员数据对齐-2&quot;&gt;&lt;a href=&quot;#成员数据对齐-2&quot; class=&quot;headerlink&quot; title=&quot;成员数据对齐&quot;&gt;&lt;/a&gt;成员数据对齐&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack(4)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct test_t &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度4 = 4 按4 对齐；起始offset=0 0%4=0；存放位置区间[0,3] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 4 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度2 &amp;lt; 4 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 4 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char d;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#pragma pack()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;成员总大小=9&lt;/p&gt;
+&lt;h3 id=&quot;整体对齐-2&quot;&gt;&lt;a href=&quot;#整体对齐-2&quot; class=&quot;headerlink&quot; title=&quot;整体对齐&quot;&gt;&lt;/a&gt;整体对齐&lt;/h3&gt;&lt;p&gt;整体对齐系数= min((max(int,short,char), 4) = 4&lt;/p&gt;
+&lt;p&gt;整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 12 /&lt;em&gt; 12%4=0 &lt;/em&gt;/&lt;/p&gt;
+&lt;h2 id=&quot;字节对齐-pragma-pack-8&quot;&gt;&lt;a href=&quot;#字节对齐-pragma-pack-8&quot; class=&quot;headerlink&quot; title=&quot;字节对齐(#pragma pack(8))&quot;&gt;&lt;/a&gt;字节对齐(#pragma pack(8))&lt;/h2&gt;&lt;p&gt;输出结果：sizeof(struct test_t) = 12 [两个编译器输出一致]&lt;/p&gt;
+&lt;p&gt;分析过程：&lt;/p&gt;
+&lt;h3 id=&quot;成员数据对齐-3&quot;&gt;&lt;a href=&quot;#成员数据对齐-3&quot; class=&quot;headerlink&quot; title=&quot;成员数据对齐&quot;&gt;&lt;/a&gt;成员数据对齐&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack(8)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct test_t &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度4 &amp;lt; 8 按4 对齐；起始offset=0 0%4=0；存放位置区间[0,3] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 8 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度2 &amp;lt; 8 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 8 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char d;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#pragma pack()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;成员总大小=9&lt;/p&gt;
+&lt;h3 id=&quot;整体对齐-3&quot;&gt;&lt;a href=&quot;#整体对齐-3&quot; class=&quot;headerlink&quot; title=&quot;整体对齐&quot;&gt;&lt;/a&gt;整体对齐&lt;/h3&gt;&lt;p&gt;整体对齐系数= min((max(int,short,char), 8) = 4&lt;/p&gt;
+&lt;p&gt;整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 12 /&lt;em&gt; 12%4=0 &lt;/em&gt;/&lt;/p&gt;
+&lt;h2 id=&quot;字节对齐-pragma-pack-16&quot;&gt;&lt;a href=&quot;#字节对齐-pragma-pack-16&quot; class=&quot;headerlink&quot; title=&quot;字节对齐(#pragma pack(16))&quot;&gt;&lt;/a&gt;字节对齐(#pragma pack(16))&lt;/h2&gt;&lt;p&gt;输出结果：sizeof(struct test_t) = 12 [两个编译器输出一致]&lt;/p&gt;
+&lt;p&gt;分析过程：&lt;/p&gt;
+&lt;h3 id=&quot;成员数据对齐-4&quot;&gt;&lt;a href=&quot;#成员数据对齐-4&quot; class=&quot;headerlink&quot; title=&quot;成员数据对齐&quot;&gt;&lt;/a&gt;成员数据对齐&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack(16)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct test_t &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度4 &amp;lt; 16 按4 对齐；起始offset=0 0%4=0；存放位置区间[0,3] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 16 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度2 &amp;lt; 16 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* 长度1 &amp;lt; 16 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char d;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;#pragma pack()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;成员总大小=9&lt;/p&gt;
+&lt;h3 id=&quot;整体对齐-4&quot;&gt;&lt;a href=&quot;#整体对齐-4&quot; class=&quot;headerlink&quot; title=&quot;整体对齐&quot;&gt;&lt;/a&gt;整体对齐&lt;/h3&gt;&lt;p&gt;整体对齐系数= min((max(int,short,char), 16) = 4&lt;/p&gt;
+&lt;p&gt;整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 12 /&lt;em&gt; 12%4=0 &lt;/em&gt;/&lt;/p&gt;
+&lt;h1 id=&quot;五、结论&quot;&gt;&lt;a href=&quot;#五、结论&quot; class=&quot;headerlink&quot; title=&quot;五、结论&quot;&gt;&lt;/a&gt;五、结论&lt;/h1&gt;&lt;p&gt;8 字节和16 字节对齐试验证明了“规则”的第3 点：“当#pragma pack 的n 值等于或超过所有数据成员长度的时候，这个n 值的大小将不产生任何效果”。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。&lt;br&gt;本文分享博主对内存对齐的一些理解。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="进阶" scheme="http://charsdavy.github.io/categories/advance/"/>
+    
+    
+      <category term="硬件" scheme="http://charsdavy.github.io/tags/hardware/"/>
     
   </entry>
   
