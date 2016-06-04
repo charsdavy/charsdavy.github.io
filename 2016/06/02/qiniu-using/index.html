@@ -12,13 +12,13 @@
 <meta property="og:url" content="http://charsdavy.github.io/2016/06/02/qiniu-using/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
 <meta property="og:description" content="摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-cd5c98eeccbbaef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-825661cf6c402c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-06-02T00:22:17.000Z">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:1.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:2.png">
+<meta property="og:updated_time" content="2016-06-04T05:37:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="七牛云存储应用">
 <meta name="twitter:description" content="摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-cd5c98eeccbbaef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -249,11 +249,11 @@
 <p>5.获取官方SDK（<a href="https://github.com/qiniu/objc-sdk">https://github.com/qiniu/objc-sdk</a> ）。</p>
 <h1 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h1><p>1.打开Xcode创建Project。</p>
 <p>2.从获取的官方SDK导入库，如下图</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-cd5c98eeccbbaef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>3.获取token</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:1.png" alt=""><br>3.获取token</p>
 <p>这一步，网上大家都说得很简单，在这一步卡壳许久。现在说说自己使用的方法：</p>
 <p>1）获取服务器代码，编译工程，以备生成token。</p>
 <p>服务器代码地址：<a href="https://github.com/CharsDavy/QiNiuGenertorToken">https://github.com/CharsDavy/QiNiuGenertorToken</a><br>2）使用Eclipse导入上述服务器代码</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-825661cf6c402c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:2.png" alt=""></p>
 <p>在Test.java文件中，修改自己的空间名称，Access Key和Secret Key。运行程序，即可获得token。</p>
 <p>这种方式生成的token的有效期是可以自己设定的，如果你想，设定1000年过期也是可以的。</p>
 <p>4.使用代码上传文件</p>
