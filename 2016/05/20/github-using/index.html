@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/20/github-using/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
 <meta property="og:description" content="摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。">
-<meta property="og:updated_time" content="2016-06-04T05:28:12.000Z">
+<meta property="og:updated_time" content="2016-06-04T02:09:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub 使用">
 <meta name="twitter:description" content="摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。">
@@ -95,8 +95,6 @@
 				        
 							<li><a href="/archives">Archives</a></li>
 				        
-							<li><a href="/atom.xml">Rss</a></li>
-				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
@@ -106,9 +104,9 @@
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
 					        
-								<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
-					        
 								<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 					        
 						</div>
 					</nav>
@@ -117,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
+						<a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/network/" style="font-size: 13.33px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -173,8 +171,6 @@
 		        
 					<li><a href="/archives">Archives</a></li>
 		        
-					<li><a href="/atom.xml">Rss</a></li>
-		        
 		        <div class="clearfix"></div>
 				</ul>
 			</nav>
@@ -185,9 +181,9 @@
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
 			        
-						<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
-			        
 						<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -244,49 +240,49 @@
 </ol>
 <h1 id="安装github软件"><a href="#安装github软件" class="headerlink" title="安装github软件"></a>安装github软件</h1><p>根据软件安装指导，按步骤安装即可。</p>
 <h1 id="使用git命令提交"><a href="#使用git命令提交" class="headerlink" title="使用git命令提交"></a>使用git命令提交</h1><h2 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h2><p>安装Git后首先要做的事情是设置用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Chars Davy&quot;</span><br><span class="line">git config --global user.email chars_d@example.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;Chars Davy&quot;</span><br><span class="line">git config --global user.email chars_d@example.com</span><br></pre></td></tr></table></figure>
 <p>重申一遍，只需要做一次这个设置。如果传递了 <code>--global</code> 选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或e-mail地址，你可以在该项目中运行该命令而不要<code>--global</code>选项。</p>
 <h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h2><p>这是一种较为简单的初始化方式，当你已经有一个远程的Git版本库，只需要在本地克隆一份:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  clone  git://github.com/someone/some_project.git   some_project</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git  clone  git://github.com/someone/some_project.git   some_project</span><br></pre></td></tr></table></figure>
 <p>上面的命令就是将<code>git://github.com/someone/some_project.git</code>这个URL地址的远程版本库，完全克隆到本地some_project目录下。</p>
 <h2 id="git-init-和-git-remote"><a href="#git-init-和-git-remote" class="headerlink" title="git init 和 git remote"></a>git init 和 git remote</h2><p>这种方式稍微复杂一些，当你本地创建了一个工作目录，你可以进入这个目录，使用<code>git init</code>命令进行初始化；Git以后就会对该目录下的文件进行版本控制，这时候如果你需要将它放到远程服务器上，可以在远程服务器上创建一个目录，并把可访问的URL记录下来，此时你就可以利用<code>git remote add</code>命令来增加一个远程服务器端，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  remote  add  origin  git://github.com/someone/another_project.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git  remote  add  origin  git://github.com/someone/another_project.git</span><br></pre></td></tr></table></figure>
 <p>上面的命令就会增加URL地址为<code>git: //github.com/someone/another_project.git</code>，名称为origin的远程服务器，以后提交代码的时候只需要使用 origin别名即可。</p>
 <h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>将当前更改或者新增的文件加入到Git的索引中，加入到Git的索引中就表示记入了版本历史中，这也是提交之前所需要执行的一步，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add app/model/user.rb</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add app/model/user.rb</span><br></pre></td></tr></table></figure>
 <p>就会增加<code>app/model/user.rb</code>文件到Git的索引中，该功能类似于SVN的add，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
 <p>上面的命令会将所有改动过的文件及文件夹迭代全部添加进本地代码仓库。</p>
 <h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h2><p>提交当前工作空间的修改内容，类似于SVN的commit命令，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m story #3, add user model</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git commit -m story #3, add user model</span><br></pre></td></tr></table></figure>
 <p>提交的时候必须用-m来输入一条提交信息，该功能类似于SVN的commit，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit –m beta</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git commit –m beta</span><br></pre></td></tr></table></figure>
 <p>上面的命令会将beta作为log显示在代码提交记录中。</p>
 <h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>将本地commit的代码更新到远程版本库中，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push origin</span><br></pre></td></tr></table></figure>
 <p>上面的命令就会将本地的代码更新到名为orgin的远程版本库中。</p>
 <h1 id="git代码提交中可能遇到的问题"><a href="#git代码提交中可能遇到的问题" class="headerlink" title="git代码提交中可能遇到的问题"></a>git代码提交中可能遇到的问题</h1><p>问题1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">You can&apos;t push to git://github.com/example/example_pro.git</span><br><span class="line">Use https://github.com/ example/example_pro.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">You can&apos;t push to git://github.com/example/example_pro.git</span><br><span class="line">Use https://github.com/ example/example_pro.git</span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote remove origin</span><br><span class="line">git remote add origin git@github.com:user_name/user_repo.git</span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote remove origin</span><br><span class="line">git remote add origin git@github.com:user_name/user_repo.git</span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
 <p>原因：</p>
 <p>如果在<code>git clone</code>的时候用的是<code>git://github.com:xx/xxx.git</code> 的形式, 那么就会出现这个问题，因为这个protocol是不支持push的，而使用<code>git clone git@github.com:lujinjianst/myNCCL.git</code>就可以用git push。</p>
 <p>问题2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Permission denied(publickey).</span><br><span class="line">fatal:Could not read from remote repository.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Permission denied(publickey).</span><br><span class="line">fatal:Could not read from remote repository.</span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
 <p>在终端输入:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;chars&quot;//注意,chars为用户名</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;chars&quot;//注意,chars为用户名</span><br></pre></td></tr></table></figure>
 <p>如果执行成功。返回:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair. </span><br><span class="line">Enter file in which to save the key (/home/forwhat.cn/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Generating public/private rsa key pair. </span><br><span class="line">Enter file in which to save the key (/home/forwhat.cn/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
 <p>在这里就是设置存储地址了.反正我是直接按的回车,然后还会返回:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span><br></pre></td></tr></table></figure>
 <p>再次直接回车。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter same passphrase again:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Enter same passphrase again:</span><br></pre></td></tr></table></figure>
 <p>再次回车。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved in /home/forwhat.cn/.ssh/id_rsa. </span><br><span class="line">Your public key has been saved in /home/forwhat.cn/.ssh/id_rsa.pub. </span><br><span class="line">The key fingerprint is:</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">The key&apos;s randomart image is: </span><br><span class="line">+--[ RSA 2048]----+ </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|    o            | </span><br><span class="line">|   + .  S        | </span><br><span class="line">|  . = .  o       | </span><br><span class="line">|   o + +o.o      | </span><br><span class="line">|E o . o.=+.      | </span><br><span class="line">|.+   ==+ooo.     | </span><br><span class="line">+-----------------+</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Your identification has been saved in /home/forwhat.cn/.ssh/id_rsa. </span><br><span class="line">Your public key has been saved in /home/forwhat.cn/.ssh/id_rsa.pub. </span><br><span class="line">The key fingerprint is:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The key&apos;s randomart image is: </span><br><span class="line">+--[ RSA 2048]----+ </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|    o            | </span><br><span class="line">|   + .  S        | </span><br><span class="line">|  . = .  o       | </span><br><span class="line">|   o + +o.o      | </span><br><span class="line">|E o . o.=+.      | </span><br><span class="line">|.+   ==+ooo.     | </span><br><span class="line">+-----------------+</span><br></pre></td></tr></table></figure>
 <p>这样SSH key就生成了。直接cat一下就好了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:~/a$ cat /home/forwhat.cn/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">:~/a$ cat /home/forwhat.cn/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
 <p>把显示出来的直接添加到github账户设置里边的SSH keys。<br>回来再git pull就开始远程拷贝代码了。</p>
 <p>原因：</p>
 <p>没有在github账号添加SSH key。</p>
@@ -309,8 +305,8 @@
     </a>
   
   
-    <a href="/2016/04/30/uniform-random/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">均匀分布随机函数的实现</div>
+    <a href="/2016/05/05/flappy-bird-game/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">flappy bird 游戏实现</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

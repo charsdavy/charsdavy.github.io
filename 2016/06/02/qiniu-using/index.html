@@ -14,7 +14,7 @@
 <meta property="og:description" content="摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:1.png">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:02:qiniu-using:2.png">
-<meta property="og:updated_time" content="2016-06-04T05:37:07.000Z">
+<meta property="og:updated_time" content="2016-06-04T02:09:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="七牛云存储应用">
 <meta name="twitter:description" content="摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
@@ -98,8 +98,6 @@
 				        
 							<li><a href="/archives">Archives</a></li>
 				        
-							<li><a href="/atom.xml">Rss</a></li>
-				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
@@ -109,9 +107,9 @@
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
 					        
-								<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
-					        
 								<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 					        
 						</div>
 					</nav>
@@ -120,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
+						<a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/network/" style="font-size: 13.33px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -176,8 +174,6 @@
 		        
 					<li><a href="/archives">Archives</a></li>
 		        
-					<li><a href="/atom.xml">Rss</a></li>
-		        
 		        <div class="clearfix"></div>
 				</ul>
 			</nav>
@@ -188,9 +184,9 @@
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
 			        
-						<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
-			        
 						<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -257,7 +253,7 @@
 <p>在Test.java文件中，修改自己的空间名称，Access Key和Secret Key。运行程序，即可获得token。</p>
 <p>这种方式生成的token的有效期是可以自己设定的，如果你想，设定1000年过期也是可以的。</p>
 <p>4.使用代码上传文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;QiniuSDK.h&gt;</span><br><span class="line">...</span><br><span class="line">    NSString token = @&quot;从服务端SDK获取&quot;;</span><br><span class="line">    QNUploadManager *upManager = [[QNUploadManager alloc] init];</span><br><span class="line">    NSData *data = [@&quot;Hello, World!&quot; dataUsingEncoding : NSUTF8StringEncoding];</span><br><span class="line">    [upManager putData:data key:@&quot;hello&quot; token:token</span><br><span class="line">        complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, info);</span><br><span class="line">        NSLog(@&quot;%@&quot;, resp);</span><br><span class="line">    &#125; option:nil];</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#import &lt;QiniuSDK.h&gt;</span><br><span class="line">...</span><br><span class="line">    NSString token = @&quot;从服务端SDK获取&quot;;</span><br><span class="line">    QNUploadManager *upManager = [[QNUploadManager alloc] init];</span><br><span class="line">    NSData *data = [@&quot;Hello, World!&quot; dataUsingEncoding : NSUTF8StringEncoding];</span><br><span class="line">    [upManager putData:data key:@&quot;hello&quot; token:token</span><br><span class="line">        complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, info);</span><br><span class="line">        NSLog(@&quot;%@&quot;, resp);</span><br><span class="line">    &#125; option:nil];</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>工程导入之后，可能会出现以下几种可能的错误。</p>
 <p>1.若报 <code>Undefined symbols for architecture x86_64: &quot;_crc32&quot;, referenced from:</code>，项目中需导入 libz.dylib。(Build Phases—Link Binary With Libraries)</p>
 <p>2.若报<code>&quot;_res_9_ninit&quot;, referenced from: _setup_dns_server in QNResolver.o</code>等，</p>
@@ -276,6 +272,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/06/05/git-using-remote/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Git 使用 - 远程操作
+        
+      </div>
+    </a>
   
   
     <a href="/2016/06/01/chopsticks-using/" id="article-nav-older" class="article-nav-link-wrap">

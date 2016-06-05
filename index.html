@@ -94,8 +94,6 @@
 				        
 							<li><a href="/archives">Archives</a></li>
 				        
-							<li><a href="/atom.xml">Rss</a></li>
-				        
 						</ul>
 					</nav>
 					<nav class="header-nav">
@@ -105,9 +103,9 @@
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
 					        
-								<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
-					        
 								<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 					        
 						</div>
 					</nav>
@@ -116,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
+						<a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/network/" style="font-size: 13.33px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -172,8 +170,6 @@
 		        
 					<li><a href="/archives">Archives</a></li>
 		        
-					<li><a href="/atom.xml">Rss</a></li>
-		        
 		        <div class="clearfix"></div>
 				</ul>
 			</nav>
@@ -184,9 +180,9 @@
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
 			        
-						<a class="mail" target="_blank" href="/chars_d@126.com" title="mail">mail</a>
-			        
 						<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -195,6 +191,74 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-git-using-remote" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/05/git-using-remote/" class="article-date">
+  	<time datetime="2016-06-05T03:03:55.000Z" itemprop="datePublished">2016-06-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/05/git-using-remote/">Git 使用 - 远程操作</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
+<p><a href="https://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
+<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。本文将主要介绍几个常用的Git远程操作命令。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-5ae92d89a1c6c3f3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="introduction"></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/tool/">工具</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/05/git-using-remote/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-qiniu-using" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -580,6 +644,70 @@
 
 
   
+    <article id="post-flappy-bird-game" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/05/flappy-bird-game/" class="article-date">
+  	<time datetime="2016-05-05T13:40:44.000Z" itemprop="datePublished">2016-05-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/05/flappy-bird-game/">flappy bird 游戏实现</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要：在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/develop/">移动开发</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/05/05/flappy-bird-game/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-uniform-random" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -712,139 +840,9 @@
 
 
   
-    <article id="post-VFL-introduction" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/17/VFL-introduction/" class="article-date">
-  	<time datetime="2016-04-17T13:49:29.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/VFL-introduction/">VFL 语言简介</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/develop/">移动开发</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/17/VFL-introduction/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-cocoapods-using" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/16/cocoapods-using/" class="article-date">
-  	<time datetime="2016-04-16T13:38:49.000Z" itemprop="datePublished">2016-04-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/16/cocoapods-using/">CocoaPods安装与使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：CocoaPods 是iOS最常用的第三方库依赖管理工具，且绝大多数优秀的开源框架都支持CocoaPods。</p>
-<p>CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 月 12 日，开发 iOS 项目不可避免地要使用第三方开源库，CocoaPods 的出现使得我们可以节省设置和更新第三方开源库的时间。</p>
-<p>文章分享在自己的工程中如何使用CocoaPods 工具管理第三方库。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/tool/">工具</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/04/16/cocoapods-using/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>

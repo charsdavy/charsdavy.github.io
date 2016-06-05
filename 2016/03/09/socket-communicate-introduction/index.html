@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>socket 通信简介 | Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要：我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket 通信简介">
+<meta property="og:url" content="http://charsdavy.github.io/2016/03/09/socket-communicate-introduction/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="摘要：我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-1203abd310c1ba03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-f5185c0b6597ad00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-06-05T03:43:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="socket 通信简介">
+<meta name="twitter:description" content="摘要：我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-1203abd310c1ba03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Chars Davy</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/script/" style="font-size: 13.33px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 16.67px;">开发助手</a> <a href="/tags/iOS/" style="font-size: 10px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 13.33px;">算法</a> <a href="/tags/network/" style="font-size: 13.33px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 13.33px;">设计模式</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/bd2336d8f946/latest_articles">Chars</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com/">casatwy</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://cenalulu.github.io/">cenalulu</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Chars @ ZAKER 立志成为全栈攻城狮。喜欢游泳，羽毛球。 爱好一个人静静写代码，看代码，看书。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Chars Davy</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Chars Davy</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/charsdavy" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3875245858/" title="weibo">weibo</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/charsdavy" title="twitter">twitter</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-socket-communicate-introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/09/socket-communicate-introduction/" class="article-date">
+  	<time datetime="2016-03-09T03:33:12.000Z" itemprop="datePublished">2016-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      socket 通信简介
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">网络</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/advance/">进阶</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘要：我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。</p>
+<a id="more"></a>
+<h1 id="1-网络中进程之间如何通信"><a href="#1-网络中进程之间如何通信" class="headerlink" title="1 网络中进程之间如何通信"></a>1 网络中进程之间如何通信</h1><p>本地的进程间通信（IPC）有很多种方式，但可以总结为下面4类：</p>
+<ul>
+<li>消息传递（管道、FIFO、消息队列）</li>
+<li>同步（互斥量、条件变量、读写锁、文件和写记录锁、信号量）</li>
+<li>共享内存（匿名的和具名的）</li>
+<li>远程过程调用（Solaris门和Sun RPC） </li>
+</ul>
+<p>但这些都不是本文的主题！我们要讨论的是网络中进程之间如何通信？首要解决的问题是如何唯一标识一个进程，否则通信无从谈起！在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP/IP协议族已经帮我们解决了这个问题，网络层的“ip地址”可以唯一标识网络中的主机，而传输层的“协议+端口”可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</p>
+<p>使用TCP/IP协议的应用程序通常采用应用编程接口：UNIX  BSD的套接字（socket）和UNIX System V的TLI（已经被淘汰），来实现网络进程之间的通信。就目前而言，几乎所有的应用程序都是采用socket，而现在又是网络时代，网络中进程通信是无处不在，这就是我为什么说“一切皆socket”。</p>
+<h1 id="2-什么是socket"><a href="#2-什么是socket" class="headerlink" title="2 什么是socket"></a>2 什么是socket</h1><p>上面我们已经知道网络中的进程是通过socket来通信的，那什么是socket呢？socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写read /write –&gt; 关闭close”模式来操作。我的理解就是socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭），这些函数我们在后面进行介绍。</p>
+<h2 id="socket一词的起源"><a href="#socket一词的起源" class="headerlink" title="socket一词的起源"></a>socket一词的起源</h2><p>在组网领域的首次使用是在1970年2月12日发布的文献IETF RFC33中发现的，撰写者为Stephen Carr、Steve Crocker和Vint Cerf。根据美国计算机历史博物馆的记载，Croker写道：“命名空间的元素都可称为套接字接口。一个套接字接口构成一个连接的一端，而一个连接可完全由一对套接字接口规定。”计算机历史博物馆补充道：“这比BSD的套接字接口定义早了大约12年。”</p>
+<h1 id="3-socket的基本操作"><a href="#3-socket的基本操作" class="headerlink" title="3 socket的基本操作"></a>3 socket的基本操作</h1><p>既然Socket是“open—read/write—close”模式的一种实现，那么Socket就提供了这些操作对应的函数接口。下面以TCP为例，介绍几个基本的socket接口函数。</p>
+<h2 id="3-1-socket-函数"><a href="#3-1-socket-函数" class="headerlink" title="3.1 socket()函数"></a>3.1 socket()函数</h2><p><code>int socket(int domain, int type, int protocol);</code></p>
+<p>socket函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而socket()用于创建一个socket描述符（socket descriptor），它唯一标识一个socket。这个socket描述字跟文件描述字一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。</p>
+<p>正如可以给fopen的传入不同参数值，以打开不同的文件。创建socket的时候，也可以指定不同的参数创建不同的socket描述符，socket函数的三个参数分别为：</p>
+<p>1）domain：即协议域，又称为协议族（family）。常用的协议族有，AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE等等。协议族决定了socket的地址类型，在通信中必须采用对应的地址，如AF_INET决定了要用ipv4地址（32位的）与端口号（16位的）的组合、AF_UNIX决定了要用一个绝对路径名作为地址。</p>
+<p>2）type：指定socket类型。常用的socket类型有，SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET等等（socket的类型有哪些？）。</p>
+<p>3）protocol：顾名思义，就是指定协议。常用的协议有，IPPROTO_TCP、IPPTOTO_UDP、IPPROTO_SCTP、IPPROTO_TIPC等，它们分别对应TCP传输协议、UDP传输协议、STCP传输协议、TIPC传输协议。</p>
+<p><strong>注意：</strong>并不是上面的type和protocol可以随意组合的，如SOCK_STREAM不可以跟IPPROTO_UDP组合。当protocol为0时，会自动选择type类型对应的默认协议。</p>
+<p>当我们调用socket创建一个socket时，返回的socket描述字它存在于协议族（address family，AF_XXX）空间中，但没有一个具体的地址。如果想要给它赋值一个地址，就必须调用bind()函数，否则就当调用connect()、listen()时系统会自动随机分配一个端口。</p>
+<h2 id="3-2-bind-函数"><a href="#3-2-bind-函数" class="headerlink" title="3.2 bind()函数"></a>3.2 bind()函数</h2><p>正如上面所说bind()函数把一个地址族中的特定地址赋给socket。例如对应AF_INET、AF_INET6就是把一个ipv4或ipv6地址和端口号组合赋给socket。</p>
+<p><code>int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</code></p>
+<p>函数的三个参数分别为：</p>
+<p>1）sockfd：即socket描述字，它是通过socket()函数创建，唯一标识一个socket。bind()函数就是给这个描述字绑定一个名字。</p>
+<p>2）addr：一个const struct sockaddr *指针，指向要绑定给sockfd的协议地址。这个地址结构根据地址创建socket时的地址协议族的不同而不同，例如，<br>ipv4对应的是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct sockaddr_in &#123;</span><br><span class="line">    sa_family_t    sin_family; /* address family: AF_INET */</span><br><span class="line">    in_port_t      sin_port;   /* port in network byte order */</span><br><span class="line">    struct in_addr sin_addr;   /* internet address */</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/* Internet address. */</span><br><span class="line">struct in_addr &#123;</span><br><span class="line">    uint32_t       s_addr;     /* address in network byte order */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>ipv6对应的是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct sockaddr_in6 &#123; </span><br><span class="line">    sa_family_t     sin6_family;   /* AF_INET6 */ </span><br><span class="line">    in_port_t       sin6_port;     /* port number */ </span><br><span class="line">    uint32_t        sin6_flowinfo; /* IPv6 flow information */ </span><br><span class="line">    struct in6_addr sin6_addr;     /* IPv6 address */ </span><br><span class="line">    uint32_t        sin6_scope_id; /* Scope ID (new in 2.4) */ </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct in6_addr &#123; </span><br><span class="line">    unsigned char   s6_addr[16];   /* IPv6 address */ </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Unix域对应的是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#define UNIX_PATH_MAX    108</span><br><span class="line">struct sockaddr_un &#123; </span><br><span class="line">    sa_family_t sun_family;               /* AF_UNIX */ </span><br><span class="line">    char        sun_path[UNIX_PATH_MAX];  /* pathname */ </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>3）addrlen：对应的是地址的长度。</p>
+<p>通常服务器在启动的时候都会绑定一个众所周知的地址（如ip地址+端口号），用于提供服务，客户就可以通过它来接连服务器；而客户端就不用指定，由系统自动分配一个端口号和自身的ip地址组合。<strong>这就是为什么通常服务器端在listen之前会调用bind()</strong>，而客户端就不会调用，而是在connect()时由系统随机生成一个。</p>
+<h3 id="网络字节序与主机字节序"><a href="#网络字节序与主机字节序" class="headerlink" title="网络字节序与主机字节序"></a>网络字节序与主机字节序</h3><p>主机字节序就是我们平常说的大端和小端模式：不同的CPU有不同的字节序类型，这些字节序是指整数在内存中保存的顺序，这个叫做主机序。引用标准的Big-Endian和Little-Endian的定义如下：</p>
+<p>a) Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。</p>
+<p>b) Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。（所见即所得）</p>
+<p><strong>网络字节序：</strong>4个字节的32 bit值以下面的次序传输：首先是0～7bit，其次8～15bit，然后16～23bit，最后是24~31bit。这种传输次序称作大端字节序。由于TCP/IP首部中所有的二进制整数在网络中传输时都要求以这种次序，因此它又称作网络字节序。字节序，顾名思义，字节的顺序，就是大于一个字节类型的数据在内存中的存放顺序，一个字节的数据没有顺序的问题了。</p>
+<p>因此，在将一个地址绑定到socket的时候，请先将主机字节序转换成为网络字节序，而不要假定主机字节序跟网络字节序一样使用的是Big-Endian。公司项目代码中由于存在这个问题，导致了很多莫名其妙的问题，所以请谨记对主机字节序不要做任何假定，务必将其转化为网络字节序再赋给socket。</p>
+<h2 id="3-3-listen-、connect-函数"><a href="#3-3-listen-、connect-函数" class="headerlink" title="3.3 listen()、connect()函数"></a>3.3 listen()、connect()函数</h2><p>如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int listen(int sockfd, int backlog);</span><br><span class="line">int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</span><br></pre></td></tr></table></figure>
+<p>listen函数的第一个参数即为要监听的socket描述字，第二个参数为相应socket可以排队的最大连接个数。socket()函数创建的socket默认是一个主动类型的，listen函数将socket变为被动类型的，等待客户的连接请求。</p>
+<p>connect函数的第一个参数即为客户端的socket描述字，第二参数为服务器的socket地址，第三个参数为socket地址的长度。客户端通过调用connect函数来建立与TCP服务器的连接。</p>
+<h2 id="3-4-accept-函数"><a href="#3-4-accept-函数" class="headerlink" title="3.4 accept()函数"></a>3.4 accept()函数</h2><p>TCP服务器端依次调用socket()、bind()、listen()之后，就会监听指定的socket地址。TCP客户端依次调用socket()、connect()之后就向TCP服务器发送了一个连接请求。TCP服务器监听到这个请求之后，就会调用accept()函数去接收请求，这样连接就建立好了。之后就可以开始网络I/O操作了，即类同于普通文件的读写I/O操作。</p>
+<p><code>int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);</code></p>
+<p>accept函数的第一个参数为服务器的socket描述字，第二个参数为指向struct sockaddr *的指针，用于返回客户端的协议地址，第三个参数为协议地址的长度。如果accpet成功，那么其返回值是由内核自动生成的一个全新的描述字，代表与返回客户的TCP连接。</p>
+<p><strong> 注意：</strong> accept的第一个参数为服务器的socket描述字，是服务器开始调用socket()函数生成的，称为监听socket描述字；而accept函数返回的是已连接的socket描述字。一个服务器通常仅仅只创建一个监听socket描述字，它在该服务器的生命周期内一直存在。内核为每个由服务器进程接收的客户连接创建了一个已连接socket描述字，当服务器完成了对某个客户的服务，相应的已连接socket描述字就被关闭。</p>
+<h2 id="3-5-read-、write-等函数"><a href="#3-5-read-、write-等函数" class="headerlink" title="3.5 read()、write()等函数"></a>3.5 read()、write()等函数</h2><p>万事具备只欠东风，至此服务器与客户已经建立好连接。可以调用网络I/O进行读写操作了，即实现了网络中不同进程之间的通信！网络I/O操作有下面几组：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">read()/write()</span><br><span class="line">recv()/send()</span><br><span class="line">readv()/writev()</span><br><span class="line">recvmsg()/sendmsg()</span><br><span class="line">recvfrom()/sendto()</span><br></pre></td></tr></table></figure>
+<p>推荐使用recvmsg()/sendmsg()函数，这两个函数是最通用的I/O函数，实际上可以把上面的其它函数都替换成这两个函数。它们的声明如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">ssize_t read(int fd, void *buf, size_t count);</span><br><span class="line">ssize_t write(int fd, const void *buf, size_t count);</span><br><span class="line"></span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">ssize_t send(int sockfd, const void *buf, size_t len, int flags);</span><br><span class="line">ssize_t recv(int sockfd, void *buf, size_t len, int flags);</span><br><span class="line"></span><br><span class="line">ssize_t sendto(int sockfd, const void *buf, size_t len, int flags, const struct sockaddr *dest_addr, socklen_t addrlen);</span><br><span class="line">ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);</span><br><span class="line"></span><br><span class="line">ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags);</span><br><span class="line">ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);</span><br></pre></td></tr></table></figure>
+<p>read函数是负责从fd中读取内容。当成功时，read返回实际所读的字节数，如果返回的值是0表示已经读到文件的结束了，小于0表示出现了错误。如果错误为EINTR说明读是由中断引起的，如果是ECONNREST表示网络连接出了问题。</p>
+<p>write函数将buf中的nbytes字节内容写入文件描述符fd。成功时返回写的字节数。失败时返回-1，并设置errno变量。 在网络程序中，当我们向套接字文件描述符写时有两种可能。1)write的返回值大于0，表示写了部分或者是全部的数据。2)返回的值小于0，此时出现了错误。我们要根据错误类型来处理。如果错误为EINTR表示在写的时候出现了中断错误。如果为EPIPE表示网络连接出现了问题(对方已经关闭了连接)。</p>
+<p>其它的就不一一介绍这几对I/O函数了，具体参见man文档或者baidu、Google，下面的例子中将使用到send/recv。</p>
+<h2 id="3-6-close-函数"><a href="#3-6-close-函数" class="headerlink" title="3.6 close()函数"></a>3.6 close()函数</h2><p>在服务器与客户端建立连接之后，会进行一些读写操作，完成了读写操作就要关闭相应的socket描述字，好比操作完打开的文件要调用fclose关闭打开的文件。</p>
+<p>close一个TCP socket的缺省行为是把该socket标记为已关闭，然后立即返回到调用进程。该描述字不能再由调用进程使用，也就是说不能再作为read或write的第一个参数。</p>
+<p><strong> 注意：</strong>close操作只是使相应socket描述字的引用计数-1，只有当引用计数为0的时候，才会触发TCP客户端向服务器发送终止连接请求。</p>
+<h1 id="4-socket中TCP的三次握手建立连接详解"><a href="#4-socket中TCP的三次握手建立连接详解" class="headerlink" title="4 socket中TCP的三次握手建立连接详解"></a>4 socket中TCP的三次握手建立连接详解</h1><p>我们知道TCP建立连接要进行“三次握手”，即交换三个分组。大致流程如下：</p>
+<p>1）客户端向服务器发送一个SYN J</p>
+<p>2）服务器向客户端响应一个SYN K，并对SYN J进行确认ACK J+1</p>
+<p>3）客户端再向服务器发一个确认ACK K+1</p>
+<p>这样就完成了三次握手，但是这个三次握手发生在socket的哪几个函数中呢？请看下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-1203abd310c1ba03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>从图中可以看出，当客户端调用connect时，触发了连接请求，向服务器发送了SYN J包，这时connect进入阻塞状态；服务器监听到连接请求，即收到SYN J包，调用accept函数接收请求向客户端发送SYN K，ACK J+1，这时accept进入阻塞状态；客户端收到服务器的SYN K，ACK J+1之后，这时connect返回，并对SYN K进行确认；服务器收到ACK K+1时，accept返回，至此三次握手完毕，连接建立。</p>
+<p><strong>总结：</strong>客户端的connect在三次握手的第二次返回，而服务器端的accept在三次握手的第三次返回。</p>
+<h1 id="5-socket中TCP的四次挥手释放连接详解"><a href="#5-socket中TCP的四次挥手释放连接详解" class="headerlink" title="5 socket中TCP的四次挥手释放连接详解"></a>5 socket中TCP的四次挥手释放连接详解</h1><p>上面介绍了socket中TCP的三次握手建立过程，与涉及的socket函数。现在我们介绍socket中的四次挥手释放连接的过程，请看下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-f5185c0b6597ad00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>图示过程如下：</p>
+<p>1）某个应用进程首先调用close主动关闭连接，这时TCP发送一个FIN M；</p>
+<p>2）另一端接收到FIN M之后，执行被动关闭，对这个FIN进行确认，返回一个ACK M+1。它的接收也作为文件结束符传递给应用进程，因为FIN的接收意味着应用进程在相应的连接上再也接收不到额外数据；</p>
+<p>3）一段时间之后，接收到文件结束符的应用进程调用close关闭它的socket。这导致它的TCP也发送一个FIN N；</p>
+<p>4）接收到这个FIN的源发送端TCP对它进行确认，返回一个ACK N+1。<br>这样每个方向上都有一个FIN和ACK。</p>
+<h1 id="6-一个例子"><a href="#6-一个例子" class="headerlink" title="6 一个例子"></a>6 一个例子</h1><p>说了这么多了，动手实践一下。下面编写一个简单的服务器、客户端（使用TCP）——服务器端一直监听本机的6666号端口，如果收到连接请求，将接收请求并接收客户端发来的消息；客户端与服务器端建立连接并发送一条消息。</p>
+<p>服务器端代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//server</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">#include&lt;errno.h&gt;</span><br><span class="line">#include&lt;sys/types.h&gt;</span><br><span class="line">#include&lt;sys/socket.h&gt;</span><br><span class="line">#include&lt;netinet/in.h&gt;</span><br><span class="line"></span><br><span class="line">#define MAXLINE 4096</span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    int    listenfd, connfd;</span><br><span class="line">    struct sockaddr_in     servaddr;</span><br><span class="line">    char    buff[4096];</span><br><span class="line">    int     n;</span><br><span class="line"></span><br><span class="line">    if( (listenfd = socket(AF_INET, SOCK_STREAM, 0)) == -1 )&#123;</span><br><span class="line">        printf(&quot;create socket error: %s(errno: %d)\n&quot;,strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    servaddr.sin_port = htons(6666);</span><br><span class="line"></span><br><span class="line">    if( bind(listenfd, (struct sockaddr*)&amp;servaddr, sizeof(servaddr)) == -1)&#123;</span><br><span class="line">        printf(&quot;bind socket error: %s(errno: %d)\n&quot;,strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if( listen(listenfd, 10) == -1)&#123;</span><br><span class="line">        printf(&quot;listen socket error: %s(errno: %d)\n&quot;,strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;======waiting for client&apos;s request======\n&quot;);</span><br><span class="line">    while(1)&#123;</span><br><span class="line">        if( (connfd = accept(listenfd, (struct sockaddr*)NULL, NULL)) == -1)&#123;</span><br><span class="line">            printf(&quot;accept socket error: %s(errno: %d)\n&quot;,strerror(errno),errno);</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        n = recv(connfd, buff, MAXLINE, 0);</span><br><span class="line">        buff[n] = &apos;/0&apos;;</span><br><span class="line">        printf(&quot;recv msg from client: %s\n&quot;, buff);</span><br><span class="line">        close(connfd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(listenfd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//client</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">#include&lt;errno.h&gt;</span><br><span class="line">#include&lt;sys/types.h&gt;</span><br><span class="line">#include&lt;sys/socket.h&gt;</span><br><span class="line">#include&lt;netinet/in.h&gt;</span><br><span class="line"></span><br><span class="line">#define MAXLINE 4096</span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv)</span><br><span class="line">&#123;</span><br><span class="line">    int    sockfd, n;</span><br><span class="line">    char    recvline[4096], sendline[4096];</span><br><span class="line">    struct sockaddr_in    servaddr;</span><br><span class="line"></span><br><span class="line">    if( argc != 2)&#123;</span><br><span class="line">        printf(&quot;usage: ./client &lt;ipaddress&gt;\n&quot;);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) &lt; 0)&#123;</span><br><span class="line">        printf(&quot;create socket error: %s(errno: %d)\n&quot;, strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(6666);</span><br><span class="line">    if( inet_pton(AF_INET, argv[1], &amp;servaddr.sin_addr) &lt;= 0)&#123;</span><br><span class="line">        printf(&quot;inet_pton error for %s\n&quot;,argv[1]);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if( connect(sockfd, (struct sockaddr*)&amp;servaddr, sizeof(servaddr)) &lt; 0)&#123;</span><br><span class="line">        printf(&quot;connect error: %s(errno: %d)\n&quot;,strerror(errno),errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;send msg to server: \n&quot;);</span><br><span class="line">    fgets(sendline, 4096, stdin);</span><br><span class="line">    if( send(sockfd, sendline, strlen(sendline), 0) &lt; 0)&#123;</span><br><span class="line">        printf(&quot;send msg error: %s(errno: %d)\n&quot;, strerror(errno), errno);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    close(sockfd);</span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然上面的代码很简单，也有很多缺点，这只是简单的演示socket的基本函数使用。其实不管多复杂的网络程序，都使用的这些基本函数。上面的服务器使用的是迭代模式，即只有处理完一个客户端请求才会去处理下一个客户端的请求，这样的服务器处理能力是很弱的，现实中的服务器都需要有并发处理能力！为了需要并发处理，服务器需要fork()一个新的进程或者线程去处理请求等。</p>
+<h1 id="7-动动手"><a href="#7-动动手" class="headerlink" title="7 动动手"></a>7 动动手</h1><p>留下一个问题。是否熟悉Linux下网络编程？如熟悉，编写如下程序完成如下功能：</p>
+<p>服务器端：</p>
+<p>接收地址192.168.100.2的客户端信息，如信息为“Client Query”，则打印“Receive Query”</p>
+<p>客户端：</p>
+<p>向地址192.168.100.168的服务器端顺序发送信息“Client Query test”，“Cleint Query”，“Client Query Quit”，然后退出。</p>
+<p>题目中出现的IP地址可以根据实际情况而定。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/15/objc-quote-count/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Objective-C中的引用计数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/07/objc-alloc-init/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Objective-C中的alloc和init问题</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'charstechblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Chars Davy
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/18878021.js"></script>
+<noscript><a href="http://www.51.la/?18878021" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/18878021.asp" style="border:none" /></a></noscript>
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
