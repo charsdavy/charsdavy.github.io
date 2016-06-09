@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-06-07T12:19:25.000Z</updated>
+  <updated>2016-06-09T02:54:52.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -14,6 +14,456 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Objective-C 运行时编程</title>
+    <link href="http://charsdavy.github.io/2016/06/09/objc-run-time/"/>
+    <id>http://charsdavy.github.io/2016/06/09/objc-run-time/</id>
+    <published>2016-06-09T02:21:31.000Z</published>
+    <updated>2016-06-09T02:54:52.000Z</updated>
+    
+    <content type="html">&lt;p&gt;摘要：Objective-C语言将决定尽可能的从编译和链接时推迟到运行时。只要有可能，Objective-C总是使用动态的方式来解决问题。这意味着Objective-C语言不仅需要一个编译器，同时也需要一个运行时系统来执行编译好的代码。这里的运行时系统扮演的角色类似于Objective-C语言的操作系统，Objective-C基于该系统来工作。本文章将具体介绍NSObject类以及Objective-C程序是如何与运行时系统交互的。特别地，本文章还给出来怎样在运行时动态地加载新类和将消息转发给其它对象的范例，同时也给出了怎样在程序运行时获取对象信息的方法。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1 概述&quot;&gt;&lt;/a&gt;1 概述&lt;/h1&gt;&lt;p&gt;Objective-C语言将决定尽可能的从编译和链接时推迟到运行时。只要有可能，Objective-C总是使用动态的方式来解决问题。这意味着Objective-C语言不仅需要一个编译器，同时也需要一个运行时系统来执行编译好的代码。这里的运行时系统扮演的角色类似于 Objective-C语言的操作系统，Objective-C基于该系统来工作。 &lt;/p&gt;
+&lt;p&gt;本文章将具体介绍NSObject类以及Objective-C程序是如何与运行时系统交互的。特别地，本文章还给出来怎样在运行时动态地加载新类和将消息转发给其它对象的范例，同时也给出了怎样在程序运行时获取对象信息的方法。 &lt;/p&gt;
+&lt;p&gt;通常，如果仅仅写一个Cocoa 程序，程序员不需要知道和理解Objective-C运行时系统的底层细节，但这篇文章仍然值得推荐阅读，以了解 Objective-C运行时系统的原理，并能更好的利用 Objective-C的优点。&lt;/p&gt;
+&lt;h1 id=&quot;2-参考&quot;&gt;&lt;a href=&quot;#2-参考&quot; class=&quot;headerlink&quot; title=&quot;2 参考&quot;&gt;&lt;/a&gt;2 参考&lt;/h1&gt;&lt;p&gt;《Objective-C 2.0 运行时系统参考库》描述了Objective-C运行库的数据结构和函数接口。程序可以通过这些接口来和Objective-C运行时系统交互。例如，您可以增加一个类或者方法，或者获得所有类的定义列表等。&lt;/p&gt;
+&lt;p&gt;《Objective-C 2.0 程序设计语言》介绍了Objective-C语言本身。&lt;/p&gt;
+&lt;p&gt;《Objective-C 版本说明》给出了在最近版本的Mac OS X系统中关于Objective-C运行时系统的一些改动。&lt;/p&gt;
+&lt;h1 id=&quot;3-运行时系统的版本和平台&quot;&gt;&lt;a href=&quot;#3-运行时系统的版本和平台&quot; class=&quot;headerlink&quot; title=&quot;3 运行时系统的版本和平台&quot;&gt;&lt;/a&gt;3 运行时系统的版本和平台&lt;/h1&gt;&lt;p&gt;在不同的平台上Objective-C运行时系统的版本也不相同。&lt;/p&gt;
+&lt;h2 id=&quot;3-1-早期版本和现行版本&quot;&gt;&lt;a href=&quot;#3-1-早期版本和现行版本&quot; class=&quot;headerlink&quot; title=&quot;3.1 早期版本和现行版本&quot;&gt;&lt;/a&gt;3.1 早期版本和现行版本&lt;/h2&gt;&lt;p&gt;Objective-C运行时系统有两个已知版本：早期版本和现行版本。&lt;/p&gt;
+&lt;p&gt;现行版本主要是Objective-C 2.0 及与其相关的新特性。早期版本的编程接口见《Objective-C 1运行时系统参考库》；现行版本的编程接口见《Objective-C 2.0  运行时系统参考库》。&lt;/p&gt;
+&lt;p&gt;在现行版本中，最显著的新特性就是实例变量是“健壮（non-fragile ）的”：&lt;/p&gt;
+&lt;p&gt;1）在早期版本中，如果您改变类中实例变量的布局，您必须重新编译该类的所有子类。&lt;/p&gt;
+&lt;p&gt;2）在现行版本中，如果您改变类中实例变量的布局，您无需重新编译该类的任何子类。&lt;/p&gt;
+&lt;p&gt;此外，现行版本支持声明property 的synthesis属性（参考《Objective-C 2.0 程序设计语言》的“属性”一节）。&lt;/p&gt;
+&lt;h2 id=&quot;3-2-平台&quot;&gt;&lt;a href=&quot;#3-2-平台&quot; class=&quot;headerlink&quot; title=&quot;3.2 平台&quot;&gt;&lt;/a&gt;3.2 平台&lt;/h2&gt;&lt;p&gt;iPhone 程序和Mac OS X 10.5及以后的系统中的64位程序使用的都是Objective-C运行时系统的现行版本。&lt;/p&gt;
+&lt;p&gt;其它情况（Mac OS X系统中的32位程序）使用的是早期版本。&lt;/p&gt;
+&lt;h1 id=&quot;4-和运行时系统的交互&quot;&gt;&lt;a href=&quot;#4-和运行时系统的交互&quot; class=&quot;headerlink&quot; title=&quot;4 和运行时系统的交互&quot;&gt;&lt;/a&gt;4 和运行时系统的交互&lt;/h1&gt;&lt;p&gt;Objective-C程序有三种途径和运行时系统交互：&lt;/p&gt;
+&lt;p&gt;1）通过 Objective-C源代码；&lt;/p&gt;
+&lt;p&gt;2）通过 Foundation框架中类NSObject的方法；&lt;/p&gt;
+&lt;p&gt;3）通过直接调用运行时系统的函数。&lt;/p&gt;
+&lt;h2 id=&quot;4-1-通过Objective-C源代码&quot;&gt;&lt;a href=&quot;#4-1-通过Objective-C源代码&quot; class=&quot;headerlink&quot; title=&quot;4.1 通过Objective-C源代码&quot;&gt;&lt;/a&gt;4.1 通过Objective-C源代码&lt;/h2&gt;&lt;p&gt;大部分情况下，运行时系统在后台自动运行，您只需编写和编译Objective-C源代码。 &lt;/p&gt;
+&lt;p&gt;当您编译Objective-C类和方法时，编译器为实现语言动态特性将自动创建一些数据结构和函数。&lt;/p&gt;
+&lt;p&gt;这些数据结构包含类定义和协议类定义中的信息，如在《Objective-C 2.0 程序设计语言》中“定义类”和“协议类”一节所讨论的类的对象和协议类的对象，方法选标，实例变量模板，以及其它来自于源代码的信息。运行时系统的主要功能就是根据源代码中的表达式发送消息，如“消息”一节所述。&lt;/p&gt;
+&lt;h2 id=&quot;4-2-通过类NSObject的方法&quot;&gt;&lt;a href=&quot;#4-2-通过类NSObject的方法&quot; class=&quot;headerlink&quot; title=&quot;4.2 通过类NSObject的方法&quot;&gt;&lt;/a&gt;4.2 通过类NSObject的方法&lt;/h2&gt;&lt;p&gt;Cocoa 程序中绝大部分类都是NSObject类的子类，所以大部分都继承了NSObject类的方法，因而继承了NSObject的行为。（NSProxy类是个例外；更多细节参考“消息转发”一节。）然而，某些情况下，NSObject类仅仅定义了完成某件事情的模板，而没有提供所有需要的代码。&lt;/p&gt;
+&lt;p&gt;例如，NSObject类定义了description 方法，返回该类内容的字符串表示。这主要是用来调试程序——GDB中的print-object方法就是直接打印出该方法返回的字符串。NSObject类中该方法的实现并不知道子类中的内容，所以它只是返回类的名字和对象的地址。NSObject的子类可以重新实现该方法以提供更多的信息。例如，NSArray 类改写了该方法来返回NSArray 类包含的每个对象的内容。&lt;/p&gt;
+&lt;p&gt;某些NSObject的方法只是简单地从运行时系统中获得信息，从而允许对象进行一定程度的自我检查。例如，&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;class 返回对象的类；&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;isKindOfClass:和isMemberOfClass:检查对象是否在指定的类继承体系中；&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;respondsToSelector:检查对象能否响应指定的消息；&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conformsToProtocol:检查对象是否实现了指定协议类的方法；&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;methodForSelector:返回指定方法实现的地址。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;4-3-通过运行时系统的函数&quot;&gt;&lt;a href=&quot;#4-3-通过运行时系统的函数&quot; class=&quot;headerlink&quot; title=&quot;4.3 通过运行时系统的函数&quot;&gt;&lt;/a&gt;4.3 通过运行时系统的函数&lt;/h2&gt;&lt;p&gt;运行时系统是一个有公开接口的动态库，由一些数据结构和函数的集合组成，这些数据结构和函数的声明头文件在/usr/include/objc 中。这些函数支持用纯 C 的函数来实现Objective-C同样的功能。还有一些函数构成了NSObject类方法的基础。这些函数使得访问运行时系统接口和提供开发工具成为可能。尽管大部分情况下它们在 Objective-C程序不是必须的，但是有时候对于 Objecitve-C程序来说某些函数是非常有用的。&lt;/p&gt;
+&lt;p&gt;这些函数的文档参见《Objective-C 2.0 运行时系统参考库》。&lt;/p&gt;
+&lt;h1 id=&quot;5-消息&quot;&gt;&lt;a href=&quot;#5-消息&quot; class=&quot;headerlink&quot; title=&quot;5 消息&quot;&gt;&lt;/a&gt;5 消息&lt;/h1&gt;&lt;p&gt;本章节描述了代码的消息表达式如何转换为对objc_msgSend函数的调用，如何通过名字来指定一个方法，以及如何使用objc_msgSend函数。&lt;/p&gt;
+&lt;h2 id=&quot;5-1-获得方法地址&quot;&gt;&lt;a href=&quot;#5-1-获得方法地址&quot; class=&quot;headerlink&quot; title=&quot;5.1 获得方法地址&quot;&gt;&lt;/a&gt;5.1 获得方法地址&lt;/h2&gt;&lt;p&gt;避免动态绑定的唯一办法就是取得方法的地址，并且直接像函数调用一样调用它。当一个方法会被连续调用很多次，而且您希望节省每次调用方法都要发送消息的开销时，使用方法地址来调用方法就显得很有效。&lt;/p&gt;
+&lt;p&gt;利用NSObject类中的methodForSelector:方法，您可以获得一个指向方法实现的指针，并可以使用该指针直接调用方法实现。methodForSelector:返回的指针和赋值的变量类型必须完全一致，包括方法的参数类型和返回值类型都在类型识别的考虑范围中。&lt;/p&gt;
+&lt;p&gt;下面的例子展示了怎么使用指针来调用setFilled:的方法实现：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;void (*setter)(id, SEL, BOOL); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int i; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;setter = (void (*)(id, SEL, BOOL))[target methodForSelector:@selector(setFilled:)];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for ( i = 0; i &amp;lt; 1000, i++ ) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    setter(targetList[i], @selector(setFilled:), YES);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;方法指针的第一个参数是接收消息的对象（self），第二个参数是方法选标（_cmd）。这两个参数在方法中是隐藏参数，但使用函数的形式来调用方法时必须显示的给出。&lt;/p&gt;
+&lt;p&gt;使用methodForSelector:来避免动态绑定将减少大部分消息的开销，但是这只有在指定的消息被重复发送很多次时才有意义，例如上面的for 循环。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;methodForSelector:是Cocoa 运行时系统的提供的功能，而不是Objective-C语言本身的功能。&lt;/p&gt;
+&lt;h2 id=&quot;5-2-objc-msgSend函数&quot;&gt;&lt;a href=&quot;#5-2-objc-msgSend函数&quot; class=&quot;headerlink&quot; title=&quot;5.2 objc_msgSend函数&quot;&gt;&lt;/a&gt;5.2 objc_msgSend函数&lt;/h2&gt;&lt;p&gt;在Objective-C中，消息是直到运行的时候才和方法实现绑定的。编译器会把一个消息表达式，&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[receiver message]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;转换成一个对消息函数objc_msgSend的调用。该函数有两个主要参数：消息接收者和消息对应的方法名字——也就是方法选标：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;objc_msgSend(receiver, selector)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;同时接收消息中的任意数目的参数：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;objc_msgSend(receiver, selector, arg1, arg2, ...)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;该消息函数做了动态绑定所需要的一切：&lt;/p&gt;
+&lt;p&gt;1）它首先找到选标所对应的方法实现。因为不同的类对同一方法可能会有不同的实现，所以找到的方法实现依赖于消息接收者的类型。&lt;/p&gt;
+&lt;p&gt;2）然后将消息接收者对象（指向消息接收者对象的指针）以及方法中指定的参数传给找到的方法实现。&lt;/p&gt;
+&lt;p&gt;3）最后，将方法实现的返回值作为该函数的返回值返回。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;编译器将自动插入调用该消息函数的代码。您无须在代码中显示调用该消息函数。&lt;/p&gt;
+&lt;p&gt;消息机制的关键在于编译器为类和对象生成的结构。每个类的结构中至少包括两个基本元素：&lt;/p&gt;
+&lt;p&gt;1）指向父类的指针。&lt;/p&gt;
+&lt;p&gt;2）类的方法表。方法表将方法选标和该类的方法实现的地址关联起来。例如，setOrigin::的方法选标和setOrigin::的方法实现的地址关联，display  的方法选标和display 的方法实现的地址关联，等等。&lt;/p&gt;
+&lt;p&gt;当新的对象被创建时，其内存同时被分配，实例变量也同时被初始化。对象的第一个实例变量是一个指向该对象的类结构的指针，叫做isa。通过该指针，对象可以访问它对应的类以及相应的父类。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;尽管严格来说这并不是 Obective-C 语言的一部分，但是在Objective-C运行时系统中对象需要有isa 指针。对象和结构体struct objc_object（在objc/objc.h 中定义）必须“一致”。然而，您很少需要创建您自己的根对象，因为从 NSObject或者NSProxy 继承的对象都自动包括isa 变量。&lt;/p&gt;
+&lt;p&gt;类和对象的结构如下图所示。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-f237a0b62cb32d9b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;当对象收到消息时，消息函数首先根据该对象的 isa 指针找到该对象所对应的类的方法表，并从表中寻找该消息对应的方法选标。如果找不到，objc_msgSend将继续从父类中寻找，直到 NSObject类。一旦找到了方法选标， objc_msgSend则以消息接收者对象为参数调用，调用该选标对应的方法实现。&lt;/p&gt;
+&lt;p&gt;这就是在运行时系统中选择方法实现的方式。在面向对象编程中，一般称作方法和消息动态绑定的过程。&lt;/p&gt;
+&lt;p&gt;为了加快消息的处理过程，运行时系统通常会将使用过的方法选标和方法实现的地址放入缓存中。每个类都有一个独立的缓存，同时包括继承的方法和在该类中定义的方法。消息函数会首先检查消息接收者对象对应的类的缓存（理论上，如果一个方法被使用过一次，那么它很可能被再次使用）。如果在缓存中已经有需要的方法选标，则消息仅仅比函数调用慢一点点。如果程序运行了足够长的时间，几乎每个消息都能在缓存中找到方法实现。程序运行时，缓存也将随着新的消息的增加而增加。&lt;/p&gt;
+&lt;h2 id=&quot;5-3-使用隐藏的参数&quot;&gt;&lt;a href=&quot;#5-3-使用隐藏的参数&quot; class=&quot;headerlink&quot; title=&quot;5.3 使用隐藏的参数&quot;&gt;&lt;/a&gt;5.3 使用隐藏的参数&lt;/h2&gt;&lt;p&gt;当objc_msgSend找到方法对应的实现时，它将直接调用该方法实现，并将消息中所有的参数都传递给方法实现，同时，它还将传递两个隐藏的参数：&lt;/p&gt;
+&lt;p&gt;1）接收消息的对象&lt;/p&gt;
+&lt;p&gt;2）方法选标&lt;/p&gt;
+&lt;p&gt;这些参数帮助方法实现获得了消息表达式的信息。它们被认为是“隐藏”的原因是它们并没有在定义方法的源代码中声明，而是在代码编译时是插入方法的实现中的。&lt;/p&gt;
+&lt;p&gt;尽管这些参数没有被显示声明，但在源代码中仍然可以引用它们（就像可以引用消息接收者对象的实例变量一样）。在方法中可以通过 self来引用消息接收者对象，通过选标_cmd来引用方法本身。&lt;/p&gt;
+&lt;p&gt;在下面的例子中，_cmd指的是strange 方法，self指的收到strange 消息的对象。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- strange  &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    id  target = getTheReceiver();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    SEL method = getTheMethod();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if ( target == self || method == _cmd )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return nil;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return [target performSelector:method];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在这两个参数中，self更有用一些。实际上，它是在方法实现中访问消息接收者对象的实例变量的途径。 &lt;/p&gt;
+&lt;h1 id=&quot;6-动态方法解析&quot;&gt;&lt;a href=&quot;#6-动态方法解析&quot; class=&quot;headerlink&quot; title=&quot;6 动态方法解析&quot;&gt;&lt;/a&gt;6 动态方法解析&lt;/h1&gt;&lt;p&gt;本章节将描述怎样动态地提供一个方法的实现。&lt;/p&gt;
+&lt;h2 id=&quot;6-1-动态方法解析&quot;&gt;&lt;a href=&quot;#6-1-动态方法解析&quot; class=&quot;headerlink&quot; title=&quot;6.1 动态方法解析&quot;&gt;&lt;/a&gt;6.1 动态方法解析&lt;/h2&gt;&lt;p&gt;有时候，程序员需要动态地提供一个方法的实现。例如，Objective-C中属性（Property ）（ 参考《Objective-C 2.0 程序设计语言》中“属性”小节）前的修饰符@dynamic&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@dynamic propertyName;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;表示编译器须动态地生成该属性对应地方法。&lt;/p&gt;
+&lt;p&gt;程序员可以通过实现&lt;code&gt;resolveInstanceMethod:和resolveClassMethod:&lt;/code&gt;来动态地实现给定选标的对象方法或者类方法。&lt;/p&gt;
+&lt;p&gt;Objective-C方法可以认为是至少有两个参数self和_cmd的C 函数。您可以通过class_addMethod 方法将一个函数加入到类的方法中。例如，有如下的函数：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;void dynamicMethodIMP(id self, SEL _cmd) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // implementation ....&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;程序员可以通过resolveInstanceMethod:将它作为类方法resolveThisMethodDynamically的实现：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@implementation MyClass&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ (BOOL)resolveInstanceMethod:(SEL)aSEL  &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (aSEL == @selector(resolveThisMethodDynamically)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          class_addMethod([self class], aSEL, (IMP) dynamicMethodIMP, &amp;quot;v@:&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          return YES;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return [super resolveInstanceMethod:aSEL];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;通常消息转发（见 “消息转发”）和动态方法解析是互不相干的。在进入消息转发机制之前，respondsToSelector:和instancesRespondToSelector:  会被首先调用。您可以在这两个方法中为传进来的选标提供一个IMP 。如果您实现了resolveInstanceMethod:方法，但是仍然希望正常的消息转发机制进行，您只需要返回NO即可。 &lt;/p&gt;
+&lt;h2 id=&quot;6-2-动态加载&quot;&gt;&lt;a href=&quot;#6-2-动态加载&quot; class=&quot;headerlink&quot; title=&quot;6.2 动态加载&quot;&gt;&lt;/a&gt;6.2 动态加载&lt;/h2&gt;&lt;p&gt;Objective-C程序可以在运行时链接和载入新的类和范畴类。新载入的类和在程序启动时载入的类并没有区别。 &lt;/p&gt;
+&lt;p&gt;动态加载可以用在很多地方。例如，系统配置中的模块就是被动态加载的。&lt;br&gt;在Cocoa 环境中，动态加载一般被用来对应用程序进行定制。您的程序可以在运行时加载其他程序员编写的模块——和Interface Build 载入定制的调色板以及系统配置程序载入定制的模块的类似。这些模块通过您许可的方式扩展您的程序，而您无需自己来定义或者实现。您提供了框架，而其它的程序员提供了实现。 &lt;/p&gt;
+&lt;p&gt;尽管已经有一个运行时系统的函数来动态加载Mach-O文件中的Objective-C模块（objc_loadModules，在objc/objc-load.h中定义），Cocoa 的NSBundle类为动态加载提供了一个更方便的接口——一个面向对象的，已经和相关服务集成的接口。关于NSBundle类的更多相关信息请参考Foundation 框架中关于NSBundle类的文档。关于Mach-O文件的有关信息请参考《Mac OS X ABI Mach-O  文件格式参考库》。&lt;/p&gt;
+&lt;h1 id=&quot;7-消息转发&quot;&gt;&lt;a href=&quot;#7-消息转发&quot; class=&quot;headerlink&quot; title=&quot;7 消息转发&quot;&gt;&lt;/a&gt;7 消息转发&lt;/h1&gt;&lt;p&gt;通常，给一个对象发送它不能处理的消息会得到出错提示，然而，Objective-C运行时系统在抛出错误之前，会给消息接收对象发送一条特别的消息来通知该对象。&lt;/p&gt;
+&lt;h2 id=&quot;7-1-消息转发&quot;&gt;&lt;a href=&quot;#7-1-消息转发&quot; class=&quot;headerlink&quot; title=&quot;7.1 消息转发&quot;&gt;&lt;/a&gt;7.1 消息转发&lt;/h2&gt;&lt;p&gt;如果一个对象收到一条无法处理的消息，运行时系统会在抛出错误前，给该对象发送一条forwardInvocation:消息，该消息的唯一参数是个NSInvocation类型的对象——该对象封装了原始的消息和消息的参数。&lt;/p&gt;
+&lt;p&gt;程序员可以实现forwardInvocation:方法来对不能处理的消息做一些默认的处理，也可以以其它的某种方式来避免错误被抛出。如forwardInvocation:的名字所示，它通常用来将消息转发给其它的对象。 &lt;/p&gt;
+&lt;p&gt;关于消息转发的作用，您可以考虑如下情景：假设，需要设计一个能够响应negotiate 消息的对象，并且能够包括其它类型的对象对消息的响应。通过在negotiate 方法的实现中将negotiate 消息转发给其它的对象这种方式可以很容易的达到这一目的。&lt;/p&gt;
+&lt;p&gt;更进一步，假设您希望您的对象和另外一个类的对象对 negotiate 的消息的响应完全一致。一种可能的方式就是让您的类继承其它类的方法实现。然而，有时候这种方式不可行，因为您的类和其它类可能需要在不同的继承体系中响应negotiate 消息。&lt;/p&gt;
+&lt;p&gt;虽然您的类无法继承其它类的negotiate 方法，您仍然可以提供一个方法实现，这个方法实现只是简单的将negotiate 消息转发给其他类的对象，就好像从其它类那里“借”来的实现一样。如下所示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- negotiate &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if ( [someOtherObject respondsTo:@selector(negotiate)] )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return [someOtherObject negotiate];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return self;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这种方式显得有欠灵活，特别是有很多消息您都希望传递给其它对象时，您必须为每一种消息提供方法实现。此外，这种方式不能处理未知的消息。当您写下代码时，所有您需要转发的消息的集合也必须确定。然而，实际上，这个集合会随着运行时事件的发生，新方法或者新类的定义而变化。&lt;/p&gt;
+&lt;p&gt;forwardInvocation:消息给这个问题提供了一个更特别的，动态的解决方案：当一个对象由于没有相应的方法实现而无法响应某消息时，运行时系统将通过 forwardInvocation:消息通知该对象。每个对象都从NSObject类中继承了forwardInvocation:方法。然而，NSObject中的方法实现只是简单地调用了doesNotRecognizeSelector:。通过实现您自己的forwardInvocation:方法，您可以在该方法实现中将消息转发给其它对象。&lt;/p&gt;
+&lt;p&gt;要转发消息给其它对象，forwardInvocation:方法所必须做的有：&lt;/p&gt;
+&lt;p&gt;1）决定将消息转发给谁，并且 &lt;/p&gt;
+&lt;p&gt;2）将消息和原来的参数一块转发出去 &lt;/p&gt;
+&lt;p&gt;消息可以通过invokeWithTarget:方法来转发：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)forwardInvocation:(NSInvocation *)anInvocation &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if ([someOtherObject respondsToSelector: [anInvocation selector]])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [anInvocation invokeWithTarget:someOtherObject];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [super forwardInvocation:anInvocation];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;转发消息后的返回值将返回给原来的消息发送者。返回值可以是任何类型的，包括：id，结构体，浮点数等。&lt;/p&gt;
+&lt;p&gt;forwardInvocation:方法就像一个不能识别的消息的分发中心，将这些消息转发给不同接收对象。或者它也可以像一个运输站将所有的消息都发送给同一个接收对象。它可以将一个消息翻译成另外一个消息，或者简单的“吃掉”某些消息，因此没有响应也没有错误。forwardInvocation:方法也可以对不同的消息提供同样的响应，这一切都取决于方法的具体实现。该方法所提供的是将不同的对象链接到消息链的能力。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;forwardInvocation: 方法只有在消息接收对象中无法正常响应消息时才会被调用。所以，如果您希望您的对象将negotiate 消息转发给其它对象，您的对象不能有negotiate 方法。否则，forwardInvocation:将不可能会被调用。&lt;/p&gt;
+&lt;p&gt;更多消息转发的信息，参考Foundation框架参考库中NSInvocation类的文档。&lt;/p&gt;
+&lt;h2 id=&quot;7-2-消息转发和多重继承&quot;&gt;&lt;a href=&quot;#7-2-消息转发和多重继承&quot; class=&quot;headerlink&quot; title=&quot;7.2 消息转发和多重继承&quot;&gt;&lt;/a&gt;7.2 消息转发和多重继承&lt;/h2&gt;&lt;p&gt;消息转发很像继承，并且可以用来在Objective-C程序中模拟多重继承。如下图所示，  一个对象通过转发来响应消息，看起来就像该对象从别的类那借来了或者“继承”了方法实现一样。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-f060df75ab9be460.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在上图中，Warrior类的一个对象实例将negotiate 消息转发给Diplomat 类的一个实例。看起来，Warrior类似乎和Diplomat 类一样，响应negotiate消息，并且行为和Diplomat 一样（尽管实际上是Diplomat类响应了该消息）。&lt;/p&gt;
+&lt;p&gt;转发消息的对象看起来有两个继承体系分支——自己的和响应消息的对象的。在上面的例子中，Warrior看起来同时继承自Diplomat 和自己的父类。&lt;/p&gt;
+&lt;p&gt;消息转发提供了多重继承的很多特性。然而，两者有很大的不同：多重继承是将不同的行为封装到单个的对象中，有可能导致庞大的，复杂的对象。而消息转发是将问题分解到更小的对象中，但是又以一种对消息发送对象来说完全透明的方式将这些对象联系起来。&lt;/p&gt;
+&lt;h2 id=&quot;7-3-消息代理对象&quot;&gt;&lt;a href=&quot;#7-3-消息代理对象&quot; class=&quot;headerlink&quot; title=&quot;7.3 消息代理对象&quot;&gt;&lt;/a&gt;7.3 消息代理对象&lt;/h2&gt;&lt;p&gt;消息转发不仅和继承很像，它也使得以一个轻量级的对象（消息代理对象）代表更多的对象进行消息处理成为可能。&lt;/p&gt;
+&lt;p&gt;《Objective-C 2.0 程序设计语言》中“远程消息”一节中的代理类就是这样一个代理对象。代理类负责将消息转发给远程消息接收对象的管理细节，保证消息参数的传输等等。但是消息类没有进一步的复制远程对象的功能，它只是将远程对象映射到一个本地地址上，从而能够接收其它应用程序的消息。 &lt;/p&gt;
+&lt;p&gt;同时也存在着其它类型的消息代理对象。例如，假设您有个对象需要操作大量的数据——它可能需要创建一个复杂的图片或者需要从磁盘上读一个文件的内容。创建一个这样的对象是很费时的，您可能希望能推迟它的创建时间——直到它真正需要时，或者系统资源空闲时。同时，您又希望至少有一个预留的对象和程序中其它对象交互。&lt;/p&gt;
+&lt;p&gt;在这种情况下，您可以为该对象创建一个轻量的代理对象。该代理对象可以有一些自己的功能，例如响应数据查询消息，但是它主要的功能是代表某个对象，当时间到来时，将消息转发给被代表的对象。当代理对象的forwardInvocation:方法收到需要转发给被代表的对象的消息时，代理对象会保证所代表的对象已经存在，否则就创建它。所有发到被代表的对象的消息都要经过代理对象，对程序来说，代理对象和被代表的对象是一样的。&lt;/p&gt;
+&lt;h2 id=&quot;7-4-消息转发和类继承&quot;&gt;&lt;a href=&quot;#7-4-消息转发和类继承&quot; class=&quot;headerlink&quot; title=&quot;7.4 消息转发和类继承&quot;&gt;&lt;/a&gt;7.4 消息转发和类继承&lt;/h2&gt;&lt;p&gt;尽管消息转发很“像”继承，但它不是继承。例如在NSObject类中，方法respondsToSelector:和isKindOfClass:只会出现在继承链中，而不是消息转发链中。例如，如果向一个 Warrior类的对象询问它能否响应negotiate 消息，&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;if ( [aWarrior respondsToSelector:@selector(negotiate)] )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;返回值是NO，尽管该对象能够接收和响应negotiate。&lt;/p&gt;
+&lt;p&gt;大部分情况下，NO是正确的响应。但不是所有时候都是的。例如，如果您使用消息转发来创建一个代理对象以扩展某个类的能力，这里的消息转发必须和继承一样，尽可能的对用户透明。如果您希望您的代理对象看起来就像是继承自它代表的对象一样，您需要重新实现respondsToSelector:和isKindOfClass:方法：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (BOOL)respondsToSelector:(SEL)aSelector &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if ( [super respondsToSelector:aSelector] )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return YES;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        /* Here, test whether the aSelector message can     *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         * be forwarded to another object and whether that  *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         * object can respond to it. Return YES if it can.  */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;除了respondsToSelector:和isKindOfClass:方法外，instancesRespondToSelector:方法也必须重新实现。如果您使用的是协议类，需要重新实现的还有conformsToProtocol:方法。类似地，如果对象需要转发远程消息，则 methodSignatureForSelector:方法必须能够返回实际响应消息的方法的描述。例如，如果对象需要将消息转发给它所代表的对象，您可能需要如下的methodSignatureForSelector:实现：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (NSMethodSignature*)methodSignatureForSelector:(SEL)selector &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSMethodSignature* signature = [super methodSignatureForSelector:selector];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (!signature) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       signature = [surrogate methodSignatureForSelector:selector];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return signature;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;您也可以将消息转发的部分放在一段私有的代码里，然后从forwardInvocation:调用它。&lt;br&gt;注意：消息转发是一个比较高级的技术，仅适用于没有其它更好的解决办法的情况。它并不是用来代替继承的。如果您必须使用该技术，请确定您已经完全理解了转发消息的类和接收转发消息的类的行为。&lt;/p&gt;
+&lt;p&gt;本节中涉及的方法在Foundation框架参考库中的NSObject类的文档中都有描述。关于invokeWithTarget:的具体信息，请参考Foundation框架参考库中NSInvocation类的文档。&lt;/p&gt;
+&lt;h1 id=&quot;8-属性声明&quot;&gt;&lt;a href=&quot;#8-属性声明&quot; class=&quot;headerlink&quot; title=&quot;8 属性声明&quot;&gt;&lt;/a&gt;8 属性声明&lt;/h1&gt;&lt;p&gt;当编译器遇到一个属性（Property ）声明时（参考《Objective-C 2.0 程序设计语言》中的“属性”小节），编译器将产生一些描述性的元数据与属性所在的类或者协议类关联。您可以通过函数访问元数据，这些函数支持在类或者协议类中通过名字来查找，通过@encode获得属性的类型编码，将属性的特征（Attribute ）作为C字符串的数组返回等。每个类或者协议类都维护了一个声明了的属性列表。&lt;/p&gt;
+&lt;h2 id=&quot;8-1-属性类型和相关函数&quot;&gt;&lt;a href=&quot;#8-1-属性类型和相关函数&quot; class=&quot;headerlink&quot; title=&quot;8.1 属性类型和相关函数&quot;&gt;&lt;/a&gt;8.1 属性类型和相关函数&lt;/h2&gt;&lt;p&gt;属性（Property ）类型定义了对描述属性的结构体objc_property 的不透明的句柄。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;typedef struct objc_property *Property;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;您可以使用函数class_copyPropertyList和protocol_copyPropertyList 来获得类（包括范畴类）或者协议类中的属性列表：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;objc_property_t *class_copyPropertyList(Class cls, unsigned int *outCount)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;objc_property_t *protocol_copyPropertyList(Protocol *proto, unsigned int *outCount)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;例如，有如下的类声明：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface Lender : NSObject &amp;#123; float alone;&amp;#125;@property float alone;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以像这样获得它的属性：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;id LenderClass = objc_getClass(&amp;quot;Lender&amp;quot;);unsigned int outCount;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;objc_property_t *properties = class_copyPropertyList(LenderClass, &amp;amp;outCount);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;还可以通过property_getName函数获得属性的名字：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const char *property_getName(objc_property_t property)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;函数class_getProperty 和protocol_getProperty则在类或者协议类中返回具有给定名字的属性的引用：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;objc_property_t class_getProperty(Class cls, const char *name)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;objc_property_t protocol_getProperty(Protocol *proto, const char *name, BOOL isRequiredProperty, BOOL isInstanceProperty)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;通过property_getAttributes函数可以获得属性的名字和@encode编码。关于类型编码的更多细节，参考“类型编码”一节；关于属性的类型编码，见“属性类型编码”及“属性特征的描述范例”。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const char *property_getAttributes(objc_property_t property)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;综合起来，您可以通过下面的代码得到一个类中所有的属性。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;id LenderClass = objc_getClass(&amp;quot;Lender&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;unsigned int outCount, i;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;objc_property_t *properties = class_copyPropertyList(LenderClass, &amp;amp;outCount);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for (i = 0; i &amp;lt; outCount; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    objc_property_t property = properties[i];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    fprintf(stdout,  &amp;quot;%s  %s\n&amp;quot;,  property_getName(property), property_getAttributes(property));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;8-2-属性类型编码&quot;&gt;&lt;a href=&quot;#8-2-属性类型编码&quot; class=&quot;headerlink&quot; title=&quot;8.2 属性类型编码&quot;&gt;&lt;/a&gt;8.2 属性类型编码&lt;/h2&gt;&lt;p&gt;property_getAttributes函数将返回属性（Property）的名字，@encode 编码，以及其它特征（Attribute ）。&lt;/p&gt;
+&lt;p&gt;1）property_getAttributes返回的字符串以字母T 开始，接着是@encode 编码和逗号。&lt;/p&gt;
+&lt;p&gt;2）如果属性有readonly修饰，则字符串中含有R 和逗号。 &lt;/p&gt;
+&lt;p&gt;3）如果属性有copy或者retain修饰，则字符串分别含有C 或者&amp;amp;，然后是逗号。 &lt;/p&gt;
+&lt;p&gt;4）如果属性定义有定制的getter 和setter 方法，则字符串中有G 或者S 跟着相应的方法名以及逗号（例如，GcustomGetter，ScustomSetter:，，）。&lt;/p&gt;
+&lt;p&gt;如果属性是只读的，且有定制的get 访问方法，则描述到此为止。&lt;/p&gt;
+&lt;p&gt;5）字符串以V 然后是属性的名字结束。&lt;/p&gt;
+&lt;p&gt;范例请参考 “属性特征的描述范例” 一节。&lt;/p&gt;
+&lt;h2 id=&quot;8-3-属性特征的描述范例&quot;&gt;&lt;a href=&quot;#8-3-属性特征的描述范例&quot; class=&quot;headerlink&quot; title=&quot;8.3 属性特征的描述范例&quot;&gt;&lt;/a&gt;8.3 属性特征的描述范例&lt;/h2&gt;&lt;p&gt;给定如下定义：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;enum FooManChu &amp;#123; FOO, MAN, CHU &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct YorkshireTeaStruct &amp;#123; int pot; char lady; &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;typedef struct YorkshireTeaStruct YorkshireTeaStructType;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;union MoneyUnion &amp;#123; float alone; double down; &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;下表给出了属性（Property ）声明以及property_getAttributes返回的相应的字符串：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性声明&lt;/th&gt;
+&lt;th&gt;属性描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;@property char charDefault;&lt;/td&gt;
+&lt;td&gt;Tc,VcharDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property double doubleDefault;&lt;/td&gt;
+&lt;td&gt;Td,VdoubleDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property enum FooManChuenumDefault;&lt;/td&gt;
+&lt;td&gt;Ti,VenumDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property float floatDefault;&lt;/td&gt;
+&lt;td&gt;Tf,VfloatDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property int intDefault;&lt;/td&gt;
+&lt;td&gt;Ti,VintDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property long longDefault;&lt;/td&gt;
+&lt;td&gt;Tl,VlongDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property short shortDefault;&lt;/td&gt;
+&lt;td&gt;Ts,VshortDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property singed singedDefault;&lt;/td&gt;
+&lt;td&gt;Ti,VsingedDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property struct YorkshireTeaStruct structDefault;&lt;/td&gt;
+&lt;td&gt;T{ YorkshireTeaStruct =”pot”i”lady”c},VstructDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property YorkshireTeaStructType typedefDefault;&lt;/td&gt;
+&lt;td&gt;T{ YorkshireTeaStruct =”pot”i”lady”c},VtypedefDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property union MoneyUnion unionDefault;&lt;/td&gt;
+&lt;td&gt;T(MoneyUnion=”alone”f”down”d),VunionDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property unsigned unsignedDefault;&lt;/td&gt;
+&lt;td&gt;TI,VunsignedDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property int (&lt;em&gt;functionPointerDefault)(char &lt;/em&gt;);&lt;/td&gt;
+&lt;td&gt;T^?,VfunctionPointerDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property void *voidPointerDefault;&lt;/td&gt;
+&lt;td&gt;T^v,VvoidPointerDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property id idDefault;&lt;/td&gt;
+&lt;td&gt;T@,VidDefault&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property int *intPointer;&lt;/td&gt;
+&lt;td&gt;T^i,VintPointer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property int intSynthEquals;In the implementation block: @synthesize intSynthEquals = _intSynthEquals;&lt;/td&gt;
+&lt;td&gt;Ti,V_intSynthEquals&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (getter=intGetFoo, setter=intSetFoo:) int intSetterGetter;&lt;/td&gt;
+&lt;td&gt;Ti,GintGetFoo,SintSetFoo:,VintSetterGetter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (readonly)  int intReadonly;&lt;/td&gt;
+&lt;td&gt;Ti,R,VintReadonly&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (getter=isIntReadOnlyGetter,  readonly)  int intReadonlyGetter;&lt;/td&gt;
+&lt;td&gt;Ti,R,GisIntReadOnlyGetter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (readwrite)  int intReadwrite;&lt;/td&gt;
+&lt;td&gt;Ti,VintReadwrite&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (assign)  int intAssign;&lt;/td&gt;
+&lt;td&gt;Ti,VintAssign&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (retain)  id idRetain;&lt;/td&gt;
+&lt;td&gt;T@,&amp;amp;,VidRetain&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (copy) id idCopy;&lt;/td&gt;
+&lt;td&gt;T@,C,VidCopy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property (nonatomic)  int intNonatomic;&lt;/td&gt;
+&lt;td&gt;Ti,VintNonatomic&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property(nonatomic, readonly,  copy)  id idReadonlyCopyNonatomic;&lt;/td&gt;
+&lt;td&gt;T@,R,C,VidReadonlyCopyNonatomic&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@property(nonatomic, readonly,  retain)  id idReadonlyRetainNonatomic;&lt;/td&gt;
+&lt;td&gt;T@,R,&amp;amp;,VidReadonlyRetainNonatomic&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&quot;9-类型编码&quot;&gt;&lt;a href=&quot;#9-类型编码&quot; class=&quot;headerlink&quot; title=&quot;9 类型编码&quot;&gt;&lt;/a&gt;9 类型编码&lt;/h1&gt;&lt;p&gt;为了和运行时系统协作，编译器将方法的返回类型和参数类型都编码成一个字符串，并且和方法选标关联在一起。这些编码在别的上下文环境中同样有用，所以您可以直接使@encode()编译指令来得到具体的编码。给定一个类型， @encode()将返回该类型的编码字符串。类型可以是基本类型例如整形，指针，结构体或者联合体，也可以是一个类，就和 C 语言中的sizeof()操作符的参数一样，可以是任何类型。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;char *buf1 = @encode(int **);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;char *buf2 = @encode(struct key);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;char *buf3 = @encode(Rectangle);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;下表列出了这些类型编码。注意，它们可能很多和您使用的对象编码有一些重合。然而，这里列出来的有些编码是您写编码器的时候不会使用的，也有一些不是@encode()产生的，但是在您写编码器的时候是会使用的。（关于对象编码的更多信息，请参考Foundation框架参考库中的NSCoder类文档。）&lt;/p&gt;
+&lt;p&gt;Objective-C类型编码&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;编码&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;c&lt;/td&gt;
+&lt;td&gt;char&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;int&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;s&lt;/td&gt;
+&lt;td&gt;short&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;l&lt;/td&gt;
+&lt;td&gt;long，在64位程序中，l为32位&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;q&lt;/td&gt;
+&lt;td&gt;long long&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;C&lt;/td&gt;
+&lt;td&gt;unsigned char&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;I&lt;/td&gt;
+&lt;td&gt;unsigned int&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;S&lt;/td&gt;
+&lt;td&gt;unsigned short&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;L&lt;/td&gt;
+&lt;td&gt;unsigned long&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Q&lt;/td&gt;
+&lt;td&gt;unsigned long long&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;f&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;td&gt;double&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;B&lt;/td&gt;
+&lt;td&gt;C++标准的bool或者C99标准的_Bool&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;v&lt;/td&gt;
+&lt;td&gt;void&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;*&lt;/td&gt;
+&lt;td&gt;字符串（char *）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@&lt;/td&gt;
+&lt;td&gt;对象（无论是静态指定的还是通过id引用的）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;#&lt;/td&gt;
+&lt;td&gt;类（Class）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:&lt;/td&gt;
+&lt;td&gt;方法选标（SEL）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[array type]&lt;/td&gt;
+&lt;td&gt;数组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;{name=type…}&lt;/td&gt;
+&lt;td&gt;结构体&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;(name=type…)&lt;/td&gt;
+&lt;td&gt;联合体&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bnum&lt;/td&gt;
+&lt;td&gt;num个bit的位域&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;^type&lt;/td&gt;
+&lt;td&gt;type类型的指针&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;?&lt;/td&gt;
+&lt;td&gt;未知类型（其他时候，一般用来指函数指针）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;重要：&lt;/strong&gt; Objective-C 不支持long double 类型。@encode(long double)和double 一样，返回的字符串都是d。&lt;/p&gt;
+&lt;p&gt;数组的类型编码以方括号来表示，紧接着左方括号的是数组元素的数量，然后是数据元素的类型。例如，一个12个浮点数（floats）指针的数组可以表示如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[12^f]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;结构体和联合体分别用大括号和小括号表示。括号中首先是结构体标签，然后是一个“=”符号，接着是结构体中各个成员的编码。例如，结构体&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;typedef struct example &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    id   anObject;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char *aString;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int  anInt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125; Example;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;的编码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;example=@*i&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;定义的类型名（Example）和结构体标签（example）有同样的编码结果。指向结构体类型的指针的编码同样也包含了结构体内部数据成员的编码信息，如下所示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;^&amp;#123;example=@*i&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然而，更高层次的间接关联就没有了内部数据成员的编码信息：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;^^&amp;#123;example&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;对象的编码类似结构体。例如， @encode()对NSObject编码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;NSObject=#&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;NSObject类仅声明了一个Class 类型的实例变量，isa。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;尽管有一些编码无法从 @encode()的结果中直接得到，但是运行时系统会使用它们来表示协议类中方法的修饰符，这些编码如表所示。&lt;/p&gt;
+&lt;p&gt;Objective-C方法编码&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;编码&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;r&lt;/td&gt;
+&lt;td&gt;const&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;n&lt;/td&gt;
+&lt;td&gt;in&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;N&lt;/td&gt;
+&lt;td&gt;inout&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;o&lt;/td&gt;
+&lt;td&gt;out&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;O&lt;/td&gt;
+&lt;td&gt;bycopy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;R&lt;/td&gt;
+&lt;td&gt;byref&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;V&lt;/td&gt;
+&lt;td&gt;oneway&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&quot;10-附言&quot;&gt;&lt;a href=&quot;#10-附言&quot; class=&quot;headerlink&quot; title=&quot;10 附言&quot;&gt;&lt;/a&gt;10 附言&lt;/h1&gt;&lt;p&gt;在此，运行时机制相关问题已经全部阐述。消息发送和转发是Runtime的强大之处，通过它，您可以为程序增加很多动态的行为，虽然在实际开发中很少直接使用这些机制（如直接调用objc_msgSend），但了解它们有助于您更多地去了解底层的实现。其实在实际的编码过程中，您也可以灵活地使用这些机制，去实现一些特殊的功能，如hook操作等。&lt;/p&gt;
+&lt;p&gt;原文：&lt;a href=&quot;http://www.apple.com.cn/developer/Documentation/index.html&quot;&gt;http://www.apple.com.cn/developer/Documentation/index.html&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘要：Objective-C语言将决定尽可能的从编译和链接时推迟到运行时。只要有可能，Objective-C总是使用动态的方式来解决问题。这意味着Objective-C语言不仅需要一个编译器，同时也需要一个运行时系统来执行编译好的代码。这里的运行时系统扮演的角色类似于Objective-C语言的操作系统，Objective-C基于该系统来工作。本文章将具体介绍NSObject类以及Objective-C程序是如何与运行时系统交互的。特别地，本文章还给出来怎样在运行时动态地加载新类和将消息转发给其它对象的范例，同时也给出了怎样在程序运行时获取对象信息的方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="移动开发" scheme="http://charsdavy.github.io/categories/develop/"/>
+    
+    
+      <category term="iOS" scheme="http://charsdavy.github.io/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Git 使用 - 远程操作</title>
@@ -1917,67 +2367,6 @@
     <summary type="html">
     
       &lt;p&gt;摘要：对于Xcode而言，我们苹果开发者并不陌生，对于Xcode的插件，我们也不陌生。但是，有几个人做过Xcode插件呢？！Who care？显然，博主是关心的，这里分享一下博主自己开发插件的过程。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="移动开发" scheme="http://charsdavy.github.io/categories/develop/"/>
-    
-    
-      <category term="iOS" scheme="http://charsdavy.github.io/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Objective-C中的引用计数</title>
-    <link href="http://charsdavy.github.io/2016/03/15/objc-quote-count/"/>
-    <id>http://charsdavy.github.io/2016/03/15/objc-quote-count/</id>
-    <published>2016-03-15T13:58:29.000Z</published>
-    <updated>2016-06-05T14:03:50.000Z</updated>
-    
-    <content type="html">&lt;p&gt;摘要：Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;导言&quot;&gt;&lt;a href=&quot;#导言&quot; class=&quot;headerlink&quot; title=&quot;导言&quot;&gt;&lt;/a&gt;导言&lt;/h1&gt;&lt;p&gt;Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。&lt;/p&gt;
-&lt;p&gt;从Mac OS X 10.8开始，“垃圾收集器”（garbage collector）已经正式废弃了，以Objective-C代码编写Mac OS X程序时不应再使用它，而iOS则从未支持过垃圾收集。因此，掌握引用计数机制对于学好Objective-C来说十分重要。Mac OS X程序已经不能再依赖垃圾收集器了，而iOS系统不支持此功能，将来也不会支持。&lt;/p&gt;
-&lt;p&gt;已经用过ARC的人可能会知道：所有与引用计数有关的方法都无法编译，然而现在先暂时忘掉这件事。那些方法确实无法用在ARC中，不过本文就是要从Objective-C的角度讲解引用计数，而ARC实际上也是一种引用计数机制，所以，还是要谈谈这些在开启ARC功能时不能直接调用的方法。&lt;/p&gt;
-&lt;h1 id=&quot;工作原理&quot;&gt;&lt;a href=&quot;#工作原理&quot; class=&quot;headerlink&quot; title=&quot;工作原理&quot;&gt;&lt;/a&gt;工作原理&lt;/h1&gt;&lt;p&gt;在引用计数架构下，对象有个计数器，用以表示当前有多少个事物想令此对象继续存活下去。这在Objective-C中叫做“保留计数”（retain count），不过也可以叫“引用计数”（reference count）。NSObject协议声明了下面三个方法用于操作计数器，以递增或递减其值：&lt;/p&gt;
-&lt;p&gt;1）retain 递增保留计数。&lt;/p&gt;
-&lt;p&gt;2）release 递减保留计数。&lt;/p&gt;
-&lt;p&gt;3）autorelease 待稍后清理“自动释放池”（autorelease pool）时，再递减保留计数。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-35a7f8d0ee1e1aff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;上图是对象创建及保留计数操作的效果图。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-07e7f19a2e82136a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;上图对象图中，ObjectB与ObjectC都引用了ObjectA。若ObjectB与ObjectC都不再使用ObjectA，则其保留计数降为0，于是便可摧毁了。还有其他对象想令ObjectB与ObjectC继续存活，而应用程序里又有另外一些对象想令那些对象继续存活。如果按“引用树”回溯，那么最终会发现一个“根对象”（root object）。在Mac OS X应用程序中，此对象是NSApplication对象；而在iOS应用程序中，则是UIApplication对象。两者都是应用程序启动时创建的单例。&lt;/p&gt;
-&lt;p&gt;下面这段代码有助于理解这些方法的用法：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NSMutableArray *array = [[NSMutableArray alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSNumber *number = [[NSNumber alloc] initWithInt:1337];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[array addObject:number];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[number release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//do something with &amp;apos;array&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[array release];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;由于代码中直接调用了release方法，所以在ARC下无法编译。在Objective-C中，调用alloc方法所返回的对象由调用者所拥有。也就是说，调用者已通过alloc方法表达了想令该对象继续存活下去的意愿。不过，这并不是说对象此时的保留计数就是1。在alloc或“initWithInt:”方法的代码实现中，也许还有其他对象也保留了此对象。绝不能说保留计数一定是某个值，只能说你所执行的操作的递增了该计数还是递减了该计数。&lt;/p&gt;
-&lt;p&gt;创建完数组后，把number对象加入其中。调用数组的“addObject:”方法时，数组也会在number上调用retain方法，以期继续保留此对象。这时，保留计数至少为2。接下来，代码不再需要number对象了，于是将其释放。现在的保留计数至少为1。这样就不能照常使用number变量了。调用release之后，已经无法保证所指的对象仍然存活。当然，根据本例中的代码，我们显然知道number对象在调用了release之后仍然存活，因为数组还在引用着它。然而绝不应该假设此对象一定存活，也就是说，不要像下面这样子编写代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NSNumber *number = [[NSNumber alloc] initWithInt:1337];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[array addObject:number];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[number release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@&amp;quot;number = %@&amp;quot;, number);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;即便上述代码在本例中可以正常执行，也仍然不是个好办法。如果调用release之后，基于某些原因，其保留计数降至为0，那么number对象所占内存也许会回收，这样的话，再调用NSLog可能就将使程序崩溃了。为什么是“可能”，因为对象所占的内存在“解除分配”（deallocated）之后，只是放回“可用内存池”（avaiable pool）。如果执行NSLog时还尚未覆写对象内存，那么该对象仍然有效，这是程序不会崩溃。故，&lt;strong&gt;因过早释放对象而导致的bug很难调试&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;为避免在不经意间使用了无效对象，一般调用完release之后都会清空指针。这就能保证不会出现可能指向无效对象的指针，这种指针通常称为“悬挂指针”（dangling pointer）。例如，可以这样编写代码来防止此情况发生：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NSNumber *number = [[NSNumber alloc] initWithInt:1337];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[array addObject:number];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[number release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;number = nil;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;属性存取方法中的内存管理&quot;&gt;&lt;a href=&quot;#属性存取方法中的内存管理&quot; class=&quot;headerlink&quot; title=&quot;属性存取方法中的内存管理&quot;&gt;&lt;/a&gt;属性存取方法中的内存管理&lt;/h1&gt;&lt;p&gt;如前所述，对象图由相互关联的对象所构成。刚才那个例子中的数组通过在其元素上调用retain方法来保留那些对象。不光数组，其他对象也可以保留别的对象，这一般通过访问“属性”来实现，而访问属性时，会用到相关实例变量的获取方法和设置方法。若属性为“strong关系”（strong relationship），则设置的属性值会保留。比方说，有个名叫foo的属性由名为_foo的实例变量所实现，那么，该属性的设置方法会是这样：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(void)setFoo:(id)foo &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [foo retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_foo release]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _foo = foo;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;此方法将保留新值并释放旧值，然后更新实例变量，令其指向新值。顺序很重要。假如还未保留新值就先把旧值释放了，而两个值又指向同一个对象，那么，先执行release操作就可能导致系统将此对象永久回收。而后续的retain操作则无法令这个已经彻底回收的对象复生，于是实例变量就成了&lt;strong&gt;悬挂指针&lt;/strong&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;自动释放池&quot;&gt;&lt;a href=&quot;#自动释放池&quot; class=&quot;headerlink&quot; title=&quot;自动释放池&quot;&gt;&lt;/a&gt;自动释放池&lt;/h1&gt;&lt;p&gt;在Objective-C的引用计数架构中，自动释放池是一项重要特性。调用release会立刻递减对象的保留计数（而且还可能令系统回收此对象），然而有时候可以不调用它，改为调用autorelease，此方法会在稍后递减计数，通常是在下一次“事件循环”（event loop）时递减，不过也可能执行得更早些。 &lt;/p&gt;
-&lt;p&gt;此特性很有用，尤其是在方法中返回对象时更应该用它。在这种情况下，我们并总是想令方法调用者手工保留其值。比方说，有下面这个方法：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(NSString *)stringValue &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSString *str = [[NSString alloc] initWithFormat:@&amp;quot;I am this: %@&amp;quot;, self]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return str;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;此时返回的str对象其保留计数比期望值要多1，因为调用者alloc会令保留计数加1，而又没有与之对应的释放操作。保留计数多1，就意味着调用者要负责处理多出来的这一次保留操作。必须设法将其抵消。这并不是说保留计数本身就一定是1，它可能大于1，不过那取决于“initWithFormat:”方法内的实现细节。你要考虑的是如何将多出来的这一次保留操作抵消掉。但是，不能在方法呢你释放str，否则还没等方法返回，系统就把该对象回收了。这里应该用autorelease，它会在稍后释放对象，从而给调用者留下了足够长的时间，使其可以在需要时先保留返回值。换句话说，此方法可以保证对象在跨越“方法调用边界”（method call boundary）后一定存活。实际上，释放操作会在清空最外层的自动释放池时执行，除非你有自己的自动释放池，否则这个时机指的就是当前线程的下一次事件循环。改写stringValue方法，使用autorelease来释放对象：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(NSString *)stringValue &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSString *str = [[NSString alloc] initWithFormat:@&amp;quot;I am this: %@&amp;quot;, self]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return [str autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;修改之后，stringValue方法把NSString对象返回给调用者，此对象必然存活。所以我们能够如此使用它：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NSString *str = [self stringValue];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@&amp;quot;The string is: %@&amp;quot;, str);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;由于返回的str对象将于稍后自动释放，所以多出来的那一次保留操作时自然就会抵消，无须再执行内存管理操作。因为自动释放池中的释放操作要等到下一次事件循环时才会执行，所以NSLog语句在使用str对象前不需要手工执行保留操作。但是，假如要持有此对象的话（比如将其设置给实例变量），那就需要保留，并于稍后释放：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;_instanceVariable = [[self stringValue] retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[_instaceVariable release];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;由此可见，autorelease能延长对象生命期，使其在跨越方法调用边界后依然可以存活一段时间。&lt;/p&gt;
-&lt;h1 id=&quot;保留环&quot;&gt;&lt;a href=&quot;#保留环&quot; class=&quot;headerlink&quot; title=&quot;保留环&quot;&gt;&lt;/a&gt;保留环&lt;/h1&gt;&lt;p&gt;使用引用计数机制时，经常要注意的一个问题就是“保留环”（retain cycle），也就是呈环状相互引用的多个对象。这将导致内存泄露，因为循环中的对象其保留计数不会降为0。对于循环中的每个对象来说，至少还有另外一个对象引用着它。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-e06923cd5ad96117.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;如上图，在这个循环里，所以对象的保留计数都是1。在垃圾收集环境中，通常将这种情况认定为“孤岛”（island of isolation）。此时，垃圾收集器会把三个对象全部回收。而在Objective-C的引用计数架构中，则享受不到这一便利。通常采用“弱引用”（weak reference）来解决此问题，或是从外界命令循环中的某个对象不再保留另外一个对象。这两种办法都能打破保留环，从而避免内存泄露。 &lt;/p&gt;
-&lt;h1 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;小结&lt;/h1&gt;&lt;p&gt;引用计数机制通过可以递增递减的计数器来管理内存。对象创建好之后，其保留计数至少为1。若保留计数为正，则对象继续存活。当保留计数降为0时，对象就被销毁。&lt;/p&gt;
-&lt;p&gt;在对象生命周期中，其余对象通过引用来保留或释放此对象。保留与释放操作分别会递增及递减保留计数。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;摘要：Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。&lt;/p&gt;
     
     </summary>
     
