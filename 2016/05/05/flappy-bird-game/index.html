@@ -12,15 +12,15 @@
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/05/flappy-bird-game/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
 <meta property="og:description" content="摘要：在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-d1db929b2157e16e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-51391522f6de1fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-355750ddd4b79874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-e0cf0559a1b4efa8.gif?imageMogr2/auto-orient/strip">
-<meta property="og:updated_time" content="2016-06-05T13:45:35.000Z">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:1.png?imageView/2/w/540">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:2.png?imageView/2/w/540">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:3.png?imageView/2/w/300">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:4.gif?imageView/2/w/300">
+<meta property="og:updated_time" content="2016-06-13T11:29:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flappy bird 游戏实现">
 <meta name="twitter:description" content="摘要：在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-d1db929b2157e16e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:1.png?imageView/2/w/540">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -250,14 +250,14 @@
 </ul>
 <h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>1、创建工程</p>
 <p>1）打开Xcode，点击新建工程，选择Single View Application模板</p>
-<p><a href="http://static.oschina.net/uploads/img/201602/06120303_Uli8.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-d1db929b2157e16e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:1.png?imageView/2/w/540" alt=""></p>
 <p> 2）填写工程信息</p>
-<p><a href="http://static.oschina.net/uploads/img/201602/06120303_QYd3.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-51391522f6de1fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:2.png?imageView/2/w/540" alt=""></p>
 <p>2、移除Main.storyboard文件</p>
-<p><a href="http://static.oschina.net/uploads/img/201602/06120303_RzjT.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-355750ddd4b79874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:3.png?imageView/2/w/300" alt=""></p>
 <p>上图是flappyBird的文件目录，因为Xcode6使用模板创建工程时会自动生成Main.storyboard文件，而工程中本人使用代码布局，所以可以移除Main.storyboard文件。具体操作方法可以参看本人另一篇文章：<br><a href="http://www.cnblogs.com/chars/p/5150155.html">《iOS学习之移除Main.storyboard》</a></p>
 <p>3、游戏界面布局<br>整体效果图如下</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-e0cf0559a1b4efa8.gif?imageMogr2/auto-orient/strip" alt="效果图.gif"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:4.gif?imageView/2/w/300" alt=""></p>
 <p>需要说明的是，Game Over这个界面，首先需要隐藏或者等到游戏结束才创建。本人是选择在游戏判定结束时才创建并显示。</p>
 <p>4、游戏运行<br>这款游戏的两个关键点：</p>
 <ul>

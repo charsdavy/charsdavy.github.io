@@ -1156,7 +1156,7 @@
     <link href="http://charsdavy.github.io/2016/05/05/flappy-bird-game/"/>
     <id>http://charsdavy.github.io/2016/05/05/flappy-bird-game/</id>
     <published>2016-05-05T13:40:44.000Z</published>
-    <updated>2016-06-05T13:45:35.000Z</updated>
+    <updated>2016-06-13T11:29:48.000Z</updated>
     
     <content type="html">&lt;p&gt;摘要：在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -1171,14 +1171,14 @@
 &lt;/ul&gt;
 &lt;h1 id=&quot;实现过程&quot;&gt;&lt;a href=&quot;#实现过程&quot; class=&quot;headerlink&quot; title=&quot;实现过程&quot;&gt;&lt;/a&gt;实现过程&lt;/h1&gt;&lt;p&gt;1、创建工程&lt;/p&gt;
 &lt;p&gt;1）打开Xcode，点击新建工程，选择Single View Application模板&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://static.oschina.net/uploads/img/201602/06120303_Uli8.png&quot;&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-d1db929b2157e16e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:1.png?imageView/2/w/540&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt; 2）填写工程信息&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://static.oschina.net/uploads/img/201602/06120303_QYd3.png&quot;&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-51391522f6de1fc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:2.png?imageView/2/w/540&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;2、移除Main.storyboard文件&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://static.oschina.net/uploads/img/201602/06120303_RzjT.png&quot;&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-355750ddd4b79874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:3.png?imageView/2/w/300&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;上图是flappyBird的文件目录，因为Xcode6使用模板创建工程时会自动生成Main.storyboard文件，而工程中本人使用代码布局，所以可以移除Main.storyboard文件。具体操作方法可以参看本人另一篇文章：&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/chars/p/5150155.html&quot;&gt;《iOS学习之移除Main.storyboard》&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;3、游戏界面布局&lt;br&gt;整体效果图如下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/1492739-e0cf0559a1b4efa8.gif?imageMogr2/auto-orient/strip&quot; alt=&quot;效果图.gif&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:4.gif?imageView/2/w/300&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;需要说明的是，Game Over这个界面，首先需要隐藏或者等到游戏结束才创建。本人是选择在游戏判定结束时才创建并显示。&lt;/p&gt;
 &lt;p&gt;4、游戏运行&lt;br&gt;这款游戏的两个关键点：&lt;/p&gt;
 &lt;ul&gt;
