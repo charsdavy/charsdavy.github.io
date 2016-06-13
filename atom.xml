@@ -542,7 +542,7 @@
     <link href="http://charsdavy.github.io/2016/06/05/git-using-remote/"/>
     <id>http://charsdavy.github.io/2016/06/05/git-using-remote/</id>
     <published>2016-06-05T03:03:55.000Z</published>
-    <updated>2016-06-07T12:19:25.000Z</updated>
+    <updated>2016-06-13T11:45:41.000Z</updated>
     
     <content type="html">&lt;p&gt;摘要：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Git&quot;&gt;Git&lt;/a&gt;是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。&lt;/p&gt;
@@ -651,7 +651,14 @@
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git push --force origin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;上面命令使用–force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用–force选项。&lt;/p&gt;
 &lt;p&gt;最后，&lt;code&gt;git push&lt;/code&gt;不会推送标签（tag），除非使用–tags选项。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git push origin --tags&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git push origin --tags&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;git-fetch-1&quot;&gt;&lt;a href=&quot;#git-fetch-1&quot; class=&quot;headerlink&quot; title=&quot;git fetch&quot;&gt;&lt;/a&gt;git fetch&lt;/h1&gt;&lt;p&gt;最近工作上有点忙，不免回家之后还需要办公，可是工作用公司的设备。回家之后只能使用自己的MAC。不过，如何在两台设备同步代码就成了问题。需要能够在一个文件夹不断的同步新的分支，而不会产生新的文件夹。这里，分享博主的解决办法。&lt;/p&gt;
+&lt;p&gt;1）从远端获取分支&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git fetch origin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2）基于远端分支创建本地分支&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git checkout -b local_branch_name origin/remote_branch_name&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样，就会在本地创建一个基于远端分支的分支。&lt;/p&gt;
+</content>
     
     <summary type="html">
     

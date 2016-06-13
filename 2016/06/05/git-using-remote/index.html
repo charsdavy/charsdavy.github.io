@@ -17,7 +17,7 @@ Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKe
 Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。
 Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKee">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:05:git-using-remote:1.jpg?imageView/2/w/560">
-<meta property="og:updated_time" content="2016-06-07T12:19:25.000Z">
+<meta property="og:updated_time" content="2016-06-13T11:45:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 使用 - 远程操作">
 <meta name="twitter:description" content="摘要：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。
@@ -348,6 +348,13 @@ Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKe
 <p>上面命令使用–force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用–force选项。</p>
 <p>最后，<code>git push</code>不会推送标签（tag），除非使用–tags选项。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push origin --tags</span><br></pre></td></tr></table></figure>
+<h1 id="git-fetch-1"><a href="#git-fetch-1" class="headerlink" title="git fetch"></a>git fetch</h1><p>最近工作上有点忙，不免回家之后还需要办公，可是工作用公司的设备。回家之后只能使用自己的MAC。不过，如何在两台设备同步代码就成了问题。需要能够在一个文件夹不断的同步新的分支，而不会产生新的文件夹。这里，分享博主的解决办法。</p>
+<p>1）从远端获取分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git fetch origin</span><br></pre></td></tr></table></figure>
+<p>2）基于远端分支创建本地分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout -b local_branch_name origin/remote_branch_name</span><br></pre></td></tr></table></figure>
+<p>这样，就会在本地创建一个基于远端分支的分支。</p>
+
       
     </div>
     
