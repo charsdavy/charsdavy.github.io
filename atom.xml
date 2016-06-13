@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-06-10T08:18:27.000Z</updated>
+  <updated>2016-06-13T01:06:20.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -20,16 +20,17 @@
     <link href="http://charsdavy.github.io/2016/06/10/state-pattern/"/>
     <id>http://charsdavy.github.io/2016/06/10/state-pattern/</id>
     <published>2016-06-10T07:51:37.000Z</published>
-    <updated>2016-06-10T08:18:27.000Z</updated>
+    <updated>2016-06-13T01:06:20.000Z</updated>
     
     <content type="html">&lt;p&gt;摘要：State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460&quot; alt=&quot;State模式图&quot;&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h1 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h1&gt;&lt;p&gt;不同的状态,不同的行为;或者说,每个状态有着相应的行为.&lt;/p&gt;
 &lt;h1 id=&quot;何时使用&quot;&gt;&lt;a href=&quot;#何时使用&quot; class=&quot;headerlink&quot; title=&quot;何时使用&quot;&gt;&lt;/a&gt;何时使用&lt;/h1&gt;&lt;p&gt;State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用 if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.&lt;/p&gt;
 &lt;p&gt;不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.&lt;/p&gt;
 &lt;p&gt;参考网址：&lt;br&gt;&lt;a href=&quot;http://www.jdon.com/designpatterns/designpattern_State.htm&quot;&gt;http://www.jdon.com/designpatterns/designpattern_State.htm&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;举例来说：一个人具有生气，高兴和抓狂等状态，在这些状态下做同一个事情可能会有不同的结果，一个人的心情可能在这三种状态中循环转变。使用一个moodState类表示一个人的心情，使用mad,Happy,Angry类代表不同的心情。使用UML图表示如下所示：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:10:state-pattern:1.png?imageView/2/w/460&quot; alt=&quot;State模式UML图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-2.png?imageView/2/w/460&quot; alt=&quot;State模式UML图&quot;&gt;&lt;/p&gt;
 &lt;p&gt;适用性：在下面的两情况下均可以使用State模式：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;一个对象的行为取决于它的状态，并且必须在运行时刻根据状态改变它的行为。&lt;/p&gt;
@@ -75,6 +76,7 @@
     <summary type="html">
     
       &lt;p&gt;摘要：State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460&quot; alt=&quot;State模式图&quot;&gt;&lt;/p&gt;
     
     </summary>
     
