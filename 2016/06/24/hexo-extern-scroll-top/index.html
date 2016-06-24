@@ -4,18 +4,20 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Xcode 控制台命令 | Chars&#39;s Tech Blog</title>
+  <title>Hexo 博客功能扩展 - 添加回滚到顶部按钮 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+  <meta name="description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode 控制台命令">
-<meta property="og:url" content="http://charsdavy.github.io/2016/03/05/xcode-console-cli/index.html">
+<meta property="og:title" content="Hexo 博客功能扩展 - 添加回滚到顶部按钮">
+<meta property="og:url" content="http://charsdavy.github.io/2016/06/24/hexo-extern-scroll-top/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
-<meta property="og:updated_time" content="2016-06-05T05:53:14.000Z">
+<meta property="og:description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/scrollup.png">
+<meta property="og:updated_time" content="2016-06-24T11:52:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode 控制台命令">
-<meta name="twitter:description" content="摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+<meta name="twitter:title" content="Hexo 博客功能扩展 - 添加回滚到顶部按钮">
+<meta name="twitter:description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/scrollup.png">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -191,11 +193,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-xcode-console-cli" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-hexo-extern-scroll-top" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/05/xcode-console-cli/" class="article-date">
-  	<time datetime="2016-03-05T05:41:06.000Z" itemprop="datePublished">2016-03-05</time>
+      <a href="/2016/06/24/hexo-extern-scroll-top/" class="article-date">
+  	<time datetime="2016-06-24T11:30:46.000Z" itemprop="datePublished">2016-06-24</time>
 </a>
     </div>
   
@@ -208,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Xcode 控制台命令
+      Hexo 博客功能扩展 - 添加回滚到顶部按钮
     </h1>
   
 
@@ -217,12 +219,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/script/">hexo</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/develop/">移动开发</a>
+	<a class="article-category-link" href="/categories/apply/">应用实战</a>
 	</div>
 
 
@@ -232,110 +234,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。</p>
+        <p>摘要：承接前文<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
 <a id="more"></a>
-<h1 id="debug-命令表"><a href="#debug-命令表" class="headerlink" title="debug 命令表"></a>debug 命令表</h1><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>break NUM</td>
-<td>在指定的行上设置断点</td>
-</tr>
-<tr>
-<td>bt</td>
-<td>显示所有的调用栈帧，该命令可用来显示函数的调用顺序</td>
-</tr>
-<tr>
-<td>clear</td>
-<td>删除设置在特定源文件、特定行上的断点，其用法为：clear FILENAME:NUM</td>
-</tr>
-<tr>
-<td>continue</td>
-<td>继续执行正在调试的程序，该命令用在程序由于处理信号或断点而导致停止运行时</td>
-</tr>
-<tr>
-<td>display EXPR</td>
-<td>每次程序停止后显示表达式的值。表达式由程序定义的变量组成</td>
-</tr>
-<tr>
-<td>file FILE</td>
-<td>装载指定的可执行文件进行调试</td>
-</tr>
-<tr>
-<td>help NAME</td>
-<td>显示指定命令的帮助信息</td>
-</tr>
-<tr>
-<td>info break</td>
-<td>显示当前断电清单，包括到达断点处的次数等</td>
-</tr>
-<tr>
-<td>info files</td>
-<td>显示被调试文件的详细信息</td>
-</tr>
-<tr>
-<td>info func</td>
-<td>显示所有的函数名称</td>
-</tr>
-<tr>
-<td>info local</td>
-<td>显示当前函数中的局部变量信息</td>
-</tr>
-<tr>
-<td>info prog</td>
-<td>显示被调试程序的执行状态</td>
-</tr>
-<tr>
-<td>info var</td>
-<td>显示所有的全局和静态变量名称</td>
-</tr>
-<tr>
-<td>kill</td>
-<td>终止正被调试的程序</td>
-</tr>
-<tr>
-<td>list</td>
-<td>显示源代码段</td>
-</tr>
-<tr>
-<td>make</td>
-<td>在不退出gdb的情况下运行make工具</td>
-</tr>
-<tr>
-<td>next</td>
-<td>在不单步执行进入其他函数的情况下，向前执行一行源代码</td>
-</tr>
-<tr>
-<td>print EXPR</td>
-<td>显示表达式EXPR的值</td>
-</tr>
-<tr>
-<td>print-object</td>
-<td>打印一个对象</td>
-</tr>
-<tr>
-<td>print (int) name</td>
-<td>打印一个类型</td>
-</tr>
-<tr>
-<td>print-object [artist description]</td>
-<td>调用一个函数</td>
-</tr>
-<tr>
-<td>set artist - @”test”</td>
-<td>设置变量值</td>
-</tr>
-<tr>
-<td>help</td>
-<td>查看帮助</td>
-</tr>
-</tbody>
-</table>
+<p><strong> 以Yilia主题为例，不同的主题可以类比找到对应的文件地址。 </strong></p>
+<h1 id="添加html代码"><a href="#添加html代码" class="headerlink" title="添加html代码"></a>添加html代码</h1><p>打开文件夹<code>/themes/Yilia/layout/_partial</code>在此文件夹下，新建文件<code>totop.ejs</code>，并向其中加入如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id=&quot;totop&quot; style=&quot;position:fixed;bottom:50px;right:30px;cursor: pointer;&quot;&gt;</span><br><span class="line">&lt;a title=&quot;返回顶部&quot;&gt;&lt;img src=&quot;/img/scrollup.png&quot;/&gt;&lt;/a&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>注意： 文件的编码格式为<code>utf-8</code>。</p>
+<h1 id="添加js代码"><a href="#添加js代码" class="headerlink" title="添加js代码"></a>添加js代码</h1><p>打开文件夹<code>/themes/Yilia/source/js</code>，新建文件<code>totop.js</code>，将如下代码复制其中：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(function($) &#123;</span><br><span class="line">    // When to show the scroll link</span><br><span class="line">    // higher number = scroll link appears further down the page</span><br><span class="line">    var upperLimit = 1000;</span><br><span class="line"></span><br><span class="line">    // Our scroll link element</span><br><span class="line">    var scrollElem = $(&apos;#totop&apos;);</span><br><span class="line"></span><br><span class="line">    // Scroll to top speed</span><br><span class="line">    var scrollSpeed = 1600;</span><br><span class="line"></span><br><span class="line">    // Show and hide the scroll to top link based on scroll position</span><br><span class="line">    scrollElem.hide();</span><br><span class="line">    $(window).scroll(function () &#123;</span><br><span class="line">        var scrollTop = $(document).scrollTop();</span><br><span class="line">        if ( scrollTop &gt; upperLimit ) &#123;</span><br><span class="line">            $(scrollElem).stop().fadeTo(300, 1); // fade back in</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            $(scrollElem).stop().fadeTo(300, 0); // fade out</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // Scroll to top animation on click</span><br><span class="line">    $(scrollElem).click(function()&#123;</span><br><span class="line">        $(&apos;html, body&apos;).animate(&#123;scrollTop:0&#125;, scrollSpeed); return false;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(jQuery);</span><br></pre></td></tr></table></figure>
+<p>可以对<code>upperLimit</code>和<code>scrollSpeed</code>参数进行修改，控制显示位置和回滚速度。</p>
+<h1 id="添加文件引用"><a href="#添加文件引用" class="headerlink" title="添加文件引用"></a>添加文件引用</h1><p>打开文件<code>/themes/Yilia/layout/_partial/after_footer.ejs</code>，在文件的末尾添加以下两行代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%- partial(&apos;totop&apos;) %&gt;</span><br><span class="line">&lt;script src=&quot;&lt;%- config.root %&gt;js/totop.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h1><p>将下面的图片复制到<code>/themes/Yilia/source/img</code>目录下，文件名为<code>scrollup.png</code>，页面足够长时，就可以看见按钮出现。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/scrollup.png" alt="scrollup.png"></p>
 
       
     </div>
@@ -345,18 +256,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/06/ios-application-plist-diff/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          iOS Project与OS X Project中plist使用区别
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/02/oauth2-protocol/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OAuth2.0 协议</div>
+    <a href="/2016/06/20/ios-night-mode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS开发 - 成熟的夜间模式解决方案</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
