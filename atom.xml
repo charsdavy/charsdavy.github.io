@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-06-24T11:52:22.000Z</updated>
+  <updated>2016-06-30T07:05:12.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>说说升级Xcode中SDK与真机调试版本</title>
+    <link href="http://charsdavy.github.io/2016/06/30/xcode-update-sdk-devicesupport/"/>
+    <id>http://charsdavy.github.io/2016/06/30/xcode-update-sdk-devicesupport/</id>
+    <published>2016-06-30T07:03:02.000Z</published>
+    <updated>2016-06-30T07:05:12.000Z</updated>
+    
+    <content type="html">&lt;p&gt;相信作为一名iOS开发者，每当WWDC开始，iOS升级时，那种切肤之痛，是只有开发者才能体会而又无言的一种沉默抗议。&lt;/p&gt;
+&lt;p&gt;Apple很残暴的将MAC OS、iOS、Xcode牢固的捆绑在一起。如果需要真机调试，那么Xcode的SDK版本一定不能低于真机，Xcode版本的安装有MAC OS的版本要求，这样一来，只要升级一下iOS版本，那么恭喜你，很有可能你需要升级MAC OS和Xcode。而对于动辄数十个G的文件，在天朝的绿色网络保护下，是一件多么伤神的事情啊。更甚的是，现在的MAC OS系统越来越不好用了，我很是怀恋之前的版本，课无奈胳膊拗不过大腿。&lt;/p&gt;
+&lt;p&gt;现在，终于有了可行的办法，能够解决上述神伤，在此总结分享给大家。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;下载Xcode历史版本&quot;&gt;&lt;a href=&quot;#下载Xcode历史版本&quot; class=&quot;headerlink&quot; title=&quot;下载Xcode历史版本&quot;&gt;&lt;/a&gt;下载Xcode历史版本&lt;/h1&gt;&lt;p&gt;Apple提供了官方下载地址：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/download/more&quot;&gt;https://developer.apple.com/download/more&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;打开链接，登录账户，即可看见下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/%E4%B8%8B%E8%BD%BD%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%ACxcode.png&quot; alt=&quot;下载历史版本Xcode&quot;&gt;&lt;/p&gt;
+&lt;p&gt;根据左侧栏，筛选自己需要的软件，下载即可。&lt;/p&gt;
+&lt;h1 id=&quot;升级Xcode真机调试版本&quot;&gt;&lt;a href=&quot;#升级Xcode真机调试版本&quot; class=&quot;headerlink&quot; title=&quot;升级Xcode真机调试版本&quot;&gt;&lt;/a&gt;升级Xcode真机调试版本&lt;/h1&gt;&lt;p&gt;1）在一台已经安装好的高版本中，获取需要的文件。&lt;/p&gt;
+&lt;p&gt;2）替换自己的电脑上的Xcode对应的文件。&lt;/p&gt;
+&lt;p&gt;步骤如下：&lt;/p&gt;
+&lt;p&gt;1）找到应用程序，显示包中的文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/%E6%98%BE%E7%A4%BA%E5%8C%85%E6%96%87%E4%BB%B6.png&quot; alt=&quot;显示包文件&quot;&gt;&lt;/p&gt;
+&lt;p&gt;2）进入路径&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95.png&quot; alt=&quot;文件目录&quot;&gt;&lt;/p&gt;
+&lt;p&gt;拷贝需要的文件，如 9.3文件夹。&lt;/p&gt;
+&lt;p&gt;粘贴至自己电脑对应的位置即可。&lt;/p&gt;
+&lt;h1 id=&quot;升级Xcode的SDK&quot;&gt;&lt;a href=&quot;#升级Xcode的SDK&quot; class=&quot;headerlink&quot; title=&quot;升级Xcode的SDK&quot;&gt;&lt;/a&gt;升级Xcode的SDK&lt;/h1&gt;&lt;p&gt;延续上述步骤，只需要进入文件路径&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;拷贝SDKs文件夹，粘贴至自己电脑相对应位置即可。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;相信作为一名iOS开发者，每当WWDC开始，iOS升级时，那种切肤之痛，是只有开发者才能体会而又无言的一种沉默抗议。&lt;/p&gt;
+&lt;p&gt;Apple很残暴的将MAC OS、iOS、Xcode牢固的捆绑在一起。如果需要真机调试，那么Xcode的SDK版本一定不能低于真机，Xcode版本的安装有MAC OS的版本要求，这样一来，只要升级一下iOS版本，那么恭喜你，很有可能你需要升级MAC OS和Xcode。而对于动辄数十个G的文件，在天朝的绿色网络保护下，是一件多么伤神的事情啊。更甚的是，现在的MAC OS系统越来越不好用了，我很是怀恋之前的版本，课无奈胳膊拗不过大腿。&lt;/p&gt;
+&lt;p&gt;现在，终于有了可行的办法，能够解决上述神伤，在此总结分享给大家。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://charsdavy.github.io/categories/tool/"/>
+    
+    
+      <category term="iOS" scheme="http://charsdavy.github.io/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo 博客功能扩展 - 添加回滚到顶部按钮</title>
@@ -1937,109 +1983,6 @@
     
     
       <category term="markdown" scheme="http://charsdavy.github.io/tags/script/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GCD（Grand Central Dispatch）</title>
-    <link href="http://charsdavy.github.io/2016/04/14/Grand-Central-Dispatch/"/>
-    <id>http://charsdavy.github.io/2016/04/14/Grand-Central-Dispatch/</id>
-    <published>2016-04-14T00:24:46.000Z</published>
-    <updated>2016-06-04T02:09:36.000Z</updated>
-    
-    <content type="html">&lt;p&gt;摘要：GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。&lt;/p&gt;
-&lt;p&gt;GCD 和 block 的配合使用，可以方便地进行多线程编程。&lt;/p&gt;
-&lt;h1 id=&quot;优势&quot;&gt;&lt;a href=&quot;#优势&quot; class=&quot;headerlink&quot; title=&quot;优势&quot;&gt;&lt;/a&gt;优势&lt;/h1&gt;&lt;p&gt;1）  苹果官方为多核的并行运算提出的解决方案。&lt;/p&gt;
-&lt;p&gt;2）  会自动利用更多的CPU内核。&lt;/p&gt;
-&lt;p&gt;3）  会自动管理线程的生命周期（创建线程、调度任务、销毁线程）。&lt;/p&gt;
-&lt;h1 id=&quot;核心概念&quot;&gt;&lt;a href=&quot;#核心概念&quot; class=&quot;headerlink&quot; title=&quot;核心概念&quot;&gt;&lt;/a&gt;核心概念&lt;/h1&gt;&lt;p&gt;1）  任务：执行什么操作。block&lt;/p&gt;
-&lt;p&gt;2）  队列：用来存放任务。&lt;/p&gt;
-&lt;p&gt;串行队列：顺序，一个一个执行。一个任务执行完毕后才执行下一个任务。&lt;/p&gt;
-&lt;p&gt;并发队列：同时，同时执行很多个任务。自动开启多个线程同时执行任务。并发功能只有在异步函数下才生效。&lt;/p&gt;
-&lt;h1 id=&quot;使用步骤：&quot;&gt;&lt;a href=&quot;#使用步骤：&quot; class=&quot;headerlink&quot; title=&quot;使用步骤：&quot;&gt;&lt;/a&gt;使用步骤：&lt;/h1&gt;&lt;p&gt;1）  定制任务&lt;/p&gt;
-&lt;p&gt;确定想要做的事情。&lt;/p&gt;
-&lt;p&gt;2）  将任务添加到队列中&lt;/p&gt;
-&lt;p&gt;GCD会自动将队列中的任务取出，放到对应的线程中执行。&lt;/p&gt;
-&lt;p&gt;任务的取出原则遵循队列的原则：先进先出，后进后出。&lt;/p&gt;
-&lt;h1 id=&quot;执行任务的函数&quot;&gt;&lt;a href=&quot;#执行任务的函数&quot; class=&quot;headerlink&quot; title=&quot;执行任务的函数&quot;&gt;&lt;/a&gt;执行任务的函数&lt;/h1&gt;&lt;p&gt;1）同步方式　　&lt;/p&gt;
-&lt;p&gt;dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);&lt;/p&gt;
-&lt;p&gt;queue:队列&lt;/p&gt;
-&lt;p&gt;block:任务&lt;/p&gt;
-&lt;p&gt;2）异步方式&lt;/p&gt;
-&lt;p&gt;dispatch_async(dispatch_queue_t queue, dispatch_block_t block);&lt;/p&gt;
-&lt;p&gt;queue:队列&lt;/p&gt;
-&lt;p&gt;block:任务&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;同步和异步的区别：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;同步：在当前线程中执行。&lt;/p&gt;
-&lt;p&gt;异步：在另一条线程中执行。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;同步任务的作用：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1）  用户登录&lt;/p&gt;
-&lt;p&gt;2）  下载任务1&lt;/p&gt;
-&lt;p&gt;3）  下载任务2&lt;/p&gt;
-&lt;h1 id=&quot;术语&quot;&gt;&lt;a href=&quot;#术语&quot; class=&quot;headerlink&quot; title=&quot;术语&quot;&gt;&lt;/a&gt;术语&lt;/h1&gt;&lt;p&gt;1）  同步和异步决定了是否要开辟新线程。&lt;/p&gt;
-&lt;p&gt;同步：在当前线程中执行任务，不具备开启新线程的能力。&lt;/p&gt;
-&lt;p&gt;异步：在新的线程中执行任务，具备开启新线程的能力。&lt;/p&gt;
-&lt;p&gt;2）  并发和串行决定了任务执行的方式。&lt;/p&gt;
-&lt;p&gt;并发：多个任务同时执行。&lt;/p&gt;
-&lt;p&gt;串行：一个任务执行完毕后，再执行下一个任务。&lt;/p&gt;
-&lt;h1 id=&quot;代码使用&quot;&gt;&lt;a href=&quot;#代码使用&quot; class=&quot;headerlink&quot; title=&quot;代码使用　&quot;&gt;&lt;/a&gt;代码使用　&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*串行队列*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*创建队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;参数：1.队列标签。 2.队列属性。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_queue_t queue = dispatch_queue_create(”dengw”,DISPATCH_QUEUE_SERIAL);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*同步执行任务，不会开辟新线程，在当前线程中顺序执行。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;一般只要使用“同步”执行，串行队列对添加的同步任务，立马执行*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_sync(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*异步执行任务，开辟新线程，在新线程中执行。开辟新线程的数量与队列模式有关。串行队列中异步执行只会开启一个新线程。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for(int I = 0; I &amp;lt; 10; I++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_async(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;　　&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*并发队列：需要程序员释放。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*创建队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;参数：1.队列标签。 2.队列属性。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_queue_t queue = dispatch_queue_create(”dengw”,DISPATCH_QUEUE_CONCURRENT);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*异步执行任务，开辟新线程，在新线程中执行。开辟新线程的数量程序员无法控制。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for(int I = 0; I &amp;lt; 10; I++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_async(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*同步执行任务，不开辟新线程，顺序执行*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for(int I = 0; I &amp;lt; 10; I++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_sync(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*主队列，专门负责在主线程上调度任务。程序启动以后至少有一个主线程，则会创建主队列。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*主队列不允许开辟新线程。不会在子线程调度任务。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*获得主队列*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_queue_t queue = dispatch_get_main_queue();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*异步执行任务，在主队列中，只能顺序执行。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for(int I = 0; I &amp;lt; 10; I++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*异步：把任务放到主队列中，但不需要马上执行。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_async(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*同步执行任务*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for(int I = 0; I &amp;lt; 10; I++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*同步：把任务放到主队列中，需要马上执行。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*阻塞*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_sync(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*全局队列：本质是并发队列。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;与并发队列的区别：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1）全局队列没有名字，而并发队列有名字。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2）全局队列，是供所有的应用程序使用。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3）在MRC中，全局队列不需要释放，并发队列需要释放。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*获得全局队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;参数：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;参数1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iOS7中&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_HEGH    2 高优先级&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_DEFAULT  0 默认优先级&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_LOW   (-2) 低优先级&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_BACKGROUND    INT16_MIN 后台优先级（最低）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iOS8中&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_HEGH:QOS_CLASS_USER_INITIATED&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_DEFAULT:QOS_CLASS_USER_DEFAULT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_LOW:QOS_CLASS_USER_UTILITY&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DISPATCH_QUEUE_PRIORITY_BACKGROUND: QOS_CLASS_USER_BACKGROUND&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;参数2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;保留参数。*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_DEFAULT,0);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*异步执行任务*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for(int I = 0; I &amp;lt; 10; I++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_async(queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@”%@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;各队列的执行效果&quot;&gt;&lt;a href=&quot;#各队列的执行效果&quot; class=&quot;headerlink&quot; title=&quot;各队列的执行效果&quot;&gt;&lt;/a&gt;各队列的执行效果&lt;/h1&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;全局并行队列&lt;/th&gt;
-&lt;th&gt;手动创建串行队列&lt;/th&gt;
-&lt;th&gt;主队列&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;同步（sync）&lt;/td&gt;
-&lt;td&gt;没有开启新线程。串行执行任务。&lt;/td&gt;
-&lt;td&gt;没有开启新线程。串行执行任务。&lt;/td&gt;
-&lt;td&gt;会死锁&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;异步（async）&lt;/td&gt;
-&lt;td&gt;有开启新线程。并行执行任务。&lt;/td&gt;
-&lt;td&gt;有开启新线程。串行执行任务。&lt;/td&gt;
-&lt;td&gt;没有开启新线程。串行执行任务。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h1 id=&quot;队列的选择&quot;&gt;&lt;a href=&quot;#队列的选择&quot; class=&quot;headerlink&quot; title=&quot;队列的选择&quot;&gt;&lt;/a&gt;队列的选择&lt;/h1&gt;&lt;p&gt;1）串行队列异步执行&lt;/p&gt;
-&lt;p&gt;开一条线程，顺序执行。&lt;/p&gt;
-&lt;p&gt;效率不高，执行比较慢，资源占用小，省电。&lt;/p&gt;
-&lt;p&gt;应用场景：一般3G网络，对性能要求不高。&lt;/p&gt;
-&lt;p&gt;2）并发队列异步执行&lt;/p&gt;
-&lt;p&gt;开启多条线程，并发执行。&lt;/p&gt;
-&lt;p&gt;效率高，执行快，资源消耗大，费电。&lt;/p&gt;
-&lt;p&gt;应用场景：WIFI网络，或需要快速响应，用户体验要求高，对任务执行顺序没有要求。&lt;/p&gt;
-&lt;p&gt;3）  同步任务&lt;/p&gt;
-&lt;p&gt;一般只会在并发队列，需要阻塞后续任务，必须等待同步任务执行完毕，再去执行其他任务。“依赖关系” &lt;/p&gt;
-&lt;h1 id=&quot;线程间通信&quot;&gt;&lt;a href=&quot;#线程间通信&quot; class=&quot;headerlink&quot; title=&quot;线程间通信&quot;&gt;&lt;/a&gt;线程间通信&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*从子线程回到主线程*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_async(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //执行耗时的异步操作…&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_async(dispatch_get_main_queue(), ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //回到主线程，执行UI刷新操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;延时操作&quot;&gt;&lt;a href=&quot;#延时操作&quot; class=&quot;headerlink&quot; title=&quot;延时操作&quot;&gt;&lt;/a&gt;延时操作&lt;/h1&gt;&lt;p&gt;1）方式一，调用NSObject的方法&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//2秒后再调用run方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self performSelector:@selector(run) withObject:nil afterDelay:2.0];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;2）方式二，使用GCD函数&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),dispatch_get_main_queue(), ^&amp;#123;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //2秒后再异步执行这里的代码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;调度组（分组）&quot;&gt;&lt;a href=&quot;#调度组（分组）&quot; class=&quot;headerlink&quot; title=&quot;调度组（分组）&quot;&gt;&lt;/a&gt;调度组（分组）&lt;/h1&gt;&lt;p&gt;应用场景：开发的时候，有的时候出现多个网络请求（每一个网络请求时间长短不一），都完成以后统一更新UI或通知用户。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*实例化一个调度组*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_t group = dispatch_group_create();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_queue_t queue = dispatch_get_global_queue(0, 0);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//将任务添加到队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_async(group, queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@”A %@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_async(group, queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@”B %@”, [NSThread currentThread]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//获得所有调度组里面的异步任务完成的通知&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*在调度组完成通知里，可以跨队列通信*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_notifity(group, queue, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //异步的&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@”finished”);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;一次性执行&quot;&gt;&lt;a href=&quot;#一次性执行&quot; class=&quot;headerlink&quot; title=&quot;一次性执行&quot;&gt;&lt;/a&gt;一次性执行&lt;/h1&gt;&lt;p&gt;常见于单例模型中代码使用。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static dispatch_once_t onceToken;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_once(&amp;amp;onceToken, ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //只执行一次&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@”hi”);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;摘要：GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="移动开发" scheme="http://charsdavy.github.io/categories/develop/"/>
-    
-    
-      <category term="iOS" scheme="http://charsdavy.github.io/tags/iOS/"/>
     
   </entry>
   

@@ -1,7 +1,7 @@
 (function($) {
     // When to show the scroll link
     // higher number = scroll link appears further down the page
-    var upperLimit = 500;
+    var upperLimit = 1600;
 
     // Our scroll link element
     var scrollElem = $('#totop');
