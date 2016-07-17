@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Xcode 控制台命令 | Chars&#39;s Tech Blog</title>
+  <title>Mac 中 Git 命令自动补全 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+  <meta name="description" content="转战iOS开发已经有一段时间了，现在使用Mac，对于命令行的使用，真的是越来越喜欢，但是，在使用Git命令的时候，不能使用【Tab】来自动补全，为此，博主找寻方法，来完善Git命令补全功能。本文分享此功能实现。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode 控制台命令">
-<meta property="og:url" content="http://charsdavy.github.io/2016/03/05/xcode-console-cli/index.html">
+<meta property="og:title" content="Mac 中 Git 命令自动补全">
+<meta property="og:url" content="http://charsdavy.github.io/2016/07/17/git-auto-completion-mac/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
-<meta property="og:updated_time" content="2016-07-12T23:17:32.000Z">
+<meta property="og:description" content="转战iOS开发已经有一段时间了，现在使用Mac，对于命令行的使用，真的是越来越喜欢，但是，在使用Git命令的时候，不能使用【Tab】来自动补全，为此，博主找寻方法，来完善Git命令补全功能。本文分享此功能实现。">
+<meta property="og:updated_time" content="2016-07-17T02:00:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode 控制台命令">
-<meta name="twitter:description" content="摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+<meta name="twitter:title" content="Mac 中 Git 命令自动补全">
+<meta name="twitter:description" content="转战iOS开发已经有一段时间了，现在使用Mac，对于命令行的使用，真的是越来越喜欢，但是，在使用Git命令的时候，不能使用【Tab】来自动补全，为此，博主找寻方法，来完善Git命令补全功能。本文分享此功能实现。">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -191,11 +191,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-xcode-console-cli" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-git-auto-completion-mac" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/05/xcode-console-cli/" class="article-date">
-  	<time datetime="2016-03-05T05:41:06.000Z" itemprop="datePublished">2016-03-05</time>
+      <a href="/2016/07/17/git-auto-completion-mac/" class="article-date">
+  	<time datetime="2016-07-17T01:51:42.000Z" itemprop="datePublished">2016-07-17</time>
 </a>
     </div>
   
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Xcode 控制台命令
+      Mac 中 Git 命令自动补全
     </h1>
   
 
@@ -217,12 +217,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/develop/">移动开发</a>
+	<a class="article-category-link" href="/categories/tool/">工具</a>
 	</div>
 
 
@@ -232,110 +232,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。</p>
+        <p>转战iOS开发已经有一段时间了，现在使用Mac，对于命令行的使用，真的是越来越喜欢，但是，在使用Git命令的时候，不能使用【Tab】来自动补全，为此，博主找寻方法，来完善Git命令补全功能。本文分享此功能实现。</p>
 <a id="more"></a>
-<h1 id="debug-命令表"><a href="#debug-命令表" class="headerlink" title="debug 命令表"></a>debug 命令表</h1><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>break NUM</td>
-<td>在指定的行上设置断点</td>
-</tr>
-<tr>
-<td>bt</td>
-<td>显示所有的调用栈帧，该命令可用来显示函数的调用顺序</td>
-</tr>
-<tr>
-<td>clear</td>
-<td>删除设置在特定源文件、特定行上的断点，其用法为：clear FILENAME:NUM</td>
-</tr>
-<tr>
-<td>continue</td>
-<td>继续执行正在调试的程序，该命令用在程序由于处理信号或断点而导致停止运行时</td>
-</tr>
-<tr>
-<td>display EXPR</td>
-<td>每次程序停止后显示表达式的值。表达式由程序定义的变量组成</td>
-</tr>
-<tr>
-<td>file FILE</td>
-<td>装载指定的可执行文件进行调试</td>
-</tr>
-<tr>
-<td>help NAME</td>
-<td>显示指定命令的帮助信息</td>
-</tr>
-<tr>
-<td>info break</td>
-<td>显示当前断电清单，包括到达断点处的次数等</td>
-</tr>
-<tr>
-<td>info files</td>
-<td>显示被调试文件的详细信息</td>
-</tr>
-<tr>
-<td>info func</td>
-<td>显示所有的函数名称</td>
-</tr>
-<tr>
-<td>info local</td>
-<td>显示当前函数中的局部变量信息</td>
-</tr>
-<tr>
-<td>info prog</td>
-<td>显示被调试程序的执行状态</td>
-</tr>
-<tr>
-<td>info var</td>
-<td>显示所有的全局和静态变量名称</td>
-</tr>
-<tr>
-<td>kill</td>
-<td>终止正被调试的程序</td>
-</tr>
-<tr>
-<td>list</td>
-<td>显示源代码段</td>
-</tr>
-<tr>
-<td>make</td>
-<td>在不退出gdb的情况下运行make工具</td>
-</tr>
-<tr>
-<td>next</td>
-<td>在不单步执行进入其他函数的情况下，向前执行一行源代码</td>
-</tr>
-<tr>
-<td>print EXPR</td>
-<td>显示表达式EXPR的值</td>
-</tr>
-<tr>
-<td>print-object</td>
-<td>打印一个对象</td>
-</tr>
-<tr>
-<td>print (int) name</td>
-<td>打印一个类型</td>
-</tr>
-<tr>
-<td>print-object [artist description]</td>
-<td>调用一个函数</td>
-</tr>
-<tr>
-<td>set artist - @”test”</td>
-<td>设置变量值</td>
-</tr>
-<tr>
-<td>help</td>
-<td>查看帮助</td>
-</tr>
-</tbody>
-</table>
+<h1 id="安装Homebrew"><a href="#安装Homebrew" class="headerlink" title="安装Homebrew"></a>安装Homebrew</h1><p>使用Homebrew安装的git，如何安装Honebrew及其使用在此就跳过，烦请自行查看(<a href="http://brew.sh/index_zh-cn.html)。">http://brew.sh/index_zh-cn.html)。</a></p>
+<h1 id="安装bash-completion"><a href="#安装bash-completion" class="headerlink" title="安装bash-completion"></a>安装bash-completion</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew list</span><br></pre></td></tr></table></figure>
+<p>查看是否已经安装了”bash-completion”，如果没有，继续往下看：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew install bash-completion</span><br><span class="line">#####安装完成之后######</span><br><span class="line">$ brew info bash-completion 　</span><br><span class="line">#####下边这句话很重要#######</span><br><span class="line">==&gt; Caveats</span><br><span class="line">Add the following lines to your ~/.bash_profile:</span><br><span class="line">if [ -f $(brew --prefix)/etc/bash_completion ]; then</span><br><span class="line">. $(brew --prefix)/etc/bash_completion</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>将if…then…那一句添加到~/.bash_profile（如果没有该文件，新建一个）</p>
+<h1 id="获取git-completion-bash"><a href="#获取git-completion-bash" class="headerlink" title="获取git-completion.bash"></a>获取git-completion.bash</h1><p>将git源码clone到本地</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/git/git.git</span><br></pre></td></tr></table></figure>
+<p>找到”contrib/completion/“目录下的git-completion.bash，将该文件拷贝到~/下并重命名为.git-completion.bash</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cp git-completion.bash ~/.git-completion.bash</span><br></pre></td></tr></table></figure>
+<h1 id="配置git-completion-bash"><a href="#配置git-completion-bash" class="headerlink" title="配置git-completion.bash"></a>配置git-completion.bash</h1><p>在~/.bash_profile文件（该目录下如果没有，新建一个）中添加下边的内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source ~/.git-completion.bash</span><br></pre></td></tr></table></figure>
+<p>重启终端即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git --h[tab][tab]</span><br><span class="line">--help        --html-path</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -345,18 +256,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/06/ios-application-plist-diff/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          iOS Project与OS X Project中plist使用区别
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/02/oauth2-protocol/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OAuth2.0 协议</div>
+    <a href="/2016/07/13/finder-open-terminal/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Finder中打开终端</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
