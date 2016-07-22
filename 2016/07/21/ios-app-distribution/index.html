@@ -4,18 +4,26 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>简单聊聊 iOS 中的网络加密 | Chars&#39;s Tech Blog</title>
+  <title>谈谈iOS App打包发布 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。">
+  <meta name="description" content="来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简单聊聊 iOS 中的网络加密">
-<meta property="og:url" content="http://charsdavy.github.io/2016/06/15/ios-network-encrypt/index.html">
+<meta property="og:title" content="谈谈iOS App打包发布">
+<meta property="og:url" content="http://charsdavy.github.io/2016/07/21/ios-app-distribution/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。">
-<meta property="og:updated_time" content="2016-07-12T23:17:32.000Z">
+<meta property="og:description" content="来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-1.png?imageView/2/w/460">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-2.png?imageView/2/w/460">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-3.png?imageView/2/w/460">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-4.png?imageView/2/w/460">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-5.png?imageView/2/w/460">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-6.png?imageView/2/w/460">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-7.png?imageView/2/w/460">
+<meta property="og:updated_time" content="2016-07-22T01:53:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简单聊聊 iOS 中的网络加密">
-<meta name="twitter:description" content="摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。">
+<meta name="twitter:title" content="谈谈iOS App打包发布">
+<meta name="twitter:description" content="来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-1.png?imageView/2/w/460">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -193,11 +201,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-ios-network-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ios-app-distribution" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/15/ios-network-encrypt/" class="article-date">
-  	<time datetime="2016-06-14T23:55:50.000Z" itemprop="datePublished">2016-06-15</time>
+      <a href="/2016/07/21/ios-app-distribution/" class="article-date">
+  	<time datetime="2016-07-21T11:56:38.000Z" itemprop="datePublished">2016-07-21</time>
 </a>
     </div>
   
@@ -210,7 +218,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      简单聊聊 iOS 中的网络加密
+      谈谈iOS App打包发布
     </h1>
   
 
@@ -234,43 +242,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
+        <p>来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。</p>
 <a id="more"></a>
-<h1 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h1><p>公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
-<p>但是不论在任何时候，都应该将服务置于HTTPS上，因为它可以避免中间人攻击的问题，还自带了基于非对称密钥的加密通道。</p>
-<h1 id="HTTPS交互原理"><a href="#HTTPS交互原理" class="headerlink" title="HTTPS交互原理"></a>HTTPS交互原理</h1><p>简答说，HTTPS 就是 HTTP协议加了一层SSL协议的加密处理，SSL 证书就是遵守 SSL协议，由受信任的数字证书颁发机构CA（如GlobalSign，wosign），在验证服务器身份后颁发，这是需要花钱滴，签发后的证书作为公钥一般放在服务器的根目录下，便于客户端请求返回给客户端，私钥在服务器的内部中心保存，用于解密公钥。</p>
-<p>HTTPS 客户端与服务器交互过程：</p>
-<p>1）客户端发送请求，服务器返回公钥给客户端；</p>
-<p>2）客户端生成对称加密秘钥，用公钥对其进行加密后，返回给服务器；</p>
-<p>3）服务器收到后，利用私钥解开得到对称加密秘钥，保存；</p>
-<p>4）之后的交互都使用对称加密后的数据进行交互。</p>
-<h2 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h2><p>简单说，证书有两种，一种是正经的：</p>
-<p>CA颁发的证书</p>
-<p>一种是不正经的：</p>
-<p>自己生成签发的证书</p>
-<h1 id="我们需要做什么"><a href="#我们需要做什么" class="headerlink" title="我们需要做什么"></a>我们需要做什么</h1><p>如果遇到正经的证书，我们直接用AFNetworking 直接请求就好了，AFNetworking 内部帮我们封装了HTTPS的请求方式，但是大部分公司接口都是不正经的证书，这时需要我们做以下几步：</p>
-<p>1）将服务器的公钥证书拖到Xcode中</p>
-<p>2）修改验证模式</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];</span><br></pre></td></tr></table></figure>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单来说，就是你本可以修改AFN这个设置来允许客户端接收服务器的任何证书，但是这么做有个问题，就是你无法验证证书是否是你的服务器后端的证书，给中间人攻击，即通过重定向路由来分析伪造你的服务器端打开了大门。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];</span><br><span class="line">securityPolicy.allowInvalidCertificates = YES;</span><br></pre></td></tr></table></figure>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>AFNetworking是允许内嵌证书的，通过内嵌证书，AFNetworking就通过比对服务器端证书、内嵌的证书、站点域名是否一致来验证连接的服务器是否正确。由于CA证书验证是通过站点域名进行验证的，如果你的服务器后端有绑定的域名，这是最方便的。将你的服务器端证书，如果是pem格式的，用下面的命令转成cer格式</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl x509 -in &lt;你的服务器证书&gt;.pem -outform der -out server.cer</span><br></pre></td></tr></table></figure>
-<p>然后将生成的server.cer文件，如果有自建ca，再加上ca的cer格式证书，引入到app的bundle里，AFNetworking在</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModeCertificate];</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModePublicKey];</span><br></pre></td></tr></table></figure>
-<p>情况下，会自动扫描bundle中.cer的文件，并引入，这样就可以通过自签证书来验证服务器唯一性了。</p>
-<h1 id="AFSecurityPolicy三种验证模式"><a href="#AFSecurityPolicy三种验证模式" class="headerlink" title="AFSecurityPolicy三种验证模式"></a>AFSecurityPolicy三种验证模式</h1><ul>
-<li><p>AFSSLPinningModeNone<br>这个模式表示不做SSL pinning，<br>只跟浏览器一样在系统的信任机构列表里验证服务端返回的证书。若证书是信任机构签发的就会通过，若是自己服务器生成的证书就不会通过。</p>
-</li>
-<li><p>AFSSLPinningModeCertificate<br>这个模式表示用证书绑定方式验证证书，需要客户端保存有服务端的证书拷贝，这里验证分两步，第一步验证证书的域名有效期等信息，第二步是对比服务端返回的证书跟客户端返回的是否一致。</p>
-</li>
-<li><p>AFSSLPinningModePublicKey<br>这个模式同样是用证书绑定方式验证，客户端要有服务端的证书拷贝，<br>只是验证时只验证证书里的公钥，不验证证书的有效期等信息。只要公钥是正确的，就能保证通信不会被窃听，因为中间人没有私钥，无法解开通过公钥加密的数据。</p>
-</li>
+<p>1.安装发布证书</p>
+<ul>
+<li>自己去Apple开发者中心配置</li>
+<li>找其他已经有证书的小伙伴导出p12文件</li>
 </ul>
-<p>参考</p>
-<p><a href="http://www.jianshu.com/p/75d96b72bfb1">http://www.jianshu.com/p/75d96b72bfb1</a></p>
+<p>2.设置Scheme</p>
+<p><code>Xcode-&gt;Product-&gt;Scheme-&gt;Edit Scheme</code></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-1.png?imageView/2/w/460" alt="setting-scheme"></p>
+<p>3.设置软件版本号</p>
+<p>版本号格式：<code>数字.数字-字符(驼峰式).数字</code></p>
+<p>示例：<code>1.1-beta.1</code> , <code>1.1.1-beta</code></p>
+<p><strong>说明：</strong>版本号从0开始，不过一般版本号为0的数字省略。</p>
+<p>4.Archive</p>
+<p><strong>注意：</strong>选择<code>真机</code>或者<code>Generic iOS Device</code></p>
+<p><code>Product-&gt;Archive</code></p>
+<p>5.Export</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-2.png?imageView/2/w/460" alt="export-1"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-3.png?imageView/2/w/460" alt="export-2"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-4.png?imageView/2/w/460" alt="export-3"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-5.png?imageView/2/w/460" alt="export-4"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-6.png?imageView/2/w/460" alt="export-5"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-7.png?imageView/2/w/460" alt="export-6"></p>
+<p>6.安装企业应用证书</p>
+<p>7.上传到ZAKER服务器</p>
 
       
     </div>
@@ -280,18 +277,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/06/17/ios-sdwebimage-code-reading/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          iOS 源代码分析 - SDWebImage
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/06/10/state-pattern/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">State 模式</div>
+    <a href="/2016/07/17/custom-myself-develop-tool/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">搭建自己的开发环境</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
