@@ -16,14 +16,14 @@ CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 �
 <meta property="og:description" content="摘要：CocoaPods 是iOS最常用的第三方库依赖管理工具，且绝大多数优秀的开源框架都支持CocoaPods。
 CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 月 12 日，开发 iOS 项目不可避免地要使用第三方开源库，CocoaPods 的出现使得我们可以节省设置和更新第三方开源库的时间。
 文章分享在自己的工程中如何使用CocoaPods 工具管理第">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-7f248f5b44775695.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-07-17T03:01:36.000Z">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/cocoapods-install-using.png?imageView2/2/w/460">
+<meta property="og:updated_time" content="2016-07-22T03:29:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods安装与使用">
 <meta name="twitter:description" content="摘要：CocoaPods 是iOS最常用的第三方库依赖管理工具，且绝大多数优秀的开源框架都支持CocoaPods。
 CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 月 12 日，开发 iOS 项目不可避免地要使用第三方开源库，CocoaPods 的出现使得我们可以节省设置和更新第三方开源库的时间。
 文章分享在自己的工程中如何使用CocoaPods 工具管理第">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-7f248f5b44775695.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/cocoapods-install-using.png?imageView2/2/w/460">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
   
@@ -255,7 +255,7 @@ CocoaPods项目的源码 在 Github 上管理。该项目开始于 2011 年 8 �
 <p>如果你的 gem 太老，可能也会有问题，可以尝试用如下命令升级 gem:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem update --system</span><br></pre></td></tr></table></figure>
 <p>然而这样执行命令，却会出错，</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-7f248f5b44775695.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/cocoapods-install-using.png?imageView2/2/w/460" alt=""></p>
 <p>这是因为ruby 的软件源 <a href="https://rubygems.org">https://rubygems.org</a> 因为使用的是亚马逊的云服务，所以被墙了，需要更新一下 ruby 的源，使用如下代码将官方的 ruby 源替换成国内淘宝的源：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https:</span><br><span class="line">//rubygems.org/</span><br><span class="line">$ gem sources -a https:</span><br><span class="line">//ruby.taobao.org/</span><br><span class="line">$ gem sources -l</span><br></pre></td></tr></table></figure>
 <p>然后再执行之前的命令：</p>
