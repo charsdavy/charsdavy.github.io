@@ -121,7 +121,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
+						<a href="/tags/Animation/" style="font-size: 10px;">Animation</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/network/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -225,7 +225,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">网络</a></li></ul>
 	</div>
 
         
@@ -256,20 +256,20 @@
 <h2 id="步骤一：请求OAuth登录页面"><a href="#步骤一：请求OAuth登录页面" class="headerlink" title="步骤一：请求OAuth登录页面"></a>步骤一：请求OAuth登录页面</h2><p>Request Token URL，未授权的令牌请求服务地址。</p>
 <p>慕课网请求QQ登录页面时使用的带有特定参数的URL。</p>
 <p>例如，</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　https://graph.qq.com/oauth/...?...</span><br><span class="line">　　&amp;client_id=100490398&amp;...</span><br><span class="line">　　&amp;redirect_uri=http://www.mukewang.com/...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　https://graph.qq.com/oauth/...?...</span><br><span class="line">　　&amp;client_id=100490398&amp;...</span><br><span class="line">　　&amp;redirect_uri=http://www.mukewang.com/...</span><br></pre></td></tr></table></figure>
 <p>第一行为QQ登录OAuth页面的地址。</p>
 <p>第二行为一个唯一的站点ID，必须和预置服务器上的一致。</p>
 <p>第三行为一个回调地址，必须和预置服务器上的一致。</p>
-<h2 id="步骤二：用户使用QQ号登录并授权"><a href="#步骤二：用户使用QQ号登录并授权" class="headerlink" title="步骤二：用户使用QQ号登录并授权"></a>步骤二：用户使用QQ号登录并授权</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　https://graph.qq.com/oauth/...?...</span><br><span class="line">　　&amp;client_id=100490398&amp;...</span><br><span class="line">　　&amp;redirect_uri=http://www.mukewang.com/...</span><br></pre></td></tr></table></figure>
+<h2 id="步骤二：用户使用QQ号登录并授权"><a href="#步骤二：用户使用QQ号登录并授权" class="headerlink" title="步骤二：用户使用QQ号登录并授权"></a>步骤二：用户使用QQ号登录并授权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　https://graph.qq.com/oauth/...?...</span><br><span class="line">　　&amp;client_id=100490398&amp;...</span><br><span class="line">　　&amp;redirect_uri=http://www.mukewang.com/...</span><br></pre></td></tr></table></figure>
 <p>跳转到</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　http://www.mukewang.com/user/qqcallback?code=xxxxx....</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　http://www.mukewang.com/user/qqcallback?code=xxxxx....</span><br></pre></td></tr></table></figure>
 <p>慕课网服务器使用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　$_GET[&apos;code&apos;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　$_GET[&apos;code&apos;];</span><br></pre></td></tr></table></figure>
 <p>获取加密字符。</p>
 <h2 id="步骤三：返回登录结果"><a href="#步骤三：返回登录结果" class="headerlink" title="步骤三：返回登录结果"></a>步骤三：返回登录结果</h2><p>User Authorization URL，用户授权的令牌请求服务地址</p>
 <p>为保证安全，确保code是合法服务器获得，没有被劫持，则需要合法接收服务器再发送一个请求（User Authorization URL）。</p>
 <p>例如，用户QQ登录授权之后需要请求一个带有特定参数的URL。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　https://xxx.qq.com/oauth/...?...</span><br><span class="line">　　&amp;client_id=100490398&amp;...</span><br><span class="line">　　&amp;client_secret=xxxxxx&amp;...</span><br><span class="line">　　&amp;code=xxxxx......</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　https://xxx.qq.com/oauth/...?...</span><br><span class="line">　　&amp;client_id=100490398&amp;...</span><br><span class="line">　　&amp;client_secret=xxxxxx&amp;...</span><br><span class="line">　　&amp;code=xxxxx......</span><br></pre></td></tr></table></figure>
 <p>code在短期内会过期且只可使用一次，通常是10秒左右。基于安全考虑。</p>
 <h1 id="关于AccessToken"><a href="#关于AccessToken" class="headerlink" title="关于AccessToken"></a>关于AccessToken</h1><p>AccessToken，用户通过第三方应用访问OAuth接口的令牌，具有较长生命周期（10天半个月甚至更长）。如果AccessToken过期，可以重新登录授权，或在User Authorization URL中指定参数（刷新AccessToken的参数，各平台各有不同）”……&amp;need_refresh_token=true&amp;……”。</p>
 <p>获取AccessToken就可以访问授权帐号的资源，例如，通过慕课网把自己喜欢的课程分享到QQ空间。</p>

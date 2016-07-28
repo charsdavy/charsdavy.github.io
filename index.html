@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
+						<a href="/tags/Animation/" style="font-size: 10px;">Animation</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/network/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -193,6 +193,71 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-animation-layer-tree" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/28/animation-layer-tree/" class="article-date">
+  	<time datetime="2016-07-28T12:21:10.000Z" itemprop="datePublished">2016-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/28/animation-layer-tree/">图层的树状结构</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Core Animation其实是一个令人误解的命名。你可能认为它只是用来做动画的，但实际上它是从一个叫做<em>Layer Kit</em>这么一个不怎么和动画有关的名字演变而来，所以做动画这只是Core Animation特性的冰山一角。</p>
+<p>Core Animation是一个<em>复合引擎</em>，它的职责就是尽可能快地组合屏幕上不同的可视内容，这个内容是被分解成独立的<em>图层</em>，存储在一个叫做<em>图层树</em>的体系之中。于是这个树形成了<strong>UIKit</strong>以及在iOS应用程序当中你所能在屏幕上看见的一切的基础。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/develop/">移动开发</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/07/28/animation-layer-tree/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-ios-app-distribution" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -758,70 +823,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/06/17/ios-sdwebimage-code-reading/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ios-network-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/15/ios-network-encrypt/" class="article-date">
-  	<time datetime="2016-06-14T23:55:50.000Z" itemprop="datePublished">2016-06-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/ios-network-encrypt/">简单聊聊 iOS 中的网络加密</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/develop/">移动开发</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/15/ios-network-encrypt/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

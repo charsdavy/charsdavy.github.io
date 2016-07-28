@@ -115,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
+						<a href="/tags/Animation/" style="font-size: 10px;">Animation</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/network/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -251,15 +251,15 @@
 <h1 id="我们需要做什么"><a href="#我们需要做什么" class="headerlink" title="我们需要做什么"></a>我们需要做什么</h1><p>如果遇到正经的证书，我们直接用AFNetworking 直接请求就好了，AFNetworking 内部帮我们封装了HTTPS的请求方式，但是大部分公司接口都是不正经的证书，这时需要我们做以下几步：</p>
 <p>1）将服务器的公钥证书拖到Xcode中</p>
 <p>2）修改验证模式</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];</span><br></pre></td></tr></table></figure>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单来说，就是你本可以修改AFN这个设置来允许客户端接收服务器的任何证书，但是这么做有个问题，就是你无法验证证书是否是你的服务器后端的证书，给中间人攻击，即通过重定向路由来分析伪造你的服务器端打开了大门。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];</span><br><span class="line">securityPolicy.allowInvalidCertificates = YES;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];</span><br><span class="line">securityPolicy.allowInvalidCertificates = YES;</span><br></pre></td></tr></table></figure>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>AFNetworking是允许内嵌证书的，通过内嵌证书，AFNetworking就通过比对服务器端证书、内嵌的证书、站点域名是否一致来验证连接的服务器是否正确。由于CA证书验证是通过站点域名进行验证的，如果你的服务器后端有绑定的域名，这是最方便的。将你的服务器端证书，如果是pem格式的，用下面的命令转成cer格式</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl x509 -in &lt;你的服务器证书&gt;.pem -outform der -out server.cer</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -in &lt;你的服务器证书&gt;.pem -outform der -out server.cer</span><br></pre></td></tr></table></figure>
 <p>然后将生成的server.cer文件，如果有自建ca，再加上ca的cer格式证书，引入到app的bundle里，AFNetworking在</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModeCertificate];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModeCertificate];</span><br></pre></td></tr></table></figure>
 <p>或者</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModePublicKey];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModePublicKey];</span><br></pre></td></tr></table></figure>
 <p>情况下，会自动扫描bundle中.cer的文件，并引入，这样就可以通过自签证书来验证服务器唯一性了。</p>
 <h1 id="AFSecurityPolicy三种验证模式"><a href="#AFSecurityPolicy三种验证模式" class="headerlink" title="AFSecurityPolicy三种验证模式"></a>AFSecurityPolicy三种验证模式</h1><ul>
 <li><p>AFSSLPinningModeNone<br>这个模式表示不做SSL pinning，<br>只跟浏览器一样在系统的信任机构列表里验证服务端返回的证书。若证书是信任机构签发的就会通过，若是自己服务器生成的证书就不会通过。</p>

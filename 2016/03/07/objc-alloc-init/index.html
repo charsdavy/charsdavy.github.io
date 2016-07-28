@@ -119,7 +119,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
+						<a href="/tags/Animation/" style="font-size: 10px;">Animation</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/network/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -241,19 +241,19 @@
         <p>摘要：这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。</p>
 <a id="more"></a>
 <p>从开始学的<code>NSString *name=[[NSString alloc] init]</code>起，仅知道这句话是分配内存空间，一直在用，从来没考虑过它的内部是怎么实现的。今天无意中看到了这一句代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSString *name = [NSString alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,name);</span><br><span class="line">name = [name init];</span><br><span class="line">NSLog(@&quot;%p&quot;,name);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString *name = [NSString alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,name);</span><br><span class="line">name = [name init];</span><br><span class="line">NSLog(@&quot;%p&quot;,name);</span><br></pre></td></tr></table></figure>
 <p>试着打印了一下，发现两个的内存地址不一样：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1492739-3b68beae6d8cc9fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>alloc是开辟一个内存空间，init是初始化，为什么初始化不在原有的内存空间上初始化，而是重新开辟一个内存空间。于是开始查资料，这时又发现了一个新的迷惑：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSObject *obj = [NSObject alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,obj);</span><br><span class="line">obj = [obj init];</span><br><span class="line">NSLog(@&quot;%p&quot;,obj);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSObject *obj = [NSObject alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,obj);</span><br><span class="line">obj = [obj init];</span><br><span class="line">NSLog(@&quot;%p&quot;,obj);</span><br></pre></td></tr></table></figure>
 <p>打印结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1492739-799b0c9493a36b0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>怎么地址又变一样了？再打印NSArray的试一试：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSArray *person = [NSArray alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,person);</span><br><span class="line">person = [person init];</span><br><span class="line">NSLog(@&quot;%p&quot;,person);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *person = [NSArray alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,person);</span><br><span class="line">person = [person init];</span><br><span class="line">NSLog(@&quot;%p&quot;,person);</span><br></pre></td></tr></table></figure>
 <p>再次打印结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1492739-7eacb95d56d56b8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>仍然是不一样的。原因是什么呢？首先看看NSStrng的init方法吧：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-(id)init&#123; </span><br><span class="line">  if(self = [super init]) &#123;</span><br><span class="line">    // 重新赋值 </span><br><span class="line">    //… </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-(id)init&#123; </span><br><span class="line">  if(self = [super init]) &#123;</span><br><span class="line">    // 重新赋值 </span><br><span class="line">    //… </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从代码中可以分析，<code>self=[super init]</code>如果不为nil，就重新分配内存空间，这就解释了为什么 NSString，NSArray的调用alloc]init]方法后，内存地址会不一样，但是NSObject为什么会一样呢，我们知道NSObject是一切类的基类，当<code>[[NSString alloc]init]</code>执行时，调用的<code>[super init]</code>就是 NSObject中的init方法，既然NSObject身为基类，它也就无法调用super init，所以当NSObject执行<code>[[NSObject alloc]init]</code>时，也就没有了init重新分配空间这一环节。</p>
 <p>至于苹果公司为什么初始化一个实例要分两步，个人认为是方便构造后初始化不同的方法，如果用 new关键字，只能调用一个init，而不能调用initWithName等方法。</p>
 <p><strong>知识拓展：</strong></p>

@@ -117,7 +117,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
+						<a href="/tags/Animation/" style="font-size: 10px;">Animation</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/script/" style="font-size: 15px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/script/" style="font-size: 10px;">markdown</a> <a href="/tags/assistant/" style="font-size: 17.5px;">开发助手</a> <a href="/tags/framework/" style="font-size: 12.5px;">开源框架</a> <a href="/tags/Japanese/" style="font-size: 10px;">日语</a> <a href="/tags/script/" style="font-size: 10px;">正则表达式</a> <a href="/tags/hardware/" style="font-size: 10px;">硬件</a> <a href="/tags/algorithm/" style="font-size: 12.5px;">算法</a> <a href="/tags/network/" style="font-size: 12.5px;">网络</a> <a href="/tags/design-pattern/" style="font-size: 15px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -242,129 +242,129 @@
 <h2 id="中文试题"><a href="#中文试题" class="headerlink" title="中文试题"></a>中文试题</h2><ul>
 <li><code>#import 跟#include、@class有什么区别？#import&lt;&gt;跟 #import&quot;&quot;又什么区别？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1) #import和#include都能完整地包含某个文件的内容，#import能防止同一个文件被包含多次</span><br><span class="line">2) @class仅仅是声明一个类名，并不会包含类的完整声明;@class还能解决循环包含的问题</span><br><span class="line">3) #import &lt;&gt;用来包含系统自带的文件，#import “”用来包含自定义的文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1) #import和#include都能完整地包含某个文件的内容，#import能防止同一个文件被包含多次</span><br><span class="line">2) @class仅仅是声明一个类名，并不会包含类的完整声明;@class还能解决循环包含的问题</span><br><span class="line">3) #import &lt;&gt;用来包含系统自带的文件，#import “”用来包含自定义的文件</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>属性readwrite，readonly，assign，retain，copy，nonatomic各是什么作用，在那种情况下用？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">readwrite：同时生成get方法和set方法的声明和实现</span><br><span class="line">readonly：只生成get方法的声明和实现</span><br><span class="line">assign：set方法的实现是直接赋值，用于基本数据类型</span><br><span class="line">retain：set方法的实现是release旧值，retain新值，用于OC对象类型</span><br><span class="line">copy：set方法的实现是release旧值，copy新值，用于NSString、block等类型</span><br><span class="line">nonatomic：非原子性，set方法的实现不加锁（比atomic性能高）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">readwrite：同时生成get方法和set方法的声明和实现</span><br><span class="line">readonly：只生成get方法的声明和实现</span><br><span class="line">assign：set方法的实现是直接赋值，用于基本数据类型</span><br><span class="line">retain：set方法的实现是release旧值，retain新值，用于OC对象类型</span><br><span class="line">copy：set方法的实现是release旧值，copy新值，用于NSString、block等类型</span><br><span class="line">nonatomic：非原子性，set方法的实现不加锁（比atomic性能高）</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>写一个setter方法用于完成@property （nonatomic,retain）NSString *name,写一个setter方法用于完成@property（nonatomic，copy）NSString *name.</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@property (nonatomic, retain) NSString *name;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">	if (_name != name) &#123;</span><br><span class="line">		[_name release];</span><br><span class="line">		_name = [name retain];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@property(nonatomic, copy) NSString *name;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">	if (_name != name) &#123;</span><br><span class="line">		[_name release];</span><br><span class="line">		_name = [name copy];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, retain) NSString *name;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">	if (_name != name) &#123;</span><br><span class="line">		[_name release];</span><br><span class="line">		_name = [name retain];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic, copy) NSString *name;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">	if (_name != name) &#123;</span><br><span class="line">		[_name release];</span><br><span class="line">		_name = [name copy];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>对于语句NSString*obj = [[NSData alloc] init]; ，编译时和运行时obj分别是什么类型？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">编译时是NSString类型</span><br><span class="line">运行时是NSData类型</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">编译时是NSString类型</span><br><span class="line">运行时是NSData类型</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>常见的object-c的数据类型有那些，和C的基本数据类型有什么区别？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">常用OC类型：NSString、NSArray、NSDictionary、NSData、NSNumber等</span><br><span class="line">OC对象需要手动管理内存，C的基本数据类型不需要管理内存</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">常用OC类型：NSString、NSArray、NSDictionary、NSData、NSNumber等</span><br><span class="line">OC对象需要手动管理内存，C的基本数据类型不需要管理内存</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>id 声明的变量有什么特性？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">id声明的变量能指向任何OC对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id声明的变量能指向任何OC对象</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Objective-C如何对内存管理的,说说你的看法和解决方法?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每个对象都有一个引用计数器，每个新对象的计数器是1，当对象的计数器减为0时，就会被销毁</span><br><span class="line">通过retain可以让对象的计数器+1、release可以让对象的计数器-1</span><br><span class="line">还可以通过autorelease pool管理内存</span><br><span class="line">如果用ARC，编译器会自动生成管理内存的代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">每个对象都有一个引用计数器，每个新对象的计数器是1，当对象的计数器减为0时，就会被销毁</span><br><span class="line">通过retain可以让对象的计数器+1、release可以让对象的计数器-1</span><br><span class="line">还可以通过autorelease pool管理内存</span><br><span class="line">如果用ARC，编译器会自动生成管理内存的代码</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>内存管理的几条原则时什么？按照默认法则.哪些方法生成的对象需要手动释放？在和property结合的时候怎样有效的避免内存泄露？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只要调用了alloc、copy、new方法产生了一个新对象，都必须在最后调用一次release或者autorelease</span><br><span class="line">只要调用了retain，都必须在最后调用一次release或者autorelease</span><br><span class="line">@property如果用了copy或者retian，就需要对不再使用的属性做一次release操作</span><br><span class="line">如果用了ARC，另外讨论.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">只要调用了alloc、copy、new方法产生了一个新对象，都必须在最后调用一次release或者autorelease</span><br><span class="line">只要调用了retain，都必须在最后调用一次release或者autorelease</span><br><span class="line">@property如果用了copy或者retian，就需要对不再使用的属性做一次release操作</span><br><span class="line">如果用了ARC，另外讨论.</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>看下面的程序,三次NSLog会输出什么？为什么？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSMutableArray* ary = [[NSMutableArray array] retain];  </span><br><span class="line">NSString *str = [NSString stringWithFormat:@&quot;test&quot;];  // 1 </span><br><span class="line">[strretain];   // 2</span><br><span class="line">[aryaddObject:str]; // 3  </span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);  </span><br><span class="line">[strretain];  // 4</span><br><span class="line">[strrelease];   // 3</span><br><span class="line">[strrelease];   // 2</span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);  </span><br><span class="line">[aryremoveAllObjects]; // 1  </span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray* ary = [[NSMutableArray array] retain];  </span><br><span class="line">NSString *str = [NSString stringWithFormat:@&quot;test&quot;];  // 1 </span><br><span class="line">[strretain];   // 2</span><br><span class="line">[aryaddObject:str]; // 3  </span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);  </span><br><span class="line">[strretain];  // 4</span><br><span class="line">[strrelease];   // 3</span><br><span class="line">[strrelease];   // 2</span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);  </span><br><span class="line">[aryremoveAllObjects]; // 1  </span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);</span><br></pre></td></tr></table></figure>
 <p>结果：3、2、1</p>
 <ul>
 <li><code>OC中创建线程的方法是什么？如果指定在主线程中执行代码？如何延时执行代码？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建线程的方法</span><br><span class="line">NSThread</span><br><span class="line">NSOperationQueue和NSOperation</span><br><span class="line">GCD</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主线程中执行代码</span><br><span class="line">[self performSelectorOnMainThread: withObject: waitUntilDone:];</span><br><span class="line">[self performSelector: onThread:[NSThreadmainThread] withObject: waitUntilDone:];</span><br><span class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">延时执行</span><br><span class="line">double delayInSeconds = 2.0;</span><br><span class="line">dispatch_time_tpopTime = dispatch_time(DISPATCH_TIME_NOW, </span><br><span class="line">(int64_t)(delayInSeconds * NSEC_PER_SEC));</span><br><span class="line">dispatch_after(popTime, dispatch_get_main_queue(), ^(void)&#123;        </span><br><span class="line">&#125;);</span><br><span class="line">[self performSelector: withObject: afterDelay:];</span><br><span class="line">[NSTimer scheduledTimerWithTimeInterval: target: selector: userInfo: repeats:];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">创建线程的方法</span><br><span class="line">NSThread</span><br><span class="line">NSOperationQueue和NSOperation</span><br><span class="line">GCD</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主线程中执行代码</span><br><span class="line">[self performSelectorOnMainThread: withObject: waitUntilDone:];</span><br><span class="line">[self performSelector: onThread:[NSThreadmainThread] withObject: waitUntilDone:];</span><br><span class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">延时执行</span><br><span class="line">double delayInSeconds = 2.0;</span><br><span class="line">dispatch_time_tpopTime = dispatch_time(DISPATCH_TIME_NOW, </span><br><span class="line">(int64_t)(delayInSeconds * NSEC_PER_SEC));</span><br><span class="line">dispatch_after(popTime, dispatch_get_main_queue(), ^(void)&#123;        </span><br><span class="line">&#125;);</span><br><span class="line">[self performSelector: withObject: afterDelay:];</span><br><span class="line">[NSTimer scheduledTimerWithTimeInterval: target: selector: userInfo: repeats:];</span><br></pre></td></tr></table></figure>
 <h2 id="英文试题"><a href="#英文试题" class="headerlink" title="英文试题"></a>英文试题</h2><p><strong>提示：</strong> 一定要把英文题目过一遍，有些公司的题目故意弄成英文的。</p>
 <ul>
 <li><code>Difference between shallow copy and deep copy?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">浅拷贝：指针（地址）拷贝，不会产生新对象</span><br><span class="line">深拷贝：内容拷贝，会产生新对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">浅拷贝：指针（地址）拷贝，不会产生新对象</span><br><span class="line">深拷贝：内容拷贝，会产生新对象</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is advantage of categories? What is difference between implementing a category and inheritance?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">分类可以在不修改原来类模型的基础上拓充方法</span><br><span class="line">分类只能扩充方法、不能扩充成员变量；继承可以扩充方法和成员变量</span><br><span class="line">继承会产生新的类</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分类可以在不修改原来类模型的基础上拓充方法</span><br><span class="line">分类只能扩充方法、不能扩充成员变量；继承可以扩充方法和成员变量</span><br><span class="line">继承会产生新的类</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Difference between categories and extensions?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">分类是有名称的，类扩展没有名称</span><br><span class="line">分类只能扩充方法、不能扩充成员变量；类扩展可以扩充方法和成员变量</span><br><span class="line">类扩展一般就写在.m文件中，用来扩充私有的方法和成员变量（属性）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分类是有名称的，类扩展没有名称</span><br><span class="line">分类只能扩充方法、不能扩充成员变量；类扩展可以扩充方法和成员变量</span><br><span class="line">类扩展一般就写在.m文件中，用来扩充私有的方法和成员变量（属性）</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Difference between protocol in objective c and interfaces in java?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Java的接口中声明的方法必须都实现</span><br><span class="line">Oc的protocol中声明的方法并不一定要实现</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Java的接口中声明的方法必须都实现</span><br><span class="line">Oc的protocol中声明的方法并不一定要实现</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What are KVO and KVC?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">KVC是键值编码，可以通过一个字符串的key（属性名）修改对象的属性值</span><br><span class="line">KVO是键值监听，可以监听一个对象属性值的改变</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">KVC是键值编码，可以通过一个字符串的key（属性名）修改对象的属性值</span><br><span class="line">KVO是键值监听，可以监听一个对象属性值的改变</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is purpose of delegates?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">两个对象之间传递数据和消息</span><br><span class="line">解耦，拆分业务逻辑</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">两个对象之间传递数据和消息</span><br><span class="line">解耦，拆分业务逻辑</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What are mutable and immutable types in Objective C?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mutable是可变类型，比如NSMutableArray，可以动态往里面添加元素</span><br><span class="line">immutable是不可变类型，比如NSArray，固定的存储空间，不能添加元素</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mutable是可变类型，比如NSMutableArray，可以动态往里面添加元素</span><br><span class="line">immutable是不可变类型，比如NSArray，固定的存储空间，不能添加元素</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>When we call objective c is runtime language what does it mean?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">动态绑定：对象类型在运行时才真正确定</span><br><span class="line">多态性</span><br><span class="line">消息机制</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">动态绑定：对象类型在运行时才真正确定</span><br><span class="line">多态性</span><br><span class="line">消息机制</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>what is difference between NSNotification and protocol?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通过NSNotification可以给多个对象传递数据和消息</span><br><span class="line">通过protocol（代理模式）只能给一个对象传递数据和消息</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过NSNotification可以给多个对象传递数据和消息</span><br><span class="line">通过protocol（代理模式）只能给一个对象传递数据和消息</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is push notification?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本地推送：程序内部弹出通知到用户设备</span><br><span class="line">远程推送：由推送服务器推送通知到用户设备</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地推送：程序内部弹出通知到用户设备</span><br><span class="line">远程推送：由推送服务器推送通知到用户设备</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is Polymorphism？</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">多态：父类指针指向子类对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多态：父类指针指向子类对象</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is Singleton?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">单例：保证程序运行过程中，永远只有一个对象实例</span><br><span class="line">目的是：全局共享一份资源、节省不必要的内存开销</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单例：保证程序运行过程中，永远只有一个对象实例</span><br><span class="line">目的是：全局共享一份资源、节省不必要的内存开销</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is responder chain?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">响应者链：</span><br><span class="line">UIResponder有一个nextResponder属性，通过该属性可以组成一个响应者链，事件或消息在其路径上进行传递</span><br><span class="line">如果UIResponder没有处理传给它的事件，会将未处理的消息转发给自己的nextResponder</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">响应者链：</span><br><span class="line">UIResponder有一个nextResponder属性，通过该属性可以组成一个响应者链，事件或消息在其路径上进行传递</span><br><span class="line">如果UIResponder没有处理传给它的事件，会将未处理的消息转发给自己的nextResponder</span><br></pre></td></tr></table></figure>
 <p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-03-18-ios-test-writing-1.png?imageView/2/w/360" alt="响应链"></p>
 <ul>
 <li><code>Difference between frame and bounds?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">frame以父控件的左上角为坐标原点</span><br><span class="line">bounds以控件本身的左上角为坐标原点</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame以父控件的左上角为坐标原点</span><br><span class="line">bounds以控件本身的左上角为坐标原点</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Difference between method and selector?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通过一个selector可以找到方法地址，进而调用一个方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过一个selector可以找到方法地址，进而调用一个方法</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Is there any garbage collection mechanism in Objective C.?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">OC 1.0没有垃圾回收</span><br><span class="line">OC 2.0有垃圾回收，只能用在Mac上</span><br><span class="line">iOS中有ARC机制，是编译器特性，垃圾回收是运行时特性</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OC 1.0没有垃圾回收</span><br><span class="line">OC 2.0有垃圾回收，只能用在Mac上</span><br><span class="line">iOS中有ARC机制，是编译器特性，垃圾回收是运行时特性</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is NSOperation queue?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用来存放NSOperation对象的队列，可以用来异步执行一些操作</span><br><span class="line">一般可以用在网络请求等耗时操作</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用来存放NSOperation对象的队列，可以用来异步执行一些操作</span><br><span class="line">一般可以用在网络请求等耗时操作</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Can we use one tableview with two different datasources? How you will achieve this?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从对象属性上分析，tableView只有一个dataSource属性。当然，真要使用两个不同的数据源，还是有其他办法解决的</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从对象属性上分析，tableView只有一个dataSource属性。当然，真要使用两个不同的数据源，还是有其他办法解决的</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Can we use two tableview controllers on one viewcontroller?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从技术角度上分析，一个控制器内部添加两个表格控制器是没有问题的</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从技术角度上分析，一个控制器内部添加两个表格控制器是没有问题的</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>What is lazy loading?</code></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">延迟加载：比如控制器的view，在第一次用到view时才会调用loadView方法进行创建</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">延迟加载：比如控制器的view，在第一次用到view时才会调用loadView方法进行创建</span><br></pre></td></tr></table></figure>
 
       
     </div>
