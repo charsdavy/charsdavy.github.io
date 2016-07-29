@@ -6,16 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>睡前谈谈 CAAnimation 动画相关 | Chars&#39;s Tech Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CAAnimation
-要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
-CATransition我们先从 Core Animation 內的转场效果 CAT">
+  <meta name="description" content="要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
+这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="睡前谈谈 CAAnimation 动画相关">
 <meta property="og:url" content="http://charsdavy.github.io/2016/07/29/animation-caanimation/index.html">
 <meta property="og:site_name" content="Chars's Tech Blog">
-<meta property="og:description" content="CAAnimation
-要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
-CATransition我们先从 Core Animation 內的转场效果 CAT">
+<meta property="og:description" content="要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
+这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-2.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-3.png?imageView/2/w/500">
@@ -24,12 +22,11 @@ CATransition我们先从 Core Animation 內的转场效果 CAT">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-6.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-7.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-8.png?imageView/2/w/800">
-<meta property="og:updated_time" content="2016-07-29T11:56:57.000Z">
+<meta property="og:updated_time" content="2016-07-29T12:01:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="睡前谈谈 CAAnimation 动画相关">
-<meta name="twitter:description" content="CAAnimation
-要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
-CATransition我们先从 Core Animation 內的转场效果 CAT">
+<meta name="twitter:description" content="要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
+这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。">
 <meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500">
   
     <link rel="alternative" href="/atom.xml" title="Chars&#39;s Tech Blog" type="application/atom+xml">
@@ -249,8 +246,9 @@ CATransition我们先从 Core Animation 內的转场效果 CAT">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>CAAnimation</p>
-<p>要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。</p>
+        <p>要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。</p>
+<p>这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。</p>
+<a id="more"></a>
 <h1 id="CATransition"><a href="#CATransition" class="headerlink" title="CATransition"></a>CATransition</h1><p>我们先从 Core Animation 內的转场效果 CATransition 讲起（请不要跟 CATransaction 搞混），因为 CATransition 大概是最容易上手，而且可以马上有成就感的动画。CATransition 通常用在两个 view 之间的切换；UIView 本身就有定义一些跟转场有几个以 transition 开头的 class method，像是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ transitionWithView:duration:options:animations:completion:</span><br><span class="line">+ transitionFromView:toView:duration:options:completion:</span><br></pre></td></tr></table></figure>
 <p>而这些 method 可以设定的 tansition option 包括：</p>

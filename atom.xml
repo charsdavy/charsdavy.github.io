@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-07-29T11:56:57.000Z</updated>
+  <updated>2016-07-29T12:01:03.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="http://charsdavy.github.io/2016/07/29/animation-caanimation/"/>
     <id>http://charsdavy.github.io/2016/07/29/animation-caanimation/</id>
     <published>2016-07-29T11:55:33.000Z</published>
-    <updated>2016-07-29T11:56:57.000Z</updated>
+    <updated>2016-07-29T12:01:03.000Z</updated>
     
-    <content type="html">&lt;p&gt;CAAnimation&lt;/p&gt;
-&lt;p&gt;要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。&lt;/p&gt;
+    <content type="html">&lt;p&gt;要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。&lt;/p&gt;
+&lt;p&gt;这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h1 id=&quot;CATransition&quot;&gt;&lt;a href=&quot;#CATransition&quot; class=&quot;headerlink&quot; title=&quot;CATransition&quot;&gt;&lt;/a&gt;CATransition&lt;/h1&gt;&lt;p&gt;我们先从 Core Animation 內的转场效果 CATransition 讲起（请不要跟 CATransaction 搞混），因为 CATransition 大概是最容易上手，而且可以马上有成就感的动画。CATransition 通常用在两个 view 之间的切换；UIView 本身就有定义一些跟转场有几个以 transition 开头的 class method，像是&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;+ transitionWithView:duration:options:animations:completion:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ transitionFromView:toView:duration:options:completion:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;而这些 method 可以设定的 tansition option 包括：&lt;/p&gt;
@@ -274,8 +275,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;CAAnimation&lt;/p&gt;
-&lt;p&gt;要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALa
+      &lt;p&gt;要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。&lt;/p&gt;
+&lt;p&gt;这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。&lt;/p&gt;
     
     </summary>
     
