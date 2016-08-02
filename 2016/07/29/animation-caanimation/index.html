@@ -13,20 +13,21 @@
 <meta property="og:site_name" content="Chars's Tech Blog">
 <meta property="og:description" content="要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
 这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/annimation-caanimation-0.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-2.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-3.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-4.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-5.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-6.png?imageView/2/w/500">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-7.png?imageView/2/w/500">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/annimation-caanimation-0.png">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-8.png?imageView/2/w/800">
-<meta property="og:updated_time" content="2016-08-02T11:04:55.000Z">
+<meta property="og:updated_time" content="2016-08-02T11:09:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="睡前谈谈 CAAnimation 动画相关">
 <meta name="twitter:description" content="要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。
 这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/annimation-caanimation-0.png">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,7 +130,6 @@ ga('send', 'pageview');
 <p>如果我们想要像 UIView 的 <code>+transitionWithView:duration:options:animations:completion:</code>那样，是在某个 view 上面增加或移除 subview 的时候产生转场效果，用 CATransition 的作法也差不多，我们先写好要某个 view A 新增或移除 subview，然后把 CATransition 加到 view A 的 layer 上即可。</p>
 <p>苹果在 iOS 上的 CATransition 的 public header 中定义了几个 type：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kCATransitionFade：淡入淡出动画</span><br><span class="line">kCATransitionMoveIn：新的画面从上方移入的效果</span><br><span class="line">kCATransitionPush：推挤效果，很像 navigation controller 的换页</span><br><span class="line">kCATransitionReveal：原本的画面从上方移出的效果</span><br></pre></td></tr></table></figure>
-<p><img src="http://o88e8any8.bkt.clouddn.com/annimation-caanimation-0.png" alt="动画类型效果"></p>
 <p>不过…其实苹果有不少 private API 可以用。比方说，我们可以把 type 指定成立体块状翻转效果。</p>
 <p><code>transition.type = @&quot;cube&quot;;</code></p>
 <p>在 <a href="http://iphonedevwiki.net/index.php/CATransition">http://iphonedevwiki.net/index.php/CATransition</a> 这一页上可以看到整理好的 private API 可以调用。虽然苹果的政策是禁止在上架的 app 中调用 private API，如果用了可能会被 reject…不过印象中其实有很多 app 都用到这些 private API。</p>
@@ -222,7 +222,7 @@ ga('send', 'pageview');
 <ul>
 <li>kCAFillModeRemoved 设置为该值，动画将在设置的 beginTime 开始执行（如没有设置beginTime属性，则动画立即执行），动画执行完成后将会layer的改变恢复原状。</li>
 </ul>
-<p>!kCAFillModeRemoved](<a href="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500">http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500</a>)</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500" alt="kCAFillModeRemoved"></p>
 <ul>
 <li>kCAFillModeForwards 设置为该值，动画即使之后layer的状态将保持在动画的最后一帧，而removedOnCompletion的默认属性值是 YES，所以为了使动画结束之后layer保持结束状态，应将removedOnCompletion设置为NO。</li>
 </ul>
@@ -251,6 +251,7 @@ ga('send', 'pageview');
 </ul>
 <p><img src="http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-7.png?imageView/2/w/500" alt="kCAMediaTimingFunctionEaseInEaseOut"></p>
 <p>(2)使用方法<code>functionWithControlPoints: : : :</code> 实现。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/annimation-caanimation-0.png" alt="动画类型效果"></p>
 <h2 id="其他的一些设置属性"><a href="#其他的一些设置属性" class="headerlink" title="其他的一些设置属性"></a>其他的一些设置属性</h2><ul>
 <li>repeatCount 设置动画的执行次数</li>
 <li>autoreverses 默认值为 NO，将其设置为 YES</li>
