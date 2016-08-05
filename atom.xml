@@ -859,13 +859,25 @@
     <link href="http://charsdavy.github.io/2016/07/17/custom-myself-develop-tool/"/>
     <id>http://charsdavy.github.io/2016/07/17/custom-myself-develop-tool/</id>
     <published>2016-07-17T02:23:26.000Z</published>
-    <updated>2016-07-17T02:31:11.000Z</updated>
+    <updated>2016-08-05T10:30:00.000Z</updated>
     
     <content type="html">&lt;p&gt;作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。&lt;/p&gt;
 &lt;p&gt;文章主要分享记录博主自己搭建环境的过程。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h1 id=&quot;Sublime-Text&quot;&gt;&lt;a href=&quot;#Sublime-Text&quot; class=&quot;headerlink&quot; title=&quot;Sublime Text&quot;&gt;&lt;/a&gt;Sublime Text&lt;/h1&gt;&lt;p&gt;配置命令打开 Sublime Text&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ln -s &amp;quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&amp;quot; /usr/local/bin/subl&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;JSON代码格式化&quot;&gt;&lt;a href=&quot;#JSON代码格式化&quot; class=&quot;headerlink&quot; title=&quot;JSON代码格式化&quot;&gt;&lt;/a&gt;JSON代码格式化&lt;/h2&gt;&lt;p&gt;网上有很多工具可用，博主自己现在使用一个 Tidy 的插件，效果还是蛮不错的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-1.png&quot; alt=&quot;效果图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;1.打开链接&lt;a href=&quot;https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be&quot;&gt;https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be&lt;/a&gt;，下载文件。&lt;/p&gt;
+&lt;p&gt;2.将解压后的文件夹中的 &lt;code&gt;prettify_json.py&lt;/code&gt; 和 &lt;code&gt;tidy_xml.py&lt;/code&gt; 问价拷贝到 &lt;code&gt;~/Library/Application Support/Sublime Text 2/Packages/User&lt;/code&gt; 路径&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-2.png&quot; alt=&quot;路径文件夹&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3.打开 Sublime Text，从菜单中打开“Key-Bindings Default”文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-3.png&quot; alt=&quot;打开Key-Bindings Default文件&quot;&gt;&lt;/p&gt;
+&lt;p&gt;4.添加快捷键&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &amp;quot;keys&amp;quot;: [&amp;quot;ctrl+shift+x&amp;quot;], &amp;quot;command&amp;quot;: &amp;quot;tidy_xml&amp;quot; &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; &amp;quot;keys&amp;quot;: [&amp;quot;ctrl+shift+j&amp;quot;], &amp;quot;command&amp;quot;: &amp;quot;prettify_json&amp;quot; &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-4.png&quot; alt=&quot;添加快捷键&quot;&gt;&lt;/p&gt;
+&lt;p&gt;5.使用&lt;/p&gt;
+&lt;p&gt;全选，然后按下 &lt;code&gt;Control + shift + j&lt;/code&gt; 键即可。&lt;/p&gt;
 &lt;p&gt;持续不定期更新……&lt;/p&gt;
 </content>
     

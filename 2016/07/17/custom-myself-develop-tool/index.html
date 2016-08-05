@@ -13,11 +13,16 @@
 <meta property="og:site_name" content="Chars's Tech Blog">
 <meta property="og:description" content="作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。
 文章主要分享记录博主自己搭建环境的过程。">
-<meta property="og:updated_time" content="2016-07-17T02:31:11.000Z">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-1.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-2.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-3.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-4.png">
+<meta property="og:updated_time" content="2016-08-05T10:30:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建自己的开发环境">
 <meta name="twitter:description" content="作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。
 文章主要分享记录博主自己搭建环境的过程。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-1.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -108,6 +113,18 @@ ga('send', 'pageview');
 <a id="more"></a>
 <h1 id="Sublime-Text"><a href="#Sublime-Text" class="headerlink" title="Sublime Text"></a>Sublime Text</h1><p>配置命令打开 Sublime Text</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&quot; /usr/local/bin/subl</span><br></pre></td></tr></table></figure>
+<h2 id="JSON代码格式化"><a href="#JSON代码格式化" class="headerlink" title="JSON代码格式化"></a>JSON代码格式化</h2><p>网上有很多工具可用，博主自己现在使用一个 Tidy 的插件，效果还是蛮不错的。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-1.png" alt="效果图"></p>
+<p>1.打开链接<a href="https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be">https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be</a>，下载文件。</p>
+<p>2.将解压后的文件夹中的 <code>prettify_json.py</code> 和 <code>tidy_xml.py</code> 问价拷贝到 <code>~/Library/Application Support/Sublime Text 2/Packages/User</code> 路径</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-2.png" alt="路径文件夹"></p>
+<p>3.打开 Sublime Text，从菜单中打开“Key-Bindings Default”文件</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-3.png" alt="打开Key-Bindings Default文件"></p>
+<p>4.添加快捷键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;keys&quot;: [&quot;ctrl+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; &#125;,</span><br><span class="line">&#123; &quot;keys&quot;: [&quot;ctrl+shift+j&quot;], &quot;command&quot;: &quot;prettify_json&quot; &#125;,</span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-4.png" alt="添加快捷键"></p>
+<p>5.使用</p>
+<p>全选，然后按下 <code>Control + shift + j</code> 键即可。</p>
 <p>持续不定期更新……</p>
 
       
