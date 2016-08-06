@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-aniamtion-host-layer-2.10.png?imageView/2/w/700">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-aniamtion-host-layer-2.11.png?imageView/2/w/700">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-aniamtion-host-layer-2.12.png?imageView/2/w/700">
-<meta property="og:updated_time" content="2016-08-05T00:12:32.000Z">
+<meta property="og:updated_time" content="2016-08-05T16:02:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Core Animation (二) 寄宿图">
 <meta name="twitter:description" content="图片胜过千言万语，界面抵得上千图片  ——Ben Shneiderman
@@ -236,7 +236,7 @@ ga('send', 'pageview');
 <p>现在你理解了CALayerDelegate，并知道怎么使用它。但是除非你创建了一个单独的图层，你几乎没有机会用到CALayerDelegate协议。因为当UIView创建了它的宿主图层时，它就会自动地把图层的delegate设置为它自己，并提供了一个<code>-displayLayer:</code>的实现，那所有的问题就都没了。</p>
 <p>当使用寄宿了视图的图层的时候，你也不必实现<code>-displayLayer:</code>和<code>-drawLayer:inContext:</code>方法来绘制你的寄宿图。通常做法是实现UIView的<code>-drawRect:</code>方法，UIView就会帮你做完剩下的工作，包括在需要重绘的时候调用<code>-display</code>方法。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本章介绍了寄宿图和一些相关的属性。你学到了如何显示和放置图片， 使用拼合技术来显示， 以及用CALayerDelegate和Core Graphics来绘制图层内容。</p>
-<p>在第三章，”图层几何学”中，我们将会探讨一下图层的几何，观察它们是如何放置和改变相互的尺寸的。</p>
+<p>在第三章，<a href="http://charsdavy.github.io/2016/08/01/core-animation-geometry-layer/">“图层几何学”</a>中，我们将会探讨一下图层的几何，观察它们是如何放置和改变相互的尺寸的。</p>
 
       
     </div>
@@ -253,10 +253,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/2016/08/01/core-animation-geometry-layer/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/07/31/design-complex-animation-effect/" id="article-nav-newer" class="article-nav-link-wrap">
       <div class="article-nav-title"><span>&lt;</span>&nbsp;
         
-          Core Animation (三) 图层几何学
+          设计复杂的iOS动画效果
         
       </div>
     </a>
