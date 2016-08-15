@@ -69,6 +69,706 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-core-animation-capacity-layer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/15/core-animation-capacity-layer/">Core Animation (十五) 图层性能</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/15/core-animation-capacity-layer/" class="article-date">
+  <time datetime="2016-08-15T15:19:33.000Z" itemprop="datePublished">2016-08-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/15/core-animation-capacity-layer/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>要更快性能，也要做对正确的事情。<br>——Stephen R. Covey</p>
+</blockquote>
+<p>在第14章『图像IO』讨论如何高效地载入和显示图像，通过视图来避免可能引起动画帧率下降的性能问题。在最后一章，我们将着重图层树本身，以发掘最好的性能。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/15/core-animation-capacity-layer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-image-IO" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/15/core-animation-image-IO/">Core Animation (十四) 图像IO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/15/core-animation-image-IO/" class="article-date">
+  <time datetime="2016-08-15T15:08:51.000Z" itemprop="datePublished">2016-08-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/15/core-animation-image-IO/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>潜伏期值得思考</em> - 凯文 帕萨特</p>
+<p>在第13章“高效绘图”中，我们研究了和Core Graphics绘图相关的性能问题，以及如何修复。和绘图性能相关紧密相关的是图像性能。在这一章中，我们将研究如何优化从闪存驱动器或者网络中加载和显示图片。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/15/core-animation-image-IO/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-painting-high-efficiency" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/14/core-animation-painting-high-efficiency/">Core Animation (十三) 高效绘图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/14/core-animation-painting-high-efficiency/" class="article-date">
+  <time datetime="2016-08-14T15:00:16.000Z" itemprop="datePublished">2016-08-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/14/core-animation-painting-high-efficiency/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>不必要的效率考虑往往是性能问题的万恶之源。<br>——William Allan Wulf</p>
+</blockquote>
+<p>在第12章『速度的曲率』我们学习如何用Instruments来诊断Core Animation性能问题。在构建一个iOS app的时候会遇到很多潜在的性能陷阱，但是在本章我们将着眼于有关<em>绘制</em>的性能问题。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/14/core-animation-painting-high-efficiency/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-capacity-optimize" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/13/core-animation-capacity-optimize/">Core Animation (十二) 性能调优</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/13/core-animation-capacity-optimize/" class="article-date">
+  <time datetime="2016-08-13T14:43:34.000Z" itemprop="datePublished">2016-08-13</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/13/core-animation-capacity-optimize/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><em>代码应该运行的尽量快，而不是更快</em> - 理查德</p>
+</blockquote>
+<p>在第一和第二部分，我们了解了Core Animation提供的关于绘制和动画的一些特性。Core Animation功能和性能都非常强大，但如果你对背后的原理不清楚的话也会降低效率。让它达到最优的状态是一门艺术。在这章中，我们将探究一些动画运行慢的原因，以及如何去修复这些问题。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/13/core-animation-capacity-optimize/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-memory-big-little-endian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/13/memory-big-little-endian/">简单聊聊大小端问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/13/memory-big-little-endian/" class="article-date">
+  <time datetime="2016-08-13T13:34:48.000Z" itemprop="datePublished">2016-08-13</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hardware/">硬件</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/13/memory-big-little-endian/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/13/memory-big-little-endian/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/storage/">内存</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-timer-animation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/12/core-animation-timer-animation/">Core Animation (十一) 基于定时器的动画</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/12/core-animation-timer-animation/" class="article-date">
+  <time datetime="2016-08-12T13:40:55.000Z" itemprop="datePublished">2016-08-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/12/core-animation-timer-animation/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><em>我可以指导你，但是你必须按照我说的做。</em> – 骇客帝国</p>
+</blockquote>
+<p>在第10章“缓冲”中，我们研究了<code>CAMediaTimingFunction</code>，它是一个通过控制动画缓冲来模拟物理效果例如加速或者减速来增强现实感的东西，那么如果想更加真实地模拟物理交互或者实时根据用户输入修改动画改怎么办呢？在这一章中，我们将继续探索一种能够允许我们精确地控制一帧一帧展示的基于定时器的动画。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/12/core-animation-timer-animation/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-mac-os-develop-prepare" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/12/mac-os-develop-prepare/">Mac OS 开发 (一) 准备工作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/12/mac-os-develop-prepare/" class="article-date">
+  <time datetime="2016-08-12T00:00:05.000Z" itemprop="datePublished">2016-08-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Mac-OS/">Mac OS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/12/mac-os-develop-prepare/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>程序猿，一个另类的物种。</p>
+</blockquote>
+<p>其实很多时候，懒懒的程序猿因为自己的需要，或者是因为使用别人的工具并不满意，而催发出自己解决问题的想法。这个 Mac OS 开发系列，就是因为博主自己写博客是需要上传图片，而目前的 App 并不满意的情况下，决心自己学习，自己开发出喜欢的 App 而诞生的。</p>
+<p>本文章为该系列开篇，循序渐进，从基础开始。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/12/mac-os-develop-prepare/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">碎碎念</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-buffer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/11/core-animation-buffer/">Core Animation (十) 缓冲</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/11/core-animation-buffer/" class="article-date">
+  <time datetime="2016-08-11T14:30:32.000Z" itemprop="datePublished">2016-08-11</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/11/core-animation-buffer/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>生活和艺术一样，最美的永远是曲线。 – 爱德华布尔沃 - 利顿</p>
+</blockquote>
+<p>在第九章“图层时间”中，我们讨论了动画时间和<code>CAMediaTiming</code>协议。现在我们来看一下另一个和时间相关的机制–所谓的<em>缓冲</em>。Core Animation使用缓冲来使动画移动更平滑更自然，而不是看起来的那种机械和人工，在这一章我们将要研究如何对你的动画控制和自定义缓冲曲线。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/11/core-animation-buffer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-time-layer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/10/core-animation-time-layer/">Core Animation (九) 图层时间</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/10/core-animation-time-layer/" class="article-date">
+  <time datetime="2016-08-10T14:23:32.000Z" itemprop="datePublished">2016-08-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/10/core-animation-time-layer/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><em>时间和空间最大的区别在于，时间不能被复用</em> – 弗斯特梅里克</p>
+</blockquote>
+<p>在上面两章中，我们探讨了可以用<code>CAAnimation</code>和它的子类实现的多种图层动画。动画的发生是需要持续一段时间的，所以<em>计时</em>对整个概念来说至关重要。在这一章中，我们来看看<code>CAMediaTiming</code>，看看Core Animation是如何跟踪时间的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/10/core-animation-time-layer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-explicit-animation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/09/core-animation-explicit-animation/">Core Animation (八) 显式动画</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/09/core-animation-explicit-animation/" class="article-date">
+  <time datetime="2016-08-09T14:11:15.000Z" itemprop="datePublished">2016-08-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/09/core-animation-explicit-animation/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>如果想让事情变得顺利，只有靠自己 – 夏尔·纪尧姆</p>
+</blockquote>
+<p>上一章介绍了隐式动画的概念。隐式动画是iOS平台上创建动态用户界面的一种简单方式，也是UIKit动画机制的基础，不过它并不能涵盖所有的动画类型。在这一章中，我们将要研究一下<em>显式动画</em>，它能够对一些属性做指定的自定义动画，或者创建非线性动画，比如沿着任意一条曲线移动。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/09/core-animation-explicit-animation/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-animation-implicit-animation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/08/core-animation-implicit-animation/">Core Animation (七) 隐式动画</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/08/core-animation-implicit-animation/" class="article-date">
+  <time datetime="2016-08-08T14:04:43.000Z" itemprop="datePublished">2016-08-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/08/core-animation-implicit-animation/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><em>按照我的意思去做，而不是我说的。</em> – 埃德娜，辛普森</p>
+</blockquote>
+<p>我们在第一部分讨论了Core Animation除了动画之外可以做到的任何事情。但是动画是Core Animation库一个非常显著的特性。这一章我们来看看它是怎么做到的。具体来说，我们先来讨论框架自动完成的<em>隐式动画</em>（除非你明确禁用了这个功能）。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/08/core-animation-implicit-animation/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
       <article id="post-core-animation-exclusive-layer" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -92,11 +792,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/08/07/core-animation-exclusive-layer/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -155,11 +857,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/design/">设计</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/08/05/design-harmonize-colours/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -217,11 +921,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/08/04/core-animation-transform/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -279,11 +985,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/tool/">工具</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/08/02/xcode-plugin-list/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -341,11 +1049,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/08/01/core-animation-vision-effect/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -405,11 +1115,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/31/design-complex-animation-effect/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -467,11 +1179,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/30/core-animation-geometry-layer/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -529,11 +1243,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/29/animation-caanimation/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -589,11 +1305,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/29/core-aniamtion-host-layer/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -651,11 +1369,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/28/core-aniamtion-layer-tree/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -711,11 +1431,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/21/ios-app-distribution/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -755,7 +1477,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/17/custom-myself-develop-tool/">搭建自己的开发环境</a>
+      <a class="article-title" href="/2016/07/17/custom-myself-develop-tool/">打造自己的 Mac 环境</a>
     </h1>
   
 
@@ -770,11 +1492,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/tool/">工具</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/17/custom-myself-develop-tool/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -791,7 +1515,7 @@ ga('send', 'pageview');
     
       <footer class="article-footer">
         
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
 
       </footer>
     
@@ -830,11 +1554,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/tool/">工具</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/17/git-auto-completion-mac/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -889,11 +1615,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/tool/">工具</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/13/finder-open-terminal/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -949,11 +1677,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/tool/">工具</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/07/12/git-diff-p4merge/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -1009,11 +1739,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/tool/">工具</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/06/30/xcode-update-sdk-devicesupport/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -1070,11 +1802,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/apply/">应用实战</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/06/24/hexo-extern-scroll-top/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -1129,11 +1863,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/06/20/ios-night-mode/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -1189,11 +1925,13 @@ ga('send', 'pageview');
     <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+<!--
       
         <div class="article-comment-link-wrap">
           <a href="http://charsdavy.github.io/2016/06/17/ios-sdwebimage-code-reading/#ds-thread" class="article-comment-link">Comments</a>
         </div>
       
+-->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -1225,662 +1963,8 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-ios-network-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/ios-network-encrypt/">简单聊聊 iOS 中的网络加密</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/15/ios-network-encrypt/" class="article-date">
-  <time datetime="2016-06-14T23:55:50.000Z" itemprop="datePublished">2016-06-15</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/network/">网络</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/06/15/ios-network-encrypt/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/15/ios-network-encrypt/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">开源框架</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-state-pattern" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/10/state-pattern/">State 模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/10/state-pattern/" class="article-date">
-  <time datetime="2016-06-10T07:51:37.000Z" itemprop="datePublished">2016-06-10</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/construct/">架构</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/06/10/state-pattern/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460" alt="State模式图"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/10/state-pattern/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-objc-run-time" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/09/objc-run-time/">Objective-C 运行时编程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/09/objc-run-time/" class="article-date">
-  <time datetime="2016-06-09T02:21:31.000Z" itemprop="datePublished">2016-06-09</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/06/09/objc-run-time/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：Objective-C语言将决定尽可能的从编译和链接时推迟到运行时。只要有可能，Objective-C总是使用动态的方式来解决问题。这意味着Objective-C语言不仅需要一个编译器，同时也需要一个运行时系统来执行编译好的代码。这里的运行时系统扮演的角色类似于Objective-C语言的操作系统，Objective-C基于该系统来工作。本文章将具体介绍NSObject类以及Objective-C程序是如何与运行时系统交互的。特别地，本文章还给出来怎样在运行时动态地加载新类和将消息转发给其它对象的范例，同时也给出了怎样在程序运行时获取对象信息的方法。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/09/objc-run-time/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-git-using-remote" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/05/git-using-remote/">Git 使用 - 远程操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/05/git-using-remote/" class="article-date">
-  <time datetime="2016-06-05T03:03:55.000Z" itemprop="datePublished">2016-06-05</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/06/05/git-using-remote/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
-<p><a href="https://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
-<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
-<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。本文将主要介绍几个常用的Git远程操作命令。</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:05:git-using-remote:1.jpg?imageView/2/w/560" alt="introduction"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/05/git-using-remote/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-qiniu-using" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/02/qiniu-using/">七牛云存储应用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/02/qiniu-using/" class="article-date">
-  <time datetime="2016-06-02T00:17:42.000Z" itemprop="datePublished">2016-06-02</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/06/02/qiniu-using/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/02/qiniu-using/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/persistence/">持久化</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-chopsticks-using" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/01/chopsticks-using/">你和日本的距离只差5mm</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/01/chopsticks-using/" class="article-date">
-  <time datetime="2016-06-01T12:38:19.000Z" itemprop="datePublished">2016-06-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hobby/">爱好</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/06/01/chopsticks-using/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：世界上使用筷子的国家并不是很多，很多人都认为能够使用筷子是件很神奇的事情。那么，不同的国家地区使用筷子的讲究也有所不同。这里主要说说日本使用筷子的禁忌，有些也很符合天朝国情的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/01/chopsticks-using/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Japanese/">日语</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-build-blog-by-hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/31/build-blog-by-hexo/">手把手教 GitHub + Hexo 搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/05/31/build-blog-by-hexo/" class="article-date">
-  <time datetime="2016-05-31T14:07:27.000Z" itemprop="datePublished">2016-05-31</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/apply/">应用实战</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/05/31/build-blog-by-hexo/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-YYModel-reading" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/27/YYModel-reading/">YYModel源代码阅读 - 基础知识</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/05/27/YYModel-reading/" class="article-date">
-  <time datetime="2016-05-27T12:51:21.000Z" itemprop="datePublished">2016-05-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/05/27/YYModel-reading/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/05/27/YYModel-reading/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">开源框架</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-ios-simultaneously" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/26/ios-simultaneously/">iOS 并发概念浅析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/05/26/ios-simultaneously/" class="article-date">
-  <time datetime="2016-05-26T00:32:15.000Z" itemprop="datePublished">2016-05-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/05/26/ios-simultaneously/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/05/26/ios-simultaneously/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multi-thread/">多线程</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-github-using" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/20/github-using/">GitHub 使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/05/20/github-using/" class="article-date">
-  <time datetime="2016-05-20T14:17:11.000Z" itemprop="datePublished">2016-05-20</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/05/20/github-using/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/05/20/github-using/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-flappy-bird-game" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/05/flappy-bird-game/">flappy bird 游戏实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/05/05/flappy-bird-game/" class="article-date">
-  <time datetime="2016-05-05T13:40:44.000Z" itemprop="datePublished">2016-05-05</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/05/05/flappy-bird-game/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/05/05/flappy-bird-game/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/application/">application</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
       <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">

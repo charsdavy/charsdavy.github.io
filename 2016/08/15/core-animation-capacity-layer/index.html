@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Core Animation (十五) 图层性能 - Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="要更快性能，也要做对正确的事情。——Stephen R. Covey
+
+在第14章『图像IO』讨论如何高效地载入和显示图像，通过视图来避免可能引起动画帧率下降的性能问题。在最后一章，我们将着重图层树本身，以发掘最好的性能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Animation (十五) 图层性能">
+<meta property="og:url" content="http://charsdavy.github.io/2016/08/15/core-animation-capacity-layer/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="要更快性能，也要做对正确的事情。——Stephen R. Covey
+
+在第14章『图像IO』讨论如何高效地载入和显示图像，通过视图来避免可能引起动画帧率下降的性能问题。在最后一章，我们将着重图层树本身，以发掘最好的性能。">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-capacity-layer-15.1.png?imageView/2/w/700">
+<meta property="og:updated_time" content="2016-08-14T00:59:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Core Animation (十五) 图层性能">
+<meta name="twitter:description" content="要更快性能，也要做对正确的事情。——Stephen R. Covey
+
+在第14章『图像IO』讨论如何高效地载入和显示图像，通过视图来避免可能引起动画帧率下降的性能问题。在最后一章，我们将着重图层树本身，以发掘最好的性能。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-capacity-layer-15.1.png?imageView/2/w/700">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Chars</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Rss</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://charsdavy.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-core-animation-capacity-layer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Core Animation (十五) 图层性能
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/08/15/core-animation-capacity-layer/" class="article-date">
+  <time datetime="2016-08-15T15:19:33.000Z" itemprop="datePublished">2016-08-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2016/08/15/core-animation-capacity-layer/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>要更快性能，也要做对正确的事情。<br>——Stephen R. Covey</p>
+</blockquote>
+<p>在第14章『图像IO』讨论如何高效地载入和显示图像，通过视图来避免可能引起动画帧率下降的性能问题。在最后一章，我们将着重图层树本身，以发掘最好的性能。</p>
+<a id="more"></a>
+<h2 id="隐式绘制"><a href="#隐式绘制" class="headerlink" title="隐式绘制"></a>隐式绘制</h2><p>寄宿图可以通过Core Graphics直接绘制，也可以直接载入一个图片文件并赋值给<code>contents</code>属性，或事先绘制一个屏幕之外的<code>CGContext</code>上下文。在之前的两章中我们讨论了这些场景下的优化。但是除了常见的显式创建寄宿图，你也可以通过以下三种方式创建隐式的：1，使用特性的图层属性。2，特定的视图。3，特定的图层子类。</p>
+<p>了解这个情况为什么发生何时发生是很重要的，它能够让你避免引入不必要的软件绘制行为。</p>
+<h3 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h3><p><code>CATextLayer</code>和<code>UILabel</code>都是直接将文本绘制在图层的寄宿图中。事实上这两种方式用了完全不同的渲染方式：在iOS 6及之前，<code>UILabel</code>用WebKit的HTML渲染引擎来绘制文本，而<code>CATextLayer</code>用的是Core Text.后者渲染更迅速，所以在所有需要绘制大量文本的情形下都优先使用它吧。但是这两种方法都用了软件的方式绘制，因此他们实际上要比硬件加速合成方式要慢。</p>
+<p>不论如何，尽可能地避免改变那些包含文本的视图的frame，因为这样做的话文本就需要重绘。例如，如果你想在图层的角落里显示一段静态的文本，但是这个图层经常改动，你就应该把文本放在一个子图层中。</p>
+<h3 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h3><p>在第四章『视觉效果』中我们提到了<code>CALayer</code>的<code>shouldRasterize</code>属性，它可以解决重叠透明图层的混合失灵问题。同样在第12章『速度的曲调』中，它也是作为绘制复杂图层树结构的优化方法。</p>
+<p>启用<code>shouldRasterize</code>属性会将图层绘制到一个屏幕之外的图像。然后这个图像将会被缓存起来并绘制到实际图层的<code>contents</code>和子图层。如果有很多的子图层或者有复杂的效果应用，这样做就会比重绘所有事务的所有帧划得来得多。但是光栅化原始图像需要时间，而且还会消耗额外的内存。</p>
+<p>当我们使用得当时，光栅化可以提供很大的性能优势（如你在第12章所见），但是一定要避免作用在内容不断变动的图层上，否则它缓存方面的好处就会消失，而且会让性能变的更糟。</p>
+<p>为了检测你是否正确地使用了光栅化方式，用Instrument查看一下Color Hits Green和Misses Red项目，是否已光栅化图像被频繁地刷新（这样就说明图层并不是光栅化的好选择，或则你无意间触发了不必要的改变导致了重绘行为）。</p>
+<h2 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h2><p>Offscreen rendering does not necessarily imply software drawing, but it means that the layer must first be rendered (either by the CPU or GPU) into an offscreen context before being displayed. The layer attributes that trigger offscreen rendering are as follows:</p>
+<p>当图层属性的混合体被指定为在未预合成之前不能直接在屏幕中绘制时，屏幕外渲染就被唤起了。屏幕外渲染并不意味着软件绘制，但是它意味着图层必须在被显示之前在一个屏幕外上下文中被渲染（不论CPU还是GPU）。图层的以下属性将会触发屏幕外绘制：</p>
+<ul>
+<li>圆角（当和<code>maskToBounds</code>一起使用时）</li>
+<li>图层蒙板</li>
+<li>阴影</li>
+</ul>
+<p>屏幕外渲染和我们启用光栅化时相似，除了它并没有像光栅化图层那么消耗大，子图层并没有被影响到，而且结果也没有被缓存，所以不会有长期的内存占用。但是，如果太多图层在屏幕外渲染依然会影响到性能。</p>
+<p>有时候我们可以把那些需要屏幕外绘制的图层开启光栅化以作为一个优化方式，前提是这些图层并不会被频繁地重绘。</p>
+<p>对于那些需要动画而且要在屏幕外渲染的图层来说，你可以用<code>CAShapeLayer</code>，<code>contentsCenter</code>或者<code>shadowPath</code>来获得同样的表现而且较少地影响到性能。</p>
+<h3 id="CAShapeLayer"><a href="#CAShapeLayer" class="headerlink" title="CAShapeLayer"></a>CAShapeLayer</h3><p><code>cornerRadius</code>和<code>maskToBounds</code>独立作用的时候都不会有太大的性能问题，但是当他俩结合在一起，就触发了屏幕外渲染。有时候你想显示圆角并沿着图层裁切子图层的时候，你可能会发现你并不需要沿着圆角裁切，这个情况下用<code>CAShapeLayer</code>就可以避免这个问题了。</p>
+<p>你想要的只是圆角且沿着矩形边界裁切，同时还不希望引起性能问题。其实你可以用现成的<code>UIBezierPath</code>的构造器<code>+bezierPathWithRoundedRect:cornerRadius:</code>（见清单15.1）.这样做并不会比直接用<code>cornerRadius</code>更快，但是它避免了性能问题。</p>
+<p>清单15.1 用<code>CAShapeLayer</code>画一个圆角矩形</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;QuartzCore/QuartzCore.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *layerView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//create shape layer</span></span><br><span class="line">    <span class="built_in">CAShapeLayer</span> *blueLayer = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">    blueLayer.frame = <span class="built_in">CGRectMake</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    blueLayer.fillColor = [<span class="built_in">UIColor</span> blueColor].CGColor;</span><br><span class="line">    blueLayer.path = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:</span><br><span class="line">    <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>) cornerRadius:<span class="number">20</span>].CGPath;</span><br><span class="line">    ￼</span><br><span class="line">    <span class="comment">//add it to our view</span></span><br><span class="line">    [<span class="keyword">self</span>.layerView.layer addSublayer:blueLayer];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="可伸缩图片"><a href="#可伸缩图片" class="headerlink" title="可伸缩图片"></a>可伸缩图片</h3><p>另一个创建圆角矩形的方法就是用一个圆形内容图片并结合第二章『寄宿图』提到的<code>contensCenter</code>属性去创建一个可伸缩图片（见清单15.2）.理论上来说，这个应该比用<code>CAShapeLayer</code>要快，因为一个可拉伸图片只需要18个三角形（一个图片是由一个3*3网格渲染而成），然而，许多都需要渲染成一个顺滑的曲线。在实际应用上，二者并没有太大的区别。</p>
+<p>清单15.2 用可伸缩图片绘制圆角矩形</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//create layer</span></span><br><span class="line">    <span class="built_in">CALayer</span> *blueLayer = [<span class="built_in">CALayer</span> layer];</span><br><span class="line">    blueLayer.frame = <span class="built_in">CGRectMake</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    blueLayer.contentsCenter = <span class="built_in">CGRectMake</span>(<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    blueLayer.contentsScale = [<span class="built_in">UIScreen</span> mainScreen].scale;</span><br><span class="line">    blueLayer.contents = (__bridge <span class="keyword">id</span>)[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"Circle.png"</span>].CGImage;</span><br><span class="line">    <span class="comment">//add it to our view</span></span><br><span class="line">    [<span class="keyword">self</span>.layerView.layer addSublayer:blueLayer];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>使用可伸缩图片的优势在于它可以绘制成任意边框效果而不需要额外的性能消耗。举个例子，可伸缩图片甚至还可以显示出矩形阴影的效果。</p>
+<h3 id="shadowPath"><a href="#shadowPath" class="headerlink" title="shadowPath"></a>shadowPath</h3><p>在第2章我们有提到<code>shadowPath</code>属性。如果图层是一个简单几何图形如矩形或者圆角矩形（假设不包含任何透明部分或者子图层），创建出一个对应形状的阴影路径就比较容易，而且Core Animation绘制这个阴影也相当简单，避免了屏幕外的图层部分的预排版需求。这对性能来说很有帮助。</p>
+<p>如果你的图层是一个更复杂的图形，生成正确的阴影路径可能就比较难了，这样子的话你可以考虑用绘图软件预先生成一个阴影背景图。</p>
+<h2 id="混合和过度绘制"><a href="#混合和过度绘制" class="headerlink" title="混合和过度绘制"></a>混合和过度绘制</h2><p>在第12章有提到，GPU每一帧可以绘制的像素有一个最大限制（就是所谓的fill rate），这个情况下可以轻易地绘制整个屏幕的所有像素。但是如果由于重叠图层的关系需要不停地重绘同一区域的话，掉帧就可能发生了。</p>
+<p>GPU会放弃绘制那些完全被其他图层遮挡的像素，但是要计算出一个图层是否被遮挡也是相当复杂并且会消耗处理器资源。同样，合并不同图层的透明重叠像素（即混合）消耗的资源也是相当客观的。所以为了加速处理进程，不到必须时刻不要使用透明图层。任何情况下，你应该这样做：</p>
+<ul>
+<li>给视图的<code>backgroundColor</code>属性设置一个固定的，不透明的颜色</li>
+<li>设置<code>opaque</code>属性为YES</li>
+</ul>
+<p>这样做减少了混合行为（因为编译器知道在图层之后的东西都不会对最终的像素颜色产生影响）并且计算得到了加速，避免了过度绘制行为因为Core Animation可以舍弃所有被完全遮盖住的图层，而不用每个像素都去计算一遍。</p>
+<p>如果用到了图像，尽量避免透明除非非常必要。如果图像要显示在一个固定的背景颜色或是固定的背景图之前，你没必要相对前景移动，你只需要预填充背景图片就可以避免运行时混色了。</p>
+<p>如果是文本的话，一个白色背景的<code>UILabel</code>（或者其他颜色）会比透明背景要更高效。</p>
+<p>最后，明智地使用<code>shouldRasterize</code>属性，可以将一个固定的图层体系折叠成单张图片，这样就不需要每一帧重新合成了，也就不会有因为子图层之间的混合和过度绘制的性能问题了。</p>
+<h2 id="减少图层数量"><a href="#减少图层数量" class="headerlink" title="减少图层数量"></a>减少图层数量</h2><p>初始化图层，处理图层，打包通过IPC发给渲染引擎，转化成OpenGL几何图形，这些是一个图层的大致资源开销。事实上，一次性能够在屏幕上显示的最大图层数量也是有限的。</p>
+<p>确切的限制数量取决于iOS设备，图层类型，图层内容和属性等。但是总得说来可以容纳上百或上千个，下面我们将演示即使图层本身并没有做什么也会遇到的性能问题。</p>
+<h3 id="裁切"><a href="#裁切" class="headerlink" title="裁切"></a>裁切</h3><p>在对图层做任何优化之前，你需要确定你不是在创建一些不可见的图层，图层在以下几种情况下回事不可见的：</p>
+<ul>
+<li>图层在屏幕边界之外，或是在父图层边界之外。</li>
+<li>完全在一个不透明图层之后。</li>
+<li>完全透明</li>
+</ul>
+<p>Core Animation非常擅长处理对视觉效果无意义的图层。但是经常性地，你自己的代码会比Core Animation更早地想知道一个图层是否是有用的。理想状况下，在图层对象在创建之前就想知道，以避免创建和配置不必要图层的额外工作。</p>
+<p>举个例子。清单15.3 的代码展示了一个简单的滚动3D图层矩阵。这看上去很酷，尤其是图层在移动的时候（见图15.1），但是绘制他们并不是很麻烦，因为这些图层就是一些简单的矩形色块。</p>
+<p>清单15.3 绘制3D图层矩阵</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;QuartzCore/QuartzCore.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#define WIDTH 10</span></span><br><span class="line"><span class="meta">#define HEIGHT 10</span></span><br><span class="line"><span class="meta">#define DEPTH 10</span></span><br><span class="line"><span class="meta">#define SIZE 100</span></span><br><span class="line"><span class="meta">#define SPACING 150</span></span><br><span class="line"><span class="meta">#define CAMERA_DISTANCE 500</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line">￼</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIScrollView</span> *scrollView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//set content size</span></span><br><span class="line">    <span class="keyword">self</span>.scrollView.contentSize = <span class="built_in">CGSizeMake</span>((WIDTH - <span class="number">1</span>)*SPACING, (HEIGHT - <span class="number">1</span>)*SPACING);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//set up perspective transform</span></span><br><span class="line">    <span class="built_in">CATransform3D</span> transform = <span class="built_in">CATransform3DIdentity</span>;</span><br><span class="line">    transform.m34 = <span class="number">-1.0</span> / <span class="built_in">CAMERA_DISTANCE</span>;</span><br><span class="line">    <span class="keyword">self</span>.scrollView.layer.sublayerTransform = transform;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//create layers</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = DEPTH - <span class="number">1</span>; z &gt;= <span class="number">0</span>; z--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; HEIGHT; y++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; WIDTH; x++) &#123;</span><br><span class="line">                <span class="comment">//create layer</span></span><br><span class="line">                <span class="built_in">CALayer</span> *layer = [<span class="built_in">CALayer</span> layer];</span><br><span class="line">                layer.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, SIZE, SIZE);</span><br><span class="line">                layer.position = <span class="built_in">CGPointMake</span>(x*SPACING, y*SPACING);</span><br><span class="line">                layer.zPosition = -z*SPACING;</span><br><span class="line">                <span class="comment">//set background color</span></span><br><span class="line">                layer.backgroundColor = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1</span>-z*(<span class="number">1.0</span>/DEPTH) alpha:<span class="number">1</span>].CGColor;</span><br><span class="line">                <span class="comment">//attach to scroll view</span></span><br><span class="line">                [<span class="keyword">self</span>.scrollView.layer addSublayer:layer];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ￼</span><br><span class="line">    <span class="comment">//log</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"displayed: %i"</span>, DEPTH*HEIGHT*WIDTH);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-capacity-layer-15.1.png?imageView/2/w/700" alt="图15.1"></p>
+<p>图15.1 滚动的3D图层矩阵</p>
+<p><code>WIDTH</code>，<code>HEIGHT</code>和<code>DEPTH</code>常量控制着图层的生成。在这个情况下，我们得到的是10*10*10个图层，总量为1000个，不过一次性显示在屏幕上的大约就几百个。</p>
+<p>如果把<code>WIDTH</code>和<code>HEIGHT</code>常量增加到100，我们的程序就会慢得像龟爬了。这样我们有了100000个图层，性能下降一点儿也不奇怪。</p>
+<p>但是显示在屏幕上的图层数量并没有增加，那么根本没有额外的东西需要绘制。程序慢下来的原因其实是因为在管理这些图层上花掉了不少功夫。他们大部分对渲染的最终结果没有贡献，但是在丢弃这么图层之前，Core Animation要强制计算每个图层的位置，就这样，我们的帧率就慢了下来。</p>
+<p>我们的图层是被安排在一个均匀的栅格中，我们可以计算出哪些图层会被最终显示在屏幕上，根本不需要对每个图层的位置进行计算。这个计算并不简单，因为我们还要考虑到透视的问题。如果我们直接这样做了，Core Animation就不用费神了。</p>
+<p>既然这样，让我们来重构我们的代码吧。改造后，随着视图的滚动动态地实例化图层而不是事先都分配好。这样，在创造他们之前，我们就可以计算出是否需要他。接着，我们增加一些代码去计算可视区域这样就可以排除区域之外的图层了。清单15.4是改造后的结果。</p>
+<p>清单15.4 排除可视区域之外的图层</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;QuartzCore/QuartzCore.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#define WIDTH 100</span></span><br><span class="line"><span class="meta">#define HEIGHT 100</span></span><br><span class="line"><span class="meta">#define DEPTH 10</span></span><br><span class="line"><span class="meta">#define SIZE 100</span></span><br><span class="line"><span class="meta">#define SPACING 150</span></span><br><span class="line"><span class="meta">#define CAMERA_DISTANCE 500</span></span><br><span class="line"><span class="meta">#define PERSPECTIVE(z) (float)CAMERA_DISTANCE/(z + CAMERA_DISTANCE)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">UIScrollViewDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIScrollView</span> *scrollView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//set content size</span></span><br><span class="line">    <span class="keyword">self</span>.scrollView.contentSize = <span class="built_in">CGSizeMake</span>((WIDTH - <span class="number">1</span>)*SPACING, (HEIGHT - <span class="number">1</span>)*SPACING);</span><br><span class="line">    <span class="comment">//set up perspective transform</span></span><br><span class="line">    <span class="built_in">CATransform3D</span> transform = <span class="built_in">CATransform3DIdentity</span>;</span><br><span class="line">    transform.m34 = <span class="number">-1.0</span> / <span class="built_in">CAMERA_DISTANCE</span>;</span><br><span class="line">    <span class="keyword">self</span>.scrollView.layer.sublayerTransform = transform;</span><br><span class="line">&#125;</span><br><span class="line">￼</span><br><span class="line">- (<span class="keyword">void</span>)viewDidLayoutSubviews</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> updateLayers];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> updateLayers];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)updateLayers</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//calculate clipping bounds</span></span><br><span class="line">    <span class="built_in">CGRect</span> bounds = <span class="keyword">self</span>.scrollView.bounds;</span><br><span class="line">    bounds.origin = <span class="keyword">self</span>.scrollView.contentOffset;</span><br><span class="line">    bounds = <span class="built_in">CGRectInset</span>(bounds, -SIZE/<span class="number">2</span>, -SIZE/<span class="number">2</span>);</span><br><span class="line">    <span class="comment">//create layers</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *visibleLayers = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = DEPTH - <span class="number">1</span>; z &gt;= <span class="number">0</span>; z--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//increase bounds size to compensate for perspective</span></span><br><span class="line">        <span class="built_in">CGRect</span> adjusted = bounds;</span><br><span class="line">        adjusted.size.width /= PERSPECTIVE(z*SPACING);</span><br><span class="line">        adjusted.size.height /= PERSPECTIVE(z*SPACING);</span><br><span class="line">        adjusted.origin.x -= (adjusted.size.width - bounds.size.width) / <span class="number">2</span>;</span><br><span class="line">        adjusted.origin.y -= (adjusted.size.height - bounds.size.height) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; HEIGHT; y++) &#123;</span><br><span class="line">        <span class="comment">//check if vertically outside visible rect</span></span><br><span class="line">            <span class="keyword">if</span> (y*SPACING &lt; adjusted.origin.y || y*SPACING &gt;= adjusted.origin.y + adjusted.size.height)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; WIDTH; x++) &#123;</span><br><span class="line">                <span class="comment">//check if horizontally outside visible rect</span></span><br><span class="line">                <span class="keyword">if</span> (x*SPACING &lt; adjusted.origin.x ||x*SPACING &gt;= adjusted.origin.x + adjusted.size.width)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ￼</span><br><span class="line">                <span class="comment">//create layer</span></span><br><span class="line">                <span class="built_in">CALayer</span> *layer = [<span class="built_in">CALayer</span> layer];</span><br><span class="line">                layer.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, SIZE, SIZE);</span><br><span class="line">                layer.position = <span class="built_in">CGPointMake</span>(x*SPACING, y*SPACING);</span><br><span class="line">                layer.zPosition = -z*SPACING;</span><br><span class="line">                <span class="comment">//set background color</span></span><br><span class="line">                layer.backgroundColor = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1</span>-z*(<span class="number">1.0</span>/DEPTH) alpha:<span class="number">1</span>].CGColor;</span><br><span class="line">                <span class="comment">//attach to scroll view</span></span><br><span class="line">                [visibleLayers addObject:layer];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//update layers</span></span><br><span class="line">    <span class="keyword">self</span>.scrollView.layer.sublayers = visibleLayers;</span><br><span class="line">    <span class="comment">//log</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"displayed: %i/%i"</span>, [visibleLayers count], DEPTH*HEIGHT*WIDTH);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这个计算机制并不具有普适性，但是原则上是一样。（当你用一个<code>UITableView</code>或者<code>UICollectionView</code>时，系统做了类似的事情）。这样做的结果？我们的程序可以处理成百上千个『虚拟』图层而且完全没有性能问题！因为它不需要一次性实例化几百个图层。</p>
+<h3 id="对象回收"><a href="#对象回收" class="headerlink" title="对象回收"></a>对象回收</h3><p>处理巨大数量的相似视图或图层时还有一个技巧就是回收他们。对象回收在iOS颇为常见；<code>UITableView</code>和<code>UICollectionView</code>都有用到，<code>MKMapView</code>中的动画pin码也有用到，还有其他很多例子。</p>
+<p>对象回收的基础原则就是你需要创建一个相似对象池。当一个对象的指定实例（本例子中指的是图层）结束了使命，你把它添加到对象池中。每次当你需要一个实例时，你就从池中取出一个。当且仅当池中为空时再创建一个新的。</p>
+<p>这样做的好处在于避免了不断创建和释放对象（相当消耗资源，因为涉及到内存的分配和销毁）而且也不必给相似实例重复赋值。</p>
+<p>好了，让我们再次更新代码吧（见清单15.5）</p>
+<p>清单15.5 通过回收减少不必要的分配</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">UIScrollViewDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIScrollView</span> *scrollView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableSet</span> *recyclePool;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad]; <span class="comment">//create recycle pool</span></span><br><span class="line">    <span class="keyword">self</span>.recyclePool = [<span class="built_in">NSMutableSet</span> set];</span><br><span class="line">    <span class="comment">//set content size</span></span><br><span class="line">    <span class="keyword">self</span>.scrollView.contentSize = <span class="built_in">CGSizeMake</span>((WIDTH - <span class="number">1</span>)*SPACING, (HEIGHT - <span class="number">1</span>)*SPACING);</span><br><span class="line">    <span class="comment">//set up perspective transform</span></span><br><span class="line">    <span class="built_in">CATransform3D</span> transform = <span class="built_in">CATransform3DIdentity</span>;</span><br><span class="line">    transform.m34 = <span class="number">-1.0</span> / <span class="built_in">CAMERA_DISTANCE</span>;</span><br><span class="line">    <span class="keyword">self</span>.scrollView.layer.sublayerTransform = transform;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLayoutSubviews</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> updateLayers];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> updateLayers];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)updateLayers &#123;</span><br><span class="line">    ￼</span><br><span class="line">    <span class="comment">//calculate clipping bounds</span></span><br><span class="line">    <span class="built_in">CGRect</span> bounds = <span class="keyword">self</span>.scrollView.bounds;</span><br><span class="line">    bounds.origin = <span class="keyword">self</span>.scrollView.contentOffset;</span><br><span class="line">    bounds = <span class="built_in">CGRectInset</span>(bounds, -SIZE/<span class="number">2</span>, -SIZE/<span class="number">2</span>);</span><br><span class="line">    <span class="comment">//add existing layers to pool</span></span><br><span class="line">    [<span class="keyword">self</span>.recyclePool addObjectsFromArray:<span class="keyword">self</span>.scrollView.layer.sublayers];</span><br><span class="line">    <span class="comment">//disable animation</span></span><br><span class="line">    [<span class="built_in">CATransaction</span> begin];</span><br><span class="line">    [<span class="built_in">CATransaction</span> setDisableActions:<span class="literal">YES</span>];</span><br><span class="line">    <span class="comment">//create layers</span></span><br><span class="line">    <span class="built_in">NSInteger</span> recycled = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *visibleLayers = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> z = DEPTH - <span class="number">1</span>; z &gt;= <span class="number">0</span>; z--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//increase bounds size to compensate for perspective</span></span><br><span class="line">        <span class="built_in">CGRect</span> adjusted = bounds;</span><br><span class="line">        adjusted.size.width /= PERSPECTIVE(z*SPACING);</span><br><span class="line">        adjusted.size.height /= PERSPECTIVE(z*SPACING);</span><br><span class="line">        adjusted.origin.x -= (adjusted.size.width - bounds.size.width) / <span class="number">2</span>; adjusted.origin.y -= (adjusted.size.height - bounds.size.height) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; HEIGHT; y++) &#123;</span><br><span class="line">            <span class="comment">//check if vertically outside visible rect</span></span><br><span class="line">            <span class="keyword">if</span> (y*SPACING &lt; adjusted.origin.y ||</span><br><span class="line">                y*SPACING &gt;= adjusted.origin.y + adjusted.size.height)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; WIDTH; x++) &#123;</span><br><span class="line">                <span class="comment">//check if horizontally outside visible rect</span></span><br><span class="line">                <span class="keyword">if</span> (x*SPACING &lt; adjusted.origin.x ||</span><br><span class="line">                    x*SPACING &gt;= adjusted.origin.x + adjusted.size.width)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//recycle layer if available</span></span><br><span class="line">                <span class="built_in">CALayer</span> *layer = [<span class="keyword">self</span>.recyclePool anyObject]; <span class="keyword">if</span> (layer)</span><br><span class="line">                &#123;</span><br><span class="line">                    ￼</span><br><span class="line">                    recycled ++;</span><br><span class="line">                    [<span class="keyword">self</span>.recyclePool removeObject:layer]; &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    layer = [<span class="built_in">CALayer</span> layer];</span><br><span class="line">                    layer.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, SIZE, SIZE); &#125;</span><br><span class="line">                <span class="comment">//set position</span></span><br><span class="line">                layer.position = <span class="built_in">CGPointMake</span>(x*SPACING, y*SPACING); layer.zPosition = -z*SPACING;</span><br><span class="line">                <span class="comment">//set background color</span></span><br><span class="line">                layer.backgroundColor =</span><br><span class="line">                [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1</span>-z*(<span class="number">1.0</span>/DEPTH) alpha:<span class="number">1</span>].CGColor;</span><br><span class="line">                <span class="comment">//attach to scroll view</span></span><br><span class="line">                [visibleLayers addObject:layer]; &#125;</span><br><span class="line">        &#125; &#125;</span><br><span class="line">    [<span class="built_in">CATransaction</span> commit]; <span class="comment">//update layers</span></span><br><span class="line">    <span class="keyword">self</span>.scrollView.layer.sublayers = visibleLayers;</span><br><span class="line">    <span class="comment">//log</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"displayed: %i/%i recycled: %i"</span>,</span><br><span class="line">          [visibleLayers count], DEPTH*HEIGHT*WIDTH, recycled);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>本例中，我们只有图层对象这一种类型，但是UIKit有时候用一个标识符字符串来区分存储在不同对象池中的不同的可回收对象类型。</p>
+<p>你可能注意到当设置图层属性时我们用了一个<code>CATransaction</code>来抑制动画效果。在之前并不需要这样做，因为在显示之前我们给所有图层设置一次属性。但是既然图层正在被回收，禁止隐式动画就有必要了，不然当属性值改变时，图层的隐式动画就会被触发。</p>
+<h3 id="Core-Graphics绘制"><a href="#Core-Graphics绘制" class="headerlink" title="Core Graphics绘制"></a>Core Graphics绘制</h3><p>当排除掉对屏幕显示没有任何贡献的图层或者视图之后，长远看来，你可能仍然需要减少图层的数量。例如，如果你正在使用多个<code>UILabel</code>或者<code>UIImageView</code>实例去显示固定内容，你可以把他们全部替换成一个单独的视图，然后用<code>-drawRect:</code>方法绘制出那些复杂的视图层级。</p>
+<p>这个提议看上去并不合理因为大家都知道软件绘制行为要比GPU合成要慢而且还需要更多的内存空间，但是在因为图层数量而使得性能受限的情况下，软件绘制很可能提高性能呢，因为它避免了图层分配和操作问题。</p>
+<p>你可以自己实验一下这个情况，它包含了性能和栅格化的权衡，但是意味着你可以从图层树上去掉子图层（用<code>shouldRasterize</code>，与完全遮挡图层相反）。</p>
+<h3 id="renderInContext-方法"><a href="#renderInContext-方法" class="headerlink" title="-renderInContext: 方法"></a>-renderInContext: 方法</h3><p>用Core Graphics去绘制一个静态布局有时候会比用层级的<code>UIView</code>实例来得快，但是使用<code>UIView</code>实例要简单得多而且比用手写代码写出相同效果要可靠得多，更边说Interface Builder来得直接明了。为了性能而舍弃这些便利实在是不应该。</p>
+<p>幸好，你不必这样，如果大量的视图或者图层真的关联到了屏幕上将会是一个大问题。没有与图层树相关联的图层不会被送到渲染引擎，也没有性能问题（在他们被创建和配置之后）。</p>
+<p>使用<code>CALayer</code>的<code>-renderInContext:</code>方法，你可以将图层及其子图层快照进一个Core Graphics上下文然后得到一个图片，它可以直接显示在<code>UIImageView</code>中，或者作为另一个图层的<code>contents</code>。不同于<code>shouldRasterize</code> —— 要求图层与图层树相关联 —— ，这个方法没有持续的性能消耗。</p>
+<p>当图层内容改变时，刷新这张图片的机会取决于你（不同于<code>shouldRasterize</code>，它自动地处理缓存和缓存验证），但是一旦图片被生成，相比于让Core Animation处理一个复杂的图层树，你节省了相当客观的性能。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本章学习了使用Core Animation图层可能遇到的性能瓶颈，并讨论了如何避免或减小压力。你学习了如何管理包含上千虚拟图层的场景（事实上只创建了几百个）。同时也学习了一些有用的技巧，选择性地选取光栅化或者绘制图层内容在合适的时候重新分配给CPU和GPU。这些就是我们要讲的关于Core Animation的全部了（至少可以等到苹果发明什么新的玩意儿）。</p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/15/core-animation-image-IO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Core Animation (十四) 图像IO&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-core-animation-capacity-layer" data-title="Core Animation (十五) 图层性能" data-url="http://charsdavy.github.io/2016/08/15/core-animation-capacity-layer/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'charsdavy'};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Chars Davy&nbsp;
+     </div>
+  </div>
+</footer>
+
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:30px;right:30px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div>
+</body>
+</html>
