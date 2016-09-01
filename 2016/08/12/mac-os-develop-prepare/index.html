@@ -17,13 +17,18 @@
 
 其实很多时候，懒懒的程序猿因为自己的需要，或者是因为使用别人的工具并不满意，而催发出自己解决问题的想法。这个 Mac OS 开发系列，就是因为博主自己写博客是需要上传图片，而目前的 App 并不满意的情况下，决心自己学习，自己开发出喜欢的 App 而诞生的。
 本文章为该系列开篇，循序渐进，从基础开始。">
-<meta property="og:updated_time" content="2016-08-12T13:17:30.000Z">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-1.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-2.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-3.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-4.png">
+<meta property="og:updated_time" content="2016-09-01T02:37:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac OS 开发 (一) 准备工作">
 <meta name="twitter:description" content="程序猿，一个另类的物种。
 
 其实很多时候，懒懒的程序猿因为自己的需要，或者是因为使用别人的工具并不满意，而催发出自己解决问题的想法。这个 Mac OS 开发系列，就是因为博主自己写博客是需要上传图片，而目前的 App 并不满意的情况下，决心自己学习，自己开发出喜欢的 App 而诞生的。
 本文章为该系列开篇，循序渐进，从基础开始。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-1.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -119,6 +124,16 @@ ga('send', 'pageview');
 <a id="more"></a>
 <h1 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h1><p>这是开发的基础，至于是 Mac Book Pro，还是iMac，或者Mac mini 就随个人喜欢和实际状况。总之，不建议使用黑苹果。</p>
 <h1 id="Xcode"><a href="#Xcode" class="headerlink" title="Xcode"></a>Xcode</h1><p>这是毫无置疑的开发工具，具体如何使用，Google 一大把，这里就不再详说，以后若是博主自己写了相关内容，会后续放上链接跳转。</p>
+<h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><p>启动Xcode，选择Create a new Xcode project，(非首次运行Xcode，从菜单File-New-&gt;Project) 进入工程模版选择界面，选择OSX-&gt;Application-&gt;Cocoa Application</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-1.png" alt=""></p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="info-plist"><a href="#info-plist" class="headerlink" title="info.plist"></a>info.plist</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-2.png" alt=""></p>
+<p><code>Application is agent(UIElement)</code> 字段可以控制App的MainMenu是否显示，Logo在Dock是否显示。</p>
+<h2 id="Capabilities"><a href="#Capabilities" class="headerlink" title="Capabilities"></a>Capabilities</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-3.png" alt=""></p>
+<p>这里我们重点关注下App Sandbox，Apple现在要求上架Mac AppStore的应用必须使用沙盒，所以发布到Mac商店的应用你必须选择打开。</p>
+<p>如果你的应用要访问服务器的API接口，必须打开Outgoing Connections。</p>
+<p>Hardware里面必须选择打开Printing，否则审核不通过。</p>
+<p>File Accedd:如果你需要让用户选择访问本地的文件，User Selected File 中选择读/写权限。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-4.png" alt=""></p>
 
       
     </div>
