@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-09-02T07:08:37.000Z</updated>
+  <updated>2016-09-03T06:24:46.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -14,6 +14,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac OS 开发 － 聊聊如何打包dmg文件</title>
+    <link href="http://charsdavy.github.io/2016/09/03/mac-os-archive-app/"/>
+    <id>http://charsdavy.github.io/2016/09/03/mac-os-archive-app/</id>
+    <published>2016-09-03T01:43:24.000Z</published>
+    <updated>2016-09-03T06:24:46.000Z</updated>
+    
+    <content type="html">&lt;p&gt;最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。&lt;/p&gt;
+&lt;p&gt;BTW 推荐一款非Apple官方的App Store，&lt;code&gt;HackStore&lt;/code&gt;是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的&lt;code&gt;ImageHosting&lt;/code&gt;，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 &lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;现在，分享一下，当我们完成Mac开发，release一个&lt;code&gt;.app&lt;/code&gt;文件之后，我们应该如何打包成一个dmg文件的方法。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;言归正传，说到dmg，这个我们熟悉的格式，那么它是怎么生成的呢，跟着接下来的步骤吧。博主将它们分为&lt;code&gt;系统默认&lt;/code&gt;和&lt;code&gt;自定义&lt;/code&gt;，不过，两者都离不开一个工具 －－ &lt;code&gt;磁盘工具（Disk Utility）&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;系统默认&quot;&gt;&lt;a href=&quot;#系统默认&quot; class=&quot;headerlink&quot; title=&quot;系统默认&quot;&gt;&lt;/a&gt;系统默认&lt;/h3&gt;&lt;p&gt;打开 &lt;code&gt;磁盘工具&lt;/code&gt; －&amp;gt; &lt;code&gt;文件&lt;/code&gt; －&amp;gt; &lt;code&gt;新建映像&lt;/code&gt; －&amp;gt; &lt;code&gt;来自文件夹的映像&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-build.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;资源文件夹内容&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-folder.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;配置 选择包括 &lt;code&gt;.app&lt;/code&gt; 和 &lt;code&gt;Applications 替身&lt;/code&gt; 文件夹的路径，也就是上图说的 资源文件夹 路径&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-build-config.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;点击 &lt;code&gt;打开&lt;/code&gt; ，配置相关信息 点击 &lt;code&gt;存储&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;h3 id=&quot;自定义&quot;&gt;&lt;a href=&quot;#自定义&quot; class=&quot;headerlink&quot; title=&quot;自定义&quot;&gt;&lt;/a&gt;自定义&lt;/h3&gt;&lt;p&gt;1 准备资源，包括：背景图片，&lt;code&gt;.app&lt;/code&gt; 和 &lt;code&gt;Applications 替身&lt;/code&gt; 文件。&lt;/p&gt;
+&lt;p&gt;2 创建一个空的映像文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-blank-dmg.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;配置信息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-config-blank-dmg.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3 配置资源 －－ 配置背景图&lt;/p&gt;
+&lt;p&gt;1）打开显示选项&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-blank-fill-src.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;2）配置背景图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-show-view-option.png?imageView2/2/w/360&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3）隐藏背景图片文件&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;mv&lt;/code&gt;命令进行重命名&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ mv background.tif .background.tif&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-hidden-bg.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;4 配置资源 －－ 拖拽&lt;code&gt;.app&lt;/code&gt; 和 &lt;code&gt;Applications 替身&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5 转换&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert.png?imageView2/2/w/480&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;配置转换信息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert-config.png?imageView2/2/w/480&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;6 效果&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-result.png?imageView2/2/w/460&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;附言&quot;&gt;&lt;a href=&quot;#附言&quot; class=&quot;headerlink&quot; title=&quot;附言&quot;&gt;&lt;/a&gt;附言&lt;/h3&gt;&lt;p&gt;每次自定义类型打包dmg，都需要从零开始，不能使用上一次的未转换时的文件直接替换&lt;code&gt;.app&lt;/code&gt;文件。否则，呈现的样式将不是CD样式。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。&lt;/p&gt;
+&lt;p&gt;BTW 推荐一款非Apple官方的App Store，&lt;code&gt;HackStore&lt;/code&gt;是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的&lt;code&gt;ImageHosting&lt;/code&gt;，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 &lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;现在，分享一下，当我们完成Mac开发，release一个&lt;code&gt;.app&lt;/code&gt;文件之后，我们应该如何打包成一个dmg文件的方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Mac OS" scheme="http://charsdavy.github.io/categories/Mac-OS/"/>
+    
+    
+      <category term="开发助手" scheme="http://charsdavy.github.io/tags/assistant/"/>
+    
+  </entry>
   
   <entry>
     <title>ImageHosting 使用说明</title>
@@ -2339,286 +2397,6 @@ perspective = CATransform3DRotate(perspective, -M_PI_4, 0, 1, 0);
     
       <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
     
-    
-      <category term="Animation" scheme="http://charsdavy.github.io/tags/Animation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>睡前谈谈 CAAnimation 动画相关</title>
-    <link href="http://charsdavy.github.io/2016/07/29/animation-caanimation/"/>
-    <id>http://charsdavy.github.io/2016/07/29/animation-caanimation/</id>
-    <published>2016-07-29T11:55:33.000Z</published>
-    <updated>2016-08-03T12:25:04.000Z</updated>
-    
-    <content type="html">&lt;p&gt;要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。&lt;/p&gt;
-&lt;p&gt;这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;CATransition&quot;&gt;&lt;a href=&quot;#CATransition&quot; class=&quot;headerlink&quot; title=&quot;CATransition&quot;&gt;&lt;/a&gt;CATransition&lt;/h1&gt;&lt;p&gt;我们先从 Core Animation 內的转场效果 CATransition 讲起（请不要跟 CATransaction 搞混），因为 CATransition 大概是最容易上手，而且可以马上有成就感的动画。CATransition 通常用在两个 view 之间的切换；UIView 本身就有定义一些跟转场有几个以 transition 开头的 class method，像是&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;+ transitionWithView:duration:options:animations:completion:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ transitionFromView:toView:duration:options:completion:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;而这些 method 可以设定的 tansition option 包括：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionNone&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionFlipFromLeft&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionFlipFromRight&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionCurlUp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionCurlDown&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionCrossDissolve&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionFlipFromTop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UIViewAnimationOptionTransitionFlipFromBottom&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;也就是说，UIView 本身就已经提供了四种方向的翻转（上下左右）、淡入淡出与翻页几种转场效果。其实这些效果都是用 Core Animation 实现的，而 CATransition 所提供的效果也远比这些多，只要我们知道怎样使用 CATransition，就可以使用更多的转场效果。&lt;/p&gt;
-&lt;p&gt;我们来写一个简单的 view controller：这个 view controller 的 view 上面我们额外建立一个 CALayer，然后加了一个按钮，这个按钮按下去之后的 action 是让这个 layer 在红色与绿色之间切换。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//ViewController.h&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@import UIKit;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@import QuartzCore;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@interface ViewController : UIViewController&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (IBAction)toggleColor:(id)sender;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//ViewController.m&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#import &amp;quot;ViewController.h&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@interface ViewController ()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (strong, nonatomic) CALayer *aLayer;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (assign, nonatomic) BOOL isGreen;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@implementation ViewController&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)viewDidLoad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [super viewDidLoad];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.aLayer = [[CALayer alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.aLayer.frame = CGRectMake(50, 50, 100, 100);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.aLayer.backgroundColor = [UIColor redColor].CGColor;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.view.layer addSublayer:self.aLayer];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (IBAction)toggleColor:(id)sender&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.isGreen = !self.isGreen;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.aLayer.backgroundColor = self.isGreen ? [UIColor greenColor].CGColor : [UIColor redColor].CGColor;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;原本这个版本只会产生 0.25 秒的属性变化，使用的是淡入淡出效果。我们来加入 kCATransitionMoveIn 这个转场效果看看，就会变成新的画面从上方推入。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (IBAction)toggleColor:(id)sender&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.isGreen = !self.isGreen;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self.aLayer.backgroundColor = self.isGreen ? [UIColor greenColor].CGColor : [UIColor redColor].CGColor;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    CATransition *transition = [[CATransition alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    transition.type = kCATransitionMoveIn;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    transition.subtype = kCATransitionFromRight;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [self.aLayer addAnimation:transition forKey:@&amp;quot;tansition&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;CATransition 可以应用的地方不只是切换背景颜色而已，无论是改变这个 layer 的任何 animatable 的属性，像是改变 contents，或是在这个 layer 中增加或移除 sublayer，用 addAnimation:forKey: 加入了 CATransition 实例之后，都可以产生转场效果。&lt;/p&gt;
-&lt;p&gt;如果我们想要像 UIView 的 &lt;code&gt;+transitionWithView:duration:options:animations:completion:&lt;/code&gt;那样，是在某个 view 上面增加或移除 subview 的时候产生转场效果，用 CATransition 的作法也差不多，我们先写好要某个 view A 新增或移除 subview，然后把 CATransition 加到 view A 的 layer 上即可。&lt;/p&gt;
-&lt;p&gt;苹果在 iOS 上的 CATransition 的 public header 中定义了几个 type：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;kCATransitionFade：淡入淡出动画&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCATransitionMoveIn：新的画面从上方移入的效果&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCATransitionPush：推挤效果，很像 navigation controller 的换页&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCATransitionReveal：原本的画面从上方移出的效果&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;不过…其实苹果有不少 private API 可以用。比方说，我们可以把 type 指定成立体块状翻转效果。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;transition.type = @&amp;quot;cube&amp;quot;;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;在 &lt;a href=&quot;http://iphonedevwiki.net/index.php/CATransition&quot;&gt;http://iphonedevwiki.net/index.php/CATransition&lt;/a&gt; 这一页上可以看到整理好的 private API 可以调用。虽然苹果的政策是禁止在上架的 app 中调用 private API，如果用了可能会被 reject…不过印象中其实有很多 app 都用到这些 private API。&lt;/p&gt;
-&lt;p&gt;如果对內部的这些效果，甚至 private 的效果都不满意的話，iOS 5 之后， CATransition 还有一个叫做 filter 的属性，我们可以在这个属性上加上 CIFilter 实例，定义更多的转场效果。&lt;/p&gt;
-&lt;p&gt;另外要注意，在我們调用 &lt;code&gt;addAnimation:forKey:&lt;/code&gt; 的时候，如果加入的是个 CATransition 动画，无论使用了怎样的名称当做 key，key 都会是 transition。&lt;/p&gt;
-&lt;h1 id=&quot;CAPropertyAnimation&quot;&gt;&lt;a href=&quot;#CAPropertyAnimation&quot; class=&quot;headerlink&quot; title=&quot;CAPropertyAnimation&quot;&gt;&lt;/a&gt;CAPropertyAnimation&lt;/h1&gt;&lt;p&gt;CAPropertyAnimation 便是通过设定某个 CALayer 的属性产生动画。前面提到，只要修改 layer 的 animatable 属性会自动产生动画效果，不过，跟使用 CAPropertyAnimation 的状况不太一样，我们对某个 layer 加入了 CAPropertyAnimation 之后，虽然会产生动画，但是就只有产生动画而已， layer 属性原本的值并不会因此改变，用苹果的术语，这种动画叫做 Explicit Animations。&lt;/p&gt;
-&lt;p&gt;CAPropertyAnimation 是一层 layer，我们通常使用的是 CAPropertyAnimation 的 subclass CABasicAnimation。设定 CABasicAnimation 的时候，主要会设定以下属性：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;fromValue: 要让某个属性产生变化的动画时的初始值&lt;/li&gt;
-&lt;li&gt;toValue: 要让某个属性产生变化的动画时结束的数值&lt;/li&gt;
-&lt;li&gt;byValue: 要让某个属性产生变化的动画时，介于开始与结束的中间值，但是很多时候可以不用特別设定，设成 nil 即可&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;然后有一些设定是定义在 CAMediaTiming protocol 中，像是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;duration: 这个动画要花上多少时间&lt;/li&gt;
-&lt;li&gt;repeatCount: 我们要执行这个动画几次，如果只要跑一次这个动画，设定成 1 即可；如果我们想要这个动画一直跑的话，不妨就把这个动画设成 NSNotFound，NSNotFound 就是整数的最大值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;比方说，当我们想要让某个 layer 一直不停的旋转，我们可以修改 transform.rotation.x、transform.rotation.y、transform.rotation.z 等，要求这个 layer 是按照 x、y 还是 z 轴旋转，我们可以让 fromValue 设成 0，代表是初始还没旋转的状态，至于 toValue 设成 M_PI * 2，代表要旋转 360 度。像以下这段代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[super viewDidLoad];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;self.aLayer = [[CALayer alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;self.aLayer.frame = CGRectMake(50, 50, 100, 100);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;self.aLayer.backgroundColor = [UIColor redColor].CGColor;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@&amp;quot;transform.rotation.z&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rotateAnimation.fromValue = @0.0f;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rotateAnimation.toValue = @(M_PI * 2);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rotateAnimation.autoreverses = YES;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rotateAnimation.repeatCount = NSUIntegerMax;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rotateAnimation.duration = 2.0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self.aLayer addAnimation:rotateAnimation forKey:@&amp;quot;x&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self.view.layer addSublayer:self.aLayer];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;CAKeyframeAnimation&quot;&gt;&lt;a href=&quot;#CAKeyframeAnimation&quot; class=&quot;headerlink&quot; title=&quot;CAKeyframeAnimation&quot;&gt;&lt;/a&gt;CAKeyframeAnimation&lt;/h1&gt;&lt;p&gt;关键帧动画就是在动画控制过程中开发者指定主要的动画状态，至于各个状态间动画如何进行则由系统自动运算补充（每两个关键帧之间系统形成的动画称为“补间动画”），这种动画的好处就是开发者不用逐个控制每个动画帧，而只要关心几个关键帧的状态即可。&lt;/p&gt;
-&lt;p&gt;使用 CAKeyframeAnimation 与 CABasicAnimation 的主要差別在于，我们想要通过改变某个属性产生动画时，不是设定初始值与结束值，而是使用一个贝茲曲线描述（是 CGPath）。所以，当我们希望动画不只是直线前进，而是按照某种曲线移动的时候，就可以使用 CAKeyframeAnimation。&lt;/p&gt;
-&lt;p&gt;关键帧动画和基本动画也很相似，通过keyPath设置动画类型，才对齐进行一组关键值的设定。数据变化也有2种形式，一种是关键点，一种是路径，比如实例中的按一个贝塞尔弧移动view。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//关键帧动画&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//keyPath和animationWithKeyPath的类型相同&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let keyframeAnimation = CAKeyframeAnimation(keyPath: &amp;quot;position&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//线段的位置移动&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//        keyframeAnimation.values = [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 10, y: 100)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 30, y: 100)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 30, y: 120)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 60, y: 120)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 60, y: 100)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 106, y: 210)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 106, y: 410)),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                        NSValue(CGPoint: CGPoint(x: 300, y: 310))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//                                   ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//弧线位置移动&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let path = CGPathCreateMutable()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CGPathMoveToPoint(path, nil, 50, 50)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CGPathAddCurveToPoint(path, nil, 50, 50, 700, 300, 30, 500)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;keyframeAnimation.path = path&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//设置其他属性&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;keyframeAnimation.duration = 1.0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//        keyframeAnimation.beginTime = CACurrentMediaTime() + 2;//设置延迟2秒执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tapGesture.view?.layer.addAnimation(keyframeAnimation, forKey: &amp;quot;keyframeAnimation1&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;关键帧动画其他可以设置的参数&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//keyTimes：各个关键帧的时间控制&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//caculationMode：动画计算模式。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCAAnimationLinear: 线性模式，默认值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCAAnimationDiscrete: 离散模式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCAAnimationPaced:均匀处理，会忽略keyTimes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCAAnimationCubic:平滑执行，对于位置变动关键帧动画运行轨迹更平滑&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;kCAAnimationCubicPaced:平滑均匀执行&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;CAAnimationGroup&quot;&gt;&lt;a href=&quot;#CAAnimationGroup&quot; class=&quot;headerlink&quot; title=&quot;CAAnimationGroup&quot;&gt;&lt;/a&gt;CAAnimationGroup&lt;/h1&gt;&lt;p&gt;一个 CALayer 可以同时执行多个 CAAnimation，当我们加入了一个 CAAnimation 之后，就会立刻执行这个动画。而我们也可以把很多个 animation 实例包装成群组（像是 layer 一边移动位置一边翻转），方法就是创建 CAAnimationGroup 实例，然后把想要变成群组的其他动画，变成 array，设定成 CAAnimationGroup 的 animations property。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CAAnimationGroup *group = [CAAnimationGroup animation];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;group.duration = 0.5;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;group.animations = @[positionAnimation, flipAnimation];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;group.delegate = self;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[aLayer addAnimation:group forKey:@&amp;quot;group&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;CABasicAnimation&quot;&gt;&lt;a href=&quot;#CABasicAnimation&quot; class=&quot;headerlink&quot; title=&quot;CABasicAnimation&quot;&gt;&lt;/a&gt;CABasicAnimation&lt;/h1&gt;&lt;p&gt;CABasicAnimation 能够设定基础动画。&lt;/p&gt;
-&lt;h2 id=&quot;实例化&quot;&gt;&lt;a href=&quot;#实例化&quot; class=&quot;headerlink&quot; title=&quot;实例化&quot;&gt;&lt;/a&gt;实例化&lt;/h2&gt;&lt;p&gt;使用方法&lt;code&gt;animationWithKeyPath:&lt;/code&gt;对 CABasicAnimation进行实例化，并指定Layer的属性作为关键路径进行注册。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//围绕y轴旋转&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@&amp;quot;transform.rotation.y&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;设定动画&quot;&gt;&lt;a href=&quot;#设定动画&quot; class=&quot;headerlink&quot; title=&quot;设定动画&quot;&gt;&lt;/a&gt;设定动画&lt;/h2&gt;&lt;p&gt;设定动画的属性和说明&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;属性&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;duration&lt;/td&gt;
-&lt;td&gt;动画的时长&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;repeatCount&lt;/td&gt;
-&lt;td&gt;重复的次数。不停重复设置为 HUGE_VALF&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;repeatDuration&lt;/td&gt;
-&lt;td&gt;设置动画的时间。在该时间内动画一直执行，不计次数。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;beginTime&lt;/td&gt;
-&lt;td&gt;指定动画开始的时间。从开始延迟几秒的话，设置为【CACurrentMediaTime() + 秒数】 的方式&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;timingFunction&lt;/td&gt;
-&lt;td&gt;设置动画的速度变化&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;autoreverses&lt;/td&gt;
-&lt;td&gt;动画结束时是否执行逆动画&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;fromValue&lt;/td&gt;
-&lt;td&gt;所改变属性的起始值&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;toValue&lt;/td&gt;
-&lt;td&gt;所改变属性的结束时的值&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;byValue&lt;/td&gt;
-&lt;td&gt;所改变属性相同起始值的改变量&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.fromValue = @(M_PI_2);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.toValue = @(M_PI);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.autoreverses = YES;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.repeatCount = HUGE_VALF;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.beginTime = CACurrentMediaTime() + 2;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;防止动画结束后回到初始状态&lt;br&gt;只需设置&lt;code&gt;removedOnCompletion&lt;/code&gt;、&lt;code&gt;fillMode&lt;/code&gt;两个属性就可以了。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.removedOnCompletion = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.fillMode = kCAFillModeForwards;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;为什么动画结束后返回原状态？&lt;/p&gt;
-&lt;p&gt;首先我们需要搞明白一点的是，layer动画运行的过程是怎样的？其实在我们给一个视图添加layer动画时，真正移动并不是我们的视图本身，而是 presentation layer 的一个缓存。动画开始时 presentation layer开始移动，原始layer隐藏，动画结束时，presentation layer从屏幕上移除，原始layer显示。这就解释了为什么我们的视图在动画结束后又回到了原来的状态，因为它根本就没动过。&lt;/p&gt;
-&lt;p&gt;这个同样也可以解释为什么在动画移动过程中，我们为何不能对其进行任何操作。&lt;/p&gt;
-&lt;p&gt;所以在我们完成layer动画之后，最好将我们的layer属性设置为我们最终状态的属性，然后将presentation layer 移除掉。&lt;/p&gt;
-&lt;h2 id=&quot;添加动画&quot;&gt;&lt;a href=&quot;#添加动画&quot; class=&quot;headerlink&quot; title=&quot;添加动画&quot;&gt;&lt;/a&gt;添加动画&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[self.imageView.layer addAnimation:transformAnima forKey:@&amp;quot;A&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;需要注意:&lt;/p&gt;
-&lt;p&gt;1)一个 CABasicAniamtion 的实例对象只是一个数据模型，和它绑定到哪一个layer上是没有关系的。&lt;/p&gt;
-&lt;p&gt;2)方法&lt;code&gt;addAnimation:forKey:&lt;/code&gt;是将 CABasicAniamtion 对象进行了 copy 操作的。所以在将其添加到一个layer上之后，我们还可以将其再次添加到另一个layer上的。&lt;/p&gt;
-&lt;h2 id=&quot;fillMode属性的理解&quot;&gt;&lt;a href=&quot;#fillMode属性的理解&quot; class=&quot;headerlink&quot; title=&quot;fillMode属性的理解&quot;&gt;&lt;/a&gt;fillMode属性的理解&lt;/h2&gt;&lt;p&gt;该属性定义了你的动画在开始和结束时的动作。默认值是 kCAFillModeRemoved。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAFillModeRemoved 设置为该值，动画将在设置的 beginTime 开始执行（如没有设置beginTime属性，则动画立即执行），动画执行完成后将会layer的改变恢复原状。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-1.png?imageView/2/w/500&quot; alt=&quot;kCAFillModeRemoved&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAFillModeForwards 设置为该值，动画即使之后layer的状态将保持在动画的最后一帧，而removedOnCompletion的默认属性值是 YES，所以为了使动画结束之后layer保持结束状态，应将removedOnCompletion设置为NO。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-2.png?imageView/2/w/500&quot; alt=&quot;kCAFillModeForwards&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAFillModeBackwards 设置为该值，将会立即执行动画的第一帧，不论是否设置了 beginTime属性。观察发现，设置该值，刚开始视图不见，还不知道应用在哪里。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-3.png?imageView/2/w/500&quot; alt=&quot;kCAFillModeBackwards&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAFillModeBoth 该值是 kCAFillModeForwards 和 kCAFillModeBackwards的组合状态&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-4.png?imageView/2/w/500&quot; alt=&quot;kCAFillModeBoth&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Animation-Easing的使用&quot;&gt;&lt;a href=&quot;#Animation-Easing的使用&quot; class=&quot;headerlink&quot; title=&quot;Animation Easing的使用&quot;&gt;&lt;/a&gt;Animation Easing的使用&lt;/h2&gt;&lt;p&gt;即属性timingFunction值的设定，有种方式来获取属性值&lt;/p&gt;
-&lt;p&gt;（1）使用方法&lt;code&gt;functionWithName:&lt;/code&gt;&lt;br&gt;这种方式很简单，这里只是简单说明一下取值的含义：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAMediaTimingFunctionLinear 传这个值，在整个动画时间内动画都是以一个相同的速度来改变。也就是匀速运动。&lt;/li&gt;
-&lt;li&gt;kCAMediaTimingFunctionEaseIn 使用该值，动画开始时会较慢，之后动画会加速。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-5.png?imageView/2/w/500&quot; alt=&quot;kCAMediaTimingFunctionEaseIn&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAMediaTimingFunctionEaseOut 使用该值，动画在开始时会较快，之后动画速度减慢。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-6.png?imageView/2/w/500&quot; alt=&quot;kCAMediaTimingFunctionEaseOut&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;kCAMediaTimingFunctionEaseInEaseOut 使用该值，动画在开始和结束时速度较慢，中间时间段内速度较快。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-7.png?imageView/2/w/500&quot; alt=&quot;kCAMediaTimingFunctionEaseInEaseOut&quot;&gt;&lt;/p&gt;
-&lt;p&gt;(2)使用方法&lt;code&gt;functionWithControlPoints: : : :&lt;/code&gt; 实现。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/annimation-caanimation-0.png&quot; alt=&quot;动画类型效果&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;其他的一些设置属性&quot;&gt;&lt;a href=&quot;#其他的一些设置属性&quot; class=&quot;headerlink&quot; title=&quot;其他的一些设置属性&quot;&gt;&lt;/a&gt;其他的一些设置属性&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;repeatCount 设置动画的执行次数&lt;/li&gt;
-&lt;li&gt;autoreverses 默认值为 NO，将其设置为 YES&lt;/li&gt;
-&lt;li&gt;speed 改变动画的速度 可以直接设置动画上的speed属性，这样只有这个动画速度。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;animation.speed = 2;&lt;/code&gt;或者在layer上设置speed属性，这样在该视图上的所有动画都提速，该视图上的所有子视图上的动画也会提速。&lt;/p&gt;
-&lt;p&gt;speed需注意：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;如果设置动画时间为4s，speed设置为2，则动画只需2s即可执行完。&lt;/li&gt;
-&lt;li&gt;如果同时设置了动画的speed和layer 的speed，则实际的speed为两者相乘。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;使用总结&quot;&gt;&lt;a href=&quot;#使用总结&quot; class=&quot;headerlink&quot; title=&quot;使用总结&quot;&gt;&lt;/a&gt;使用总结&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;在动画执行完成之后，最好还是将动画移除掉。也就是尽量不要设置removedOnCompletion属性为NO&lt;/li&gt;
-&lt;li&gt;fillMode尽量取默认值就好了，不要去设置它的值。只有在极个别的情况下我们会修改它的值。&lt;/li&gt;
-&lt;li&gt;解决有时视图会闪动一下的问题，我们可以将layer的属性值设置为我们的动画最后要达到的值，然后再给我们的视图添加layer动画。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;移动动画实现示例&quot;&gt;&lt;a href=&quot;#移动动画实现示例&quot; class=&quot;headerlink&quot; title=&quot;移动动画实现示例&quot;&gt;&lt;/a&gt;移动动画实现示例&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CABasicAnimation *positionAnima = [CABasicAnimation animationWithKeyPath:@&amp;quot;position.y&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.duration = 0.8;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.fromValue = @(self.imageView.center.y);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.toValue = @(self.imageView.center.y-30);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.repeatCount = HUGE_VALF;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.repeatDuration = 2;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.removedOnCompletion = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.fillMode = kCAFillModeForwards;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self.imageView.layer addAnimation:positionAnima forKey:@&amp;quot;AnimationMoveY&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;组合动画的实现&quot;&gt;&lt;a href=&quot;#组合动画的实现&quot; class=&quot;headerlink&quot; title=&quot;组合动画的实现&quot;&gt;&lt;/a&gt;组合动画的实现&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CABasicAnimation *positionAnima = [CABasicAnimation animationWithKeyPath:@&amp;quot;position.y&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.fromValue = @(self.imageView.center.y);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.toValue = @(self.imageView.center.y-30);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@&amp;quot;transform.rotation.y&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.fromValue = @(0);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.toValue = @(M_PI);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CAAnimationGroup *animaGroup = [CAAnimationGroup animation];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;animaGroup.duration = 2.0f;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;animaGroup.fillMode = kCAFillModeForwards;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;animaGroup.removedOnCompletion = NO;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;animaGroup.animations = @[positionAnima,transformAnima];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self.imageView.layer addAnimation:animaGroup forKey:@&amp;quot;Animation&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;动画开始和结束时的事件&quot;&gt;&lt;a href=&quot;#动画开始和结束时的事件&quot; class=&quot;headerlink&quot; title=&quot;动画开始和结束时的事件&quot;&gt;&lt;/a&gt;动画开始和结束时的事件&lt;/h3&gt;&lt;p&gt;为了获取动画的开始和结束事件，需要实现协议&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;positionAnima.delegate = self;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h4 id=&quot;代理方法实现&quot;&gt;&lt;a href=&quot;#代理方法实现&quot; class=&quot;headerlink&quot; title=&quot;代理方法实现&quot;&gt;&lt;/a&gt;代理方法实现&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//动画开始时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)animationDidStart:(CAAnimation *)anim&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@&amp;quot;开始了&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//动画结束时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //方法中的flag参数表明了动画是自然结束还是被打断,比如调用了removeAnimationForKey:方法或removeAnimationForKey方法，flag为NO，如果是正常结束，flag为YES。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@&amp;quot;结束了&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;其实比较重要的是有多个动画的时候如何在代理方法中区分不同的动画&lt;br&gt;两种方式&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方式一：&lt;/strong&gt;&lt;br&gt;如果我们添加动画的视图是全局变量，可使用该方法。&lt;/p&gt;
-&lt;p&gt;添加动画时，我们使用了&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[self.imageView.layer addAnimation:animaGroup forKey:@&amp;quot;Animation&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;所以，可根据key来区分不同的动画&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//动画开始时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)animationDidStart:(CAAnimation *)anim&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if ([anim isEqual:[self.imageView.layer animationForKey:@&amp;quot;Animation&amp;quot;]]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;动画组执行了&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;注意:&lt;/strong&gt;把动画存储为一个属性然后再回调中比较，用来判定是哪个动画是不可行的。应为委托传入的动画参数是原始值的一个深拷贝，不是同一个值&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方式二：&lt;/strong&gt;&lt;br&gt;添加动画的视图是局部变量时，可使用该方法&lt;/p&gt;
-&lt;p&gt;添加动画给动画设置key-value对&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[positionAnima setValue:@&amp;quot;PositionAnima&amp;quot; forKey:@&amp;quot;AnimationKey&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[transformAnima setValue:@&amp;quot;TransformAnima&amp;quot; forKey:@&amp;quot;AnimationKey&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;所以，可以根据key中不同的值来进行区分不同的动画&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//动画结束时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if ([[anim valueForKey:@&amp;quot;AnimationKey&amp;quot;]isEqualToString:@&amp;quot;PositionAnima&amp;quot;]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;位置移动动画执行结束&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; else if ([[anim valueForKey:@&amp;quot;AnimationKey&amp;quot;]isEqualToString:@&amp;quot;TransformAnima&amp;quot;])&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;旋转动画执行结束&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/CAAnimationDemo.git&quot;&gt;Demo on Github&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;常用的animationWithKeyPath值&quot;&gt;&lt;a href=&quot;#常用的animationWithKeyPath值&quot; class=&quot;headerlink&quot; title=&quot;常用的animationWithKeyPath值&quot;&gt;&lt;/a&gt;常用的animationWithKeyPath值&lt;/h1&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;值&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;th&gt;使用形式&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;transform.scale&lt;/td&gt;
-&lt;td&gt;比例转化&lt;/td&gt;
-&lt;td&gt;@(0.8)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;transform.scale.x&lt;/td&gt;
-&lt;td&gt;宽的比例&lt;/td&gt;
-&lt;td&gt;@(0.8)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;transform.scale.y&lt;/td&gt;
-&lt;td&gt;高的比例&lt;/td&gt;
-&lt;td&gt;@(0.8)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;transform.rotation.x&lt;/td&gt;
-&lt;td&gt;围绕x轴旋转&lt;/td&gt;
-&lt;td&gt;@(M_PI)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;transform.rotation.y&lt;/td&gt;
-&lt;td&gt;围绕y轴旋转&lt;/td&gt;
-&lt;td&gt;@(M_PI)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;transform.rotation.z&lt;/td&gt;
-&lt;td&gt;围绕z轴旋转&lt;/td&gt;
-&lt;td&gt;@(M_PI)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cornerRadius&lt;/td&gt;
-&lt;td&gt;圆角的设置&lt;/td&gt;
-&lt;td&gt;@(50)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;backgroundColor&lt;/td&gt;
-&lt;td&gt;背景颜色的变化&lt;/td&gt;
-&lt;td&gt;(id)[UIColor purpleColor].CGColor&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;bounds&lt;/td&gt;
-&lt;td&gt;大小，中心不变&lt;/td&gt;
-&lt;td&gt;[NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;position&lt;/td&gt;
-&lt;td&gt;位置(中心点的改变)&lt;/td&gt;
-&lt;td&gt;[NSValue valueWithCGPoint:CGPointMake(300, 300)];&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;contents&lt;/td&gt;
-&lt;td&gt;内容，比如UIImageView的图片&lt;/td&gt;
-&lt;td&gt;imageAnima.toValue = (id)[UIImage imageNamed:@”to”].CGImage;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;opacity&lt;/td&gt;
-&lt;td&gt;透明度&lt;/td&gt;
-&lt;td&gt;@(0.7)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;contentsRect.size.width&lt;/td&gt;
-&lt;td&gt;横向拉伸缩放&lt;/td&gt;
-&lt;td&gt;@(0.4)最好是0~1之间的&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h1 id=&quot;附图&quot;&gt;&lt;a href=&quot;#附图&quot; class=&quot;headerlink&quot; title=&quot;附图&quot;&gt;&lt;/a&gt;附图&lt;/h1&gt;&lt;p&gt;CALayer Animatable Properties&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/CAAnimation-CABasicAnimation-8.png?imageView/2/w/800&quot; alt=&quot;CALayer Animatable Properties&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;推荐&quot;&gt;&lt;a href=&quot;#推荐&quot; class=&quot;headerlink&quot; title=&quot;推荐&quot;&gt;&lt;/a&gt;推荐&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://objccn.io/issue-12-2/&quot;&gt;Layer 中自定义属性的动画&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/mjios/archive/2013/04/15/3021343.html&quot;&gt;Core Animation2-CABasicAnimation&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/cocoarannie/article/details/10413301&quot;&gt;CAAnimation——基本动画，关键帧动画和贝塞尔路径&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/iosevanhuang/article/details/14488239&quot;&gt;CABasicAnimation的基本使用方法（移动·旋转·放大·缩小）&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。&lt;/p&gt;
-&lt;p&gt;这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
-    
-    
-      <category term="UI" scheme="http://charsdavy.github.io/tags/UI/"/>
     
       <category term="Animation" scheme="http://charsdavy.github.io/tags/Animation/"/>
     
