@@ -1,13 +1,13 @@
 (function($) {
     // When to show the scroll link
     // higher number = scroll link appears further down the page
-    var upperLimit = 1600;
+    var upperLimit = 2100;
 
     // Our scroll link element
     var scrollElem = $('#totop');
 
     // Scroll to top speed
-    var scrollSpeed = 500;
+    var scrollSpeed = 1000;
 
     // Show and hide the scroll to top link based on scroll position
     scrollElem.hide();
