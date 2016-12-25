@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-11-15T12:13:03.000Z</updated>
+  <updated>2016-12-25T12:40:25.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -16,11 +16,83 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>西蒙 iPhone OpenGL ES 01 (构成复杂物体的基本绘图要素)</title>
+    <link href="http://charsdavy.github.io/2016/12/25/iphone-opengl-es-mauriceatron-01/"/>
+    <id>http://charsdavy.github.io/2016/12/25/iphone-opengl-es-mauriceatron-01/</id>
+    <published>2016-12-25T10:19:30.000Z</published>
+    <updated>2016-12-25T12:40:25.000Z</updated>
+    
+    <content type="html">&lt;p&gt;OpenGL（英语：Open Graphics Library，译名：开放图形库或者“开放式图形库”）是用于渲染2D、3D矢量图形的跨语言、跨平台的应用程序编程接口（API）。这个接口由近350个不同的函数调用组成，用来从简单的图形比特绘制复杂的三维景象。而另一种程序接口系统是仅用于Microsoft Windows上的Direct3D。OpenGL常用于CAD、虚拟实境、科学可视化程序和电子游戏开发。&lt;br&gt;OpenGL的高效实现（利用了图形加速硬件）存在于Windows，部分UNIX平台和Mac OS。这些实现一般由显示设备厂商提供，而且非常依赖于该厂商提供的硬件。开放源代码库Mesa是一个纯基于软件的图形API，它的代码兼容于OpenGL。但是，由于许可证的原因，它只声称是一个“非常相似”的API。&lt;br&gt;OpenGL规范由1992年成立的OpenGL架构评审委员会（ARB）维护。ARB由一些对创建一个统一的、普遍可用的API特别感兴趣的公司组成。&lt;/p&gt;
+&lt;p&gt;OpenGL规范描述了绘制2D和3D图形的抽象API。尽管这些API可以完全通过软件实现，但它是为大部分或者全部使用硬件加速而设计的。&lt;br&gt;OpenGL的API定义了若干可被客户端程序调用的函数，以及一些具名整型常数（例如，常数GL_TEXTURE_2D对应的十进制整数为3553）。虽然这些函数的定义表面上类似于C编程语言，但它们是语言独立的。因此，OpenGL有许多语言绑定，值得一提的包括：JavaScript绑定的WebGL（基于OpenGL ES 2.0在Web浏览器中的进行3D渲染的API）；C绑定的WGL、GLX和CGL；iOS提供的C绑定；Android提供的Java和C绑定。&lt;br&gt;OpenGL不仅语言无关，而且平台无关。规范只字未提获得和管理OpenGL上下文相关的内容，而是将这些作为细节交给底层的窗口系统。出于同样的原因，OpenGL纯粹专注于渲染，而不提供输入、音频以及窗口相关的API。&lt;br&gt;OpenGL是一个不断进化的API。新版OpenGL规范会定期由Khronos Group发布，新版本通过扩展API来支持各种新功能。每个版本的细节由Khronos Group的成员一致决定，包括显卡厂商、操作系统设计人员以及类似Mozilla和谷歌的一般性技术公司。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/Pipeline_OpenGL.png?imageView/2/w/700&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;图元&lt;/strong&gt; 是构成复杂物体的基本绘图要素。在OpenGL ES中，你可以使用的图元有点，线，三角形。它们都有非常强的自我解释性，我觉得你需要有些例子让你看到它们。&lt;/p&gt;
+&lt;p&gt;首先，让我们来看看一些代码，然后我们可以谈论这是怎么回事，这样您就可以使用它来创建一些自己的代码。&lt;/p&gt;
+&lt;p&gt;三角形是最“复杂”的图元，但是很容易使用，并且非常实用,这将是你可以绘制的第一个OpenGL的图元。当我们绘制一个三角形的时候，我们需要告诉OpenGL在3d空间中的三角形的3系坐标，并且，OpenGL将非常顺利的渲染这个三角形。&lt;/p&gt;
+&lt;p&gt;在开始之前，复制00教程中的项目代码或者从这里下载下项目代码： AppleCoder-OpenGLES-00.tar.gz .在XCode中打开，开启EAGLView.m文件，找到drawView函数。这里就是施展魔法的地方。&lt;/p&gt;
+&lt;p&gt;首先，我们需要定义一个三角形。要做到这点，我们需要知道在我们要处理的坐标的两种类型：模型和世界。模型坐标是指我们正在绘制的实际图元，世界坐标告诉OpenGL观察者在哪里。（在世界坐标中，观察者一般在（0.0,0.0,0.0）的地方）&lt;/p&gt;
+&lt;p&gt;第一个例子将说明这点。首先，我们定义这个三角形在模型空间使用3 x 3d 坐标（x,y,z）：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const GLfloat triangleVertices[] = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        0.0, 1.0, -6.0,// Triangle top centre&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        -1.0, -1.0, -6.0,// bottom left&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        1.0, -1.0, -6.0,// bottom right&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如上所示，这里使用了3个坐标来表示一个三角形，需要注意的是，我们定义三角形顶点是逆时针来显示的。虽然描述三角形的可以用逆时针也可以用顺时针，但是我们必须和上述一样用逆时针来描述三角形。不过，我建议你用逆时针来描述三角形，因为我们以后可以用逆三角形来达到一些先进的功能。&lt;br&gt;（补充：逆三角形在3d中被认为是正面，而顺三角形则被认为是反面。在纹理渲染中被使用到）&lt;/p&gt;
+&lt;p&gt;虽然本教程应该是纯粹的iPhone OpenGL ES的，对于初学者来说，我会简要的描述三维坐标系统。看看这张图片：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/18_1030_29cb53c37d9024a.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;对于我的绘画技巧，我深表遗憾。不过这个图代表了模型空间和世界空间。 试想一下，这是您的计算机屏幕， X和Y的横向和纵向的，你应该预料到， Z表示深入。这个中心位置就是(0.0,0.0,0.0).&lt;/p&gt;
+&lt;p&gt;所以，看我们的三角形中所描述的顶点上述情况，第一点（ 0.0 ， 1.0 ， -6.0 ）中心将在的Y轴，上涨1点，在屏幕的深度为6点。 第二个坐标是右边的Y轴1.0点，低于X轴（因此-1.0的Y值） ，仍然回到屏幕-6.0点。这同样适用于第三个坐标。&lt;/p&gt;
+&lt;p&gt;为此，我们确定目标在我们眼睛之前(z值是负的),所以这个目标是可见的（记得吗，观察者或者说照相机是在（0.0，0.0，0.0）的位置上）所以说OpenGL的深度测试是失败的并且它没有被渲染。&lt;/p&gt;
+&lt;p&gt;我可以听到你尖叫“嘿，我还以为你说，这是模型坐标不是世界坐标！ ” 。 是的，这是对的，但是，当我们去渲染这个三角形之前， OpenGL的将只是把对象放在（ 0.0 ， 0.0 ， 0.0 ） 的位置上。 因此，我们将它放到屏幕内才可见。 当我们进入转换（移动，旋转等） ，您会看到，您将不必设置对象Z值为负，也可以使之可见。在此之前，让目标的Z坐标在-6.0的位置上。&lt;/p&gt;
+&lt;h2 id=&quot;绘制函数&quot;&gt;&lt;a href=&quot;#绘制函数&quot; class=&quot;headerlink&quot; title=&quot;绘制函数&quot;&gt;&lt;/a&gt;绘制函数&lt;/h2&gt;&lt;p&gt;所以我们这样做是为了说明目前的三角形。我们现在需要告诉OpenGL，数据保存在哪里，以及如何去绘制它。这个过程只需要很少的几行代码。回到drawView函数，并且实行以下的代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)drawView &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	const GLfloat triangleVertices[] = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        0.0, 1.0, -6.0, // Triangle top centre&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        -1.0, -1.0, -6.0, // bottom left&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        1.0, -1.0, -6.0   // bottom right&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [EAGLContext setCurrentContext:context];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    glViewport(0, 0, backingWidth, backingHeight);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// -- BEGIN NEW CODE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	glVertexPointer(3, GL_FLOAT, 0, triangleVertices);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	glEnableClientState(GL_VERTEX_ARRAY);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	glDrawArrays(GL_TRIANGLES, 0, 3);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// -- END NEW CODE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [context presentRenderbuffer:GL_RENDERBUFFER_OES];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	[self checkGLError:NO];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如你所见，这4行代码就是我们渲染一个三角形的。让我们从上往下一行行的打断这些代码来分析，你会发现它们是非常的简单。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这行代码只是简单的清除了屏幕。这个控制位告诉OpenGL，我们使用上次教程里面setupView函数中设置的颜色（黑色）来清除屏幕，并且清除了深度缓冲。 请注意，如果我们没有创建深度缓冲和开启深度缓冲（如我们应该做的）,这个屏幕将不会渲染。如果我们不使用深度缓冲，我们将不需要通过glClear()里的 GL_DEPTH_BUFFER_BIT.&lt;/p&gt;
+&lt;p&gt;因此，我们无论是清除以前绘制的这个缓冲区（请记住，这是双重缓冲动画;利用一个缓冲区而另一个缓冲区显示） 。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;glVertexPointer(3, GL_FLOAT, 0, triangleVertices);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此函数告诉OpenGL的情况下我们的数据是什么格式，它是有4个参数，这个功能是很简单细分：&lt;/p&gt;
+&lt;p&gt;1.Size-这个值表示了每个坐标有几个数字。我们现在是3，是因为是3d坐标(x,y,z).如果我们使用2d绘制，不加入深度(就是z),我们只要在这里写2就可以了。&lt;/p&gt;
+&lt;p&gt;2.Data Type- GL_FLOAT 意味着我们用float点值。 您也可以使用整数值，但如果你想你需要习惯于使用浮点值的3D世界的浮点运算。&lt;/p&gt;
+&lt;p&gt;3.Stride -  这个stride告诉OpenGL 在每个坐标之间忽略哪几个点。别对这个表示疑惑，保持它是0就行了。你使用它&lt;br&gt;当您载入顶点数据文件的格式有更多的填充数据或肤色的数据，也就是说，一个3D程序像搅拌机。&lt;/p&gt;
+&lt;p&gt;4.Pointer to the Data – 数据本身，正是因为它，三角形才会出现。&lt;/p&gt;
+&lt;p&gt;因此，我们告诉OpenGL清除缓冲区，告诉它的数据是我们的目标和它的格式，现在我们需要告诉OpenGL的东西很重要：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;glEnableClientState(GL_VERTEX_ARRAY);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;OpenGL是一个状态机。 这意味着你打开和关闭功能的要求就是启用和禁用命令。之前，我们使用过glEnable()，这影响到OpenGL的服务。 glEnableClientState ()影响到我们的程序方面（就是客户端面）。所以我们要做的就是告诉OpenGL我们顶点数据是一个顶点数组并且转换到OpenGL的绘制顶点功能。在这个情况下，顶点可以是一个颜色数组，我们将呼叫 glEnableClientState (GL_COLOR_ARRAY)或者一个纹理坐标数组如同纹理映射。(别垂涎三尺，你需要掌握所有的基本知识包括纹理映射)&lt;/p&gt;
+&lt;p&gt;随着我们进一步的研究OpenGL ，我们会使用不同的客户端状态，这将使用变得更为清晰。&lt;/p&gt;
+&lt;p&gt;现在命令OpenGL渲染一个三角形。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;glDrawArrays(GL_TRIANGLES, 0, 3);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;一旦这个方法被调用，OpenGL将用我们之前的两个函数的信息开始执行。屏幕中间出现一个白色的实心的三角形（白色是默认的绘制颜色）。现在的三角形是一个实心的，如果你需要一个镂空的三角形，你将要用不同的绘制方法。&lt;/p&gt;
+&lt;p&gt;分析这个方法里的三个参数：&lt;/p&gt;
+&lt;p&gt;1.Drawing Method- 在这种情况下，我们已通过GL_TRIANGLES这似乎相当明显，因为我们画一个三角形。然而，这一方法的第一个参数将变得很明显，当我们使用此功能，来绘制一个平面体。&lt;/p&gt;
+&lt;p&gt;2.First Vertex- 我们阵列只有3点，所以我们想要的OpenGL提请第一坐标的数组，这里指定零就像进入一个标准数组。 如果我们有多种原始的顶点数组，我们可以在这里处理。我会在以后的教程教你，当我告诉您该如何建立复杂的物体的时候。现在，这里只要使用0。&lt;/p&gt;
+&lt;p&gt;3.Vertex Count-这将告诉OpenGL在我们的数组中有多少顶点需要被绘制。比如说，我们绘制一个三角形，所以至少要3点，一个平方形需要4点，一个线需要2点（或更多），一个点需要一个（或者多点）&lt;/p&gt;
+&lt;p&gt;当你把这些代码都输入到你的drawView函数里面以后。点击“Build and Go”运行这个程序在模拟器里面。你的模拟器应该看起来象如下的图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/18_1030_353762606b8ab7c.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如我们所说的，有一个实心的白色的三角形出现在屏幕的中间。&lt;/p&gt;
+&lt;p&gt;在我们做其他的图元之前，尝试修改z值，你就会明白我所说的是什么意思。如果你把z改为0，你将什么也看不到。&lt;/p&gt;
+&lt;p&gt;如果你自己输入几行代码，我希望你可以来发现OpenGL ES 是如何工作的。如果你学习过“标准”的OpenGL的教程，我希望你可以发现OpenGL与OpenGL ES的不同。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/iPhone-OpenGL-ES-Tutorial-Series&quot;&gt;iPhone-OpenGL-ES-Tutorial-Series Demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原文地址：&lt;a href=&quot;http://www.cocoachina.com/bbs/read.php?tid-5506-fpage-10.html&quot;&gt;http://www.cocoachina.com/bbs/read.php?tid-5506-fpage-10.html&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;OpenGL（英语：Open Graphics Library，译名：开放图形库或者“开放式图形库”）是用于渲染2D、3D矢量图形的跨语言、跨平台的应用程序编程接口（API）。这个接口由近350个不同的函数调用组成，用来从简单的图形比特绘制复杂的三维景象。而另一种程序接口系统是仅用于Microsoft Windows上的Direct3D。OpenGL常用于CAD、虚拟实境、科学可视化程序和电子游戏开发。&lt;br&gt;OpenGL的高效实现（利用了图形加速硬件）存在于Windows，部分UNIX平台和Mac OS。这些实现一般由显示设备厂商提供，而且非常依赖于该厂商提供的硬件。开放源代码库Mesa是一个纯基于软件的图形API，它的代码兼容于OpenGL。但是，由于许可证的原因，它只声称是一个“非常相似”的API。&lt;br&gt;OpenGL规范由1992年成立的OpenGL架构评审委员会（ARB）维护。ARB由一些对创建一个统一的、普遍可用的API特别感兴趣的公司组成。&lt;/p&gt;
+&lt;p&gt;OpenGL规范描述了绘制2D和3D图形的抽象API。尽管这些API可以完全通过软件实现，但它是为大部分或者全部使用硬件加速而设计的。&lt;br&gt;OpenGL的API定义了若干可被客户端程序调用的函数，以及一些具名整型常数（例如，常数GL_TEXTURE_2D对应的十进制整数为3553）。虽然这些函数的定义表面上类似于C编程语言，但它们是语言独立的。因此，OpenGL有许多语言绑定，值得一提的包括：JavaScript绑定的WebGL（基于OpenGL ES 2.0在Web浏览器中的进行3D渲染的API）；C绑定的WGL、GLX和CGL；iOS提供的C绑定；Android提供的Java和C绑定。&lt;br&gt;OpenGL不仅语言无关，而且平台无关。规范只字未提获得和管理OpenGL上下文相关的内容，而是将这些作为细节交给底层的窗口系统。出于同样的原因，OpenGL纯粹专注于渲染，而不提供输入、音频以及窗口相关的API。&lt;br&gt;OpenGL是一个不断进化的API。新版OpenGL规范会定期由Khronos Group发布，新版本通过扩展API来支持各种新功能。每个版本的细节由Khronos Group的成员一致决定，包括显卡厂商、操作系统设计人员以及类似Mozilla和谷歌的一般性技术公司。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/Pipeline_OpenGL.png?imageView/2/w/700&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+    
+    
+      <category term="OpenGL" scheme="http://charsdavy.github.io/tags/openGL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>iOS App 上架（Analysis 工具使用）</title>
     <link href="http://charsdavy.github.io/2016/11/15/apple-app-release-analysis/"/>
     <id>http://charsdavy.github.io/2016/11/15/apple-app-release-analysis/</id>
     <published>2016-11-15T10:26:02.000Z</published>
-    <updated>2016-11-15T12:13:03.000Z</updated>
+    <updated>2016-12-25T12:43:34.000Z</updated>
     
     <content type="html">&lt;p&gt;随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。&lt;/p&gt;
 &lt;p&gt;这些解决方案或工具节省了iOS开发者大量的开发时间，但是由于相关介绍文章的缺乏，许多开发者都在重复着自己一次又一次重新造轮子。所以将自己使用的相关的第三方服务使用经验，整理成一系列文章，以便广大开发者能够省去大量的重复性工作。&lt;/p&gt;
@@ -74,7 +146,7 @@
     <link href="http://charsdavy.github.io/2016/09/05/effective-objc-2-introduction-objc/"/>
     <id>http://charsdavy.github.io/2016/09/05/effective-objc-2-introduction-objc/</id>
     <published>2016-09-05T07:27:15.000Z</published>
-    <updated>2016-09-05T07:34:10.000Z</updated>
+    <updated>2016-12-25T12:43:34.000Z</updated>
     
     <content type="html">&lt;p&gt;看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。&lt;/p&gt;
 &lt;p&gt;作为Mac OS X与iOS应用程序的开发语言，Objective-C作为首选。那么，它有哪些需要注意的呢？&lt;/p&gt;
@@ -154,7 +226,7 @@
     <link href="http://charsdavy.github.io/2016/09/03/mac-ruby-update/"/>
     <id>http://charsdavy.github.io/2016/09/03/mac-ruby-update/</id>
     <published>2016-09-03T08:47:54.000Z</published>
-    <updated>2016-09-05T01:13:49.000Z</updated>
+    <updated>2016-09-03T08:56:33.000Z</updated>
     
     <content type="html">&lt;p&gt;Ruby 是一种面向对象、命令式、函数式、动态的通用编程语言。 在20世纪90年代中期由日本人松本行弘（Matz）设计并开发。 遵守BSD许可证和Ruby License。 它的灵感与特性来自于Perl、Smalltalk、Eiffel、Ada以及Lisp语言。&lt;/p&gt;
 &lt;p&gt;Ruby 可运行于多种平台，如 Windows、MAC OS 和 UNIX 的各种版本。&lt;/p&gt;
@@ -205,7 +277,7 @@
     <link href="http://charsdavy.github.io/2016/09/03/mac-os-archive-app/"/>
     <id>http://charsdavy.github.io/2016/09/03/mac-os-archive-app/</id>
     <published>2016-09-03T01:43:24.000Z</published>
-    <updated>2016-09-05T01:13:49.000Z</updated>
+    <updated>2016-09-03T06:24:46.000Z</updated>
     
     <content type="html">&lt;p&gt;最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。&lt;/p&gt;
 &lt;p&gt;BTW 推荐一款非Apple官方的App Store，&lt;code&gt;HackStore&lt;/code&gt;是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的&lt;code&gt;ImageHosting&lt;/code&gt;，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 &lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
@@ -2173,61 +2245,6 @@ perspective = CATransform3DRotate(perspective, -M_PI_4, 0, 1, 0);
     
     
       <category term="Animation" scheme="http://charsdavy.github.io/tags/Animation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xcode 常用插件</title>
-    <link href="http://charsdavy.github.io/2016/08/02/xcode-plugin-list/"/>
-    <id>http://charsdavy.github.io/2016/08/02/xcode-plugin-list/</id>
-    <published>2016-08-02T15:16:19.000Z</published>
-    <updated>2016-08-06T03:15:28.000Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;
-&lt;p&gt;工欲善其事，必先利其器&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这里主要罗列一些常用的 Xcode 插件。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;BBUncrustify&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;代码格式化&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/benoitsan/BBUncrustifyPlugin-Xcode&quot;&gt;https://github.com/benoitsan/BBUncrustifyPlugin-Xcode&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Backlight&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;光标选中行高亮&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/limejelly/Backlight-for-XCode&quot;&gt;https://github.com/limejelly/Backlight-for-XCode&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;HighlightSelectedString&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;代码变量选中高亮&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/keepyounger/HighlightSelectedString&quot;&gt;https://github.com/keepyounger/HighlightSelectedString&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;VVDocumenter&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;快捷注释&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/onevcat/VVDocumenter-Xcode&quot;&gt;https://github.com/onevcat/VVDocumenter-Xcode&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;KSImageNamed&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;根据图片名，输入代码时图片预览&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/ksuther/KSImageNamed-Xcode&quot;&gt;https://github.com/ksuther/KSImageNamed-Xcode&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;工欲善其事，必先利其器&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这里主要罗列一些常用的 Xcode 插件。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="http://charsdavy.github.io/categories/tool/"/>
-    
-    
-      <category term="开发助手" scheme="http://charsdavy.github.io/tags/assistant/"/>
     
   </entry>
   
