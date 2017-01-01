@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2016-12-31T01:32:10.000Z</updated>
+  <updated>2017-01-01T17:00:08.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -14,6 +14,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac 安装和配置 Tomcat</title>
+    <link href="http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/"/>
+    <id>http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/</id>
+    <published>2017-01-01T16:31:23.000Z</published>
+    <updated>2017-01-01T17:00:08.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache Web服务器混淆，Apache Web Server是一个用C语言实现的HTTP web server；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;下载资源&quot;&gt;&lt;a href=&quot;#下载资源&quot; class=&quot;headerlink&quot; title=&quot;下载资源&quot;&gt;&lt;/a&gt;下载资源&lt;/h2&gt;&lt;p&gt;前去&lt;a href=&quot;http://tomcat.apache.org/&quot;&gt;官网&lt;/a&gt;下载安装包，&lt;code&gt;zip&lt;/code&gt;和&lt;code&gt;tar.gz&lt;/code&gt;均可。&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;解压下载的压缩包文件，将文件放置&lt;code&gt;~/Library/Tomcat&lt;/code&gt;路径。&lt;/p&gt;
+&lt;p&gt;设置权限：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 755  ~/Library/Tomcat/bin/*.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;启动Tomacat&quot;&gt;&lt;a href=&quot;#启动Tomacat&quot; class=&quot;headerlink&quot; title=&quot;启动Tomacat&quot;&gt;&lt;/a&gt;启动Tomacat&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo sh ~/Library/Tomcat/bin/startup.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;成功的话会出现：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Tomcat started.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;打开浏览器输入：&lt;code&gt;localhost:8080&lt;/code&gt; 。就可以看见Tomcat:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-install-apache-tomcat.png?imageView/2/w/600&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;关闭Tomcat&quot;&gt;&lt;a href=&quot;#关闭Tomcat&quot; class=&quot;headerlink&quot; title=&quot;关闭Tomcat&quot;&gt;&lt;/a&gt;关闭Tomcat&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo sh ~/Library/Tomcat/bin/shutdown.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;创建快捷命令&quot;&gt;&lt;a href=&quot;#创建快捷命令&quot; class=&quot;headerlink&quot; title=&quot;创建快捷命令&quot;&gt;&lt;/a&gt;创建快捷命令&lt;/h2&gt;&lt;p&gt;每次按照上述的开启，关闭命令来操作，太麻烦，我们可以使用下列方法创建简洁快捷的命令。&lt;/p&gt;
+&lt;h4 id=&quot;创建shell文件&quot;&gt;&lt;a href=&quot;#创建shell文件&quot; class=&quot;headerlink&quot; title=&quot;创建shell文件&quot;&gt;&lt;/a&gt;创建shell文件&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd /usr/local/bin &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo touch tomcat&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;设置权限&quot;&gt;&lt;a href=&quot;#设置权限&quot; class=&quot;headerlink&quot; title=&quot;设置权限&quot;&gt;&lt;/a&gt;设置权限&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chmod 777 /usr/local/bin/tomcat&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;添加shell代码&quot;&gt;&lt;a href=&quot;#添加shell代码&quot; class=&quot;headerlink&quot; title=&quot;添加shell代码&quot;&gt;&lt;/a&gt;添加shell代码&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#!/bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;case $1 in&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;start)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo sh ~/Library/Tomcat/bin/startup.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;stop)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo sh ~/Library/Tomcat/bin/shutdown.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;restart)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo sh ~/Library/Tomcat/bin/shutdown.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo sh ~/Library/Tomcat/bin/startup.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo &amp;quot;Usage: start|stop|restart&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;esac&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;exit 0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tomcat start&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tomcat stop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tomcat restart&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache Web服务器混淆，Apache Web Server是一个用C语言实现的HTTP web server；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="后端" scheme="http://charsdavy.github.io/categories/server/"/>
+    
+    
+      <category term="开发环境" scheme="http://charsdavy.github.io/tags/develop-tool/"/>
+    
+  </entry>
   
   <entry>
     <title>OpenGL ES 2.0 iOS 入门篇</title>
@@ -2281,88 +2319,6 @@ $ LayerTest[21215:c07] Inside: &amp;lt;CABasicAnimation: 0x757f090&amp;gt;
     
     
       <category term="Animation" scheme="http://charsdavy.github.io/tags/Animation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>配色和排版（基础篇）</title>
-    <link href="http://charsdavy.github.io/2016/08/05/design-harmonize-colours/"/>
-    <id>http://charsdavy.github.io/2016/08/05/design-harmonize-colours/</id>
-    <published>2016-08-05T14:49:43.000Z</published>
-    <updated>2016-08-05T15:54:43.000Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;
-&lt;p&gt;在什么样的团队就能成为什么样的人&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;来到公司已经有一段时间了，在这段时间里，自我感觉是快速成长的。今天，终于决定扯来公司这张虎皮来给自己镀镀金，这里主要分享一下公司设计团队的设计技巧，希望对大家有帮助。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;基本颜色&quot;&gt;&lt;a href=&quot;#基本颜色&quot; class=&quot;headerlink&quot; title=&quot;基本颜色&quot;&gt;&lt;/a&gt;基本颜色&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;暖色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-1.png?imageView/2/w/600&quot; alt=&quot;暖色&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;冷色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-2.png?imageView/2/w/600&quot; alt=&quot;冷色&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;中性色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-3.png?imageView/2/w/600&quot; alt=&quot;中性色&quot;&gt;&lt;/p&gt;
-&lt;p&gt;以上色块示例只是日常使用中的基础颜色，各种颜色可以延伸出较多的相近色。这个需要根据内容主题来搭配颜色。&lt;br&gt;&lt;strong&gt;所有的颜色搭配都是为了突出和强调主题。&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id=&quot;颜色搭配基础&quot;&gt;&lt;a href=&quot;#颜色搭配基础&quot; class=&quot;headerlink&quot; title=&quot;颜色搭配基础&quot;&gt;&lt;/a&gt;颜色搭配基础&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;暖色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;暖色系的搭配包括深色+浅色，也可以使用少量冷色衬托。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-4.png?imageView/2/w/600&quot; alt=&quot;暖色搭配&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;冷色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;冷色系的搭配包括深色+浅色，也可以使用少量暖色衬托。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-5.png?imageView/2/w/600&quot; alt=&quot;冷色搭配&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;对比色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;对比色是深色和浅色，暖色和冷色的搭配。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-6.png?imageView/2/w/600&quot; alt=&quot;对比色搭配&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;中性色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;中性色可以搭配冷色、暖色。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-7.png?imageView/2/w/600&quot; alt=&quot;中性色搭配&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;图文排版基础&quot;&gt;&lt;a href=&quot;#图文排版基础&quot; class=&quot;headerlink&quot; title=&quot;图文排版基础&quot;&gt;&lt;/a&gt;图文排版基础&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;左对齐&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;左对齐分两种：&lt;/p&gt;
-&lt;p&gt;1）文字位于整张图片左侧，图片内容居右。&lt;/p&gt;
-&lt;p&gt;2）文字位于整张图片中间，但文字还是左对齐。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-8.png?imageView/2/w/600&quot; alt=&quot;左对齐&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;居中对齐&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;居中对齐是文字位于整张图片中间，背景加入素材作为衬托。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-9.png?imageView/2/w/600&quot; alt=&quot;居中对齐&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;右对齐&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;文字位于整张图片右侧，图片内容居左。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-10.png?imageView/2/w/600&quot; alt=&quot;右对齐&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h1&gt;&lt;p&gt;配色是否协调需要长期观摩。排版需要注意适当的留白。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/design-harmonize-colours-11.png?imageView/2/w/200&quot; alt=&quot;ZAKER&quot;&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;在什么样的团队就能成为什么样的人&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;来到公司已经有一段时间了，在这段时间里，自我感觉是快速成长的。今天，终于决定扯来公司这张虎皮来给自己镀镀金，这里主要分享一下公司设计团队的设计技巧，希望对大家有帮助。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="设计" scheme="http://charsdavy.github.io/categories/design/"/>
-    
-    
-      <category term="UI" scheme="http://charsdavy.github.io/tags/UI/"/>
     
   </entry>
   

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mac 安装和配置 Tomcat - Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac 安装和配置 Tomcat">
+<meta property="og:url" content="http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-install-apache-tomcat.png?imageView/2/w/600">
+<meta property="og:updated_time" content="2017-01-01T17:00:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac 安装和配置 Tomcat">
+<meta name="twitter:description" content="Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/mac-install-apache-tomcat.png?imageView/2/w/600">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Chars</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Rss</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://charsdavy.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-mac-install-apache-tomcat" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mac 安装和配置 Tomcat
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/01/02/mac-install-apache-tomcat/" class="article-date">
+  <time datetime="2017-01-01T16:31:23.000Z" itemprop="datePublished">2017-01-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/server/">后端</a>
+  </div>
+
+<!--
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/#ds-thread" class="article-comment-link">Comments</a>
+        </div>
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache Web服务器混淆，Apache Web Server是一个用C语言实现的HTTP web server；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
+<a id="more"></a>
+<h2 id="下载资源"><a href="#下载资源" class="headerlink" title="下载资源"></a>下载资源</h2><p>前去<a href="http://tomcat.apache.org/">官网</a>下载安装包，<code>zip</code>和<code>tar.gz</code>均可。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>解压下载的压缩包文件，将文件放置<code>~/Library/Tomcat</code>路径。</p>
+<p>设置权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 755  ~/Library/Tomcat/bin/*.sh</span><br></pre></td></tr></table></figure>
+<h2 id="启动Tomacat"><a href="#启动Tomacat" class="headerlink" title="启动Tomacat"></a>启动Tomacat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh ~/Library/Tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<p>成功的话会出现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tomcat started.</span><br></pre></td></tr></table></figure>
+<p>打开浏览器输入：<code>localhost:8080</code> 。就可以看见Tomcat:</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-install-apache-tomcat.png?imageView/2/w/600" alt=""></p>
+<h2 id="关闭Tomcat"><a href="#关闭Tomcat" class="headerlink" title="关闭Tomcat"></a>关闭Tomcat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh ~/Library/Tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure>
+<h2 id="创建快捷命令"><a href="#创建快捷命令" class="headerlink" title="创建快捷命令"></a>创建快捷命令</h2><p>每次按照上述的开启，关闭命令来操作，太麻烦，我们可以使用下列方法创建简洁快捷的命令。</p>
+<h4 id="创建shell文件"><a href="#创建shell文件" class="headerlink" title="创建shell文件"></a>创建shell文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin </span><br><span class="line">sudo touch tomcat</span><br></pre></td></tr></table></figure>
+<h4 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 /usr/local/bin/tomcat</span><br></pre></td></tr></table></figure>
+<h4 id="添加shell代码"><a href="#添加shell代码" class="headerlink" title="添加shell代码"></a>添加shell代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">case $1 in</span><br><span class="line">start)</span><br><span class="line">sudo sh ~/Library/Tomcat/bin/startup.sh</span><br><span class="line">;;</span><br><span class="line">stop)</span><br><span class="line">sudo sh ~/Library/Tomcat/bin/shutdown.sh</span><br><span class="line">;;</span><br><span class="line">restart)</span><br><span class="line">sudo sh ~/Library/Tomcat/bin/shutdown.sh</span><br><span class="line">sudo sh ~/Library/Tomcat/bin/startup.sh</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo &quot;Usage: start|stop|restart&quot;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tomcat start</span><br><span class="line">tomcat stop</span><br><span class="line">tomcat restart</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/develop-tool/">开发环境</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/30/opengl-es-2-ios-primary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OpenGL ES 2.0 iOS 入门篇&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-mac-install-apache-tomcat" data-title="Mac 安装和配置 Tomcat" data-url="http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'charsdavy'};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chars Davy&nbsp;
+     </div>
+  </div>
+</footer>
+
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:30px;right:30px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div>
+</body>
+</html>
