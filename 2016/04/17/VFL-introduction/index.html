@@ -98,10 +98,6 @@ ga('send', 'pageview');
 
 <!--
       
-        <div class="article-comment-link-wrap">
-          <a href="http://charsdavy.github.io/2016/04/17/VFL-introduction/#ds-thread" class="article-comment-link">Comments</a>
-        </div>
-      
 -->
     </div>
     <div class="article-entry" itemprop="articleBody">
@@ -205,26 +201,13 @@ ga('send', 'pageview');
 
 
 
-
-
 <section id="comments">
-  <!-- 多说评论框 start -->
-  <div class="ds-thread" data-thread-key="post-VFL-introduction" data-title="VFL 语言简介" data-url="http://charsdavy.github.io/2016/04/17/VFL-introduction/"></div>
-  <!-- 多说评论框 end -->
-  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-  <script type="text/javascript">
-  var duoshuoQuery = {short_name:'charsdavy'};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0] 
-       || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-  <!-- 多说公共JS代码 end -->
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
 </section>
+
+
 </section>
     <footer id="footer">
   
@@ -236,6 +219,20 @@ ga('send', 'pageview');
 </footer>
 
     
+<script>
+  var disqus_shortname = 'charstechblog';
+  
+  var disqus_url = 'http://charsdavy.github.io/2016/04/17/VFL-introduction/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="/js/jquery.min.js"></script>
 
