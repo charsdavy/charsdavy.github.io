@@ -77,6 +77,184 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-core-animation-geometry-layer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/30/core-animation-geometry-layer/">(转载) Core Animation (三) 图层几何学</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/07/30/core-animation-geometry-layer/" class="article-date">
+  <time datetime="2016-07-30T14:21:38.000Z" itemprop="datePublished">2016-07-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><em>不熟悉几何学的人就不要来这里了</em> –柏拉图学院入口的签名</p>
+</blockquote>
+<p>在第二章<a href="http://charsdavy.github.io/2016/07/29/core-aniamtion-host-layer/">『寄宿图』</a>里面，我们介绍了图层背后的图片，和一些控制图层坐标和旋转的属性。在这一章中，我们将要看一看图层内部是如何根据父图层和兄弟图层来控制位置和尺寸的。另外我们也会涉及如何管理图层的几何结构，以及它是如何被自动调整和自动布局影响的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/07/30/core-animation-geometry-layer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-animation-caanimation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/29/animation-caanimation/">(转载) 睡前谈谈 CAAnimation 动画相关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/07/29/animation-caanimation/" class="article-date">
+  <time datetime="2016-07-29T11:55:33.000Z" itemprop="datePublished">2016-07-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。</p>
+<p>这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/07/29/animation-caanimation/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-core-aniamtion-host-layer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/29/core-aniamtion-host-layer/">(转载) Core Animation (二) 寄宿图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/07/29/core-aniamtion-host-layer/" class="article-date">
+  <time datetime="2016-07-29T02:55:33.000Z" itemprop="datePublished">2016-07-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>图片胜过千言万语，界面抵得上千图片  ——Ben Shneiderman</p>
+</blockquote>
+<p>我们在第一章<a href="http://charsdavy.github.io/2016/07/28/core-aniamtion-layer-tree/">『图层树』</a>中介绍了CALayer类并创建了一个简单的有蓝色背景的图层。背景颜色还好啦，但是如果它仅仅是展现了一个单调的颜色未免也太无聊了。事实上CALayer类能够包含一张你喜欢的图片，这一章节我们将来探索CALayer的寄宿图（即图层中包含的图）。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/07/29/core-aniamtion-host-layer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
       <article id="post-core-aniamtion-layer-tree" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1619,177 +1797,6 @@ ga('send', 'pageview');
       <footer class="article-footer">
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multi-thread/">多线程</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-ruby-regular-expression" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/ruby-regular-expression/">Ruby 正则表达式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/04/13/ruby-regular-expression/" class="article-date">
-  <time datetime="2016-04-13T14:17:11.000Z" itemprop="datePublished">2016-04-13</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">Web</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找字符串集合。<br>正则表达式用事先定义好的一些特定字符、及这些特定字符的组合，组成一个”规则字符串”，这个”规则字符串”用来表达对字符串的一种过滤逻辑。<br>文章分享关于Ruby中的正则表达式的相关知识与使用。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/13/ruby-regular-expression/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regular/">正则表达式</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-singleton-pattern" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/singleton-pattern/">单例模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/04/13/singleton-pattern/" class="article-date">
-  <time datetime="2016-04-13T00:23:37.000Z" itemprop="datePublished">2016-04-13</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/construct/">架构</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/13/singleton-pattern/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-design-pattern-introduction" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/design-pattern-introduction/">设计模式 - 概述</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/04/12/design-pattern-introduction/" class="article-date">
-  <time datetime="2016-04-12T00:08:59.000Z" itemprop="datePublished">2016-04-12</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/construct/">架构</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>摘要：设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/12/design-pattern-introduction/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">碎碎念</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
 
       </footer>
     
