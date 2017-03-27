@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-03-26T14:56:04.000Z</updated>
+  <updated>2017-03-27T14:28:36.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -16,43 +16,175 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>说说那些iOS笔试题（下篇）</title>
+    <link href="http://charsdavy.github.io/2017/03/27/ios-written-examination/"/>
+    <id>http://charsdavy.github.io/2017/03/27/ios-written-examination/</id>
+    <published>2017-03-27T13:54:27.000Z</published>
+    <updated>2017-03-27T14:28:36.000Z</updated>
+    
+    <content type="html">&lt;p&gt;今天整理微信公众号时突然发现了点有用的东西，分享出来大家一起看看。不过，笔者翻翻之前的博客，发现在刚转行之后就已经写好了上篇，并已经发布。不知道是什么原因，笔者一直没能想起来。正好，今天把下篇放上来。需要看上篇的小伙伴们请：&lt;a href=&quot;https://chardavy.github.io/2016/03/18/ios-test-in-writing/&quot;&gt;说说那些iOS笔试题（上篇）&lt;/a&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;答案仅供参考，如有异议或者错误，请指正。&lt;/p&gt;
+&lt;p&gt;1、链表不具备的特点是（）&lt;/p&gt;
+&lt;p&gt;A. 可随机访问任何一个元素&lt;/p&gt;
+&lt;p&gt;B. 插入，删除操作不需要移动元素&lt;/p&gt;
+&lt;p&gt;C. 无需事先估计存储空间大小&lt;/p&gt;
+&lt;p&gt;D. 所欲存储空间可以是不连续的&lt;/p&gt;
+&lt;p&gt;参考答案： （A）&lt;br&gt;链表不同于数组。链表之所有叫链表，就是像一条链一样，要过到某个节点处，就得遍历着找；而数组才具备随机访问任何一个元素的能力，数组可以通过索引直接访问元素，时间复杂度为常量，效率非常高，因此在某些场合上，我们需要数组这样的数据结构。&lt;/p&gt;
+&lt;p&gt;B. 链表的插入、删除都不需要移动元素，只需要修改指针的指向就可以了，因为链表上的每个节点都是动态分配的，分配在堆上，通过指针来指向每个节点的内存区，要获取某个节点的值，是需要遍历一遍才能找到对应的节点的。&lt;/p&gt;
+&lt;p&gt;C. 因为链表上的每个节点是分配在堆上，需要开发人员手动申请内存空间的，因此不像数组在定义时就要指定存储空间大小。对于链表，需要增加一个节点时，直接在堆上申请。当需要删除某个节点时，可以直接将该节点的内存给释放掉。&lt;/p&gt;
+&lt;p&gt;D. 因为链接中的节点都是存储在堆上的，而每个节点之间都有一个指向前一个节点和后一个节点的指针，只要知道链表头指针，就可以通过遍历查找到任何一个节点。因此，链表不同于数组，数组是要连续的内存存储空间，才能保证以常量时间复杂度快速访问任意元素；而链表不要求每个节点是连接，在堆上申请的内存空间很难得到连续的，而且空间产生内存碎片。&lt;/p&gt;
+&lt;p&gt;2、关于多线程和多进程编程，下面描述正确的是（）&lt;/p&gt;
+&lt;p&gt;A. 多进程里，子进程可获取父进程的所有堆和栈的数据；而线程会与同进程的其他线程共享数据，拥有自己的栈空间。&lt;/p&gt;
+&lt;p&gt;B. 线程因为有自己的独立栈空间且共享数据，所有执行的开销相对较大，同时不利于资源管理和保护。&lt;/p&gt;
+&lt;p&gt;C. 线程的通信速度更快，切换更快，因为他们在同一地址空间内。&lt;/p&gt;
+&lt;p&gt;D. 线程使用公共变量/内存时需要使用同步机制，因为他们在同一地址空间内。&lt;/p&gt;
+&lt;p&gt;3、设两个变量a=19;b=29;在不创建新实例的情况下使a、b的值互换？&lt;/p&gt;
+&lt;p&gt;参考答案：&lt;/p&gt;
+&lt;p&gt;这道题要求不创建新的实例，只有a、b两个变量，要交换这两个变量的值，通常的做法是使用临时变量来临时存储，但是现在要求不使用新的实例，那么有什么办法呢？&lt;/p&gt;
+&lt;p&gt;方法就是通过位运算来操作：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;a = a ^ b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;b = a ^ b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a = a ^ b;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;对于题目中的a = 19，也就是对应二进制00010011；而b=29，也就是对应二进制00011101&lt;/p&gt;
+&lt;p&gt;第一步：a = 00010011 ^ 00011101 =&amp;gt; 00001110，将a、b的值都记录下来了&lt;/p&gt;
+&lt;p&gt;第二步：b = 00001110 ^ 00011101 =&amp;gt; 00010011（值为19，也就是b得到了原来的a的值）&lt;/p&gt;
+&lt;p&gt;第三步：a = 00001110 ^ 00010011 =&amp;gt; 00011101 (值为29，也就是a得到了原来的b的值)&lt;/p&gt;
+&lt;p&gt;注意，符号表示按位异或。所谓按位异或是指对应位置上的二进制数值相同为0，不同为1。&lt;/p&gt;
+&lt;p&gt;4、使用block时什么情况会发生引用循环，如何解决？&lt;/p&gt;
+&lt;p&gt;参考答案：&lt;a href=&quot;http://www.henishuo.com/ios-block-memory-cycle&quot;&gt;http://www.henishuo.com/ios-block-memory-cycle&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;5、为什么要序列化，对象序列化方式？&lt;/p&gt;
+&lt;p&gt;参考答案：&lt;/p&gt;
+&lt;p&gt;将对象JSON序列化： &lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@&amp;quot;%s&amp;quot;, __FUNCTION__);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSDictionary *dict = @&amp;#123;@&amp;quot;key&amp;quot;  : @&amp;quot;value&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                     @&amp;quot;key1&amp;quot; : @&amp;quot;value1&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                     @&amp;quot;key2&amp;quot; : @&amp;quot;value2&amp;quot;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@&amp;quot;%@&amp;quot;, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;将对象归档：需要遵守NSCoding协议，实现如下方法：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)encodeWithCoder:(NSCoder *)aCoder &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [aCoder encodeObject:self.title forKey:@&amp;quot;title&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;7、简述如何处理UI与耗时操作的通信，有哪些方式及各自的优缺点？&lt;/p&gt;
+&lt;p&gt;参考答案：&lt;/p&gt;
+&lt;p&gt;1）将耗时的计算和IO操作放在子线程去处理，然后到主线程更新UI。优点是采用预加载方式，将耗时操作提前处理。优点是可让UI更流畅；缺点是内存会增多，控制加载逻辑比较复杂。&lt;/p&gt;
+&lt;p&gt;2）采用延迟加载方式，将耗时操作而不立刻使用时，采用延迟加载。优点是界面可提高流畅度；缺点是在需要显示时还需要加载才能显示，需要稍稍等待。&lt;/p&gt;
+&lt;p&gt;8、如何优化一个TableView？&lt;/p&gt;
+&lt;p&gt;参考答案：&lt;/p&gt;
+&lt;p&gt;1）若高度一定，直接使用rowHeight属性而不是使用heightForRowAtIndexPath方法，以减少调用的消耗。若高度是不固定的，heightForRowAtIndexPath所计算的高度应该缓存起来，每次数据源发生变化时，比如删除、插入、更新行都会重新请求所有的高度。若有100个行，就会有调用100次，因为将高度缓存起来是应该的。同理，heightForHeaderInSection、heightForFooterInSection也应该缓存起来。&lt;/p&gt;
+&lt;p&gt;2）不要在tableView:cellForRowAtIndexPath:中做太多的计算和IO操作，比如可以将需要的计算提前计算好、IO操作也提前计算好。它应该直接调用来显示就可以。&lt;/p&gt;
+&lt;p&gt;3）将计算行高的时间提前到从服务器获取数据的时候，计算完了高度一并写回数据库或者通过转型为model，将高度放到模型中。但是，最好将高度缓存起来。若一个model的数据有不同的状态，比如展开与收起状态，应该也将高度都缓存起来。注意使用异步去计算，计算完成后再回到主线程显示。&lt;/p&gt;
+&lt;p&gt;4）在设置显示图片时，不要直接设置UIImageView的contentMode属性自动适应，图片变形会计算transform，压缩时会乘以一个矩阵，消耗性能。对于要求性能较高的app，应该将得到的图片经过处理成UIImageView大小后再呈现。&lt;/p&gt;
+&lt;p&gt;5）不要将视图的opaque属性设置为NO，默认为YES,它表示不透明度。当opque为NO的时候，图层的半透明取决于图片和其本身合成的图层为结果。&lt;/p&gt;
+&lt;p&gt;6）layer添加圆角是比较耗时的，这样会离屏渲染，需要牺牲更多的性能。比如，图片显示有圆角时，可以通过core graphics来生成带圆角的图片等。&lt;/p&gt;
+&lt;p&gt;7）手动绘制cell。绘制cell不建议使用UIView，建议使用CALayer。 UIView的绘制是建立在CoreGraphic上的，其使用的是CPU。CALayer使用的是Core Animation，CPU、GPU都可以使用且由系统自动决定使用哪一个。UIView的绘制，使用的是自下向上的一层一层的绘制，而后渲染。Layer处理的是纹理，利用GPU的 Texture Cache和独立的浮点数计算单元可以加速纹理的处理。&lt;/p&gt;
+&lt;p&gt;8）重用cell。防止重复的绘制，减少渲染次数，可提高性能。&lt;/p&gt;
+&lt;p&gt;9）减少subviews的数量。尽量放在同一层view上显示。&lt;/p&gt;
+&lt;p&gt;10）尽量少动态给cell添加子view。用addView给Cell动态添加View，可以初始化时就添加，然后通过hide来控制是否显示。&lt;/p&gt;
+&lt;p&gt;更多参看：&lt;br&gt;&lt;a href=&quot;http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/&quot;&gt;http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简答题&lt;/p&gt;
+&lt;p&gt;1.假设类SomeClass中声明了一个委托属性delegate，该属性遵守自定义委托协议SomeDelegate，请写出该类和对应委托协议的定义？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@protocol SomeDelegate&amp;lt;NSObject&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@required //必须要实现的方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@optional //可选实现的方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@interface SomeClass&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic, assign)id &amp;lt;SomeDelegate&amp;gt; delegate;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2.简述UITableView的重用机制，并写出实现该机制的关键代码？&lt;/p&gt;
+&lt;p&gt;关键代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&amp;quot;cellId&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (cell == nil) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@&amp;quot;cellId&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;3.简述推送实现步骤？&lt;/p&gt;
+&lt;p&gt;4.定义一个带参宏，返回两个参数中较小的那个？&lt;/p&gt;
+&lt;p&gt;5.strong和weak分别起什么作用？有什么区别？&lt;/p&gt;
+&lt;p&gt;6.执行下面程序后NSLog的输出结果为（  C  ）？&lt;/p&gt;
+&lt;p&gt;A.1，1    B.2，1    C.2，5    D.运行错误&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int a[5] = &amp;#123;1,2,3,4,5&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int *ptr = (int *)(&amp;amp;a+1);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@“%d,%d”, *(a+1), *(ptr-1));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;7.执行下面程序后NSLog的输出结果为（  B  ）？&lt;/p&gt;
+&lt;p&gt;A.a，a1，a1    B.a1，a1，a1    C.a1，a，a    D.a1，a1，a&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int main(int argc, char *argv[])&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSArray *mArray1 = [NSMutableArray arrayWithObjects:[NSMutableString stringWithString:@&amp;quot;a&amp;quot;], @&amp;quot;b&amp;quot;, @&amp;quot;c&amp;quot;, nil];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSArray *mArrayCopy2 = [mArray1 copy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSMutableArray *mArrayMCopy1 = [mArray1 mutableCopy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSMutableString *testString = [mArray1 objectAtIndex:0];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [testString appendString:@&amp;quot;1&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;%@,%@,%@&amp;quot;, [mArray1 objectAtIndex:0],[mArrayCopy2 objectAtIndex:0],[mArrayMCopy1 objectAtIndex:0]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;8.Cocoa中所有的类都是（  NSObject和NSProxy  ）的子类。&lt;/p&gt;
+&lt;p&gt;9.列举几个Cocoa Touch框架？&lt;/p&gt;
+&lt;p&gt;Foundation、UIKit、Core Data&lt;/p&gt;
+&lt;p&gt;10.下面机型屏幕分辨率分别是多少？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iPhone4、4S：960X640&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPhone5、5S、5C：1136X640&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPhone6：375X667&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPhone6 Plus：414X736&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad mini：1024X768&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad mini 2：2048X1536&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad Air：2048X1536&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad Air 2：2048X1536&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;11.Objective-C中的线程类是（   NSThread ），常见方法有哪些（  dispatch_async  ）、（  dispatch_sync  ），处理多线程同步有哪些类（    ）。&lt;/p&gt;
+&lt;p&gt;数据库&lt;/p&gt;
+&lt;p&gt;现有MySQL数据库，分别对下表写出要求的SQL语句，用到实例数据请自行给出即可。&lt;/p&gt;
+&lt;p&gt;表结构如下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字段名&lt;/th&gt;
+&lt;th&gt;类型&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;UserID&lt;/td&gt;
+&lt;td&gt;Integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UserName&lt;/td&gt;
+&lt;td&gt;varchar(20)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Password&lt;/td&gt;
+&lt;td&gt;varchar(20)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;创建表：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CREATE  TABLE `test`.`table_a` (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  `UserID` INT NOT NULL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  `UserName` VARCHAR(20) NULL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  `Password` VARCHAR(20) NULL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  PRIMARY KEY (`UserID`) );&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;增加记录：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;insert into `test`.`table_a` ( `UserName`, `UserID`, `Password`) values ( &amp;apos;cd&amp;apos;, &amp;apos;10&amp;apos;, &amp;apos;123&amp;apos;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;删除记录：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;delete from `test`.`table_a` where `UserID`=’10&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;修改记录：update `test`.`table_a` set `Password`=&amp;apos;12346&amp;apos; where `UserID`=&amp;apos;10&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;编程题&lt;/p&gt;
+&lt;p&gt;1.请通过接口“&lt;a href=&quot;http://someurl/somefunc”获取数据，并在UI上显示。接口入参argu是一个字符串类型的变量，返回值是字典。&quot;&gt;http://someurl/somefunc”获取数据，并在UI上显示。接口入参argu是一个字符串类型的变量，返回值是字典。&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1）使用NSURL相关API实现网络加载类，其中：通过post方法发送请求，建立异步连接；&lt;/p&gt;
+&lt;p&gt;2）报文采用JSON格式；&lt;/p&gt;
+&lt;p&gt;3）多线程采用GCD或NSOperation实现；&lt;/p&gt;
+&lt;p&gt;4）以左边键右边值的格式在界面上显示结果。&lt;/p&gt;
+&lt;p&gt;2.传入数组*array和数组长度length，实现冒泡排序算法。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int *BubbleSort(int *array, int length);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int *BubbleSort(int *array, int length) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0, j = 0, temp = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (NULL == array) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return NULL;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; length; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (j = i; j &amp;lt; length; j++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if (*(array + i) &amp;gt; *(array + j)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                temp = *(array + i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                *(array + i) = *(array + j);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                *(array + j) = temp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return array;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天整理微信公众号时突然发现了点有用的东西，分享出来大家一起看看。不过，笔者翻翻之前的博客，发现在刚转行之后就已经写好了上篇，并已经发布。不知道是什么原因，笔者一直没能想起来。正好，今天把下篇放上来。需要看上篇的小伙伴们请：&lt;a href=&quot;https://chardavy.github.io/2016/03/18/ios-test-in-writing/&quot;&gt;说说那些iOS笔试题（上篇）&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+    
+    
+      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
+    
+  </entry>
+  
+  <entry>
     <title>日语-助词</title>
     <link href="http://charsdavy.github.io/2017/03/26/japanese-auxiliary-word/"/>
     <id>http://charsdavy.github.io/2017/03/26/japanese-auxiliary-word/</id>
     <published>2017-03-26T13:34:16.000Z</published>
-    <updated>2017-03-26T14:56:04.000Z</updated>
+    <updated>2017-03-27T13:48:51.000Z</updated>
     
     <content type="html">&lt;p&gt;助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。&lt;/p&gt;
 &lt;p&gt;日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;へ用法&quot;&gt;&lt;a href=&quot;#へ用法&quot; class=&quot;headerlink&quot; title=&quot;へ用法&quot;&gt;&lt;/a&gt;へ用法&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;作用&lt;/th&gt;
-&lt;th&gt;示例&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;表去向&lt;/td&gt;
-&lt;td&gt;　吉田さんは中国へ行きます。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&quot;か用法&quot;&gt;&lt;a href=&quot;#か用法&quot; class=&quot;headerlink&quot; title=&quot;か用法&quot;&gt;&lt;/a&gt;か用法&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;作用&lt;/th&gt;
-&lt;th&gt;示例&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;表选择，二选一，名词+か+名词&lt;/td&gt;
-&lt;td&gt;　毎月（まいつき）１回か２回映画（えいが）を見ます。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;h2 id=&quot;に用法&quot;&gt;&lt;a href=&quot;#に用法&quot; class=&quot;headerlink&quot; title=&quot;に用法&quot;&gt;&lt;/a&gt;に用法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;表地点，场所名词+に+名词，具体位置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;部屋に机があります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表时间点（包含数字的时间）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;学校は８時半に始まります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表附着点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;温泉に入ります。&lt;/p&gt;
+&lt;p&gt;船に乗ります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表目的&lt;/li&gt;
+&lt;li&gt;表对象，人物对象，抽象事物&lt;/li&gt;
+&lt;li&gt;表频率&lt;/li&gt;
+&lt;li&gt;表目的地&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;へ用法&quot;&gt;&lt;a href=&quot;#へ用法&quot; class=&quot;headerlink&quot; title=&quot;へ用法&quot;&gt;&lt;/a&gt;へ用法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;表去向&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;吉田さんは中国へ行きます。&lt;/p&gt;
+&lt;h2 id=&quot;か用法&quot;&gt;&lt;a href=&quot;#か用法&quot; class=&quot;headerlink&quot; title=&quot;か用法&quot;&gt;&lt;/a&gt;か用法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;表选择，二选一，名词+か+名词&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;毎月（まいつき）１回か２回映画（えいが）を見ます。&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -62,7 +194,7 @@
     
     </summary>
     
-      <category term="爱好" scheme="http://charsdavy.github.io/categories/hobby/"/>
+      <category term="兴趣" scheme="http://charsdavy.github.io/categories/hobby/"/>
     
     
       <category term="日语" scheme="http://charsdavy.github.io/tags/Japanese/"/>
@@ -223,7 +355,7 @@
     <link href="http://charsdavy.github.io/2017/02/26/japanese-verb/"/>
     <id>http://charsdavy.github.io/2017/02/26/japanese-verb/</id>
     <published>2017-02-26T13:33:06.000Z</published>
-    <updated>2017-03-26T14:48:42.000Z</updated>
+    <updated>2017-03-27T13:48:51.000Z</updated>
     
     <content type="html">&lt;p&gt;动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。&lt;br&gt;&amp;lt;比如&amp;gt; 突跃,突击,突袭等描述动作过程均属动词。&lt;br&gt;中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。&lt;/p&gt;
 &lt;p&gt;日语中动词主要分为3大类，称为一类动词，二类动词和三类动词（简称，动1，动2和动3），而三类动词中又可以分为2类，即カ变和サ变动词。&lt;/p&gt;
@@ -268,7 +400,7 @@
     
     </summary>
     
-      <category term="爱好" scheme="http://charsdavy.github.io/categories/hobby/"/>
+      <category term="兴趣" scheme="http://charsdavy.github.io/categories/hobby/"/>
     
     
       <category term="日语" scheme="http://charsdavy.github.io/tags/Japanese/"/>
@@ -647,7 +779,7 @@
     <link href="http://charsdavy.github.io/2016/12/26/japanese-adjective/"/>
     <id>http://charsdavy.github.io/2016/12/26/japanese-adjective/</id>
     <published>2016-12-26T13:33:38.000Z</published>
-    <updated>2017-03-27T00:26:41.000Z</updated>
+    <updated>2017-03-27T13:48:51.000Z</updated>
     
     <content type="html">&lt;p&gt;形容词（Adjective），很多语言中均有的主要词类中的一种。形容词主要用来描写或修饰名词或代词，表示人或事物的性质、 状态、特征&lt;br&gt;或属性，常用作定语，也可作表语、补语或状语。&lt;/p&gt;
 &lt;p&gt;日语中的形容词分为两大类，称为一类形容词和二类形容词（简称，形1和形2）。形容词所表示的事物的属性，一般具有静止的、固定的、永恒的特点。&lt;/p&gt;
@@ -822,7 +954,7 @@
     
     </summary>
     
-      <category term="爱好" scheme="http://charsdavy.github.io/categories/hobby/"/>
+      <category term="兴趣" scheme="http://charsdavy.github.io/categories/hobby/"/>
     
     
       <category term="日语" scheme="http://charsdavy.github.io/tags/Japanese/"/>
@@ -1965,52 +2097,6 @@
     
     
       <category term="Animation" scheme="http://charsdavy.github.io/tags/Animation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac OS 开发 (一) 准备工作</title>
-    <link href="http://charsdavy.github.io/2016/08/12/mac-os-develop-prepare/"/>
-    <id>http://charsdavy.github.io/2016/08/12/mac-os-develop-prepare/</id>
-    <published>2016-08-12T00:00:05.000Z</published>
-    <updated>2017-01-02T06:08:27.000Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;
-&lt;p&gt;程序猿，一个另类的物种。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;其实很多时候，懒懒的程序猿因为自己的需要，或者是因为使用别人的工具并不满意，而催发出自己解决问题的想法。这个 Mac OS 开发系列，就是因为博主自己写博客是需要上传图片，而目前的 App 并不满意的情况下，决心自己学习，自己开发出喜欢的 App 而诞生的。&lt;/p&gt;
-&lt;p&gt;本文章为该系列开篇，循序渐进，从基础开始。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;Mac&quot;&gt;&lt;a href=&quot;#Mac&quot; class=&quot;headerlink&quot; title=&quot;Mac&quot;&gt;&lt;/a&gt;Mac&lt;/h1&gt;&lt;p&gt;这是开发的基础，至于是 Mac Book Pro，还是iMac，或者Mac mini 就随个人喜欢和实际状况。总之，不建议使用黑苹果。&lt;/p&gt;
-&lt;h1 id=&quot;Xcode&quot;&gt;&lt;a href=&quot;#Xcode&quot; class=&quot;headerlink&quot; title=&quot;Xcode&quot;&gt;&lt;/a&gt;Xcode&lt;/h1&gt;&lt;p&gt;这是毫无置疑的开发工具，具体如何使用，Google 一大把，这里就不再详说，以后若是博主自己写了相关内容，会后续放上链接跳转。&lt;/p&gt;
-&lt;h1 id=&quot;创建&quot;&gt;&lt;a href=&quot;#创建&quot; class=&quot;headerlink&quot; title=&quot;创建&quot;&gt;&lt;/a&gt;创建&lt;/h1&gt;&lt;p&gt;启动Xcode，选择Create a new Xcode project，(非首次运行Xcode，从菜单File-New-&amp;gt;Project) 进入工程模版选择界面，选择OSX-&amp;gt;Application-&amp;gt;Cocoa Application&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h1&gt;&lt;h2 id=&quot;info-plist&quot;&gt;&lt;a href=&quot;#info-plist&quot; class=&quot;headerlink&quot; title=&quot;info.plist&quot;&gt;&lt;/a&gt;info.plist&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Application is agent(UIElement)&lt;/code&gt; 字段可以控制App的MainMenu是否显示，Logo在Dock是否显示。&lt;/p&gt;
-&lt;h2 id=&quot;Capabilities&quot;&gt;&lt;a href=&quot;#Capabilities&quot; class=&quot;headerlink&quot; title=&quot;Capabilities&quot;&gt;&lt;/a&gt;Capabilities&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这里我们重点关注下App Sandbox，Apple现在要求上架Mac AppStore的应用必须使用沙盒，所以发布到Mac商店的应用你必须选择打开。&lt;/p&gt;
-&lt;p&gt;如果你的应用要访问服务器的API接口，必须打开Outgoing Connections。&lt;/p&gt;
-&lt;p&gt;Hardware里面必须选择打开Printing，否则审核不通过。&lt;/p&gt;
-&lt;p&gt;File Accedd:如果你需要让用户选择访问本地的文件，User Selected File 中选择读/写权限。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/mac-os-develop-prepare-4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;程序猿，一个另类的物种。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;其实很多时候，懒懒的程序猿因为自己的需要，或者是因为使用别人的工具并不满意，而催发出自己解决问题的想法。这个 Mac OS 开发系列，就是因为博主自己写博客是需要上传图片，而目前的 App 并不满意的情况下，决心自己学习，自己开发出喜欢的 App 而诞生的。&lt;/p&gt;
-&lt;p&gt;本文章为该系列开篇，循序渐进，从基础开始。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="OS" scheme="http://charsdavy.github.io/categories/OS/"/>
-    
-    
-      <category term="Mac" scheme="http://charsdavy.github.io/tags/Mac/"/>
-    
-      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
   </entry>
   
