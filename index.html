@@ -77,6 +77,65 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-objc-NSPredicate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/objc-NSPredicate/">Objective-C中的NSPredicate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/03/28/objc-NSPredicate/" class="article-date">
+  <time datetime="2017-03-27T23:51:52.000Z" itemprop="datePublished">2017-03-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>编写软件时，经常需要获取一个对象集合，并通过某些已经条件计算该集合的值。你需要保留符合某个条件的对象，删除那些不满足条件的对象，从而提供一些有意义的对象。</p>
+<p>在使用软件iPhoto的过程中，经常会看到这种现象，如果通知iPhoto仅显示等级为三星级或三星级以上的图片，则指定的条件为“照片的等级必须为三星级或三星级以上”。这样，所有照片都需要经过该过滤器过滤。满足条件的对象通过了过滤器，而其他对象被筛除了。最后，iPhoto将显示出所有高质量的图片。</p>
+<p>Cocoa提供了一个名为NSPredicate的类，它用于指定过滤器的条件。可以创建NSPredicate对象，通过该对象准确地描述所需的条件，对每个对象通过谓词进行筛选，判断它们是否与条件相匹配。这里的“谓词”通常用在数学和计算机科学概念中，表示计算真值或假值的函数。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/03/28/objc-NSPredicate/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
       <article id="post-ios-written-examination" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1781,68 +1840,6 @@ ga('send', 'pageview');
       <footer class="article-footer">
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-core-animation-vision-effect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/01/core-animation-vision-effect/">(转载) Core Animation (四) 视觉效果</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/08/01/core-animation-vision-effect/" class="article-date">
-  <time datetime="2016-07-31T23:53:40.000Z" itemprop="datePublished">2016-08-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>嗯，圆和椭圆还不错，但如果是带圆角的矩形呢？</p>
-<p>我们现在能做到那样了么？</p>
-<p>史蒂芬·乔布斯</p>
-</blockquote>
-<p>我们在第三章<a href="http://charsdavy.github.io/2016/07/30/core-animation-geometry-layer/">『图层几何学』</a>中讨论了图层的frame，第二章<a href="http://charsdavy.github.io/2016/07/29/core-aniamtion-host-layer/">『寄宿图』</a>则讨论了图层的寄宿图。但是图层不仅仅可以是图片或是颜色的容器；还有一系列内建的特性使得创造美丽优雅的令人深刻的界面元素成为可能。在这一章，我们将会探索一些能够通过使用CALayer属性实现的视觉效果。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/08/01/core-animation-vision-effect/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
 
       </footer>
     
