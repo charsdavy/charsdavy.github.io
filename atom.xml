@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-03-27T23:57:31.000Z</updated>
+  <updated>2017-03-28T00:23:27.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -14,6 +14,313 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS的那些面试</title>
+    <link href="http://charsdavy.github.io/2017/03/28/ios-interview/"/>
+    <id>http://charsdavy.github.io/2017/03/28/ios-interview/</id>
+    <published>2017-03-28T00:01:18.000Z</published>
+    <updated>2017-03-28T00:23:27.000Z</updated>
+    
+    <content type="html">&lt;p&gt;笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;第一部分&quot;&gt;&lt;a href=&quot;#第一部分&quot; class=&quot;headerlink&quot; title=&quot;第一部分&quot;&gt;&lt;/a&gt;第一部分&lt;/h2&gt;&lt;p&gt;1.Objective-C语言的基本特点？&lt;/p&gt;
+&lt;p&gt;Objective-C语言是C语言的一个超集，只是在C的基础之上添加了面向对象（OO）的特性；Objective-C与Java语言相同都是单继承，这一点与C++语言不同（多重继承），这一点可以参看之前有关讲解继承的文章；Objective-C不支持命名空间，取而代之的是在类名之前添加前缀，以此来区分。&lt;/p&gt;
+&lt;p&gt;2.#include与#import的区别，#import与@class的区别？&lt;/p&gt;
+&lt;p&gt;1）#include和#import效果相同，只是后者不会引起交叉编译，确保头文件只会被导入一次。&lt;/p&gt;
+&lt;p&gt;2）#import会包含这个类的所有信息，包括实体变量和方法，而@class只是告诉编译器，其后面声明的名称是类的名称，至于这些类是如何定义的，暂时不用考虑，后面会再告诉你。使用#import编译效率高，防止相互包含的编译错误。&lt;/p&gt;
+&lt;p&gt;3.简述类目优缺点，如果覆盖本类或者父类的方法会出现什么问题？&lt;/p&gt;
+&lt;p&gt;优点：不需要通过增加子类而增加现有类的行为（方法），且类目中的方法与原始类方法基本没有区别。&lt;/p&gt;
+&lt;p&gt;缺点：无法向类目添加实例变量。覆盖原始类方法后，原始类的方法没办法调用。&lt;/p&gt;
+&lt;p&gt;4.简述内存管理基本原则？&lt;/p&gt;
+&lt;p&gt;如果使用alloc、copy（mutableCopy）或者retain一个对象时，你就有义务向它发送一条release或autorelease消息。其他方法创建的对象，不需要由你来管理内存。&lt;/p&gt;
+&lt;p&gt;5.什么是ARC技术？与GC是否相同？&lt;/p&gt;
+&lt;p&gt;ARC是Automatic Reference Counting的简称，我们称之为自动引用计数，是iOS5.0之后推出的内存管理的新特性。本质上还是使用引用计数来管理对象，只是我们在编写代码时，不需要向对象发送release或autorelease方法，也不可以调用dealloc方法，编译器会在合适的位置自动给用户生成release（autorelease）消息。GC是Garbage Collection，内存垃圾回收机制，ARC比GC性能好。&lt;/p&gt;
+&lt;p&gt;6.iOS中是否支持垃圾回收机制？&lt;/p&gt;
+&lt;p&gt;iOS开发只支持MRC与ARC，Mac开发支持GC垃圾回收机制，10.8之后弃用了GC，推荐使用ARC。&lt;/p&gt;
+&lt;p&gt;7.深、浅复制的基本概念以及区别？&lt;/p&gt;
+&lt;p&gt;浅复制：只复制对象本身，不对里面的属性复制。&lt;/p&gt;
+&lt;p&gt;深复制：不仅复制对象本身，对象持有的属性对象也做复制。&lt;/p&gt;
+&lt;p&gt;8.内存中的堆区和栈区的差别？&lt;/p&gt;
+&lt;p&gt;栈区（stack）由编译器自动分配释放，存放方法（函数）的参数值，局部变量的值等。&lt;/p&gt;
+&lt;p&gt;堆区（heap）一般由程序员分配与释放，若程序员不释放，则会内存溢出。&lt;/p&gt;
+&lt;p&gt;9.用户自定义了一个对象，如何实现拷贝（可变和不可变拷贝）？&lt;/p&gt;
+&lt;p&gt;必须实现copying和mutableCopying协议，表示返回一个不可变和可变的对象。否则，程序将会出现异常。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(id)copyWithZone:(NSZone *)zone &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	Person *person = [[self Class] allocWithZone:zone];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	person-&amp;gt;age = self.age;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	person-&amp;gt;name = self.name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return person;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(id)mutableCopyWithZone:(NSZone *)zone;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;10.定义属性时，什么时候用assign、retain、copy和nonatomic？&lt;/p&gt;
+&lt;p&gt;assign：普通赋值，一般常用于基本数据类型，常见委托设计模式，以此来防止循环引用。&lt;/p&gt;
+&lt;p&gt;retain：保留计数，获得了对象的所有权。引用计数在原有基础上加1。&lt;/p&gt;
+&lt;p&gt;copy：用来复制对象，一般字符串使用，Foundation中的不可变对象使用，效果相当于retain，只是引用计数加1。&lt;/p&gt;
+&lt;p&gt;nonatomic：非原子性访问，不加同步，多线程并发访问会提高性能。&lt;/p&gt;
+&lt;p&gt;11.strong和weak，_unsafe_unretained与weak的区别？&lt;/p&gt;
+&lt;p&gt;strong：强引用，在ARC中告诉编译器帮助我们自动插入retain。&lt;/p&gt;
+&lt;p&gt;weak：弱引用，是普通赋值，相当于手动管理内存的assign。&lt;/p&gt;
+&lt;p&gt;_unsafe_unretained：与weak功能一致，区别在于当指向的对象销毁后，weak会将变量置为nil，防止调用野指针。&lt;/p&gt;
+&lt;p&gt;12.ARC存在内存泄露吗？&lt;/p&gt;
+&lt;p&gt;ARC中如果内存管理不当的话，同样会存在内存泄露。例如，ARC中也会循环引用导致内存泄露；Objective-C对象与CoreFoundation类之间桥接时，管理不当也会产生内存泄露。&lt;/p&gt;
+&lt;p&gt;13.当我们释放对象时，为什么需要调用[super dealloc]方法？&lt;/p&gt;
+&lt;p&gt;子类是继承自父类，那么子类中有一些实例变量（对象），是继承自父类的，因此，我们需要调用父类方法，将父类所拥有的实例进行释放。&lt;/p&gt;
+&lt;p&gt;14.自动释放池是什么，如何工作？&lt;/p&gt;
+&lt;p&gt;自动释放池是NSAutorelease类的一个实例，当向一个对象发送autorelease消息时，该对象会自动入池，待池销毁时，将会向池中所有对象发送一条release消息，释放对象。&lt;/p&gt;
+&lt;p&gt;15.为什么delegate（代理）属性都是assign而不是retain的？&lt;/p&gt;
+&lt;p&gt;防止循环引用，以至对象无法得到正确的释放。&lt;/p&gt;
+&lt;h2 id=&quot;第二部分&quot;&gt;&lt;a href=&quot;#第二部分&quot; class=&quot;headerlink&quot; title=&quot;第二部分&quot;&gt;&lt;/a&gt;第二部分&lt;/h2&gt;&lt;p&gt;1.iOS开发中数据持久性有哪几种？&lt;/p&gt;
+&lt;p&gt;plist文件写入，对象归档，sqlite3数据库，CoreData。&lt;/p&gt;
+&lt;p&gt;2.什么是KVC和KVO？它们之间的关系是什么？&lt;/p&gt;
+&lt;p&gt;KVC：键值编码，是一种间接访问对象实例变量的机制，该机制可以不通过存取方法就可以访问对象的实例变量。&lt;/p&gt;
+&lt;p&gt;KVO：键值观察，是一种能使得对象获取到其他对象属性变化的通知机制。&lt;br&gt;实现KVO键值观察模式，被观察的对象必须使用KVC键值编码来修改它的实例变量，这样才能被观察者观察到。因此，KVC是KVO的基础或者说KVO的实现是建立在KVC的基础之上的。&lt;/p&gt;
+&lt;p&gt;3.简述常见的设计模式？&lt;/p&gt;
+&lt;p&gt;单例模式、代理设计、观察者（通知）、工厂方法、模板方法。&lt;/p&gt;
+&lt;p&gt;4.内存管理在dealloc方法中用release方法与self.xx=nil哪个好？&lt;/p&gt;
+&lt;p&gt;使用self.xx=nil更好，因为先调用了release方法，而且还将变量设置为nil，这样就更安全的释放对象，防止野指针调用。&lt;/p&gt;
+&lt;p&gt;5.线程与进程的区别和联系？&lt;/p&gt;
+&lt;p&gt;一般的应用程序是单个进程，也有多进程（Chrome），进程是个静态的容器，里面容纳了很多个线程，线程是一系列方法的线性执行路径。&lt;/p&gt;
+&lt;p&gt;6.Objective-C语言的优缺点？&lt;/p&gt;
+&lt;p&gt;优点：类目、动态识别、支持C语言、Objective-C与C++可以混编。&lt;/p&gt;
+&lt;p&gt;缺点：不支持命名空间、不支持运算符重载、不支持多重继承。&lt;/p&gt;
+&lt;p&gt;7.代理delegate、通知Notification与block的使用区别？&lt;/p&gt;
+&lt;p&gt;delegate和block一般是用于两个对象一对一之间的通信交互，delegate需要定义协议方法，代理对象实现协议方法，并且需要建立代理关系才可以实现通信。block更加简洁，不需要定义繁琐的协议方法，但是如果通信事件比较多的话，建议使用delegate。&lt;br&gt;Notification主要用于一对多情况下通信，而且，通信对象之间不需要建立关系，但是使用通知，代码可读性差。&lt;/p&gt;
+&lt;p&gt;8.控制器ViewController的loadView、viewDidLoad、viewWillApear和viewDidUnload分别是在什么时候调用？&lt;/p&gt;
+&lt;p&gt;loadView：当控制器的根视图view为空，且此view被访问时调用。&lt;/p&gt;
+&lt;p&gt;viewDidLoad：loadView调用之后被调用。&lt;/p&gt;
+&lt;p&gt;viewWillApear：当控制器根视图view被添加到父视图上时调用。&lt;/p&gt;
+&lt;p&gt;viewDidUnload：iOS6.0之前，当内存警告时，先卸载视图，再调用&lt;br&gt;viewDidUnload来释放内存。&lt;/p&gt;
+&lt;p&gt;9.@synthesize和@dynamic的区别？&lt;/p&gt;
+&lt;p&gt;@synthesize：系统自动生成getter和setter属性声明。&lt;/p&gt;
+&lt;p&gt;@dynamic：告诉编译器，属性的获取与赋值方法由用户自己实现，不自动生成。&lt;/p&gt;
+&lt;p&gt;10.事件响应者链的概念？&lt;/p&gt;
+&lt;p&gt;响应者链表示一系列的响应者对象。事件被交由第一响应者对象处理，如果第一响应者不处理，事件被沿着响应者链向上传递，交给下一个响应者。一般来说，第一响应者是个视图对象或者其子类对象，当其被触摸后事件交由它处理，如果它不处理，事件会被传递给它的视图控制器对象（如果存在），然后是它的父视图对象（如果存在），以此类推，直到顶层视图。接下来会沿着顶层视图到窗口（UIWindow对象），再到程序（UIApplication对象）。如果整个过程都没有响应这个事件，该事件被丢弃。一般情况下，在响应者链中只要有对象处理事件，事件就停止传递。但有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。&lt;/p&gt;
+&lt;p&gt;11.C语言中的static变量和static函数有什么作用？&lt;/p&gt;
+&lt;p&gt;1）表示变量是静态存储变量，表示变量存放在静态存储区。&lt;/p&gt;
+&lt;p&gt;2）加在函数前面的时候表示该函数是内部连接，只在本文件中有效，别的文件中不能使用该函数。&lt;/p&gt;
+&lt;p&gt;12.指针题&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1）int a; //一个数值。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2）int *a; //一个指向数值的指针。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3）int **a; //一个指向指针的指针。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4）int a[10]; //一个有10个指针的数组，该指针是指向一个整型数的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5）int *a[10]; //一个有10个指针的数组，该指针是指向一个整型数的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6）int (*a)[10]; //一个指向有10个整型数数组的指针。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7）int (*a)(int); //一个指向函数的指针，该函数有一个整型参数并返回一个整型数。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8）int (*a[10])(int); //一个有10个指针的数组，该指针指向一个函数，该函数有一个整型参数并返回一个整型数。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;13.写一个NSString类的实现？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;+(id)initWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	NSString *obj;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	obj = [self allocWithZone:NSDefaultMallocZone()];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	obj = [obj initWithCString:nullTerminatedCString encoding:encoding];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return autorelease(obj);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;14.Objective-C与C如何混用？Objective-C与C++如何混用？&lt;/p&gt;
+&lt;p&gt;实现文件的扩展名.m改成.mm即可，但cpp文件必须只能使用C/C++代码，而且cpp文件include的头文件中，也不能出现Objective-C的代码，因为cpp只能写C++的代码。&lt;/p&gt;
+&lt;p&gt;15.Objective-C中有私有方法和私有变量吗？&lt;/p&gt;
+&lt;p&gt;使用private修饰的全局变量是私有的变量。&lt;/p&gt;
+&lt;p&gt;Objective-C在语法上没有设计私有的方法，不过可以通过延展在实现文件里定义方法作为私有的方法。但不是真正意义上的私有方法，也是可以调用的，只是外部不可见而已。&lt;/p&gt;
+&lt;h2 id=&quot;第三部分&quot;&gt;&lt;a href=&quot;#第三部分&quot; class=&quot;headerlink&quot; title=&quot;第三部分&quot;&gt;&lt;/a&gt;第三部分&lt;/h2&gt;&lt;p&gt;1.下面关键字const有什么含义？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;const int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int const a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;const int *a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int * const a;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;前两个的作用是一样的，a是一个常整型数。&lt;/p&gt;
+&lt;p&gt;第三个意味着a是一个指向常整型数的指针（即整型数是不可修改的，但指针可以）。&lt;/p&gt;
+&lt;p&gt;第四个意味着a是一个指向整型数的常指针（即指针指向的整型数是可以修改的，但指针是不可修改的）。&lt;/p&gt;
+&lt;p&gt;2.C语言中extern的作用，extern “C”的作用？&lt;/p&gt;
+&lt;p&gt;1）extern可以置于变量或者函数前，以标示变量或函数的定义在别的文件中，提示编译器遇到此变量和函数时在其他模块中寻找其定义。&lt;/p&gt;
+&lt;p&gt;2）C++语言在编译的时候为了解决函数的多态问题，会将函数名和参数联合起来生成一个中间的函数名称，而C语言则不会，因此会造成链接时找不到对应函数的情况，此时C函数就需要用extern “C”进行链接指定，这告诉编译器，请保持我的名称，不要给我生成用于链接的中间函数名。&lt;/p&gt;
+&lt;p&gt;3.Objective-C是如何管理内存的？&lt;/p&gt;
+&lt;p&gt;Objective-C语言是使用引用计数来管理一个对象的生命周期，当对象被其他“人”使用的时候引用计数加1，不使用时减1，当此对象的引用计数为0时，则对象被系统回收。&lt;/p&gt;
+&lt;p&gt;4.什么是动态绑定（多态）？&lt;/p&gt;
+&lt;p&gt;动态绑定是面向对象特性之一多态的体现，声明一个变量，在运行的时候可以绑定不同的对象，比如在方法的参数中声明这样一个变量UIView *view，运行的时候，我们可以根据不同的应用场景给view变量传入不同的对象，可以传递一个UIButton对象，也可以传入UIImageView对象。&lt;/p&gt;
+&lt;p&gt;5.如何理解delegate？&lt;/p&gt;
+&lt;p&gt;delegate，又称为委托或代理，它是一种设计模式。delegate主要用于两个对象之间的通信交互，并且解除两个通信对象的耦合性，iOS中大量使用了delegate设计，主要用于视图与使用对象之间的通信交互。&lt;/p&gt;
+&lt;p&gt;6.block与函数有何异同？block有何优点？&lt;/p&gt;
+&lt;p&gt;1）block类似于C里面的函数指针，都可以作为参数进行传递，用于回调。但是block的实现可以定义在方法中，函数则不可以。&lt;/p&gt;
+&lt;p&gt;2）block语法简洁，可以在方法中定义实现，这样可以访问方法中的局部变量，使代码更加的紧凑，结构化。&lt;/p&gt;
+&lt;p&gt;7.为什么标准头文件都有类似以下的结构？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#ifndef __INCvxWorksh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __INCvxWorksh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#ifdef __cplusplus&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;extern &amp;quot;C&amp;quot; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#endif&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*...*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#ifdef __cplusplus&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#endif&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#endif /*__INCvxWorksh*/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;显然，头文件中的编译宏“#ifndef &lt;strong&gt;INCvxWorksh、#define &lt;/strong&gt;INCvxWorksh、#endif”的作用是防止该头文件被重复引用。&lt;/p&gt;
+&lt;p&gt;8.CocoaTouch框架？&lt;/p&gt;
+&lt;p&gt;UIKit、Foundation、CoreGraphic、CoreAnimation&lt;/p&gt;
+&lt;p&gt;1）音频和视频：Core Audio、OpenAL、Media Library、AV Foundation&lt;/p&gt;
+&lt;p&gt;2）数据管理：Core Data、SQLite&lt;/p&gt;
+&lt;p&gt;3）图形和动画：Core Animation、OpenGL ES、Quartz 2D、Core Graphic&lt;/p&gt;
+&lt;p&gt;4）用户应用：Address Book、Core Location、Map Kit、Store Kit&lt;/p&gt;
+&lt;p&gt;9.栈结构与队列的区别？&lt;/p&gt;
+&lt;p&gt;栈（stack）：限定只能在表的一端进行插入和删除操作的线性表。&lt;/p&gt;
+&lt;p&gt;队列（queue）：限定只能在表的一端插入和在另一端进行删除操作的线性表。&lt;/p&gt;
+&lt;p&gt;1）队列先进先出，栈先进后出。&lt;/p&gt;
+&lt;p&gt;2）对插入和删除操作的“限定”不同。&lt;/p&gt;
+&lt;p&gt;3）遍历数据速度不同。队列遍历数据的速度要快得多。&lt;/p&gt;
+&lt;p&gt;10.Objective-C中有无多重继承？如何实现多重继承？&lt;/p&gt;
+&lt;p&gt;Objective-C是没有多重继承的。&lt;/p&gt;
+&lt;p&gt;Cocoa中所有的类都是NSObject的子类，多继承在这里是用protocol委托代理来实现的。&lt;/p&gt;
+&lt;p&gt;面向对象语言大部分都是单继承，例如：Java、C#。&lt;/p&gt;
+&lt;p&gt;C++支持多继承。&lt;/p&gt;
+&lt;p&gt;11.static全局变量与普通的全局变量的区别？局部变量呢？函数呢？&lt;/p&gt;
+&lt;p&gt;1）static全局变量与普通全局变量的区别：static全局变量只初始化一次，防止在其他文件单元中被引用。&lt;/p&gt;
+&lt;p&gt;2）static局部变量与普通局部变量的区别：static局部变量只被初始化一次，下一次依据上一次结果值。&lt;/p&gt;
+&lt;p&gt;3）static函数与普通函数的区别：static函数在内存中只有一份，普通函数在每个被调用中维持一份拷贝。&lt;/p&gt;
+&lt;p&gt;12.什么是类目与延展？&lt;/p&gt;
+&lt;p&gt;类目：为已知的类增加新的方法。&lt;/p&gt;
+&lt;p&gt;延展：通知在本类的定义里使用类目来声明私有方法。&lt;/p&gt;
+&lt;p&gt;13.Objective-C中的协议和Java中的接口区别？&lt;/p&gt;
+&lt;p&gt;协议定义的方法，可以设置可选实现和必须实现。&lt;/p&gt;
+&lt;p&gt;接口则是必须全部实现。&lt;/p&gt;
+&lt;p&gt;14.在一个对象的方法里self.name=”object”和name=”object”有什么不同？&lt;/p&gt;
+&lt;p&gt;前者调用的是设置器方法，后者是普通赋值。&lt;/p&gt;
+&lt;p&gt;15.单例设计模式的实现？为什么使用单例设计？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static File *instance = nil;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@implementation File&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//获取单例的方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+(id)shareInstance &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@synthesize (self) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(instance == nil) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			instance = [[File alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return instance;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//覆写allocWithZone、copyWithZone、retain、release和autorelease方法，目的是限制这个类只创建一个对象&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;为什么使用单例设计？&lt;/p&gt;
+&lt;p&gt;1）单例设计是用来限制一个类只能创建一个对象，那么此对象中的属性可以存储全局共享的数据，所有的类都可以访问、设置此单例对象中的属性数据。&lt;/p&gt;
+&lt;p&gt;2）如果一个类创建的时候非常的耗费性能，那么此类如果能满足要求，可以设置为单例节约性能。&lt;/p&gt;
+&lt;h2 id=&quot;第四部分&quot;&gt;&lt;a href=&quot;#第四部分&quot; class=&quot;headerlink&quot; title=&quot;第四部分&quot;&gt;&lt;/a&gt;第四部分&lt;/h2&gt;&lt;p&gt;1.层CALayer和UIView的区别是什么？&lt;/p&gt;
+&lt;p&gt;两者最大的区别是，图层不会直接渲染到屏幕上。UIView是iOS系统中界面元素的基础，所有的界面元素都是继承自它，它本身是由CoreAnimation来实现的，它真正绘图的部分是由一个CALayer类来管理的。UIView本身更像是一个CALayer的管理器。一个UIView上可以有多个CALayer，每个CALayer显示一种东西，增强UIView的展现能力。&lt;/p&gt;
+&lt;p&gt;2.什么是GCD？&lt;/p&gt;
+&lt;p&gt;GCD是Apple开发的一个多核编程的较新的解决方法。在Mac OS X 10.6雪豹中首次推出，并引入到iOS4.0。GCD是一个替代诸如NSThread等技术的很高效和强大的技术。GCD完全可以处理诸如数据锁定和资源泄漏等复杂的异步编程问题。&lt;/p&gt;
+&lt;p&gt;3.TCP/UDP的区别和联系？&lt;/p&gt;
+&lt;p&gt;1）TCP的全称为传输控制协议，这种协议可以提供面向连接的、可靠的、点到点的通信。&lt;/p&gt;
+&lt;p&gt;2）UDP的全称为用户数据报协议，它可以提供非连接的不可靠的点到多点的通信。&lt;/p&gt;
+&lt;p&gt;3）用TCP还是UDP，需要看程序注重哪一个方面，需要可靠还是快速。&lt;/p&gt;
+&lt;p&gt;4.Socket连接和Http连接的区别？&lt;/p&gt;
+&lt;p&gt;Http连接：Http连接就是所谓的短链接，即客户端向服务器发送一次请求，服务器响应后连接即会断掉。&lt;/p&gt;
+&lt;p&gt;Socket连接：Socket连接就是所谓的长连接，理论上客户端和服务器端一旦建立起连接将不会主动断掉。&lt;/p&gt;
+&lt;p&gt;5.什么是TCP连接的三次握手？&lt;/p&gt;
+&lt;p&gt;第一次握手：客户端发送SYN包（SYN=j）到服务器，并进入SYN_SEND状态，等待服务器确认。&lt;/p&gt;
+&lt;p&gt;第二次握手：服务器收到SYN包，必须确认客户的SYN（ACK=j+1），同时自己也发送一个SYN包（SYN=k），即SYN+ACK包，此时服务器进入SYN_RECV状态。&lt;/p&gt;
+&lt;p&gt;第三次握手：客户端接收到服务器的SYN+ACK包，向服务器发送确认包ACK（ACK=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。&lt;/p&gt;
+&lt;p&gt;6.frame和bounds的区别？&lt;/p&gt;
+&lt;p&gt;frame指的是：该view在父view坐标系统中的位置大小（参照点是父视图的坐标系统）。&lt;/p&gt;
+&lt;p&gt;bounds指的是：该view在本身坐标系统中的位置和大小（参照点是本身的坐标系统）。&lt;/p&gt;
+&lt;p&gt;7.如何理解MVC设计模式？&lt;/p&gt;
+&lt;p&gt;MVC是一种架构设计，M表示数据模型，V表示视图，C表示控制器。&lt;/p&gt;
+&lt;p&gt;数据模型：负责存储、定义、操作数据。&lt;/p&gt;
+&lt;p&gt;视图：用来展示数据给用户，和用户进行操作交互。&lt;/p&gt;
+&lt;p&gt;控制器：它是M与V的协调者，控制器获取数据，将数据交给视图去展示。&lt;/p&gt;
+&lt;p&gt;8.控制器的xib是怎么加载的？&lt;/p&gt;
+&lt;p&gt;当UIViewController的loadView被调用时，在此方法中，通过NSBundle加载xib，先通过控制器的类名作为xib的文件名加载此xib文件。如果找到此xib文件，则加载为view对象作为控制器的根视图，如果没有xib文件，则通过alloc创建一个view对象作为根视图。&lt;/p&gt;
+&lt;p&gt;9.控制器如何处理系统内存不足警告？&lt;/p&gt;
+&lt;p&gt;内存不足时，系统会调用控制器didReceiveMemoryWaring方法通知控制器内存不足。iOS6.0与6.0之前的处理方式不一样。&lt;/p&gt;
+&lt;p&gt;1）iOS6.0之前：调用didReceiveMemoryWaring后，将self.view设置为nil，并且再调用viewDidUnload方法，在此方法中我们应该释放子视图。&lt;/p&gt;
+&lt;p&gt;2）iOS6.0之后：调用didReceiveMemoryWaring后，不再调用viewDidUnload方法，则应该在didReceiveMemoryWaring方法中手动将self.view=nil，并且释放子视图。&lt;/p&gt;
+&lt;p&gt;10.iOS中对象间有哪些通信方式？&lt;/p&gt;
+&lt;p&gt;代理delegate、block、通知和KVO。&lt;/p&gt;
+&lt;p&gt;11.block在内存管理上的特点？需要注意循环引用，如何解决循环引用？&lt;/p&gt;
+&lt;p&gt;1）block中使用了局部对象，则会将此对象retain，引用了当前对象的属性或者方法，则会将当前对象retain。&lt;/p&gt;
+&lt;p&gt;2）解决循环引用：将当前对象赋值给一个局部变量，并且使用__block关键字修饰该局部变量，使用该变量访问当前对象的属性和方法。&lt;/p&gt;
+&lt;p&gt;12.Objective-C中有线程池（线程队列）吗？NSOperationQueue是如何管理线程的？&lt;/p&gt;
+&lt;p&gt;NSOperationQueue是Objective-C的线程池，线程池中可以存放多个线程。&lt;/p&gt;
+&lt;p&gt;NSOperationQueue可以管理线程的并发数，还可以管理线程间的优先级。&lt;/p&gt;
+&lt;p&gt;13.timer的间隔周期准吗？为什么？怎样实现一个精准的timer？&lt;/p&gt;
+&lt;p&gt;定时器timer一般都是准确的，但是当主线程有些时候难免会出现堵塞情况，这样就有可能导致定时器timer会延迟从而不准确。我们可以开发一个多线程，在此多线程上运行定时器，这样多线程只运行定时器，不会因堵塞而导致误差。&lt;/p&gt;
+&lt;p&gt;14.Http协议的特点？GET与POST的区别？什么是Https协议？&lt;/p&gt;
+&lt;p&gt;1）Http协议是短链接，都是客户端主动发送请求，服务器做出响应，服务器响应之后，连接则断开。&lt;/p&gt;
+&lt;p&gt;2）GET请求没有请求体，POST含有请求体，请求参数可以放入请求体中，所以，POST可以提交大量的数据给服务器，更加安全。&lt;/p&gt;
+&lt;p&gt;3）HTTPS（Secure Hypertext Transfer Protocol）安全超文本传输协议，它是一个安全通信通道，它基于HTTP开发，用于在客户计算机和服务器之间交换信息。它使用安全套接字层（SSL）进行信息交换，简单来说它是HTTP的安全版。&lt;/p&gt;
+&lt;p&gt;15.XML数据的解析方式各有什么不同？JSON解析有哪些框架？&lt;/p&gt;
+&lt;p&gt;XML数据解析有两种方式：DOM解析和SAX解析。&lt;/p&gt;
+&lt;p&gt;DOM解析：必须完成DOM树的构造，在处理规模较大的XML文档时就很耗费内存，占用资源较多。&lt;/p&gt;
+&lt;p&gt;SAX解析：与DOM不同的是，SAX是用事件驱动模型，解析XML文档时每遇到一个开始或者结束标签、属性或一条指令时，程序就产生一个事件来进行相应的处理。因此，SAX相对于DOM来说更适合操作大的XML文档。&lt;/p&gt;
+&lt;p&gt;JSON解析：现在性能比较好的主要是第三方的JSONKit和iOS自带的JSON解析类，自带的JSON解析性能是最高的，但是只能是iOS5之后才可以使用。&lt;/p&gt;
+&lt;h2 id=&quot;第五部分&quot;&gt;&lt;a href=&quot;#第五部分&quot; class=&quot;headerlink&quot; title=&quot;第五部分&quot;&gt;&lt;/a&gt;第五部分&lt;/h2&gt;&lt;p&gt;1.tableView是如何复用的？&lt;/p&gt;
+&lt;p&gt;如果屏幕上能显示10个单元格，则tableView只会创建11个单元格，也就是n+1，当滑到第12个单元格时就会复用第1个单元格对象。tableView中有个单元格池的概念，tableView调用协议方法获取单元格时，先从池子中查找是否有可复用的单元格，如果有则复用，如果没有则创建一个单元格对象。&lt;/p&gt;
+&lt;p&gt;2.如何优化tableView的滑动速度？&lt;/p&gt;
+&lt;p&gt;1）复用单元格。&lt;/p&gt;
+&lt;p&gt;2）使用不透明的视图，单元格中尽量少使用动画。&lt;/p&gt;
+&lt;p&gt;3）图片加载使用异步加载，并且设置图片加载的并发数。&lt;/p&gt;
+&lt;p&gt;4）滑动时不加载图片，停止滑动开始加载。&lt;/p&gt;
+&lt;p&gt;5）文字、图片可直接drawInRect绘制。&lt;/p&gt;
+&lt;p&gt;6）如非必要，减少reloadData全部cell，只reloadRowsAtIndexPaths。&lt;/p&gt;
+&lt;p&gt;7）如果cell是动态行高度，计算出高度后缓存。&lt;/p&gt;
+&lt;p&gt;8）cell高度固定的话直接用cell.rowHeight设置高度。&lt;/p&gt;
+&lt;p&gt;3.谈谈对Runloop的理解？&lt;/p&gt;
+&lt;p&gt;Run loops是线程相关的基础框架的一部分。一个run loop就是一个事件处理的循环，用来不停的调度工作以及处理输入事件。使用run loop的目的是让你的线程在有工作的时候忙于工作，而没有工作的时候处于休眠状态。&lt;/p&gt;
+&lt;p&gt;4.如何调用drawRect方法与layoutSubView方法？这两个方法的作用？&lt;/p&gt;
+&lt;p&gt;通过setNeedsLayout方法异步调用layoutSubView方法。&lt;/p&gt;
+&lt;p&gt;通过setNeedsDisplay方法异步调用drawRect方法。&lt;br&gt;drawRect方法用于绘图，layoutSubView方法用于布局子视图。&lt;/p&gt;
+&lt;p&gt;5.UIView与UIViewController的关系？&lt;/p&gt;
+&lt;p&gt;每个控制器都有一个根视图，控制器UIViewController用来管理此视图的加载和显示。&lt;/p&gt;
+&lt;p&gt;6.iOS中有哪些手势？&lt;/p&gt;
+&lt;p&gt;轻击、捏合、平移、轻扫、旋转和长按。&lt;/p&gt;
+&lt;p&gt;7.Http和Socket的区别？&lt;/p&gt;
+&lt;p&gt;Http是客户端用Http协议进行请求，发送请求时需要封装http请求头，并绑定请求的数据，服务器一般有Web服务器配合（当然也非绝对）。Http请求方式为客户端主动发起请求，服务器才能给响应，一次请求完毕后则断开连接，以节省资源。服务器不能主动给客户端响应（除非采用http长连接技术）。iPhone主要使用的类是NSURLConnection。&lt;/p&gt;
+&lt;p&gt;Socket是客户端跟服务器直接使用Socket套接字进行连接，并没有规定连接后断开，所以客户端和服务器可以保持连接通道，双方都可以主动发送数据。一般在游戏开发或股票开发，这种要求即时性很强并且保持发送数据量比较大的场合使用。主要使用的类是CFSocketRef。&lt;/p&gt;
+&lt;p&gt;8.storyboard有什么特点？&lt;/p&gt;
+&lt;p&gt;storyboard是iOS5新增的特性，是对xib的升级版本，引入了一个容器用于管理多个xib文件，和它们之间的跳转交互。&lt;/p&gt;
+&lt;p&gt;优点：不用再为每个控制器创建xib文件；可以使用静态cell，当cell固定且不多时，使用起来比较方便。&lt;/p&gt;
+&lt;p&gt;缺点：storyboard单个文件，不利于团队协作开发。&lt;/p&gt;
+&lt;p&gt;9.如何打包静态库？&lt;/p&gt;
+&lt;p&gt;新建一个Framework&amp;amp;Library的项目，编译的时候会将项目中的代码文件打包成一个.a静态库文件。&lt;/p&gt;
+&lt;p&gt;10.APP发布的上架流程？&lt;/p&gt;
+&lt;p&gt;1）在苹果官网的开发者中心，新建一个APP，填写此APP相关的一些描述信息。&lt;/p&gt;
+&lt;p&gt;2）下载安装发布证书。&lt;/p&gt;
+&lt;p&gt;3）选择发布证书，使用Archive编译发布包。&lt;/p&gt;
+&lt;p&gt;4）使用Xcode提交发布包。&lt;/p&gt;
+&lt;p&gt;11.iOS5有哪些新特性？&lt;/p&gt;
+&lt;p&gt;iCloud、定制UI、storyboard、ARC、CoreImage滤镜、新增JSON解析类。&lt;/p&gt;
+&lt;p&gt;12.iOS6有哪些新特性？&lt;/p&gt;
+&lt;p&gt;UIRefreshControl水滴效果下拉刷新、UICollectionView控件的使用、SLComposeViewController新浪微博控件、PassKit中Passbook、AutoLayout自动布局。&lt;/p&gt;
+&lt;p&gt;13、iOS7有哪些新特性？&lt;/p&gt;
+&lt;p&gt;系统：全新的UI设计与交互；Control Center控制中心；全新的多任务Multitasking；AirDrop共享文件；全新的Safari浏览器交互式体验。&lt;/p&gt;
+&lt;p&gt;SDK：动态UIKit，新增了UIDynamicItem委托，用来为UIView制定动态行为；新增游戏引擎Sprite Kit Framework框架，类似于Cocos2D。&lt;/p&gt;
+&lt;p&gt;14.ARC有什么特点？&lt;/p&gt;
+&lt;p&gt;ARC是编译器特性，iOS5.0新添加的特性，使用ARC开发者不需要再retain、release、autorelease，因为编译器会在合适的地方自动插入retain、release。&lt;/p&gt;
+&lt;p&gt;ARC不会因少release而导致内存泄漏，过度使用release导致程序崩溃，&lt;/p&gt;
+&lt;p&gt;ARC可以产生更简洁的代码和更健壮的应用。&lt;/p&gt;
+&lt;p&gt;15.SVN、Git协作开发，怎么防止代码文件冲突？&lt;/p&gt;
+&lt;p&gt;防止代码冲突：不要多人同时修改同一个文件。例如，A、B都修改同一个文件，先让A修改，然后提交到服务器，然后B更新下来，再进行修改。&lt;br&gt;服务器上的项目文件xcodeproj，仅让一个人管理提交，其他人只更新。防止此文件产生冲突。&lt;/p&gt;
+&lt;h2 id=&quot;第六部分&quot;&gt;&lt;a href=&quot;#第六部分&quot; class=&quot;headerlink&quot; title=&quot;第六部分&quot;&gt;&lt;/a&gt;第六部分&lt;/h2&gt;&lt;p&gt;1.什么是ARC？&lt;/p&gt;
+&lt;p&gt;ARC是automatic reference counting自动引用计数，在程序编译时自动加入retain/release。在对象被创建时retain count+1，在对象被release时count-1，当count=0时，销毁对象。程序中加入autoreleasepool对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁。那么ARC是为了解决MRC手动管理内存存在的一些而诞生的。&lt;/p&gt;
+&lt;p&gt;MRC下内存管理的缺点：&lt;/p&gt;
+&lt;p&gt;1）释放一个堆内存时，首先要确定指向这个堆空间的指针都被release了。(避免提前释放)&lt;/p&gt;
+&lt;p&gt;2）释放指针指向的堆空间，首先要确定哪些指向同一个堆，这些指针只能释放一次。(避免释放多次，造成内存泄露)&lt;/p&gt;
+&lt;p&gt;3）模块化操作时，对象可能被多个模块创建和使用，不能确定最后由谁释放。&lt;/p&gt;
+&lt;p&gt;4）多线程操作时，不确定哪个线程最后使用完毕。&lt;br&gt;虽然ARC给我们编程带来的很多好多，但也可能出现内存泄露。如下面两种情况：&lt;/p&gt;
+&lt;p&gt;1）循环参照：A有个属性参照B，B有个属性参照A，如果都是strong参照的话，两个对象都无法释放。&lt;/p&gt;
+&lt;p&gt;2）死循环：如果有个ViewController中有无限循环，也会导致即使ViewController对应的view消失了，ViewController也不能释放。&lt;/p&gt;
+&lt;p&gt;2.block一般用哪个关键字修饰，为什么？&lt;/p&gt;
+&lt;p&gt;block一般使用copy关键之进行修饰，block使用copy是从MRC遗留下来的“传统”，在MRC中，方法内容的block是在栈区的，使用copy可以把它放到堆区。但在ARC中写不写都行：编译器自动对block进行了copy操作。&lt;/p&gt;
+&lt;p&gt;3.用@property声明的NSString（或NSArray，NSDictionary）经常&lt;/p&gt;
+&lt;p&gt;使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？&lt;br&gt;用@property声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。&lt;/p&gt;
+&lt;p&gt;如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性。&lt;/p&gt;
+&lt;p&gt;copy此特质所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝” (copy)。 当属性类型为NSString时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变” (immutable)的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的” (mutable)，就应该在设置新属性值时拷贝一份。&lt;/p&gt;
+&lt;p&gt;4.runloop、autorelease pool以及线程之间的关系？&lt;/p&gt;
+&lt;p&gt;每个线程(包含主线程)都有一个Runloop。对于每一个Runloop，系统会隐式创建一个Autorelease pool，这样所有的release pool会构成一个像callstack一样的一个栈式结构，在每一个Runloop结束时，当前栈顶的Autorelease pool会被销毁，这样这个pool里的每个Object会被release。&lt;/p&gt;
+&lt;p&gt;5.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？&lt;/p&gt;
+&lt;p&gt;“属性”(property)有两大概念：ivar(实例变量)、存取方法(access method=getter)，即@property = ivar + getter + setter。&lt;br&gt;例如下面的这个类：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface WBTextView :UITextView  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic,copy)NSString *placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic,copy)UIColor *placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;类完成属性的定以后，编译器会自动编写访问这些属性的方法(自动合成autosynthesis)，上述代码写出来的类等效与下面的代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface WBTextView :UITextView  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (NSString *)placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setPlacehold:(NSString *)placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(UIColor *)placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setPlaceholdColor:(UIColor *)placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;详细介绍见：&lt;a href=&quot;http://blog.csdn.net/jasonjwl/article/details/49427377&quot;&gt;http://blog.csdn.net/jasonjwl/article/details/49427377&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;6.分别写一个setter方法用于完成&lt;code&gt;@property (nonatomic,retain)NSString *name&lt;/code&gt;和&lt;code&gt;@property (nonatomic,copy) NSString *name&lt;/code&gt;？&lt;/p&gt;
+&lt;p&gt;retain属性的setter方法是保留新值并释放旧值，然后更新实例变量，令其指向新值。顺序很重要。假如还未保留新值就先把旧值释放了，而且两个值又指向同一个对象，先执行的release操作就可能导致系统将此对象永久回收。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(void)setName:(NSString *)name&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [name retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _name = name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setName:(NSString *)name&amp;#123;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _name = [name copy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;7.说说assign和weak，_block和 _weak的区别？&lt;/p&gt;
+&lt;p&gt;assign适用于基本数据类型，weak是适用于NSObject对象，并且是一个弱引用。&lt;/p&gt;
+&lt;p&gt;assign其实也可以用来修饰对象，那么为什么不用它呢？因为被assign修饰的对象在释放之后，指针的地址还是存在的，也就是说指针并没有被置为nil。如果在后续内存分配中，刚巧分到了这块地址，程序就会崩溃掉。而weak修饰的对象在释放之后，指针地址会被置为nil。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_block&lt;/code&gt;是用来修饰一个变量，这个变量就可以在block中被修改。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_block&lt;/code&gt;:使用_block修饰的变量在block代码块中会被retain(ARC下，MRC下不会retain)。&lt;/p&gt;
+&lt;p&gt;_weak:使用_weak修饰的变量不会在block代码块中被retain。&lt;/p&gt;
+&lt;p&gt;8.请说出下面代码是否有问题，如果有问题请修改？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i=0; i&amp;lt;largeNumber; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Person *per = [[Person alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [per autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;内存管理的原则：如果对一个对象使用了alloc、copy、retain，那么你必须使用相应的release或者autorelease。咋一看，这道题目有alloc，也有autorelease，两者对应起来，应该没问题。但autorelease虽然会使引用计数减一，但是它并不是立即减一，它的本质功能只是把对象放到离他最近的自动释放池里。当自动释放池销毁了，才会向自动释放池中的每一个对象发送release消息。这道题的问题就在autorelease。因为largeNumber是一个很大的数，autorelease又不能使引用计数立即减一，所以在循环结束前会造成内存溢出的问题。&lt;/p&gt;
+&lt;p&gt;解决方案如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i=0; i&amp;lt;100000; i++) &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            @autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Person *per = [[Person alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [per autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在循环内部再加一个自动释放池，这样就能保证每创建一个对象就能及时释放。&lt;/p&gt;
+&lt;p&gt;9.请问下面代码是否有问题，如有问题请修改？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSString *str = [[NSString alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        str = @&amp;quot;jxl&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这道题跟第8题一样存在内存泄露问题，&lt;/p&gt;
+&lt;p&gt;1）内存泄露 ；&lt;/p&gt;
+&lt;p&gt;2）指向常量区的对象不能release。&lt;/p&gt;
+&lt;p&gt;指针变量str原本指向一块开辟的堆区空间，但是经过重新给str赋值，str的指向发生了变化，由原来指向堆区空间，到指向常量区。常量区的变量根本不需要释放，这就导致了原来开辟的堆区空间没有释放，造成内存泄露。&lt;/p&gt;
+&lt;p&gt;10.什么情况下使用weak关键字，相比assign有什么不同？什么情况使用weak关键字？&lt;/p&gt;
+&lt;p&gt;1）在ARC中，在有可能出现循环引用的时候，往往要通过让其中一端使用weak来解决。比如delegate代理。&lt;/p&gt;
+&lt;p&gt;2）自身已经对它进行一次强引用，没有必要再强引用一次，此时也会使用weak，自定义控件属性一般也使用weak。&lt;/p&gt;
+&lt;p&gt;不同点：&lt;/p&gt;
+&lt;p&gt;1）weak此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性与assign一样，然而在属性所指的对象遭到销毁时，属性值也会清空。而assign的“设置方法”只会执行针对“纯量类型” (scalar type，例如 CGFloat 或 NSlnteger 等)的简单赋值操作。&lt;/p&gt;
+&lt;p&gt;2）assign可以用非OC对象，而weak必须用于OC对象。&lt;/p&gt;
+&lt;p&gt;11.内存管理语义(assign、strong、weak等的区别)?&lt;/p&gt;
+&lt;p&gt;1）assign “设置方法” 只会执行针对“纯量”的简单赋值操作。&lt;/p&gt;
+&lt;p&gt;2）strong  此特性表明该属性定义了一种“拥有关系”。为这种属性设置新值时，设置方法会先保留新值，并释放旧值，然后再将新值设置上去。&lt;/p&gt;
+&lt;p&gt;3）weak 此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性同assign类似，然而在属性所指的对象遭到销毁时，属性值也会清空。&lt;/p&gt;
+&lt;p&gt;4）unsafe_unretained  此特性的语义和assign相同，但是它适用于“对象类型”，该特性表达一种“非拥有关系”，当目标对象遭到销毁时，属性值不会自动清空，这一点与weak有区别。&lt;/p&gt;
+&lt;p&gt;5）copy 此特性所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为NSString*时，经常用此特性来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变”的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的”，就应该在设置新属性值时拷贝一份。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+    
+    
+      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
+    
+  </entry>
   
   <entry>
     <title>Objective-C中的NSPredicate</title>
@@ -1939,104 +2246,6 @@
     
     
       <category term="Animation" scheme="http://charsdavy.github.io/tags/Animation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简单聊聊大小端问题</title>
-    <link href="http://charsdavy.github.io/2016/08/13/memory-big-little-endian/"/>
-    <id>http://charsdavy.github.io/2016/08/13/memory-big-little-endian/</id>
-    <published>2016-08-13T13:34:48.000Z</published>
-    <updated>2017-01-02T06:23:51.000Z</updated>
-    
-    <content type="html">&lt;p&gt;在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;先来看一段代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;union&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;long&lt;/span&gt; bits32;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; bytes[&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;value;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;isLittleEndian&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        value.bytes[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        value.bytes[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        value.bytes[&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        value.bytes[&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;] = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; value.bits32 == &lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;( isLittleEndian())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;is little endian! &quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;is big endian! &quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;所谓的&lt;strong&gt;大端模式&lt;/strong&gt;，是指数据的低位（就是权值较小的后面那几位）保存在内存的高地址中，而数据的高位，保存在内存的低地址中。这样的存储模式有点儿类似于把数据当作字符串顺序处理：地址由小向大增加，而数据从高位往低位放；&lt;/p&gt;
-&lt;p&gt;所谓的&lt;strong&gt;小端模式&lt;/strong&gt;，是指数据的低位保存在内存的低地址中，而数据的高位保存在内存的高地址中。这种存储模式将地址的高低和数据位权有效地结合起来，高地址部分权值高，低地址部分权值低，和我们的逻辑方法一致。 &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;为什么会有大小端模式之分呢？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;这是因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。&lt;/p&gt;
-&lt;p&gt;例如一个16bit的short型x，在内存中的地址为0x0010，x的值为0x1122，那么0x11为高字节，0x22为低字节。对于大端模式，就将0x11放在低地址中，即0x0010中，0x22放在高地址中，即0x0011中。小端模式，刚好相反。我们常用的X86结构是小端模式，而KEIL C51则为大端模式。很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。&lt;br&gt;下面这段代码可以用来测试一下你的编译器是大端模式还是小端模式：&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;short&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; x; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; x0, x1; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x = &lt;span class=&quot;number&quot;&gt;0x1122&lt;/span&gt;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x0 = ((&lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt;*)&amp;amp;x)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]; &lt;span class=&quot;comment&quot;&gt;//低地址单元 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x1 = ((&lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt;*)&amp;amp;x)[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]; &lt;span class=&quot;comment&quot;&gt;//高地址单元&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;若x0=0x11,则是大端; 若x0=0x22,则是小端。&lt;/p&gt;
-&lt;p&gt;上面的程序还可以看出，数据寻址时，用的是低位字节的地址。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;什么是字节对齐，为什么要对齐?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问，这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是对齐。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;对齐的作用和原因&lt;/strong&gt;：各个硬件平台对存储空间的处理上有很大的不同。一些平台对某些特定类型的数据只能从某些特定地址开始存取。比如有些架构的CPU在访问一个没有进行对齐的变量的时候会发生错误，那么在这种架构下编程必须保证字节对齐。其他平台可能没有这种情况，但是最常见的是如果不按照适合其平台要求对数据存放进行对齐，会在存取效率上带来损失。比如有些平台每次读都是从偶地址开始，如果一个int型（假设为32位系统）如果存放在偶地址开始的地方，那么一个读周期就可以读出这32bit，而如果存放在奇地址开始的地方，就需要2个读周期，并对两次读出的结果的高低字节进行拼凑才能得到该32bit数据。显然在读取效率上下降很多。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;字节对齐对程序的影响？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;先让我们看几个例子(32bit，x86环境，gcc编译器)：&lt;br&gt;设结构体如下定义：&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; A&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;short&lt;/span&gt; c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; B&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;short&lt;/span&gt; c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;现在已知32位机器上各种数据类型的长度如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;char:1(有符号无符号同) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;short:2(有符号无符号同) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int:4(有符号无符号同) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;long:4(有符号无符号同) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;float:4    double:8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;那么上面两个结构大小如何呢?&lt;/p&gt;
-&lt;p&gt;结果是：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sizeof(strcut A)值为8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sizeof(struct B)的值却是12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;结构体A中包含了4字节长度的int一个，1字节长度的char一个和2字节长度的short型数据一个,B也一样；按理说A，B大小应该都是7字节。之所以出现上面的结果是因为编译器要对数据成员在空间上进行对齐。上面是按照编译器的默认设置进行对齐的结果，那么我们是不是可以改变编译器的这种默认对齐设置呢，当然可以。例如：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack (2) /*指定按2字节对齐*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct C&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack () /*取消指定对齐，恢复缺省对齐*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sizeof(struct C)值是8。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;修改对齐值为1：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack (1) /*指定按1字节对齐*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct D&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack () /*取消指定对齐，恢复缺省对齐*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sizeof(struct D)值为7。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;编译器是按照什么样的原则进行对齐的?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;先让我们看四个重要的基本概念：&lt;/p&gt;
-&lt;p&gt;1.数据类型自身的对齐值：&lt;/p&gt;
-&lt;p&gt;对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，单位字节。&lt;/p&gt;
-&lt;p&gt;2.结构体或者类的自身对齐值：其成员中自身对齐值最大的那个值。&lt;/p&gt;
-&lt;p&gt;3.指定对齐值：#pragma pack (value)时的指定对齐值value。&lt;/p&gt;
-&lt;p&gt;4.数据成员、结构体和类的有效对齐值：自身对齐值和指定对齐值中小的那个值。&lt;/p&gt;
-&lt;p&gt;有了这些值，我们就可以很方便的来讨论具体数据结构的成员和其自身的对齐方式。有效对齐值N是最终用来决定数据存放地址方式的值，最重要。有效对齐N，就是表示“对齐在N上”，也就是说该数据的“存放起始地址%N=0”。而数据结构中的数据变量都是按定义的先后顺序来排放的。第一个数据变量的起始地址就是数据结构的起始地址。结构体的成员变量要对齐排放，结构体本身也要根据自身的有效对齐值圆整(就是结构体成员变量占用总长度需要是对结构体有效对齐值的整数倍，结合下面例子理解)。这样就不难理解上面的几个例子的值了。&lt;/p&gt;
-&lt;p&gt;例子分析：&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; B&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;short&lt;/span&gt; c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;假设B从地址空间0x0000开始排放。该例子中没有定义指定对齐值，在笔者环境下，该值默认为4。第一个成员变量b的自身对齐值是1，比指定或者默认指定对齐值4小，所以其有效对齐值为1，所以其存放地址0x0000符合0x0000%1=0。第二个成员变量a，其自身对齐值为4，所以有效对齐值也为4，所以只能存放在起始地址为0x0004到0x0007这四个连续的字节空间中，复核0x0004%4=0,且紧靠第一个变量。第三个变量c，自身对齐值为2，所以有效对齐值也是2，可以存放在0x0008到0x0009这两个字节空间中，符合0x0008%2=0。所以从0x0000到0x0009存放的都是B内容。再看数据结构B的自身对齐值为其变量中最大对齐值(这里是b）所以就是4，所以结构体的有效对齐值也是4。根据结构体圆整的要求，0x0009到0x0000=10字节，（10＋2）％4＝0。所以0x000A到0x000B也为结构体B所占用。故B从0x0000到0x000B共有12个字节，sizeof(struct B)=12;其实如果就这一个就来说它已经满足字节对齐了，因为它的起始地址是0，因此肯定是对齐的。之所以在后面补充2个字节，是因为编译器为了实现结构数组的存取效率，试想如果我们定义了一个结构B的数组，那么第一个结构起始地址是0没有问题，但是第二个结构呢?按照数组的定义，数组中所有元素都是紧挨着的，如果我们不把结构的大小补充为4的整数倍，那么下一个结构的起始地址将是0x000A，这显然不能满足结构的地址对齐了，因此我们要把结构补充成有效对齐大小的整数倍。其实诸如：对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，这些已有类型的自身对齐值也是基于数组考虑的，只是因为这些类型的长度已知了，所以他们的自身对齐值也就已知了。&lt;/p&gt;
-&lt;p&gt;同理，分析下面例子：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack (2) /*指定按2字节对齐*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct C&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    short c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#pragma pack () /*取消指定对齐，恢复缺省对齐*/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;第一个变量b的自身对齐值为1，指定对齐值为2，所以，其有效对齐值为1，假设C从0x0000开始，那么b存放在0x0000，符合0x0000%1=0；第二个变量，自身对齐值为4，指定对齐值为2，所以有效对齐值为2，所以顺序存放在0x0002、0x0003、0x0004、0x0005四个连续字节中，符合0x0002%2=0。第三个变量c的自身对齐值为2，所以有效对齐值为2，顺序存放在0x0006、0x0007中，符合0x0006%2=0。所以从0x0000到0x00007共八字节存放的是C的变量。又C的自身对齐值为4，所以C的有效对齐值为2。又8%2=0，C只占用0x0000到0x0007的八个字节。所以sizeof(struct C)=8。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;如何修改编译器的默认对齐值?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1.在VC IDE中，可以这样修改：[Project]|[Settings],c/c++选项卡Category的Code Generation选项的Struct Member Alignment中修改，默认是8字节。&lt;/p&gt;
-&lt;p&gt;2.在编码时，可以这样动态修改：#pragma pack。注意：是pragma而不是progma。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;针对字节对齐，我们在编程中如何考虑?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;如果在编程的时候要考虑节约空间的话,那么我们只需要假定结构的首地址是0，然后各个变量按照上面的原则进行排列即可，基本的原则就是把结构中的变量按照类型大小从小到大声明，尽量减少中间的填补空间。还有一种就是为了以空间换取时间的效率，我们显示的进行填补空间进行对齐，比如：有一种使用空间换时间做法是显式的插入reserved成员：&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; A&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; reserved[&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;];&lt;span class=&quot;comment&quot;&gt;//使用空间换时间&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;reserved成员对我们的程序没有什么意义，它只是起到填补空间以达到字节对齐的目的。当然即使不加这个成员，通常编译器也会给我们自动填补对齐，我们自己加上它只是起到显式的提醒作用。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;字节对齐可能带来的隐患？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;代码中关于对齐的隐患，很多是隐式的。比如在强制类型转换的时候。例如：&lt;/p&gt;
-&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0x12345678&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; *p=&lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;short&lt;/span&gt; *p1=&lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;p=&amp;amp;i;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*p=&lt;span class=&quot;number&quot;&gt;0x00&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;p1=(&lt;span class=&quot;keyword&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;short&lt;/span&gt; *)(p+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*p1=&lt;span class=&quot;number&quot;&gt;0x0000&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;最后两句代码，从奇数边界去访问unsigned short型变量，显然不符合对齐的规定。在x86上，类似的操作只会影响效率，但是在MIPS或者sparc上，可能就是一个error，因为它们要求必须字节对齐。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;如何查找与字节对齐方面的问题？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;如果出现对齐或者赋值问题首先查看:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;编译器的big little端设置；&lt;/li&gt;
-&lt;li&gt;看这种体系本身是否支持非对齐访问；&lt;/li&gt;
-&lt;li&gt;如果支持，看设置了对齐与否；如果没有，则看访问时需要加某些特殊的修饰来标志其特殊访问操作。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;ARM下的对齐处理？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;对齐的使用：&lt;/p&gt;
-&lt;p&gt;1.__align(num)&lt;/p&gt;
-&lt;p&gt;这个用于修改最高级别对象的字节边界。在汇编中使用LDRD或者STRD时，就要用到此命令&lt;strong&gt;align(8)进行修饰限制来保证数据对象是相应对齐。这个修饰对象的命令最大是8个字节限制，可以让2字节的对象进行4字节对齐，但是不能让4字节的对象2字节对齐。&lt;/strong&gt;align是存储类修改，它只修饰最高级类型对象，不能用于结构或者函数对象。&lt;/p&gt;
-&lt;p&gt;2.__packed &lt;/p&gt;
-&lt;p&gt;__packed是进行一字节对齐&lt;/p&gt;
-&lt;p&gt;1）不能对packed的对象进行对齐；&lt;/p&gt;
-&lt;p&gt;2）所有对象的读写访问都进行非对齐访问；&lt;/p&gt;
-&lt;p&gt;3）float及包含float的结构联合及未用__packed的对象将不能字节对齐；&lt;/p&gt;
-&lt;p&gt;4）__packed对局部整型变量无影响；&lt;/p&gt;
-&lt;p&gt;5）强制由unpacked对象向packed对象转化是未定义，整型指针可以合法定义为packed。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;__packed int* p;  //__packed int 则没有意义&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;6）对齐或非对齐读写访问带来问题&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;__packed struct STRUCT_TEST&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   char a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   int b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   char c;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;    //定义如下结构此时b的起始地址一定是不对齐的&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       //在栈中访问b可能有问题,因为栈上数据肯定是对齐访问[from CL]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//将下面变量定义成全局静态不在栈上 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static char* p;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static struct STRUCT_TEST a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void Main()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__packed int* q;  //此时定义成__packed来修饰当前q指向为非对齐的数据地址下面的访问则可以&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;p = (char*)&amp;amp;a;          &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;q = (int*)(p+1);      &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*q = 0x87654321; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;得到赋值的汇编指令很清楚&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ldr      r5,0x20001590 ; = #0x12345678&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe1a00005]   mov      r0,r5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xeb0000b0]   bl       __rt_uwrite4  //在此处调用一个写4byte的操作函数 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe5c10000]   strb     r0,[r1,#0]   //函数进行4次strb操作然后返回保证了数据正确的访问&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe1a02420]   mov      r2,r0,lsr #8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe5c12001]   strb     r2,[r1,#1]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe1a02820]   mov      r2,r0,lsr #16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe5c12002]   strb     r2,[r1,#2]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe1a02c20]   mov      r2,r0,lsr #24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe5c12003]   strb     r2,[r1,#3]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe1a0f00e]   mov      pc,r14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;如果q没有加__packed修饰则汇编出来指令是这样直接会导致奇地址处访问失败&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe59f2018]   ldr      r2,0x20001594 ; = #0x87654321&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[0xe5812000]   str      r2,[r1,#0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//这样可以很清楚的看到非对齐访问是如何产生错误的&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//以及如何消除非对齐访问带来问题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//也可以看到非对齐访问和对齐访问的指令差异导致效率问题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;有关于内存对齐的问题，可以看看&lt;a href=&quot;http://charsdavy.github.io/2016/02/10/memory-alignment/&quot;&gt;《内存对齐详解》&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="OS" scheme="http://charsdavy.github.io/categories/OS/"/>
-    
-    
-      <category term="C" scheme="http://charsdavy.github.io/tags/C/"/>
-    
-      <category term="内存" scheme="http://charsdavy.github.io/tags/storage/"/>
-    
-      <category term="Windows" scheme="http://charsdavy.github.io/tags/Windows/"/>
     
   </entry>
   
