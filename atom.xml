@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-03-29T23:44:21.000Z</updated>
+  <updated>2017-03-29T23:50:07.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -20,11 +20,45 @@
     <link href="http://charsdavy.github.io/2017/03/30/sublime-text-tool/"/>
     <id>http://charsdavy.github.io/2017/03/30/sublime-text-tool/</id>
     <published>2017-03-29T23:51:43.000Z</published>
-    <updated>2017-03-29T23:44:21.000Z</updated>
+    <updated>2017-03-29T23:50:07.000Z</updated>
     
     <content type="html">&lt;p&gt;Sublime Text 是一个代码编辑器（Sublime Text 2是收费软件，但可以无限期试用），也是HTML和散文先进的文本编辑器。Sublime Text是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的Vim。&lt;/p&gt;
 &lt;p&gt;笔者整理了一些使用快捷方式，以及一些常用插件，分享一下。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;安装包控制（Package-Control）&quot;&gt;&lt;a href=&quot;#安装包控制（Package-Control）&quot; class=&quot;headerlink&quot; title=&quot;安装包控制（Package Control）&quot;&gt;&lt;/a&gt;安装包控制（Package Control）&lt;/h2&gt;&lt;p&gt;打开Sublime Text 2，按快捷键 ctrl+` 或者点击 Tools → Command Palette 调出控制台Console；&lt;br&gt;将以下代码复制粘贴进命令行后回车：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;import urllib2,os;pf=&amp;apos;Package Control.sublime-package&amp;apos;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp)elseNone;open(os.path.join(ipp,pf),&amp;apos;wb&amp;apos;).write(urllib2.urlopen(&amp;apos;http://sublime.wbond.net/&amp;apos;+pf.replace(&amp;apos; &amp;apos;,&amp;apos;%20&amp;apos;)).read())&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;重新启动Sublime Text 2，如果在Preferences → Package Settings 中看到 Package Control 这一项，就说明安装成功。&lt;/p&gt;
+&lt;h2 id=&quot;安装Alignment插件&quot;&gt;&lt;a href=&quot;#安装Alignment插件&quot; class=&quot;headerlink&quot; title=&quot;安装Alignment插件&quot;&gt;&lt;/a&gt;安装Alignment插件&lt;/h2&gt;&lt;p&gt;对于喜欢整齐的码农来说，这不失为一个省事的插件。该插件可以通过上面安装好的 Package Control 来安装：&lt;/p&gt;
+&lt;p&gt;按ctrl + shift + P调出命令面板；&lt;/p&gt;
+&lt;p&gt;输入 install 调出 Package Control：Install Package 选项，并回车；&lt;/p&gt;
+&lt;p&gt;输入Alignment，选中并按回车安装；&lt;/p&gt;
+&lt;p&gt;重启Sublime Text 2，选中文本并按ctrl + alt + a 就可以进行对齐操作了。&lt;/p&gt;
+&lt;h2 id=&quot;安装-Soda-主题&quot;&gt;&lt;a href=&quot;#安装-Soda-主题&quot; class=&quot;headerlink&quot; title=&quot;安装 Soda 主题&quot;&gt;&lt;/a&gt;安装 Soda 主题&lt;/h2&gt;&lt;p&gt;这里的主题不同于针对代码的 color scheme，而是针对Sublime Text 2该软件本身的主题，该主题也可以通过万能的 Package Control 来安装。&lt;/p&gt;
+&lt;p&gt;按ctrl + shift + P调出命令面板；&lt;/p&gt;
+&lt;p&gt;输入 install 调出 Package Control：Install Package 选项，并回车；&lt;/p&gt;
+&lt;p&gt;输入 theme soda 选中后回车即可安装；&lt;/p&gt;
+&lt;p&gt;安装完之后要激活主题，打开 Preferences → Global Settings – User，加上以下代码保存即可生效：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;quot;theme&amp;quot;: &amp;quot;Soda Light.sublime-theme&amp;quot; 或者 &amp;quot;theme&amp;quot; : &amp;quot;Soda Dark.sublime-theme&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安装cTags插件&quot;&gt;&lt;a href=&quot;#安装cTags插件&quot; class=&quot;headerlink&quot; title=&quot;安装cTags插件&quot;&gt;&lt;/a&gt;安装cTags插件&lt;/h2&gt;&lt;p&gt;首先，从Ctags官网下载压缩包下来，解压到电脑的某个地方，比如“C:\Program Files\ctags”，然后把cTags添加到系统变量里去：&lt;br&gt;在“我的电脑”右键属性 → 高级 → 环境变量 → 在“系统变量”里找到“Path”，点击“编辑” → 把“;C:\Program Files\ctags”（不包括双引号）复制到最后 → 最后一路“确定”保存。&lt;/p&gt;
+&lt;p&gt;然后通过 Package Control 来安装 cTags 插件：&lt;/p&gt;
+&lt;p&gt;按ctrl + shift + P调出命令面板；&lt;/p&gt;
+&lt;p&gt;输入 install 调出 Package Control：Install Package 选项，并回车；&lt;/p&gt;
+&lt;p&gt;输入 ctags 选中后回车即可安装。&lt;/p&gt;
+&lt;p&gt;安装完之后，在项目的当前目录下按ctrl + t, ctrl + r，会生成.tags的文件。当光标停留在某个函数上时，按快捷键 ctrl+t, ctrl+t就可以打开函数所在的文件，并跳转到相应的位置了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PS&lt;/strong&gt; 安装这个插件折腾了我蛮久，主要是不知道还要从ctags官网下载压缩包，以及修改系统的变量，后来还是一博友给我发的国外的参考资料才知道要这样配置 的。刚开始知道这软件之所以没用是因为没有像eclipse可以追踪函数的功能，后来才知道可以通过安装cTags插件来实现。装上此功能后，就更喜欢用 Sublime Text 2了。&lt;/p&gt;
+&lt;h2 id=&quot;jsFormat插件&quot;&gt;&lt;a href=&quot;#jsFormat插件&quot; class=&quot;headerlink&quot; title=&quot;jsFormat插件&quot;&gt;&lt;/a&gt;jsFormat插件&lt;/h2&gt;&lt;p&gt;格式化js：选中一段文本，control+alt+f。&lt;/p&gt;
+&lt;p&gt;DocBlockr&lt;/p&gt;
+&lt;p&gt;在JS函数上方输入/**，然后回车，doc就生成好了非常好用。&lt;/p&gt;
+&lt;p&gt;sublime-jslint&lt;/p&gt;
+&lt;p&gt;打开一个js文件，control+j，即可输出jsLint检查的结果。打开Packages目录，找到插件目录sublime-jslint，打开 sublime-jslint.sublime-settings文件，可以修改jsLint配置，还可以配置文件保存时自动检查等，如：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; // Path to the jslint jar. // Leave blank to use bundled jar. &amp;quot;jslint_jar&amp;quot;: &amp;quot;&amp;quot;,   // Options pass to jslint. // Jerry Qu注：全部可用配置参考这里，https://github.com/fbzhong/sublime-jslint/wiki/Available- jslint4java-options &amp;quot;jslint_options&amp;quot;: &amp;quot;--encoding utf-8 --bitwise --browser --cap --css --devel --debug --evil --forin --fragment --on --sub --white --windows --sloppy&amp;quot;,   // Ignore errors, regex. &amp;quot;ignore_errors&amp;quot;: [ // &amp;quot;Expected an identifier and instead saw &amp;apos;undefined&amp;apos; \(a reserved word\)&amp;quot; ],   // run jslint on save. &amp;quot;run_on_save&amp;quot;: false,   // debug flag. &amp;quot;debug&amp;quot;:false &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;SideBarEnhancements&quot;&gt;&lt;a href=&quot;#SideBarEnhancements&quot; class=&quot;headerlink&quot; title=&quot;SideBarEnhancements&quot;&gt;&lt;/a&gt;SideBarEnhancements&lt;/h2&gt;&lt;p&gt;推荐通过 Package Control 安装 SideBarEnhancements 这个插件，可以大大加强在侧栏目录树中右键的选项&lt;/p&gt;
+&lt;h2 id=&quot;推荐插件：&quot;&gt;&lt;a href=&quot;#推荐插件：&quot; class=&quot;headerlink&quot; title=&quot;推荐插件：&quot;&gt;&lt;/a&gt;推荐插件：&lt;/h2&gt;&lt;p&gt;1）Zen Coding&lt;/p&gt;
+&lt;p&gt;2）jQuery Package for sublime Text&lt;/p&gt;
+&lt;p&gt;3）Clipboard History&lt;/p&gt;
+&lt;p&gt;4）Bracket Highlighter&lt;/p&gt;
+&lt;p&gt;5）GBK to UTF8&lt;/p&gt;
+&lt;p&gt;6）Git&lt;/p&gt;
 &lt;h2 id=&quot;常用快捷键&quot;&gt;&lt;a href=&quot;#常用快捷键&quot; class=&quot;headerlink&quot; title=&quot;常用快捷键&quot;&gt;&lt;/a&gt;常用快捷键&lt;/h2&gt;&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -78,8 +112,7 @@
 &lt;td&gt;快速列出/跳转到某个函数&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;Ctrl+K&lt;/td&gt;
-&lt;td&gt;Backspace&lt;/td&gt;
+&lt;td&gt;Ctrl+KBackspace&lt;/td&gt;
 &lt;td&gt;从光标处删除至行首&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -238,40 +271,6 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id=&quot;安装包控制（Package-Control）&quot;&gt;&lt;a href=&quot;#安装包控制（Package-Control）&quot; class=&quot;headerlink&quot; title=&quot;安装包控制（Package Control）&quot;&gt;&lt;/a&gt;安装包控制（Package Control）&lt;/h2&gt;&lt;p&gt;打开Sublime Text 2，按快捷键 ctrl+` 或者点击 Tools → Command Palette 调出控制台Console；&lt;br&gt;将以下代码复制粘贴进命令行后回车：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;import urllib2,os;pf=&amp;apos;Package Control.sublime-package&amp;apos;;ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp)elseNone;open(os.path.join(ipp,pf),&amp;apos;wb&amp;apos;).write(urllib2.urlopen(&amp;apos;http://sublime.wbond.net/&amp;apos;+pf.replace(&amp;apos; &amp;apos;,&amp;apos;%20&amp;apos;)).read())&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;重新启动Sublime Text 2，如果在Preferences → Package Settings 中看到 Package Control 这一项，就说明安装成功。&lt;/p&gt;
-&lt;h2 id=&quot;安装Alignment插件&quot;&gt;&lt;a href=&quot;#安装Alignment插件&quot; class=&quot;headerlink&quot; title=&quot;安装Alignment插件&quot;&gt;&lt;/a&gt;安装Alignment插件&lt;/h2&gt;&lt;p&gt;对于喜欢整齐的码农来说，这不失为一个省事的插件。该插件可以通过上面安装好的 Package Control 来安装：&lt;/p&gt;
-&lt;p&gt;按ctrl + shift + P调出命令面板；&lt;/p&gt;
-&lt;p&gt;输入 install 调出 Package Control：Install Package 选项，并回车；&lt;/p&gt;
-&lt;p&gt;输入Alignment，选中并按回车安装；&lt;/p&gt;
-&lt;p&gt;重启Sublime Text 2，选中文本并按ctrl + alt + a 就可以进行对齐操作了。&lt;/p&gt;
-&lt;h2 id=&quot;安装-Soda-主题&quot;&gt;&lt;a href=&quot;#安装-Soda-主题&quot; class=&quot;headerlink&quot; title=&quot;安装 Soda 主题&quot;&gt;&lt;/a&gt;安装 Soda 主题&lt;/h2&gt;&lt;p&gt;这里的主题不同于针对代码的 color scheme，而是针对Sublime Text 2该软件本身的主题，该主题也可以通过万能的 Package Control 来安装。&lt;/p&gt;
-&lt;p&gt;按ctrl + shift + P调出命令面板；&lt;/p&gt;
-&lt;p&gt;输入 install 调出 Package Control：Install Package 选项，并回车；&lt;/p&gt;
-&lt;p&gt;输入 theme soda 选中后回车即可安装；&lt;/p&gt;
-&lt;p&gt;安装完之后要激活主题，打开 Preferences → Global Settings – User，加上以下代码保存即可生效：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;quot;theme&amp;quot;: &amp;quot;Soda Light.sublime-theme&amp;quot; 或者 &amp;quot;theme&amp;quot; : &amp;quot;Soda Dark.sublime-theme&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;安装cTags插件&quot;&gt;&lt;a href=&quot;#安装cTags插件&quot; class=&quot;headerlink&quot; title=&quot;安装cTags插件&quot;&gt;&lt;/a&gt;安装cTags插件&lt;/h2&gt;&lt;p&gt;首先，从Ctags官网下载压缩包下来，解压到电脑的某个地方，比如“C:\Program Files\ctags”，然后把cTags添加到系统变量里去：&lt;br&gt;在“我的电脑”右键属性 → 高级 → 环境变量 → 在“系统变量”里找到“Path”，点击“编辑” → 把“;C:\Program Files\ctags”（不包括双引号）复制到最后 → 最后一路“确定”保存。&lt;/p&gt;
-&lt;p&gt;然后通过 Package Control 来安装 cTags 插件：&lt;/p&gt;
-&lt;p&gt;按ctrl + shift + P调出命令面板；&lt;/p&gt;
-&lt;p&gt;输入 install 调出 Package Control：Install Package 选项，并回车；&lt;/p&gt;
-&lt;p&gt;输入 ctags 选中后回车即可安装。&lt;/p&gt;
-&lt;p&gt;安装完之后，在项目的当前目录下按ctrl + t, ctrl + r，会生成.tags的文件。当光标停留在某个函数上时，按快捷键 ctrl+t, ctrl+t就可以打开函数所在的文件，并跳转到相应的位置了。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;PS&lt;/strong&gt; 安装这个插件折腾了我蛮久，主要是不知道还要从ctags官网下载压缩包，以及修改系统的变量，后来还是一博友给我发的国外的参考资料才知道要这样配置 的。刚开始知道这软件之所以没用是因为没有像eclipse可以追踪函数的功能，后来才知道可以通过安装cTags插件来实现。装上此功能后，就更喜欢用 Sublime Text 2了。&lt;/p&gt;
-&lt;h2 id=&quot;jsFormat插件&quot;&gt;&lt;a href=&quot;#jsFormat插件&quot; class=&quot;headerlink&quot; title=&quot;jsFormat插件&quot;&gt;&lt;/a&gt;jsFormat插件&lt;/h2&gt;&lt;p&gt;格式化js：选中一段文本，control+alt+f。&lt;/p&gt;
-&lt;p&gt;DocBlockr&lt;/p&gt;
-&lt;p&gt;在JS函数上方输入/**，然后回车，doc就生成好了非常好用。&lt;/p&gt;
-&lt;p&gt;sublime-jslint&lt;/p&gt;
-&lt;p&gt;打开一个js文件，control+j，即可输出jsLint检查的结果。打开Packages目录，找到插件目录sublime-jslint，打开 sublime-jslint.sublime-settings文件，可以修改jsLint配置，还可以配置文件保存时自动检查等，如：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123; // Path to the jslint jar. // Leave blank to use bundled jar. &amp;quot;jslint_jar&amp;quot;: &amp;quot;&amp;quot;,   // Options pass to jslint. // Jerry Qu注：全部可用配置参考这里，https://github.com/fbzhong/sublime-jslint/wiki/Available- jslint4java-options &amp;quot;jslint_options&amp;quot;: &amp;quot;--encoding utf-8 --bitwise --browser --cap --css --devel --debug --evil --forin --fragment --on --sub --white --windows --sloppy&amp;quot;,   // Ignore errors, regex. &amp;quot;ignore_errors&amp;quot;: [ // &amp;quot;Expected an identifier and instead saw &amp;apos;undefined&amp;apos; \(a reserved word\)&amp;quot; ],   // run jslint on save. &amp;quot;run_on_save&amp;quot;: false,   // debug flag. &amp;quot;debug&amp;quot;:false &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;SideBarEnhancements&quot;&gt;&lt;a href=&quot;#SideBarEnhancements&quot; class=&quot;headerlink&quot; title=&quot;SideBarEnhancements&quot;&gt;&lt;/a&gt;SideBarEnhancements&lt;/h2&gt;&lt;p&gt;推荐通过 Package Control 安装 SideBarEnhancements 这个插件，可以大大加强在侧栏目录树中右键的选项&lt;/p&gt;
-&lt;h2 id=&quot;推荐插件：&quot;&gt;&lt;a href=&quot;#推荐插件：&quot; class=&quot;headerlink&quot; title=&quot;推荐插件：&quot;&gt;&lt;/a&gt;推荐插件：&lt;/h2&gt;&lt;p&gt;1）Zen Coding&lt;/p&gt;
-&lt;p&gt;2）jQuery Package for sublime Text&lt;/p&gt;
-&lt;p&gt;3）Clipboard History&lt;/p&gt;
-&lt;p&gt;4）Bracket Highlighter&lt;/p&gt;
-&lt;p&gt;5）GBK to UTF8&lt;/p&gt;
-&lt;p&gt;6）Git&lt;/p&gt;
 </content>
     
     <summary type="html">
