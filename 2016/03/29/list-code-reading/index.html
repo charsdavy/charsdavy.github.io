@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1696534394699613",
+      enable_page_level_ads: true
+    });
+  </script>
+  
+  <meta charset="utf-8">
+  
+  <title>list.h文件分析 - Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="123structlist_head &amp;#123;       struct list_head *next, *prev; &amp;#125;;
+一上来就放这么一个数据结构，那么，这个到底要做什么呢？没错，就如上面代码所示，本文的主角就是它，由它衍生而来的一些问题。首先自我介绍，它，来自Linux系统中的链表。
+就是个链表的头！是不觉得很奇怪？怎么只有两个指针域，没有数据域呢？其实笔者现在也纠结这这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="list.h文件分析">
+<meta property="og:url" content="http://charsdavy.github.io/2016/03/29/list-code-reading/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="123structlist_head &amp;#123;       struct list_head *next, *prev; &amp;#125;;
+一上来就放这么一个数据结构，那么，这个到底要做什么呢？没错，就如上面代码所示，本文的主角就是它，由它衍生而来的一些问题。首先自我介绍，它，来自Linux系统中的链表。
+就是个链表的头！是不觉得很奇怪？怎么只有两个指针域，没有数据域呢？其实笔者现在也纠结这这个">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-1.jpeg">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-2.jpeg?imageView/2/w/500">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-3.jpeg?imageView/2/w/500">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-4.jpeg?imageView/2/w/500">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-5.jpeg?imageView/2/w/500">
+<meta property="og:updated_time" content="2017-03-29T14:54:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="list.h文件分析">
+<meta name="twitter:description" content="123structlist_head &amp;#123;       struct list_head *next, *prev; &amp;#125;;
+一上来就放这么一个数据结构，那么，这个到底要做什么呢？没错，就如上面代码所示，本文的主角就是它，由它衍生而来的一些问题。首先自我介绍，它，来自Linux系统中的链表。
+就是个链表的头！是不觉得很奇怪？怎么只有两个指针域，没有数据域呢？其实笔者现在也纠结这这个">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-1.jpeg">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Chars</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Rss</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://charsdavy.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-list-code-reading" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      list.h文件分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/29/list-code-reading/" class="article-date">
+  <time datetime="2016-03-29T14:10:59.000Z" itemprop="datePublished">2016-03-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/construct/">架构</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structlist_head &#123;</span><br><span class="line">       struct list_head *next, *prev; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>一上来就放这么一个数据结构，那么，这个到底要做什么呢？没错，就如上面代码所示，本文的主角就是它，由它衍生而来的一些问题。首先自我介绍，它，来自Linux系统中的链表。</p>
+<p>就是个链表的头！是不觉得很奇怪？怎么只有两个指针域，没有数据域呢？其实笔者现在也纠结这这个问题着呢！没事，咱们先往下看。说不定什么时候，咱就明白了这是怎么一回事情呢。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define LIST_HEAD_INIT(name) &#123; &amp;(name), &amp;(name) &#125;</span><br><span class="line">#defineLIST_HEAD(name) \</span><br><span class="line">       struct list_head name = LIST_HEAD_INIT(name)</span><br></pre></td></tr></table></figure>
+<p>这俩是宏没错吧！来看看这个俩到底是个什么意思。</p>
+<p>先来看看这个<code>LIST_HEAD_INIT(name)</code>，当程序当中出现了这个东西的时候，它立马就会替换成后面的东西，例如出现了：<br><code>LIST_HEAD_INIT(headnode)；</code><br>它立马就会替换成{&amp;(headnode),&amp;(headnode)}.<br>假设有这么一段C代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">struct list_head headnode ;//定义了一个headnode节点</span><br><span class="line">headnode = LIST_HEAD_INIT(headnode);</span><br></pre></td></tr></table></figure>
+<p>那么它是不应该再编译阶段就立马的被替换成这样呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">struct list_head headnode ;//定义了一个headnode节点</span><br><span class="line">headnode = &#123; &amp;(headnode), &amp;(headnode) &#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：这里面对标准的C进行了拓展叫：GNU C，这个意思呢就是说，对headnode的两个成员赋值。这赋值之后成了什么样子了呢？看下图：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-1.jpeg" alt="图一"></p>
+<p>是不是自己指向了自己？至于为什么可以这么赋值，不是本文讨论的重点，详细的可以Google.</p>
+<p>其实这里的<code>LIST_HEAD_INIT(name)</code>宏是用来初始化的；<br>而<code>LIST_HEAD(name)</code>宏则是用来定义+初始化。你看<code>LIST_HEAD(name)</code>宏是不比<code>LIST_HEAD_INIT(name)</code>宏多了这句 <code>struct list_head name</code> ？</p>
+<p><strong>记住：</strong></p>
+<p><code>LIST_HEAD_INIT(name)</code>宏是用来初始化的；</p>
+<p><code>LIST_HEAD(name)</code>宏则是用来定义+初始化。</p>
+<p>OK，我们接着往下看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static inline void INIT_LIST_HEAD(struct list_head *list)</span><br><span class="line">&#123;</span><br><span class="line">       list-&gt;next = list;</span><br><span class="line">       list-&gt;prev = list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>奇怪这里怎么好像又是在初始化，而且还和上面的功能一样。笔者觉得，他们这样做有如下考虑：</p>
+<p>有些人习惯于调用函数进行初始化，而有的人喜欢代码简洁而直接使用宏来进行初始化，但是不论是那种方式，都达到了一样的功能,即初始化。</p>
+<p>往下看，有关链表添加的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#ifndef CONFIG_DEBUG_LIST</span><br><span class="line">static inline void __list_add(struct list_head *new,  struct list_head *prev,  struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">       next-&gt;prev = new;</span><br><span class="line">       new-&gt;next = next;</span><br><span class="line">       new-&gt;prev = prev;</span><br><span class="line">       prev-&gt;next = new;</span><br><span class="line">&#125;</span><br><span class="line">#else</span><br><span class="line">extern void __list_add(struct list_head *new,  struct list_head *prev,  struct list_head *next);</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong> <code>__list_add</code>前面可是两个下划线；这个就是说，这个函数是linux内核的东西，使用的时候，就得注意了。一看名字就知道是增加链表节点；其实我们学习双向链表的时候，那么多的指针操作，能把人绕死，而且到最后也搞得不清楚，看看人家linux源代码是咋实现的：是不觉得有差距？</p>
+<p>往下看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static inline void list_add(struct list_head *new, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">       __list_add(new, head, head-&gt;next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>刚才不说了么，前头俩下划线的让谨慎的使用么，这不？又弄了一个函数，可以调用这个函数来进行链表的添加。</p>
+<p>实际上，还是调用的是刚才的那个有两个下划线的函数。这里体现了两个思想：</p>
+<p>1、封装，其实这个概念是C++等一类程序设计语言的OOP思想，用在了这里。</p>
+<p>2、重用，很多时候，代码其实都是可以不用自己写的，有一些现成的东西你可以去调用，这样可以很好的提高生产效率，而且linux源代码使用的是GPL许可证，没有什么版权啊乱七八糟的东西，有这么好的东西干嘛不用呢？其实下来的这个你会体会的更深：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static inline void list_add_tail(struct list_head *new, struct list_head*head)</span><br><span class="line">&#123;</span><br><span class="line">       __list_add(new, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看名字，看看<code>list_add_tail</code>这个名字。是不是“尾插法”？还是调用了前头的那个有两个下划线的函数吧？而且，仅仅只是调换了一下参数的次序。高明吧！</p>
+<p>好！再接着往下看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">static inline void __list_del(struct list_head * prev, struct list_head * next)</span><br><span class="line">&#123;</span><br><span class="line">       next-&gt;prev = prev;</span><br><span class="line">       prev-&gt;next = next;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">#ifndef CONFIG_DEBUG_LIST</span><br><span class="line">static inline void list_del(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">       __list_del(entry-&gt;prev, entry-&gt;next);</span><br><span class="line">       entry-&gt;next = LIST_POISON1;</span><br><span class="line">       entry-&gt;prev = LIST_POISON2;</span><br><span class="line">&#125;</span><br><span class="line">#else</span><br><span class="line">extern void list_del(struct list_head *entry);</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>这里是删除一节点，这里再一次的体现了封装和重用的思想。不过这里注意：</p>
+<p>在将entry这个节点删除之后你得将它指向一个正确的错误区域！什么意思呢，就是说，你的将它放在一个大家公认的错误的地方，因为所有的人都不会去碰那个错误的地方，所以，你这个entry就不会引起各种不必要的麻烦。其实这里有一个问题：你free了某个节点之后，其实，我们还是可以使用这个节点的，这个在一篇博文里讲述的很清楚：<br><a href="http://blog.sina.com.cn/s/blog_6e9342530100yaef.html">http://blog.sina.com.cn/s/blog_6e9342530100yaef.html</a>  </p>
+<p>其实这里，<code>LIST_POISON1= 0x00100100</code>. <code>LIST_POISON2=0x00200200</code>。为什么，笔者不知道。</p>
+<p>下来接着看这个替换函数。将链表当中某个节点用新的节点替换掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static inline void list_replace(struct list_head *old, struct list_head *new)</span><br><span class="line">&#123;</span><br><span class="line">       new-&gt;next = old-&gt;next;</span><br><span class="line">       new-&gt;next-&gt;prev = new;</span><br><span class="line">       new-&gt;prev = old-&gt;prev;</span><br><span class="line">       new-&gt;prev-&gt;next = new;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面在给出图例：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-2.jpeg?imageView/2/w/500" alt="图二"></p>
+<p>大家可以根据图例来理解。</p>
+<p>下来这个函数就是将某个链表里头的节点删除，然后添加到另外一个链表当中。你会发现代码很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static inline void list_move(struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">       __list_del(list-&gt;prev, list-&gt;next);</span><br><span class="line">       list_add(list, head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面这两个函数，一个用来判断是否为链表的最后一个节点，一个用来判断该链表是否为空。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static inline int list_is_last(const struct list_head *list, const struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">       return list-&gt;next == head;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static inline int list_empty(const struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">       return head-&gt;next == head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>详细情况如下图：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-3.jpeg?imageView/2/w/500" alt="图三"></p>
+<p>然而实际上，我们用这种方式来判断链表是否为空是不太精确的。它同时判断头指针的next和prev，仅当两者都指向自己时才返回真。这主要是为了应付另一个cpu正在处理同一个链表而造成next、prev不一致的情况。但代码注释也承认，这一安全保障能力有限：除非其他cpu的链表操作只有<code>list_del_init()</code>，否则仍然不能保证安全，也就是说，还是需要加锁保护。</p>
+<p>两个链表合并：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">static inline void __list_splice(const struct list_head *list, struct list_head *prev,  struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">       struct list_head *first = list-&gt;next;</span><br><span class="line">       struct list_head *last = list-&gt;prev;</span><br><span class="line"> </span><br><span class="line">       first-&gt;prev = prev;</span><br><span class="line">       prev-&gt;next = first;</span><br><span class="line"> </span><br><span class="line">       last-&gt;next = next;</span><br><span class="line">       next-&gt;prev = last;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">static inline void list_splice(const struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">       if (!list_empty(list))</span><br><span class="line">              __list_splice(list, head, head-&gt;next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假设当前有两个链表，表头分别是list1和list2（都是struct list_head变量），当调用<code>list_splice(&amp;list1,&amp;list2)</code>时，只要list1非空，list1链表的内容将被挂接在list2链表上，位于list2和list2.next（原list2表的第一个节点）之间。新list2链表将以原list1表的第一个节点为首节点，而尾节点不变。如图（虚箭头为next指针）：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-4.jpeg?imageView/2/w/500" alt="图四"></p>
+<p>由于篇幅限制，当中其实，还有一些很有用的函数：比如切割啊，判断是否为单链表啊等等，其实当你再了解了这些函数之后，后面的都是大同小异。可以自己在做研究，下面将重点放在list.h当中的几个很重要的宏当中。<br>还是顺着list.h往下看，你会看到第一宏：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define list_entry(ptr, type, member) \</span><br><span class="line">   container_of(ptr, type, member)</span><br></pre></td></tr></table></figure>
+<p>看到上面的那英文注释：获得结构体入口！</p>
+<p>ptr：这个参数是指向list_head 类型的指针（注意这里，很容易再代码当中用错）。</p>
+<p>type：看到那英文解释了么？这个type可不是list_head！他是list_head嵌入的那个结构体类型。详细会给出一断源代码，帮助大家理解。</p>
+<p>member：这个看到名字就知道这个是结构体的一个成员。</p>
+<p><code>list_entry(ptr,type,member)</code>这个宏到底是干嘛的，是不应该看container_of这个宏是干嘛的呢？用Sorce Insight 查看，会发现它在很多文件里头都存在，它们都是一样的，这里选取<code>/include/linux/kernel.h</code>当中的container_of宏来说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define container_of(ptr, type, member) (&#123;        \</span><br><span class="line">   const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr); \</span><br><span class="line">   (type *)( (char *)__mptr - offsetof(type,member) );&#125;)</span><br></pre></td></tr></table></figure>
+<p>这个宏的作用是：计算结构体成员member再结构体当中的相对位置（相对地址）。<br>现在想想，开头的时候，是不是看到了这个链表的结构体定义只有指针域而没有数据域？现在就是要计算出嵌入了list_head结构的结构体的数据域的地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct stu&#123;</span><br><span class="line">   int id；</span><br><span class="line">   struct list_head *next，*prev；</span><br><span class="line">&#125;；</span><br></pre></td></tr></table></figure>
+<p>就是要根据list_head类型的结构体计算出struct stu结构体当中成员id的地址。</p>
+<p>现在假设有如下定义:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct stu *p；</span><br><span class="line">struct list_head *r;</span><br><span class="line">r = p-&gt;next;</span><br></pre></td></tr></table></figure>
+<p>现在我们肯定是可以直接通过p来访问<code>struct  stu</code>结构体当中的id的。但是这样做旧失去了其通用性，要知道内核当中链表的组织形式可是list_head。现在要如何才能够通过r访问的id呢？</p>
+<p>我们将宏container_of分开成两部分来看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr);</span><br></pre></td></tr></table></figure>
+<p>这里的typeof也是GNU C所拓展的。Typeof(x) 就是返回x的数据类型。我们先从最里面的括号开始看起吧，</p>
+<p><code>(type *)0</code>先将0转化成type 类型的指针，此时地址为0x0。然后再引用member成员，即就是:<code>((type *)0)-&gt;member</code> 然后再加上<code>typeof()</code> 不就是返回member的数据类型么。再加上前面的const 后面的 <code>* __mptr</code> 。这是个什么意思？</p>
+<p>我们来个一个假设。假设member返回的数据类型是int。那么是不是就成了<code>const int * __mptr = (ptr)</code>?现在是不是明白了？<code>typeof( ((type *)0)-&gt;member )</code> 这个东西，就是为了要得到member的数据类型。</p>
+<p>总结一下：这个就是为了定义一个member类型的指针，并且指向ptr(list_head类型)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(type *)( (char *)__mptr - offsetof(type,member) );</span><br></pre></td></tr></table></figure>
+<p><code>（char *）__mptr</code> 将<strong>mptr强制转化成<code>char *</code>类型，为什么转化成<code>char*</code> ，就是要获得</strong>mptr指针的地址。而不是其他的类型呢？先来看offsetof这个宏吧。它被定义在<code>/include/linux/stddef.h</code>当中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)0)-&gt;MEMBER)</span><br></pre></td></tr></table></figure>
+<p>不着急，还是先从最里面的括号开始看起。<code>(TYPE *)0)-&gt;MEMBER</code> 这不是为了获取member么。在加个&amp; 获得他的地址、在加上(size_t) 强制转化成size_t 类型(其实也就是 unsigned int)。现在该注意了。刚才是不是说得到了type类型的指针的地址是0x0 ？ 你这里又得到了type类型指针成员member的地址。这个就是member的偏移地址吧！</p>
+<p>再将这两个合并起来看。将获得的_<em>mptr指针的地址 ，减去member成员在其中的偏移量。就是member的地址了吧！！O(∩</em>∩)O~</p>
+<p>还有一个重要的问题？就是为什么要转化成<code>char*</code>，而不是其他的<code>*</code>？char类型的数据不论在什么类型的机器上，存储方式应该只是占了一个字节？因为它的实质是ascii码。这样的话，就好理解了，对<code>char*</code>减一 那就是实实在在的减一个字节；但是你要是对<code>int*</code>减一会实实在在的减多少？是不是4？（32位机器下）。这样一来，你怎么知道他的真实地址？<br>可以根据下图来理解：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-5.jpeg?imageView/2/w/500" alt="图五"></p>
+<p>下面再来看看和这个宏很类似的宏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define list_first_entry(ptr, type, member) \</span><br><span class="line">   list_entry((ptr)-&gt;next, type, member)</span><br></pre></td></tr></table></figure>
+<p>和刚才唯一的区别就是ptr所代表的意思不同了，list_entry这个宏是用来获得链表的入口的。但是这里却是为了得到链表的第一个元素。详细的不再赘述。</p>
+<p>下来看看这个遍历宏：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define list_for_each(pos, head) \</span><br><span class="line">   for (pos = (head)-&gt;next; prefetch(pos-&gt;next), pos != (head); \</span><br><span class="line">          pos = pos-&gt;next)</span><br></pre></td></tr></table></figure>
+<p>这里prefetch其实还是一个宏，其作用是预取。作用是使得的便利更加快速、高效、安全，我们这里基本上可以不用考虑这些问题，故，使用的时候可以将该宏去掉。</p>
+<p>再来看看向前遍历的宏：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define list_for_each_prev(pos, head) \</span><br><span class="line">   for (pos = (head)-&gt;prev; prefetch(pos-&gt;prev), pos != (head); \</span><br><span class="line">          pos = pos-&gt;prev)</span><br></pre></td></tr></table></figure>
+<p>跟上面遍历宏一样，其本质还是for循环，结束条件是遍历到了头！</p>
+<p>具体的双向循环链表就分析到这里，后面的还有一大堆的遍历宏，只不过也就是上面这几种宏的组合使用罢了；更有甚者，考虑了很多的安全性问题；比如：多线程、并发访问一链表等等，这些应该说在用户级别的程序不大会出现这类问题，我们大可不必注意；但是考虑到在OS当中，有很多是用到了链表；比如：在进程调度的时候，就绪队列、等等。在这个时候就不仅仅需要考虑链表的实现问题了，而且还得考虑安全问题。</p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">开源框架</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/10/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Hello World in Hexo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/25/xcode-plugin-develop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Xcode插件开发教程指南&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      Copyright &copy; 2013 - 2017 Chars Davy&nbsp; in <a target="_blank" href="https://github.com/charsdavy">Github</a>. Powered by <a target="_blank" href="https://hexo.io/">Hexo</a>.
+     </div>
+  </div>
+</footer>
+
+    
+<script>
+  var disqus_shortname = 'charstechblog';
+  
+  var disqus_url = 'http://charsdavy.github.io/2016/03/29/list-code-reading/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:30px;right:30px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div>
+</body>
+</html>

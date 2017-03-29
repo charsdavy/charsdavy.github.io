@@ -889,6 +889,66 @@ ga('send', 'pageview');
 
 
     
+      <article id="post-list-code-reading" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/29/list-code-reading/">list.h文件分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/29/list-code-reading/" class="article-date">
+  <time datetime="2016-03-29T14:10:59.000Z" itemprop="datePublished">2016-03-29</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/construct/">架构</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structlist_head &#123;</span><br><span class="line">       struct list_head *next, *prev; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>一上来就放这么一个数据结构，那么，这个到底要做什么呢？没错，就如上面代码所示，本文的主角就是它，由它衍生而来的一些问题。首先自我介绍，它，来自Linux系统中的链表。</p>
+<p>就是个链表的头！是不觉得很奇怪？怎么只有两个指针域，没有数据域呢？其实笔者现在也纠结这这个问题着呢！没事，咱们先往下看。说不定什么时候，咱就明白了这是怎么一回事情呢。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/29/list-code-reading/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">开源框架</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
       <article id="post-xcode-plugin-develop" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1303,7 +1363,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/05/xcode-console-cli/">Xcode 控制台命令</a>
+      <a class="article-title" href="/2016/03/05/xcode-console-cli/">Xcode 使用小记</a>
     </h1>
   
 
@@ -1749,64 +1809,6 @@ ga('send', 'pageview');
       <footer class="article-footer">
         
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/application/">application</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-http-state-code-list" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/11/http-state-code-list/">HTTP 状态码清单</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/01/11/http-state-code-list/" class="article-date">
-  <time datetime="2016-01-11T14:24:49.000Z" itemprop="datePublished">2016-01-11</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/network/">网络</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>HTTP 我们常用的网络请求之一，然因为各种网络或者硬件原因，网络请求之后总能拿到一些状态返回码，那么它们到底代表什么意思呢？本文就是将这些常见的状态码加以收集，整理归类。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/11/http-state-code-list/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/protocol/">协议</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">碎碎念</a></li></ul>
 
       </footer>
     
