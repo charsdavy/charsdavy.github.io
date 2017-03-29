@@ -77,1315 +77,6 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
-      <article id="post-core-animation-transform" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/04/core-animation-transform/">(转载) Core Animation (五) 变换</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/08/04/core-animation-transform/" class="article-date">
-  <time datetime="2016-08-04T12:14:34.000Z" itemprop="datePublished">2016-08-04</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <blockquote>
-<p><em>很不幸，没人能告诉你母体是什么，你只能自己体会</em> – 骇客帝国</p>
-</blockquote>
-<p>在第四章“<a href="http://charsdavy.github.io/2016/08/01/core-animation-vision-effect/">可视效果</a>”中，我们研究了一些增强图层和它的内容显示效果的一些技术，在这一章中，我们将要研究可以用来对图层旋转，摆放或者扭曲的<code>CGAffineTransform</code>，以及可以将扁平物体转换成三维空间对象的<code>CATransform3D</code>（而不是仅仅对圆角矩形添加下沉阴影）。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/08/04/core-animation-transform/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-xcode-plugin-list" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/02/xcode-plugin-list/">Xcode 常用插件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/08/02/xcode-plugin-list/" class="article-date">
-  <time datetime="2016-08-02T15:16:19.000Z" itemprop="datePublished">2016-08-02</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <blockquote>
-<p>工欲善其事，必先利其器</p>
-</blockquote>
-<p>这里主要罗列一些常用的 Xcode 插件。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/08/02/xcode-plugin-list/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-core-animation-vision-effect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/01/core-animation-vision-effect/">(转载) Core Animation (四) 视觉效果</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/08/01/core-animation-vision-effect/" class="article-date">
-  <time datetime="2016-07-31T23:53:40.000Z" itemprop="datePublished">2016-08-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <blockquote>
-<p>嗯，圆和椭圆还不错，但如果是带圆角的矩形呢？</p>
-<p>我们现在能做到那样了么？</p>
-<p>史蒂芬·乔布斯</p>
-</blockquote>
-<p>我们在第三章<a href="http://charsdavy.github.io/2016/07/30/core-animation-geometry-layer/">『图层几何学』</a>中讨论了图层的frame，第二章<a href="http://charsdavy.github.io/2016/07/29/core-aniamtion-host-layer/">『寄宿图』</a>则讨论了图层的寄宿图。但是图层不仅仅可以是图片或是颜色的容器；还有一系列内建的特性使得创造美丽优雅的令人深刻的界面元素成为可能。在这一章，我们将会探索一些能够通过使用CALayer属性实现的视觉效果。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/08/01/core-animation-vision-effect/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-design-complex-animation-effect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/31/design-complex-animation-effect/">(转载) 设计复杂的iOS动画效果</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/31/design-complex-animation-effect/" class="article-date">
-  <time datetime="2016-07-31T14:35:54.000Z" itemprop="datePublished">2016-07-31</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <blockquote>
-<p>动画的世界丰富多彩，令人陶醉</p>
-</blockquote>
-<p>随着工作的深入，其实每个 App 中，最关键的莫过于用户交互，随着技术时代的发展，人们已经不再满足于手指点点碰碰就完成功能。用户更加期待炫酷的操作体验。需要眼前一亮的感觉。这些都是 App 将要解决的问题。而动画交互无疑是最多的一种手段。但是，现在也不是简单动画的天下，需要更多的创意，繁杂而简洁的创意。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/31/design-complex-animation-effect/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-core-animation-geometry-layer" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/30/core-animation-geometry-layer/">(转载) Core Animation (三) 图层几何学</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/30/core-animation-geometry-layer/" class="article-date">
-  <time datetime="2016-07-30T14:21:38.000Z" itemprop="datePublished">2016-07-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <blockquote>
-<p><em>不熟悉几何学的人就不要来这里了</em> –柏拉图学院入口的签名</p>
-</blockquote>
-<p>在第二章<a href="http://charsdavy.github.io/2016/07/29/core-aniamtion-host-layer/">『寄宿图』</a>里面，我们介绍了图层背后的图片，和一些控制图层坐标和旋转的属性。在这一章中，我们将要看一看图层内部是如何根据父图层和兄弟图层来控制位置和尺寸的。另外我们也会涉及如何管理图层的几何结构，以及它是如何被自动调整和自动布局影响的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/30/core-animation-geometry-layer/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-animation-caanimation" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/29/animation-caanimation/">(转载) 睡前谈谈 CAAnimation 动画相关</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/29/animation-caanimation/" class="article-date">
-  <time datetime="2016-07-29T11:55:33.000Z" itemprop="datePublished">2016-07-29</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>要让一个 CALayer 动起來，除了通过改变 layer 的 animanatable 的属性外，就是建立 CAAnimation 实例，然后 layer 调用 -addAnimation:forKey:。我们通常会选择一种 CALayer 的 subclass，制作我们想要的动画效果。</p>
-<p>这里我们来好好看看 CAAnimation 相关知识，以期使用它来完成我们想要的动画效果。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/29/animation-caanimation/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-core-aniamtion-host-layer" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/29/core-aniamtion-host-layer/">(转载) Core Animation (二) 寄宿图</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/29/core-aniamtion-host-layer/" class="article-date">
-  <time datetime="2016-07-29T02:55:33.000Z" itemprop="datePublished">2016-07-29</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <blockquote>
-<p>图片胜过千言万语，界面抵得上千图片  ——Ben Shneiderman</p>
-</blockquote>
-<p>我们在第一章<a href="http://charsdavy.github.io/2016/07/28/core-aniamtion-layer-tree/">『图层树』</a>中介绍了CALayer类并创建了一个简单的有蓝色背景的图层。背景颜色还好啦，但是如果它仅仅是展现了一个单调的颜色未免也太无聊了。事实上CALayer类能够包含一张你喜欢的图片，这一章节我们将来探索CALayer的寄宿图（即图层中包含的图）。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/29/core-aniamtion-host-layer/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-core-aniamtion-layer-tree" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/28/core-aniamtion-layer-tree/">(转载) Core Animation (一) 图层的树状结构</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/28/core-aniamtion-layer-tree/" class="article-date">
-  <time datetime="2016-07-28T12:21:10.000Z" itemprop="datePublished">2016-07-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>Core Animation其实是一个令人误解的命名。你可能认为它只是用来做动画的，但实际上它是从一个叫做<em>Layer Kit</em>这么一个不怎么和动画有关的名字演变而来，所以做动画这只是Core Animation特性的冰山一角。</p>
-<p>Core Animation是一个<em>复合引擎</em>，它的职责就是尽可能快地组合屏幕上不同的可视内容，这个内容是被分解成独立的<em>图层</em>，存储在一个叫做<em>图层树</em>的体系之中。于是这个树形成了<strong>UIKit</strong>以及在iOS应用程序当中你所能在屏幕上看见的一切的基础。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/28/core-aniamtion-layer-tree/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-ios-app-distribution" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/21/ios-app-distribution/">谈谈iOS App打包发布</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/21/ios-app-distribution/" class="article-date">
-  <time datetime="2016-07-21T11:56:38.000Z" itemprop="datePublished">2016-07-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/21/ios-app-distribution/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/application/">application</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-custom-myself-develop-tool" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/17/custom-myself-develop-tool/">打造自己的 Mac 环境</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/17/custom-myself-develop-tool/" class="article-date">
-  <time datetime="2016-07-17T02:23:26.000Z" itemprop="datePublished">2016-07-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。</p>
-<p>文章主要分享记录博主自己搭建环境的过程。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/17/custom-myself-develop-tool/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-git-auto-completion-mac" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/17/git-auto-completion-mac/">Mac 中 Git 命令自动补全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/17/git-auto-completion-mac/" class="article-date">
-  <time datetime="2016-07-17T01:51:42.000Z" itemprop="datePublished">2016-07-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>转战iOS开发已经有一段时间了，现在使用Mac，对于命令行的使用，真的是越来越喜欢，但是，在使用Git命令的时候，不能使用【Tab】来自动补全，为此，博主找寻方法，来完善Git命令补全功能。本文分享此功能实现。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/17/git-auto-completion-mac/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-finder-open-terminal" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/13/finder-open-terminal/">在Finder中打开终端</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/13/finder-open-terminal/" class="article-date">
-  <time datetime="2016-07-13T07:14:35.000Z" itemprop="datePublished">2016-07-13</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>在Mac中，如果要在终端中进入在Finder中打开的目录，常用的方法是在终端中先敲入一个”cd “，然后在Finer中选中文件夹拖入到终端中，再回车即可实现。不过这样做终究还是麻烦了点，下面介绍如何直接在Finder中直接操作。</p>
-<p>在终端里打开Finder很简单，使用<code>open .</code>即可</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/13/finder-open-terminal/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-git-diff-p4merge" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/12/git-diff-p4merge/">Git可视化比较工具P4Merge</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/07/12/git-diff-p4merge/" class="article-date">
-  <time datetime="2016-07-12T10:41:40.000Z" itemprop="datePublished">2016-07-12</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/git-diff-p4merge.png?imageView/2/w/460" alt="效果图"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/12/git-diff-p4merge/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-xcode-update-sdk-devicesupport" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/30/xcode-update-sdk-devicesupport/">说说升级Xcode中SDK与真机调试版本</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/30/xcode-update-sdk-devicesupport/" class="article-date">
-  <time datetime="2016-06-30T07:03:02.000Z" itemprop="datePublished">2016-06-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>相信作为一名iOS开发者，每当WWDC开始，iOS升级时，那种切肤之痛，是只有开发者才能体会而又无言的一种沉默抗议。</p>
-<p>Apple很残暴的将MAC OS、iOS、Xcode牢固的捆绑在一起。如果需要真机调试，那么Xcode的SDK版本一定不能低于真机，Xcode版本的安装有MAC OS的版本要求，这样一来，只要升级一下iOS版本，那么恭喜你，很有可能你需要升级MAC OS和Xcode。而对于动辄数十个G的文件，在天朝的绿色网络保护下，是一件多么伤神的事情啊。更甚的是，现在的MAC OS系统越来越不好用了，我很是怀恋之前的版本，课无奈胳膊拗不过大腿。</p>
-<p>现在，终于有了可行的办法，能够解决上述神伤，在此总结分享给大家。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/30/xcode-update-sdk-devicesupport/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-hexo-extern-scroll-top" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/24/hexo-extern-scroll-top/">Hexo 博客功能扩展 - 添加回滚到顶部按钮</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/24/hexo-extern-scroll-top/" class="article-date">
-  <time datetime="2016-06-24T11:30:46.000Z" itemprop="datePublished">2016-06-24</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/apply/">应用实战</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：承接前文<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/24/hexo-extern-scroll-top/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-ios-night-mode" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/20/ios-night-mode/">(转载) iOS开发 - 成熟的夜间模式解决方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/20/ios-night-mode/" class="article-date">
-  <time datetime="2016-06-20T05:03:03.000Z" itemprop="datePublished">2016-06-20</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：iOS夜间模式是我们在APP开发中经常会要提供的一个功能。然后，是否可以使用一些已经成熟的第三方框架呢，文章分享一个适用于夜间模式的框架 - DKNightVersion 。</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/DKNightVersion.gif?imageView/2/w/360" alt="效果图"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/20/ios-night-mode/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-ios-sdwebimage-code-reading" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/17/ios-sdwebimage-code-reading/">(转载) iOS 源代码分析 - SDWebImage</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/17/ios-sdwebimage-code-reading/" class="article-date">
-  <time datetime="2016-06-17T11:50:38.000Z" itemprop="datePublished">2016-06-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：世人都说阅读源代码对于功力的提升是十分显著的, 但是很多的著名开源框架源代码动辄上万行, 复杂度实在太高, 曾经试图读一些开源框架的源代码, 比如说 AFNetworking, SDWebImage, ReactiveCocoa 但是由于当时比较浮躁, 实在没法静下心来看, 而且有一些急功近利, 所以面对宝藏实在无力挖掘. 而最近, 由于时间比较充裕, 也终于能静下心来一段一段分析这些著名项目的源代码. 本文主要分享SDWebImage框架源代码的相关信息. </p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/17/ios-sdwebimage-code-reading/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">开源框架</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-ios-network-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/ios-network-encrypt/">简单聊聊 iOS 中的网络加密</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/15/ios-network-encrypt/" class="article-date">
-  <time datetime="2016-06-14T23:55:50.000Z" itemprop="datePublished">2016-06-15</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/network/">网络</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/15/ios-network-encrypt/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework/">开源框架</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-state-pattern" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/10/state-pattern/">State 模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/10/state-pattern/" class="article-date">
-  <time datetime="2016-06-10T07:51:37.000Z" itemprop="datePublished">2016-06-10</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/construct/">架构</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460" alt="State模式图"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/10/state-pattern/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-objc-run-time" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/09/objc-run-time/">(转载) Objective-C 运行时编程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/09/objc-run-time/" class="article-date">
-  <time datetime="2016-06-09T02:21:31.000Z" itemprop="datePublished">2016-06-09</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：Objective-C语言将决定尽可能的从编译和链接时推迟到运行时。只要有可能，Objective-C总是使用动态的方式来解决问题。这意味着Objective-C语言不仅需要一个编译器，同时也需要一个运行时系统来执行编译好的代码。这里的运行时系统扮演的角色类似于Objective-C语言的操作系统，Objective-C基于该系统来工作。本文章将具体介绍NSObject类以及Objective-C程序是如何与运行时系统交互的。特别地，本文章还给出来怎样在运行时动态地加载新类和将消息转发给其它对象的范例，同时也给出了怎样在程序运行时获取对象信息的方法。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/09/objc-run-time/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-git-using-remote" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/05/git-using-remote/">Git 使用 - 远程操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/05/git-using-remote/" class="article-date">
-  <time datetime="2016-06-05T03:03:55.000Z" itemprop="datePublished">2016-06-05</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/tool/">工具</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
-<p><a href="https://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
-<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
-<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。本文将主要介绍几个常用的Git远程操作命令。</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:05:git-using-remote:1.jpg?imageView/2/w/560" alt="introduction"></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/05/git-using-remote/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-      <article id="post-qiniu-using" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/02/qiniu-using/">七牛云存储应用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2016/06/02/qiniu-using/" class="article-date">
-  <time datetime="2016-06-02T00:17:42.000Z" itemprop="datePublished">2016-06-02</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/iOS/">iOS</a>
-  </div>
-
-<!--
-      
--->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      <p>版权所有，请勿私自转载分享至其他平台！</p>
-      
-        <p>摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/06/02/qiniu-using/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    
-    
-      <footer class="article-footer">
-        
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/persistence/">持久化</a></li></ul>
-
-      </footer>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
       <article id="post-chopsticks-using" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1792,7 +483,7 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-charles-using" class="article article-type-post" itemscope itemprop="blogPost">
+      <article id="post-VFL-introduction" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -1800,15 +491,421 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/20/charles-using/">(转载) Charles 安装与使用</a>
+      <a class="article-title" href="/2016/04/17/VFL-introduction/">VFL 语言简介</a>
     </h1>
   
 
       </header>
     
     <div class="article-meta">
-      <a href="/2016/04/20/charles-using/" class="article-date">
-  <time datetime="2016-04-20T13:21:14.000Z" itemprop="datePublished">2016-04-20</time>
+      <a href="/2016/04/17/VFL-introduction/" class="article-date">
+  <time datetime="2016-04-17T13:49:29.000Z" itemprop="datePublished">2016-04-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/17/VFL-introduction/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-Grand-Central-Dispatch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/14/Grand-Central-Dispatch/">GCD（Grand Central Dispatch）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/14/Grand-Central-Dispatch/" class="article-date">
+  <time datetime="2016-04-14T00:24:46.000Z" itemprop="datePublished">2016-04-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/14/Grand-Central-Dispatch/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multi-thread/">多线程</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-ruby-regular-expression" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/13/ruby-regular-expression/">Ruby 正则表达式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/13/ruby-regular-expression/" class="article-date">
+  <time datetime="2016-04-13T14:17:11.000Z" itemprop="datePublished">2016-04-13</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">Web</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：正则表达式是一种特殊序列的字符，它通过使用有专门语法的模式来匹配或查找字符串集合。<br>正则表达式用事先定义好的一些特定字符、及这些特定字符的组合，组成一个”规则字符串”，这个”规则字符串”用来表达对字符串的一种过滤逻辑。<br>文章分享关于Ruby中的正则表达式的相关知识与使用。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/13/ruby-regular-expression/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regular/">正则表达式</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-singleton-pattern" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/13/singleton-pattern/">单例模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/13/singleton-pattern/" class="article-date">
+  <time datetime="2016-04-13T00:23:37.000Z" itemprop="datePublished">2016-04-13</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/construct/">架构</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/13/singleton-pattern/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-design-pattern-introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/12/design-pattern-introduction/">设计模式 - 概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/12/design-pattern-introduction/" class="article-date">
+  <time datetime="2016-04-12T00:08:59.000Z" itemprop="datePublished">2016-04-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/construct/">架构</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/12/design-pattern-introduction/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">碎碎念</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">设计模式</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/10/hello-world/">Hello World in Hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/10/hello-world/" class="article-date">
+  <time datetime="2016-04-10T10:32:15.000Z" itemprop="datePublished">2016-04-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/apply/">应用实战</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/10/hello-world/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-xcode-plugin-develop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/25/xcode-plugin-develop/">Xcode插件开发教程指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/25/xcode-plugin-develop/" class="article-date">
+  <time datetime="2016-03-25T13:58:50.000Z" itemprop="datePublished">2016-03-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：对于Xcode而言，我们苹果开发者并不陌生，对于Xcode的插件，我们也不陌生。但是，有几个人做过Xcode插件呢？！Who care？显然，博主是关心的，这里分享一下博主自己开发插件的过程。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/25/xcode-plugin-develop/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/application/">application</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-class-dump-using" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/23/class-dump-using/">聊聊 class-dump 使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/23/class-dump-using/" class="article-date">
+  <time datetime="2016-03-23T06:17:46.000Z" itemprop="datePublished">2016-03-23</time>
 </a>
       
   <div class="article-category">
@@ -1822,14 +919,358 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       <p>版权所有，请勿私自转载分享至其他平台！</p>
       
-        <p>摘要：Charles是在 Mac 下常用的网络封包截取工具，在做 移动开发时，我们为了调试与服务器端的网络通讯协议，常常需要截取网络封包来分析。</p>
-<p>Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成，从而实现了网络封包的截取和分析。</p>
-<p>除了在做移动开发中调试端口外，Charles 也可以用于分析第三方应用的通讯协议。配合 Charles 的 SSL 功能，Charles 还可以分析 Https 协议。</p>
-<p>Charles 是收费软件，可以免费试用 30 天。试用期过后，未付费的用户仍然可以继续使用，但是每次使用时间不能超过 30 分钟，并且启动时将会有 10 秒种的延时。因此，该付费方案对广大用户还是相当友好的，即使你长期不付费，也能使用完整的软件功能。只是当你需要长时间进行封包调试时，会因为 Charles 强制关闭而遇到影响。</p>
-<p>本文将分享如何使用Charles，并且发放福利喔。</p>
+        <p>class-dump is a command-line utility for examining the Objective-C segment of Mach-O files. It generates declarations for the classes, categories and protocols. This is the same information provided by using ‘otool -ov’, but presented as normal Objective-C declarations.</p>
         
           <p class="article-more-link">
-            <a href="/2016/04/20/charles-using/#more">Read More</a>
+            <a href="/2016/03/23/class-dump-using/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverse-engineering/">逆向工程</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-ios-test-in-writing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/18/ios-test-in-writing/">说说那些iOS笔试题（上篇）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/18/ios-test-in-writing/" class="article-date">
+  <time datetime="2016-03-18T13:54:56.000Z" itemprop="datePublished">2016-03-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：博主之前从事嵌入式开发，本科专业软件工程。毕业后一直从事嵌入式C语言。之所以进入嵌入式行业，完全是个人兴趣。不过，在从业两年之后发现不是自己喜欢的菜。毅然决然的转型到iOS行业。然，博主并非参加培训学校出来，完全利用工作之余时间自学，现在已经在ZAKER工作，从事ZAKER客户端的iPhone版本开发。这里，博主分享一下之前找工作时，总结的笔试题。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/18/ios-test-in-writing/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">碎碎念</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-objc-quote-count" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/15/objc-quote-count/">Objective-C中的引用计数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/15/objc-quote-count/" class="article-date">
+  <time datetime="2016-03-15T13:58:29.000Z" itemprop="datePublished">2016-03-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/15/objc-quote-count/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-socket-communicate-introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/09/socket-communicate-introduction/">socket 通信简介</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/09/socket-communicate-introduction/" class="article-date">
+  <time datetime="2016-03-09T03:33:12.000Z" itemprop="datePublished">2016-03-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/network/">网络</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/09/socket-communicate-introduction/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-objc-alloc-init" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/07/objc-alloc-init/">Objective-C中的alloc和init问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/07/objc-alloc-init/" class="article-date">
+  <time datetime="2016-03-07T13:47:01.000Z" itemprop="datePublished">2016-03-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/07/objc-alloc-init/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-ios-application-plist-diff" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/06/ios-application-plist-diff/">iOS Project与OS X Project中plist使用区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/06/ios-application-plist-diff/" class="article-date">
+  <time datetime="2016-03-06T13:46:41.000Z" itemprop="datePublished">2016-03-06</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/06/ios-application-plist-diff/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/persistence/">持久化</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-xcode-console-cli" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/05/xcode-console-cli/">Xcode 控制台命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/05/xcode-console-cli/" class="article-date">
+  <time datetime="2016-03-05T05:41:06.000Z" itemprop="datePublished">2016-03-05</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/05/xcode-console-cli/#more">Read More</a>
           </p>
         
       
@@ -1854,8 +1295,536 @@ ga('send', 'pageview');
 
 
     
+      <article id="post-oauth2-protocol" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/02/oauth2-protocol/">OAuth2.0 协议</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/02/oauth2-protocol/" class="article-date">
+  <time datetime="2016-03-02T03:23:48.000Z" itemprop="datePublished">2016-03-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/network/">网络</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：OAuth（Open Authorization），协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处是OAuth的授权不会使第三方触及到用户的帐号信息（如用户名和密码），即第三方无需使用用户的用户名与密码就可以申请获得该用户的授权，因此，OAuth是安全的。这些解释都是官方的，本文中博主会根据自己的学习所得，整理分享对OAuth协议的理解。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/02/oauth2-protocol/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/protocol/">协议</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-algorithm-idea" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/22/algorithm-idea/">常用的算法思想总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/02/22/algorithm-idea/" class="article-date">
+  <time datetime="2016-02-22T04:17:11.000Z" itemprop="datePublished">2016-02-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/algorithm/">算法</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/02/22/algorithm-idea/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-apk-decompile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/18/apk-decompile/">Apk 反编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/02/18/apk-decompile/" class="article-date">
+  <time datetime="2016-02-18T14:17:11.000Z" itemprop="datePublished">2016-02-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：最近看见一些正版软件，便想到pc端软件的破解，便在网络上大肆搜索，终于找到了一个办公软件破解key的软件，对其实现非常感兴趣，想着反编译其apk，在网上也找了很多相关的实现方式，这里，本文介绍博主使用的简约方法与工具。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/02/18/apk-decompile/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/assistant/">开发助手</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-objc-new-alloc-init" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/16/objc-new-alloc-init/">Objective-C 中 new、alloc和init的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/02/16/objc-new-alloc-init/" class="article-date">
+  <time datetime="2016-02-16T13:16:53.000Z" itemprop="datePublished">2016-02-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>在实际开发中很少会用到new，一般创建对象我们看到的全是[[className alloc] init]，但是并不意味着你不会接触到new，在一些代码中还是会看到[className new]，还有去面试的时候，也很可能被问到这个问题。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/02/16/objc-new-alloc-init/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-memory-alignment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/10/memory-alignment/">内存对齐详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/02/10/memory-alignment/" class="article-date">
+  <time datetime="2016-02-10T12:17:11.000Z" itemprop="datePublished">2016-02-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>摘要：现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。<br>本文分享博主对内存对齐的一些理解。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/02/10/memory-alignment/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/storage/">内存</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-ios-data-persistence" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/19/ios-data-persistence/">拆拆 iOS 数据持久化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/01/19/ios-data-persistence/" class="article-date">
+  <time datetime="2016-01-19T06:50:24.000Z" itemprop="datePublished">2016-01-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：</p>
+<p>1）属性列表；</p>
+<p>2）对象归档；</p>
+<p>3）iOS的嵌入式关系数据库SQLite3；</p>
+<p>4）Core Data。</p>
+<p>在iOS开发中，持久化数据的方法也并不限于属性列表、对象归档、SQLite3和Core Data。它们只是四种最常用且简单的方法。其实也可以使用传统C语言I/O调用（比如，fopen()）读写数据，也可以使用Cocoa的底层文件管理工具。只不过这两种方法都需要写很多代码，并且没有必要这么做。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/01/19/ios-data-persistence/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/persistence/">持久化</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-ios-preference-setting" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/15/ios-preference-setting/">iOS App 偏好设置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/01/15/ios-preference-setting/" class="article-date">
+  <time datetime="2016-01-15T07:17:17.000Z" itemprop="datePublished">2016-01-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>如今，即便是最简单的计算机程序也会包含一个偏好设置窗口，用户可以在其中设置应用专属的选项。在MAC OS X中，Preferences…菜单通常位于应用菜单中。选择该菜单项会弹出一个窗口，用户可以在其中输入和更改各种选项。iPhone和其他iOS设备有一个专门的“设置”应用程序来进行各种设置，你肯定用过很多次了。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/01/15/ios-preference-setting/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/application/">application</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-http-state-code-list" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/11/http-state-code-list/">HTTP 状态码清单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/01/11/http-state-code-list/" class="article-date">
+  <time datetime="2016-01-11T14:24:49.000Z" itemprop="datePublished">2016-01-11</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/network/">网络</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>HTTP 我们常用的网络请求之一，然因为各种网络或者硬件原因，网络请求之后总能拿到一些状态返回码，那么它们到底代表什么意思呢？本文就是将这些常见的状态码加以收集，整理归类。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/01/11/http-state-code-list/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/protocol/">协议</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/text/">碎碎念</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+      <article id="post-ios-qrcode-scaner" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/26/ios-qrcode-scaner/">iOS 二维码扫描</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2015/12/26/ios-qrcode-scaner/" class="article-date">
+  <time datetime="2015-12-26T07:33:03.000Z" itemprop="datePublished">2015-12-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      <p>版权所有，请勿私自转载分享至其他平台！</p>
+      
+        <p>二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。</p>
+<p>在这么一个二维码泛滥的时代，一般的App都会支持二维码扫描，那么这个功能应该如何实现呢？</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/26/ios-qrcode-scaner/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/peripheral/">外设</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
