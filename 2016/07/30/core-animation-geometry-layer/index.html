@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1696534394699613",
+      enable_page_level_ads: true
+    });
+  </script>
+  
+  <meta charset="utf-8">
+  
+  <title>(转载) Core Animation (三) 图层几何学 - Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="不熟悉几何学的人就不要来这里了 –柏拉图学院入口的签名
+
+在第二章『寄宿图』里面，我们介绍了图层背后的图片，和一些控制图层坐标和旋转的属性。在这一章中，我们将要看一看图层内部是如何根据父图层和兄弟图层来控制位置和尺寸的。另外我们也会涉及如何管理图层的几何结构，以及它是如何被自动调整和自动布局影响的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(转载) Core Animation (三) 图层几何学">
+<meta property="og:url" content="http://charsdavy.github.io/2016/07/30/core-animation-geometry-layer/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="不熟悉几何学的人就不要来这里了 –柏拉图学院入口的签名
+
+在第二章『寄宿图』里面，我们介绍了图层背后的图片，和一些控制图层坐标和旋转的属性。在这一章中，我们将要看一看图层内部是如何根据父图层和兄弟图层来控制位置和尺寸的。另外我们也会涉及如何管理图层的几何结构，以及它是如何被自动调整和自动布局影响的。">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.1.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.2.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.3.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.4.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.5.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.6.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.7.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.8.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.9.jpeg?imageView/2/w/700">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.10.jpeg?imageView/2/w/700">
+<meta property="og:updated_time" content="2017-03-21T14:50:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(转载) Core Animation (三) 图层几何学">
+<meta name="twitter:description" content="不熟悉几何学的人就不要来这里了 –柏拉图学院入口的签名
+
+在第二章『寄宿图』里面，我们介绍了图层背后的图片，和一些控制图层坐标和旋转的属性。在这一章中，我们将要看一看图层内部是如何根据父图层和兄弟图层来控制位置和尺寸的。另外我们也会涉及如何管理图层的几何结构，以及它是如何被自动调整和自动布局影响的。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.1.jpeg?imageView/2/w/700">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Chars</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Rss</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://charsdavy.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-core-animation-geometry-layer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      (转载) Core Animation (三) 图层几何学
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/07/30/core-animation-geometry-layer/" class="article-date">
+  <time datetime="2016-07-30T14:21:38.000Z" itemprop="datePublished">2016-07-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><em>不熟悉几何学的人就不要来这里了</em> –柏拉图学院入口的签名</p>
+</blockquote>
+<p>在第二章<a href="http://charsdavy.github.io/2016/07/29/core-aniamtion-host-layer/">『寄宿图』</a>里面，我们介绍了图层背后的图片，和一些控制图层坐标和旋转的属性。在这一章中，我们将要看一看图层内部是如何根据父图层和兄弟图层来控制位置和尺寸的。另外我们也会涉及如何管理图层的几何结构，以及它是如何被自动调整和自动布局影响的。</p>
+<a id="more"></a>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p><code>UIView</code>有三个比较重要的布局属性：<code>frame</code>，<code>bounds</code>和<code>center</code>，<code>CALayer</code>对应地叫做<code>frame</code>，<code>bounds</code>和<code>position</code>。为了能清楚区分，图层用了“position”，视图用了“center”，但是他们都代表同样的值。</p>
+<p><code>frame</code>代表了图层的外部坐标（也就是在父图层上占据的空间），<code>bounds</code>是内部坐标（{0, 0}通常是图层的左上角），<code>center</code>和<code>position</code>都代表了相对于父图层<code>anchorPoint</code>所在的位置。<code>anchorPoint</code>的属性将会在后续介绍到，现在把它想成图层的中心点就好了。图3.1显示了这些属性是如何相互依赖的。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.1.jpeg?imageView/2/w/700" alt="图3.1"></p>
+<p>图3.1 <code>UIView</code>和<code>CALayer</code>的坐标系</p>
+<p>视图的<code>frame</code>，<code>bounds</code>和<code>center</code>属性仅仅是<em>存取方法</em>，当操纵视图的<code>frame</code>，实际上是在改变位于视图下方<code>CALayer</code>的<code>frame</code>，不能够独立于图层之外改变视图的<code>frame</code>。</p>
+<p>对于视图或者图层来说，<code>frame</code>并不是一个非常清晰的属性，它其实是一个虚拟属性，是根据<code>bounds</code>，<code>position</code>和<code>transform</code>计算而来，所以当其中任何一个值发生改变，frame都会变化。相反，改变frame的值同样会影响到他们当中的值</p>
+<p>记住当对图层做变换的时候，比如旋转或者缩放，<code>frame</code>实际上代表了覆盖在图层旋转之后的整个轴对齐的矩形区域，也就是说<code>frame</code>的宽高可能和<code>bounds</code>的宽高不再一致了（图3.2）</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.2.jpeg?imageView/2/w/700" alt="图3.2"></p>
+<p>图3.2 旋转一个视图或者图层之后的<code>frame</code>属性</p>
+<h2 id="锚点"><a href="#锚点" class="headerlink" title="锚点"></a>锚点</h2><p>之前提到过，视图的<code>center</code>属性和图层的<code>position</code>属性都指定了<code>anchorPoint</code>相对于父图层的位置。图层的<code>anchorPoint</code>通过<code>position</code>来控制它的<code>frame</code>的位置，你可以认为<code>anchorPoint</code>是用来移动图层的<em>把柄</em>。</p>
+<p>默认来说，<code>anchorPoint</code>位于图层的中点，所以图层的将会以这个点为中心放置。<code>anchorPoint</code>属性并没有被<code>UIView</code>接口暴露出来，这也是视图的position属性被叫做“center”的原因。但是图层的<code>anchorPoint</code>可以被移动，比如你可以把它置于图层<code>frame</code>的左上角，于是图层的内容将会向右下角的<code>position</code>方向移动（图3.3），而不是居中了。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.3.jpeg?imageView/2/w/700" alt="图3.3"></p>
+<p>图3.3 改变<code>anchorPoint</code>的效果</p>
+<p>和第二章提到的<code>contentsRect</code>和<code>contentsCenter</code>属性类似，<code>anchorPoint</code>用<em>单位坐标</em>来描述，也就是图层的相对坐标，图层左上角是{0, 0}，右下角是{1, 1}，因此默认坐标是{0.5, 0.5}。<code>anchorPoint</code>可以通过指定x和y值小于0或者大于1，使它放置在图层范围之外。</p>
+<p>注意在图3.3中，当改变了<code>anchorPoint</code>，<code>position</code>属性保持固定的值并没有发生改变，但是<code>frame</code>却移动了。</p>
+<p>那在什么场合需要改变<code>anchorPoint</code>呢？既然我们可以随意改变图层位置，那改变<code>anchorPoint</code>不会造成困惑么？为了举例说明，我们来举一个实用的例子，创建一个模拟闹钟的项目。</p>
+<p>钟面和钟表由四张图片组成（图3.4），为了简单说明，我们还是用传统的方式来装载和加载图片，使用四个<code>UIImageView</code>实例（当然你也可以用正常的视图，设置他们图层的<code>contents</code>图片）。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.4.jpeg?imageView/2/w/700" alt="图3.4"></p>
+<p>图3.4 组成钟面和钟表的四张图片</p>
+<p>闹钟的组件通过IB来排列（图3.5），这些图片视图嵌套在一个容器视图之内，并且自动调整和自动布局都被禁用了。这是因为自动调整会影响到视图的<code>frame</code>，而根据图3.2的演示，当视图旋转的时候，<code>frame</code>是会发生改变的，这将会导致一些布局上的失灵。</p>
+<p>我们用<code>NSTimer</code>来更新闹钟，使用视图的<code>transform</code>属性来旋转钟表（如果你对这个属性不太熟悉，不要着急，我们将会在第5章“变换”当中详细说明），具体代码见清单3.1</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.5.jpeg?imageView/2/w/700" alt="图3.5"></p>
+<p>图3.5 在Interface Builder中布局闹钟视图</p>
+<p>清单3.1 <strong>Clock</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> *hourHand;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> *minuteHand;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> *secondHand;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">NSTimer</span> *timer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//start timer</span></span><br><span class="line">    <span class="keyword">self</span>.timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1.0</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(tick) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</span><br><span class="line">                  ￼</span><br><span class="line">    <span class="comment">//set initial hand positions</span></span><br><span class="line">    [<span class="keyword">self</span> tick];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)tick</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//convert time to hours, minutes and seconds</span></span><br><span class="line">    <span class="built_in">NSCalendar</span> *calendar = [[<span class="built_in">NSCalendar</span> alloc] initWithCalendarIdentifier:<span class="built_in">NSGregorianCalendar</span>];</span><br><span class="line">    <span class="built_in">NSUInteger</span> units = <span class="built_in">NSHourCalendarUnit</span> | <span class="built_in">NSMinuteCalendarUnit</span> | <span class="built_in">NSSecondCalendarUnit</span>;</span><br><span class="line">    <span class="built_in">NSDateComponents</span> *components = [calendar components:units fromDate:[<span class="built_in">NSDate</span> date]];</span><br><span class="line">    <span class="built_in">CGFloat</span> hoursAngle = (components.hour / <span class="number">12.0</span>) * M_PI * <span class="number">2.0</span>;</span><br><span class="line">    <span class="comment">//calculate hour hand angle //calculate minute hand angle</span></span><br><span class="line">    <span class="built_in">CGFloat</span> minsAngle = (components.minute / <span class="number">60.0</span>) * M_PI * <span class="number">2.0</span>;</span><br><span class="line">    <span class="comment">//calculate second hand angle</span></span><br><span class="line">    <span class="built_in">CGFloat</span> secsAngle = (components.second / <span class="number">60.0</span>) * M_PI * <span class="number">2.0</span>;</span><br><span class="line">    <span class="comment">//rotate hands</span></span><br><span class="line">    <span class="keyword">self</span>.hourHand.transform = <span class="built_in">CGAffineTransformMakeRotation</span>(hoursAngle);</span><br><span class="line">    <span class="keyword">self</span>.minuteHand.transform = <span class="built_in">CGAffineTransformMakeRotation</span>(minsAngle);</span><br><span class="line">    <span class="keyword">self</span>.secondHand.transform = <span class="built_in">CGAffineTransformMakeRotation</span>(secsAngle);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>运行项目，看起来有点奇怪（图3.6），因为钟表的图片在围绕着中心旋转，这并不是我们期待的一个支点。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.6.jpeg?imageView/2/w/700" alt="图3.6"></p>
+<p>图3.6 钟面，和不对齐的钟指针</p>
+<p>你也许会认为可以在Interface Builder当中调整指针图片的位置来解决，但其实并不能达到目的，因为如果不放在钟面中间的话，同样不能正确的旋转。</p>
+<p>也许在图片末尾添加一个透明空间也是个解决方案，但这样会让图片变大，也会消耗更多的内存，这样并不优雅。</p>
+<p>更好的方案是使用<code>anchorPoint</code>属性，我们来在<code>-viewDidLoad</code>方法中添加几行代码来给每个钟指针的<code>anchorPoint</code>做一些平移（清单3.2），图3.7显示了正确的结果。</p>
+<p>清单3.2</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad </span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// adjust anchor points</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.secondHand.layer.anchorPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.5</span>f, <span class="number">0.9</span>f); </span><br><span class="line">    <span class="keyword">self</span>.minuteHand.layer.anchorPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.5</span>f, <span class="number">0.9</span>f); </span><br><span class="line">    <span class="keyword">self</span>.hourHand.layer.anchorPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.5</span>f, <span class="number">0.9</span>f);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// start timer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.7.jpeg?imageView/2/w/700" alt="图3.7"></p>
+<p>图3.7 钟面，和正确对齐的钟指针</p>
+<h2 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h2><p>和视图一样，图层在图层树当中也是相对于父图层按层级关系放置，一个图层的<code>position</code>依赖于它父图层的<code>bounds</code>，如果父图层发生了移动，它的所有子图层也会跟着移动。</p>
+<p>这样对于放置图层会更加方便，因为你可以通过移动根图层来将它的子图层作为一个整体来移动，但是有时候你需要知道一个图层的<em>绝对</em>位置，或者是相对于另一个图层的位置，而不是它当前父图层的位置。</p>
+<p><code>CALayer</code>给不同坐标系之间的图层转换提供了一些工具类方法：</p>
+<pre><code>- (CGPoint)convertPoint:(CGPoint)point fromLayer:(CALayer *)layer; 
+- (CGPoint)convertPoint:(CGPoint)point toLayer:(CALayer *)layer; 
+- (CGRect)convertRect:(CGRect)rect fromLayer:(CALayer *)layer;
+- (CGRect)convertRect:(CGRect)rect toLayer:(CALayer *)layer;
+</code></pre><p>这些方法可以把定义在一个图层坐标系下的点或者矩形转换成另一个图层坐标系下的点或者矩形</p>
+<h3 id="翻转的几何结构"><a href="#翻转的几何结构" class="headerlink" title="翻转的几何结构"></a>翻转的几何结构</h3><p>常规说来，在iOS上，一个图层的<code>position</code>位于父图层的左上角，但是在Mac OS上，通常是位于左下角。Core Animation可以通过<code>geometryFlipped</code>属性来适配这两种情况，它决定了一个图层的坐标是否相对于父图层垂直翻转，是一个<code>BOOL</code>类型。在iOS上通过设置它为<code>YES</code>意味着它的子图层将会被垂直翻转，也就是将会沿着底部排版而不是通常的顶部（它的所有子图层也同理，除非把它们的<code>geometryFlipped</code>属性也设为<code>YES</code>）。</p>
+<h3 id="Z坐标轴"><a href="#Z坐标轴" class="headerlink" title="Z坐标轴"></a>Z坐标轴</h3><p>和<code>UIView</code>严格的二维坐标系不同，<code>CALayer</code>存在于一个三维空间当中。除了我们已经讨论过的<code>position</code>和<code>anchorPoint</code>属性之外，<code>CALayer</code>还有另外两个属性，<code>zPosition</code>和<code>anchorPointZ</code>，二者都是在Z轴上描述图层位置的浮点类型。</p>
+<p>注意这里并没有更<em>深</em>的属性来描述由宽和高做成的<code>bounds</code>了，图层是一个完全扁平的对象，你可以把它们想象成类似于一页二维的坚硬的纸片，用胶水粘成一个空洞，就像三维结构的折纸一样。</p>
+<p><code>zPosition</code>属性在大多数情况下其实并不常用。在第五章，我们将会涉及<code>CATransform3D</code>，你会知道如何在三维空间移动和旋转图层，除了做变换之外，<code>zPosition</code>最实用的功能就是改变图层的<em>显示顺序</em>了。</p>
+<p>通常，图层是根据它们子图层的<code>sublayers</code>出现的顺序来类绘制的，这就是所谓的<em>画家的算法</em>–就像一个画家在墙上作画–后被绘制上的图层将会遮盖住之前的图层，但是通过增加图层的<code>zPosition</code>，就可以把图层向相机方向<em>前置</em>，于是它就在所有其他图层的<em>前面</em>了（或者至少是小于它的<code>zPosition</code>值的图层的前面）。</p>
+<p>这里所谓的“相机”实际上是相对于用户是视角，这里和iPhone背后的内置相机没任何关系。</p>
+<p>图3.8显示了在Interface Builder内的一对视图，正如你所见，首先出现在视图层级绿色的视图被绘制在红色视图的后面。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.8.jpeg?imageView/2/w/700" alt="图3.8"></p>
+<p>图3.8 在视图层级中绿色视图被绘制在红色视图的后面</p>
+<p>我们希望在真实的应用中也能显示出绘图的顺序，同样地，如果我们提高绿色视图的<code>zPosition</code>（清单3.3），我们会发现顺序就反了（图3.9）。其实并不需要增加太多，视图都非常地薄，所以给<code>zPosition</code>提高一个像素就可以让绿色视图前置，当然0.1或者0.0001也能够做到，但是最好不要这样，因为浮点类型四舍五入的计算可能会造成一些不便的麻烦。</p>
+<p>清单3.3</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *greenView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *redView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    ￼</span><br><span class="line">    <span class="comment">//move the green view zPosition nearer to the camera</span></span><br><span class="line">    <span class="keyword">self</span>.greenView.layer.zPosition = <span class="number">1.0</span>f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.9.jpeg?imageView/2/w/700" alt="图3.9"></p>
+<p>图3.9 绿色视图被绘制在红色视图的前面</p>
+<h2 id="Hit-Testing"><a href="#Hit-Testing" class="headerlink" title="Hit Testing"></a>Hit Testing</h2><p>第一章“图层树”证实了最好使用图层相关视图，而不是创建独立的图层关系。其中一个原因就是要处理额外复杂的触摸事件。</p>
+<p><code>CALayer</code>并不关心任何响应链事件，所以不能直接处理触摸事件或者手势。但是它有一系列的方法帮你处理事件：<code>-containsPoint:</code>和<code>-hitTest:</code>。</p>
+<p><code>-containsPoint:</code>接受一个在本图层坐标系下的<code>CGPoint</code>，如果这个点在图层<code>frame</code>范围内就返回<code>YES</code>。如清单3.4所示第一章的项目的另一个合适的版本，也就是使用<code>-containsPoint:</code>方法来判断到底是白色还是蓝色的图层被触摸了<br>（图3.10）。这需要把触摸坐标转换成每个图层坐标系下的坐标，结果很不方便。</p>
+<p>清单3.4 使用containsPoint判断被点击的图层</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *layerView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">CALayer</span> *blueLayer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//create sublayer</span></span><br><span class="line">    <span class="keyword">self</span>.blueLayer = [<span class="built_in">CALayer</span> layer];</span><br><span class="line">    <span class="keyword">self</span>.blueLayer.frame = <span class="built_in">CGRectMake</span>(<span class="number">50.0</span>f, <span class="number">50.0</span>f, <span class="number">100.0</span>f, <span class="number">100.0</span>f);</span><br><span class="line">    <span class="keyword">self</span>.blueLayer.backgroundColor = [<span class="built_in">UIColor</span> blueColor].CGColor;</span><br><span class="line">    <span class="comment">//add it to our view</span></span><br><span class="line">    [<span class="keyword">self</span>.layerView.layer addSublayer:<span class="keyword">self</span>.blueLayer];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//get touch position relative to main view</span></span><br><span class="line">    <span class="built_in">CGPoint</span> point = [[touches anyObject] locationInView:<span class="keyword">self</span>.view];</span><br><span class="line">    <span class="comment">//convert point to the white layer's coordinates</span></span><br><span class="line">    point = [<span class="keyword">self</span>.layerView.layer convertPoint:point fromLayer:<span class="keyword">self</span>.view.layer];</span><br><span class="line">    <span class="comment">//get layer using containsPoint:</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.layerView.layer containsPoint:point]) &#123;</span><br><span class="line">        <span class="comment">//convert point to blueLayer’s coordinates</span></span><br><span class="line">        point = [<span class="keyword">self</span>.blueLayer convertPoint:point fromLayer:<span class="keyword">self</span>.layerView.layer];</span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span>.blueLayer containsPoint:point]) &#123;</span><br><span class="line">            [[[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Inside Blue Layer"</span> </span><br><span class="line">                                        message:<span class="literal">nil</span></span><br><span class="line">                                       delegate:<span class="literal">nil</span> </span><br><span class="line">                              cancelButtonTitle:<span class="string">@"OK"</span></span><br><span class="line">                              otherButtonTitles:<span class="literal">nil</span>] show];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            [[[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Inside White Layer"</span></span><br><span class="line">                                        message:<span class="literal">nil</span> </span><br><span class="line">                                       delegate:<span class="literal">nil</span></span><br><span class="line">                              cancelButtonTitle:<span class="string">@"OK"</span></span><br><span class="line">                              otherButtonTitles:<span class="literal">nil</span>] show];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/core-animation-geometry-layer-3.10.jpeg?imageView/2/w/700" alt="图3.10"></p>
+<p>图3.10 点击图层被正确标识</p>
+<p><code>-hitTest:</code>方法同样接受一个<code>CGPoint</code>类型参数，而不是<code>BOOL</code>类型，它返回图层本身，或者包含这个坐标点的叶子节点图层。这意味着不再需要像使用<code>-containsPoint:</code>那样，人工地在每个子图层变换或者测试点击的坐标。如果这个点在最外面图层的范围之外，则返回nil。具体使用<code>-hitTest:</code>方法被点击图层的代码如清单3.5所示。</p>
+<p>清单3.5 使用hitTest判断被点击的图层</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//get touch position</span></span><br><span class="line">    <span class="built_in">CGPoint</span> point = [[touches anyObject] locationInView:<span class="keyword">self</span>.view];</span><br><span class="line">    <span class="comment">//get touched layer</span></span><br><span class="line">    <span class="built_in">CALayer</span> *layer = [<span class="keyword">self</span>.layerView.layer hitTest:point];</span><br><span class="line">    <span class="comment">//get layer using hitTest</span></span><br><span class="line">    <span class="keyword">if</span> (layer == <span class="keyword">self</span>.blueLayer) &#123;</span><br><span class="line">        [[[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Inside Blue Layer"</span></span><br><span class="line">                                    message:<span class="literal">nil</span></span><br><span class="line">                                   delegate:<span class="literal">nil</span></span><br><span class="line">                          cancelButtonTitle:<span class="string">@"OK"</span></span><br><span class="line">                          otherButtonTitles:<span class="literal">nil</span>] show];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (layer == <span class="keyword">self</span>.layerView.layer) &#123;</span><br><span class="line">        [[[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Inside White Layer"</span></span><br><span class="line">                                    message:<span class="literal">nil</span></span><br><span class="line">                                   delegate:<span class="literal">nil</span></span><br><span class="line">                          cancelButtonTitle:<span class="string">@"OK"</span></span><br><span class="line">                          otherButtonTitles:<span class="literal">nil</span>] show];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意当调用图层的<code>-hitTest:</code>方法时，测算的顺序严格依赖于图层树当中的图层顺序（和UIView处理事件类似）。之前提到的<code>zPosition</code>属性可以明显改变屏幕上图层的顺序，但不能改变事件传递的顺序。</p>
+<p>这意味着如果改变了图层的z轴顺序，你会发现将不能够检测到最前方的视图点击事件，这是因为被另一个图层遮盖住了，虽然它的<code>zPosition</code>值较小，但是在图层树中的顺序靠前。我们将在第五章详细讨论这个问题。</p>
+<h2 id="自动布局"><a href="#自动布局" class="headerlink" title="自动布局"></a>自动布局</h2><p>你可能用过<code>UIViewAutoresizingMask</code>类型的一些常量，应用于当父视图改变尺寸的时候，相应<code>UIView</code>的<code>frame</code>也跟着更新的场景（通常用于横竖屏切换）。</p>
+<p>在iOS6中，苹果介绍了<em>自动排版</em>机制，它和自动调整不同，并且更加复杂。</p>
+<p>在Mac OS平台，<code>CALayer</code>有一个叫做<code>layoutManager</code>的属性可以通过<code>CALayoutManager</code>协议和<code>CAConstraintLayoutManager</code>类来实现自动排版的机制。但由于某些原因，这在iOS上并不适用。</p>
+<p>当使用视图的时候，可以充分利用<code>UIView</code>类接口暴露出来的<code>UIViewAutoresizingMask</code>和<code>NSLayoutConstraint</code>API，但如果想随意控制<code>CALayer</code>的布局，就需要手工操作。最简单的方法就是使用<code>CALayerDelegate</code>如下函数：</p>
+<pre><code>- (void)layoutSublayersOfLayer:(CALayer *)layer;
+</code></pre><p>当图层的<code>bounds</code>发生改变，或者图层的<code>-setNeedsLayout</code>方法被调用的时候，这个函数将会被执行。这使得你可以手动地重新摆放或者重新调整子图层的大小，但是不能像<code>UIView</code>的<code>autoresizingMask</code>和<code>constraints</code>属性做到自适应屏幕旋转。</p>
+<p>这也是为什么最好使用视图而不是单独的图层来构建应用程序的另一个重要原因之一。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本章涉及了<code>CALayer</code>的集合结构，包括它的<code>frame</code>，<code>position</code>和<code>bounds</code>，介绍了三维空间内图层的概念，以及如何在独立的图层内响应事件，最后简单说明了在iOS平台，Core Animation对自动调整和自动布局支持的缺乏。</p>
+<p>在第四章“视觉效果”当中，我们接着介绍一些图层外表的特性。</p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/31/design-complex-animation-effect/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          (转载) 设计复杂的iOS动画效果
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/29/animation-caanimation/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">(转载) 睡前谈谈 CAAnimation 动画相关&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      Copyright &copy; 2013 - 2017 Chars Davy&nbsp; in <a target="_blank" href="https://github.com/charsdavy">Github</a>. Powered by <a target="_blank" href="https://hexo.io/">Hexo</a>.
+     </div>
+  </div>
+</footer>
+
+    
+<script>
+  var disqus_shortname = 'charstechblog';
+  
+  var disqus_url = 'http://charsdavy.github.io/2016/07/30/core-animation-geometry-layer/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:30px;right:30px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1696534394699613",
+      enable_page_level_ads: true
+    });
+  </script>
+  
+  <meta charset="utf-8">
+  
+  <title>(转载) Apple Pay编程指导 - Chars&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Apple Pay 是一种移动支付服务，能在实体和在线商店结账时使用特定的苹果移动设备支付款项。这项服务能替换传统银行卡：信用卡或借记磁条卡支付流程，并将之数字化。此服务能让苹果的移动设备与销售时点情报系统（POS）间通过近场通信（NFC）、一个“专门负责存储经过加密之付款信息的芯片”（称为：Secure Element）以及苹果的 Touch ID 和 Wallet 互相传递信息，最多可添加8张">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(转载) Apple Pay编程指导">
+<meta property="og:url" content="http://charsdavy.github.io/2016/02/27/apple-pay-develop/index.html">
+<meta property="og:site_name" content="Chars's Tech Blog">
+<meta property="og:description" content="Apple Pay 是一种移动支付服务，能在实体和在线商店结账时使用特定的苹果移动设备支付款项。这项服务能替换传统银行卡：信用卡或借记磁条卡支付流程，并将之数字化。此服务能让苹果的移动设备与销售时点情报系统（POS）间通过近场通信（NFC）、一个“专门负责存储经过加密之付款信息的芯片”（称为：Secure Element）以及苹果的 Touch ID 和 Wallet 互相传递信息，最多可添加8张">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/apple-pay-develop-1.jpg">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/apple-pay-develop-2.jpg">
+<meta property="og:updated_time" content="2017-03-21T14:50:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(转载) Apple Pay编程指导">
+<meta name="twitter:description" content="Apple Pay 是一种移动支付服务，能在实体和在线商店结账时使用特定的苹果移动设备支付款项。这项服务能替换传统银行卡：信用卡或借记磁条卡支付流程，并将之数字化。此服务能让苹果的移动设备与销售时点情报系统（POS）间通过近场通信（NFC）、一个“专门负责存储经过加密之付款信息的芯片”（称为：Secure Element）以及苹果的 Touch ID 和 Wallet 互相传递信息，最多可添加8张">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/apple-pay-develop-1.jpg">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Chars</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Rss</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://charsdavy.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-apple-pay-develop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      (转载) Apple Pay编程指导
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/02/27/apple-pay-develop/" class="article-date">
+  <time datetime="2016-02-27T06:34:14.000Z" itemprop="datePublished">2016-02-27</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+<!--
+      
+-->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Apple Pay 是一种移动支付服务，能在实体和在线商店结账时使用特定的苹果移动设备支付款项。这项服务能替换传统银行卡：信用卡或借记磁条卡支付流程，并将之数字化。此服务能让苹果的移动设备与销售时点情报系统（POS）间通过近场通信（NFC）、一个“专门负责存储经过加密之付款信息的芯片”（称为：Secure Element）以及苹果的 Touch ID 和 Wallet 互相传递信息，最多可添加8张银行卡。</p>
+<a id="more"></a>
+<p>1.About Apple Pay<br>Apple Pay是一种移动支付技术，让使用者把它们对真实的物品和服务的支付信息以一种方便和安全的方式给你。</p>
+<p>对于在app中给出的数字物品和服务，可查看In-App Purchase Programming Guide。</p>
+<p>Working with Apple Pay<br>使用Apple Pay功能的Apps需要在Xcode 中开启Apple Pay capabilities。也需要注册一个商家标识并设置密钥(用来加密发送支付数据给服务器)。</p>
+<p>初始化支付时，app创建一个支付请求。该请求包含几乎全部的服务和商品购买，也包含任何额外的费用：税金、运费或者折扣。传送该请求给支付授权视图控制器，控制器展示该请求给用户并对任何需要的信息作出提示，例如运送地址或者账单地址。当用户与视图控制器进行交互时，调用代理用以更新请求。</p>
+<p>一旦用户授权支付，Apple Pay加密支付信息用以保护未授权的第三方访问它。在设备上，Apple Pay发送支付请求给加密元件，该元件是一个用户设备上的专用芯片。该加密元件添加支付信息为指定的卡和商家生成一个加密的支付密钥。然后传递该密钥给Apple 服务器，在服务器上使用商家标识证书(Merchant Identifier certificate)解密。最后，服务器传递该密钥返回到app中继续处理。</p>
+<p>支付密钥从不访问或者存取在Apple服务器上。该服务器仅仅可使用证书解密密钥。这种处理使得不用加密证书app安全的加密支付信息，且必须分配商家标识证书作为app的一部分。</p>
+<p>更多关于Apple Pay安全的信息，可查看iOS Security Guide。</p>
+<p>大多数情况下，app传送加密密钥给第三发支付平台解密并处理支付。然而，如果自己的团队有已经存在的支付基础设施，可以在自己的服务器上解密并处理支付。</p>
+<p>更多关于支持Apple Pay的支付平台的信息，可查看develop.apple.com/apple-pay/。</p>
+<p>2.Configuring Your Environment<br>商户ID用来判别用户是否对Apple Pay能够接受支付。与商户ID有关的公共的钥匙和证书被用来作为支付进程的一部分，用来加密支付信息。在app可以使用Apple Pay之前，需要注册一个merchant ID商户ID 并配置它的证书。</p>
+<p>注册商户ID(a merchant ID)<br>1）在会员中心(Member Center)，选择Certificates，Identifiers &amp; Profiles(<a href="http://developer.apple.com/account)选项。">http://developer.apple.com/account)选项。</a><br>2）在Identifiers选项下面，选择Merchant IDs选项。<br>3）点击右上角的添加按钮(+)。<br>4）输入一段描述和标识，点击Continue继续按钮。<br>5）检查设置内容，然后点击Register注册按钮。<br>6）点击Done 按钮，完成。</p>
+<p>配置商户ID相应的证书<br>1）在会员中心(Member Center)(<a href="https://developer.apple.com)，选择Certificates，Identifiers">https://developer.apple.com)，选择Certificates，Identifiers</a> &amp; Profiles选项。<br>2）在Identifiers选项下面，选择Merchant IDs选项。<br>3）从列表中选择商户ID(merchant ID)，点击Edit编辑按钮。<br>4）点击Create Certificate按钮生成证书，跟随获得的说明或是生成一个CSR(certificate signing request)，点击Continue按钮。<br>5）点击选择文件，选中CSR文件，点击Generate按钮。<br>6）点击Download按钮下载该证书，并点击Done按钮，完成。</p>
+<p>如果在钥匙串使用中看见一个警告warning ，说明证书被未知的认证授权签名或者它是一个无效的发行者，确认有the WWDR intermediate certificate - G2证书并在钥匙串中安装了the Apple Root CA - G2。这些可以在apple.com/certificateauthority 下载得到。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/apple-pay-develop-1.jpg" alt="配置"></p>
+<p>注意：<br>当出现故障时，有时候这对手动开启Apple Pay功能有所帮助。跟随下面的步骤手动开启Apple Pay功能。</p>
+<p>1）在会员中心(Member Center)，选择Certificates ，Identifiers &amp; Profiles选项。<br>2）在Identifiers选项下，选择App IDs选项。<br>3）从列表中选中app ID，点击Edit按钮。<br>4）选择Apple Pay选项，点击Edit按钮。<br>5）选择准备使用的商户IDs(merchant IDs)，点击Continue按钮。<br>6）检查设置内容，然后点击Assign指派按钮。<br>7）点击Done按钮，完成。</p>
+<p>3.Creating Payment Requests<br>Payment Requests支付请求是PKPaymentRequest类的实例。支付请求包含一系列描述用户的支付对象(为哪些东西付款)的概要项：可用的运送方式的列表，用户需要提供的运送信息的描述，关于商家和支付处理的信息。</p>
+<p>Decide Whether the User Can Make Payments 判决用户是否有能力支付<br>在生成一个支付请求之前，通过调用PKPaymentAuthorizationViewController类中的canMakePaymentsUsingNetworks:方法判断用户是否能够使用支持的系统完成支付。使用canMakePayments方法，检查设备的硬件和父类控制是否支持Apple Pay。</p>
+<p>如果canMakePayments返回NO，表示设备不支持Apple Pay。因此也不显示Apple Pay按钮，转到其他的支付方式。</p>
+<p>如果canMakePayments返回YES，但是canMakePaymentsUsingNetworks:返回NO，表示设备支持Apple Pay,但是用户没有添加任何符合要求的支付系统的卡片。可选择性地去显示一个支付设置按钮，提示用户设置卡片。一旦用户点击了该按钮，初始化设置一个新卡的进程(例如：调用openPaymentSetup方法)。</p>
+<p>另外，一旦用户按下Apple Pay按钮，必须开始支付授权进程。在展示支付请求之前不能要求用户执行其他任何任务。例如，如果用户需要输入折扣码，必须在按下Apple Pay按钮之前请求该代码。</p>
+<p>Bridging from Web-Based Interfaces 基于网络接口进行桥接<br>如果app使用网络接口购买物品和服务，必须在处理Apple Pay交易之前从网络接口移动该请求到本地iOS代码。列表3-1展示了需要处理web view的请求的步骤。</p>
+<p>Listing 3-1Buying items from a web view</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// Called when the web view tries to load &quot;myShoppingApp:buyItem&quot;</span><br><span class="line"> -(void)webView:(nonnull WKWebView *)webView decidePolicyForNavigationAction:(nonnull WKNavigationAction *)navigationAction decisionHandler:(nonnull void (^)(WKNavigationActionPolicy))decisionHandler &#123;</span><br><span class="line">     // Get the URL for the selected link.</span><br><span class="line">     NSURL *URL = navigationAction.request.URL;</span><br><span class="line"></span><br><span class="line">     // If the scheme and resource specifier match those defined by your app,</span><br><span class="line">     // handle the payment in native iOS code.</span><br><span class="line">     if ([URL.scheme isEqualToString:@&quot;myShoppingApp&quot;] &amp;&amp; [URL.resourceSpecifier isEqualToString:@&quot;buyItem&quot;]) &#123;</span><br><span class="line">         // Create and present the payment request here.</span><br><span class="line">         // The web view ignores the link.</span><br><span class="line">         decisionHandler(WKNavigationActionPolicyCancel);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     // Otherwise the web view loads the link.</span><br><span class="line">     decisionHandler(WKNavigationActionPolicyAllow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Payment Requests Include Currency and Region Information 包括货币和地区信息的支付请求<br>在支付请求中所有的概要数值均使用相同的货币(指定使用PKPaymentRequest类中的currencyCode属性)，均使用三个字母的ISO货币代码，例如USD。</p>
+<p>支付请求的国家码表明在该国家发生购买操作或者在该国家购买将要被处理。使用两个字母的ISO国家码，例如US。</p>
+<p>在支付请求中设置的商户ID(merchant ID)必须与app中的entitlement中的merchant IDs相匹配.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">request.currencyCode = @&quot;USD&quot;;</span><br><span class="line">request.countryCode = @&quot;US&quot;;</span><br><span class="line">request.merchantIdentifier = @&quot;merchant.com.example&quot;;</span><br></pre></td></tr></table></figure>
+<p>Payment Requests Have a List of Payment Summary Items支付请求有一个支付概要项的列表<br>展示在PKPaymentSummaryItem类中的支付概要项，描述给用户的支付请求的不同部分。使用一个小部分的概要项－ 典型地包含总和、任何折扣、运费、税金和最终的总和。如果没有任何其他额外的费用(例如：运费或税金)，仅仅包含购物的总和。在app中提供逐项的消费细节。</p>
+<p>每个概要项有一个标记和数值，展示在Listing 3-2。标记是用户可读的概要项总结的描述。该数值与支付数值是一致的。在支付请求中的所有数值均使用在支付请求中指定的货币。折扣或者优惠劵的数值，则设置为负数。</p>
+<p>当支付被授权的时候，如果不知道某个实际的费用(例如：打车费)，生成一个使用PKPaymentSummaryItemTypePending类型的总和概要项并且值为0.0。该系统然后标记该费用为未决定的。</p>
+<p>Listing 3-2Creating a payment summary item</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 12.75 subtotal</span><br><span class="line">NSDecimalNumber *subtotalAmount = [NSDecimalNumber decimalNumberWithMantissa:1275 exponent:-2 isNegative:NO];</span><br><span class="line">self.subtotal = [PKPaymentSummaryItem summaryItemWithLabel:@&quot;Subtotal&quot; amount:subtotalAmount];</span><br><span class="line"></span><br><span class="line">// 2.00 discount</span><br><span class="line">NSDecimalNumber *discountAmount = [NSDecimalNumber decimalNumberWithMantissa:200 exponent:-2 isNegative:YES];</span><br><span class="line">self.discount = [PKPaymentSummaryItem summaryItemWithLabel:@&quot;Discount&quot; amount:discountAmount];</span><br></pre></td></tr></table></figure>
+<p>注意：<br>支付概要项使用NSDecimalNumber类存储数量为以10为基的数。该类的实例可以通过明确地指定尾数和指数(展示在代码列表中)或者提供一个string类型的数量并指定一个区域来创建。总是使用以10为基的数来进行金融计算，例如，确定5%折扣的数量。</p>
+<p>即使IEEE的浮点类型数据例如float和Double显示起来非常方便，但不适合于金融计算。这些数据类型使用以2为基的数字表示出来，这意味着一些小数数值不能被精确地表示出来。例如：0.42很可能接近于0.419999无限循环。这类近似值会造成金融计算得到错误的结果。</p>
+<p>在列表中最后的一个支付概要项是最终的总和。通过添加所有其他的概要项数值来计算总和数值。最终总和的显示不同于其他的概要项：使用公司的名称作为它的label内容，使用所有其他的概要项的数值之和作为它的数值。使用paymentSummaryItems属性添加支付概要项到支付请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 10.75 grand total</span><br><span class="line">NSDecimalNumber *totalAmount = [NSDecimalNumber zero];</span><br><span class="line">//  计算总和</span><br><span class="line">totalAmount = [totalAmount decimalNumberByAdding:subtotalAmount];</span><br><span class="line">totalAmount = [totalAmount decimalNumberByAdding:discountAmount];</span><br><span class="line"></span><br><span class="line">self.total = [PKPaymentSummaryItem summaryItemWithLabel:@&quot;My Company Name&quot; amount:totalAmount];</span><br><span class="line"></span><br><span class="line">self.summaryItems = @[self.subtotal, self.discount, self.total];</span><br><span class="line">request.paymentSummaryItems = self.summaryItems;</span><br></pre></td></tr></table></figure>
+<p>A Shipping Method Is a Special Payment Summary Item 运送方式是一种特殊的支付概要项<br>为每个适用的运送方式创建一个PKShippingMethod的实例。正如其他的支付概要项一样，运送方式有一个用户可读label内容(例如“标准的运送”或者“次日运送”)和一个运费的数值。不像其他的概要项，运送方式也有detail属性－例如：“Arrives by July 29”或者“Ships in 24 hours”－ 这说明了运送方式之间的不同。</p>
+<p>为了在代理方法中区分运送方式，可使用identifier属性。该属性仅仅被用于在自己的app中－框架处理它作为一个不透明的值，也不显示在UI界面中。当创建每个运送方式时，为它指定一个独一无二的标识。为了使调试容易些，使用摘要或者简短的string值，例如“discount”，“standard”或者“next-day”。</p>
+<p>一些运送方式不适用于所有的区域或者对不同的地址有不同的运费。当用户选择一个运送地址或者方式时可以更新这些信息，正如Your Delegate Updates Shipping Methods and Costs中描述的。</p>
+<p>Indicating Your Support Payment Processing Mechanisms 指定支持的支付处理机制<br>通过用string常量的数组填充supportNetworks属性来指定支持何种支付系统。通过给merchantCapabilities属性设定一个值来指定支持何种支付处理协议。必须支持3DS，支持EMV是可选的。</p>
+<p>商家支付能力是位掩码，联合展示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">request.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];</span><br><span class="line"></span><br><span class="line">// Supports 3DS only</span><br><span class="line">request.merchantCapabilities = PKMerchantCapability3DS;</span><br><span class="line"></span><br><span class="line">// Supports both 3DS and EMV</span><br><span class="line">request.merchantCapabilities = PKMerchantCapability3DS | PKMerchantCapabilityEMV;</span><br></pre></td></tr></table></figure>
+<p>Indicating What Shipping and billing Information Is Needed 指定哪些运送和账单信息是必需的<br>填充支付授权视图控制器的requiredBillingAddressFields和requiredShippingAddressFields属性来指定哪些账单和运送信息是必需的。当展示该视图控制器时，它提示用户提供要求的账单和运送信息。这些区域的常量按照下面的方式联合设定这些属性的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request.requiredBillingAddressFields = PKAddressFieldEmail;</span><br><span class="line">request.requiredBillingAddressFields = PKAddressFieldEmail | PKAddressFieldPostalAddress;</span><br></pre></td></tr></table></figure>
+<p>注意：<br>仅仅请求需要用来处理支付的账单和运送信息和传送商品或者服务。请求不必要的信息会增加不需要的复杂性。每个额外的步骤会增加用户简单地取消了该交易的可能性。</p>
+<p>如果你有最新的账单和运送联系方式信息，可以在支付请求时设置这些内容。Apple Pay会默认使用这些信息；然而，用户仍然可以选择其他的联系方式信息作为支付授权处理的一部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PKContact *contact = [[PKContact alloc] init];</span><br><span class="line"></span><br><span class="line">//  联系人姓名</span><br><span class="line">NSPersonNameComponents *name = [[NSPersonNameComponents alloc] init];</span><br><span class="line">name.givenName = @&quot;Chars&quot;;</span><br><span class="line">name.familyName = @&quot;Davy&quot;;</span><br><span class="line"></span><br><span class="line">contact.name = name;</span><br><span class="line"></span><br><span class="line">// 联系人地址</span><br><span class="line">CNMutablePostalAddress *address = [[CNMutablePostalAddress alloc] init];</span><br><span class="line">address.street = @&quot;1234 Laurel Street&quot;;</span><br><span class="line">address.city = @&quot;Atlanta&quot;;</span><br><span class="line">address.state = @&quot;GA&quot;;</span><br><span class="line">address.postalCode = @&quot;30303&quot;;</span><br><span class="line"></span><br><span class="line">contact.postalAddress = address;</span><br><span class="line"></span><br><span class="line">request.shippingContact = contact;</span><br></pre></td></tr></table></figure>
+<p>注意：<br>地址信息可以来自在iOS中的广泛的输入源。在使用它之前总是验证这些信息。</p>
+<p>Storing Additional Information 存储额外的信息<br>为了存储每个app特定的支付请求的信息，例如一个购物车标识，使用applicationData属性。该属性被对待作为一个系统提供的不透明的值。当用户授权支付请求之后一大把应用数据会显示在支付密钥中。</p>
+<p>4.Authorizing Payments<br>支付授权处理是支付授权视图控制器和它的代理之间的协力合作的结果。支付授权视图控制器做两件事：让用户选择支付请求中所需要的账单和运送信息，让用户去授权支付。当用户和视图控制器交互时调用代理的方法以便app可以更新展示的信息－例如：当一个运送地址被选择时更新运送价格。在用户授权支付请求之后调用该代理。</p>
+<p>注意：<br>当实现代理方法时，记得它们会被调用很多次并且它们被调用的规则取决于用户的动作顺序。</p>
+<p>所有在授权处理期间调用的代理方法均传送一个完成的block作为它们的参数之一。在它调用其他代理方法之前，支付授权视图控制器等待代理完成响应一个方法(通过调用完成block)。paymentAuthorizationViewControllerDidFinish:方法是唯一的例外。它没有取到完成block，但是它在任何时候均可被调用。</p>
+<p>完成 block取到一个论证，该论证可以指定基于可用信息的交易的当前授权状态。如果该交易没有任何问题，传送该值PKPaymentAuthorizationStatusSuccess；否则，传送一个值来标识错误。</p>
+<p>为了创建一个PKPaymentAuthorizationViewController类的实例，传送支付请求给视图控制器的初始化。设置该视图控制器的代理，然后显示它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PKPaymentAuthorizationViewController *viewController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];</span><br><span class="line">if (!viewController) &#123; /* ... Handle error ... */ &#125;</span><br><span class="line">viewController.delegate = self;</span><br><span class="line">[self presentViewController:viewController animated:YES completion:nil];</span><br></pre></td></tr></table></figure>
+<p>当用户与视图控制器交互时，视图控制器调用它的代理方法。</p>
+<p>注意：<br>在Xcode 7.0或者以后，可以在模拟器上测试支付授权视图控制器。它提供了所有支持的支付系统的模拟卡片并以简单的文本形式返回虚拟的支付数据。在设备上，该数据使用商户标识加密并必须在自己的服务器上或者在支付处理时解密。<br>虽然模拟器提供一个快捷而且方便的方式测试自己的代码，仍然需要在真实的物理设备上完全地测试Apple Pay。<br>如果使用 Xcode的早期版本，仅仅可以在设备上测试Apple Pay。</p>
+<p>Your Delegate Updates Shipping Methods 代理更新运送方式和费用<br>当用户提供运送信息时，授权视图控制器调用代理的paymentAuthorizationViewController:didSelectShippingContact:completion:方法和paymentAuthorizationViewController:didSelectShippingMethod:completion:方法。使用这些方法来更新基于这些新信息的支付请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (void) paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(CNContact *)contact completion:(void (^) (PKPaymentAuthorizationStatus, NSArray *, NSArray *))completion&#123;</span><br><span class="line">    self.selectedContact = contact;</span><br><span class="line">    [self updateShippingCost];</span><br><span class="line">    NSArray *shippingMethods = [self shippingMethodsForContact:contact];</span><br><span class="line">    completion(PKPaymentAuthorizationStatusSuccess, shippingMethods, self.summaryItems);</span><br><span class="line">&#125;</span><br><span class="line">- (void) paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *))completion &#123;</span><br><span class="line">    self.selectedShippingMethod = shippingMethod;</span><br><span class="line">    [self updateShippingCost];</span><br><span class="line">    completion(PKPaymentAuthorizationStatusSuccess, self.summaryItems);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：<br>为了维护隐私，paymentAuthorizationViewController:didSelectShippingContact:completion：方法中提及的运送信息是匿名的。返回的联系方式包含足够的信息用以计算运费，不展现用户的敏感信息。直到用户批准了该支付之后，才能获取到用户的全部运送信息，否则不能获取到。另外，联系方式中的数据可以根据不同的国家而改变，并可以一次又一次地改变。保证以合适的方式测试app。</p>
+<p>A Payment Token Is Created When a Payment Is Authorized 当支付被授权时生成一个支付密钥<br>当用户授权支付请求时，框架通过Apple 服务器和安全元件联合生成一个支付密钥。可以通过paymentAuthorizationViewController:didAuthorizePayment:completion:代理方法传送该支付密钥给自己的服务器，与其它需要的信息一起处理购买。例如：运送地址和购物车标识。过程如下：<br>1）框架发送支付请求给安全元件。只有安全元件可以使用tokenized标记化的特定设备的支付卡号。<br>2）安全元件将含有特定卡和商户的支付数据 放在一起，加密它使得只有Apple 可以读取它，并发送它给框架。框架然后发送支付数据给Apple 服务器。<br>3）Apple 服务器使用Merchant Identifier certificate商户标识证书解密支付数据。该密钥仅仅自己和那些已分享商户标识证书给他们的人可读。然后服务器写下该支付密钥，并返回它给设备。<br>4）框架通过调用</p>
+<p>paymentAuthorizationViewController:didAuthorizePayment:completion:方法传送该密钥给代理。代理传送该密钥给自己的服务器。<br>在自己服务器上的行为改变取决于是否处理自己的支付或者对一个支付平台有效。在两种情况下，服务器处理订单并传送一个状态返回给设备，代理可传送给它的完成处理者，具体描述在Processing a Payment。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (void) paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus))completion &#123;</span><br><span class="line">    NSError *error;</span><br><span class="line">    ABMultiValueRef addressMultiValue = ABRecordCopyValue(payment.billingAddress, kABPersonAddressProperty);</span><br><span class="line">    NSDictionary *addressDictionary = (__bridge_transfer NSDictionary *) ABMultiValueCopyValueAtIndex(addressMultiValue, 0);</span><br><span class="line">    NSData *json = [NSJSONSerialization dataWithJSONObject:addressDictionary options:NSJSONWritingPrettyPrinted error: &amp;error];</span><br><span class="line"></span><br><span class="line">    // ... Send payment token, shipping and billing address, and order information to your server ...</span><br><span class="line"></span><br><span class="line">    PKPaymentAuthorizationStatus status;  // From your server</span><br><span class="line">    completion(status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Your Delegate Dismisses the Payment Authorization View Controller代理dismiss支付授权视图控制器<br>当框架显示交易的状态之后，授权视图控制器调用代理的paymentAuthorizationViewControllerDidFinish:方法。在实施阶段，dismiss授权视图控制器并且显示自己app特定的订单确认页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void) paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller &#123;</span><br><span class="line">    [controller dismissViewControllerAnimated:YES completion:nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5.Processing Payments<br>处理支付包括这几步：<br>1）发送支付信息给服务器，与需要的其它信息一起处理订单<br>2）验证支付数据的哈希表和签名<br>3）解密加密的支付数据<br>4）提交支付数据给支付处理网络<br>5）提交订单给订单追踪系统<br>两种选择处理支付：有一个支付平台的优势去处理支付，或者自己实施支付进程。一个支付处理平台一般处理大部分如上步骤。</p>
+<p>读取、验证和处理支付信息需要对密码学的几种领域有所理解，例如，计算一个SHA-1 哈希，读取和验证一个PKCS #7类型的签名，和执行elliptic curve Diffie-Hellman key椭圆曲线密钥交换。如果没有密码学的背景，考虑使用一个支付平台来处理这些操作。更多支持Apple Pay的支付平台的信息，可查看developer.apple.com/apple-pay/。</p>
+<p>用来处理支付的信息有一个嵌套的数据组织，正如展示在Figure 5-1中支付密钥是PKPaymentToken类的实例。它的paymentData属性的值是一个JSON字典，它有 个头部header包含用于确认和加密支付数据的信息。加密数据包含像数量、持卡人姓名和其它用于特定的支付处理协议的的信息。</p>
+<p>Figure 5-1Payment data structure</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/apple-pay-develop-2.jpg" alt="结构图"></p>
+<p>关于支付数据结构格式的详情，可查看Payment Token Format Reference。</p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pay/">支付</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/02/oauth2-protocol/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          OAuth2.0 协议
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/22/algorithm-idea/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常用的算法思想总结&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      Copyright &copy; 2013 - 2017 Chars Davy&nbsp; in <a target="_blank" href="https://github.com/charsdavy">Github</a>. Powered by <a target="_blank" href="https://hexo.io/">Hexo</a>.
+     </div>
+  </div>
+</footer>
+
+    
+<script>
+  var disqus_shortname = 'charstechblog';
+  
+  var disqus_url = 'http://charsdavy.github.io/2016/02/27/apple-pay-develop/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<div id="totop" style="position:fixed;bottom:30px;right:30px;cursor: pointer;">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+
+  </div>
+</body>
+</html>
