@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-03-31T01:45:06.000Z</updated>
+  <updated>2017-03-31T12:20:06.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://charsdavy.github.io/2017/03/30/sublime-text-tool/"/>
     <id>http://charsdavy.github.io/2017/03/30/sublime-text-tool/</id>
     <published>2017-03-29T23:51:43.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T12:20:06.000Z</updated>
     
     <content type="html">&lt;p&gt;Sublime Text 是一个代码编辑器（Sublime Text 2是收费软件，但可以无限期试用），也是HTML和散文先进的文本编辑器。Sublime Text是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的Vim。&lt;/p&gt;
 &lt;p&gt;笔者整理了一些使用快捷方式，以及一些常用插件，分享一下。&lt;/p&gt;
@@ -278,10 +278,10 @@
     
     </summary>
     
-      <category term="Tools" scheme="http://charsdavy.github.io/categories/tool/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
     
-      <category term="便捷工具" scheme="http://charsdavy.github.io/tags/plugin/"/>
+      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
     
   </entry>
   
@@ -290,7 +290,7 @@
     <link href="http://charsdavy.github.io/2017/03/29/article-copyright/"/>
     <id>http://charsdavy.github.io/2017/03/29/article-copyright/</id>
     <published>2017-03-29T06:04:50.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T11:13:58.000Z</updated>
     
     <content type="html">&lt;p&gt;文章版权，这个词汇以前笔者以前是不怎么有体会的，认为在当今互联网的时代，随便网上Google一下很多地方的文章如出一辙，而作者也是千奇百怪，甚至都不清楚谁才是作者。这篇文章，笔者是遇见了真实的事件，现在很想说一说，看看大家是否也是一样，认为一个版权意识高的视界里，资源与时间都是高效的。不用在看一条，两条都是一样的，浪费时间和资源。&lt;/p&gt;
 &lt;p&gt;不知道是否有人明白什么叫“版权”。说实在的，笔者并不是很清楚它的定义。这里引入百科的解释：&lt;/p&gt;
@@ -324,7 +324,7 @@
     
     </summary>
     
-      <category term="Interest" scheme="http://charsdavy.github.io/categories/interest/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
     
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
@@ -332,186 +332,11 @@
   </entry>
   
   <entry>
-    <title>iOS的那些面试（下篇）</title>
-    <link href="http://charsdavy.github.io/2017/03/29/ios-interview-2/"/>
-    <id>http://charsdavy.github.io/2017/03/29/ios-interview-2/</id>
-    <published>2017-03-29T00:01:18.000Z</published>
-    <updated>2017-03-29T01:52:34.000Z</updated>
-    
-    <content type="html">&lt;p&gt;笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。&lt;a href=&quot;https://charsdavy.github.io/2017/03/28/ios-interview/&quot;&gt;iOS的那些面试（上篇）&lt;/a&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;第一部分&quot;&gt;&lt;a href=&quot;#第一部分&quot; class=&quot;headerlink&quot; title=&quot;第一部分&quot;&gt;&lt;/a&gt;第一部分&lt;/h2&gt;&lt;p&gt;1.层CALayer和UIView的区别是什么？&lt;/p&gt;
-&lt;p&gt;两者最大的区别是，图层不会直接渲染到屏幕上。UIView是iOS系统中界面元素的基础，所有的界面元素都是继承自它，它本身是由CoreAnimation来实现的，它真正绘图的部分是由一个CALayer类来管理的。UIView本身更像是一个CALayer的管理器。一个UIView上可以有多个CALayer，每个CALayer显示一种东西，增强UIView的展现能力。&lt;/p&gt;
-&lt;p&gt;2.什么是GCD？&lt;/p&gt;
-&lt;p&gt;GCD是Apple开发的一个多核编程的较新的解决方法。在Mac OS X 10.6雪豹中首次推出，并引入到iOS4.0。GCD是一个替代诸如NSThread等技术的很高效和强大的技术。GCD完全可以处理诸如数据锁定和资源泄漏等复杂的异步编程问题。&lt;/p&gt;
-&lt;p&gt;3.TCP/UDP的区别和联系？&lt;/p&gt;
-&lt;p&gt;1）TCP的全称为传输控制协议，这种协议可以提供面向连接的、可靠的、点到点的通信。&lt;/p&gt;
-&lt;p&gt;2）UDP的全称为用户数据报协议，它可以提供非连接的不可靠的点到多点的通信。&lt;/p&gt;
-&lt;p&gt;3）用TCP还是UDP，需要看程序注重哪一个方面，需要可靠还是快速。&lt;/p&gt;
-&lt;p&gt;4.Socket连接和Http连接的区别？&lt;/p&gt;
-&lt;p&gt;Http连接：Http连接就是所谓的短链接，即客户端向服务器发送一次请求，服务器响应后连接即会断掉。&lt;/p&gt;
-&lt;p&gt;Socket连接：Socket连接就是所谓的长连接，理论上客户端和服务器端一旦建立起连接将不会主动断掉。&lt;/p&gt;
-&lt;p&gt;5.什么是TCP连接的三次握手？&lt;/p&gt;
-&lt;p&gt;第一次握手：客户端发送SYN包（SYN=j）到服务器，并进入SYN_SEND状态，等待服务器确认。&lt;/p&gt;
-&lt;p&gt;第二次握手：服务器收到SYN包，必须确认客户的SYN（ACK=j+1），同时自己也发送一个SYN包（SYN=k），即SYN+ACK包，此时服务器进入SYN_RECV状态。&lt;/p&gt;
-&lt;p&gt;第三次握手：客户端接收到服务器的SYN+ACK包，向服务器发送确认包ACK（ACK=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。&lt;/p&gt;
-&lt;p&gt;6.frame和bounds的区别？&lt;/p&gt;
-&lt;p&gt;frame指的是：该view在父view坐标系统中的位置大小（参照点是父视图的坐标系统）。&lt;/p&gt;
-&lt;p&gt;bounds指的是：该view在本身坐标系统中的位置和大小（参照点是本身的坐标系统）。&lt;/p&gt;
-&lt;p&gt;7.如何理解MVC设计模式？&lt;/p&gt;
-&lt;p&gt;MVC是一种架构设计，M表示数据模型，V表示视图，C表示控制器。&lt;/p&gt;
-&lt;p&gt;数据模型：负责存储、定义、操作数据。&lt;/p&gt;
-&lt;p&gt;视图：用来展示数据给用户，和用户进行操作交互。&lt;/p&gt;
-&lt;p&gt;控制器：它是M与V的协调者，控制器获取数据，将数据交给视图去展示。&lt;/p&gt;
-&lt;p&gt;8.控制器的xib是怎么加载的？&lt;/p&gt;
-&lt;p&gt;当UIViewController的loadView被调用时，在此方法中，通过NSBundle加载xib，先通过控制器的类名作为xib的文件名加载此xib文件。如果找到此xib文件，则加载为view对象作为控制器的根视图，如果没有xib文件，则通过alloc创建一个view对象作为根视图。&lt;/p&gt;
-&lt;p&gt;9.控制器如何处理系统内存不足警告？&lt;/p&gt;
-&lt;p&gt;内存不足时，系统会调用控制器didReceiveMemoryWaring方法通知控制器内存不足。iOS6.0与6.0之前的处理方式不一样。&lt;/p&gt;
-&lt;p&gt;1）iOS6.0之前：调用didReceiveMemoryWaring后，将self.view设置为nil，并且再调用viewDidUnload方法，在此方法中我们应该释放子视图。&lt;/p&gt;
-&lt;p&gt;2）iOS6.0之后：调用didReceiveMemoryWaring后，不再调用viewDidUnload方法，则应该在didReceiveMemoryWaring方法中手动将self.view=nil，并且释放子视图。&lt;/p&gt;
-&lt;p&gt;10.iOS中对象间有哪些通信方式？&lt;/p&gt;
-&lt;p&gt;代理delegate、block、通知和KVO。&lt;/p&gt;
-&lt;p&gt;11.block在内存管理上的特点？需要注意循环引用，如何解决循环引用？&lt;/p&gt;
-&lt;p&gt;1）block中使用了局部对象，则会将此对象retain，引用了当前对象的属性或者方法，则会将当前对象retain。&lt;/p&gt;
-&lt;p&gt;2）解决循环引用：将当前对象赋值给一个局部变量，并且使用__block关键字修饰该局部变量，使用该变量访问当前对象的属性和方法。&lt;/p&gt;
-&lt;p&gt;12.Objective-C中有线程池（线程队列）吗？NSOperationQueue是如何管理线程的？&lt;/p&gt;
-&lt;p&gt;NSOperationQueue是Objective-C的线程池，线程池中可以存放多个线程。&lt;/p&gt;
-&lt;p&gt;NSOperationQueue可以管理线程的并发数，还可以管理线程间的优先级。&lt;/p&gt;
-&lt;p&gt;13.timer的间隔周期准吗？为什么？怎样实现一个精准的timer？&lt;/p&gt;
-&lt;p&gt;定时器timer一般都是准确的，但是当主线程有些时候难免会出现堵塞情况，这样就有可能导致定时器timer会延迟从而不准确。我们可以开发一个多线程，在此多线程上运行定时器，这样多线程只运行定时器，不会因堵塞而导致误差。&lt;/p&gt;
-&lt;p&gt;14.Http协议的特点？GET与POST的区别？什么是Https协议？&lt;/p&gt;
-&lt;p&gt;1）Http协议是短链接，都是客户端主动发送请求，服务器做出响应，服务器响应之后，连接则断开。&lt;/p&gt;
-&lt;p&gt;2）GET请求没有请求体，POST含有请求体，请求参数可以放入请求体中，所以，POST可以提交大量的数据给服务器，更加安全。&lt;/p&gt;
-&lt;p&gt;3）HTTPS（Secure Hypertext Transfer Protocol）安全超文本传输协议，它是一个安全通信通道，它基于HTTP开发，用于在客户计算机和服务器之间交换信息。它使用安全套接字层（SSL）进行信息交换，简单来说它是HTTP的安全版。&lt;/p&gt;
-&lt;p&gt;15.XML数据的解析方式各有什么不同？JSON解析有哪些框架？&lt;/p&gt;
-&lt;p&gt;XML数据解析有两种方式：DOM解析和SAX解析。&lt;/p&gt;
-&lt;p&gt;DOM解析：必须完成DOM树的构造，在处理规模较大的XML文档时就很耗费内存，占用资源较多。&lt;/p&gt;
-&lt;p&gt;SAX解析：与DOM不同的是，SAX是用事件驱动模型，解析XML文档时每遇到一个开始或者结束标签、属性或一条指令时，程序就产生一个事件来进行相应的处理。因此，SAX相对于DOM来说更适合操作大的XML文档。&lt;/p&gt;
-&lt;p&gt;JSON解析：现在性能比较好的主要是第三方的JSONKit和iOS自带的JSON解析类，自带的JSON解析性能是最高的，但是只能是iOS5之后才可以使用。&lt;/p&gt;
-&lt;h2 id=&quot;第二部分&quot;&gt;&lt;a href=&quot;#第二部分&quot; class=&quot;headerlink&quot; title=&quot;第二部分&quot;&gt;&lt;/a&gt;第二部分&lt;/h2&gt;&lt;p&gt;1.tableView是如何复用的？&lt;/p&gt;
-&lt;p&gt;如果屏幕上能显示10个单元格，则tableView只会创建11个单元格，也就是n+1，当滑到第12个单元格时就会复用第1个单元格对象。tableView中有个单元格池的概念，tableView调用协议方法获取单元格时，先从池子中查找是否有可复用的单元格，如果有则复用，如果没有则创建一个单元格对象。&lt;/p&gt;
-&lt;p&gt;2.如何优化tableView的滑动速度？&lt;/p&gt;
-&lt;p&gt;1）复用单元格。&lt;/p&gt;
-&lt;p&gt;2）使用不透明的视图，单元格中尽量少使用动画。&lt;/p&gt;
-&lt;p&gt;3）图片加载使用异步加载，并且设置图片加载的并发数。&lt;/p&gt;
-&lt;p&gt;4）滑动时不加载图片，停止滑动开始加载。&lt;/p&gt;
-&lt;p&gt;5）文字、图片可直接drawInRect绘制。&lt;/p&gt;
-&lt;p&gt;6）如非必要，减少reloadData全部cell，只reloadRowsAtIndexPaths。&lt;/p&gt;
-&lt;p&gt;7）如果cell是动态行高度，计算出高度后缓存。&lt;/p&gt;
-&lt;p&gt;8）cell高度固定的话直接用cell.rowHeight设置高度。&lt;/p&gt;
-&lt;p&gt;3.谈谈对Runloop的理解？&lt;/p&gt;
-&lt;p&gt;Run loops是线程相关的基础框架的一部分。一个run loop就是一个事件处理的循环，用来不停的调度工作以及处理输入事件。使用run loop的目的是让你的线程在有工作的时候忙于工作，而没有工作的时候处于休眠状态。&lt;/p&gt;
-&lt;p&gt;4.如何调用drawRect方法与layoutSubView方法？这两个方法的作用？&lt;/p&gt;
-&lt;p&gt;通过setNeedsLayout方法异步调用layoutSubView方法。&lt;/p&gt;
-&lt;p&gt;通过setNeedsDisplay方法异步调用drawRect方法。&lt;br&gt;drawRect方法用于绘图，layoutSubView方法用于布局子视图。&lt;/p&gt;
-&lt;p&gt;5.UIView与UIViewController的关系？&lt;/p&gt;
-&lt;p&gt;每个控制器都有一个根视图，控制器UIViewController用来管理此视图的加载和显示。&lt;/p&gt;
-&lt;p&gt;6.iOS中有哪些手势？&lt;/p&gt;
-&lt;p&gt;轻击、捏合、平移、轻扫、旋转和长按。&lt;/p&gt;
-&lt;p&gt;7.Http和Socket的区别？&lt;/p&gt;
-&lt;p&gt;Http是客户端用Http协议进行请求，发送请求时需要封装http请求头，并绑定请求的数据，服务器一般有Web服务器配合（当然也非绝对）。Http请求方式为客户端主动发起请求，服务器才能给响应，一次请求完毕后则断开连接，以节省资源。服务器不能主动给客户端响应（除非采用http长连接技术）。iPhone主要使用的类是NSURLConnection。&lt;/p&gt;
-&lt;p&gt;Socket是客户端跟服务器直接使用Socket套接字进行连接，并没有规定连接后断开，所以客户端和服务器可以保持连接通道，双方都可以主动发送数据。一般在游戏开发或股票开发，这种要求即时性很强并且保持发送数据量比较大的场合使用。主要使用的类是CFSocketRef。&lt;/p&gt;
-&lt;p&gt;8.storyboard有什么特点？&lt;/p&gt;
-&lt;p&gt;storyboard是iOS5新增的特性，是对xib的升级版本，引入了一个容器用于管理多个xib文件，和它们之间的跳转交互。&lt;/p&gt;
-&lt;p&gt;优点：不用再为每个控制器创建xib文件；可以使用静态cell，当cell固定且不多时，使用起来比较方便。&lt;/p&gt;
-&lt;p&gt;缺点：storyboard单个文件，不利于团队协作开发。&lt;/p&gt;
-&lt;p&gt;9.如何打包静态库？&lt;/p&gt;
-&lt;p&gt;新建一个Framework&amp;amp;Library的项目，编译的时候会将项目中的代码文件打包成一个.a静态库文件。&lt;/p&gt;
-&lt;p&gt;10.APP发布的上架流程？&lt;/p&gt;
-&lt;p&gt;1）在苹果官网的开发者中心，新建一个APP，填写此APP相关的一些描述信息。&lt;/p&gt;
-&lt;p&gt;2）下载安装发布证书。&lt;/p&gt;
-&lt;p&gt;3）选择发布证书，使用Archive编译发布包。&lt;/p&gt;
-&lt;p&gt;4）使用Xcode提交发布包。&lt;/p&gt;
-&lt;p&gt;11.iOS5有哪些新特性？&lt;/p&gt;
-&lt;p&gt;iCloud、定制UI、storyboard、ARC、CoreImage滤镜、新增JSON解析类。&lt;/p&gt;
-&lt;p&gt;12.iOS6有哪些新特性？&lt;/p&gt;
-&lt;p&gt;UIRefreshControl水滴效果下拉刷新、UICollectionView控件的使用、SLComposeViewController新浪微博控件、PassKit中Passbook、AutoLayout自动布局。&lt;/p&gt;
-&lt;p&gt;13、iOS7有哪些新特性？&lt;/p&gt;
-&lt;p&gt;系统：全新的UI设计与交互；Control Center控制中心；全新的多任务Multitasking；AirDrop共享文件；全新的Safari浏览器交互式体验。&lt;/p&gt;
-&lt;p&gt;SDK：动态UIKit，新增了UIDynamicItem委托，用来为UIView制定动态行为；新增游戏引擎Sprite Kit Framework框架，类似于Cocos2D。&lt;/p&gt;
-&lt;p&gt;14.ARC有什么特点？&lt;/p&gt;
-&lt;p&gt;ARC是编译器特性，iOS5.0新添加的特性，使用ARC开发者不需要再retain、release、autorelease，因为编译器会在合适的地方自动插入retain、release。&lt;/p&gt;
-&lt;p&gt;ARC不会因少release而导致内存泄漏，过度使用release导致程序崩溃，&lt;/p&gt;
-&lt;p&gt;ARC可以产生更简洁的代码和更健壮的应用。&lt;/p&gt;
-&lt;p&gt;15.SVN、Git协作开发，怎么防止代码文件冲突？&lt;/p&gt;
-&lt;p&gt;防止代码冲突：不要多人同时修改同一个文件。例如，A、B都修改同一个文件，先让A修改，然后提交到服务器，然后B更新下来，再进行修改。&lt;br&gt;服务器上的项目文件xcodeproj，仅让一个人管理提交，其他人只更新。防止此文件产生冲突。&lt;/p&gt;
-&lt;h2 id=&quot;第三部分&quot;&gt;&lt;a href=&quot;#第三部分&quot; class=&quot;headerlink&quot; title=&quot;第三部分&quot;&gt;&lt;/a&gt;第三部分&lt;/h2&gt;&lt;p&gt;1.什么是ARC？&lt;/p&gt;
-&lt;p&gt;ARC是automatic reference counting自动引用计数，在程序编译时自动加入retain/release。在对象被创建时retain count+1，在对象被release时count-1，当count=0时，销毁对象。程序中加入autoreleasepool对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁。那么ARC是为了解决MRC手动管理内存存在的一些而诞生的。&lt;/p&gt;
-&lt;p&gt;MRC下内存管理的缺点：&lt;/p&gt;
-&lt;p&gt;1）释放一个堆内存时，首先要确定指向这个堆空间的指针都被release了。(避免提前释放)&lt;/p&gt;
-&lt;p&gt;2）释放指针指向的堆空间，首先要确定哪些指向同一个堆，这些指针只能释放一次。(避免释放多次，造成内存泄露)&lt;/p&gt;
-&lt;p&gt;3）模块化操作时，对象可能被多个模块创建和使用，不能确定最后由谁释放。&lt;/p&gt;
-&lt;p&gt;4）多线程操作时，不确定哪个线程最后使用完毕。&lt;br&gt;虽然ARC给我们编程带来的很多好多，但也可能出现内存泄露。如下面两种情况：&lt;/p&gt;
-&lt;p&gt;1）循环参照：A有个属性参照B，B有个属性参照A，如果都是strong参照的话，两个对象都无法释放。&lt;/p&gt;
-&lt;p&gt;2）死循环：如果有个ViewController中有无限循环，也会导致即使ViewController对应的view消失了，ViewController也不能释放。&lt;/p&gt;
-&lt;p&gt;2.block一般用哪个关键字修饰，为什么？&lt;/p&gt;
-&lt;p&gt;block一般使用copy关键之进行修饰，block使用copy是从MRC遗留下来的“传统”，在MRC中，方法内容的block是在栈区的，使用copy可以把它放到堆区。但在ARC中写不写都行：编译器自动对block进行了copy操作。&lt;/p&gt;
-&lt;p&gt;3.用@property声明的NSString（或NSArray，NSDictionary）经常&lt;/p&gt;
-&lt;p&gt;使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？&lt;br&gt;用@property声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。&lt;/p&gt;
-&lt;p&gt;如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性。&lt;/p&gt;
-&lt;p&gt;copy此特质所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝” (copy)。 当属性类型为NSString时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变” (immutable)的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的” (mutable)，就应该在设置新属性值时拷贝一份。&lt;/p&gt;
-&lt;p&gt;4.runloop、autorelease pool以及线程之间的关系？&lt;/p&gt;
-&lt;p&gt;每个线程(包含主线程)都有一个Runloop。对于每一个Runloop，系统会隐式创建一个Autorelease pool，这样所有的release pool会构成一个像callstack一样的一个栈式结构，在每一个Runloop结束时，当前栈顶的Autorelease pool会被销毁，这样这个pool里的每个Object会被release。&lt;/p&gt;
-&lt;p&gt;5.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？&lt;/p&gt;
-&lt;p&gt;“属性”(property)有两大概念：ivar(实例变量)、存取方法(access method=getter)，即@property = ivar + getter + setter。&lt;br&gt;例如下面的这个类：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface WBTextView :UITextView  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic,copy)NSString *placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic,copy)UIColor *placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;类完成属性的定以后，编译器会自动编写访问这些属性的方法(自动合成autosynthesis)，上述代码写出来的类等效与下面的代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface WBTextView :UITextView  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (NSString *)placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setPlacehold:(NSString *)placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(UIColor *)placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setPlaceholdColor:(UIColor *)placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;详细介绍见：&lt;a href=&quot;http://blog.csdn.net/jasonjwl/article/details/49427377&quot;&gt;http://blog.csdn.net/jasonjwl/article/details/49427377&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;6.分别写一个setter方法用于完成&lt;code&gt;@property (nonatomic,retain)NSString *name&lt;/code&gt;和&lt;code&gt;@property (nonatomic,copy) NSString *name&lt;/code&gt;？&lt;/p&gt;
-&lt;p&gt;retain属性的setter方法是保留新值并释放旧值，然后更新实例变量，令其指向新值。顺序很重要。假如还未保留新值就先把旧值释放了，而且两个值又指向同一个对象，先执行的release操作就可能导致系统将此对象永久回收。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(void)setName:(NSString *)name&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [name retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _name = name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setName:(NSString *)name&amp;#123;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _name = [name copy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;7.说说assign和weak，_block和 _weak的区别？&lt;/p&gt;
-&lt;p&gt;assign适用于基本数据类型，weak是适用于NSObject对象，并且是一个弱引用。&lt;/p&gt;
-&lt;p&gt;assign其实也可以用来修饰对象，那么为什么不用它呢？因为被assign修饰的对象在释放之后，指针的地址还是存在的，也就是说指针并没有被置为nil。如果在后续内存分配中，刚巧分到了这块地址，程序就会崩溃掉。而weak修饰的对象在释放之后，指针地址会被置为nil。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;_block&lt;/code&gt;是用来修饰一个变量，这个变量就可以在block中被修改。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;_block&lt;/code&gt;:使用_block修饰的变量在block代码块中会被retain(ARC下，MRC下不会retain)。&lt;/p&gt;
-&lt;p&gt;_weak:使用_weak修饰的变量不会在block代码块中被retain。&lt;/p&gt;
-&lt;p&gt;8.请说出下面代码是否有问题，如果有问题请修改？&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i=0; i&amp;lt;largeNumber; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Person *per = [[Person alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [per autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;内存管理的原则：如果对一个对象使用了alloc、copy、retain，那么你必须使用相应的release或者autorelease。咋一看，这道题目有alloc，也有autorelease，两者对应起来，应该没问题。但autorelease虽然会使引用计数减一，但是它并不是立即减一，它的本质功能只是把对象放到离他最近的自动释放池里。当自动释放池销毁了，才会向自动释放池中的每一个对象发送release消息。这道题的问题就在autorelease。因为largeNumber是一个很大的数，autorelease又不能使引用计数立即减一，所以在循环结束前会造成内存溢出的问题。&lt;/p&gt;
-&lt;p&gt;解决方案如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i=0; i&amp;lt;100000; i++) &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            @autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Person *per = [[Person alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [per autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在循环内部再加一个自动释放池，这样就能保证每创建一个对象就能及时释放。&lt;/p&gt;
-&lt;p&gt;9.请问下面代码是否有问题，如有问题请修改？&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSString *str = [[NSString alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        str = @&amp;quot;jxl&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;这道题跟第8题一样存在内存泄露问题，&lt;/p&gt;
-&lt;p&gt;1）内存泄露 ；&lt;/p&gt;
-&lt;p&gt;2）指向常量区的对象不能release。&lt;/p&gt;
-&lt;p&gt;指针变量str原本指向一块开辟的堆区空间，但是经过重新给str赋值，str的指向发生了变化，由原来指向堆区空间，到指向常量区。常量区的变量根本不需要释放，这就导致了原来开辟的堆区空间没有释放，造成内存泄露。&lt;/p&gt;
-&lt;p&gt;10.什么情况下使用weak关键字，相比assign有什么不同？什么情况使用weak关键字？&lt;/p&gt;
-&lt;p&gt;1）在ARC中，在有可能出现循环引用的时候，往往要通过让其中一端使用weak来解决。比如delegate代理。&lt;/p&gt;
-&lt;p&gt;2）自身已经对它进行一次强引用，没有必要再强引用一次，此时也会使用weak，自定义控件属性一般也使用weak。&lt;/p&gt;
-&lt;p&gt;不同点：&lt;/p&gt;
-&lt;p&gt;1）weak此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性与assign一样，然而在属性所指的对象遭到销毁时，属性值也会清空。而assign的“设置方法”只会执行针对“纯量类型” (scalar type，例如 CGFloat 或 NSlnteger 等)的简单赋值操作。&lt;/p&gt;
-&lt;p&gt;2）assign可以用非OC对象，而weak必须用于OC对象。&lt;/p&gt;
-&lt;p&gt;11.内存管理语义(assign、strong、weak等的区别)?&lt;/p&gt;
-&lt;p&gt;1）assign “设置方法” 只会执行针对“纯量”的简单赋值操作。&lt;/p&gt;
-&lt;p&gt;2）strong  此特性表明该属性定义了一种“拥有关系”。为这种属性设置新值时，设置方法会先保留新值，并释放旧值，然后再将新值设置上去。&lt;/p&gt;
-&lt;p&gt;3）weak 此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性同assign类似，然而在属性所指的对象遭到销毁时，属性值也会清空。&lt;/p&gt;
-&lt;p&gt;4）unsafe_unretained  此特性的语义和assign相同，但是它适用于“对象类型”，该特性表达一种“非拥有关系”，当目标对象遭到销毁时，属性值不会自动清空，这一点与weak有区别。&lt;/p&gt;
-&lt;p&gt;5）copy 此特性所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为NSString*时，经常用此特性来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变”的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的”，就应该在设置新属性值时拷贝一份。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。&lt;a href=&quot;https://charsdavy.github.io/2017/03/28/ios-interview/&quot;&gt;iOS的那些面试（上篇）&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
-    
-    
-      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS的那些面试（上篇）</title>
-    <link href="http://charsdavy.github.io/2017/03/28/ios-interview-1/"/>
-    <id>http://charsdavy.github.io/2017/03/28/ios-interview-1/</id>
+    <title>iOS的那些面试</title>
+    <link href="http://charsdavy.github.io/2017/03/28/ios-interview/"/>
+    <id>http://charsdavy.github.io/2017/03/28/ios-interview/</id>
     <published>2017-03-28T00:01:18.000Z</published>
-    <updated>2017-03-29T01:52:34.000Z</updated>
+    <updated>2017-03-31T11:55:23.000Z</updated>
     
     <content type="html">&lt;p&gt;笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -647,6 +472,157 @@
 &lt;p&gt;为什么使用单例设计？&lt;/p&gt;
 &lt;p&gt;1）单例设计是用来限制一个类只能创建一个对象，那么此对象中的属性可以存储全局共享的数据，所有的类都可以访问、设置此单例对象中的属性数据。&lt;/p&gt;
 &lt;p&gt;2）如果一个类创建的时候非常的耗费性能，那么此类如果能满足要求，可以设置为单例节约性能。&lt;/p&gt;
+&lt;h2 id=&quot;第四部分&quot;&gt;&lt;a href=&quot;#第四部分&quot; class=&quot;headerlink&quot; title=&quot;第四部分&quot;&gt;&lt;/a&gt;第四部分&lt;/h2&gt;&lt;p&gt;1.层CALayer和UIView的区别是什么？&lt;/p&gt;
+&lt;p&gt;两者最大的区别是，图层不会直接渲染到屏幕上。UIView是iOS系统中界面元素的基础，所有的界面元素都是继承自它，它本身是由CoreAnimation来实现的，它真正绘图的部分是由一个CALayer类来管理的。UIView本身更像是一个CALayer的管理器。一个UIView上可以有多个CALayer，每个CALayer显示一种东西，增强UIView的展现能力。&lt;/p&gt;
+&lt;p&gt;2.什么是GCD？&lt;/p&gt;
+&lt;p&gt;GCD是Apple开发的一个多核编程的较新的解决方法。在Mac OS X 10.6雪豹中首次推出，并引入到iOS4.0。GCD是一个替代诸如NSThread等技术的很高效和强大的技术。GCD完全可以处理诸如数据锁定和资源泄漏等复杂的异步编程问题。&lt;/p&gt;
+&lt;p&gt;3.TCP/UDP的区别和联系？&lt;/p&gt;
+&lt;p&gt;1）TCP的全称为传输控制协议，这种协议可以提供面向连接的、可靠的、点到点的通信。&lt;/p&gt;
+&lt;p&gt;2）UDP的全称为用户数据报协议，它可以提供非连接的不可靠的点到多点的通信。&lt;/p&gt;
+&lt;p&gt;3）用TCP还是UDP，需要看程序注重哪一个方面，需要可靠还是快速。&lt;/p&gt;
+&lt;p&gt;4.Socket连接和Http连接的区别？&lt;/p&gt;
+&lt;p&gt;Http连接：Http连接就是所谓的短链接，即客户端向服务器发送一次请求，服务器响应后连接即会断掉。&lt;/p&gt;
+&lt;p&gt;Socket连接：Socket连接就是所谓的长连接，理论上客户端和服务器端一旦建立起连接将不会主动断掉。&lt;/p&gt;
+&lt;p&gt;5.什么是TCP连接的三次握手？&lt;/p&gt;
+&lt;p&gt;第一次握手：客户端发送SYN包（SYN=j）到服务器，并进入SYN_SEND状态，等待服务器确认。&lt;/p&gt;
+&lt;p&gt;第二次握手：服务器收到SYN包，必须确认客户的SYN（ACK=j+1），同时自己也发送一个SYN包（SYN=k），即SYN+ACK包，此时服务器进入SYN_RECV状态。&lt;/p&gt;
+&lt;p&gt;第三次握手：客户端接收到服务器的SYN+ACK包，向服务器发送确认包ACK（ACK=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。&lt;/p&gt;
+&lt;p&gt;6.frame和bounds的区别？&lt;/p&gt;
+&lt;p&gt;frame指的是：该view在父view坐标系统中的位置大小（参照点是父视图的坐标系统）。&lt;/p&gt;
+&lt;p&gt;bounds指的是：该view在本身坐标系统中的位置和大小（参照点是本身的坐标系统）。&lt;/p&gt;
+&lt;p&gt;7.如何理解MVC设计模式？&lt;/p&gt;
+&lt;p&gt;MVC是一种架构设计，M表示数据模型，V表示视图，C表示控制器。&lt;/p&gt;
+&lt;p&gt;数据模型：负责存储、定义、操作数据。&lt;/p&gt;
+&lt;p&gt;视图：用来展示数据给用户，和用户进行操作交互。&lt;/p&gt;
+&lt;p&gt;控制器：它是M与V的协调者，控制器获取数据，将数据交给视图去展示。&lt;/p&gt;
+&lt;p&gt;8.控制器的xib是怎么加载的？&lt;/p&gt;
+&lt;p&gt;当UIViewController的loadView被调用时，在此方法中，通过NSBundle加载xib，先通过控制器的类名作为xib的文件名加载此xib文件。如果找到此xib文件，则加载为view对象作为控制器的根视图，如果没有xib文件，则通过alloc创建一个view对象作为根视图。&lt;/p&gt;
+&lt;p&gt;9.控制器如何处理系统内存不足警告？&lt;/p&gt;
+&lt;p&gt;内存不足时，系统会调用控制器didReceiveMemoryWaring方法通知控制器内存不足。iOS6.0与6.0之前的处理方式不一样。&lt;/p&gt;
+&lt;p&gt;1）iOS6.0之前：调用didReceiveMemoryWaring后，将self.view设置为nil，并且再调用viewDidUnload方法，在此方法中我们应该释放子视图。&lt;/p&gt;
+&lt;p&gt;2）iOS6.0之后：调用didReceiveMemoryWaring后，不再调用viewDidUnload方法，则应该在didReceiveMemoryWaring方法中手动将self.view=nil，并且释放子视图。&lt;/p&gt;
+&lt;p&gt;10.iOS中对象间有哪些通信方式？&lt;/p&gt;
+&lt;p&gt;代理delegate、block、通知和KVO。&lt;/p&gt;
+&lt;p&gt;11.block在内存管理上的特点？需要注意循环引用，如何解决循环引用？&lt;/p&gt;
+&lt;p&gt;1）block中使用了局部对象，则会将此对象retain，引用了当前对象的属性或者方法，则会将当前对象retain。&lt;/p&gt;
+&lt;p&gt;2）解决循环引用：将当前对象赋值给一个局部变量，并且使用__block关键字修饰该局部变量，使用该变量访问当前对象的属性和方法。&lt;/p&gt;
+&lt;p&gt;12.Objective-C中有线程池（线程队列）吗？NSOperationQueue是如何管理线程的？&lt;/p&gt;
+&lt;p&gt;NSOperationQueue是Objective-C的线程池，线程池中可以存放多个线程。&lt;/p&gt;
+&lt;p&gt;NSOperationQueue可以管理线程的并发数，还可以管理线程间的优先级。&lt;/p&gt;
+&lt;p&gt;13.timer的间隔周期准吗？为什么？怎样实现一个精准的timer？&lt;/p&gt;
+&lt;p&gt;定时器timer一般都是准确的，但是当主线程有些时候难免会出现堵塞情况，这样就有可能导致定时器timer会延迟从而不准确。我们可以开发一个多线程，在此多线程上运行定时器，这样多线程只运行定时器，不会因堵塞而导致误差。&lt;/p&gt;
+&lt;p&gt;14.Http协议的特点？GET与POST的区别？什么是Https协议？&lt;/p&gt;
+&lt;p&gt;1）Http协议是短链接，都是客户端主动发送请求，服务器做出响应，服务器响应之后，连接则断开。&lt;/p&gt;
+&lt;p&gt;2）GET请求没有请求体，POST含有请求体，请求参数可以放入请求体中，所以，POST可以提交大量的数据给服务器，更加安全。&lt;/p&gt;
+&lt;p&gt;3）HTTPS（Secure Hypertext Transfer Protocol）安全超文本传输协议，它是一个安全通信通道，它基于HTTP开发，用于在客户计算机和服务器之间交换信息。它使用安全套接字层（SSL）进行信息交换，简单来说它是HTTP的安全版。&lt;/p&gt;
+&lt;p&gt;15.XML数据的解析方式各有什么不同？JSON解析有哪些框架？&lt;/p&gt;
+&lt;p&gt;XML数据解析有两种方式：DOM解析和SAX解析。&lt;/p&gt;
+&lt;p&gt;DOM解析：必须完成DOM树的构造，在处理规模较大的XML文档时就很耗费内存，占用资源较多。&lt;/p&gt;
+&lt;p&gt;SAX解析：与DOM不同的是，SAX是用事件驱动模型，解析XML文档时每遇到一个开始或者结束标签、属性或一条指令时，程序就产生一个事件来进行相应的处理。因此，SAX相对于DOM来说更适合操作大的XML文档。&lt;/p&gt;
+&lt;p&gt;JSON解析：现在性能比较好的主要是第三方的JSONKit和iOS自带的JSON解析类，自带的JSON解析性能是最高的，但是只能是iOS5之后才可以使用。&lt;/p&gt;
+&lt;h2 id=&quot;第五部分&quot;&gt;&lt;a href=&quot;#第五部分&quot; class=&quot;headerlink&quot; title=&quot;第五部分&quot;&gt;&lt;/a&gt;第五部分&lt;/h2&gt;&lt;p&gt;1.tableView是如何复用的？&lt;/p&gt;
+&lt;p&gt;如果屏幕上能显示10个单元格，则tableView只会创建11个单元格，也就是n+1，当滑到第12个单元格时就会复用第1个单元格对象。tableView中有个单元格池的概念，tableView调用协议方法获取单元格时，先从池子中查找是否有可复用的单元格，如果有则复用，如果没有则创建一个单元格对象。&lt;/p&gt;
+&lt;p&gt;2.如何优化tableView的滑动速度？&lt;/p&gt;
+&lt;p&gt;1）复用单元格。&lt;/p&gt;
+&lt;p&gt;2）使用不透明的视图，单元格中尽量少使用动画。&lt;/p&gt;
+&lt;p&gt;3）图片加载使用异步加载，并且设置图片加载的并发数。&lt;/p&gt;
+&lt;p&gt;4）滑动时不加载图片，停止滑动开始加载。&lt;/p&gt;
+&lt;p&gt;5）文字、图片可直接drawInRect绘制。&lt;/p&gt;
+&lt;p&gt;6）如非必要，减少reloadData全部cell，只reloadRowsAtIndexPaths。&lt;/p&gt;
+&lt;p&gt;7）如果cell是动态行高度，计算出高度后缓存。&lt;/p&gt;
+&lt;p&gt;8）cell高度固定的话直接用cell.rowHeight设置高度。&lt;/p&gt;
+&lt;p&gt;3.谈谈对Runloop的理解？&lt;/p&gt;
+&lt;p&gt;Run loops是线程相关的基础框架的一部分。一个run loop就是一个事件处理的循环，用来不停的调度工作以及处理输入事件。使用run loop的目的是让你的线程在有工作的时候忙于工作，而没有工作的时候处于休眠状态。&lt;/p&gt;
+&lt;p&gt;4.如何调用drawRect方法与layoutSubView方法？这两个方法的作用？&lt;/p&gt;
+&lt;p&gt;通过setNeedsLayout方法异步调用layoutSubView方法。&lt;/p&gt;
+&lt;p&gt;通过setNeedsDisplay方法异步调用drawRect方法。&lt;br&gt;drawRect方法用于绘图，layoutSubView方法用于布局子视图。&lt;/p&gt;
+&lt;p&gt;5.UIView与UIViewController的关系？&lt;/p&gt;
+&lt;p&gt;每个控制器都有一个根视图，控制器UIViewController用来管理此视图的加载和显示。&lt;/p&gt;
+&lt;p&gt;6.iOS中有哪些手势？&lt;/p&gt;
+&lt;p&gt;轻击、捏合、平移、轻扫、旋转和长按。&lt;/p&gt;
+&lt;p&gt;7.Http和Socket的区别？&lt;/p&gt;
+&lt;p&gt;Http是客户端用Http协议进行请求，发送请求时需要封装http请求头，并绑定请求的数据，服务器一般有Web服务器配合（当然也非绝对）。Http请求方式为客户端主动发起请求，服务器才能给响应，一次请求完毕后则断开连接，以节省资源。服务器不能主动给客户端响应（除非采用http长连接技术）。iPhone主要使用的类是NSURLConnection。&lt;/p&gt;
+&lt;p&gt;Socket是客户端跟服务器直接使用Socket套接字进行连接，并没有规定连接后断开，所以客户端和服务器可以保持连接通道，双方都可以主动发送数据。一般在游戏开发或股票开发，这种要求即时性很强并且保持发送数据量比较大的场合使用。主要使用的类是CFSocketRef。&lt;/p&gt;
+&lt;p&gt;8.storyboard有什么特点？&lt;/p&gt;
+&lt;p&gt;storyboard是iOS5新增的特性，是对xib的升级版本，引入了一个容器用于管理多个xib文件，和它们之间的跳转交互。&lt;/p&gt;
+&lt;p&gt;优点：不用再为每个控制器创建xib文件；可以使用静态cell，当cell固定且不多时，使用起来比较方便。&lt;/p&gt;
+&lt;p&gt;缺点：storyboard单个文件，不利于团队协作开发。&lt;/p&gt;
+&lt;p&gt;9.如何打包静态库？&lt;/p&gt;
+&lt;p&gt;新建一个Framework&amp;amp;Library的项目，编译的时候会将项目中的代码文件打包成一个.a静态库文件。&lt;/p&gt;
+&lt;p&gt;10.APP发布的上架流程？&lt;/p&gt;
+&lt;p&gt;1）在苹果官网的开发者中心，新建一个APP，填写此APP相关的一些描述信息。&lt;/p&gt;
+&lt;p&gt;2）下载安装发布证书。&lt;/p&gt;
+&lt;p&gt;3）选择发布证书，使用Archive编译发布包。&lt;/p&gt;
+&lt;p&gt;4）使用Xcode提交发布包。&lt;/p&gt;
+&lt;p&gt;11.iOS5有哪些新特性？&lt;/p&gt;
+&lt;p&gt;iCloud、定制UI、storyboard、ARC、CoreImage滤镜、新增JSON解析类。&lt;/p&gt;
+&lt;p&gt;12.iOS6有哪些新特性？&lt;/p&gt;
+&lt;p&gt;UIRefreshControl水滴效果下拉刷新、UICollectionView控件的使用、SLComposeViewController新浪微博控件、PassKit中Passbook、AutoLayout自动布局。&lt;/p&gt;
+&lt;p&gt;13、iOS7有哪些新特性？&lt;/p&gt;
+&lt;p&gt;系统：全新的UI设计与交互；Control Center控制中心；全新的多任务Multitasking；AirDrop共享文件；全新的Safari浏览器交互式体验。&lt;/p&gt;
+&lt;p&gt;SDK：动态UIKit，新增了UIDynamicItem委托，用来为UIView制定动态行为；新增游戏引擎Sprite Kit Framework框架，类似于Cocos2D。&lt;/p&gt;
+&lt;p&gt;14.ARC有什么特点？&lt;/p&gt;
+&lt;p&gt;ARC是编译器特性，iOS5.0新添加的特性，使用ARC开发者不需要再retain、release、autorelease，因为编译器会在合适的地方自动插入retain、release。&lt;/p&gt;
+&lt;p&gt;ARC不会因少release而导致内存泄漏，过度使用release导致程序崩溃，&lt;/p&gt;
+&lt;p&gt;ARC可以产生更简洁的代码和更健壮的应用。&lt;/p&gt;
+&lt;p&gt;15.SVN、Git协作开发，怎么防止代码文件冲突？&lt;/p&gt;
+&lt;p&gt;防止代码冲突：不要多人同时修改同一个文件。例如，A、B都修改同一个文件，先让A修改，然后提交到服务器，然后B更新下来，再进行修改。&lt;br&gt;服务器上的项目文件xcodeproj，仅让一个人管理提交，其他人只更新。防止此文件产生冲突。&lt;/p&gt;
+&lt;h2 id=&quot;第六部分&quot;&gt;&lt;a href=&quot;#第六部分&quot; class=&quot;headerlink&quot; title=&quot;第六部分&quot;&gt;&lt;/a&gt;第六部分&lt;/h2&gt;&lt;p&gt;1.什么是ARC？&lt;/p&gt;
+&lt;p&gt;ARC是automatic reference counting自动引用计数，在程序编译时自动加入retain/release。在对象被创建时retain count+1，在对象被release时count-1，当count=0时，销毁对象。程序中加入autoreleasepool对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁。那么ARC是为了解决MRC手动管理内存存在的一些而诞生的。&lt;/p&gt;
+&lt;p&gt;MRC下内存管理的缺点：&lt;/p&gt;
+&lt;p&gt;1）释放一个堆内存时，首先要确定指向这个堆空间的指针都被release了。(避免提前释放)&lt;/p&gt;
+&lt;p&gt;2）释放指针指向的堆空间，首先要确定哪些指向同一个堆，这些指针只能释放一次。(避免释放多次，造成内存泄露)&lt;/p&gt;
+&lt;p&gt;3）模块化操作时，对象可能被多个模块创建和使用，不能确定最后由谁释放。&lt;/p&gt;
+&lt;p&gt;4）多线程操作时，不确定哪个线程最后使用完毕。&lt;br&gt;虽然ARC给我们编程带来的很多好多，但也可能出现内存泄露。如下面两种情况：&lt;/p&gt;
+&lt;p&gt;1）循环参照：A有个属性参照B，B有个属性参照A，如果都是strong参照的话，两个对象都无法释放。&lt;/p&gt;
+&lt;p&gt;2）死循环：如果有个ViewController中有无限循环，也会导致即使ViewController对应的view消失了，ViewController也不能释放。&lt;/p&gt;
+&lt;p&gt;2.block一般用哪个关键字修饰，为什么？&lt;/p&gt;
+&lt;p&gt;block一般使用copy关键之进行修饰，block使用copy是从MRC遗留下来的“传统”，在MRC中，方法内容的block是在栈区的，使用copy可以把它放到堆区。但在ARC中写不写都行：编译器自动对block进行了copy操作。&lt;/p&gt;
+&lt;p&gt;3.用@property声明的NSString（或NSArray，NSDictionary）经常&lt;/p&gt;
+&lt;p&gt;使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？&lt;br&gt;用@property声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。&lt;/p&gt;
+&lt;p&gt;如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性。&lt;/p&gt;
+&lt;p&gt;copy此特质所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝” (copy)。 当属性类型为NSString时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变” (immutable)的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的” (mutable)，就应该在设置新属性值时拷贝一份。&lt;/p&gt;
+&lt;p&gt;4.runloop、autorelease pool以及线程之间的关系？&lt;/p&gt;
+&lt;p&gt;每个线程(包含主线程)都有一个Runloop。对于每一个Runloop，系统会隐式创建一个Autorelease pool，这样所有的release pool会构成一个像callstack一样的一个栈式结构，在每一个Runloop结束时，当前栈顶的Autorelease pool会被销毁，这样这个pool里的每个Object会被release。&lt;/p&gt;
+&lt;p&gt;5.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？&lt;/p&gt;
+&lt;p&gt;“属性”(property)有两大概念：ivar(实例变量)、存取方法(access method=getter)，即@property = ivar + getter + setter。&lt;br&gt;例如下面的这个类：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface WBTextView :UITextView  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic,copy)NSString *placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic,copy)UIColor *placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;类完成属性的定以后，编译器会自动编写访问这些属性的方法(自动合成autosynthesis)，上述代码写出来的类等效与下面的代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface WBTextView :UITextView  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (NSString *)placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setPlacehold:(NSString *)placehold;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(UIColor *)placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setPlaceholdColor:(UIColor *)placeholdColor;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;详细介绍见：&lt;a href=&quot;http://blog.csdn.net/jasonjwl/article/details/49427377&quot;&gt;http://blog.csdn.net/jasonjwl/article/details/49427377&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;6.分别写一个setter方法用于完成&lt;code&gt;@property (nonatomic,retain)NSString *name&lt;/code&gt;和&lt;code&gt;@property (nonatomic,copy) NSString *name&lt;/code&gt;？&lt;/p&gt;
+&lt;p&gt;retain属性的setter方法是保留新值并释放旧值，然后更新实例变量，令其指向新值。顺序很重要。假如还未保留新值就先把旧值释放了，而且两个值又指向同一个对象，先执行的release操作就可能导致系统将此对象永久回收。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-(void)setName:(NSString *)name&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [name retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _name = name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-(void)setName:(NSString *)name&amp;#123;     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    _name = [name copy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;7.说说assign和weak，_block和 _weak的区别？&lt;/p&gt;
+&lt;p&gt;assign适用于基本数据类型，weak是适用于NSObject对象，并且是一个弱引用。&lt;/p&gt;
+&lt;p&gt;assign其实也可以用来修饰对象，那么为什么不用它呢？因为被assign修饰的对象在释放之后，指针的地址还是存在的，也就是说指针并没有被置为nil。如果在后续内存分配中，刚巧分到了这块地址，程序就会崩溃掉。而weak修饰的对象在释放之后，指针地址会被置为nil。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_block&lt;/code&gt;是用来修饰一个变量，这个变量就可以在block中被修改。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_block&lt;/code&gt;:使用_block修饰的变量在block代码块中会被retain(ARC下，MRC下不会retain)。&lt;/p&gt;
+&lt;p&gt;_weak:使用_weak修饰的变量不会在block代码块中被retain。&lt;/p&gt;
+&lt;p&gt;8.请说出下面代码是否有问题，如果有问题请修改？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i=0; i&amp;lt;largeNumber; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Person *per = [[Person alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [per autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;内存管理的原则：如果对一个对象使用了alloc、copy、retain，那么你必须使用相应的release或者autorelease。咋一看，这道题目有alloc，也有autorelease，两者对应起来，应该没问题。但autorelease虽然会使引用计数减一，但是它并不是立即减一，它的本质功能只是把对象放到离他最近的自动释放池里。当自动释放池销毁了，才会向自动释放池中的每一个对象发送release消息。这道题的问题就在autorelease。因为largeNumber是一个很大的数，autorelease又不能使引用计数立即减一，所以在循环结束前会造成内存溢出的问题。&lt;/p&gt;
+&lt;p&gt;解决方案如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i=0; i&amp;lt;100000; i++) &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            @autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            Person *per = [[Person alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            [per autorelease];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在循环内部再加一个自动释放池，这样就能保证每创建一个对象就能及时释放。&lt;/p&gt;
+&lt;p&gt;9.请问下面代码是否有问题，如有问题请修改？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSString *str = [[NSString alloc] init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        str = @&amp;quot;jxl&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [str release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这道题跟第8题一样存在内存泄露问题，&lt;/p&gt;
+&lt;p&gt;1）内存泄露 ；&lt;/p&gt;
+&lt;p&gt;2）指向常量区的对象不能release。&lt;/p&gt;
+&lt;p&gt;指针变量str原本指向一块开辟的堆区空间，但是经过重新给str赋值，str的指向发生了变化，由原来指向堆区空间，到指向常量区。常量区的变量根本不需要释放，这就导致了原来开辟的堆区空间没有释放，造成内存泄露。&lt;/p&gt;
+&lt;p&gt;10.什么情况下使用weak关键字，相比assign有什么不同？什么情况使用weak关键字？&lt;/p&gt;
+&lt;p&gt;1）在ARC中，在有可能出现循环引用的时候，往往要通过让其中一端使用weak来解决。比如delegate代理。&lt;/p&gt;
+&lt;p&gt;2）自身已经对它进行一次强引用，没有必要再强引用一次，此时也会使用weak，自定义控件属性一般也使用weak。&lt;/p&gt;
+&lt;p&gt;不同点：&lt;/p&gt;
+&lt;p&gt;1）weak此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性与assign一样，然而在属性所指的对象遭到销毁时，属性值也会清空。而assign的“设置方法”只会执行针对“纯量类型” (scalar type，例如 CGFloat 或 NSlnteger 等)的简单赋值操作。&lt;/p&gt;
+&lt;p&gt;2）assign可以用非OC对象，而weak必须用于OC对象。&lt;/p&gt;
+&lt;p&gt;11.内存管理语义(assign、strong、weak等的区别)?&lt;/p&gt;
+&lt;p&gt;1）assign “设置方法” 只会执行针对“纯量”的简单赋值操作。&lt;/p&gt;
+&lt;p&gt;2）strong  此特性表明该属性定义了一种“拥有关系”。为这种属性设置新值时，设置方法会先保留新值，并释放旧值，然后再将新值设置上去。&lt;/p&gt;
+&lt;p&gt;3）weak 此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性同assign类似，然而在属性所指的对象遭到销毁时，属性值也会清空。&lt;/p&gt;
+&lt;p&gt;4）unsafe_unretained  此特性的语义和assign相同，但是它适用于“对象类型”，该特性表达一种“非拥有关系”，当目标对象遭到销毁时，属性值不会自动清空，这一点与weak有区别。&lt;/p&gt;
+&lt;p&gt;5）copy 此特性所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为NSString*时，经常用此特性来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变”的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的”，就应该在设置新属性值时拷贝一份。&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -655,8 +631,10 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
+    
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
     
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
@@ -667,7 +645,7 @@
     <link href="http://charsdavy.github.io/2017/03/28/objective-c-NSPredicate/"/>
     <id>http://charsdavy.github.io/2017/03/28/objective-c-NSPredicate/</id>
     <published>2017-03-27T23:51:52.000Z</published>
-    <updated>2017-03-28T01:37:28.000Z</updated>
+    <updated>2017-03-31T12:13:08.000Z</updated>
     
     <content type="html">&lt;p&gt;编写软件时，经常需要获取一个对象集合，并通过某些已经条件计算该集合的值。你需要保留符合某个条件的对象，删除那些不满足条件的对象，从而提供一些有意义的对象。&lt;/p&gt;
 &lt;p&gt;在使用软件iPhoto的过程中，经常会看到这种现象，如果通知iPhoto仅显示等级为三星级或三星级以上的图片，则指定的条件为“照片的等级必须为三星级或三星级以上”。这样，所有照片都需要经过该过滤器过滤。满足条件的对象通过了过滤器，而其他对象被筛除了。最后，iPhoto将显示出所有高质量的图片。&lt;/p&gt;
@@ -710,143 +688,12 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="Objective-C" scheme="http://charsdavy.github.io/tags/Objective-C/"/>
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
     
-  </entry>
-  
-  <entry>
-    <title>说说那些iOS笔试题（下篇）</title>
-    <link href="http://charsdavy.github.io/2017/03/27/ios-written-examination/"/>
-    <id>http://charsdavy.github.io/2017/03/27/ios-written-examination/</id>
-    <published>2017-03-27T13:54:27.000Z</published>
-    <updated>2017-03-28T01:37:28.000Z</updated>
-    
-    <content type="html">&lt;p&gt;今天整理微信公众号时突然发现了点有用的东西，分享出来大家一起看看。不过，笔者翻翻之前的博客，发现在刚转行之后就已经写好了上篇，并已经发布。不知道是什么原因，笔者一直没能想起来。正好，今天把下篇放上来。需要看上篇的小伙伴们请：&lt;a href=&quot;https://charsdavy.github.io/2016/03/18/ios-test-in-writing/&quot;&gt;说说那些iOS笔试题（上篇）&lt;/a&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;答案仅供参考，如有异议或者错误，请指正。&lt;/p&gt;
-&lt;p&gt;1、链表不具备的特点是（）&lt;/p&gt;
-&lt;p&gt;A. 可随机访问任何一个元素&lt;/p&gt;
-&lt;p&gt;B. 插入，删除操作不需要移动元素&lt;/p&gt;
-&lt;p&gt;C. 无需事先估计存储空间大小&lt;/p&gt;
-&lt;p&gt;D. 所欲存储空间可以是不连续的&lt;/p&gt;
-&lt;p&gt;参考答案： （A）&lt;br&gt;链表不同于数组。链表之所有叫链表，就是像一条链一样，要过到某个节点处，就得遍历着找；而数组才具备随机访问任何一个元素的能力，数组可以通过索引直接访问元素，时间复杂度为常量，效率非常高，因此在某些场合上，我们需要数组这样的数据结构。&lt;/p&gt;
-&lt;p&gt;B. 链表的插入、删除都不需要移动元素，只需要修改指针的指向就可以了，因为链表上的每个节点都是动态分配的，分配在堆上，通过指针来指向每个节点的内存区，要获取某个节点的值，是需要遍历一遍才能找到对应的节点的。&lt;/p&gt;
-&lt;p&gt;C. 因为链表上的每个节点是分配在堆上，需要开发人员手动申请内存空间的，因此不像数组在定义时就要指定存储空间大小。对于链表，需要增加一个节点时，直接在堆上申请。当需要删除某个节点时，可以直接将该节点的内存给释放掉。&lt;/p&gt;
-&lt;p&gt;D. 因为链接中的节点都是存储在堆上的，而每个节点之间都有一个指向前一个节点和后一个节点的指针，只要知道链表头指针，就可以通过遍历查找到任何一个节点。因此，链表不同于数组，数组是要连续的内存存储空间，才能保证以常量时间复杂度快速访问任意元素；而链表不要求每个节点是连接，在堆上申请的内存空间很难得到连续的，而且空间产生内存碎片。&lt;/p&gt;
-&lt;p&gt;2、关于多线程和多进程编程，下面描述正确的是（）&lt;/p&gt;
-&lt;p&gt;A. 多进程里，子进程可获取父进程的所有堆和栈的数据；而线程会与同进程的其他线程共享数据，拥有自己的栈空间。&lt;/p&gt;
-&lt;p&gt;B. 线程因为有自己的独立栈空间且共享数据，所有执行的开销相对较大，同时不利于资源管理和保护。&lt;/p&gt;
-&lt;p&gt;C. 线程的通信速度更快，切换更快，因为他们在同一地址空间内。&lt;/p&gt;
-&lt;p&gt;D. 线程使用公共变量/内存时需要使用同步机制，因为他们在同一地址空间内。&lt;/p&gt;
-&lt;p&gt;3、设两个变量a=19;b=29;在不创建新实例的情况下使a、b的值互换？&lt;/p&gt;
-&lt;p&gt;参考答案：&lt;/p&gt;
-&lt;p&gt;这道题要求不创建新的实例，只有a、b两个变量，要交换这两个变量的值，通常的做法是使用临时变量来临时存储，但是现在要求不使用新的实例，那么有什么办法呢？&lt;/p&gt;
-&lt;p&gt;方法就是通过位运算来操作：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;a = a ^ b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;b = a ^ b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a = a ^ b;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;对于题目中的a = 19，也就是对应二进制00010011；而b=29，也就是对应二进制00011101&lt;/p&gt;
-&lt;p&gt;第一步：a = 00010011 ^ 00011101 =&amp;gt; 00001110，将a、b的值都记录下来了&lt;/p&gt;
-&lt;p&gt;第二步：b = 00001110 ^ 00011101 =&amp;gt; 00010011（值为19，也就是b得到了原来的a的值）&lt;/p&gt;
-&lt;p&gt;第三步：a = 00001110 ^ 00010011 =&amp;gt; 00011101 (值为29，也就是a得到了原来的b的值)&lt;/p&gt;
-&lt;p&gt;注意，符号表示按位异或。所谓按位异或是指对应位置上的二进制数值相同为0，不同为1。&lt;/p&gt;
-&lt;p&gt;4、使用block时什么情况会发生引用循环，如何解决？&lt;/p&gt;
-&lt;p&gt;参考答案：&lt;a href=&quot;http://www.henishuo.com/ios-block-memory-cycle&quot;&gt;http://www.henishuo.com/ios-block-memory-cycle&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;5、为什么要序列化，对象序列化方式？&lt;/p&gt;
-&lt;p&gt;参考答案：&lt;/p&gt;
-&lt;p&gt;将对象JSON序列化： &lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@&amp;quot;%s&amp;quot;, __FUNCTION__);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSDictionary *dict = @&amp;#123;@&amp;quot;key&amp;quot;  : @&amp;quot;value&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                     @&amp;quot;key1&amp;quot; : @&amp;quot;value1&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                     @&amp;quot;key2&amp;quot; : @&amp;quot;value2&amp;quot;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@&amp;quot;%@&amp;quot;, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;将对象归档：需要遵守NSCoding协议，实现如下方法：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)encodeWithCoder:(NSCoder *)aCoder &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [aCoder encodeObject:self.title forKey:@&amp;quot;title&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;7、简述如何处理UI与耗时操作的通信，有哪些方式及各自的优缺点？&lt;/p&gt;
-&lt;p&gt;参考答案：&lt;/p&gt;
-&lt;p&gt;1）将耗时的计算和IO操作放在子线程去处理，然后到主线程更新UI。优点是采用预加载方式，将耗时操作提前处理。优点是可让UI更流畅；缺点是内存会增多，控制加载逻辑比较复杂。&lt;/p&gt;
-&lt;p&gt;2）采用延迟加载方式，将耗时操作而不立刻使用时，采用延迟加载。优点是界面可提高流畅度；缺点是在需要显示时还需要加载才能显示，需要稍稍等待。&lt;/p&gt;
-&lt;p&gt;8、如何优化一个TableView？&lt;/p&gt;
-&lt;p&gt;参考答案：&lt;/p&gt;
-&lt;p&gt;1）若高度一定，直接使用rowHeight属性而不是使用heightForRowAtIndexPath方法，以减少调用的消耗。若高度是不固定的，heightForRowAtIndexPath所计算的高度应该缓存起来，每次数据源发生变化时，比如删除、插入、更新行都会重新请求所有的高度。若有100个行，就会有调用100次，因为将高度缓存起来是应该的。同理，heightForHeaderInSection、heightForFooterInSection也应该缓存起来。&lt;/p&gt;
-&lt;p&gt;2）不要在tableView:cellForRowAtIndexPath:中做太多的计算和IO操作，比如可以将需要的计算提前计算好、IO操作也提前计算好。它应该直接调用来显示就可以。&lt;/p&gt;
-&lt;p&gt;3）将计算行高的时间提前到从服务器获取数据的时候，计算完了高度一并写回数据库或者通过转型为model，将高度放到模型中。但是，最好将高度缓存起来。若一个model的数据有不同的状态，比如展开与收起状态，应该也将高度都缓存起来。注意使用异步去计算，计算完成后再回到主线程显示。&lt;/p&gt;
-&lt;p&gt;4）在设置显示图片时，不要直接设置UIImageView的contentMode属性自动适应，图片变形会计算transform，压缩时会乘以一个矩阵，消耗性能。对于要求性能较高的app，应该将得到的图片经过处理成UIImageView大小后再呈现。&lt;/p&gt;
-&lt;p&gt;5）不要将视图的opaque属性设置为NO，默认为YES,它表示不透明度。当opque为NO的时候，图层的半透明取决于图片和其本身合成的图层为结果。&lt;/p&gt;
-&lt;p&gt;6）layer添加圆角是比较耗时的，这样会离屏渲染，需要牺牲更多的性能。比如，图片显示有圆角时，可以通过core graphics来生成带圆角的图片等。&lt;/p&gt;
-&lt;p&gt;7）手动绘制cell。绘制cell不建议使用UIView，建议使用CALayer。 UIView的绘制是建立在CoreGraphic上的，其使用的是CPU。CALayer使用的是Core Animation，CPU、GPU都可以使用且由系统自动决定使用哪一个。UIView的绘制，使用的是自下向上的一层一层的绘制，而后渲染。Layer处理的是纹理，利用GPU的 Texture Cache和独立的浮点数计算单元可以加速纹理的处理。&lt;/p&gt;
-&lt;p&gt;8）重用cell。防止重复的绘制，减少渲染次数，可提高性能。&lt;/p&gt;
-&lt;p&gt;9）减少subviews的数量。尽量放在同一层view上显示。&lt;/p&gt;
-&lt;p&gt;10）尽量少动态给cell添加子view。用addView给Cell动态添加View，可以初始化时就添加，然后通过hide来控制是否显示。&lt;/p&gt;
-&lt;p&gt;更多参看：&lt;br&gt;&lt;a href=&quot;http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/&quot;&gt;http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;简答题&lt;/p&gt;
-&lt;p&gt;1.假设类SomeClass中声明了一个委托属性delegate，该属性遵守自定义委托协议SomeDelegate，请写出该类和对应委托协议的定义？&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@protocol SomeDelegate&amp;lt;NSObject&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@required //必须要实现的方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@optional //可选实现的方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@interface SomeClass&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic, assign)id &amp;lt;SomeDelegate&amp;gt; delegate;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;2.简述UITableView的重用机制，并写出实现该机制的关键代码？&lt;/p&gt;
-&lt;p&gt;关键代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&amp;quot;cellId&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (cell == nil) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@&amp;quot;cellId&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;3.简述推送实现步骤？&lt;/p&gt;
-&lt;p&gt;4.定义一个带参宏，返回两个参数中较小的那个？&lt;/p&gt;
-&lt;p&gt;5.strong和weak分别起什么作用？有什么区别？&lt;/p&gt;
-&lt;p&gt;6.执行下面程序后NSLog的输出结果为（  C  ）？&lt;/p&gt;
-&lt;p&gt;A.1，1    B.2，1    C.2，5    D.运行错误&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int a[5] = &amp;#123;1,2,3,4,5&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int *ptr = (int *)(&amp;amp;a+1);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSLog(@“%d,%d”, *(a+1), *(ptr-1));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;7.执行下面程序后NSLog的输出结果为（  B  ）？&lt;/p&gt;
-&lt;p&gt;A.a，a1，a1    B.a1，a1，a1    C.a1，a，a    D.a1，a1，a&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int main(int argc, char *argv[])&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSArray *mArray1 = [NSMutableArray arrayWithObjects:[NSMutableString stringWithString:@&amp;quot;a&amp;quot;], @&amp;quot;b&amp;quot;, @&amp;quot;c&amp;quot;, nil];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSArray *mArrayCopy2 = [mArray1 copy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSMutableArray *mArrayMCopy1 = [mArray1 mutableCopy];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSMutableString *testString = [mArray1 objectAtIndex:0];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        [testString appendString:@&amp;quot;1&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;%@,%@,%@&amp;quot;, [mArray1 objectAtIndex:0],[mArrayCopy2 objectAtIndex:0],[mArrayMCopy1 objectAtIndex:0]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;8.Cocoa中所有的类都是（  NSObject和NSProxy  ）的子类。&lt;/p&gt;
-&lt;p&gt;9.列举几个Cocoa Touch框架？&lt;/p&gt;
-&lt;p&gt;Foundation、UIKit、Core Data&lt;/p&gt;
-&lt;p&gt;10.下面机型屏幕分辨率分别是多少？&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iPhone4、4S：960X640&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPhone5、5S、5C：1136X640&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPhone6：375X667&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPhone6 Plus：414X736&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad mini：1024X768&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad mini 2：2048X1536&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad Air：2048X1536&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iPad Air 2：2048X1536&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;11.Objective-C中的线程类是（   NSThread ），常见方法有哪些（  dispatch_async  ）、（  dispatch_sync  ），处理多线程同步有哪些类（    ）。&lt;/p&gt;
-&lt;p&gt;数据库&lt;/p&gt;
-&lt;p&gt;现有MySQL数据库，分别对下表写出要求的SQL语句，用到实例数据请自行给出即可。&lt;/p&gt;
-&lt;p&gt;表结构如下：&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;字段名&lt;/th&gt;
-&lt;th&gt;类型&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;UserID&lt;/td&gt;
-&lt;td&gt;Integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;UserName&lt;/td&gt;
-&lt;td&gt;varchar(20)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Password&lt;/td&gt;
-&lt;td&gt;varchar(20)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;创建表：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CREATE  TABLE `test`.`table_a` (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  `UserID` INT NOT NULL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  `UserName` VARCHAR(20) NULL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  `Password` VARCHAR(20) NULL ,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  PRIMARY KEY (`UserID`) );&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;增加记录：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;insert into `test`.`table_a` ( `UserName`, `UserID`, `Password`) values ( &amp;apos;cd&amp;apos;, &amp;apos;10&amp;apos;, &amp;apos;123&amp;apos;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;删除记录：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;delete from `test`.`table_a` where `UserID`=’10&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;修改记录：update `test`.`table_a` set `Password`=&amp;apos;12346&amp;apos; where `UserID`=&amp;apos;10&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;编程题&lt;/p&gt;
-&lt;p&gt;1.请通过接口“&lt;a href=&quot;http://someurl/somefunc”获取数据，并在UI上显示。接口入参argu是一个字符串类型的变量，返回值是字典。&quot;&gt;http://someurl/somefunc”获取数据，并在UI上显示。接口入参argu是一个字符串类型的变量，返回值是字典。&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;1）使用NSURL相关API实现网络加载类，其中：通过post方法发送请求，建立异步连接；&lt;/p&gt;
-&lt;p&gt;2）报文采用JSON格式；&lt;/p&gt;
-&lt;p&gt;3）多线程采用GCD或NSOperation实现；&lt;/p&gt;
-&lt;p&gt;4）以左边键右边值的格式在界面上显示结果。&lt;/p&gt;
-&lt;p&gt;2.传入数组*array和数组长度length，实现冒泡排序算法。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;int *BubbleSort(int *array, int length);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int *BubbleSort(int *array, int length) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int i = 0, j = 0, temp = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (NULL == array) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return NULL;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for (i = 0; i &amp;lt; length; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (j = i; j &amp;lt; length; j++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if (*(array + i) &amp;gt; *(array + j)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                temp = *(array + i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                *(array + i) = *(array + j);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                *(array + j) = temp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return array;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天整理微信公众号时突然发现了点有用的东西，分享出来大家一起看看。不过，笔者翻翻之前的博客，发现在刚转行之后就已经写好了上篇，并已经发布。不知道是什么原因，笔者一直没能想起来。正好，今天把下篇放上来。需要看上篇的小伙伴们请：&lt;a href=&quot;https://charsdavy.github.io/2016/03/18/ios-test-in-writing/&quot;&gt;说说那些iOS笔试题（上篇）&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
-    
-    
-      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
+      <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
     
   </entry>
   
@@ -855,7 +702,7 @@
     <link href="http://charsdavy.github.io/2017/03/26/japanese-auxiliary-word/"/>
     <id>http://charsdavy.github.io/2017/03/26/japanese-auxiliary-word/</id>
     <published>2017-03-26T13:34:16.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T12:05:40.000Z</updated>
     
     <content type="html">&lt;p&gt;助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。&lt;/p&gt;
 &lt;p&gt;日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。&lt;/p&gt;
@@ -982,12 +829,12 @@
     
     </summary>
     
-      <category term="Interest" scheme="http://charsdavy.github.io/categories/interest/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
     
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
-      <category term="日语" scheme="http://charsdavy.github.io/tags/Japanese/"/>
+      <category term="日语" scheme="http://charsdavy.github.io/tags/japanese/"/>
     
   </entry>
   
@@ -996,7 +843,7 @@
     <link href="http://charsdavy.github.io/2017/03/22/mysql-modify-password/"/>
     <id>http://charsdavy.github.io/2017/03/22/mysql-modify-password/</id>
     <published>2017-03-22T15:04:47.000Z</published>
-    <updated>2017-03-24T02:36:32.000Z</updated>
+    <updated>2017-03-31T12:10:15.000Z</updated>
     
     <content type="html">&lt;p&gt;&lt;a href=&quot;https://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt;是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。&lt;br&gt;MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。&lt;br&gt;MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -1018,10 +865,12 @@
     
     </summary>
     
-      <category term="Web" scheme="http://charsdavy.github.io/categories/web/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
       <category term="数据库" scheme="http://charsdavy.github.io/tags/database/"/>
+    
+      <category term="web" scheme="http://charsdavy.github.io/tags/web/"/>
     
   </entry>
   
@@ -1030,7 +879,7 @@
     <link href="http://charsdavy.github.io/2017/03/21/fmdb-reading/"/>
     <id>http://charsdavy.github.io/2017/03/21/fmdb-reading/</id>
     <published>2017-03-21T14:51:12.000Z</published>
-    <updated>2017-03-24T02:36:14.000Z</updated>
+    <updated>2017-03-31T11:45:24.000Z</updated>
     
     <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ccgus/fmdb&quot;&gt;FMDB&lt;/a&gt; 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -1125,16 +974,18 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+      <category term="code" scheme="http://charsdavy.github.io/categories/code/"/>
     
     
-      <category term="Objective-C" scheme="http://charsdavy.github.io/tags/Objective-C/"/>
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
+    
+      <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
     
       <category term="开源框架" scheme="http://charsdavy.github.io/tags/framework/"/>
     
       <category term="数据库" scheme="http://charsdavy.github.io/tags/database/"/>
     
-      <category term="持久化" scheme="http://charsdavy.github.io/tags/persistence/"/>
+      <category term="存储" scheme="http://charsdavy.github.io/tags/persistence/"/>
     
   </entry>
   
@@ -1143,7 +994,7 @@
     <link href="http://charsdavy.github.io/2017/02/26/japanese-verb/"/>
     <id>http://charsdavy.github.io/2017/02/26/japanese-verb/</id>
     <published>2017-02-26T13:33:06.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T12:05:48.000Z</updated>
     
     <content type="html">&lt;p&gt;动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。&lt;br&gt;&amp;lt;比如&amp;gt; 突跃,突击,突袭等描述动作过程均属动词。&lt;br&gt;中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。&lt;/p&gt;
 &lt;p&gt;日语中动词主要分为3大类，称为一类动词，二类动词和三类动词（简称，动1，动2和动3），而三类动词中又可以分为2类，即カ变和サ变动词。&lt;/p&gt;
@@ -1264,12 +1115,12 @@
     
     </summary>
     
-      <category term="Interest" scheme="http://charsdavy.github.io/categories/interest/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
     
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
-      <category term="日语" scheme="http://charsdavy.github.io/tags/Japanese/"/>
+      <category term="日语" scheme="http://charsdavy.github.io/tags/japanese/"/>
     
   </entry>
   
@@ -1278,7 +1129,7 @@
     <link href="http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/"/>
     <id>http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/</id>
     <published>2017-01-01T16:31:23.000Z</published>
-    <updated>2017-03-13T07:16:43.000Z</updated>
+    <updated>2017-03-31T12:08:06.000Z</updated>
     
     <content type="html">&lt;p&gt;Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache Web服务器混淆，Apache Web Server是一个用C语言实现的HTTP web server；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。&lt;/p&gt;
 &lt;p&gt;这篇文章主要介绍Mac环境下，使用Eclipse + Tomcat搭建Java EE开发环境。&lt;/p&gt;
@@ -1323,10 +1174,12 @@
     
     </summary>
     
-      <category term="Web" scheme="http://charsdavy.github.io/categories/web/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="开发环境" scheme="http://charsdavy.github.io/tags/develop-tool/"/>
+      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
+    
+      <category term="web" scheme="http://charsdavy.github.io/tags/web/"/>
     
   </entry>
   
@@ -1335,7 +1188,7 @@
     <link href="http://charsdavy.github.io/2016/12/26/japanese-adjective/"/>
     <id>http://charsdavy.github.io/2016/12/26/japanese-adjective/</id>
     <published>2016-12-26T13:33:38.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T12:05:33.000Z</updated>
     
     <content type="html">&lt;p&gt;形容词（Adjective），很多语言中均有的主要词类中的一种。形容词主要用来描写或修饰名词或代词，表示人或事物的性质、 状态、特征&lt;br&gt;或属性，常用作定语，也可作表语、补语或状语。&lt;/p&gt;
 &lt;p&gt;日语中的形容词分为两大类，称为一类形容词和二类形容词（简称，形1和形2）。形容词所表示的事物的属性，一般具有静止的、固定的、永恒的特点。&lt;/p&gt;
@@ -1510,12 +1363,12 @@
     
     </summary>
     
-      <category term="Interest" scheme="http://charsdavy.github.io/categories/interest/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
     
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
-      <category term="日语" scheme="http://charsdavy.github.io/tags/Japanese/"/>
+      <category term="日语" scheme="http://charsdavy.github.io/tags/japanese/"/>
     
   </entry>
   
@@ -1524,7 +1377,7 @@
     <link href="http://charsdavy.github.io/2016/11/15/apple-app-release-analysis/"/>
     <id>http://charsdavy.github.io/2016/11/15/apple-app-release-analysis/</id>
     <published>2016-11-15T10:26:02.000Z</published>
-    <updated>2016-11-15T12:13:03.000Z</updated>
+    <updated>2017-03-31T11:12:58.000Z</updated>
     
     <content type="html">&lt;p&gt;随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。&lt;/p&gt;
 &lt;p&gt;这些解决方案或工具节省了iOS开发者大量的开发时间，但是由于相关介绍文章的缺乏，许多开发者都在重复着自己一次又一次重新造轮子。所以将自己使用的相关的第三方服务使用经验，整理成一系列文章，以便广大开发者能够省去大量的重复性工作。&lt;/p&gt;
@@ -1564,12 +1417,12 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
+    
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
     
       <category term="application" scheme="http://charsdavy.github.io/tags/application/"/>
-    
-      <category term="发布" scheme="http://charsdavy.github.io/tags/release/"/>
     
   </entry>
   
@@ -1578,7 +1431,7 @@
     <link href="http://charsdavy.github.io/2016/09/05/effective-objc-2-introduction-objc/"/>
     <id>http://charsdavy.github.io/2016/09/05/effective-objc-2-introduction-objc/</id>
     <published>2016-09-05T07:27:15.000Z</published>
-    <updated>2016-09-05T07:34:10.000Z</updated>
+    <updated>2017-03-31T11:43:56.000Z</updated>
     
     <content type="html">&lt;p&gt;看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。&lt;/p&gt;
 &lt;p&gt;作为Mac OS X与iOS应用程序的开发语言，Objective-C作为首选。那么，它有哪些需要注意的呢？&lt;/p&gt;
@@ -1646,10 +1499,12 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://charsdavy.github.io/categories/iOS/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="Effective-Objc" scheme="http://charsdavy.github.io/tags/effective-objc/"/>
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
+    
+      <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
     
   </entry>
   
@@ -1658,7 +1513,7 @@
     <link href="http://charsdavy.github.io/2016/09/03/mac-ruby-update/"/>
     <id>http://charsdavy.github.io/2016/09/03/mac-ruby-update/</id>
     <published>2016-09-03T08:47:54.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T12:09:28.000Z</updated>
     
     <content type="html">&lt;p&gt;Ruby 是一种面向对象、命令式、函数式、动态的通用编程语言。 在20世纪90年代中期由日本人松本行弘（Matz）设计并开发。 遵守BSD许可证和Ruby License。 它的灵感与特性来自于Perl、Smalltalk、Eiffel、Ada以及Lisp语言。&lt;/p&gt;
 &lt;p&gt;Ruby 可运行于多种平台，如 Windows、MAC OS 和 UNIX 的各种版本。&lt;/p&gt;
@@ -1697,10 +1552,12 @@
     
     </summary>
     
-      <category term="Tools" scheme="http://charsdavy.github.io/categories/tool/"/>
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
     
     
-      <category term="Mac" scheme="http://charsdavy.github.io/tags/Mac/"/>
+      <category term="mac" scheme="http://charsdavy.github.io/tags/mac/"/>
+    
+      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
     
   </entry>
   
@@ -1709,7 +1566,7 @@
     <link href="http://charsdavy.github.io/2016/09/03/mac-os-archive-app/"/>
     <id>http://charsdavy.github.io/2016/09/03/mac-os-archive-app/</id>
     <published>2016-09-03T01:43:24.000Z</published>
-    <updated>2017-03-09T12:15:05.000Z</updated>
+    <updated>2017-03-31T12:08:31.000Z</updated>
     
     <content type="html">&lt;p&gt;最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。&lt;/p&gt;
 &lt;p&gt;BTW 推荐一款非Apple官方的App Store，&lt;code&gt;HackStore&lt;/code&gt;是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的&lt;code&gt;ImageHosting&lt;/code&gt;，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 &lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
@@ -1755,12 +1612,12 @@
     
     </summary>
     
-      <category term="OS" scheme="http://charsdavy.github.io/categories/OS/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="Mac" scheme="http://charsdavy.github.io/tags/Mac/"/>
+      <category term="mac" scheme="http://charsdavy.github.io/tags/mac/"/>
     
-      <category term="开发助手" scheme="http://charsdavy.github.io/tags/assistant/"/>
+      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
     
   </entry>
   
@@ -1769,11 +1626,12 @@
     <link href="http://charsdavy.github.io/2016/08/22/ImageHosting-use-introduction/"/>
     <id>http://charsdavy.github.io/2016/08/22/ImageHosting-use-introduction/</id>
     <published>2016-08-22T10:58:24.000Z</published>
-    <updated>2017-03-09T12:15:05.000Z</updated>
+    <updated>2017-03-31T11:50:50.000Z</updated>
     
     <content type="html">&lt;p&gt;博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考&lt;a href=&quot;http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/&quot;&gt;《手把手教 GitHub + Hexo 搭建博客》&lt;/a&gt; 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-launchpad.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;软件下载地址：&lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/ImageHosting&quot;&gt;源代码地址&lt;/a&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/imagehosting-use-introduction-8.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;遇到以上问题，处理方法如下：&lt;/p&gt;
@@ -1796,15 +1654,16 @@
       &lt;p&gt;博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考&lt;a href=&quot;http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/&quot;&gt;《手把手教 GitHub + Hexo 搭建博客》&lt;/a&gt; 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-launchpad.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;软件下载地址：&lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/ImageHosting&quot;&gt;源代码地址&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="OS" scheme="http://charsdavy.github.io/categories/OS/"/>
+      <category term="project" scheme="http://charsdavy.github.io/categories/project/"/>
     
     
-      <category term="Mac" scheme="http://charsdavy.github.io/tags/Mac/"/>
+      <category term="mac" scheme="http://charsdavy.github.io/tags/mac/"/>
     
-      <category term="便捷工具" scheme="http://charsdavy.github.io/tags/plugin/"/>
+      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
     
   </entry>
   
@@ -1813,7 +1672,7 @@
     <link href="http://charsdavy.github.io/2016/08/13/memory-big-little-endian/"/>
     <id>http://charsdavy.github.io/2016/08/13/memory-big-little-endian/</id>
     <published>2016-08-13T13:34:48.000Z</published>
-    <updated>2017-03-09T12:15:05.000Z</updated>
+    <updated>2017-03-31T12:09:57.000Z</updated>
     
     <content type="html">&lt;p&gt;在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -1895,14 +1754,14 @@
     
     </summary>
     
-      <category term="OS" scheme="http://charsdavy.github.io/categories/OS/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="C" scheme="http://charsdavy.github.io/tags/C/"/>
+      <category term="c" scheme="http://charsdavy.github.io/tags/c/"/>
     
       <category term="内存" scheme="http://charsdavy.github.io/tags/storage/"/>
     
-      <category term="Windows" scheme="http://charsdavy.github.io/tags/Windows/"/>
+      <category term="windows" scheme="http://charsdavy.github.io/tags/windows/"/>
     
   </entry>
   
@@ -1911,7 +1770,7 @@
     <link href="http://charsdavy.github.io/2016/08/12/mac-os-develop-prepare/"/>
     <id>http://charsdavy.github.io/2016/08/12/mac-os-develop-prepare/</id>
     <published>2016-08-12T00:00:05.000Z</published>
-    <updated>2017-03-09T12:15:05.000Z</updated>
+    <updated>2017-03-31T12:08:53.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;程序猿，一个另类的物种。&lt;/p&gt;
@@ -1943,10 +1802,10 @@
     
     </summary>
     
-      <category term="OS" scheme="http://charsdavy.github.io/categories/OS/"/>
+      <category term="code" scheme="http://charsdavy.github.io/categories/code/"/>
     
     
-      <category term="Mac" scheme="http://charsdavy.github.io/tags/Mac/"/>
+      <category term="mac" scheme="http://charsdavy.github.io/tags/mac/"/>
     
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
@@ -1957,7 +1816,7 @@
     <link href="http://charsdavy.github.io/2016/08/05/design-harmonize-colours/"/>
     <id>http://charsdavy.github.io/2016/08/05/design-harmonize-colours/</id>
     <published>2016-08-05T14:49:43.000Z</published>
-    <updated>2017-03-31T01:45:06.000Z</updated>
+    <updated>2017-03-31T11:43:09.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;在什么样的团队就能成为什么样的人&lt;/p&gt;
@@ -2027,10 +1886,117 @@
     
     </summary>
     
-      <category term="Design" scheme="http://charsdavy.github.io/categories/design/"/>
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="UI" scheme="http://charsdavy.github.io/tags/UI/"/>
+      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
+    
+      <category term="design" scheme="http://charsdavy.github.io/tags/design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Xcode 常用插件</title>
+    <link href="http://charsdavy.github.io/2016/08/02/xcode-plugin-list/"/>
+    <id>http://charsdavy.github.io/2016/08/02/xcode-plugin-list/</id>
+    <published>2016-08-02T15:16:19.000Z</published>
+    <updated>2017-03-31T12:23:06.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;工欲善其事，必先利其器&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里主要罗列一些常用的 Xcode 插件。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;BBUncrustify&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码格式化&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/benoitsan/BBUncrustifyPlugin-Xcode&quot;&gt;https://github.com/benoitsan/BBUncrustifyPlugin-Xcode&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Backlight&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;光标选中行高亮&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/limejelly/Backlight-for-XCode&quot;&gt;https://github.com/limejelly/Backlight-for-XCode&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HighlightSelectedString&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码变量选中高亮&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/keepyounger/HighlightSelectedString&quot;&gt;https://github.com/keepyounger/HighlightSelectedString&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VVDocumenter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快捷注释&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/onevcat/VVDocumenter-Xcode&quot;&gt;https://github.com/onevcat/VVDocumenter-Xcode&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;KSImageNamed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据图片名，输入代码时图片预览&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/ksuther/KSImageNamed-Xcode&quot;&gt;https://github.com/ksuther/KSImageNamed-Xcode&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;工欲善其事，必先利其器&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里主要罗列一些常用的 Xcode 插件。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
+    
+    
+      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈iOS App打包发布</title>
+    <link href="http://charsdavy.github.io/2016/07/21/ios-app-distribution/"/>
+    <id>http://charsdavy.github.io/2016/07/21/ios-app-distribution/</id>
+    <published>2016-07-21T11:56:38.000Z</published>
+    <updated>2017-03-31T11:52:54.000Z</updated>
+    
+    <content type="html">&lt;p&gt;来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;1.安装发布证书&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自己去Apple开发者中心配置&lt;/li&gt;
+&lt;li&gt;找其他已经有证书的小伙伴导出p12文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2.设置Scheme&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Xcode-&amp;gt;Product-&amp;gt;Scheme-&amp;gt;Edit Scheme&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-1.png?imageView/2/w/460&quot; alt=&quot;setting-scheme&quot;&gt;&lt;/p&gt;
+&lt;p&gt;3.设置软件版本号&lt;/p&gt;
+&lt;p&gt;版本号格式：&lt;code&gt;数字.数字-字符(驼峰式).数字&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;示例：&lt;code&gt;1.1-beta.1&lt;/code&gt; , &lt;code&gt;1.1.1-beta&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;版本号从0开始，不过一般版本号为0的数字省略。&lt;/p&gt;
+&lt;p&gt;4.Archive&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;选择&lt;code&gt;真机&lt;/code&gt;或者&lt;code&gt;Generic iOS Device&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Product-&amp;gt;Archive&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5.Export&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-2.png?imageView/2/w/460&quot; alt=&quot;export-1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-3.png?imageView/2/w/460&quot; alt=&quot;export-2&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-4.png?imageView/2/w/460&quot; alt=&quot;export-3&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-5.png?imageView/2/w/460&quot; alt=&quot;export-4&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-6.png?imageView/2/w/460&quot; alt=&quot;export-5&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-app-distribution-7.png?imageView/2/w/460&quot; alt=&quot;export-6&quot;&gt;&lt;/p&gt;
+&lt;p&gt;6.安装企业应用证书&lt;/p&gt;
+&lt;p&gt;7.上传到ZAKER服务器&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
+    
+    
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
+    
+      <category term="application" scheme="http://charsdavy.github.io/tags/application/"/>
     
   </entry>
   
