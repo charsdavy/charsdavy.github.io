@@ -115,7 +115,7 @@ BTW 推荐一款非Apple官方的App Store，HackStore是一款来自俄罗斯�
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert.png?imageView2/2/w/480">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert-config.png?imageView2/2/w/480">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-result.png?imageView2/2/w/460">
-<meta property="og:updated_time" content="2017-01-02T06:08:05.000Z">
+<meta property="og:updated_time" content="2017-03-09T12:15:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac OS 开发 － 聊聊如何打包dmg文件">
 <meta name="twitter:description" content="最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。
@@ -396,12 +396,7 @@ BTW 推荐一款非Apple官方的App Store，HackStore是一款来自俄罗斯�
           
 
           
-          
-          &nbsp;<!-- | &nbsp;-->
-          <span id="/2016/09/03/mac-os-archive-app/"class="leancloud_visitors" data-flag-title="Mac OS 开发 － 聊聊如何打包dmg文件">
-         <!--&nbsp;Visitors-->
-          </span>
-          
+
         </div>
       </header>
     
@@ -1055,90 +1050,5 @@ BTW 推荐一款非Apple官方的App Store，HackStore是一款来自俄罗斯�
 
   
 
-
-  
-  <!-- custom analytics part create by xiamo -->
-<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-<script>AV.initialize("Vih6Dyi1ROtHxoMYALRbVTW8-gzGzoHsz", "jcATphjojcSCLm4xme5hyE3o");</script>
-<script>
-function showTime(Counter) {
-	var query = new AV.Query(Counter);
-	$(".leancloud_visitors").each(function() {
-		var url = $(this).attr("id").trim();
-		query.equalTo("url", url);
-		query.find({
-			success: function(results) {
-				if (results.length == 0) {
-					var content = '0 ' + $(document.getElementById(url)).text();
-					$(document.getElementById(url)).text(content);
-					return;
-				}
-				for (var i = 0; i < results.length; i++) {
-					var object = results[i];
-					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
-					$(document.getElementById(url)).text(content);
-				}
-			},
-			error: function(object, error) {
-				console.log("Error: " + error.code + " " + error.message);
-			}
-		});
-
-	});
-}
-
-function addCount(Counter) {
-	var Counter = AV.Object.extend("Counter");
-	url = $(".leancloud_visitors").attr('id').trim();
-	title = $(".leancloud_visitors").attr('data-flag-title').trim();
-	var query = new AV.Query(Counter);
-	query.equalTo("url", url);
-	query.find({
-		success: function(results) {
-			if (results.length > 0) {
-				var counter = results[0];
-				counter.fetchWhenSave(true);
-				counter.increment("time");
-				counter.save(null, {
-					success: function(counter) {
-						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
-						$(document.getElementById(url)).text(content);
-					},
-					error: function(counter, error) {
-						console.log('Failed to save Visitor num, with error message: ' + error.message);
-					}
-				});
-			} else {
-				var newcounter = new Counter();
-				newcounter.set("title", title);
-				newcounter.set("url", url);
-				newcounter.set("time", 1);
-				newcounter.save(null, {
-					success: function(newcounter) {
-					    console.log("newcounter.get('time')="+newcounter.get('time'));
-						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
-						$(document.getElementById(url)).text(content);
-					},
-					error: function(newcounter, error) {
-						console.log('Failed to create');
-					}
-				});
-				}
-		},
-		error: function(error) {
-			console.log('Error:' + error.code + " " + error.message);
-		}
-	});
-}
-$(function() {
-	var Counter = AV.Object.extend("Counter");
-	if ($('.leancloud_visitors').length == 1) {
-		addCount(Counter);
-	} else if ($('.post-title-link').length > 1) {
-		showTime(Counter);
-	}
-}); 
-</script>
-  
 </body>
 </html>

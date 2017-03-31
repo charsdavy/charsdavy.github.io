@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://charsdavy.github.io/2013/01/18/vc-6-mfc-develop-summary/index.html">
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。">
-<meta property="og:updated_time" content="2017-03-30T15:00:57.000Z">
+<meta property="og:updated_time" content="2017-03-31T01:45:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VC++6.0 MFC编程心得小结">
 <meta name="twitter:description" content="作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。">
@@ -381,12 +381,7 @@
           
 
           
-          
-          &nbsp;<!-- | &nbsp;-->
-          <span id="/2013/01/18/vc-6-mfc-develop-summary/"class="leancloud_visitors" data-flag-title="VC++6.0 MFC编程心得小结">
-         <!--&nbsp;Visitors-->
-          </span>
-          
+
         </div>
       </header>
     
@@ -1046,90 +1041,5 @@
 
   
 
-
-  
-  <!-- custom analytics part create by xiamo -->
-<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-<script>AV.initialize("Vih6Dyi1ROtHxoMYALRbVTW8-gzGzoHsz", "jcATphjojcSCLm4xme5hyE3o");</script>
-<script>
-function showTime(Counter) {
-	var query = new AV.Query(Counter);
-	$(".leancloud_visitors").each(function() {
-		var url = $(this).attr("id").trim();
-		query.equalTo("url", url);
-		query.find({
-			success: function(results) {
-				if (results.length == 0) {
-					var content = '0 ' + $(document.getElementById(url)).text();
-					$(document.getElementById(url)).text(content);
-					return;
-				}
-				for (var i = 0; i < results.length; i++) {
-					var object = results[i];
-					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
-					$(document.getElementById(url)).text(content);
-				}
-			},
-			error: function(object, error) {
-				console.log("Error: " + error.code + " " + error.message);
-			}
-		});
-
-	});
-}
-
-function addCount(Counter) {
-	var Counter = AV.Object.extend("Counter");
-	url = $(".leancloud_visitors").attr('id').trim();
-	title = $(".leancloud_visitors").attr('data-flag-title').trim();
-	var query = new AV.Query(Counter);
-	query.equalTo("url", url);
-	query.find({
-		success: function(results) {
-			if (results.length > 0) {
-				var counter = results[0];
-				counter.fetchWhenSave(true);
-				counter.increment("time");
-				counter.save(null, {
-					success: function(counter) {
-						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
-						$(document.getElementById(url)).text(content);
-					},
-					error: function(counter, error) {
-						console.log('Failed to save Visitor num, with error message: ' + error.message);
-					}
-				});
-			} else {
-				var newcounter = new Counter();
-				newcounter.set("title", title);
-				newcounter.set("url", url);
-				newcounter.set("time", 1);
-				newcounter.save(null, {
-					success: function(newcounter) {
-					    console.log("newcounter.get('time')="+newcounter.get('time'));
-						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
-						$(document.getElementById(url)).text(content);
-					},
-					error: function(newcounter, error) {
-						console.log('Failed to create');
-					}
-				});
-				}
-		},
-		error: function(error) {
-			console.log('Error:' + error.code + " " + error.message);
-		}
-	});
-}
-$(function() {
-	var Counter = AV.Object.extend("Counter");
-	if ($('.leancloud_visitors').length == 1) {
-		addCount(Counter);
-	} else if ($('.post-title-link').length > 1) {
-		showTime(Counter);
-	}
-}); 
-</script>
-  
 </body>
 </html>
