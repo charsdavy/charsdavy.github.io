@@ -25,6 +25,8 @@
 
 
 
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+
 
 
 
@@ -102,7 +104,7 @@
 <meta property="og:description" content="摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-cd5c98eeccbbaef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-825661cf6c402c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-31T13:37:53.000Z">
+<meta property="og:updated_time" content="2017-03-31T12:13:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="七牛云存储应用">
 <meta name="twitter:description" content="摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
@@ -251,9 +253,43 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -281,7 +317,7 @@
     <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/02/qiniu-using/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars Davy">
+      <meta itemprop="name" content="Chars">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
@@ -396,18 +432,18 @@
       
         <p>摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。</p>
 <a id="more"></a>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。<br>七牛云官网<a href="http://www.qiniu.com/">http://www.qiniu.com/</a> ，进入开发者平台，浏览了所有的开发指南，可是却是没有具体清晰的操作步骤。今天自己试着通过网络，实现了使用七牛云存储文件。现在，将操作步骤记录如下。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。<br>七牛云官网<a href="http://www.qiniu.com/" target="_blank" rel="external">http://www.qiniu.com/</a> ，进入开发者平台，浏览了所有的开发指南，可是却是没有具体清晰的操作步骤。今天自己试着通过网络，实现了使用七牛云存储文件。现在，将操作步骤记录如下。</p>
 <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>1.注册七牛云账号。</p>
 <p>2.创建空间。</p>
 <p>3.获取Access Key。</p>
 <p>4.获取Secret Key。</p>
-<p>5.获取官方SDK（<a href="https://github.com/qiniu/objc-sdk">https://github.com/qiniu/objc-sdk</a> ）。</p>
+<p>5.获取官方SDK（<a href="https://github.com/qiniu/objc-sdk" target="_blank" rel="external">https://github.com/qiniu/objc-sdk</a> ）。</p>
 <h1 id="导入工程"><a href="#导入工程" class="headerlink" title="导入工程"></a>导入工程</h1><p>1.打开Xcode创建Project。</p>
 <p>2.从获取的官方SDK导入库，如下图</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1492739-cd5c98eeccbbaef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>3.获取token</p>
 <p>这一步，网上大家都说得很简单，在这一步卡壳许久。现在说说自己使用的方法：</p>
 <p>1）获取服务器代码，编译工程，以备生成token。</p>
-<p>服务器代码地址：<a href="https://github.com/CharsDavy/QiNiuGenertorToken">https://github.com/CharsDavy/QiNiuGenertorToken</a><br>2）使用Eclipse导入上述服务器代码</p>
+<p>服务器代码地址：<a href="https://github.com/CharsDavy/QiNiuGenertorToken" target="_blank" rel="external">https://github.com/CharsDavy/QiNiuGenertorToken</a><br>2）使用Eclipse导入上述服务器代码</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1492739-825661cf6c402c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>在Test.java文件中，修改自己的空间名称，Access Key和Secret Key。运行程序，即可获得token。</p>
 <p>这种方式生成的token的有效期是可以自己设定的，如果你想，设定1000年过期也是可以的。</p>
@@ -421,8 +457,8 @@
 <p>3.若报 Thread 1: EXC_BAD_ACCESS(code=1,address=0x180f4beb8)类似错误，将 QN打头的都设置 arc (Build Phases — Compile Sources)</p>
 <p>4.可能需要修改部分内容，如 <code>#import &lt;AFNetworking/AFNetworking.h&gt;</code>改为 <code>#import &quot;AFNetworking.h&quot;</code></p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>以上就是本人在工程中使用七牛云进行文件云存储的过程，本文中使用的仅仅是上传文件，更多其他操作功能请参照官方文档。</p>
-<p>最后，附上一个使用七牛云存储的软件，源码地址：<a href="https://github.com/CharsDavy/MyNotes">https://github.com/CharsDavy/MyNotes</a></p>
-<p>其实，对于获取token来完成上载操作，也可以参考官方文档，地址<br><a href="http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html">http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html</a></p>
+<p>最后，附上一个使用七牛云存储的软件，源码地址：<a href="https://github.com/CharsDavy/MyNotes" target="_blank" rel="external">https://github.com/CharsDavy/MyNotes</a></p>
+<p>其实，对于获取token来完成上载操作，也可以参考官方文档，地址<br><a href="http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html" target="_blank" rel="external">http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html</a></p>
 
       
     </div>
@@ -438,20 +474,20 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <div>如果觉得文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赞赏</span>
+      <span>赞赏支持</span>
     </button>
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars Davy WeChat Pay"/>
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
           <p>微信赞赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Davy Alipay"/>
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
           <p>支付宝赞赏</p>
         </div>
       
@@ -591,8 +627,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
-               alt="Chars Davy" />
-          <p class="site-author-name" itemprop="name">Chars Davy</p>
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
            
               <p class="site-description motion-element" itemprop="description">long time no see.</p>
           
@@ -751,7 +787,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Chars Davy</span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
 </div>
 
 
@@ -895,6 +931,132 @@
 
   
 
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
 
 
@@ -1035,6 +1197,8 @@
 
 
   
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+
 
 
 </body>

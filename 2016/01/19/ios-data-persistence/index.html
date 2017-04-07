@@ -25,6 +25,8 @@
 
 
 
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+
 
 
 
@@ -116,7 +118,7 @@
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png">
-<meta property="og:updated_time" content="2017-03-31T13:37:53.000Z">
+<meta property="og:updated_time" content="2017-03-31T11:53:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拆拆 iOS 数据持久化">
 <meta name="twitter:description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：
@@ -270,9 +272,43 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -300,7 +336,7 @@
     <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/01/19/ios-data-persistence/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars Davy">
+      <meta itemprop="name" content="Chars">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
@@ -478,8 +514,8 @@
 <h1 id="五、SQLite3"><a href="#五、SQLite3" class="headerlink" title="五、SQLite3"></a>五、SQLite3</h1><p>SQLite3在存储和检索大量数据方面非常有效。它能够对数据进行复杂的聚合，与使用对象执行这些操作相比，获得结果的速度更快。</p>
 <p>SQLite3使用SQL（Structured Query Language，结构化查询语言），SQL是与关系数据库交互的标准语言。</p>
 <p>这里推荐两篇SQLite3深入研究探索的参考文章：</p>
-<p>An Introduction to the SQLite3 C/C++ Interface (<a href="http://www.sqlite.org/cintro.html">www.sqlite.org/cintro.html</a>)</p>
-<p>SQL As Understood by SQLite (<a href="http://www.sqlite.org/lang.html">www.sqlite.org/lang.html</a>)</p>
+<p>An Introduction to the SQLite3 C/C++ Interface (<a href="http://www.sqlite.org/cintro.html" target="_blank" rel="external">www.sqlite.org/cintro.html</a>)</p>
+<p>SQL As Understood by SQLite (<a href="http://www.sqlite.org/lang.html" target="_blank" rel="external">www.sqlite.org/lang.html</a>)</p>
 <p>关系数据库（包括SQLite3）和面向对象的编程语言使用完全不同的方法来存储和组织数据。这些方法差异很大，因而出现了在两者之间进行转换的各种技术以及很多库和工具。这些技术统称为ORM（Object-Relational-Mapping，对象关系映射）。目前有很多种ORM工具可用于Cocoa Touch。</p>
 <h2 id="绑定变量"><a href="#绑定变量" class="headerlink" title="绑定变量"></a>绑定变量</h2><p>虽然可以通过创建SQL字符串来插入值，但常用的方法是使用绑定变量来执行数据库插入操作。正确处理字符串并确保它们没有无效字符（以及引号处理过的属性）是非常烦琐的事情。借助绑定变量，这些问题将迎刃而解。</p>
 <p>要使用绑定变量插入值，只需要按正常方式创建SQL语句即可，不过要在SQL字符串中添加一个问号。每个问号都表示一个需要在语句执行之前进行绑定的变量。然后，准备好SQL语句，将值绑定到各个变量并执行命令。</p>
@@ -517,7 +553,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view.</span><br><span class="line">    </span><br><span class="line">    NSManagedObjectContext *context = [self myContext];</span><br><span class="line"></span><br><span class="line">    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:kLineEntityName];</span><br><span class="line">    NSError *error;</span><br><span class="line">    NSArray *objects = [context executeFetchRequest:request error:&amp;error];</span><br><span class="line">    if (objects == nil) &#123;</span><br><span class="line">        NSLog(@&quot;There was an error!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (NSManagedObject *oneObject in objects) &#123;</span><br><span class="line">        int lineNum = [[oneObject valueForKey:kLineNumberKey] intValue];</span><br><span class="line">        NSString *lineText = [oneObject valueForKey:kLineTextKey];</span><br><span class="line"></span><br><span class="line">        UITextField *theField = self.lineFields[lineNum];</span><br><span class="line">        theField.text = lineText;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(NSManagedObjectContext *)myContext&#123;</span><br><span class="line">    //上下文 关联Company.xcdatamodeld模型文件</span><br><span class="line">    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];</span><br><span class="line">    //模型文件</span><br><span class="line">    NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];</span><br><span class="line">    //持久化存储调度器</span><br><span class="line">    NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</span><br><span class="line">    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];</span><br><span class="line">    NSString *sqlitePath = [doc stringByAppendingPathComponent:@&quot;line.sqlite&quot;];</span><br><span class="line">    //数据存储的类型 数据库存储路径</span><br><span class="line">    [store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:sqlitePath] options:nil error:nil];</span><br><span class="line">    context.persistentStoreCoordinator = store;</span><br><span class="line">    </span><br><span class="line">    return context;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (IBAction)saveClicked:(id)sender &#123;</span><br><span class="line">    </span><br><span class="line">    NSManagedObjectContext *context = [self myContext];</span><br><span class="line">    </span><br><span class="line">    NSError *error;</span><br><span class="line">    for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">        UITextField *theField = self.lineFields[i];</span><br><span class="line">        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:kLineEntityName];</span><br><span class="line">        NSPredicate *pred = [NSPredicate predicateWithFormat:@&quot;(%K = %d)&quot;, kLineNumberKey, i];</span><br><span class="line">        [request setPredicate:pred];</span><br><span class="line"></span><br><span class="line">        NSArray *objects = [context executeFetchRequest:request error:&amp;error];</span><br><span class="line">        if (objects == nil) &#123;</span><br><span class="line">            NSLog(@&quot;There was an error!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        NSManagedObject *theLine = nil;</span><br><span class="line">        if ([objects count] &gt; 0) &#123;</span><br><span class="line">            theLine = [objects objectAtIndex:0];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            theLine = [NSEntityDescription insertNewObjectForEntityForName:kLineEntityName inManagedObjectContext:context];</span><br><span class="line">        &#125;</span><br><span class="line">        [theLine setValue:[NSNumber numberWithInt:i] forKey:kLineNumberKey];</span><br><span class="line">        [theLine setValue:theField.text forKey:kLineTextKey];</span><br><span class="line">    &#125;</span><br><span class="line">    [context save:nil];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Core Data版本与之前的版本功能完全相同。Core Data需要的工作量很大。对于这种简单的应用，它并没有提供明显的优势。但是在比较复杂的应用中，Core Data可以显著减少设计和编写数据模型所需的时间。</p>
 <h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><p>四种数据持久化机制，各有优势，根据使用情况选择对应机制进行数据持久化。</p>
-<p><a href="https://github.com/charsdavy/Persistence">Demo on Github</a></p>
+<p><a href="https://github.com/charsdavy/Persistence" target="_blank" rel="external">Demo on Github</a></p>
 
       
     </div>
@@ -533,20 +569,20 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <div>如果觉得文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赞赏</span>
+      <span>赞赏支持</span>
     </button>
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars Davy WeChat Pay"/>
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
           <p>微信赞赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Davy Alipay"/>
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
           <p>支付宝赞赏</p>
         </div>
       
@@ -686,8 +722,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
-               alt="Chars Davy" />
-          <p class="site-author-name" itemprop="name">Chars Davy</p>
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
            
               <p class="site-description motion-element" itemprop="description">long time no see.</p>
           
@@ -846,7 +882,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Chars Davy</span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
 </div>
 
 
@@ -990,6 +1026,132 @@
 
   
 
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
 
 
@@ -1130,6 +1292,8 @@
 
 
   
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+
 
 
 </body>

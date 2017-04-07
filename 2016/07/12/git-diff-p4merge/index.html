@@ -25,6 +25,8 @@
 
 
 
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+
 
 
 
@@ -101,7 +103,7 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/git-diff-p4merge.png?imageView/2/w/460">
-<meta property="og:updated_time" content="2017-03-31T13:37:53.000Z">
+<meta property="og:updated_time" content="2017-03-31T11:46:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git可视化比较工具P4Merge">
 <meta name="twitter:description" content="在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下">
@@ -250,9 +252,43 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -280,7 +316,7 @@
     <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/07/12/git-diff-p4merge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars Davy">
+      <meta itemprop="name" content="Chars">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
@@ -396,7 +432,7 @@
         <p>在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下</p>
 <p><img src="http://o88e8any8.bkt.clouddn.com/git-diff-p4merge.png?imageView/2/w/460" alt="效果图"></p>
 <a id="more"></a>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>打开这个链接: <a href="https://www.perforce.com/product/components/perforce-visual-merge-and-diff-tools">perforce-visual-merge-and-diff-tools</a>，点左上角的 <code>FREE DOWNLOAD P4Merge</code> , 找到 <code>Perforce Clients</code> 中的 <code>P4Merge: Visual Merge Tool</code> 项，在右边的第二行选择<code>Mac OS 10.6+ (64bit）</code> ，点下面橙色的 <code>Accept and Download</code>，选择跳过 <code>Skip Registration</code> ，就会开始下载了。</p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>打开这个链接: <a href="https://www.perforce.com/product/components/perforce-visual-merge-and-diff-tools" target="_blank" rel="external">perforce-visual-merge-and-diff-tools</a>，点左上角的 <code>FREE DOWNLOAD P4Merge</code> , 找到 <code>Perforce Clients</code> 中的 <code>P4Merge: Visual Merge Tool</code> 项，在右边的第二行选择<code>Mac OS 10.6+ (64bit）</code> ，点下面橙色的 <code>Accept and Download</code>，选择跳过 <code>Skip Registration</code> ，就会开始下载了。</p>
 <p>下载到<code>P4V.dmg</code>文件后，双击打开，拖动<code>P4Merge</code>到<code>Application</code>文件夹上就可以完成安装了。</p>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global diff.tool p4merge</span><br><span class="line">git config --global difftool.p4merge.cmd /Applications/p4merge.app/Contents/MacOS/p4merge</span><br><span class="line">git config --global difftool.p4merge.cmd &quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$LOCAL \$REMOTE&quot;</span><br></pre></td></tr></table></figure>
 <p>如果直接复制原文的代码，运行上面的代码时会提示：<br>error: key does not contain a section: -global<br>跟别人的命令比较一下，就会发现应该是—global（要两个短横连在一起的），原文的短横线有问题</p>
@@ -405,9 +441,9 @@
 <p>原因是路径还需要再配置一下，如下</p>
 <p><code>git config --global difftool.p4merge.path &quot;/Applications/p4merge.app/Contents/Resources/launchp4merge&quot;</code><br>以后想要比较Git中的代码时，敲<code>git difftool filepath</code> 即可</p>
 <p>Linux、Windows下也都可以使用这个工具进行比较代码，只是需要另行配置了。P4Merge除了有比较功能，还有合并功能，怎么配置可以借鉴下面给出的参考链接。另外还有一个可视化比较工具meld，据说也不错，有时间试试.</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://blog.csdn.net/ccf0703/article/details/7661789">《Mac os x下git merge工具P4Merge的安装与配置》</a></p>
-<p><a href="http://nieyong.github.io/wiki_ny/git%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95.html">《Git 用户信息》</a></p>
-<p><a href="https://gist.github.com/tony4d/3454372">《Setup p4merge as a visual diff and merge tool for git》</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://blog.csdn.net/ccf0703/article/details/7661789" target="_blank" rel="external">《Mac os x下git merge工具P4Merge的安装与配置》</a></p>
+<p><a href="http://nieyong.github.io/wiki_ny/git%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95.html" target="_blank" rel="external">《Git 用户信息》</a></p>
+<p><a href="https://gist.github.com/tony4d/3454372" target="_blank" rel="external">《Setup p4merge as a visual diff and merge tool for git》</a></p>
 
       
     </div>
@@ -423,20 +459,20 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <div>如果觉得文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赞赏</span>
+      <span>赞赏支持</span>
     </button>
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars Davy WeChat Pay"/>
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
           <p>微信赞赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Davy Alipay"/>
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
           <p>支付宝赞赏</p>
         </div>
       
@@ -578,8 +614,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
-               alt="Chars Davy" />
-          <p class="site-author-name" itemprop="name">Chars Davy</p>
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
            
               <p class="site-description motion-element" itemprop="description">long time no see.</p>
           
@@ -738,7 +774,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Chars Davy</span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
 </div>
 
 
@@ -882,6 +918,132 @@
 
   
 
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
 
 
@@ -1022,6 +1184,8 @@
 
 
   
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+
 
 
 </body>

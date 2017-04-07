@@ -25,6 +25,8 @@
 
 
 
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+
 
 
 
@@ -102,7 +104,7 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。
 这些解决方案或">
-<meta property="og:updated_time" content="2017-03-31T13:37:53.000Z">
+<meta property="og:updated_time" content="2017-03-31T11:12:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS App 上架（Analysis 工具使用）">
 <meta name="twitter:description" content="随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。
@@ -251,9 +253,43 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -281,7 +317,7 @@
     <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/11/15/apple-app-release-analysis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars Davy">
+      <meta itemprop="name" content="Chars">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
@@ -397,11 +433,11 @@
         <p>随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。</p>
 <p>这些解决方案或工具节省了iOS开发者大量的开发时间，但是由于相关介绍文章的缺乏，许多开发者都在重复着自己一次又一次重新造轮子。所以将自己使用的相关的第三方服务使用经验，整理成一系列文章，以便广大开发者能够省去大量的重复性工作。</p>
 <a id="more"></a>
-<h1 id="用户习惯数据收集"><a href="#用户习惯数据收集" class="headerlink" title="用户习惯数据收集"></a>用户习惯数据收集</h1><p>了解用户的使用习惯以及相关数据信息，可以更好的帮助开发者调整产品的方向和重点。首先是数据的收集，受工作的影响，选择 <a href="https://mtj.baidu.com/">百度移动统计</a> 。不得不说，这是一款很符合国人使用习惯的工具。</p>
+<h1 id="用户习惯数据收集"><a href="#用户习惯数据收集" class="headerlink" title="用户习惯数据收集"></a>用户习惯数据收集</h1><p>了解用户的使用习惯以及相关数据信息，可以更好的帮助开发者调整产品的方向和重点。首先是数据的收集，受工作的影响，选择 <a href="https://mtj.baidu.com/" target="_blank" rel="external">百度移动统计</a> 。不得不说，这是一款很符合国人使用习惯的工具。</p>
 <p>使用方法很简单，接入过程直接根据官方文档。自定义统计事件需要自己在web端逐个添加。而页面访问统计则不需要，只需要在App上将名字传入调用接口即可。</p>
 <p>百度移动统计不仅仅是做应用统计，也可以做crash分析，游戏统计分析，DSP统计，还有广告营销分析。</p>
 <p>页面数据的分析，可以帮助开发者很明了的知道用户群体的习惯与流失，有助于产品成长。</p>
-<h1 id="Crash-数据收集"><a href="#Crash-数据收集" class="headerlink" title="Crash 数据收集"></a>Crash 数据收集</h1><p>作为上线App，最担心的就是crash数据的收集。<a href="http://try.crashlytics.com/">Crashlytics</a> 是专门为移动应用开者发提供的保存和分析应用崩溃信息的工具。</p>
+<h1 id="Crash-数据收集"><a href="#Crash-数据收集" class="headerlink" title="Crash 数据收集"></a>Crash 数据收集</h1><p>作为上线App，最担心的就是crash数据的收集。<a href="http://try.crashlytics.com/" target="_blank" rel="external">Crashlytics</a> 是专门为移动应用开者发提供的保存和分析应用崩溃信息的工具。</p>
 <h2 id="使用Crashlytics的好处"><a href="#使用Crashlytics的好处" class="headerlink" title="使用Crashlytics的好处"></a>使用Crashlytics的好处</h2><ul>
 <li><p>Crashlytics不会漏掉任何应用崩溃信息。在iTunes Connect的后台查看不到任何崩溃信息。但是用户通过微博或者客服电话反馈应用崩溃的情况，在Crashlytics中都可以统计到。</p>
 </li>
@@ -413,15 +449,15 @@
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
 <li>注册</li>
 </ul>
-<p>使用邮箱在<a href="http://try.crashlytics.com/">Crashlytic官网</a>注册。稍后会收到官方验证邮件，根据邮件内容及稍后提示一步步操作。</p>
+<p>使用邮箱在<a href="http://try.crashlytics.com/" target="_blank" rel="external">Crashlytic官网</a>注册。稍后会收到官方验证邮件，根据邮件内容及稍后提示一步步操作。</p>
 <ul>
 <li>接入工程</li>
 </ul>
-<p>根据官方接入引导<a href="https://www.fabric.io/kits">教程</a>，分为使用pod方式和手动下载sdk接入方式。具体的可以根据官方文档来操作。这里主要分享一下自己遇到的问题。</p>
+<p>根据官方接入引导<a href="https://www.fabric.io/kits" target="_blank" rel="external">教程</a>，分为使用pod方式和手动下载sdk接入方式。具体的可以根据官方文档来操作。这里主要分享一下自己遇到的问题。</p>
 <p>1) 忘记添加 Run Script ，这个步骤会导致App无法build成功。</p>
 <p>2) 重新配置 Crashlytics 之后，需要删除 <code>~/Library/Caches/com.crashlytics.data/</code> 和 <code>~/Library/Caches/com.crashlytics.mac/</code> 文件夹下的所有文件，重新build。</p>
 <p>3) 注意配置 <code>Build Settings</code> 中 <code>Debug Information Format</code> 选项将debug和release全部设置成<code>DWARF with dSYM File</code>。</p>
-<p>4) 如果提示 <code>missing dSYMs</code> ，就需要自行上载文件，具体<a href="https://docs.fabric.io/apple/crashlytics/missing-dsyms.html">方法教程</a> 。</p>
+<p>4) 如果提示 <code>missing dSYMs</code> ，就需要自行上载文件，具体<a href="https://docs.fabric.io/apple/crashlytics/missing-dsyms.html" target="_blank" rel="external">方法教程</a> 。</p>
 <p>希望对大家有所帮助。</p>
 
       
@@ -438,20 +474,20 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <div>如果觉得文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赞赏</span>
+      <span>赞赏支持</span>
     </button>
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars Davy WeChat Pay"/>
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
           <p>微信赞赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Davy Alipay"/>
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
           <p>支付宝赞赏</p>
         </div>
       
@@ -591,8 +627,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
-               alt="Chars Davy" />
-          <p class="site-author-name" itemprop="name">Chars Davy</p>
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
            
               <p class="site-description motion-element" itemprop="description">long time no see.</p>
           
@@ -751,7 +787,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Chars Davy</span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
 </div>
 
 
@@ -895,6 +931,132 @@
 
   
 
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
 
 
@@ -1035,6 +1197,8 @@
 
 
   
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+
 
 
 </body>

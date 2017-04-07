@@ -25,6 +25,8 @@
 
 
 
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+
 
 
 
@@ -100,7 +102,7 @@
 <meta property="og:url" content="http://charsdavy.github.io/2016/05/26/ios-simultaneously/index.html">
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
-<meta property="og:updated_time" content="2017-03-31T13:37:53.000Z">
+<meta property="og:updated_time" content="2017-03-31T12:00:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 并发概念浅析">
 <meta name="twitter:description" content="摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
@@ -248,9 +250,43 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -278,7 +314,7 @@
     <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/05/26/ios-simultaneously/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars Davy">
+      <meta itemprop="name" content="Chars">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
@@ -394,7 +430,7 @@
         <p>摘要：并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。</p>
 <a id="more"></a>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。</p>
-<h1 id="一、线程和任务"><a href="#一、线程和任务" class="headerlink" title="一、线程和任务"></a>一、线程和任务</h1><p>线程（thread） 和任务（task）是其他并发概念的基础，因此也是首要需理清的概念，以下是其要点，详细可参考<a href="https://en.wikipedia.org/wiki/Thread_%28computing%29">Thread (computing)</a>和<a href="https://en.wikipedia.org/wiki/Task_%28computing">Task (computing)</a>。</p>
+<h1 id="一、线程和任务"><a href="#一、线程和任务" class="headerlink" title="一、线程和任务"></a>一、线程和任务</h1><p>线程（thread） 和任务（task）是其他并发概念的基础，因此也是首要需理清的概念，以下是其要点，详细可参考<a href="https://en.wikipedia.org/wiki/Thread_%28computing%29" target="_blank" rel="external">Thread (computing)</a>和<a href="https://en.wikipedia.org/wiki/Task_%28computing" target="_blank" rel="external">Task (computing)</a>。</p>
 <h2 id="1）任务（task）"><a href="#1）任务（task）" class="headerlink" title="1）任务（task）"></a>1）任务（task）</h2><p>a）任务（task）是从程序中划分出来，可以独立执行的代码片段；</p>
 <p>b）任务间可以添加依赖关系，如B任务依赖A任务，taskB.addDependency(taskA)，这意味着B任务的执行以A任务完成为前提。</p>
 <p>需要注意的是一个任务是否可以添加依赖，完全取决于任务封装类和其相关管理类的具体实现，GCD不支持任务依赖，NSOperationQueue就支持任务依赖。</p>
@@ -450,7 +486,7 @@
 <p>而异步和并行就更相同了，不等任务执行完成，就直接返回，反应的就是并发任务之间的独立性。</p>
 <p>当然，同异步所暗含的串行和并行是当前线程的任务与新线程的任务之间的相互关系。</p>
 <h1 id="三、GCD与NSOperationQueue"><a href="#三、GCD与NSOperationQueue" class="headerlink" title="三、GCD与NSOperationQueue"></a>三、GCD与NSOperationQueue</h1><p>GCD(grand central dispatch)和NSOperationQueue二者均是系统级的多线程封装，在使用时，我们只需创建任务队列即可，其他的如线程创立、任务分配等，均由系统自动处理。不得不说，这让多线程编程变得更高效，更简单，当然并不是没有坑。<br>需要强调的是，GCD和NSOperationQueue的使用核心是任务（task）和任务队列（task queue），暂时可以忘了线程（thread）这烦人的概念。</p>
-<p>关于GCD和NSOperationQueue网上已经有不少高质量的文章对其详细介绍，推荐<a href="http://www.cocoachina.com/ios/20160201/15179.html">《iOS并行开发：从NSOperation和调度队列开始》</a>，其对基本概念、使用方法等的介绍非常清晰详尽，这里就不再赘述，只写一些个人认为容易忽略却影响认知深度的小知识点。当然如果你英语过硬，去直接看官方文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html">《ConcurrencyProgrammingGuide》</a>是最好的。</p>
+<p>关于GCD和NSOperationQueue网上已经有不少高质量的文章对其详细介绍，推荐<a href="http://www.cocoachina.com/ios/20160201/15179.html" target="_blank" rel="external">《iOS并行开发：从NSOperation和调度队列开始》</a>，其对基本概念、使用方法等的介绍非常清晰详尽，这里就不再赘述，只写一些个人认为容易忽略却影响认知深度的小知识点。当然如果你英语过硬，去直接看官方文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">《ConcurrencyProgrammingGuide》</a>是最好的。</p>
 <h2 id="1）GCD"><a href="#1）GCD" class="headerlink" title="1）GCD"></a>1）GCD</h2><p>GCD是基于C的API，因此比较底层。</p>
 <p>GCD所管理的调度队列（dispatch queue）主要有三类：串行队列（private dispatch queue）、并发队列 （global dispatch queue，又称全局调度队列）和主队列（main dispatch queue）。</p>
 <p>我们常用的 dispatch_get_global<em>queue(</em>: _:)所获得的dispatch queue就是全局调度队列(global dispatch queue)，并发，而且全局调度队列是全局共用的，每一个优先级的全局调度队列只有一个实体。四种不同优先级的全局调度队列对应的四种优先级的线程，同一个优先级的全局调度队列可以同时拥有多条相应优先级的线程。</p>
@@ -477,20 +513,20 @@
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <div>如果觉得文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赞赏</span>
+      <span>赞赏支持</span>
     </button>
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars Davy WeChat Pay"/>
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
           <p>微信赞赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Davy Alipay"/>
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
           <p>支付宝赞赏</p>
         </div>
       
@@ -630,8 +666,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
-               alt="Chars Davy" />
-          <p class="site-author-name" itemprop="name">Chars Davy</p>
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
            
               <p class="site-description motion-element" itemprop="description">long time no see.</p>
           
@@ -790,7 +826,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Chars Davy</span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
 </div>
 
 
@@ -934,6 +970,132 @@
 
   
 
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
 
 
@@ -1074,6 +1236,8 @@
 
 
   
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+
 
 
 </body>
