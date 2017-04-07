@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next pisces use-motion" lang="en">
 <head>
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <script>
@@ -112,7 +112,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
@@ -157,6 +157,16 @@
   ga('send', 'pageview');
 </script>
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7af4d19dbc11c1e70ea6f42f9c0b5703";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -295,7 +305,17 @@
   
 </nav>
 
-
+<div>
+<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
+	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
+</a>
+</div>
+</br>
+<div>
+<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
+	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
+</a>
+</div>
 
  </div>
     </header>
@@ -316,7 +336,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/12/26/ios-qrcode-scaner/">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/30/xcode-update-sdk-devicesupport/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -338,8 +358,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/12/26/ios-qrcode-scaner/" itemprop="url">
-                  iOS 二维码扫描
+                <a class="post-title-link" href="/2016/06/30/xcode-update-sdk-devicesupport/" itemprop="url">
+                  说说升级Xcode中SDK与真机调试版本
                 </a>
               
             
@@ -355,8 +375,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-26T15:33:03+08:00">
-                2015-12-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-30T15:03:02+08:00">
+                2016-06-30
               </time>
             
 
@@ -378,8 +398,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
+                  <a href="/categories/talk/" itemprop="url" rel="index">
+                    <span itemprop="name">talk</span>
                   </a>
                 </span>
 
@@ -396,9 +416,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/12/26/ios-qrcode-scaner/#comments" itemprop="discussionUrl">
+                <a href="/2016/06/30/xcode-update-sdk-devicesupport/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/12/26/ios-qrcode-scaner/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/06/30/xcode-update-sdk-devicesupport/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +426,7 @@
 
           
           
-             <span id="/2015/12/26/ios-qrcode-scaner/" class="leancloud_visitors" data-flag-title="iOS 二维码扫描">
+             <span id="/2016/06/30/xcode-update-sdk-devicesupport/" class="leancloud_visitors" data-flag-title="说说升级Xcode中SDK与真机调试版本">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -430,7 +450,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  1,245
+                  433
                 </span>
               
 
@@ -454,11 +474,12 @@
 
       
         
-          <p>二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。</p>
-<p>在这么一个二维码泛滥的时代，一般的App都会支持二维码扫描，那么这个功能应该如何实现呢？</p>
+          <p>相信作为一名iOS开发者，每当WWDC开始，iOS升级时，那种切肤之痛，是只有开发者才能体会而又无言的一种沉默抗议。</p>
+<p>Apple很残暴的将MAC OS、iOS、Xcode牢固的捆绑在一起。如果需要真机调试，那么Xcode的SDK版本一定不能低于真机，Xcode版本的安装有MAC OS的版本要求，这样一来，只要升级一下iOS版本，那么恭喜你，很有可能你需要升级MAC OS和Xcode。而对于动辄数十个G的文件，在天朝的绿色网络保护下，是一件多么伤神的事情啊。更甚的是，现在的MAC OS系统越来越不好用了，我很是怀恋之前的版本，课无奈胳膊拗不过大腿。</p>
+<p>现在，终于有了可行的办法，能够解决上述神伤，在此总结分享给大家。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2015/12/26/ios-qrcode-scaner/#more" rel="contents">
+            <a class="btn" href="/2016/06/30/xcode-update-sdk-devicesupport/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -504,7 +525,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/11/30/php-mvc-framework/">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/24/hexo-extern-scroll-top/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -526,8 +547,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/30/php-mvc-framework/" itemprop="url">
-                  PHP MVC模式简单实现
+                <a class="post-title-link" href="/2016/06/24/hexo-extern-scroll-top/" itemprop="url">
+                  Hexo 博客功能扩展 - 添加回滚到顶部按钮
                 </a>
               
             
@@ -543,1321 +564,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-30T22:48:25+08:00">
-                2015-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/11/30/php-mvc-framework/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/11/30/php-mvc-framework/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/11/30/php-mvc-framework/" class="leancloud_visitors" data-flag-title="PHP MVC模式简单实现">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  585
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/11/30/php-mvc-framework/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/11/26/js-adjust-window-page/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/26/js-adjust-window-page/" itemprop="url">
-                  JavaScript 实现自适应窗口大小的网页
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-26T23:01:51+08:00">
-                2015-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/11/26/js-adjust-window-page/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/11/26/js-adjust-window-page/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/11/26/js-adjust-window-page/" class="leancloud_visitors" data-flag-title="JavaScript 实现自适应窗口大小的网页">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  1,384
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>随着移动互联网的兴起，网页浏览端不再仅仅只是电脑，更多的用户选择在移动端使用，那么，我们肯定不能再使用电脑版的页面布局，那么我们将如何适应纷繁多样的界面尺寸呢，本问主要介绍如何使用JavaScript实现自适应窗口大小的网页。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/11/26/js-adjust-window-page/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/11/21/algorithm-md5-resolve/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/21/algorithm-md5-resolve/" itemprop="url">
-                  MD5 算法解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-21T15:56:00+08:00">
-                2015-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/11/21/algorithm-md5-resolve/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/11/21/algorithm-md5-resolve/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/11/21/algorithm-md5-resolve/" class="leancloud_visitors" data-flag-title="MD5 算法解析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  4,812
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>MD5的全称是Message-Digest Algorithm 5，在90年代初由MIT的计算机科学实验室和RSA Data Security Inc发明，经MD2、MD3和MD4发展而来。</p>
-<p>MD5将任意长度的“字节串”变换成一个128bit的大整数，并且它是一个不可逆的字符串变换算法，换句话说就是，即使你看到源程序和算法描述，也无法将一个MD5的值变换回原始的字符串，从数学原理上说，是因为原始的字符串有无穷多个，这有点象不存在反函数的数学函数。</p>
-<p>MD5的典型应用是对一段Message(字节串)产生fingerprint(指纹)，以防止被“篡改”。举个例子，你将一段话写在一个叫 readme.txt文件中，并对这个readme.txt产生一个MD5的值并记录在案，然后你可以传播这个文件给别人，别人如果修改了文件中的任何内容，你对这个文件重新计算MD5时就会发现。如果再有一个第三方的认证机构，用MD5还可以防止文件作者的“抵赖”，这就是所谓的数字签名应用。</p>
-<p>MD5还广泛用于加密和解密技术上，在很多操作系统中，用户的密码是以MD5值（或类似的其它算法）的方式保存的， 用户Login的时候，系统是把用户输入的密码计算成MD5值，然后再去和系统中保存的MD5值进行比较，而系统并不“知道”用户的密码是什么。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/11/21/algorithm-md5-resolve/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/11/04/location-map-debug-error/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/04/location-map-debug-error/" itemprop="url">
-                  地图定位异常问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-04T21:31:42+08:00">
-                2015-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/11/04/location-map-debug-error/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/11/04/location-map-debug-error/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/11/04/location-map-debug-error/" class="leancloud_visitors" data-flag-title="地图定位异常问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  453
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>地图定位是做LBS服务的App通常用到的模块。但是，随着iOS系统的升级，地图定位模块出现了不一样的异常，这里将遇到的并解决的问题分享出来。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/11/04/location-map-debug-error/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/09/26/Objc-inherit-multimodal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/26/Objc-inherit-multimodal/" itemprop="url">
-                  Objective-C 继承和多态
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-09-26T11:19:31+08:00">
-                2015-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/09/26/Objc-inherit-multimodal/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/09/26/Objc-inherit-multimodal/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/09/26/Objc-inherit-multimodal/" class="leancloud_visitors" data-flag-title="Objective-C 继承和多态">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  1,133
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/09/26/Objc-inherit-multimodal/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2015/09/13/nsstring-using/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/13/nsstring-using/" itemprop="url">
-                  NSString 字符串使用（基础篇）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-09-13T16:43:27+08:00">
-                2015-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/09/13/nsstring-using/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2015/09/13/nsstring-using/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2015/09/13/nsstring-using/" class="leancloud_visitors" data-flag-title="NSString 字符串使用（基础篇）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  829
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>摘要：iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/09/13/nsstring-using/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/24/vc-invoke-dll/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/01/24/vc-invoke-dll/" itemprop="url">
-                  VC 调用 DLL
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-24T22:03:12+08:00">
-                2013-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/01/24/vc-invoke-dll/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/24/vc-invoke-dll/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2013/01/24/vc-invoke-dll/" class="leancloud_visitors" data-flag-title="VC 调用 DLL">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  369
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>DLL 动态数据链路库。</p>
-<p>调用DLL有两种方法：静态调用和动态调用.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2013/01/24/vc-invoke-dll/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/23/factory-prototype-diff/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/01/23/factory-prototype-diff/" itemprop="url">
-                  Factory模式与Prototype模式的异同
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-23T20:35:18+08:00">
-                2013-01-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-24T19:30:46+08:00">
+                2016-06-24
               </time>
             
 
@@ -1897,9 +605,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2013/01/23/factory-prototype-diff/#comments" itemprop="discussionUrl">
+                <a href="/2016/06/24/hexo-extern-scroll-top/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/23/factory-prototype-diff/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/06/24/hexo-extern-scroll-top/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1907,7 +615,7 @@
 
           
           
-             <span id="/2013/01/23/factory-prototype-diff/" class="leancloud_visitors" data-flag-title="Factory模式与Prototype模式的异同">
+             <span id="/2016/06/24/hexo-extern-scroll-top/" class="leancloud_visitors" data-flag-title="Hexo 博客功能扩展 - 添加回滚到顶部按钮">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1931,7 +639,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  3,033
+                  452
                 </span>
               
 
@@ -1955,10 +663,10 @@
 
       
         
-          <p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p>
+          <p>摘要：承接前文<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2013/01/23/factory-prototype-diff/#more" rel="contents">
+            <a class="btn" href="/2016/06/24/hexo-extern-scroll-top/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2004,7 +712,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/22/sql-server-state-code-list-3/">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/15/ios-network-encrypt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -2026,8 +734,8 @@
             
               
                 
-                <a class="post-title-link" href="/2013/01/22/sql-server-state-code-list-3/" itemprop="url">
-                  SQL Server 错误代码和解释 (下篇)
+                <a class="post-title-link" href="/2016/06/15/ios-network-encrypt/" itemprop="url">
+                  简单聊聊 iOS 中的网络加密
                 </a>
               
             
@@ -2043,8 +751,574 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-22T08:24:48+08:00">
-                2013-01-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-15T07:55:50+08:00">
+                2016-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/15/ios-network-encrypt/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/06/15/ios-network-encrypt/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/06/15/ios-network-encrypt/" class="leancloud_visitors" data-flag-title="简单聊聊 iOS 中的网络加密">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  1,190
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>摘要：公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/15/ios-network-encrypt/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/10/state-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/10/state-pattern/" itemprop="url">
+                  State 模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-10T15:51:37+08:00">
+                2016-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/10/state-pattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/06/10/state-pattern/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/06/10/state-pattern/" class="leancloud_visitors" data-flag-title="State 模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  1,246
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>摘要：State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460" alt="State模式图"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/10/state-pattern/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/05/git-using-remote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/05/git-using-remote/" itemprop="url">
+                  Git 使用 - 远程操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-05T11:03:55+08:00">
+                2016-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/05/git-using-remote/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/06/05/git-using-remote/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/06/05/git-using-remote/" class="leancloud_visitors" data-flag-title="Git 使用 - 远程操作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  2,834
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>摘要：Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。</p>
+<p><a href="https://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
+<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。本文将主要介绍几个常用的Git远程操作命令。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:06:05:git-using-remote:1.jpg?imageView/2/w/560" alt="introduction"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/06/05/git-using-remote/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/02/qiniu-using/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/02/qiniu-using/" itemprop="url">
+                  七牛云存储应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-02T08:17:42+08:00">
+                2016-06-02
               </time>
             
 
@@ -2084,9 +1358,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2013/01/22/sql-server-state-code-list-3/#comments" itemprop="discussionUrl">
+                <a href="/2016/06/02/qiniu-using/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/22/sql-server-state-code-list-3/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/06/02/qiniu-using/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2094,7 +1368,7 @@
 
           
           
-             <span id="/2013/01/22/sql-server-state-code-list-3/" class="leancloud_visitors" data-flag-title="SQL Server 错误代码和解释 (下篇)">
+             <span id="/2016/06/02/qiniu-using/" class="leancloud_visitors" data-flag-title="七牛云存储应用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2118,7 +1392,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  12,369
+                  754
                 </span>
               
 
@@ -2142,10 +1416,10 @@
 
       
         
-          <p>承接《下篇》继续罗列分享SQL Server状态码。</p>
+          <p>摘要：七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2013/01/22/sql-server-state-code-list-3/#more" rel="contents">
+            <a class="btn" href="/2016/06/02/qiniu-using/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2191,7 +1465,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/21/sql-server-state-code-list-2/">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/01/chopsticks-using/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -2213,8 +1487,8 @@
             
               
                 
-                <a class="post-title-link" href="/2013/01/21/sql-server-state-code-list-2/" itemprop="url">
-                  SQL Server 错误代码和解释 (中篇)
+                <a class="post-title-link" href="/2016/06/01/chopsticks-using/" itemprop="url">
+                  你和日本的距离只差5mm
                 </a>
               
             
@@ -2230,383 +1504,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-21T09:37:18+08:00">
-                2013-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/01/21/sql-server-state-code-list-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/21/sql-server-state-code-list-2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2013/01/21/sql-server-state-code-list-2/" class="leancloud_visitors" data-flag-title="SQL Server 错误代码和解释 (中篇)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  10,563
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>承接《上篇》继续罗列分享SQL Server状态码。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2013/01/21/sql-server-state-code-list-2/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/20/sql-server-state-code-list-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/01/20/sql-server-state-code-list-1/" itemprop="url">
-                  SQL Server 错误代码和解释 (上篇)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-20T09:34:58+08:00">
-                2013-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/01/20/sql-server-state-code-list-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/20/sql-server-state-code-list-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2013/01/20/sql-server-state-code-list-1/" class="leancloud_visitors" data-flag-title="SQL Server 错误代码和解释 (上篇)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  10,657
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>SQL Server 是高校专业在教学数据库时一定会选用的案例之一，这个数据库是结合微软产品一起使用的，不仅贵，而且不好用。这是在使用之后的心得体会。在代码层面来说，这个是很难使用的。但是，老师说这个以后工作了都会使用到，所以，还是要好好学的。</p>
-<p>文中罗列了各种状态码的解释，这些对调试SQL Server数据库程序是很有帮助的。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2013/01/20/sql-server-state-code-list-1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/19/os-32-64-bit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/01/19/os-32-64-bit/" itemprop="url">
-                  操作系统 32位和64位
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-19T09:28:48+08:00">
-                2013-01-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-01T20:38:19+08:00">
+                2016-06-01
               </time>
             
 
@@ -2646,9 +1545,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2013/01/19/os-32-64-bit/#comments" itemprop="discussionUrl">
+                <a href="/2016/06/01/chopsticks-using/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/19/os-32-64-bit/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/06/01/chopsticks-using/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2656,7 +1555,7 @@
 
           
           
-             <span id="/2013/01/19/os-32-64-bit/" class="leancloud_visitors" data-flag-title="操作系统 32位和64位">
+             <span id="/2016/06/01/chopsticks-using/" class="leancloud_visitors" data-flag-title="你和日本的距离只差5mm">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2680,7 +1579,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  955
+                  612
                 </span>
               
 
@@ -2704,10 +1603,10 @@
 
       
         
-          <p>两者之间存在的“五大不同”。与此同时，着重说明Microsoft Windows64位（x64）操作系统，相对于32位（x86）操作系统的最大优势和劣势是什么？</p>
+          <p>摘要：世界上使用筷子的国家并不是很多，很多人都认为能够使用筷子是件很神奇的事情。那么，不同的国家地区使用筷子的讲究也有所不同。这里主要说说日本使用筷子的禁忌，有些也很符合天朝国情的。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2013/01/19/os-32-64-bit/#more" rel="contents">
+            <a class="btn" href="/2016/06/01/chopsticks-using/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2753,7 +1652,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/18/vc-6-mfc-develop-summary/">
+    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -2775,8 +1674,8 @@
             
               
                 
-                <a class="post-title-link" href="/2013/01/18/vc-6-mfc-develop-summary/" itemprop="url">
-                  VC++6.0 MFC编程心得小结
+                <a class="post-title-link" href="/2016/05/31/build-blog-by-hexo/" itemprop="url">
+                  手把手教 GitHub + Hexo 搭建博客
                 </a>
               
             
@@ -2792,8 +1691,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-18T23:10:16+08:00">
-                2013-01-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-31T22:07:27+08:00">
+                2016-05-31
               </time>
             
 
@@ -2815,8 +1714,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/talk/" itemprop="url" rel="index">
-                    <span itemprop="name">talk</span>
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
                   </a>
                 </span>
 
@@ -2833,9 +1732,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2013/01/18/vc-6-mfc-develop-summary/#comments" itemprop="discussionUrl">
+                <a href="/2016/05/31/build-blog-by-hexo/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/18/vc-6-mfc-develop-summary/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2016/05/31/build-blog-by-hexo/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2843,7 +1742,7 @@
 
           
           
-             <span id="/2013/01/18/vc-6-mfc-develop-summary/" class="leancloud_visitors" data-flag-title="VC++6.0 MFC编程心得小结">
+             <span id="/2016/05/31/build-blog-by-hexo/" class="leancloud_visitors" data-flag-title="手把手教 GitHub + Hexo 搭建博客">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2867,7 +1766,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  1,924
+                  1,564
                 </span>
               
 
@@ -2891,197 +1790,10 @@
 
       
         
-          <p>作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。</p>
+          <p>摘要：本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2013/01/18/vc-6-mfc-develop-summary/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2013/01/18/college-thesis-summary-skill/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/01/18/college-thesis-summary-skill/" itemprop="url">
-                  毕业论文摘要的书写方法和技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-18T23:08:21+08:00">
-                2013-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/talk/" itemprop="url" rel="index">
-                    <span itemprop="name">talk</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2013/01/18/college-thesis-summary-skill/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2013/01/18/college-thesis-summary-skill/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2013/01/18/college-thesis-summary-skill/" class="leancloud_visitors" data-flag-title="毕业论文摘要的书写方法和技巧">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words</span>
-                
-                <span title="Words">
-                  1,410
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>摘要也就是内容提要，是论文中不可缺少的一部分。论文摘要是一篇具有独立性的短文，有其特别的地方。它是建立在对论文进行总结的基础之上，用简单、明确、易懂、精辟的语言对全文内容加以概括，留主干去枝叶，提取论文的主要信息。作者的观点、论文的主要内容、研究成果、独到的见解，这些都应该在摘要中体现出来。好的摘要便于索引与查找，易于收录到大型资料库中并为他人提供信息。因此摘要在资料交流方面承担着至关重要的作用。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2013/01/18/college-thesis-summary-skill/#more" rel="contents">
+            <a class="btn" href="/2016/05/31/build-blog-by-hexo/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -3122,7 +1834,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3274,7 +1986,9 @@
           </div>
         
 
-        
+        <div style="font-size:13px">
+	<a href="/about#ad">购买广告位</a>
+</div>
 
 
       </section>
@@ -3311,7 +2025,7 @@
 <div class="theme-info">
   Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -3391,6 +2105,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
 
