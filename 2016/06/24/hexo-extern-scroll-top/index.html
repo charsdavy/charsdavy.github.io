@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/scrollup.png">
-<meta property="og:updated_time" content="2017-03-31T13:37:53.000Z">
+<meta property="og:updated_time" content="2017-03-31T11:49:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo 博客功能扩展 - 添加回滚到顶部按钮">
 <meta name="twitter:description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
@@ -387,6 +387,18 @@
 
           
             
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/06/24/hexo-extern-scroll-top/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2016/06/24/hexo-extern-scroll-top/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
           
 
           
@@ -468,7 +480,7 @@
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
     <div>如果觉得文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赞赏支持</span>
+      <span>赞赏</span>
     </button>
     <div id="QR" style="display: none;">
       
@@ -575,7 +587,7 @@
           
   <div class="comments" id="comments">
     
-      <div id="uyan_frame"></div>
+      <div id="hypercomments_widget"></div>
     
   </div>
 
