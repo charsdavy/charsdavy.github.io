@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-03-31T12:20:06.000Z</updated>
+  <updated>2017-04-11T09:58:45.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -14,6 +14,215 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊一聊iOS的那些生命周期</title>
+    <link href="http://charsdavy.github.io/2017/04/11/ios-lifecycle/"/>
+    <id>http://charsdavy.github.io/2017/04/11/ios-lifecycle/</id>
+    <published>2017-04-11T09:07:18.000Z</published>
+    <updated>2017-04-11T09:58:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS应用程序的生命周期，还有程序是运行在前台还是后台，应用程序各个状态的变换，这些对于开发者来说都是很重要的。iOS系统的资源是有限的，应用程序在前台和在后台的状态是不一样的。在后台时，程序会受到系统的很多限制，这样可以提高电池的使用和用户体验。</p>
+<p>本文所要说到的生命周期，也不仅仅只是应用生命周期；还包括，视图生命周期。</p>
+<a id="more"></a>
+<h2 id="应用生命周期"><a href="#应用生命周期" class="headerlink" title="应用生命周期"></a>应用生命周期</h2><p>iOS的应用程序一共有5种状态:</p>
+<ul>
+<li>Not Running(非运行状态)</li>
+</ul>
+<p>应用没有运行或被系统终止。</p>
+<ul>
+<li>Inactive(前台非活动状态)</li>
+</ul>
+<p>应用正在进入前台状态，但是还不能接受事件处理。</p>
+<ul>
+<li>Active(前台活动状态)</li>
+</ul>
+<p>应用进入前台状态，能接受事件处理。</p>
+<ul>
+<li>Background(后台状态)</li>
+</ul>
+<p>应用进入后台后，依然能够执行代码。如果有可执行的代码，就会执行代码，如果没有可执行的代码或者将可执行的代码执行完毕，应用会马上进入挂起状态。有的程序经过特殊的请求后可以长期处于Backgroud状态。</p>
+<ul>
+<li>Suspended(挂起状态)</li>
+</ul>
+<p>处于挂起的应用进入一种“冷冻”状态,不能执行代码。如果系统内存不够,系统就把挂起的程序清除掉，为前台程序提供更多的内存，应用会被终止。</p>
+<p>作为应用程序的委托对象，AppDelegate类在应用生命周期的不同阶段会回调不同的方法。首先，让我们先了解一下iOS 应用的不同状态及它们彼此间的关系，如下图所示 ：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-1.png" alt=""></p>
+<p>在应用状态跃迁的过程中，iOS 系统会回调AppDelegate中的一些方法，并且发送一些通知。实际上，在应用的生命周期中用到的方法和通知很多，我们选取了几个主要的方法和通知进行详细介绍，具体如下表所述：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-2.jpeg" alt=""></p>
+<p>为了便于观察应用程序的运行状态，为AppDelegate.m中的方法添加一些日志输出，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@implementation AppDelegate </span><br><span class="line">  </span><br><span class="line">- (BOOL)application:(UIApplication *)application </span><br><span class="line">    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, @&quot;application:didFinishLaunchingWithOptions:&quot;);</span><br><span class="line"> </span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line">- (void)applicationWillResignActive:(UIApplication *)application&#123;    </span><br><span class="line">    NSLog(@&quot;%@&quot;, @&quot;applicationWillResignActive:&quot;);</span><br><span class="line">&#125;</span><br><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application&#123;    </span><br><span class="line">    NSLog(@&quot;%@&quot;, @&quot;applicationDidEnterBackground:&quot;);</span><br><span class="line">&#125;</span><br><span class="line">- (void)applicationWillEnterForeground:(UIApplication *)application&#123;    </span><br><span class="line">    NSLog(@&quot;%@&quot;, @&quot;applicationWillEnterForeground:&quot;);</span><br><span class="line">&#125;</span><br><span class="line">- (void)applicationDidBecomeActive:(UIApplication *)application&#123;    </span><br><span class="line">    NSLog(@&quot;%@&quot;, @&quot;applicationDidBecomeActive:&quot;);</span><br><span class="line">&#125;</span><br><span class="line">- (void)applicationWillTerminate:(UIApplication *)application&#123;    </span><br><span class="line">    NSLog(@&quot;%@&quot;, @&quot;applicationWillTerminate:&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>为了让大家更直观地了解各状态与其相应的方法、通知间的关系，下面以几个应用场景为切入点进行系统的分析。</p>
+<h3 id="（一）非运行状态——应用启动场景"><a href="#（一）非运行状态——应用启动场景" class="headerlink" title="（一）非运行状态——应用启动场景"></a>（一）非运行状态——应用启动场景</h3><p>场景描述：用户点击应用图标的时候，可能是第一次启动这个应用，也可能是应用终止后再次启动。该场景的状态跃迁过程见下图，共经历两个阶段3个状态：Not running →Inactive→Active。 </p>
+<ul>
+<li>1)在Not running→Inactive 阶段。</li>
+</ul>
+<p>调用<code>application:didFinishLaunchingWithOptions:</code>方法，发出<code>UIApplicationDidFinishLaunchingNotification</code> 通知。 </p>
+<ul>
+<li>2)在Inactive →Active 阶段。</li>
+</ul>
+<p>调用 <code>applicationDidBecomeActive:</code>方法，发出<code>UIApplicationDidBecomeActiveNotification</code> 通知。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-3.png" alt=""></p>
+<h3 id="（二）点击Home键——应用退出场景"><a href="#（二）点击Home键——应用退出场景" class="headerlink" title="（二）点击Home键——应用退出场景"></a>（二）点击Home键——应用退出场景</h3><p>场景描述：应用处于运行状态（即Active状态）时，点击Home键或者有其他的应用导致当前应用中断。该场景的状态跃迁过程可以分成两种情况：可以在后台运行或者挂起，不可以在后台运行或者挂起。根据产品属性文件（如HelloWorld-Info.plist）中的相关属性Application does not run in background 是与否可以控制这两种状态。如果采用文本编辑器打开HelloWorldInfo.plist文件该设置项对应的键是UIApplicationExitsOnSuspend。　</p>
+<p>状态跃迁的第一种情况：应用可以在后台运行或者挂起，该场景的状态跃迁过程见下图 ，共经历3 个阶段4个状态：Active → Inactive → Background→Suspended。 </p>
+<ul>
+<li>1)在Active→Inactive 阶段。</li>
+</ul>
+<p>调用 <code>applicationWillResignActive:</code>方法，发出<code>UIApplicationWillResignActiveNotification</code> 通知。 </p>
+<ul>
+<li>2)在Inactive →Background阶段。</li>
+</ul>
+<p>应用从非活动状态进入到后台（不涉及我们要重点说明的方法和通知）。 </p>
+<ul>
+<li>3)在Background→Suspended 阶段。</li>
+</ul>
+<p>调用<code>applicationDidEnterBackground:</code>方法，发出<code>UIApplicationDidEnterBackgroundNotification</code> 通知。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-4.png" alt=""></p>
+<p>状态跃迁的第二种情况：应用不可以在后台运行或者挂起，其状态跃迁情况见下图 ，共经历4个阶段5 个状态：Active  → Inactive  → Background→Suspended→Not running 。</p>
+<ul>
+<li>1)在Active →Inactivd 阶段。</li>
+</ul>
+<p>应用由活动状态转为非活动状态（不涉及我们要重点说明的方法和通知）。 </p>
+<ul>
+<li>2)在Inactive →Background阶段。</li>
+</ul>
+<p>应用从非活动状态进入到后台（不涉及我们要重点说明的方法和通知）。 </p>
+<ul>
+<li>3)在Background→Suspended 阶段。</li>
+</ul>
+<p>调用<code>applicationDidEnterBackground:</code>方法， 发出<code>UIApplicationDidEnterBackgroundNotification</code>通知。</p>
+<ul>
+<li>4)在Suspended →Not running阶段。</li>
+</ul>
+<p>调用<code>applicationWillTerminate:</code>方法，发出<code>UIApplicationWillTerminateNotification</code>通知。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-5.png" alt=""></p>
+<p>iOS 在iOS 4之前不支持多任务，点击Home键时，应用会退出并中断；而在iOS 4之后（包括iOS 4），操作系统能够支持多任务处理，点击Home键应用会进入后台但不会中断（内存不够的情况除外）。 </p>
+<p>应用在后台也可以进行部分处理工作，处理完成则进入挂起状态。</p>
+<h3 id="（三）挂起重新运行场景"><a href="#（三）挂起重新运行场景" class="headerlink" title="（三）挂起重新运行场景"></a>（三）挂起重新运行场景</h3><p>场景描述：挂起状态的应用重新运行。该场景的状态跃迁过程如下图所示，共经历3 个阶段4 个状态：Suspended  → Background  → Inactive  → Active 。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-6.png" alt=""></p>
+<ul>
+<li>1)Suspended→Background阶段。</li>
+</ul>
+<p>应用从挂起状态进入后台（不涉及我们讲述的这几个方法和通知）。 </p>
+<ul>
+<li>2)Background→Inactive 阶段。</li>
+</ul>
+<p>调用<code>applicationWillEnterForeground:</code>方法，发出<code>UIApplicationWillEnterForegroundNotification</code>通知。 </p>
+<ul>
+<li>3)Inactive →Active 阶段。</li>
+</ul>
+<p>调用<code>applicationDidBecomeActive:</code>方法，发出<code>UIApplicationDidBecomeActiveNotification</code> 通知。</p>
+<h3 id="（四）内存清除——应用终止场景"><a href="#（四）内存清除——应用终止场景" class="headerlink" title="（四）内存清除——应用终止场景"></a>（四）内存清除——应用终止场景</h3><p>场景描述：应用在后台处理完成时进入挂起状态（这是一种休眠状态），如果这时发出低内存警告，为了满足其他应用对内存的需要，该应用就会被清除内存从而终止运行，该场景的状态跃迁见下图 。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-7.png" alt=""></p>
+<p>内存清除的时候应用终止运行。内存清除有两种情况，可能是系统强制清除内存，也可能是由使用者从任务栏中手动清除（即删掉应用）。内存清除后如果应用再次运行，上一次的运行状态不会被保存，相当于应用第一次运行。</p>
+<p>在内存清除场景下，应用不会调用任何方法，也不会发出任何通知。</p>
+<h2 id="视图生命周期"><a href="#视图生命周期" class="headerlink" title="视图生命周期"></a>视图生命周期</h2><p>视图是应用的一个重要组成部分，功能的实现与其息息相关，而视图控制器控制着视图，其重要性在整个应用中不言而喻。</p>
+<h3 id="视图生命周期与视图控制器关系"><a href="#视图生命周期与视图控制器关系" class="headerlink" title="视图生命周期与视图控制器关系"></a>视图生命周期与视图控制器关系</h3><p>以视图的4 种状态为基础，我们来系统了解一下视图控制器的生命周期。在视图不同的生命周期中，视图控制器会回调不同的方法，具体如下图所示。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-ui-lifecycle-1.png" alt=""></p>
+<p>在视图控制器已被实例化，视图被加载到内存中时调用viewDidLoad方法，这个时候视图并未出现。在该方法中，通常进行的是对所控制的视图进行初始化处理。 </p>
+<p>视图可见前后会调用<code>viewWillAppear:</code>方法和<code>viewDidAppear:</code> 方法；视图不可见前后会调用<code>viewWillDisappear:</code> 方法和<code>viewDidDisappear:</code>方法。4个方法调用父类相应的方法以实现其功能，编码时该方法的位置可根据实际情况做以调整，参见如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-(void)viewWillAppear:(BOOL)animated&#123;</span><br><span class="line">    [super viewWillAppear:YES];</span><br><span class="line">    //something code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>viewDidLoad</code> 方法在应用运行的时候只调用一次，而这上述4 个方法可以被反复调用多次，它们的使用很广泛但同时也具有很强的技巧性。例如，有的应用会使用重力加速计，重力加速计会不断轮询设备以实时获得设备在z 轴、x 轴和y轴方向的重力加速度。不断的轮询必然会耗费大量电能进而影响电池使用寿命，我们通过利用这4个方法适时地打开或者关闭重力加速计来达到节约电能的目的。怎么使用这4 个方法才能做到“适时”是一个值得思考的问题。 </p>
+<p>在低内存情况下，iOS 会调用<code>didReceiveMemoryWarning:</code> 和<code>viewDidUnload:</code>方法。在iOS 6 之后，就不再使用<code>viewDidUnload:</code>，而仅支持<code>didReceiveMemoryWarning：</code>。</p>
+<p><code>didReceiveMemoryWarning:</code>方法的主要职能是释放内存，包括视图控制器中的一些成员变量和视图的释放。现举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)didReceiveMemoryWarning &#123;</span><br><span class="line">    self.button = nil;</span><br><span class="line">    self.myStringD = nil; </span><br><span class="line">    [myStringC release];    //ARC内存管理情况下不用</span><br><span class="line">    [super didReceiveMemoryWarning];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了上述5 个方法视图控制器外，还有很多其他方法。</p>
+<h3 id="iOS-UI-状态保持和恢复"><a href="#iOS-UI-状态保持和恢复" class="headerlink" title="iOS  UI 状态保持和恢复"></a>iOS  UI 状态保持和恢复</h3><p>iOS 设计规范中要求，当应用退出的时候（包括被终止运行的时候），需要保持界面中UI元素的状态，当再次进来的时候看到的状态与退出时是一样的。在iOS 之后，苹果提供以下API使得UI状态保持和恢复变得很容易。 </p>
+<p>在iOS 中，我们可以在以下3种地方实现状态保持和恢复：</p>
+<ul>
+<li><p>应用程序委托对象 </p>
+</li>
+<li><p>视图控制器 </p>
+</li>
+<li><p>自定义视图</p>
+</li>
+</ul>
+<p>恢复标识是iOS为了实现UI状态保持和恢复添加的设置项目。我们还需要在应用程序委托对象AppDelegate代码部分做一些修改，添加的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-(BOOL) application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder&#123;</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">-(BOOL) application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder&#123;</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">- (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder&#123;</span><br><span class="line">    [coder encodeFloat:2.0 forKey:@&quot;Version&quot;];</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">- (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder&#123;</span><br><span class="line">    float lastVer = [coder decodeFloatForKey:@&quot;Version&quot;];</span><br><span class="line">    NSLog(@&quot;lastVer = %f&quot;,lastVer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中application:shouldSaveApplicationState:方法在应用退出时调用，负责控制是否允许保存状态，返回YES 情况是可以保存，NO是不保存。 </p>
+<p><code>application:shouldRestoreApplicationState:</code>方法在应用启动时调用，负责控制是否恢复上次退出时的状态，返回YES 表示可以恢复，返回NO表示不可以恢复。 </p>
+<p><code>application:willEncodeRestorableStateWithCoder:</code>方法在保存时调用，在这个方法中实现UI状态或数据的保存，其中<code>[coder encodeFloat:2.0 forKey:@&quot;Version&quot;]</code> 语句是保存简单数据。 </p>
+<p><code>application:didDecodeRestorableStateWithCoder:</code>方法在恢复时调用，在这个方法中实现UI状态或数据的恢复，其中<code>[coder decodeFloatForKey:@&quot;Version&quot;]</code> 语句用于恢复上次保存的数据。 </p>
+<p>想要实现具体界面中控件的保持和恢复，还需要在它的视图控制器中添加一些代码。我们在ViewController.m中添加的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-(void)encodeRestorableStateWithCoder:(NSCoder *)coder&#123;</span><br><span class="line">    [super encodeRestorableStateWithCoder:coder];</span><br><span class="line">    [coder encodeObject:self.txtField.text forKey:kSaveKey];</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">-(void)decodeRestorableStateWithCoder:(NSCoder *)coder&#123;</span><br><span class="line">    [super decodeRestorableStateWithCoder:coder];</span><br><span class="line">    self.txtField.text = [coder decodeObjectForKey:kSaveKey];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在iOS 6之后，视图控制器都添加了两个方法——<code>encodeRestorableStateWithCoder:</code> 和<code>decodeRestorableStateWithCoder:</code> ，用来实现该控制器中的控件或数据的保存和恢复。</p>
+<p>其中<code>encodeRestorableStateWithCoder:</code>方法在保存时候调用，<code>[coder encodeObject:self. txtField.textforKey:kSaveKey]</code>语句是按照指定的键保存文本框的内容。</p>
+<p><code>decodeRestorableStateWithCoder:</code>方法在恢复时调用，<code>[coder decodeObjectForKey:kSaveKey]</code>在恢复文本框内容时调用，保存和恢复事实上就是向一个归档文件中编码和解码的过程。</p>
+<h2 id="移除Main-storyboard"><a href="#移除Main-storyboard" class="headerlink" title="移除Main.storyboard"></a>移除Main.storyboard</h2><p>每次使用Single View Application模板创建工程之后，总是会有一个Main.storyboard文件，那么，当我们使用代码布局的时候，很显然是不需要它的。那么，如何将它从工程中移除呢？只要进行如下几步即可。</p>
+<h3 id="在工程配置中移除关联"><a href="#在工程配置中移除关联" class="headerlink" title="在工程配置中移除关联"></a>在工程配置中移除关联</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-1.jpeg" alt=""></p>
+<p>在TARGETS中，将Main InInterface选项中的值清空并保存设置。</p>
+<h3 id="移除Main-storyboard中的关联文件"><a href="#移除Main-storyboard中的关联文件" class="headerlink" title="移除Main.storyboard中的关联文件"></a>移除Main.storyboard中的关联文件</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-2.png" alt=""></p>
+<p>选择storyboard文件。将类关联文件项清空并保存设置。</p>
+<h3 id="移除Main-storyboard文件"><a href="#移除Main-storyboard文件" class="headerlink" title="移除Main.storyboard文件"></a>移除Main.storyboard文件</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-3.jpeg" alt=""></p>
+<p>从工程中移除文件。</p>
+<h3 id="在AppDelegate中添加代码"><a href="#在AppDelegate中添加代码" class="headerlink" title="在AppDelegate中添加代码"></a>在AppDelegate中添加代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</span><br><span class="line">    // Override point for customization after application launch.   </span><br><span class="line">    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</span><br><span class="line">    </span><br><span class="line">    ViewController *viewController = [[ViewController alloc] init];</span><br><span class="line">    self.window.rootViewController = viewController;  </span><br><span class="line">    self.window.backgroundColor = [UIColor purpleColor];</span><br><span class="line">　[self.window makeKeyAndVisible];    </span><br><span class="line">   return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完成以上几步，运行工程即可，顺利运行，没有出现任何error或waring。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS应用程序的生命周期，还有程序是运行在前台还是后台，应用程序各个状态的变换，这些对于开发者来说都是很重要的。iOS系统的资源是有限的，应用程序在前台和在后台的状态是不一样的。在后台时，程序会受到系统的很多限制，这样可以提高电池的使用和用户体验。&lt;/p&gt;
+&lt;p&gt;本文所要说到的生命周期，也不仅仅只是应用生命周期；还包括，视图生命周期。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
+    
+    
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
+    
+      <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
+    
+      <category term="application" scheme="http://charsdavy.github.io/tags/application/"/>
+    
+      <category term="ui" scheme="http://charsdavy.github.io/tags/ui/"/>
+    
+      <category term="生命周期" scheme="http://charsdavy.github.io/tags/lifecycle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ObjC 属性之间的区别</title>
+    <link href="http://charsdavy.github.io/2017/04/11/ios-property-diff/"/>
+    <id>http://charsdavy.github.io/2017/04/11/ios-property-diff/</id>
+    <published>2017-04-11T08:58:55.000Z</published>
+    <updated>2017-04-11T09:58:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>assign，copy，retain之间的区别</p>
+<p>assign： 简单赋值，不更改索引计数（Reference Counting）。 </p>
+<p>copy： 建立一个索引计数为1的对象，然后释放旧对象。</p>
+<p>retain：释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1。</p>
+<a id="more"></a>
+<h2 id="使用范围"><a href="#使用范围" class="headerlink" title="使用范围"></a>使用范围</h2><p>assign: 对基础数据类型 （NSInteger，CGFloat）和C数据类型（int, float, double, char, 等等）。</p>
+<p>copy： 对NSString。</p>
+<p>retain： 对其他NSObject和其子类。</p>
+<h2 id="weak-和strong的区别"><a href="#weak-和strong的区别" class="headerlink" title="weak 和strong的区别"></a>weak 和strong的区别</h2><p>weak和strong不同的是，当一个对象不再有strong类型的指针指向它的时候，它会被释放 ，即使还有weak型指针指向它。</p>
+<p>一旦最后一个strong型指针离去 ，这个对象将被释放，所有剩余的weak型指针都将被清除。</p>
+<p>可能有个例子形容是妥当的：</p>
+<p>想象我们的对象是一条狗，狗想要跑掉（被释放）。</p>
+<p>strong型指针就像是栓住的狗。只要你用牵绳挂住狗，狗就不会跑掉。如果有5个人牵着一条狗（5个strong型指针指向1个对象），除非5个牵绳都脱落 ，否着狗是不会跑掉的。</p>
+<p>weak型指针就像是一个小孩指着狗喊到：“看！一只狗在那” 只要狗一直被栓着，小孩就能看到狗，（weak指针）会一直指向它。只要狗的牵绳脱落，狗就会跑掉，不管有多少小孩在看着它。</p>
+<p>只要最后一个strong型指针不再指向对象，那么对象就会被释放，同时所有的weak型指针都将会被清除。</p>
+<h2 id="nonatomic"><a href="#nonatomic" class="headerlink" title="nonatomic"></a>nonatomic</h2><p>atomic是Objc使用的一种线程保护技术，基本上来讲，是防止在写未完成的时候被另外一个线程读取，造成数据错误。而这种机制是耗费系统资源的，所以在iPhone这种小型设备上，如果没有使用多线程间的通讯编程，那么nonatomic是一个非常好的选择。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;assign，copy，retain之间的区别&lt;/p&gt;
+&lt;p&gt;assign： 简单赋值，不更改索引计数（Reference Counting）。 &lt;/p&gt;
+&lt;p&gt;copy： 建立一个索引计数为1的对象，然后释放旧对象。&lt;/p&gt;
+&lt;p&gt;retain：释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
+    
+    
+      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
+    
+      <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
+    
+  </entry>
   
   <entry>
     <title>sublime text 实用技巧</title>
@@ -1927,111 +2136,6 @@
       <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
     
       <category term="design" scheme="http://charsdavy.github.io/tags/design/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xcode 常用插件</title>
-    <link href="http://charsdavy.github.io/2016/08/02/xcode-plugin-list/"/>
-    <id>http://charsdavy.github.io/2016/08/02/xcode-plugin-list/</id>
-    <published>2016-08-02T15:16:19.000Z</published>
-    <updated>2017-03-31T12:23:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>工欲善其事，必先利其器</p>
-</blockquote>
-<p>这里主要罗列一些常用的 Xcode 插件。</p>
-<a id="more"></a>
-<ul>
-<li>BBUncrustify</li>
-</ul>
-<p>代码格式化</p>
-<p><a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode" target="_blank" rel="external">https://github.com/benoitsan/BBUncrustifyPlugin-Xcode</a></p>
-<ul>
-<li>Backlight</li>
-</ul>
-<p>光标选中行高亮</p>
-<p><a href="https://github.com/limejelly/Backlight-for-XCode" target="_blank" rel="external">https://github.com/limejelly/Backlight-for-XCode</a></p>
-<ul>
-<li>HighlightSelectedString</li>
-</ul>
-<p>代码变量选中高亮</p>
-<p><a href="https://github.com/keepyounger/HighlightSelectedString" target="_blank" rel="external">https://github.com/keepyounger/HighlightSelectedString</a></p>
-<ul>
-<li>VVDocumenter</li>
-</ul>
-<p>快捷注释</p>
-<p><a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="external">https://github.com/onevcat/VVDocumenter-Xcode</a></p>
-<ul>
-<li>KSImageNamed</li>
-</ul>
-<p>根据图片名，输入代码时图片预览</p>
-<p><a href="https://github.com/ksuther/KSImageNamed-Xcode" target="_blank" rel="external">https://github.com/ksuther/KSImageNamed-Xcode</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;工欲善其事，必先利其器&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这里主要罗列一些常用的 Xcode 插件。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
-    
-    
-      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈iOS App打包发布</title>
-    <link href="http://charsdavy.github.io/2016/07/21/ios-app-distribution/"/>
-    <id>http://charsdavy.github.io/2016/07/21/ios-app-distribution/</id>
-    <published>2016-07-21T11:56:38.000Z</published>
-    <updated>2017-03-31T11:52:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。</p>
-<a id="more"></a>
-<p>1.安装发布证书</p>
-<ul>
-<li>自己去Apple开发者中心配置</li>
-<li>找其他已经有证书的小伙伴导出p12文件</li>
-</ul>
-<p>2.设置Scheme</p>
-<p><code>Xcode-&gt;Product-&gt;Scheme-&gt;Edit Scheme</code></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-1.png?imageView/2/w/460" alt="setting-scheme"></p>
-<p>3.设置软件版本号</p>
-<p>版本号格式：<code>数字.数字-字符(驼峰式).数字</code></p>
-<p>示例：<code>1.1-beta.1</code> , <code>1.1.1-beta</code></p>
-<p><strong>说明：</strong>版本号从0开始，不过一般版本号为0的数字省略。</p>
-<p>4.Archive</p>
-<p><strong>注意：</strong>选择<code>真机</code>或者<code>Generic iOS Device</code></p>
-<p><code>Product-&gt;Archive</code></p>
-<p>5.Export</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-2.png?imageView/2/w/460" alt="export-1"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-3.png?imageView/2/w/460" alt="export-2"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-4.png?imageView/2/w/460" alt="export-3"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-5.png?imageView/2/w/460" alt="export-4"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-6.png?imageView/2/w/460" alt="export-5"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-7.png?imageView/2/w/460" alt="export-6"></p>
-<p>6.安装企业应用证书</p>
-<p>7.上传到ZAKER服务器</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
-    
-    
-      <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
-    
-      <category term="application" scheme="http://charsdavy.github.io/tags/application/"/>
     
   </entry>
   
