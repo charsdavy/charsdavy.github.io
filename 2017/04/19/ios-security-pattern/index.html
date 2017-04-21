@@ -105,7 +105,7 @@
 当然，什么是恶意程序是由Apple来定义。因为App Store的存在，所以，如果想要实现某些特定的功能，唯一的手段就是将设备越狱或者骗过App Store的审查。
 官方的App审查永远无法抓到那些钻空子的恶意程">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-security-pattarn-01.png">
-<meta property="og:updated_time" content="2017-04-21T00:39:29.000Z">
+<meta property="og:updated_time" content="2017-04-21T07:45:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是iOS的安全模式">
 <meta name="twitter:description" content="作为iOS开发，作品App肯定需要提交到App Store审核。平心而论，App Store确实成功地将许多恶意软件拒之门外。但是，对开发者而言，应用程序的审核流程是令人沮丧的黑箱操作。
@@ -446,7 +446,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  2,130
+                  2,133
                 </span>
               
 
@@ -498,7 +498,7 @@
 <h2 id="ASLR和XN及其它机制"><a href="#ASLR和XN及其它机制" class="headerlink" title="ASLR和XN及其它机制"></a>ASLR和XN及其它机制</h2><p>iOS用两套标准机制来预防代码执行攻击：地址空间结构随机化（ASLR）和XN bit（eXecute Never，标记该段内存区域不包含可执行代码）。</p>
 <p>每次执行程序时，ASLR都会随机分配程序、数据、堆和栈的内存位置。而共享库的内存地址只在每次系统重启时随机设置，因为共享库需要在多个进程中使用。ALSR机制可以预防缓存区移除攻击（return-to-libc），因为函数和库的内存地址随机，而这种攻击依赖于基本库和函数的已知地址。</p>
 <p>XN bit，一般对应非ARM平台的NX（No-eXecute）bit，允许操作系统将某段内存标记为不可执行，这由CPU来控制。在iOS中，这个机制默认应用在程序的栈和堆上。</p>
-<p>每个程序都有一段可写可执行的内存，但是它必须是经过Apple官方签名授权系统的签名。Safari浏览器中的JavaScript-in-time（JIT）编译器会用到这段内存。而WebView并不具备JIT功能，这样虽然可以避免代码执行攻击，但是也使得iOS平台上的Chrome无法做到像Safari那样好用。</p>
+<p>每个程序都有一段可写可执行的内存，但是它必须是经过Apple官方签名授权系统的签名。Safari浏览器中的JavaScript即时（JIT, Just-in-time）编译器会用到这段内存。而WebView并不具备JIT功能，这样虽然可以避免代码执行攻击，但是也使得iOS平台上的Chrome无法做到像Safari那样好用。</p>
 <h2 id="越狱检测"><a href="#越狱检测" class="headerlink" title="越狱检测"></a>越狱检测</h2><p>越狱的本质就是通过一系列步骤来禁掉签名机制，从而允许设备运行未经Apple官方审核的应用。黑箱测试应用程序是越狱的重要能力。</p>
 <p>其实，越狱不一定要禁掉iOS的沙盒机制，它只是允许你在沙盒外安装App。安装在移动用户主目录下的App（即通过App Store安装）仍然受到沙盒限制。第三方的App需要安装在越狱设备中权限更高的<code>/Applications</code>目录下，与Apple股票应用安装在一起。</p>
 <h2 id="动态修复"><a href="#动态修复" class="headerlink" title="动态修复"></a>动态修复</h2><p>一般来说，如果一段原生代码没有经过Apple发布的密钥签名认证，App则无法运行它。如果Apple的签名验证逻辑中存在bug或漏洞，可能会允许下载和执行原生代码。</p>
