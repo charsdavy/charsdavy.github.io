@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-1c06b87e7e219e93.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-4b288fe958b3e962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-af95ccbacb9b3231.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-31T12:20:52.000Z">
+<meta property="og:updated_time" content="2017-05-22T04:08:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="均匀分布随机函数的实现">
 <meta name="twitter:description" content="摘要：随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。">
@@ -461,7 +461,7 @@
 <p>返回的是一个界于0～32767（0x7FFF）之间的伪随机数，包括0和32767。<br>C预先生成一组随机数，每次调用随机函数时从指针所指向的位置开始取值，因此使用rand()重复运行程序产生的随机数都是相同的，可以通过srand()函数来改变指针位置。<br>srand()会设置供rand()使用的随机数种子。如果在第一次使用rand()之前没有调用srand()，那么系统会自动调用srand()。而使用同种子相同的数调用 rand()会导致相同的随机数序列被生成。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void srand( unsigned int seed );</span><br></pre></td></tr></table></figure>
 <p>改变随机数表的指针位置（用seed变量控制）。<br>使用系统定时/计数器的值作为随机种子。每个种子对应一组根据算法预先生成的随机数，所以，在相同的平台环境下，不同时间产生的随机数会是不同的，相应的，若将srand（unsigned）time(NULL)改为srand(TP)（TP为任一常量），则无论何时运行、运行多少次得到的“随机数”都会是一组固定的序列，因此srand生成的随机数是伪随机数。<br>一般配合time(NULL)使用，因为时间每时每刻都在改变，产生的seed值都不同。</p>
-<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>使用rand函数生成的随机数严格满足正态分布。而在很多时候，我们希望随机数的生成不要满足正态分布，特别是在处理网络通信报文的时候。<br>例如，我们需要在交换机处理到海量报文时，能够使远端的从设备尽可能的分段同时向局端回应报文，以减轻局部报文处理压力。</p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>使用rand函数生成的随机数严格满足正态分布。而在很多时候，我们希望随机数的生成不要满足正态分布，特别是在处理网络通信报文的时候。<br>例如，我们需要在交换机处理到海量报文时，能够使远端的从设备尽可能的分段同时向局端回应报文，以减轻局<del>部</del>端报文处理压力。</p>
 <h1 id="均匀分布随机函数实现"><a href="#均匀分布随机函数实现" class="headerlink" title="均匀分布随机函数实现"></a>均匀分布随机函数实现</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p><img src="http://upload-images.jianshu.io/upload_images/1492739-b2f082073e33ca94.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开发环境"></p>
 <h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>1）打开Qt Creater，创建GUI工程<br><img src="http://upload-images.jianshu.io/upload_images/1492739-1c06b87e7e219e93.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建GUI工程"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1492739-4b288fe958b3e962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目文件结构"></p>
@@ -705,7 +705,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
