@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-05-15T03:33:36.000Z</updated>
+  <updated>2017-05-24T15:50:59.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -16,11 +16,236 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>与 MySQL 的零距离接触</title>
+    <link href="http://charsdavy.github.io/2017/05/16/mysql-study/"/>
+    <id>http://charsdavy.github.io/2017/05/16/mysql-study/</id>
+    <published>2017-05-16T15:05:12.000Z</published>
+    <updated>2017-05-24T15:50:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
+<p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
+<a id="more"></a>
+<h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h1><p>直接前往官网 <a href="https://www.mysql.com/" target="_blank" rel="external">https://www.mysql.com/</a> ，进入download页面下载所需对应安装版本。默认配置安装即可。</p>
+<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2 配置"></a>2 配置</h1><p>安装成功之后，需要修改密码。详看<a href="/2017/03/22/mysql-install-config/">《MySQL 安装配置》</a></p>
+<p>修改编码方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">character-set-server=utf8</span><br></pre></td></tr></table></figure>
+<h1 id="3-目录结构"><a href="#3-目录结构" class="headerlink" title="3 目录结构"></a>3 目录结构</h1><p>bin目录，存储可执行文件。</p>
+<p>data目录，存储数据文件。</p>
+<p>docs，文档。</p>
+<p>include目录，存储包含的头文件。</p>
+<p>lib目录，存储库文件。</p>
+<p>share，错误消息和字符集文件。</p>
+<h1 id="4-命令参数说明"><a href="#4-命令参数说明" class="headerlink" title="4 命令参数说明"></a>4 命令参数说明</h1><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-D,–database=name</td>
+<td>打开指定数据库</td>
+</tr>
+<tr>
+<td>–delimiter=name</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-h,–host=name</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>-p,–password[=name]</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>-P,–port=#</td>
+<td>端口号</td>
+</tr>
+<tr>
+<td>–prompt=name</td>
+<td>设置提示符</td>
+</tr>
+<tr>
+<td>-u,–user=name</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>-V,–version</td>
+<td>输出版本信息并退出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="MySQL提示符"><a href="#MySQL提示符" class="headerlink" title="MySQL提示符"></a>MySQL提示符</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\D</td>
+<td>完整的日期</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>当前数据库</td>
+</tr>
+<tr>
+<td>\h</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>\u</td>
+<td>当前用户</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><h3 id="修改MySQL提示符"><a href="#修改MySQL提示符" class="headerlink" title="修改MySQL提示符"></a>修改MySQL提示符</h3><p>1.连接客户端时通过参数指定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot --prompt 提示符</span><br></pre></td></tr></table></figure>
+<p>2.连接上客户端后，通过prompt命令修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;prompt 提示符</span><br></pre></td></tr></table></figure>
+<h3 id="MySQL常用命令"><a href="#MySQL常用命令" class="headerlink" title="MySQL常用命令"></a>MySQL常用命令</h3><p>1.显示当前服务器版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT VERSION();</span><br></pre></td></tr></table></figure>
+<p>2.显示当前日期时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT NOW();</span><br></pre></td></tr></table></figure>
+<p>3.显示当前用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT USER();</span><br></pre></td></tr></table></figure>
+<h3 id="MySQL语句规范"><a href="#MySQL语句规范" class="headerlink" title="MySQL语句规范"></a>MySQL语句规范</h3><p>1.关键字与函数名称全部大写。</p>
+<p>2.数据库名称、表名称、字段名称全部小写。</p>
+<p>3.SQL语句必须以”;”符号结尾。</p>
+<h1 id="5-SQL"><a href="#5-SQL" class="headerlink" title="5 SQL"></a>5 SQL</h1><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-09.png" alt="结构图"></p>
+<h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE &#123;DATABASE | SCHEMA&#125; [IF NOT EXISTS] db_name [DEFAULT] CHARACTER SET [=] character_name</span><br></pre></td></tr></table></figure>
+<p><code>{}</code>表示为必选项，即必填参数。<code>|</code>表示选项，即其中选取一项即可。<code>[]</code>表示为可选项。</p>
+<p><code>character_name</code>参数为指定数据库的编码方式，不填则使用MySQL配置的字符集编码。</p>
+<h3 id="查看当前服务器下的数据表列表"><a href="#查看当前服务器下的数据表列表" class="headerlink" title="查看当前服务器下的数据表列表"></a>查看当前服务器下的数据表列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW &#123;DATABASES | SCHEMAS&#125; [LIKE &apos;pattern&apos; | WHERE expr]</span><br></pre></td></tr></table></figure>
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP &#123;DATABASE | SCHEMA&#125; [IF NOT EXISTS] db_name</span><br></pre></td></tr></table></figure>
+<h2 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h2><p>自动编号，且必须与主键组合使用。</p>
+<p>数值型数据。</p>
+<p>默认情况下，起始值为1，每次的增量为1。</p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>1.保证数据的完整性和一致性。</p>
+<p>2.分为表级约束（针对两个或两个以上的字段进行约束）和列级约束（针对某一个字段进行约束）。</p>
+<p>3.类型包括：</p>
+<ul>
+<li>NOT NULL 非空约束</li>
+<li>PRIMARY KEY 主键约束</li>
+<li>UNIQUE KEY 唯一约束</li>
+<li>DEFAULT 默认约束</li>
+<li>FOREIGN KEY 外键约束</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE t6(id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20) NOT NULL UNIQUE KEY, sex ENUM(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;) DEFAULT &apos;3&apos;);</span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png" alt="t6表结构"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT t6 (username) VALUES (&apos;Chars&apos;);</span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png" alt="t6表插入值"></p>
+<h3 id="空值与非空值"><a href="#空值与非空值" class="headerlink" title="空值与非空值"></a>空值与非空值</h3><p>NULL，字段值可以为空。</p>
+<p>NOT NULL，字段值禁止为空。不存在表级约束。</p>
+<h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p>主键约束。</p>
+<p>每张数据表只能存在一个主键。</p>
+<p>主键保证记录的唯一性。</p>
+<p>主键自动为NOT NULL。</p>
+<p><strong>注意：</strong></p>
+<p><code>AUTO_INCREMENT</code>必须与<code>PRIMARY KEY</code>一起使用。但是，<code>PRIMARY KEY</code>不一定与<code>AUTO_INCREMENT</code>一起使用。</p>
+<h3 id="UNIQUE-KEY"><a href="#UNIQUE-KEY" class="headerlink" title="UNIQUE KEY"></a>UNIQUE KEY</h3><p>唯一约束。</p>
+<p>唯一约束可以保证记录的唯一性。</p>
+<p>唯一约束的字段可以为空值（NULL）。</p>
+<p>每张数据表可以存在多个唯一约束。</p>
+<p><strong>注意：UNIQUE KEY与PRIMARY KEY区别</strong></p>
+<p>PRIMARY KEY每张数据表只能有一个，且不能为空。</p>
+<p>UNIQUE KEY每张数据表可以有多个，且可以为空。</p>
+<h3 id="DEFAULT"><a href="#DEFAULT" class="headerlink" title="DEFAULT"></a>DEFAULT</h3><p>默认值。</p>
+<p>当插入记录时，如果没有明确为字段赋值，则自动赋予默认值。</p>
+<p>不存在表级约束。</p>
+<h3 id="FOREIGN-KEY"><a href="#FOREIGN-KEY" class="headerlink" title="FOREIGN KEY"></a>FOREIGN KEY</h3><p>保持数据一致性，完整性。</p>
+<p>实现一对一或一对多关系。</p>
+<p>关系型数据库名称的来源。</p>
+<h4 id="外键约束的要求"><a href="#外键约束的要求" class="headerlink" title="外键约束的要求"></a>外键约束的要求</h4><p>1.父表和子表必须使用相同的存储引擎，而且禁止使用临时表。</p>
+<p>2.数据表的存储引擎只能为InnoDB。</p>
+<p>3.外键列和参照列必须具有相似的数据类型。其中数字的长度或是否有符号位必须相同；而字符的长度则可以不同。</p>
+<p>4.外键列和参照列必须创建索引。如果外键列不存在索引的话，MySQL将自动创建索引。</p>
+<h4 id="外键约束的参照操作"><a href="#外键约束的参照操作" class="headerlink" title="外键约束的参照操作"></a>外键约束的参照操作</h4><p>1.CASCADE：从父表删除或更新且自动删除或更新子表中匹配的行。</p>
+<p>2.SET NULL：从父表删除或更新行，并设置子表中的外键列为NULL。如果使用该选项，必须保证子表列没有指定NOT NULL。</p>
+<p>3.RESTRICT：拒绝对父表的删除或更新操作。</p>
+<p>4.NO ACTION：标准SQL的关键字，在MySQL中与RESTRICT相同。</p>
+<p><strong>注意：</strong>物理外键即使用FOREIGN KEY关键字定义表。逻辑外键即定义表的时候按照某种联系，但是不使用FOREIGN KEY关键字修饰。</p>
+<h4 id="编辑数据表的默认存储引擎"><a href="#编辑数据表的默认存储引擎" class="headerlink" title="编辑数据表的默认存储引擎"></a>编辑数据表的默认存储引擎</h4><p>MySQL配置文件</p>
+<p><code>default-storage-engine=INNODB</code></p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table provinces(id smallint unsigned primary key auto_increment, pname varchar(20) not null);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table users(id smallint unsigned primary key auto_increment, username varchar(10) not null, pid bigint, foreign key(pid) references provinces(id));</span><br><span class="line"></span><br><span class="line"># 报错</span><br><span class="line"># ERROR 1215 (HY000): Cannot add foreign key constraint</span><br><span class="line"># 因为类型不匹配</span><br><span class="line"></span><br><span class="line"># 正确命令应该是：</span><br><span class="line">create table users(id smallint unsigned primary key auto_increment, username varchar(10) not null, pid smallint unsigned, foreign key(pid) references provinces(id));</span><br></pre></td></tr></table></figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png" alt="provinces表索引结构"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png" alt="users表索引结构"></p>
+<h3 id="表级约束和列级约束"><a href="#表级约束和列级约束" class="headerlink" title="表级约束和列级约束"></a>表级约束和列级约束</h3><p>对一个数据列建立的约束，称为列级约束。</p>
+<p>对多个数据列建立的约束，称为表级约束。</p>
+<p>列级约束既可以在列定义时声明，也可以在列定义后声明。</p>
+<p>表级约束只能在列定义后声明。</p>
+<h2 id="数据表操作"><a href="#数据表操作" class="headerlink" title="数据表操作"></a>数据表操作</h2><p>数据表（或称表）是数据库最重要的组成部分之一，是其它对象的基础。数据表即二维表，行称为记录，列称为字段。</p>
+<h3 id="USE"><a href="#USE" class="headerlink" title="USE"></a>USE</h3><p>打开数据库</p>
+<p><code>USE 数据库名称;</code></p>
+<h3 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE [IF NOT EXISTS] table_name (column_name data_type, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="查看数据表列表"><a href="#查看数据表列表" class="headerlink" title="查看数据表列表"></a>查看数据表列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLES [FROM db_name] [LIKE &apos;pattern&apos; | WHERE expr]</span><br></pre></td></tr></table></figure>
+<h3 id="查看数据表结构"><a href="#查看数据表结构" class="headerlink" title="查看数据表结构"></a>查看数据表结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW COLUMNS FROM tbl_name</span><br></pre></td></tr></table></figure>
+<h3 id="插入表记录"><a href="#插入表记录" class="headerlink" title="插入表记录"></a>插入表记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT [INTO] tbl_name [(col_name,...)] VALUES(val,...)</span><br></pre></td></tr></table></figure>
+<p>如果省略col_name就需要写全数据表所有的值。</p>
+<h3 id="记录查找"><a href="#记录查找" class="headerlink" title="记录查找"></a>记录查找</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT expr,... FROM tbl_name</span><br></pre></td></tr></table></figure>
+<h3 id="添加单列（数据表字段）"><a href="#添加单列（数据表字段）" class="headerlink" title="添加单列（数据表字段）"></a>添加单列（数据表字段）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name ADD [COLUMN] col_name column_definition [FIRST|AFTER col_name]</span><br></pre></td></tr></table></figure>
+<p>省略[FIRST|AFTER col_name]参数将位于所有列的最后面。</p>
+<h3 id="添加多列（数据表字段）"><a href="#添加多列（数据表字段）" class="headerlink" title="添加多列（数据表字段）"></a>添加多列（数据表字段）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name ADD [COLUMN] (col_name column_definition, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="删除列（数据表字段）"><a href="#删除列（数据表字段）" class="headerlink" title="删除列（数据表字段）"></a>删除列（数据表字段）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name DROP [COLUMN] col_name</span><br></pre></td></tr></table></figure>
+<h3 id="添加主键约束"><a href="#添加主键约束" class="headerlink" title="添加主键约束"></a>添加主键约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name ADD [CONSTRAINT [symbol]] PRIMARY KEY [index_type] (index_col_name, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="添加唯一约束"><a href="#添加唯一约束" class="headerlink" title="添加唯一约束"></a>添加唯一约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name ADD [CONSTRAINT [symbol]] UNIQUE [INDEX|KEY] [index_name] [index_type] (index_col_name, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="添加外键约束"><a href="#添加外键约束" class="headerlink" title="添加外键约束"></a>添加外键约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name ADD [CONSTRAINT [symbol]] FOREIGN KEY [index_name] (index_col_name, ...) reference_definition</span><br></pre></td></tr></table></figure>
+<h3 id="添加／删除默认约束"><a href="#添加／删除默认约束" class="headerlink" title="添加／删除默认约束"></a>添加／删除默认约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name ALTER [COLUMN] col_name &#123;SET DEFAULT literal | DROP DEFAULT&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除主键约束"><a href="#删除主键约束" class="headerlink" title="删除主键约束"></a>删除主键约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name DROP PRIMARY KEY</span><br></pre></td></tr></table></figure>
+<h3 id="删除唯一约束"><a href="#删除唯一约束" class="headerlink" title="删除唯一约束"></a>删除唯一约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name DROP &#123;INDEX | KEY&#125; index_name</span><br></pre></td></tr></table></figure>
+<h3 id="删除外键约束"><a href="#删除外键约束" class="headerlink" title="删除外键约束"></a>删除外键约束</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name DROP FOREIGN KEY fk_symbol</span><br></pre></td></tr></table></figure>
+<h3 id="修改列定义"><a href="#修改列定义" class="headerlink" title="修改列定义"></a>修改列定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name MODIFY [COLUMN] col_name column_definition [FIRST | AFTER col_name]</span><br></pre></td></tr></table></figure>
+<h3 id="修改列名称"><a href="#修改列名称" class="headerlink" title="修改列名称"></a>修改列名称</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE tbl_name CHANGE [COLUMN] old_col_name new_col_name column_definition [FIRST | AFTER col_name]</span><br></pre></td></tr></table></figure>
+<h3 id="数据表更名"><a href="#数据表更名" class="headerlink" title="数据表更名"></a>数据表更名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 方法1</span><br><span class="line">ALTER TABLE tbl_name RENAME [TO|AS] new_tbl_name</span><br><span class="line"></span><br><span class="line"># 方法2</span><br><span class="line">RENAME TABLE tbl_name TO new_tbl_name [, tbl_name2 TO new_tbl_name2] ...</span><br></pre></td></tr></table></figure>
+<h2 id="数据表数据操作"><a href="#数据表数据操作" class="headerlink" title="数据表数据操作"></a>数据表数据操作</h2><h3 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 插入记录（可以插入多条记录）</span><br><span class="line">INSERT [INTO] tbl_name [(col_name, ...)] &#123;VALUES|VALUE&#125; (&#123;expr|DEFAULT&#125;, ...), (...), ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 插入记录（不可以插入多条记录）</span><br><span class="line">INSERT [INTO] tbl_name SET col_name = &#123;expr|DEFAULT&#125;, ...</span><br><span class="line"></span><br><span class="line"># 说明：与前一种方式的区别在于，此方法可以使用子查询（SubQuery）。由比较运算引发子查询（SubQuery）。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 插入记录</span><br><span class="line">INSERT [INTO] tbl_name [(col_name, ...)] SELECT ...</span><br><span class="line"></span><br><span class="line"># 说明：此方法可以将查询结果插入到指定数据表。</span><br></pre></td></tr></table></figure>
+<h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 更新记录（单表更新）</span><br><span class="line">UPDATE [LOW_PRIORITY] [IGNORE] table_reference SET col_name1 = &#123;expr|DEFAULT&#125; [, col_name2 = &#123;expr|DEFAULT&#125;] ... [WHERE where_condition]</span><br></pre></td></tr></table></figure>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 删除记录（单表删除）</span><br><span class="line">DELETE FROM tbl_name [WHERE where_condition]</span><br></pre></td></tr></table></figure>
+<h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 查找记录</span><br><span class="line">SELECT select_expr [, select_expr ...] </span><br><span class="line">[</span><br><span class="line">	FROM table_references</span><br><span class="line">	[WHERE where_condition]</span><br><span class="line">	[GROUP BY &#123;col_name|position&#125; [ASC|DESC], ... ]</span><br><span class="line">	[HAVING where_condition]</span><br><span class="line">	[ORDER BY &#123;col_name|expr|position&#125; [ASC|DESC], ...]</span><br><span class="line">	[LIMIT &#123;[offset,] row_count | row_count OFFSET offset&#125;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h4 id="select-expr-查询表达式"><a href="#select-expr-查询表达式" class="headerlink" title="select_expr 查询表达式"></a>select_expr 查询表达式</h4><p>每一个表达式表示想要的一列，必须至少有一个。</p>
+<p>多个列之间以英文逗号分隔。</p>
+<p>星号（<code>*</code>）表示多有列。<code>tbl_name.*</code>可以表示命名表的所有列。</p>
+<p>查询表达式可以使用[AS] alias_name为其赋予别名。</p>
+<p>别名可用于GROUP BY，ORDER BY或HAVING子句。</p>
+<h1 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6 数据类型"></a>6 数据类型</h1><p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
+<h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表"></p>
+<h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-02.png" alt="浮点型表"></p>
+<h2 id="日期和时间型"><a href="#日期和时间型" class="headerlink" title="日期和时间型"></a>日期和时间型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-03.png" alt="日期和时间型表"></p>
+<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-04.png" alt="字符型表"></p>
+<p>持续更新中…</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt;是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。&lt;/p&gt;
+&lt;p&gt;MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
+    
+    
+      <category term="database" scheme="http://charsdavy.github.io/tags/database/"/>
+    
+      <category term="读书笔记" scheme="http://charsdavy.github.io/tags/notes/"/>
+    
+      <category term="mysql" scheme="http://charsdavy.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>聊聊Objective-C的Runtime</title>
     <link href="http://charsdavy.github.io/2017/05/09/objc-runtime/"/>
     <id>http://charsdavy.github.io/2017/05/09/objc-runtime/</id>
     <published>2017-05-09T00:36:49.000Z</published>
-    <updated>2017-05-15T03:33:36.000Z</updated>
+    <updated>2017-05-13T15:12:39.000Z</updated>
     
     <content type="html"><![CDATA[<p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
 <p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
@@ -106,7 +331,7 @@
     <link href="http://charsdavy.github.io/2017/04/23/japanese-honorific-tongue/"/>
     <id>http://charsdavy.github.io/2017/04/23/japanese-honorific-tongue/</id>
     <published>2017-04-23T13:17:27.000Z</published>
-    <updated>2017-05-08T01:59:44.000Z</updated>
+    <updated>2017-05-09T00:36:07.000Z</updated>
     
     <content type="html"><![CDATA[<p>在口语里，日语的谓语形式根据说话人之间的上下级关系、亲疏关系的不同而不同。“～ます”、“～です”是对长辈或关系不太亲密的人使用的形式。这种形式我们称为“敬体形”。与此相反，如对方是自己的同辈或晚辈，或者关系比较密切时则使用“简体形”。“简体形”是不使用“ます”、“です”的形式。</p>
 <p>动词本身即具有“敬体形”和“简体形”，“～ます”、“～ません”、“～ました”、“～ませんでした”等四种礼貌的表达形式即是“敬体形”，而动词的“基本形”、“ない形”、“た形”都属于简体形。但一类形容词、二类形容词和名词本身没有“敬体形”和“简体形”之分，只有在做谓语时，其谓语形式才具有“敬体形”和“简体形”。</p>
@@ -1205,7 +1430,7 @@
     <link href="http://charsdavy.github.io/2017/03/28/ios-interview/"/>
     <id>http://charsdavy.github.io/2017/03/28/ios-interview/</id>
     <published>2017-03-28T00:01:18.000Z</published>
-    <updated>2017-05-15T03:33:36.000Z</updated>
+    <updated>2017-05-13T15:12:27.000Z</updated>
     
     <content type="html"><![CDATA[<p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
 <a id="more"></a>
@@ -1731,7 +1956,7 @@
     <link href="http://charsdavy.github.io/2017/03/22/mysql-install-config/"/>
     <id>http://charsdavy.github.io/2017/03/22/mysql-install-config/</id>
     <published>2017-03-22T15:04:47.000Z</published>
-    <updated>2017-05-24T05:54:53.000Z</updated>
+    <updated>2017-05-24T15:50:59.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。<br>MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。<br>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。</p>
 <a id="more"></a>
@@ -1775,9 +2000,11 @@
       <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
     
     
-      <category term="数据库" scheme="http://charsdavy.github.io/tags/database/"/>
+      <category term="database" scheme="http://charsdavy.github.io/tags/database/"/>
     
       <category term="web" scheme="http://charsdavy.github.io/tags/web/"/>
+    
+      <category term="mysql" scheme="http://charsdavy.github.io/tags/mysql/"/>
     
   </entry>
   
@@ -1786,7 +2013,7 @@
     <link href="http://charsdavy.github.io/2017/03/21/fmdb-reading/"/>
     <id>http://charsdavy.github.io/2017/03/21/fmdb-reading/</id>
     <published>2017-03-21T14:51:12.000Z</published>
-    <updated>2017-03-31T11:45:24.000Z</updated>
+    <updated>2017-05-24T15:50:59.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
 <a id="more"></a>
@@ -1890,7 +2117,7 @@
     
       <category term="开源框架" scheme="http://charsdavy.github.io/tags/framework/"/>
     
-      <category term="数据库" scheme="http://charsdavy.github.io/tags/database/"/>
+      <category term="database" scheme="http://charsdavy.github.io/tags/database/"/>
     
       <category term="存储" scheme="http://charsdavy.github.io/tags/persistence/"/>
     
@@ -2607,49 +2834,6 @@
     </summary>
     
       <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
-    
-    
-      <category term="mac" scheme="http://charsdavy.github.io/tags/mac-os/"/>
-    
-      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ImageHosting 开源软件的使用说明</title>
-    <link href="http://charsdavy.github.io/2016/08/22/ImageHosting-use-introduction/"/>
-    <id>http://charsdavy.github.io/2016/08/22/ImageHosting-use-introduction/</id>
-    <published>2016-08-22T10:58:24.000Z</published>
-    <updated>2017-04-06T02:23:26.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-launchpad.png" alt=""></p>
-<p>软件下载地址：<a href="https://github.com/charsdavy/ImageHosting/releases" target="_blank" rel="external">ImageHosting for Mac</a></p>
-<p><a href="https://github.com/charsdavy/ImageHosting" target="_blank" rel="external">源代码地址</a></p>
-<a id="more"></a>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>遇到提示“不能安装未知来源程序”时，处理方法为，将权限改为“任何来源”即可。</p>
-<h2 id="软件菜单栏"><a href="#软件菜单栏" class="headerlink" title="软件菜单栏"></a>软件菜单栏</h2><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-stateMenu.png" alt=""></p>
-<h2 id="打开软件配置，添加账户信息"><a href="#打开软件配置，添加账户信息" class="headerlink" title="打开软件配置，添加账户信息"></a>打开软件配置，添加账户信息</h2><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-account.png" alt=""></p>
-<h2 id="打开文件选择页，选择文件"><a href="#打开文件选择页，选择文件" class="headerlink" title="打开文件选择页，选择文件"></a>打开文件选择页，选择文件</h2><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload-main.png" alt=""></p>
-<h2 id="上传进度提示"><a href="#上传进度提示" class="headerlink" title="上传进度提示"></a>上传进度提示</h2><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload_1.png" alt=""></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload_2.png" alt=""></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload_3.png" alt=""></p>
-<h2 id="上传完成"><a href="#上传完成" class="headerlink" title="上传完成"></a>上传完成</h2><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload-success-main.png" alt=""></p>
-<h2 id="操作提示"><a href="#操作提示" class="headerlink" title="操作提示"></a>操作提示</h2><h3 id="未添加账户信息提示"><a href="#未添加账户信息提示" class="headerlink" title="未添加账户信息提示"></a>未添加账户信息提示</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-no-account.png" alt=""></p>
-<h3 id="未选择上传文件提示"><a href="#未选择上传文件提示" class="headerlink" title="未选择上传文件提示"></a>未选择上传文件提示</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-no-select.png" alt=""></p>
-<h3 id="上传文件成功提示"><a href="#上传文件成功提示" class="headerlink" title="上传文件成功提示"></a>上传文件成功提示</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload-success.png" alt=""></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考&lt;a href=&quot;http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/&quot;&gt;《手把手教 GitHub + Hexo 搭建博客》&lt;/a&gt; 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-launchpad.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;软件下载地址：&lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/ImageHosting&quot;&gt;源代码地址&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="project" scheme="http://charsdavy.github.io/categories/project/"/>
     
     
       <category term="mac" scheme="http://charsdavy.github.io/tags/mac-os/"/>
