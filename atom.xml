@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-05-24T15:50:59.000Z</updated>
+  <updated>2017-05-27T14:29:36.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://charsdavy.github.io/2017/05/16/mysql-study/"/>
     <id>http://charsdavy.github.io/2017/05/16/mysql-study/</id>
     <published>2017-05-16T15:05:12.000Z</published>
-    <updated>2017-05-24T15:50:59.000Z</updated>
+    <updated>2017-05-27T14:29:36.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
 <p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
@@ -206,6 +206,8 @@
 <h2 id="数据表数据操作"><a href="#数据表数据操作" class="headerlink" title="数据表数据操作"></a>数据表数据操作</h2><h3 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 插入记录（可以插入多条记录）</span><br><span class="line">INSERT [INTO] tbl_name [(col_name, ...)] &#123;VALUES|VALUE&#125; (&#123;expr|DEFAULT&#125;, ...), (...), ...</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 插入记录（不可以插入多条记录）</span><br><span class="line">INSERT [INTO] tbl_name SET col_name = &#123;expr|DEFAULT&#125;, ...</span><br><span class="line"></span><br><span class="line"># 说明：与前一种方式的区别在于，此方法可以使用子查询（SubQuery）。由比较运算引发子查询（SubQuery）。</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 插入记录</span><br><span class="line">INSERT [INTO] tbl_name [(col_name, ...)] SELECT ...</span><br><span class="line"></span><br><span class="line"># 说明：此方法可以将查询结果插入到指定数据表。</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.创建“商品分类”表</span><br><span class="line">CREATE TABLE IF NOT EXISTS tdb_goods_cates(cate_id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,cate_name VARCHAR(40));</span><br><span class="line"></span><br><span class="line">2.查询tdb_goods表的所有记录，并且按&quot;类别&quot;分组</span><br><span class="line">SELECT goods_cate FROM tdb_goods GROUP BY goods_cate;</span><br><span class="line"></span><br><span class="line">3.将分组结果写入到tdb_goods_cates数据表</span><br><span class="line">INSERT tdb_goods_cates (cate_name) SELECT goods_cate FROM tdb_goods GROUP BY goods_cate;</span><br></pre></td></tr></table></figure>
 <h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 更新记录（单表更新）</span><br><span class="line">UPDATE [LOW_PRIORITY] [IGNORE] table_reference SET col_name1 = &#123;expr|DEFAULT&#125; [, col_name2 = &#123;expr|DEFAULT&#125;] ... [WHERE where_condition]</span><br></pre></td></tr></table></figure>
 <h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 删除记录（单表删除）</span><br><span class="line">DELETE FROM tbl_name [WHERE where_condition]</span><br></pre></td></tr></table></figure>
 <h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 查找记录</span><br><span class="line">SELECT select_expr [, select_expr ...] </span><br><span class="line">[</span><br><span class="line">	FROM table_references</span><br><span class="line">	[WHERE where_condition]</span><br><span class="line">	[GROUP BY &#123;col_name|position&#125; [ASC|DESC], ... ]</span><br><span class="line">	[HAVING where_condition]</span><br><span class="line">	[ORDER BY &#123;col_name|expr|position&#125; [ASC|DESC], ...]</span><br><span class="line">	[LIMIT &#123;[offset,] row_count | row_count OFFSET offset&#125;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
@@ -214,12 +216,80 @@
 <p>星号（<code>*</code>）表示多有列。<code>tbl_name.*</code>可以表示命名表的所有列。</p>
 <p>查询表达式可以使用[AS] alias_name为其赋予别名。</p>
 <p>别名可用于GROUP BY，ORDER BY或HAVING子句。</p>
+<h4 id="WHERE-条件表达式"><a href="#WHERE-条件表达式" class="headerlink" title="WHERE 条件表达式"></a>WHERE 条件表达式</h4><p>对记录进行过滤，如果没有指定WHERE子句，则显示所有记录。</p>
+<p>在WHERE表达式中，可以使用MySQL支持的函数或运算符。</p>
+<h4 id="GROUP-BY-查询结果分组"><a href="#GROUP-BY-查询结果分组" class="headerlink" title="GROUP BY 查询结果分组"></a>GROUP BY 查询结果分组</h4><p><code>[GROUP BY {col_name|position} [ASC|DESC], ... ]</code><br>ASC：生序，默认值。<br>DESC：降序。</p>
+<h4 id="HAVING-分组条件"><a href="#HAVING-分组条件" class="headerlink" title="HAVING 分组条件"></a>HAVING 分组条件</h4><p><code>[HAVING where_condition]</code><br><code>where_condition</code>中要么使用聚合函数，要么出现的字段一定要在SELECT中出现。</p>
+<p>聚合函数：count() …</p>
+<h4 id="ORDER-BY-对查询结果进行排序"><a href="#ORDER-BY-对查询结果进行排序" class="headerlink" title="ORDER BY 对查询结果进行排序"></a>ORDER BY 对查询结果进行排序</h4><p><code>[ORDER BY {col_name|expr|position} [ASC|DESC], ...]</code></p>
+<h4 id="LIMIT-限制查询返回的数量"><a href="#LIMIT-限制查询返回的数量" class="headerlink" title="LIMIT 限制查询返回的数量"></a>LIMIT 限制查询返回的数量</h4><p><code>[LIMIT {[offset,] row_count | row_count OFFSET offset}]</code><br>offset是从0开始的。</p>
+<h3 id="CREATE-…-SELECT"><a href="#CREATE-…-SELECT" class="headerlink" title="CREATE … SELECT"></a>CREATE … SELECT</h3><p>创建数据表同时将查询结果写入到数据表<br><code>CREATE TABLE [IF NOT EXISTS] tbl_name [(create_definition, ...)] select_statement</code></p>
+<p>示例：</p>
+<ul>
+<li>通过CREATE…SELECT来创建数据表并且同时写入记录<br><code>CREATE TABLE tdb_goods_brands (brand_id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,brand_name VARCHAR(40) NOT NULL) SELECT brand_name FROM tdb_goods GROUP BY brand_name;</code></li>
+</ul>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>子查询（Subquery）是指出现在其他SQL语句内的SELECT子句。例如：<br><code>SELECT * FROM t1 WHERE col1=(SELECT col2 FROM t2);</code><br>其中<code>SELECT * FROM t1</code>称为Outer Query/Outer Statement。<code>SELECT col2 FROM t2</code>称为SubQuery。</p>
+<p>子查询指嵌套在查询内部，且必须始终出现在圆括号内。子查询可以包含多个关键字或条件，如DISTINCT、GROUP BY、ORDER BY、LIMIT函数等。子查询外层的查询可以是：SELECT、INSERT、UPDATE、SET或DO。</p>
+<p>子查询可以返回标量、一行、一列或子查询。</p>
+<h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p>1.创建表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table tdb_goods (</span><br><span class="line">	goods_id smallint unsigned primary key auto_increment,</span><br><span class="line">	goods_name varchar(150) not null, </span><br><span class="line">	goods_cate varchar(40) not null, </span><br><span class="line">	brand_name varchar(40) not null,</span><br><span class="line">	goods_price decimal(15,3) unsigned default 0 not null, </span><br><span class="line">	is_show boolean default 1 not null, </span><br><span class="line">	is_saleoff boolean default 0 not null);</span><br></pre></td></tr></table></figure></p>
+<p>2.添加数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">INSERT tdb_goods (goods_name,goods_cate,brand_name,goods_price,is_show,is_saleoff) VALUES(&apos;Mac Pro MD878CH/A 专业级台式电脑&apos;,&apos;服务器/工作站&apos;,&apos;苹果&apos;,&apos;28888&apos;,DEFAULT,DEFAULT);</span><br><span class="line"> </span><br><span class="line">INSERT tdb_goods (goods_name,goods_cate,brand_name,goods_price,is_show,is_saleoff) VALUES(&apos; HMZ-T3W 头戴显示设备&apos;,&apos;笔记本配件&apos;,&apos;索尼&apos;,&apos;6999&apos;,DEFAULT,DEFAULT);</span><br><span class="line"></span><br><span class="line">INSERT tdb_goods (goods_name,goods_cate,brand_name,goods_price,is_show,is_saleoff) VALUES(&apos;商务双肩背包&apos;,&apos;笔记本配件&apos;,&apos;索尼&apos;,&apos;99&apos;,DEFAULT,DEFAULT);</span><br><span class="line"></span><br><span class="line">INSERT tdb_goods (goods_name,goods_cate,brand_name,goods_price,is_show,is_saleoff) VALUES(&apos;X3250 M4机架式服务器 2583i14&apos;,&apos;服务器/工作站&apos;,&apos;IBM&apos;,&apos;6888&apos;,DEFAULT,DEFAULT);</span><br></pre></td></tr></table></figure></p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="使用比较运算符的子查询"><a href="#使用比较运算符的子查询" class="headerlink" title="使用比较运算符的子查询"></a>使用比较运算符的子查询</h4><p><code>=、&gt;、&lt;、&gt;=、&lt;=、&lt;&gt;、!=、&lt;=&gt; ...</code></p>
+<p>语法结构<br><code>operand comparison_operator subquery</code></p>
+<p>示例：</p>
+<ul>
+<li><p>求所有电脑产品的平均价格,并且保留两位小数，AVG,MAX,MIN、COUNT、SUM为聚合函数<br><code>SELECT ROUND(AVG(goods_price),2) AS avg_price FROM tdb_goods;</code></p>
+</li>
+<li><p>查询所有价格大于平均价格的商品，并且按价格降序排序<br><code>SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price &gt; 5845.10 ORDER BY goods_price DESC;</code></p>
+</li>
+<li><p>使用子查询来实现<br><code>SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price &gt; (SELECT ROUND(AVG(goods_price),2) AS avg_price FROM tdb_goods) ORDER BY goods_price DESC;</code></p>
+</li>
+</ul>
+<h5 id="用ANY、SOME或ALL修饰的比较运算符"><a href="#用ANY、SOME或ALL修饰的比较运算符" class="headerlink" title="用ANY、SOME或ALL修饰的比较运算符"></a>用ANY、SOME或ALL修饰的比较运算符</h5><p><code>operand comparison_operator ANY(subquery)</code><br><code>operand comparison_operator SOME(subquery)</code><br><code>operand comparison_operator ALL(subquery)</code></p>
+<p>ANY、SOME、ALL关键字</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png" alt=""></p>
+<p>示例：</p>
+<ul>
+<li>查询价格大于或等于”超级本”价格的商品，并且按价格降序排列<br><code>SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price = ANY(SELECT goods_price FROM tdb_goods WHERE goods_cate = &#39;超级本&#39;) ORDER BY goods_price DESC;</code></li>
+</ul>
+<h4 id="使用-NOT-IN的子查询"><a href="#使用-NOT-IN的子查询" class="headerlink" title="使用[NOT]IN的子查询"></a>使用[NOT]IN的子查询</h4><p>语法结构<br><code>operand comparison_operator [NOT]IN(subquery)</code><br>=ANY运算符与IN等效。<br>!=ALL或&lt;&gt;ALL运算符与NOT IN等效。</p>
+<p>示例：</p>
+<ul>
+<li>= ANY 或 = SOME 等价于 IN<br><code>SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price IN (SELECT goods_price FROM tdb_goods WHERE goods_cate = &#39;超级本&#39;) ORDER BY goods_price DESC;</code></li>
+</ul>
+<h4 id="使用-NOT-EXISTS的子查询"><a href="#使用-NOT-EXISTS的子查询" class="headerlink" title="使用[NOT]EXISTS的子查询"></a>使用[NOT]EXISTS的子查询</h4><p>如果子查询返回任何行，EXISTS将返回TRUE；否则为FALSE。</p>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>MySQL在SELECT语句、多表更新、多表删除语句中支持JOIN操作。</p>
+<h3 id="多表更新"><a href="#多表更新" class="headerlink" title="多表更新"></a>多表更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE table_references SET col_name1 = &#123;expr1|DEFAULT&#125; [, col_name2 = &#123;expr2|DEFAULT&#125;] ... [WHERE where_condition]</span><br></pre></td></tr></table></figure>
+<p><code>table_references</code>的语法结构：<br><code>{[INNER|CROSS] JOIN | {LEFT|RIGHT} [OUTER] JOIN} table_reference ON conditional_expr</code></p>
+<h4 id="数据表参照"><a href="#数据表参照" class="headerlink" title="数据表参照"></a>数据表参照</h4><p>table_references<br><code>tbl_name [[AS] alias]|table_subquery [AS] alias</code><br>数据表可以使用<code>tbl_name AS alias_name</code>或<code>tbl_name alias_name</code>赋予别名。<br><code>table_subquery</code>可以作为子查询使用在FROM子句中，这样的子查询必须为其赋予别名。</p>
+<h4 id="连接类型"><a href="#连接类型" class="headerlink" title="连接类型"></a>连接类型</h4><p>INNER JOIN，内连接。在MySQL中，JOIN，CROSS JOIN和INNER JOIN是等价的。<br>LEFT [OUTER] JOIN，左外连接。<br>RIGHT [OUTER] JOIN，右外连接。</p>
+<p>示例：</p>
+<ul>
+<li>通过tdb_goods_cates数据表来更新tdb_goods表<br><code>UPDATE tdb_goods INNER JOIN tdb_goods_cates ON goods_cate = cate_name SET goods_cate = cate_id ;</code></li>
+</ul>
+<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接"></p>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>A LEFT JOIN B join_condition.<br>数据表B的结果集依赖数据表A。<br>数据表A的结果集根据左连接条件依赖所有数据表（B表除外）。<br>左外连接条件决定如何检索数据表B（在没有指定WHERE条件的情况下）。<br>如果数据表A的某条记录符合WHERE条件，但是在数据表B不存在符合连接条件的记录，将生成一个所有列为空的额外的B行。<br>如果使用内连接查找的记录在连接数据表中不存在，并且在WHERE子句中尝试以下操作：col_name IS NULL时，如果col_name被定义为NOT NULL，MySQL将在找到符合连接条件的记录后停止搜索更多的行。</p>
+<ul>
+<li>左外连接<br>显示左表的全部记录及右表符合连接条件的记录。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150" alt="左外连接"></li>
+<li>右外连接<br>显示右表的全部记录及左表符合连接条件的记录。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150" alt="右外连接"></li>
+</ul>
+<h3 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h3><p>使用ON关键字来设定连接条件，也可以使用WHERE来代替。<br>通常使用ON关键字来设定连接条件，使用WHERE关键字进行结果集记录的过滤。</p>
+<h3 id="无限级分类表设计"><a href="#无限级分类表设计" class="headerlink" title="无限级分类表设计"></a>无限级分类表设计</h3><ul>
+<li><p>无限分类的数据表设计<br><code>CREATE TABLE tdb_goods_types(
+   type_id   SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+   type_name VARCHAR(20) NOT NULL,
+   parent_id SMALLINT UNSIGNED NOT NULL DEFAULT 0
+);</code></p>
+</li>
+<li><p>插入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;家用电器&apos;,DEFAULT);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;电脑、办公&apos;,DEFAULT);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;大家电&apos;,1);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;生活电器&apos;,1);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;平板电视&apos;,3);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;空调&apos;,3);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;电风扇&apos;,4);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;饮水机&apos;,4);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;电脑整机&apos;,2);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;电脑配件&apos;,2);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;笔记本&apos;,9);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;超级本&apos;,9);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;游戏本&apos;,9);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;CPU&apos;,10);</span><br><span class="line">INSERT tdb_goods_types(type_name,parent_id) VALUES(&apos;主机&apos;,10);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="自身连接"><a href="#自身连接" class="headerlink" title="自身连接"></a>自身连接</h3><p>同一个数据表对其自身进行连接。</p>
 <h1 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6 数据类型"></a>6 数据类型</h1><p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
 <h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表"></p>
 <h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-02.png" alt="浮点型表"></p>
 <h2 id="日期和时间型"><a href="#日期和时间型" class="headerlink" title="日期和时间型"></a>日期和时间型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-03.png" alt="日期和时间型表"></p>
 <h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-04.png" alt="字符型表"></p>
-<p>持续更新中…</p>
 ]]></content>
     
     <summary type="html">
