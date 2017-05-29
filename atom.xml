@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-05-27T14:29:36.000Z</updated>
+  <updated>2017-05-29T07:57:17.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -16,107 +16,438 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>与 MySQL 的零距离接触</title>
-    <link href="http://charsdavy.github.io/2017/05/16/mysql-study/"/>
-    <id>http://charsdavy.github.io/2017/05/16/mysql-study/</id>
-    <published>2017-05-16T15:05:12.000Z</published>
-    <updated>2017-05-27T14:29:36.000Z</updated>
+    <title>拆解 MySQL 的高阶使用与概念</title>
+    <link href="http://charsdavy.github.io/2017/05/29/mysql-advanced-study/"/>
+    <id>http://charsdavy.github.io/2017/05/29/mysql-advanced-study/</id>
+    <published>2017-05-29T07:31:40.000Z</published>
+    <updated>2017-05-29T07:57:17.000Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
-<p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
+    <content type="html"><![CDATA[<p>前面我们主要分享了MySQL中的常见知识与使用。这里我们主要分享一下MySQL中的高阶使用，主要包括：函数、存储过程和存储引擎。</p>
+<p>对于MySQL中的基础知识，可以参见</p>
+<p><a href="/2017/05/16/mysql-study/">《与 MySQL 的零距离接触》</a></p>
 <a id="more"></a>
-<h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h1><p>直接前往官网 <a href="https://www.mysql.com/" target="_blank" rel="external">https://www.mysql.com/</a> ，进入download页面下载所需对应安装版本。默认配置安装即可。</p>
-<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2 配置"></a>2 配置</h1><p>安装成功之后，需要修改密码。详看<a href="/2017/03/22/mysql-install-config/">《MySQL 安装配置》</a></p>
-<p>修改编码方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">character-set-server=utf8</span><br></pre></td></tr></table></figure>
-<h1 id="3-目录结构"><a href="#3-目录结构" class="headerlink" title="3 目录结构"></a>3 目录结构</h1><p>bin目录，存储可执行文件。</p>
-<p>data目录，存储数据文件。</p>
-<p>docs，文档。</p>
-<p>include目录，存储包含的头文件。</p>
-<p>lib目录，存储库文件。</p>
-<p>share，错误消息和字符集文件。</p>
-<h1 id="4-命令参数说明"><a href="#4-命令参数说明" class="headerlink" title="4 命令参数说明"></a>4 命令参数说明</h1><table>
+<h1 id="1-函数"><a href="#1-函数" class="headerlink" title="1 函数"></a>1 函数</h1><p>函数可以返回任意类型的值，也可以接收这些类型的参数。</p>
+<h2 id="字符函数"><a href="#字符函数" class="headerlink" title="字符函数"></a>字符函数</h2><table>
 <thead>
 <tr>
-<th>参数</th>
+<th>函数名称</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-D,–database=name</td>
-<td>打开指定数据库</td>
+<td>CONCAT()</td>
+<td>字符连接</td>
 </tr>
 <tr>
-<td>–delimiter=name</td>
-<td>指定分隔符</td>
+<td>CONCAT_WS()</td>
+<td>使用指定的分隔符进行字符连接</td>
 </tr>
 <tr>
-<td>-h,–host=name</td>
-<td>服务器名称</td>
+<td>FORMAT()</td>
+<td>数字格式化</td>
 </tr>
 <tr>
-<td>-p,–password[=name]</td>
-<td>密码</td>
+<td>LOWER()</td>
+<td>转换成小写字母</td>
 </tr>
 <tr>
-<td>-P,–port=#</td>
-<td>端口号</td>
+<td>UPPER()</td>
+<td>转换成大写字母</td>
 </tr>
 <tr>
-<td>–prompt=name</td>
-<td>设置提示符</td>
+<td>LEFT()</td>
+<td>获取左侧字符</td>
 </tr>
 <tr>
-<td>-u,–user=name</td>
-<td>用户名</td>
+<td>RIGHT()</td>
+<td>获取右侧字符</td>
 </tr>
 <tr>
-<td>-V,–version</td>
-<td>输出版本信息并退出</td>
+<td>LENGTH()</td>
+<td>获取字符串长度</td>
+</tr>
+<tr>
+<td>LTRIM()</td>
+<td>删除前导空格</td>
+</tr>
+<tr>
+<td>RTRIM()</td>
+<td>删除后续空格</td>
+</tr>
+<tr>
+<td>TRIM()</td>
+<td>删除前导和后续空格</td>
+</tr>
+<tr>
+<td>SUBSTRING()</td>
+<td>字符串截取</td>
+</tr>
+<tr>
+<td>[NOT] LIKE</td>
+<td>模式匹配</td>
+</tr>
+<tr>
+<td>REPLACE()</td>
+<td>字符串替换</td>
 </tr>
 </tbody>
 </table>
-<h2 id="MySQL提示符"><a href="#MySQL提示符" class="headerlink" title="MySQL提示符"></a>MySQL提示符</h2><table>
+<p>函数可以嵌套使用。<br><code>%</code>（百分号）：代表任意个字符。<br><code>_</code>（下划线）：代表任意一个字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 删除前导&apos;?&apos;符号</span><br><span class="line">SELECT TRIM(LEADING &apos;?&apos; FROM &apos;??MySQL???&apos;);</span><br><span class="line"># 删除后续&apos;?&apos;符号</span><br><span class="line">SELECT TRIM(TRAILING &apos;?&apos; FROM &apos;??MySQL???&apos;);</span><br><span class="line"># 删除前后&apos;?&apos;符号</span><br><span class="line">SELECT TRIM(BOTH &apos;?&apos; FROM &apos;??My??SQL???&apos;);</span><br><span class="line"># 将&apos;?&apos;符号替换成&apos;!&apos;符号</span><br><span class="line">SELECT REPLACE(&apos;??My??SQL???&apos;, &apos;?&apos;, &apos;!&apos;);</span><br><span class="line"># 从中&apos;MySQL&apos;第1个开始，截取2个字符</span><br><span class="line">SELECT SUBSTRING(&apos;MySQL&apos;, 1, 2);</span><br><span class="line"># 从中&apos;MySQL&apos;截取最后1个字符</span><br><span class="line">SELECT SUBSTRING(&apos;MySQL&apos;, -1);</span><br><span class="line"># 从中&apos;MySQL&apos;第2个开始，截取至结尾</span><br><span class="line">SELECT SUBSTRING(&apos;MySQL&apos;, 2);</span><br></pre></td></tr></table></figure>
+<h2 id="数值运算符函数"><a href="#数值运算符函数" class="headerlink" title="数值运算符函数"></a>数值运算符函数</h2><table>
 <thead>
 <tr>
-<th>参数</th>
+<th>函数名称</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>\D</td>
-<td>完整的日期</td>
+<td>CEIL()</td>
+<td>进一取整</td>
 </tr>
 <tr>
-<td>\d</td>
+<td>DIV</td>
+<td>整数除法</td>
+</tr>
+<tr>
+<td>FLOOR()</td>
+<td>舍一取整</td>
+</tr>
+<tr>
+<td>MOD</td>
+<td>取余数（取模）</td>
+</tr>
+<tr>
+<td>POWER()</td>
+<td>幂运算</td>
+</tr>
+<tr>
+<td>ROUND()</td>
+<td>四舍五入</td>
+</tr>
+<tr>
+<td>TRUNCATE()</td>
+<td>数字截取</td>
+</tr>
+</tbody>
+</table>
+<h2 id="比较运算符函数"><a href="#比较运算符函数" class="headerlink" title="比较运算符函数"></a>比较运算符函数</h2><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[NOT]BETWEEN…AND..</td>
+<td>[不]在范围之内</td>
+</tr>
+<tr>
+<td>[NOT]IN()</td>
+<td>[不]在列出值范围内</td>
+</tr>
+<tr>
+<td>IS[NOT]NULL</td>
+<td>[不]为空</td>
+</tr>
+</tbody>
+</table>
+<h2 id="日期时间函数"><a href="#日期时间函数" class="headerlink" title="日期时间函数"></a>日期时间函数</h2><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOW()</td>
+<td>当前日期和时间</td>
+</tr>
+<tr>
+<td>CURDATE()</td>
+<td>当前日期</td>
+</tr>
+<tr>
+<td>CURTIME()</td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td>DATE_ADD()</td>
+<td>日期变化</td>
+</tr>
+<tr>
+<td>DATEDIFF()</td>
+<td>日期差值</td>
+</tr>
+<tr>
+<td>DATE_FORMAT()</td>
+<td>日期格式化</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 时间增加1年</span><br><span class="line">SELECT DATE_ADD(&apos;2016-05-28&apos;, INTERVAL 365 DAY);</span><br><span class="line"># 时间减少1年</span><br><span class="line">SELECT DATE_ADD(&apos;2016-05-28&apos;, INTERVAL -365 DAY);</span><br><span class="line"># 时间增加3周</span><br><span class="line">SELECT DATE_ADD(&apos;2016-05-28&apos;, INTERVAL 3 WEEK);</span><br><span class="line"># 日期格式化</span><br><span class="line">SELECT DATE_FORMAT(&apos;2016-05-28&apos;, &apos;%m/%d/%Y&apos;);</span><br><span class="line"># 更多时间格式可以前往MySQL官网查看手册</span><br></pre></td></tr></table></figure>
+<h2 id="信息函数"><a href="#信息函数" class="headerlink" title="信息函数"></a>信息函数</h2><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONNECTION_ID()</td>
+<td>连接ID</td>
+</tr>
+<tr>
+<td>DATEBASE()</td>
 <td>当前数据库</td>
 </tr>
 <tr>
-<td>\h</td>
-<td>服务器名称</td>
+<td>LAST_INSERT_ID()</td>
+<td>最后插入记录的ID号</td>
 </tr>
 <tr>
-<td>\u</td>
+<td>USER()</td>
 <td>当前用户</td>
+</tr>
+<tr>
+<td>VERSION()</td>
+<td>版本信息</td>
 </tr>
 </tbody>
 </table>
-<h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><h3 id="修改MySQL提示符"><a href="#修改MySQL提示符" class="headerlink" title="修改MySQL提示符"></a>修改MySQL提示符</h3><p>1.连接客户端时通过参数指定</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot --prompt 提示符</span><br></pre></td></tr></table></figure>
-<p>2.连接上客户端后，通过prompt命令修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;prompt 提示符</span><br></pre></td></tr></table></figure>
-<h3 id="MySQL常用命令"><a href="#MySQL常用命令" class="headerlink" title="MySQL常用命令"></a>MySQL常用命令</h3><p>1.显示当前服务器版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT VERSION();</span><br></pre></td></tr></table></figure>
-<p>2.显示当前日期时间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT NOW();</span><br></pre></td></tr></table></figure>
-<p>3.显示当前用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT USER();</span><br></pre></td></tr></table></figure>
-<h3 id="MySQL语句规范"><a href="#MySQL语句规范" class="headerlink" title="MySQL语句规范"></a>MySQL语句规范</h3><p>1.关键字与函数名称全部大写。</p>
-<p>2.数据库名称、表名称、字段名称全部小写。</p>
-<p>3.SQL语句必须以”;”符号结尾。</p>
-<h1 id="5-SQL"><a href="#5-SQL" class="headerlink" title="5 SQL"></a>5 SQL</h1><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-09.png" alt="结构图"></p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVG()</td>
+<td>平均值</td>
+</tr>
+<tr>
+<td>COUNT()</td>
+<td>计数</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>最大值</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>最小值</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>求和</td>
+</tr>
+</tbody>
+</table>
+<h2 id="加密函数"><a href="#加密函数" class="headerlink" title="加密函数"></a>加密函数</h2><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MD5()</td>
+<td>信息摘要算法</td>
+</tr>
+<tr>
+<td>PASSWORD()</td>
+<td>密码算法</td>
+</tr>
+</tbody>
+</table>
+<h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><p>用户自定义函数（user-defined function，UDF）是一种对MySQL扩展的途径，其用法与内置函数相同。UDF是对MySQL扩展的一种途径。</p>
+<h3 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h3><ul>
+<li>参数：可以有零个或多个</li>
+<li>返回值：只能有一个</li>
+</ul>
+<p>参数和返回值没有必然的联系。</p>
+<h3 id="创建自定义函数"><a href="#创建自定义函数" class="headerlink" title="创建自定义函数"></a>创建自定义函数</h3><p><code>CREATE FUNCTION function_name RETURNS {STRING|INTEGER|REAL|DECIMAL} routine_body</code></p>
+<h4 id="函数体（routine-body）"><a href="#函数体（routine-body）" class="headerlink" title="函数体（routine_body）"></a>函数体（routine_body）</h4><ul>
+<li>函数体由合法的SQL语句构成；</li>
+<li>函数体可以是简单的SELECT或INSERT语句；</li>
+<li>函数体如果为复合结构则使用BEGIN…END语句；</li>
+<li>复合结构可以包含声明，循环，控制结构。</li>
+</ul>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line">CREATE FUNCTION f1() RETURNS VARCHAR(30) RETURN DATE_FORMAT(NOW(), &apos;%Y-%m-%d %H:%i:%s&apos;);</span><br><span class="line"></span><br><span class="line"># 带参数</span><br><span class="line">CREATE FUNCTION f2(num1 SMALLINT UNSIGNED, num2 SMALLINT UNSIGNED) RETURNS FLOAT(10, 2) UNSIGNED RETURN (num1 + num2) / 2;</span><br><span class="line"></span><br><span class="line"># 具有复合结构函数体</span><br><span class="line"># 可能需要使用DELIMITER命令修改分隔符</span><br><span class="line">CREATE FUNCTION f3(username VARCHAR(20)) RETURNS INT UNSIGNED </span><br><span class="line">BEGIN </span><br><span class="line">INSERT test(username) VALUES(username);</span><br><span class="line">RETURN LAST_INSERT_ID();</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h1 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2 存储过程"></a>2 存储过程</h1><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-22.png" alt="命令执行流程"><br>存储过程是SQL语句和控制语句的预编译集合，以一个名称存储作为一个单元处理。可以由用户调用执行，允许用户声明变量以及进行流程控制。存储过程可以接收输入类型的参数，也可以接收输出类型的参数，并可以存在多个返回值。执行效率比单一的SQL语句高。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>增强SQL语句的功能和灵活性</li>
+</ul>
+<p>在存储过程中可以写控制语句具有很强的灵活性，可以完成复杂的判断及较复杂的运算。</p>
+<ul>
+<li>实现较快的执行速度</li>
+</ul>
+<p>如果某一操作包含了大量的SQL语句，那么这些SQL语句都将被MySQL引擎执行语法分析、编译、执行，所以效率相对过低。而存储过程是预编译的，当客户端第一次调用存储过程时，MySQL的引擎将对它进行语法分析、编译等操作，然后把这个编译的结果存储到内存中，所以说第一次使用的时候效率和以前是相同的。但是以后客户端再次调用这个存储过程时，直接从内存中执行，所以说效率比较高，速度比较快。</p>
+<ul>
+<li>减少网络流量</li>
+</ul>
+<p>如果通过客户端每一个单独发送SQL语句让服务器来执行，那么通过http协议来提交的数据量相对来说较大。</p>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE [DEFINER = &#123;user|CURRENT_USER&#125;] PROCEDURE sp_name ([proc_parameter[, ...]]) [characteristic ...] routine_body</span><br></pre></td></tr></table></figure>
+<p><code>proc_parameter</code>:<br><code>[IN | OUT | INOUT] param_name type</code></p>
+<p>参数：<br><code>IN</code>，表示该参数的值必须在调用存储过程时指定。<br><code>OUT</code>，表示该参数值可以被存储过程改变，并且可以返回。<br><code>INOUT</code>，表示该参数的调用时指定，并且可以被改变和返回。</p>
+<p>特性：<br><code>COMMENT</code>注释<br><code>CONTAINS SQL</code>包含SQL语句，但不包含读或写数据的语句。<br><code>NO SQL</code>不包含SQL语句。<br><code>READS SQL DATA</code>包含读写数据的语句。<br><code>MODIFIES SQL DATA</code>包含写数据的语句。<br><code>SQL SECURITY {DEFINER | INVOKER}</code>指明谁有权限来执行。</p>
+<h2 id="过程体"><a href="#过程体" class="headerlink" title="过程体"></a>过程体</h2><ul>
+<li>过程体由合法的SQL语句构成；</li>
+<li>过程体可以是任意SQL语句；<br>不能通过存储过程来创建数据表、数据库。可以通过存储过程对数据进行增、删、改、查和多表连接操作。</li>
+<li>过程体如果为复合结构则使用BEGIN…END语句；</li>
+<li>复合结构中可以包含声明、循环、控制结构。</li>
+</ul>
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CALL sp_name ([parameter[, ...]])</span><br><span class="line">CALL sp_name[()]</span><br></pre></td></tr></table></figure>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP PROCEDURE [IF EXISTS] sp_name</span><br></pre></td></tr></table></figure>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER PROCEDURE sp_name [characteristic ...] COMMENT &apos;string&apos;</span><br><span class="line">| &#123;CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA&#125;</span><br><span class="line">| SQL SECURITY &#123;DEFINER | INVOKER&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="存储过程与自定义函数的区别"><a href="#存储过程与自定义函数的区别" class="headerlink" title="存储过程与自定义函数的区别"></a>存储过程与自定义函数的区别</h2><ul>
+<li>存储过程实现的功能要复杂一些，而函数的针对性更强。</li>
+<li>存储过程可以返回多个值，函数只能有一个返回值。</li>
+<li>存储过程一般独立执行，函数可以作为其他SQL语句的组成部分来实现。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 创建不带参数的存储过程</span><br><span class="line">CREATE PROCEDURE sp1() SELECT VERSION();</span><br><span class="line"></span><br><span class="line"># 创建带有IN类型参数的存储过程(users为数据表名)</span><br><span class="line"># 参数的名字不能和数据表中的记录名字一样</span><br><span class="line">CREATE PROCEDURE removeUserById(IN p_id INT UNSIGNED)</span><br><span class="line">BEGIN</span><br><span class="line">DELETE FROM users WHERE id = p_id;</span><br><span class="line">END</span><br><span class="line"></span><br><span class="line"># 创建带有IN和OUT类型参数的存储过程(users为数据表名)</span><br><span class="line">CREATE PROCEDURE removeUserAndReturnUserNumsById(IN p_id INT UNSIGNED, OUT userNums INT UNSIGNED)</span><br><span class="line">BEGIN</span><br><span class="line">DELETE FROM users WHERE id = p_id;</span><br><span class="line">SELECT COUNT(id) FROM users INTO userNums;</span><br><span class="line">END</span><br><span class="line"></span><br><span class="line"># 创建带有多个OUT类型参数的存储过程(users为数据表名)</span><br><span class="line">CREATE PROCEDURE removeUserAndReturnInfosByAge(IN p_age SMALLINT UNSIGNED, OUT delUser SMALLINT UNSIGNED,  OUT userNums SMALLINT UNSIGNED)</span><br><span class="line">BEGIN</span><br><span class="line">DELETE FROM users WHERE age = p_age;</span><br><span class="line">SELECT ROW_COUNT INTO delUser;</span><br><span class="line">SELECT COUNT(id) FROM users INTO userNums;</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h1 id="3-存储引擎"><a href="#3-存储引擎" class="headerlink" title="3 存储引擎"></a>3 存储引擎</h1><p>MySQL可以将数据以不同的技术存储在文件（内存）中，这种技术就称为存储引擎。<br>每一种存储引擎使用不同的存储机制、索引技巧、锁定水平，最终提供广泛且不同的功能。</p>
+<ul>
+<li><p>锁<br>共享锁（读锁）：在同一时间段内，多个用户可以读取同一个资源，读取过程中数据不会发生任何变化。<br>排他锁（写锁）：在任何时候只能有一个用户写入资源，当进行写锁时会阻塞其他的读锁或者写锁操作。</p>
+</li>
+<li><p>锁颗粒<br>表锁：是一种开销最小的锁策略。<br>行锁：是一种开销最大的锁策略。</p>
+</li>
+<li><p>并发控制<br>当多个连接记录进行修改时保证数据的一致性和完整性。</p>
+</li>
+<li><p>事务<br>事务用于保证数据库的完整性。</p>
+</li>
+</ul>
+<p>举例：用户银行转账<br><code>用户A</code> 转账200元 <code>用户B</code><br>实现步骤：<br>1）从当前账户减掉200元（账户余额大于等于200元）。<br>2）在对方账户增加200元。</p>
+<p><strong>事务特性：</strong><br>1）原子性（atomicity）<br>2）一致性（consistency）<br>3）隔离性（isolation）<br>4）持久性（durability）</p>
+<ul>
+<li><p>外键<br>是保证数据一致性的策略。</p>
+</li>
+<li><p>索引<br>是对数据表中一列或多列的值进行排序的一种结构。</p>
+</li>
+</ul>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>MySQL主要支持以下几种引擎类型：</p>
+<ul>
+<li>MyISAM</li>
+<li>InnoDB</li>
+<li>Memory</li>
+<li>CSV</li>
+<li>Archive</li>
+</ul>
+<p>各类存储引擎特点</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>MyISAM</th>
+<th>InnoDB</th>
+<th>Memory</th>
+<th>Archive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储限制</td>
+<td>256TB</td>
+<td>64TB</td>
+<td>有</td>
+<td>无</td>
+</tr>
+<tr>
+<td>事务安全</td>
+<td>-</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>支持索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>锁颗粒</td>
+<td>表锁</td>
+<td>行锁</td>
+<td>表锁</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>数据压缩</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>支持外键</td>
+<td>-</td>
+<td>支持</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>CSV:实际上是由逗号分隔的数据引擎，在数据库子目录为每一个表创建一个<code>.csv</code>的文件，这是一种普通的文本文件，每一个数据行占用一个文本行。不支持索引。</p>
+<p>BlackHole：黑洞引擎，写入的数据都会消失，一般用于做数据复制的中继。</p>
+<p>MyISAM：适用于事务的处理不多的情况。</p>
+<p>InnoDB：适用于事务处理比较多，需要有外键支持的情况。</p>
+<p>索引分类：普通索引、唯一索引、全文索引、btree索引、hash索引…</p>
+<h2 id="修改存储引擎"><a href="#修改存储引擎" class="headerlink" title="修改存储引擎"></a>修改存储引擎</h2><ul>
+<li>通过修改MySQL配置文件<br><code>default-storage-engine=engine_name</code></li>
+<li>通过创建数据表命令实现<br><code>CREATE TABLE table_name(...)ENGINE=engine_name</code></li>
+<li>通过修改数据表命令实现<br><code>ALTER TABLE table_name ENGINE[=]engine_name</code></li>
+</ul>
+<h1 id="4-管理工具"><a href="#4-管理工具" class="headerlink" title="4 管理工具"></a>4 管理工具</h1><ul>
+<li><p>phpMyAdmin<br>需要有PHP环境</p>
+</li>
+<li><p>Navicat</p>
+</li>
+<li>MySQL Workbench</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前面我们主要分享了MySQL中的常见知识与使用。这里我们主要分享一下MySQL中的高阶使用，主要包括：函数、存储过程和存储引擎。&lt;/p&gt;
+&lt;p&gt;对于MySQL中的基础知识，可以参见&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2017/05/16/mysql-study/&quot;&gt;《与 MySQL 的零距离接触》&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
+    
+    
+      <category term="database" scheme="http://charsdavy.github.io/tags/database/"/>
+    
+      <category term="读书笔记" scheme="http://charsdavy.github.io/tags/notes/"/>
+    
+      <category term="mysql" scheme="http://charsdavy.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 中的SQL</title>
+    <link href="http://charsdavy.github.io/2017/05/19/mysql-sql-study/"/>
+    <id>http://charsdavy.github.io/2017/05/19/mysql-sql-study/</id>
+    <published>2017-05-19T07:43:18.000Z</published>
+    <updated>2017-05-29T07:57:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。</p>
+<p>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
+<p>文章以MySQL数据库为演示环境，主要分享MySQL中的SQL使用。</p>
+<a id="more"></a>
 <h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE &#123;DATABASE | SCHEMA&#125; [IF NOT EXISTS] db_name [DEFAULT] CHARACTER SET [=] character_name</span><br></pre></td></tr></table></figure>
 <p><code>{}</code>表示为必选项，即必填参数。<code>|</code>表示选项，即其中选取一项即可。<code>[]</code>表示为可选项。</p>
 <p><code>character_name</code>参数为指定数据库的编码方式，不填则使用MySQL配置的字符集编码。</p>
@@ -266,6 +597,7 @@
 <ul>
 <li>通过tdb_goods_cates数据表来更新tdb_goods表<br><code>UPDATE tdb_goods INNER JOIN tdb_goods_cates ON goods_cate = cate_name SET goods_cate = cate_id ;</code></li>
 </ul>
+<h3 id="多表删除"><a href="#多表删除" class="headerlink" title="多表删除"></a>多表删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE tbl_name [.*] [, tbl_name [.*]] ... FROM table_references [WHERE where_condition]</span><br></pre></td></tr></table></figure>
 <h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接"></p>
 <h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>A LEFT JOIN B join_condition.<br>数据表B的结果集依赖数据表A。<br>数据表A的结果集根据左连接条件依赖所有数据表（B表除外）。<br>左外连接条件决定如何检索数据表B（在没有指定WHERE条件的情况下）。<br>如果数据表A的某条记录符合WHERE条件，但是在数据表B不存在符合连接条件的记录，将生成一个所有列为空的额外的B行。<br>如果使用内连接查找的记录在连接数据表中不存在，并且在WHERE子句中尝试以下操作：col_name IS NULL时，如果col_name被定义为NOT NULL，MySQL将在找到符合连接条件的记录后停止搜索更多的行。</p>
 <ul>
@@ -285,11 +617,223 @@
 </li>
 </ul>
 <h3 id="自身连接"><a href="#自身连接" class="headerlink" title="自身连接"></a>自身连接</h3><p>同一个数据表对其自身进行连接。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。&lt;/p&gt;
+&lt;p&gt;不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。&lt;/p&gt;
+&lt;p&gt;文章以MySQL数据库为演示环境，主要分享MySQL中的SQL使用。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
+    
+    
+      <category term="database" scheme="http://charsdavy.github.io/tags/database/"/>
+    
+      <category term="读书笔记" scheme="http://charsdavy.github.io/tags/notes/"/>
+    
+      <category term="mysql" scheme="http://charsdavy.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>与 MySQL 的零距离接触</title>
+    <link href="http://charsdavy.github.io/2017/05/16/mysql-study/"/>
+    <id>http://charsdavy.github.io/2017/05/16/mysql-study/</id>
+    <published>2017-05-16T15:05:12.000Z</published>
+    <updated>2017-05-29T07:57:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
+<p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
+<a id="more"></a>
+<h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h1><p>直接前往官网 <a href="https://www.mysql.com/" target="_blank" rel="external">https://www.mysql.com/</a> ，进入download页面下载所需对应安装版本。默认配置安装即可。</p>
+<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2 配置"></a>2 配置</h1><p>安装成功之后，需要修改密码。详看<a href="/2017/03/22/mysql-install-config/">《MySQL 安装配置》</a></p>
+<p>修改编码方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">character-set-server=utf8</span><br></pre></td></tr></table></figure>
+<h1 id="3-目录结构"><a href="#3-目录结构" class="headerlink" title="3 目录结构"></a>3 目录结构</h1><p>bin目录，存储可执行文件。</p>
+<p>data目录，存储数据文件。</p>
+<p>docs，文档。</p>
+<p>include目录，存储包含的头文件。</p>
+<p>lib目录，存储库文件。</p>
+<p>share，错误消息和字符集文件。</p>
+<h1 id="4-命令参数说明"><a href="#4-命令参数说明" class="headerlink" title="4 命令参数说明"></a>4 命令参数说明</h1><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-D,–database=name</td>
+<td>打开指定数据库</td>
+</tr>
+<tr>
+<td>–delimiter=name</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-h,–host=name</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>-p,–password[=name]</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>-P,–port=#</td>
+<td>端口号</td>
+</tr>
+<tr>
+<td>–prompt=name</td>
+<td>设置提示符</td>
+</tr>
+<tr>
+<td>-u,–user=name</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>-V,–version</td>
+<td>输出版本信息并退出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="MySQL提示符"><a href="#MySQL提示符" class="headerlink" title="MySQL提示符"></a>MySQL提示符</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\D</td>
+<td>完整的日期</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>当前数据库</td>
+</tr>
+<tr>
+<td>\h</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>\u</td>
+<td>当前用户</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><h3 id="修改MySQL提示符"><a href="#修改MySQL提示符" class="headerlink" title="修改MySQL提示符"></a>修改MySQL提示符</h3><p>1.连接客户端时通过参数指定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot --prompt 提示符</span><br></pre></td></tr></table></figure>
+<p>2.连接上客户端后，通过prompt命令修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;prompt 提示符</span><br></pre></td></tr></table></figure>
+<h3 id="MySQL常用命令"><a href="#MySQL常用命令" class="headerlink" title="MySQL常用命令"></a>MySQL常用命令</h3><p>1.显示当前服务器版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT VERSION();</span><br></pre></td></tr></table></figure>
+<p>2.显示当前日期时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT NOW();</span><br></pre></td></tr></table></figure>
+<p>3.显示当前用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT USER();</span><br></pre></td></tr></table></figure>
+<h3 id="MySQL语句规范"><a href="#MySQL语句规范" class="headerlink" title="MySQL语句规范"></a>MySQL语句规范</h3><p>1.关键字与函数名称全部大写。</p>
+<p>2.数据库名称、表名称、字段名称全部小写。</p>
+<p>3.SQL语句必须以”;”符号结尾。</p>
+<h1 id="5-SQL"><a href="#5-SQL" class="headerlink" title="5 SQL"></a>5 SQL</h1><p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言。<br>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
+<p>具体参看文章<br><a href="/2017/05/19/mysql-sql-study/">《MySQL 中的SQL》</a></p>
 <h1 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6 数据类型"></a>6 数据类型</h1><p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
 <h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表"></p>
-<h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-02.png" alt="浮点型表"></p>
-<h2 id="日期和时间型"><a href="#日期和时间型" class="headerlink" title="日期和时间型"></a>日期和时间型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-03.png" alt="日期和时间型表"></p>
-<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-04.png" alt="字符型表"></p>
+<h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>存储范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FLOAT[(M,D)]</td>
+<td>-3.402823466E+38到-1.175494351E-38、0和1.175494351E-38到3.402823466E+38。M是数字总位数，D是小数点后面的位数。如果M和D被省略，根据硬件允许的限制来保存值。单精度浮点数精确到大约7位小数点。</td>
+</tr>
+<tr>
+<td>DOUBLE[(M,D)]</td>
+<td>-1.7976931348623157E+308到-2.2250738585072014E-308、0和2.2250738585072014E-308到1.7976931348623157E+308。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="日期和时间型"><a href="#日期和时间型" class="headerlink" title="日期和时间型"></a>日期和时间型</h2><table>
+<thead>
+<tr>
+<th>列类型</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YEAR</td>
+<td>1</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>3</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>8</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><table>
+<thead>
+<tr>
+<th>列类型</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR(M)</td>
+<td>M个字节，0&lt;=M&lt;=255</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>L+1个字节，其中L&lt;=M且0&lt;=M&lt;=65535</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>L+1个字节，其中L&lt;2^8</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>L+2个字节，其中L&lt;2^16</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>L+3个字节，其中L&lt;2^24</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>L+4个字节，其中L&lt;2^32</td>
+</tr>
+<tr>
+<td>ENUM(‘VALUE1’,’VALUE2’,…)</td>
+<td>1或2个字节，取决于枚举值的个数（最多65,535个值）</td>
+</tr>
+<tr>
+<td>SET(‘VALUE1’,’VALUE2’,…)</td>
+<td>1、2、3、4或者8个字节，取决于set成员的数目（最多64个成员）</td>
+</tr>
+</tbody>
+</table>
+<p>更多其他MySQL使用与知识可以参见<a href="/2017/05/29/mysql-advanced-study/">《拆解 MySQL 的高阶使用与概念》</a></p>
 ]]></content>
     
     <summary type="html">
@@ -2796,119 +3340,6 @@
       <category term="ios" scheme="http://charsdavy.github.io/tags/ios/"/>
     
       <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac 如何升级 Ruby 版本</title>
-    <link href="http://charsdavy.github.io/2016/09/03/mac-ruby-update/"/>
-    <id>http://charsdavy.github.io/2016/09/03/mac-ruby-update/</id>
-    <published>2016-09-03T08:47:54.000Z</published>
-    <updated>2017-03-31T12:09:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Ruby 是一种面向对象、命令式、函数式、动态的通用编程语言。 在20世纪90年代中期由日本人松本行弘（Matz）设计并开发。 遵守BSD许可证和Ruby License。 它的灵感与特性来自于Perl、Smalltalk、Eiffel、Ada以及Lisp语言。</p>
-<p>Ruby 可运行于多种平台，如 Windows、MAC OS 和 UNIX 的各种版本。</p>
-<p>Ruby用于最明显，且和Apple系列的程序员最直接关联的就是Mac的开发环境，直接关联于Cocoapods工具。但是，cocoapods工具与Ruby的版本有一定的关联性，难免不涉及到升级。</p>
-<p>那么，如何升级最方便快捷呢？</p>
-<a id="more"></a>
-<p>这就是rvm大展身手的时候啦。rvm是什么？rvm是ruby版本管理器。为什么要安装rvm呢？因为rvm可以让你拥有多个版本的Ruby，并且可以在多个版本之间自由切换。</p>
-<h3 id="第一步：安装rvm"><a href="#第一步：安装rvm" class="headerlink" title="第一步：安装rvm"></a>第一步：安装rvm</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -L get.rvm.io | bash -s stable</span><br><span class="line">$ source ~/.profile</span><br></pre></td></tr></table></figure>
-<p>等待终端加载完毕，后输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rvm -v</span><br></pre></td></tr></table></figure>
-<p>如果能显示版本号,则安装成功。</p>
-<h3 id="第二步：安装ruby"><a href="#第二步：安装ruby" class="headerlink" title="第二步：安装ruby"></a>第二步：安装ruby</h3><p>列出ruby可安装的版本信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rvm list known</span><br></pre></td></tr></table></figure>
-<p>安装一个ruby版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rvm install 2.3</span><br></pre></td></tr></table></figure>
-<p>如果想设置为默认版本，可以用这条命令来完成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rvm use 2.1.4 --default</span><br></pre></td></tr></table></figure>
-<p>查看已安装的ruby</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rvm list</span><br></pre></td></tr></table></figure>
-<p>卸载一个已安装ruby版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rvm remove 2.3</span><br></pre></td></tr></table></figure>
-<h3 id="第三步：更换源"><a href="#第三步：更换源" class="headerlink" title="第三步：更换源"></a>第三步：更换源</h3><p>查看已有的源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem source -l</span><br></pre></td></tr></table></figure>
-<p>显示如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CURRENT SOURCES</span><br><span class="line">http://rubygems.org/</span><br></pre></td></tr></table></figure>
-<p>然后我们需要修改更换源（由于国内被墙），所以要把源切换至淘宝镜像服务器，在终端执行以下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gem update --system</span><br><span class="line">$ gem uninstall rubygems-update</span><br><span class="line">$ gem sources -r http://rubygems.org/</span><br><span class="line">$ gem sources -a https://ruby.taobao.org</span><br></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Ruby 是一种面向对象、命令式、函数式、动态的通用编程语言。 在20世纪90年代中期由日本人松本行弘（Matz）设计并开发。 遵守BSD许可证和Ruby License。 它的灵感与特性来自于Perl、Smalltalk、Eiffel、Ada以及Lisp语言。&lt;/p&gt;
-&lt;p&gt;Ruby 可运行于多种平台，如 Windows、MAC OS 和 UNIX 的各种版本。&lt;/p&gt;
-&lt;p&gt;Ruby用于最明显，且和Apple系列的程序员最直接关联的就是Mac的开发环境，直接关联于Cocoapods工具。但是，cocoapods工具与Ruby的版本有一定的关联性，难免不涉及到升级。&lt;/p&gt;
-&lt;p&gt;那么，如何升级最方便快捷呢？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
-    
-    
-      <category term="mac" scheme="http://charsdavy.github.io/tags/mac-os/"/>
-    
-      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac OS 开发 － 聊聊如何打包dmg文件</title>
-    <link href="http://charsdavy.github.io/2016/09/03/mac-os-archive-app/"/>
-    <id>http://charsdavy.github.io/2016/09/03/mac-os-archive-app/</id>
-    <published>2016-09-03T01:43:24.000Z</published>
-    <updated>2017-03-31T12:08:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。</p>
-<p>BTW 推荐一款非Apple官方的App Store，<code>HackStore</code>是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的<code>ImageHosting</code>，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 <a href="https://github.com/charsdavy/ImageHosting/releases" target="_blank" rel="external">ImageHosting for Mac</a></p>
-<p>现在，分享一下，当我们完成Mac开发，release一个<code>.app</code>文件之后，我们应该如何打包成一个dmg文件的方法。</p>
-<a id="more"></a>
-<p>言归正传，说到dmg，这个我们熟悉的格式，那么它是怎么生成的呢，跟着接下来的步骤吧。博主将它们分为<code>系统默认</code>和<code>自定义</code>，不过，两者都离不开一个工具 －－ <code>磁盘工具（Disk Utility）</code>。</p>
-<h3 id="系统默认"><a href="#系统默认" class="headerlink" title="系统默认"></a>系统默认</h3><p>打开 <code>磁盘工具</code> －&gt; <code>文件</code> －&gt; <code>新建映像</code> －&gt; <code>来自文件夹的映像</code></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-build.png?imageView2/2/w/460" alt=""></p>
-<p>资源文件夹内容</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-folder.png?imageView2/2/w/460" alt=""></p>
-<p>配置 选择包括 <code>.app</code> 和 <code>Applications 替身</code> 文件夹的路径，也就是上图说的 资源文件夹 路径</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-build-config.png?imageView2/2/w/460" alt=""></p>
-<p>点击 <code>打开</code> ，配置相关信息 点击 <code>存储</code> 即可。</p>
-<h3 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h3><p>1 准备资源，包括：背景图片，<code>.app</code> 和 <code>Applications 替身</code> 文件。</p>
-<p>2 创建一个空的映像文件</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-blank-dmg.png?imageView2/2/w/460" alt=""></p>
-<p>配置信息</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-config-blank-dmg.png?imageView2/2/w/460" alt=""></p>
-<p>3 配置资源 －－ 配置背景图</p>
-<p>1）打开显示选项</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-blank-fill-src.png?imageView2/2/w/460" alt=""></p>
-<p>2）配置背景图</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-show-view-option.png?imageView2/2/w/360" alt=""></p>
-<p>3）隐藏背景图片文件</p>
-<p>使用<code>mv</code>命令进行重命名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mv background.tif .background.tif</span><br></pre></td></tr></table></figure>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-hidden-bg.png?imageView2/2/w/460" alt=""></p>
-<p>4 配置资源 －－ 拖拽<code>.app</code> 和 <code>Applications 替身</code></p>
-<p>5 转换</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert.png?imageView2/2/w/480" alt=""></p>
-<p>配置转换信息</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert-config.png?imageView2/2/w/480" alt=""></p>
-<p>6 效果</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-result.png?imageView2/2/w/460" alt=""></p>
-<h3 id="附言"><a href="#附言" class="headerlink" title="附言"></a>附言</h3><p>每次自定义类型打包dmg，都需要从零开始，不能使用上一次的未转换时的文件直接替换<code>.app</code>文件。否则，呈现的样式将不是CD样式。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。&lt;/p&gt;
-&lt;p&gt;BTW 推荐一款非Apple官方的App Store，&lt;code&gt;HackStore&lt;/code&gt;是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的&lt;code&gt;ImageHosting&lt;/code&gt;，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 &lt;a href=&quot;https://github.com/charsdavy/ImageHosting/releases&quot;&gt;ImageHosting for Mac&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;现在，分享一下，当我们完成Mac开发，release一个&lt;code&gt;.app&lt;/code&gt;文件之后，我们应该如何打包成一个dmg文件的方法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="pieces" scheme="http://charsdavy.github.io/categories/pieces/"/>
-    
-    
-      <category term="mac" scheme="http://charsdavy.github.io/tags/mac-os/"/>
-    
-      <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
     
   </entry>
   
