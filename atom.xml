@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://charsdavy.github.io/"/>
-  <updated>2017-06-08T12:43:50.000Z</updated>
+  <updated>2017-06-12T16:12:33.000Z</updated>
   <id>http://charsdavy.github.io/</id>
   
   <author>
@@ -16,11 +16,58 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聊聊「二叉搜索树」的那些事儿</title>
+    <link href="http://charsdavy.github.io/2017/06/10/binary-search-tree/"/>
+    <id>http://charsdavy.github.io/2017/06/10/binary-search-tree/</id>
+    <published>2017-06-10T01:05:21.000Z</published>
+    <updated>2017-06-12T16:12:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。</p>
+<a id="more"></a>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree.png" alt="binary search tree"></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>二叉排序树的查找过程和次优二叉树类似，通常采取二叉链表作为二叉排序树的存储结构。中序遍历二叉排序树可得到一个关键字的有序序列，一个无序序列可以通过构造一棵二叉排序树变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。每次插入的新的节点都是二叉排序树上新的叶子节点，在进行插入操作时，不必移动其它节点，只需改动某个节点的指针，由空变为非空即可。搜索，插入，删除的复杂度等于树高，O(log(n))。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="树节点"><a href="#树节点" class="headerlink" title="树节点"></a>树节点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">/** 二叉树节点 */</span><br><span class="line">@interface DDBinaryTreeNode : NSObject</span><br><span class="line"></span><br><span class="line">/** 值 */</span><br><span class="line">@property (nonatomic, assign) NSInteger value;</span><br><span class="line">/** 左节点 */</span><br><span class="line">@property (nonatomic, strong) DDBinaryTreeNode *leftNode;</span><br><span class="line">/** 右节点 */</span><br><span class="line">@property (nonatomic, strong) DDBinaryTreeNode *rightNode;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>二叉排序树的创建无非就是不断查找和插入的过程，当我们查找某个值没有找到时，我们就会将该值插入到二叉排序树中。因为在查找的过程中可以确定该结点要插入的合适位置，所以插入就显得比较简单了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@class DDBinaryTreeNode;</span><br><span class="line"></span><br><span class="line">@interface DDBinarySearchTreeHandler : NSObject</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  创建二叉排序树</span><br><span class="line"> *  二叉排序树：左节点值全部小于根节点值，右节点值全部大于根节点值</span><br><span class="line"> *</span><br><span class="line"> *  @param values 数组</span><br><span class="line"> *</span><br><span class="line"> *  @return 二叉树根节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  向二叉排序树节点添加一个节点</span><br><span class="line"> *</span><br><span class="line"> *  @param treeNode 根节点</span><br><span class="line"> *  @param value	值</span><br><span class="line"> *</span><br><span class="line"> *  @return 根节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  二叉搜索树中某个值的节点</span><br><span class="line"> *</span><br><span class="line"> *  @param value	值</span><br><span class="line"> *  @param rootNode 树根节点</span><br><span class="line"> *</span><br><span class="line"> *  @return 节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values</span><br><span class="line">&#123;</span><br><span class="line">    DDBinaryTreeNode *root = nil;</span><br><span class="line">    for (NSInteger i = 0; i &lt; values.count; i++) &#123;</span><br><span class="line">        NSInteger value = [(NSNumber *)[values objectAtIndex:i] integerValue];</span><br><span class="line">        root = [DDBinarySearchTreeHandler addTreeNode:root value:value];</span><br><span class="line">    &#125;</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h3><p>根据查找树的性质我们可以很简单的写出添加的代码，一个一个的比较，注意每插入的一个总是叶子节点。再进行调整。最终形成的效果图如下：</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-01.png" alt="添加节点"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value</span><br><span class="line">&#123;</span><br><span class="line">    if (!treeNode) &#123;</span><br><span class="line">        treeNode = [[DDBinaryTreeNode alloc] init];</span><br><span class="line">        treeNode.value = value;</span><br><span class="line">        NSLog(@&quot;node:%td&quot;, value);</span><br><span class="line">    &#125; else if (value &lt;= treeNode.value) &#123;</span><br><span class="line">        NSLog(@&quot;to left&quot;);</span><br><span class="line">        //值小于根节点，则插入到左子树</span><br><span class="line">        treeNode.leftNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.leftNode value:value];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;to right&quot;);</span><br><span class="line">        //值大于根节点，则插入到右子树</span><br><span class="line">        treeNode.rightNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.rightNode value:value];</span><br><span class="line">    &#125;</span><br><span class="line">    return treeNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查找节点"><a href="#查找节点" class="headerlink" title="查找节点"></a>查找节点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode</span><br><span class="line">&#123;</span><br><span class="line">    if (!rootNode) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (rootNode.value == value) &#123;</span><br><span class="line">        return rootNode;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (value &lt; rootNode.value) &#123;</span><br><span class="line">        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.leftNode];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.rightNode];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><p>对于树来说，删除是最复杂的，主要需要考虑4种情况：叶子节点，只有左子树，只有右子树和左右子树都有。</p>
+<h4 id="叶子节点"><a href="#叶子节点" class="headerlink" title="叶子节点"></a>叶子节点</h4><p>删除的节点没有左子树也没有右子树，也就是删除的结点为叶子节点。这种情况下我们有可以细分为两类，一种是该叶子节点就是二叉排序树的根节点，也就是二叉排序树中只有一个节点的情况。只需要将root指针置为空即可。再一种情况是有删除的叶子节点有父节点，直接将父节点连接该删除节点的指针置空即可。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-02.png?v=20170612" alt="叶子节点"></p>
+<h4 id="只有一个子节点"><a href="#只有一个子节点" class="headerlink" title="只有一个子节点"></a>只有一个子节点</h4><p>如果删除的节点有左子树那就把左子树顶上去，如果有右子树就把右子树顶上去即可。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-03.png?v=20170612" alt="左子树节点"></p>
+<h4 id="左右子树都有"><a href="#左右子树都有" class="headerlink" title="左右子树都有"></a>左右子树都有</h4><p>首先可以这么想象，如果我们要删除一个数组的元素，那么我们在删除后会将其后面的一个元素顶到被删除的位置。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-04.png?v=20170612" alt="双孩子节点1"></p>
+<p>那么二叉树操作同样也是一样，我们根据”中序遍历“找到要删除节点的后一个节点，然后顶上去就行了，原理跟”数组”一样一样的。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-05.png?v=20170612.png" alt="双孩子节点2"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">+ (void)deleteTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode</span><br><span class="line">&#123;</span><br><span class="line">    DDBinaryTreeNode *parent = rootNode;</span><br><span class="line">    DDBinaryTreeNode *current = rootNode;</span><br><span class="line">    // 记录被找到的节点是父节点的左子节点还是右子节点</span><br><span class="line">    BOOL isLeftChild = false;</span><br><span class="line">    // 循环直到找到目标节点的位置,否则返回</span><br><span class="line">    while (current.value != value) &#123;</span><br><span class="line">        parent = current;</span><br><span class="line">        if (current.value &gt; value) &#123;</span><br><span class="line">            isLeftChild = true;</span><br><span class="line">            current = current.leftNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            isLeftChild = false;</span><br><span class="line">            current = current.rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">        if (current == nil) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点没有任何子节点</span><br><span class="line">    // 直接将该节点的原本指向该节点的指针设置为nil</span><br><span class="line">    if (current.leftNode == nil &amp;&amp; current.rightNode == nil) &#123;</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = nil;</span><br><span class="line">        &#125;</span><br><span class="line">        if (isLeftChild == true) &#123;</span><br><span class="line">            parent.leftNode = nil;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点有一个子节点,且其为左子节点</span><br><span class="line">    else if (current.rightNode == nil) &#123;</span><br><span class="line">        // 判断当前节点是否为根节点</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = current.leftNode;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            // 挂载到父节点的左子树</span><br><span class="line">            parent.leftNode = current.leftNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 挂载到父节点的右子树</span><br><span class="line">            parent.rightNode = current.leftNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (current.leftNode == nil) &#123;</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = current.rightNode;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            parent.leftNode = current.rightNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = current.rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点有两个子节点</span><br><span class="line">    else if (current.leftNode != nil &amp;&amp; current.rightNode != nil) &#123;</span><br><span class="line">        // 寻找右子树中的最小值</span><br><span class="line">        DDBinaryTreeNode *successor = [DDBinarySearchTreeHandler successor:current];</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = successor;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            parent.leftNode = successor;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = successor;</span><br><span class="line">        &#125;</span><br><span class="line">        successor.leftNode = current.leftNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> 在树中查找最合适的节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)successor:(DDBinaryTreeNode *)node &#123;</span><br><span class="line">    DDBinaryTreeNode *successsor = nil;</span><br><span class="line">    DDBinaryTreeNode *successsorParent = nil;</span><br><span class="line">    DDBinaryTreeNode *current = node.rightNode;</span><br><span class="line">    while (current != nil) &#123;</span><br><span class="line">        successsorParent = successsor;</span><br><span class="line">        successsor = current;</span><br><span class="line">        current = current.leftNode;</span><br><span class="line">    &#125;</span><br><span class="line">    if (successsor != node.rightNode) &#123;</span><br><span class="line">        successsorParent.leftNode = successsor.rightNode;</span><br><span class="line">        successsor.rightNode = node.rightNode;</span><br><span class="line">    &#125;</span><br><span class="line">    return successsor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="algorithm" scheme="http://charsdavy.github.io/categories/algorithm/"/>
+    
+    
+      <category term="objc" scheme="http://charsdavy.github.io/tags/objc/"/>
+    
+      <category term="tree" scheme="http://charsdavy.github.io/tags/tree/"/>
+    
+      <category term="二叉搜索树" scheme="http://charsdavy.github.io/tags/binary-search-tree/"/>
+    
+  </entry>
+  
+  <entry>
     <title>初探 TensorFlow</title>
     <link href="http://charsdavy.github.io/2017/06/07/tensorflow-primer-guide/"/>
     <id>http://charsdavy.github.io/2017/06/07/tensorflow-primer-guide/</id>
     <published>2017-06-07T15:45:11.000Z</published>
-    <updated>2017-06-08T12:43:50.000Z</updated>
+    <updated>2017-06-10T00:58:47.000Z</updated>
     
     <content type="html"><![CDATA[<p>TensorFlow 是一个采用数据流图（data flow graphs），用于数值计算的开源软件库。节点（Nodes）在图中表示数学操作，图中的线（edges）则表示在节点间相互联系的多维数据数组，即张量（tensor）。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。</p>
 <a id="more"></a>
@@ -75,9 +122,9 @@
       <category term="machine learning" scheme="http://charsdavy.github.io/categories/machine-learning/"/>
     
     
-      <category term="python" scheme="http://charsdavy.github.io/tags/python/"/>
-    
       <category term="tensorflow" scheme="http://charsdavy.github.io/tags/tensorflow/"/>
+    
+      <category term="python" scheme="http://charsdavy.github.io/tags/python/"/>
     
   </entry>
   
@@ -86,7 +133,7 @@
     <link href="http://charsdavy.github.io/2017/05/29/mysql-advanced-study/"/>
     <id>http://charsdavy.github.io/2017/05/29/mysql-advanced-study/</id>
     <published>2017-05-29T07:31:40.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>前面我们主要分享了MySQL中的常见知识与使用。这里我们主要分享一下MySQL中的高阶使用，主要包括：函数、存储过程和存储引擎。</p>
 <p>对于MySQL中的基础知识，可以参见</p>
@@ -508,7 +555,7 @@
     <link href="http://charsdavy.github.io/2017/05/19/mysql-sql-study/"/>
     <id>http://charsdavy.github.io/2017/05/19/mysql-sql-study/</id>
     <published>2017-05-19T07:43:18.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。</p>
 <p>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
@@ -709,7 +756,7 @@
     <link href="http://charsdavy.github.io/2017/05/16/mysql-study/"/>
     <id>http://charsdavy.github.io/2017/05/16/mysql-study/</id>
     <published>2017-05-16T15:05:12.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
 <p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
@@ -925,7 +972,7 @@
     <link href="http://charsdavy.github.io/2017/05/09/objc-runtime/"/>
     <id>http://charsdavy.github.io/2017/05/09/objc-runtime/</id>
     <published>2017-05-09T00:36:49.000Z</published>
-    <updated>2017-05-15T03:33:36.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
 <p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
@@ -1011,7 +1058,7 @@
     <link href="http://charsdavy.github.io/2017/04/23/japanese-honorific-tongue/"/>
     <id>http://charsdavy.github.io/2017/04/23/japanese-honorific-tongue/</id>
     <published>2017-04-23T13:17:27.000Z</published>
-    <updated>2017-05-08T01:59:44.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>在口语里，日语的谓语形式根据说话人之间的上下级关系、亲疏关系的不同而不同。“～ます”、“～です”是对长辈或关系不太亲密的人使用的形式。这种形式我们称为“敬体形”。与此相反，如对方是自己的同辈或晚辈，或者关系比较密切时则使用“简体形”。“简体形”是不使用“ます”、“です”的形式。</p>
 <p>动词本身即具有“敬体形”和“简体形”，“～ます”、“～ません”、“～ました”、“～ませんでした”等四种礼貌的表达形式即是“敬体形”，而动词的“基本形”、“ない形”、“た形”都属于简体形。但一类形容词、二类形容词和名词本身没有“敬体形”和“简体形”之分，只有在做谓语时，其谓语形式才具有“敬体形”和“简体形”。</p>
@@ -1152,7 +1199,7 @@
     <link href="http://charsdavy.github.io/2017/04/22/python-basic-knowledge/"/>
     <id>http://charsdavy.github.io/2017/04/22/python-basic-knowledge/</id>
     <published>2017-04-22T05:48:41.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:21:57.000Z</updated>
     
     <content type="html"><![CDATA[<p>全世界大概有几百种编程语言，而其中著名的只有十几种。Python就是著名编程语言之一。它起源于“龟叔”（Guido van Rossum，荷兰人）在1989年圣诞节间的无聊，而为了打发时间所创造。</p>
 <p>可见业余时间比工作时间创造出来的东西更容易出名哈，当然，这是开玩笑的。“龟叔”赋予Python“优雅、明确、简单”的特点。</p>
@@ -2017,7 +2064,7 @@
     <link href="http://charsdavy.github.io/2017/04/10/japanese-pronounce/"/>
     <id>http://charsdavy.github.io/2017/04/10/japanese-pronounce/</id>
     <published>2017-04-10T14:05:00.000Z</published>
-    <updated>2017-05-03T09:40:12.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>日语以东京音为标准音，其声调可以分为如下几种：0型，①型，②型，③型，④型，⑤型，⑥型和⑦型等。高声调表示重音，低声调表示轻音。</p>
 <p>0型：表示只有第一拍低，其它各拍都高。</p>
@@ -2747,7 +2794,7 @@
     <link href="http://charsdavy.github.io/2017/03/28/ios-interview/"/>
     <id>http://charsdavy.github.io/2017/03/28/ios-interview/</id>
     <published>2017-03-28T00:01:18.000Z</published>
-    <updated>2017-05-15T03:33:36.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
 <a id="more"></a>
@@ -3115,7 +3162,7 @@
     <link href="http://charsdavy.github.io/2017/03/26/japanese-auxiliary-word/"/>
     <id>http://charsdavy.github.io/2017/03/26/japanese-auxiliary-word/</id>
     <published>2017-03-26T13:34:16.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-12T00:14:59.000Z</updated>
     
     <content type="html"><![CDATA[<p>助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。</p>
 <p>日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。</p>
@@ -3199,6 +3246,10 @@
 <li>8）表原因、理由</li>
 </ul>
 <p>仕事(しごと)、楊(よう)さんと会(あ)っていたんですよ。</p>
+<ul>
+<li>9）表状态</li>
+</ul>
+<p>患者(かんじゃ)でいっぱい。</p>
 <h3 id="で和に的区别"><a href="#で和に的区别" class="headerlink" title="で和に的区别"></a>で和に的区别</h3><p>１）で强调后接动态动词。に强调后接静态动词。</p>
 <h2 id="が用法"><a href="#が用法" class="headerlink" title="が用法"></a>が用法</h2><ul>
 <li>1）表情感词前</li>
@@ -3258,6 +3309,32 @@
 <li>1）表选择，二选一，名词+か+名词</li>
 </ul>
 <p>毎月（まいつき）１回か２回映画（えいが）を見ます。</p>
+<h2 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h2><h3 id="と"><a href="#と" class="headerlink" title="と"></a>と</h3><p><strong>注意：</strong>不能和祈使语气连用。</p>
+<p><code>动词原形／动词ない形+と</code>表示必然结果或假设。</p>
+<h4 id="必然结果"><a href="#必然结果" class="headerlink" title="必然结果"></a>必然结果</h4><p>翻译成“一···就···”。</p>
+<ul>
+<li>1）恒常状态</li>
+</ul>
+<p>ボタンを押す（おす）と電源（でんげん）が入る（はいる）。<br>お金を入れ（いれ）ると、切符（きっぷ）が出る（だる）。</p>
+<ul>
+<li>2）自然现象</li>
+</ul>
+<p>春（はる）になると、花（はな）が咲く（さく）。<br>夜（よる）になると、気温（きおん）が下がる（さがる）。</p>
+<ul>
+<li>3）习惯</li>
+</ul>
+<p>彼（あれ）は家（うち）に帰ると、パソコンに向かって（むかって）いる。<br>朝起（お）きると、コーヒーを飲む。</p>
+<ul>
+<li>4）意外发现</li>
+</ul>
+<p>学校（がっこう）に着（つき）くと、雨（あめ）が止（や）んだ。<br>窓（まど）を開（ひら）けると、富士山が見えました。</p>
+<ul>
+<li>5）客观真理</li>
+</ul>
+<p>道（みち）を右（みぎ）に曲がる（まがる）と、床屋（とこや）があります。</p>
+<p><code>床屋：理发店</code></p>
+<h4 id="假设-1"><a href="#假设-1" class="headerlink" title="假设"></a>假设</h4><p>翻译成“如果···的话”。</p>
+<p>人間（にんげん）は水（みず）を飲まないと、生（い）きていけない。</p>
 ]]></content>
     
     <summary type="html">
@@ -3281,7 +3358,7 @@
     <link href="http://charsdavy.github.io/2017/03/22/mysql-install-config/"/>
     <id>http://charsdavy.github.io/2017/03/22/mysql-install-config/</id>
     <published>2017-03-22T15:04:47.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。<br>MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。<br>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。</p>
 <a id="more"></a>
@@ -3336,7 +3413,7 @@
     <link href="http://charsdavy.github.io/2017/03/21/fmdb-reading/"/>
     <id>http://charsdavy.github.io/2017/03/21/fmdb-reading/</id>
     <published>2017-03-21T14:51:12.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
 <a id="more"></a>
@@ -3451,7 +3528,7 @@
     <link href="http://charsdavy.github.io/2017/02/26/japanese-verb/"/>
     <id>http://charsdavy.github.io/2017/02/26/japanese-verb/</id>
     <published>2017-02-26T13:33:06.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-12T00:14:59.000Z</updated>
     
     <content type="html"><![CDATA[<p>动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。<br>&lt;比如&gt; 突跃,突击,突袭等描述动作过程均属动词。<br>中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。</p>
 <p>日语中动词主要分为3大类，称为一类动词，二类动词和三类动词（简称，动1，动2和动3），而三类动词中又可以分为2类，即カ变和サ变动词。</p>
@@ -3619,6 +3696,38 @@
 </table>
 <p>命令形一般男性使用，但是在看球赛或危险时使用。<br>女性可以使用<code>动词&lt;动词ます形去掉ます&gt;+なさい</code>语法来表达。</p>
 <p>しっかりしろ。给我醒醒。</p>
+<h3 id="原形变意志形（よう形）"><a href="#原形变意志形（よう形）" class="headerlink" title="原形变意志形（よう形）"></a>原形变意志形（よう形）</h3><p><code>动词よう形</code>是<code>动词ましよう</code>的口语，表示劝诱。翻译成“···吧”</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>规则</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一类动词</td>
+<td>把最后一个假名变成お段，再加う　</td>
+<td>　行く-&gt;行こう　</td>
+</tr>
+<tr>
+<td>二类动词</td>
+<td>将る去掉，直接换成よう　</td>
+<td>　見る-&gt;見よう　</td>
+</tr>
+<tr>
+<td>三类动词（サ变）</td>
+<td>　する-&gt;しよう　</td>
+<td>　勉強する-&gt;勉強しよう　</td>
+</tr>
+<tr>
+<td>三类动词（カ变）</td>
+<td>　くる-&gt;こよう　</td>
+<td>　来る-&gt;来よう　</td>
+</tr>
+</tbody>
+</table>
 <h3 id="原形变て形"><a href="#原形变て形" class="headerlink" title="原形变て形"></a>原形变て形</h3><p>て形作用：两个动词间使用，表中顿，表相继；语法接续。</p>
 <ul>
 <li>一类动词变て形</li>
@@ -3683,7 +3792,7 @@
 <td>ます形</td>
 <td>原形</td>
 <td>命令形</td>
-<td></td>
+<td>意志形</td>
 </tr>
 </tbody>
 </table>
@@ -3711,7 +3820,7 @@
     <link href="http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/"/>
     <id>http://charsdavy.github.io/2017/01/02/mac-install-apache-tomcat/</id>
     <published>2017-01-01T16:31:23.000Z</published>
-    <updated>2017-06-06T06:37:16.000Z</updated>
+    <updated>2017-06-06T00:18:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache Web服务器混淆，Apache Web Server是一个用C语言实现的HTTP web server；这两个HTTP web server不是捆绑在一起的。Apache Tomcat包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
 <p>这篇文章主要介绍Mac环境下，使用Eclipse + Tomcat搭建Java EE开发环境。</p>
@@ -3762,203 +3871,6 @@
       <category term="工具" scheme="http://charsdavy.github.io/tags/tool/"/>
     
       <category term="tomcat" scheme="http://charsdavy.github.io/tags/tomcat/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>日语-形容词</title>
-    <link href="http://charsdavy.github.io/2016/12/26/japanese-adjective/"/>
-    <id>http://charsdavy.github.io/2016/12/26/japanese-adjective/</id>
-    <published>2016-12-26T13:33:38.000Z</published>
-    <updated>2017-05-03T09:40:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>形容词（Adjective），很多语言中均有的主要词类中的一种。形容词主要用来描写或修饰名词或代词，表示人或事物的性质、 状态、特征<br>或属性，常用作定语，也可作表语、补语或状语。</p>
-<p>日语中的形容词分为两大类，称为一类形容词和二类形容词（简称，形1和形2）。形容词所表示的事物的属性，一般具有静止的、固定的、永恒的特点。</p>
-<a id="more"></a>
-<h2 id="形容词分类"><a href="#形容词分类" class="headerlink" title="形容词分类"></a>形容词分类</h2><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类形容词（形1）</td>
-<td>以い结尾的词</td>
-<td>美味しい（おいしい）、暑い（あっい）　</td>
-</tr>
-<tr>
-<td>二类形容词（形2）</td>
-<td>不以い结尾的词</td>
-<td>　元気（げんき）、暇（ひま）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注意特例</strong></p>
-<p><code>綺麗い（きれい）、嫌い（きらい）、いっぱい</code> 是形2。</p>
-<h2 id="形容词变形"><a href="#形容词变形" class="headerlink" title="形容词变形"></a>形容词变形</h2><h3 id="形容词变否定"><a href="#形容词变否定" class="headerlink" title="形容词变否定"></a>形容词变否定</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类形容词（形1）</td>
-<td>去い变成くない或者くありません</td>
-<td>　１）この料理は美味しくないです。２）この料理は美味しくありません。</td>
-</tr>
-<tr>
-<td>二类形容词（形2）</td>
-<td>　形2＋ではありません</td>
-<td>　この通りはにぎやかではありません。</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注意特例</strong></p>
-<p><code>いいです</code>的否定形式是<code>よくないです</code>或<code>よくありません</code>。</p>
-<h3 id="形容词变过去时"><a href="#形容词变过去时" class="headerlink" title="形容词变过去时"></a>形容词变过去时</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类形容词（形1）</td>
-<td>　去い变成かった　</td>
-<td>　よい-&gt;よかった</td>
-</tr>
-<tr>
-<td>二类形容词（形2）</td>
-<td>　</td>
-<td>　有名です-&gt;有名でした</td>
-</tr>
-</tbody>
-</table>
-<h3 id="形容词变过去否定时"><a href="#形容词变过去否定时" class="headerlink" title="形容词变过去否定时"></a>形容词变过去否定时</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类形容词（形1）</td>
-<td>　去い变成くなかった　</td>
-<td>　よい-&gt;よくなかった</td>
-</tr>
-<tr>
-<td>二类形容词（形2）</td>
-<td>　</td>
-<td>　有名です-&gt;有名ではありませんでした　</td>
-</tr>
-</tbody>
-</table>
-<p><strong>示例</strong></p>
-<table>
-<thead>
-<tr>
-<th>时态</th>
-<th>一类形容词</th>
-<th>变形</th>
-<th>二类形容词</th>
-<th>变形</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>否定</td>
-<td>よい</td>
-<td>よくない</td>
-<td>有名です</td>
-<td>有名ではありません</td>
-</tr>
-<tr>
-<td>过去时</td>
-<td>よい</td>
-<td>よかった</td>
-<td>有名です</td>
-<td>有名でした</td>
-</tr>
-<tr>
-<td>过去否定时</td>
-<td>よい</td>
-<td>よくなかった</td>
-<td>有名です</td>
-<td>有名ではありませんでした</td>
-</tr>
-</tbody>
-</table>
-<h3 id="形容词变副词"><a href="#形容词变副词" class="headerlink" title="形容词变副词"></a>形容词变副词</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类形容词（形1）</td>
-<td>　去い变成く　</td>
-<td>　多い（おおい）-&gt;多く</td>
-</tr>
-<tr>
-<td>二类形容词（形2）</td>
-<td>　直接加に　</td>
-<td>　きれい-&gt;きれいに</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注意</strong></p>
-<p>名词变副词规则与形2一致。</p>
-<h3 id="形容词变て形"><a href="#形容词变て形" class="headerlink" title="形容词变て形"></a>形容词变て形</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类形容词（形1）</td>
-<td>　去い变成くて　</td>
-<td>　広い（ひろい）-&gt;広くて</td>
-</tr>
-<tr>
-<td>二类形容词（形2）</td>
-<td>　直接加で　</td>
-<td>　簡単（かんたん）-&gt;簡単で</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注意</strong><br>いい不能用来变形，要用其对应的よい进行变形。</p>
-<p>名词变て形规则与形2一致。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;形容词（Adjective），很多语言中均有的主要词类中的一种。形容词主要用来描写或修饰名词或代词，表示人或事物的性质、 状态、特征&lt;br&gt;或属性，常用作定语，也可作表语、补语或状语。&lt;/p&gt;
-&lt;p&gt;日语中的形容词分为两大类，称为一类形容词和二类形容词（简称，形1和形2）。形容词所表示的事物的属性，一般具有静止的、固定的、永恒的特点。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="talk" scheme="http://charsdavy.github.io/categories/talk/"/>
-    
-    
-      <category term="碎碎念" scheme="http://charsdavy.github.io/tags/text/"/>
-    
-      <category term="日语" scheme="http://charsdavy.github.io/tags/japan-language/"/>
     
   </entry>
   
