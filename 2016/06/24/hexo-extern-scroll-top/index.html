@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next mist" lang="en">
 <head>
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <script>
@@ -99,7 +97,7 @@
 <meta name="description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo 博客功能扩展 - 添加回滚到顶部按钮">
-<meta property="og:url" content="http://charsdavy.github.io/2016/06/24/hexo-extern-scroll-top/index.html">
+<meta property="og:url" content="http://chars.tech/2016/06/24/hexo-extern-scroll-top/index.html">
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="摘要：承接前文《手把手教 GitHub + Hexo 搭建博客》 ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/scrollup.png">
@@ -118,7 +116,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: 'Author'
@@ -135,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://charsdavy.github.io/2016/06/24/hexo-extern-scroll-top/"/>
+  <link rel="canonical" href="http://chars.tech/2016/06/24/hexo-extern-scroll-top/"/>
 
 
 
@@ -320,7 +318,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://charsdavy.github.io/2016/06/24/hexo-extern-scroll-top/">
+    <link itemprop="mainEntityOfPage" href="http://chars.tech/2016/06/24/hexo-extern-scroll-top/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -437,7 +435,7 @@
       
 
       
-        <p>摘要：承接前文<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
+        <p>摘要：承接前文<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/" target="_blank" rel="external">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
 <a id="more"></a>
 <p><strong> 以Yilia主题为例，不同的主题可以类比找到对应的文件地址。 </strong></p>
 <h1 id="添加html代码"><a href="#添加html代码" class="headerlink" title="添加html代码"></a>添加html代码</h1><p>打开文件夹<code>/themes/Yilia/layout/_partial</code>在此文件夹下，新建文件<code>totop.ejs</code>，并向其中加入如下代码：</p>
