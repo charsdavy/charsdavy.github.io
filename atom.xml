@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://chars.tech/"/>
-  <updated>2017-07-03T06:51:00.000Z</updated>
+  <updated>2017-07-04T13:01:00.000Z</updated>
   <id>http://chars.tech/</id>
   
   <author>
@@ -16,11 +16,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>从iOS的图片圆角想到渲染</title>
+    <link href="http://chars.tech/2017/07/03/ios-corner-radius/"/>
+    <id>http://chars.tech/2017/07/03/ios-corner-radius/</id>
+    <published>2017-07-03T06:40:56.000Z</published>
+    <updated>2017-07-04T13:01:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。</p>
+<p>大家常见的圆角代码<code>x.layer.cornerRadius = xx; x.clipsToBounds = YES;</code>这两行确实实现了圆角视觉效果。其实使用<code>x.layer.cornerRadius = xx;</code>已经实现了圆角，只不过在某些控件是不生效的，因为某些图层在被切割圆角图层之上而被显示出来了。而<code>x.clipsToBounds = YES;</code>带来的后果就是产生<code>离屏渲染</code>。可以使用instruments中的CoreAnimation工具，打开<code>Color Offscren-Rednered Yellow</code>选项，可见黄色区域部分即是离屏渲染部分。</p>
+<p>那么离屏渲染会带来什么？当然后资源损耗，可能产生卡顿。因为在iPhone设备的硬件资源有差异，当离屏渲染不多时，并不是很明显感觉到它的缺点。</p>
+<a id="more"></a>
+<h2 id="什么是像素"><a href="#什么是像素" class="headerlink" title="什么是像素"></a>什么是像素</h2><p>像素，为视频显示的基本单位，译自英文“pixel”，pix是英语单词picture的常用简写，加上英语单词“元素”element，就得到pixel，故“像素”表示“画像元素”之意，有时亦被称为pel（picture element）。每个这样的消息元素不是一个点或者一个方块，而是一个抽象的取样。像素是由红，绿，蓝三种颜色组件构成的。因此，位图数据有时也被叫做 RGB 数据。</p>
+<h2 id="显示机制"><a href="#显示机制" class="headerlink" title="显示机制"></a>显示机制</h2><p>一个像素是如何绘制到屏幕上去的？有很多种方式将一些东西映射到显示屏上，他们需要调用不同的框架、许多功能和方法的结合体。这里我们大概看一下屏幕之后发生的事情。</p>
+<p>图像想显示到屏幕上使人肉眼可见都需借助像素的力量。它们密集的排布在手机屏幕上，将任何图形通过不同的色值表现出来。计算机显示的流程大致可以描述为将图像转化为一系列像素点的排列然后打印在屏幕上，由图像转化为像素点的过程又可以称之为光栅化，就是从矢量的点线面的描述，变成像素的描述。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300" alt="display screen"></p>
+<p>回溯历史，可以从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。</p>
+<h3 id="关于卡顿的简单原理解释"><a href="#关于卡顿的简单原理解释" class="headerlink" title="关于卡顿的简单原理解释"></a>关于卡顿的简单原理解释</h3><p>在 VSync 信号到来后，系统图形服务会通过 CADisplayLink 等机制通知 App，App 主线程开始在 CPU 中计算显示内容，比如视图的创建、布局计算、图片解码、文本绘制等。随后 CPU 会将计算好的内容提交到 GPU 去，由 GPU 进行变换、合成、渲染。随后 GPU 会把渲染结果提交到帧缓冲区去，等待下一次 VSync 信号到来时显示到屏幕上。由于垂直同步的机制，如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。这就是界面卡顿的原因。</p>
+<p>CPU 和 GPU 不论哪个阻碍了显示流程，都会造成掉帧现象。所以开发时，也需要分别对 CPU 和 GPU 压力进行评估和优化。</p>
+<h2 id="渲染机制"><a href="#渲染机制" class="headerlink" title="渲染机制"></a>渲染机制</h2><p>当像素映射到屏幕上的时候，后台发生了很多事情。但一旦它们显示到屏幕上，每一个像素均由三个颜色组件构成：红，绿，蓝。三个独立的颜色单元会根据给定的颜色显示到一个像素上。在 iPhoneSE 的显示器上有1,136×640=727,040个像素，因此有2,181,120个颜色单元。在一些Retina屏幕上，这一数字将达到百万以上。所有的图形堆栈一起工作以确保每次正确的显示。当你滚动整个屏幕的时候，数以百万计的颜色单元必须以每秒60次的速度刷新，这就是一个很大的工作量。</p>
+<p>简单来说，iOS的显示机制大致如此：<br><img src="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png" alt="pixels software stack"></p>
+<p>Display 的上一层便是图形处理单元 GPU，GPU 是一个专门为图形高并发计算而量身定做的处理单元。这也是为什么它能同时更新所有的像素，并呈现到显示器上。它的并发本性让它能高效的将不同纹理合成起来。所以，开发中我们应该尽量让CPU负责主线程的UI调动，把图形显示相关的工作交给GPU来处理。</p>
+<p>GPU Driver 是直接和 GPU 交流的代码块。不同的GPU是不同的性能怪兽，但是驱动使它们在下一个层级上显示的更为统一，典型的下一层级有 OpenGL/OpenGL ES.</p>
+<p>OpenGL(Open Graphics Library) 是一个提供了 2D 和 3D 图形渲染的 API。GPU 是一块非常特殊的硬件，OpenGL 和 GPU 密切的工作以提高GPU的能力，并实现硬件加速渲染。</p>
+<p>OpenGL 之上扩展出很多东西。在 iOS 上，几乎所有的东西都是通过 Core Animation 绘制出来，然而在 OS X 上，绕过 Core Animation 直接使用 Core Graphics 绘制的情况并不少见。对于一些专门的应用，尤其是游戏，程序可能直接和 OpenGL/OpenGL ES 交流。</p>
+<p>需要强调的是，GPU 是一个非常强大的图形硬件，并且在显示像素方面起着核心作用。它连接到 CPU。从硬件上讲两者之间存在某种类型的总线，并且有像 OpenGL，Core Animation 和 Core Graphics 这样的框架来在 GPU 和 CPU 之间精心安排数据的传输。为了将像素显示到屏幕上，一些处理将在 CPU 上进行。然后数据将会传送到 GPU，最终像素显示到屏幕上。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png" alt="pixels hardware"></p>
+<p>正如上图显示，GPU 需要将每一个 frame 的纹理(位图)合成在一起(一秒60次)。每一个纹理会占用 VRAM(video RAM)，所以需要给 GPU 同时保持纹理的数量做一个限制。GPU 在合成方面非常高效，但是某些合成任务却比其他更复杂，并且 GPU在 16.7ms(1/60s)内能做的工作也是有限的。</p>
+<p>另外一个问题就是将数据传输到 GPU 上。为了让 GPU 访问数据，需要将数据从 RAM 移动到 VRAM 上。这就是提及到的上传数据到 GPU。这些看起来貌似微不足道，但是一些大型的纹理却会非常耗时。</p>
+<p>最终，CPU 开始运行程序。你可能会让 CPU 从 bundle 加载一张 PNG 的图片并且解压它。这所有的事情都在 CPU 上进行。然后当你需要显示解压缩后的图片时，它需要以某种方式上传到 GPU。一些看似平凡的，比如显示文本，对 CPU 来说却是一件非常复杂的事情，这会促使 Core Text 和 Core Graphics 框架更紧密的集成来根据文本生成一个位图。一旦准备好，它将会被作为一个纹理上传到 GPU 并准备显示出来。当你滚动或者在屏幕上移动文本时，同样的纹理能够被复用，CPU 只需简单的告诉 GPU 新的位置就行了,所以 GPU 就可以重用存在的纹理了。CPU 并不需要重新渲染文本，并且位图也不需要重新上传到 GPU。</p>
+<p>在图形世界中，合成是一个描述不同位图如何放到一起来创建你最终在屏幕上看到图像的过程。屏幕上一切事物皆纹理。一个纹理就是一个包含 RGBA 值的长方形，比如，每一个像素里面都包含红、绿、蓝和透明度的值。在 Core Animation 世界中这就相当于一个 CALayer。</p>
+<p>每一个 layer 是一个纹理，所有的纹理都以某种方式堆叠在彼此的顶部。对于屏幕上的每一个像素，GPU 需要算出怎么混合这些纹理来得到像素 RGB 的值。这就是合成。</p>
+<p>如果我们所拥有的是一个和屏幕大小一样并且和屏幕像素对齐的单一纹理，那么屏幕上每一个像素相当于纹理中的一个像素，纹理的最后一个像素也就是屏幕的最后一个像素。</p>
+<p>如果我们有第二个纹理放在第一个纹理之上，然后GPU将会把第二个纹理合成到第一个纹理中。有很多种不同的合成方法，但是如果我们假定两个纹理的像素对齐，并且使用正常的混合模式，我们便可以用公式来计算每一个像素：<code>R = S + D * ( 1 – Sa )</code><br>结果的颜色是源色彩(顶端纹理)+目标颜色(低一层的纹理)*(1-源颜色的透明度)。在这个公式中所有的颜色都假定已经预先乘以了它们的透明度。</p>
+<p>接着我们进行第二个假定，两个纹理都完全不透明，比如 alpha=1。如果目标纹理(低一层的纹理)是蓝色(RGB=0,0,1)，并且源纹理(顶层的纹理)颜色是红色(RGB=1,0,0)，因为 Sa 为1，所以结果为：<code>R = S</code><br>结果是源颜色的红色。这正是我们所期待的(红色覆盖了蓝色)。如果源颜色层为50%的透明，比如 alpha=0.5，既然 alpha 组成部分需要预先乘进 RGB 的值中，那么 S 的 RGB 值为(0.5, 0, 0)，公式看起来便会像这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">                       0.5   0               0.5</span><br><span class="line">R = S + D * (1 - Sa) = 0   + 0 * (1 - 0.5) = 0</span><br><span class="line">                       0     1               0.5</span><br></pre></td></tr></table></figure>
+<p>我们最终得到RGB值为(0.5, 0, 0.5),是一个紫色。这正是我们所期望将透明红色合成到蓝色背景上所得到的。</p>
+<p>记住我们刚刚只是将纹理中的一个像素合成到另一个纹理的像素上。当两个纹理覆盖在一起的时候，GPU需要为所有像素做这种操作。正如你所知道的一样，许多程序都有很多层，因此所有的纹理都需要合成到一起。尽管GPU是一块高度优化的硬件来做这种事情，但这还是会让它非常忙碌。</p>
+<h3 id="为何图片缩放会增加GPU工作量"><a href="#为何图片缩放会增加GPU工作量" class="headerlink" title="为何图片缩放会增加GPU工作量"></a>为何图片缩放会增加GPU工作量</h3><p>当所有的像素是对齐的时候我们得到相对简单的计算公式。每当 GPU 需要计算出屏幕上一个像素是什么颜色的时候，它只需要考虑在这个像素之上的所有 layer 中对应的单个像素，并把这些像素合并到一起。或者，如果最顶层的纹理是不透明的(即图层树的最底层)，这时候 GPU 就可以简单的拷贝它的像素到屏幕上。</p>
+<p>当一个 layer 上所有的像素和屏幕上的像素完美的对应整齐，那这个 layer 就是像素对齐的。主要有两个原因可能会造成不对齐。第一个便是滚动，当一个纹理上下滚动的时候，纹理的像素便不会和屏幕的像素排列对齐。另一个原因便是当纹理的起点不在一个像素的边界上。</p>
+<p>在这两种情况下，GPU 需要再做额外的计算。它需要将源纹理上多个像素混合起来，生成一个用来合成的值。当所有的像素都是对齐的时候，GPU 只剩下很少的工作要做。</p>
+<p>Core Animation 工具和模拟器有一个<code>Color Misaligned Images</code>选项，当这些在你的 CALayer 实例中发生的时候，这个功能便可向你展示。</p>
+<p>关于iOS设备的一些尺寸限制可以看这里：<a href="http://iosres.com/" target="_blank" rel="external">iOSRes</a></p>
+<h2 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h2><p>On-Screen Rendering意为当前屏幕渲染，指的是GPU的渲染操作是在当前用于显示的屏幕缓冲区中进行。<br>Off-Screen Rendering意为离屏渲染，指的是GPU在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作。</p>
+<p>当图层属性的混合体被指定为在未预合成之前不能直接在屏幕中绘制时，屏幕外渲染就被唤起了。屏幕外渲染并不意味着软件绘制，但是它意味着图层必须在被显示之前在一个屏幕外上下文中被渲染（不论CPU还是GPU）。</p>
+<p>离屏渲染可以被 Core Animation 自动触发，或者被应用程序强制触发。屏幕外的渲染会合并/渲染图层树的一部分到一个新的缓冲区，然后该缓冲区被渲染到屏幕上。</p>
+<h3 id="特殊的“离屏渲染”：CPU渲染"><a href="#特殊的“离屏渲染”：CPU渲染" class="headerlink" title="特殊的“离屏渲染”：CPU渲染"></a>特殊的“离屏渲染”：CPU渲染</h3><p>如果我们重写了drawRect方法，并且使用任何Core Graphics的技术进行了绘制操作，就涉及到了CPU渲染。<br>整个渲染过程由CPU在App内同步地完成，渲染得到的bitmap最后再交由GPU用于显示。</p>
+<h3 id="离屏渲染的体现"><a href="#离屏渲染的体现" class="headerlink" title="离屏渲染的体现"></a>离屏渲染的体现</h3><p>相比于当前屏幕渲染，离屏渲染的代价是很高的，主要体现在两个方面：</p>
+<ul>
+<li>1 创建新缓冲区<br>要想进行离屏渲染，首先要创建一个新的缓冲区。</li>
+<li>2 上下文切换<br>离屏渲染的整个过程，需要多次切换上下文环境：先是从当前屏幕（On-Screen）切换到离屏（Off-Screen）；等到离屏渲染结束以后，将离屏缓冲区的渲染结果显示到屏幕上，又需要将上下文环境从离屏切换到当前屏幕。而上下文环境的切换是要付出很大代价的。</li>
+</ul>
+<h3 id="触发离屏渲染"><a href="#触发离屏渲染" class="headerlink" title="触发离屏渲染"></a>触发离屏渲染</h3><p>1、drawRect<br>2、layer.shouldRasterize = true;<br>3、有mask或者是阴影(layer.masksToBounds, layer.shadow*)；<br> 3.1) shouldRasterize（光栅化）<br> 3.2) masks（遮罩）<br> 3.3) shadows（阴影）<br> 3.4) edge antialiasing（抗锯齿）<br> 3.5) group opacity（不透明）<br>4、Text（UILabel, CATextLayer, Core Text, etc）…<br>注：layer.cornerRadius，layer.borderWidth，layer.borderColor并不会Offscreen Render，因为这些不需要加入Mask。</p>
+<h2 id="圆角优化"><a href="#圆角优化" class="headerlink" title="圆角优化"></a>圆角优化</h2><p>前面说了那么多，这里就给上实际可行方案。圆角的优化目前考虑两方面：一是，从图片入手，将图片切割成指定圆角样式。二是，使用贝塞尔曲线，利用CALayer层绘制指定圆角样式的mask遮盖View。</p>
+<p>UIImage切割：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);</span><br><span class="line">CGContextRef context = UIGraphicsGetCurrentContext();</span><br><span class="line">CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);</span><br><span class="line">CGContextScaleCTM(context, 1, -1);</span><br><span class="line">CGContextTranslateCTM(context, 0, -rect.size.height);</span><br><span class="line"></span><br><span class="line">CGFloat minSize = MIN(self.size.width, self.size.height);</span><br><span class="line">if (borderWidth &lt; minSize / 2.0) &#123;</span><br><span class="line">    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(rect, borderWidth, borderWidth) byRoundingCorners:corners cornerRadii:CGSizeMake(radius, borderWidth)];</span><br><span class="line">    CGContextSaveGState(context);</span><br><span class="line">    [path addClip];</span><br><span class="line">    CGContextDrawImage(context, rect, self.CGImage);</span><br><span class="line">    CGContextRestoreGState(context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">UIImage *image = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">image = [image dd_imageByCornerRadius:radius borderedColor:borderColor borderWidth:borderWidth corners:corners];</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
+<p>图片绘制：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);</span><br><span class="line">[self drawAtPoint:CGPointZero];</span><br><span class="line">CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);</span><br><span class="line">CGFloat strokeInset = borderWidth / 2.0;</span><br><span class="line">CGRect strokeRect = CGRectInset(rect, strokeInset, strokeInset);</span><br><span class="line">UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, borderWidth)];</span><br><span class="line">path.lineWidth = borderWidth;</span><br><span class="line">[borderColor setStroke];</span><br><span class="line">[path stroke];</span><br><span class="line">UIImage *result = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
+<p>具体源码可以转至github进行star <a href="https://github.com/charsdavy/DDCornerRadius" target="_blank" rel="external">DDCornerRadius</a> 欢迎issue。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。&lt;/p&gt;
+&lt;p&gt;大家常见的圆角代码&lt;code&gt;x.layer.cornerRadius = xx; x.clipsToBounds = YES;&lt;/code&gt;这两行确实实现了圆角视觉效果。其实使用&lt;code&gt;x.layer.cornerRadius = xx;&lt;/code&gt;已经实现了圆角，只不过在某些控件是不生效的，因为某些图层在被切割圆角图层之上而被显示出来了。而&lt;code&gt;x.clipsToBounds = YES;&lt;/code&gt;带来的后果就是产生&lt;code&gt;离屏渲染&lt;/code&gt;。可以使用instruments中的CoreAnimation工具，打开&lt;code&gt;Color Offscren-Rednered Yellow&lt;/code&gt;选项，可见黄色区域部分即是离屏渲染部分。&lt;/p&gt;
+&lt;p&gt;那么离屏渲染会带来什么？当然后资源损耗，可能产生卡顿。因为在iPhone设备的硬件资源有差异，当离屏渲染不多时，并不是很明显感觉到它的缺点。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://chars.tech/categories/pieces/"/>
+    
+    
+      <category term="ios" scheme="http://chars.tech/tags/ios/"/>
+    
+      <category term="objc" scheme="http://chars.tech/tags/objc/"/>
+    
+      <category term="ui" scheme="http://chars.tech/tags/ui/"/>
+    
+      <category term="优化" scheme="http://chars.tech/tags/optimization/"/>
+    
+      <category term="渲染" scheme="http://chars.tech/tags/render/"/>
+    
+  </entry>
+  
+  <entry>
     <title>二叉树的那些使用</title>
     <link href="http://chars.tech/2017/06/13/binary-tree-guide/"/>
     <id>http://chars.tech/2017/06/13/binary-tree-guide/</id>
     <published>2017-06-13T15:30:22.000Z</published>
-    <updated>2017-07-03T06:51:00.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>在计算机科学中，二叉树（英语：Binary tree）是每个节点最多只有两个分支(不存在分支度大于2的节点)的树结构。通常分支被称作“左子树”和“右子树”。二叉树的分支具有左右次序，不能颠倒。</p>
 <p>二叉树的第i层至多拥有 2^(i-1) 个节点数；深度为k的二叉树至多总共有 2^(k+1) - 1 个节点数，而总计拥有节点数匹配的，称为“满二叉树”；深度为k有n个节点的二叉树，当且仅当其中的每一节点，都可以和同样深度k的满二叉树，序号为1到n的节点一对一对应时，称为“完全二叉树”。对任何一棵非空的二叉树T，如果其叶片(终端节点)数为n0，分支度为2的节点数为n2，则n0 = n2 + 1。</p>
@@ -93,7 +176,7 @@
     <link href="http://chars.tech/2017/06/10/binary-search-tree/"/>
     <id>http://chars.tech/2017/06/10/binary-search-tree/</id>
     <published>2017-06-10T01:05:21.000Z</published>
-    <updated>2017-07-03T06:51:02.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。</p>
 <a id="more"></a>
@@ -139,7 +222,7 @@
     <link href="http://chars.tech/2017/06/07/tensorflow-primer-guide/"/>
     <id>http://chars.tech/2017/06/07/tensorflow-primer-guide/</id>
     <published>2017-06-07T15:45:11.000Z</published>
-    <updated>2017-07-03T06:57:23.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>TensorFlow 是一个采用数据流图（data flow graphs），用于数值计算的开源软件库。节点（Nodes）在图中表示数学操作，图中的线（edges）则表示在节点间相互联系的多维数据数组，即张量（tensor）。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。</p>
 <a id="more"></a>
@@ -205,7 +288,7 @@
     <link href="http://chars.tech/2017/05/29/mysql-advanced-study/"/>
     <id>http://chars.tech/2017/05/29/mysql-advanced-study/</id>
     <published>2017-05-29T07:31:40.000Z</published>
-    <updated>2017-07-03T06:56:30.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>前面我们主要分享了MySQL中的常见知识与使用。这里我们主要分享一下MySQL中的高阶使用，主要包括：函数、存储过程和存储引擎。</p>
 <p>对于MySQL中的基础知识，可以参见</p>
@@ -627,7 +710,7 @@
     <link href="http://chars.tech/2017/05/19/mysql-sql-study/"/>
     <id>http://chars.tech/2017/05/19/mysql-sql-study/</id>
     <published>2017-05-19T07:43:18.000Z</published>
-    <updated>2017-07-03T06:56:34.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。</p>
 <p>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
@@ -828,7 +911,7 @@
     <link href="http://chars.tech/2017/05/16/mysql-study/"/>
     <id>http://chars.tech/2017/05/16/mysql-study/</id>
     <published>2017-05-16T15:05:12.000Z</published>
-    <updated>2017-07-03T06:56:36.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
 <p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
@@ -1044,7 +1127,7 @@
     <link href="http://chars.tech/2017/05/09/objc-runtime/"/>
     <id>http://chars.tech/2017/05/09/objc-runtime/</id>
     <published>2017-05-09T00:36:49.000Z</published>
-    <updated>2017-07-03T06:56:53.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
 <p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
@@ -1130,7 +1213,7 @@
     <link href="http://chars.tech/2017/04/23/japanese-honorific-tongue/"/>
     <id>http://chars.tech/2017/04/23/japanese-honorific-tongue/</id>
     <published>2017-04-23T13:17:27.000Z</published>
-    <updated>2017-07-03T06:56:02.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>在口语里，日语的谓语形式根据说话人之间的上下级关系、亲疏关系的不同而不同。“～ます”、“～です”是对长辈或关系不太亲密的人使用的形式。这种形式我们称为“敬体形”。与此相反，如对方是自己的同辈或晚辈，或者关系比较密切时则使用“简体形”。“简体形”是不使用“ます”、“です”的形式。</p>
 <p>动词本身即具有“敬体形”和“简体形”，“～ます”、“～ません”、“～ました”、“～ませんでした”等四种礼貌的表达形式即是“敬体形”，而动词的“基本形”、“ない形”、“た形”都属于简体形。但一类形容词、二类形容词和名词本身没有“敬体形”和“简体形”之分，只有在做谓语时，其谓语形式才具有“敬体形”和“简体形”。</p>
@@ -1271,7 +1354,7 @@
     <link href="http://chars.tech/2017/04/22/python-basic-knowledge/"/>
     <id>http://chars.tech/2017/04/22/python-basic-knowledge/</id>
     <published>2017-04-22T05:48:41.000Z</published>
-    <updated>2017-07-03T06:57:01.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>全世界大概有几百种编程语言，而其中著名的只有十几种。Python就是著名编程语言之一。它起源于“龟叔”（Guido van Rossum，荷兰人）在1989年圣诞节间的无聊，而为了打发时间所创造。</p>
 <p>可见业余时间比工作时间创造出来的东西更容易出名哈，当然，这是开玩笑的。“龟叔”赋予Python“优雅、明确、简单”的特点。</p>
@@ -1908,7 +1991,7 @@
     <link href="http://chars.tech/2017/04/19/ios-security-pattern/"/>
     <id>http://chars.tech/2017/04/19/ios-security-pattern/</id>
     <published>2017-04-19T15:18:42.000Z</published>
-    <updated>2017-07-03T06:55:49.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>作为iOS开发，作品App肯定需要提交到App Store审核。平心而论，App Store确实成功地将许多恶意软件拒之门外。但是，对开发者而言，应用程序的审核流程是令人沮丧的黑箱操作。</p>
 <p>当然，什么是恶意程序是由Apple来定义。因为App Store的存在，所以，如果想要实现某些特定的功能，唯一的手段就是将设备越狱或者骗过App Store的审查。</p>
@@ -1970,7 +2053,7 @@
     <link href="http://chars.tech/2017/04/11/ios-lifecycle/"/>
     <id>http://chars.tech/2017/04/11/ios-lifecycle/</id>
     <published>2017-04-11T09:07:18.000Z</published>
-    <updated>2017-07-03T06:55:39.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>iOS应用程序的生命周期，还有程序是运行在前台还是后台，应用程序各个状态的变换，这些对于开发者来说都是很重要的。iOS系统的资源是有限的，应用程序在前台和在后台的状态是不一样的。在后台时，程序会受到系统的很多限制，这样可以提高电池的使用和用户体验。</p>
 <p>本文所要说到的生命周期，也不仅仅只是应用生命周期；还包括，视图生命周期。</p>
@@ -2136,7 +2219,7 @@
     <link href="http://chars.tech/2017/04/10/japanese-pronounce/"/>
     <id>http://chars.tech/2017/04/10/japanese-pronounce/</id>
     <published>2017-04-10T14:05:00.000Z</published>
-    <updated>2017-07-03T06:56:05.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>日语以东京音为标准音，其声调可以分为如下几种：0型，①型，②型，③型，④型，⑤型，⑥型和⑦型等。高声调表示重音，低声调表示轻音。</p>
 <p>0型：表示只有第一拍低，其它各拍都高。</p>
@@ -2550,7 +2633,7 @@
     <link href="http://chars.tech/2017/03/30/sublime-text-tool/"/>
     <id>http://chars.tech/2017/03/30/sublime-text-tool/</id>
     <published>2017-03-29T23:51:43.000Z</published>
-    <updated>2017-07-03T06:57:21.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>Sublime Text 是一个代码编辑器（Sublime Text 2是收费软件，但可以无限期试用），也是HTML和散文先进的文本编辑器。Sublime Text是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的Vim。</p>
 <p>笔者整理了一些使用快捷方式，以及一些常用插件，分享一下。</p>
@@ -2820,7 +2903,7 @@
     <link href="http://chars.tech/2017/03/29/article-copyright/"/>
     <id>http://chars.tech/2017/03/29/article-copyright/</id>
     <published>2017-03-29T06:04:50.000Z</published>
-    <updated>2017-07-03T06:51:03.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>文章版权，这个词汇以前笔者以前是不怎么有体会的，认为在当今互联网的时代，随便网上Google一下很多地方的文章如出一辙，而作者也是千奇百怪，甚至都不清楚谁才是作者。这篇文章，笔者是遇见了真实的事件，现在很想说一说，看看大家是否也是一样，认为一个版权意识高的视界里，资源与时间都是高效的。不用在看一条，两条都是一样的，浪费时间和资源。</p>
 <p>不知道是否有人明白什么叫“版权”。说实在的，笔者并不是很清楚它的定义。这里引入百科的解释：</p>
@@ -2866,7 +2949,7 @@
     <link href="http://chars.tech/2017/03/28/ios-interview/"/>
     <id>http://chars.tech/2017/03/28/ios-interview/</id>
     <published>2017-03-28T00:01:18.000Z</published>
-    <updated>2017-07-03T06:57:36.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
 <a id="more"></a>
@@ -3177,7 +3260,7 @@
     <link href="http://chars.tech/2017/03/28/objective-c-NSPredicate/"/>
     <id>http://chars.tech/2017/03/28/objective-c-NSPredicate/</id>
     <published>2017-03-27T23:51:52.000Z</published>
-    <updated>2017-07-03T06:56:55.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>编写软件时，经常需要获取一个对象集合，并通过某些已经条件计算该集合的值。你需要保留符合某个条件的对象，删除那些不满足条件的对象，从而提供一些有意义的对象。</p>
 <p>在使用软件iPhoto的过程中，经常会看到这种现象，如果通知iPhoto仅显示等级为三星级或三星级以上的图片，则指定的条件为“照片的等级必须为三星级或三星级以上”。这样，所有照片都需要经过该过滤器过滤。满足条件的对象通过了过滤器，而其他对象被筛除了。最后，iPhoto将显示出所有高质量的图片。</p>
@@ -3234,7 +3317,7 @@
     <link href="http://chars.tech/2017/03/26/japanese-auxiliary-word/"/>
     <id>http://chars.tech/2017/03/26/japanese-auxiliary-word/</id>
     <published>2017-03-26T13:34:16.000Z</published>
-    <updated>2017-07-03T06:56:00.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p>助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。</p>
 <p>日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。</p>
@@ -3435,7 +3518,7 @@
     <link href="http://chars.tech/2017/03/22/mysql-install-config/"/>
     <id>http://chars.tech/2017/03/22/mysql-install-config/</id>
     <published>2017-03-22T15:04:47.000Z</published>
-    <updated>2017-07-03T06:56:32.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。<br>MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。<br>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。</p>
 <a id="more"></a>
@@ -3490,7 +3573,7 @@
     <link href="http://chars.tech/2017/03/21/fmdb-reading/"/>
     <id>http://chars.tech/2017/03/21/fmdb-reading/</id>
     <published>2017-03-21T14:51:12.000Z</published>
-    <updated>2017-07-03T06:58:07.000Z</updated>
+    <updated>2017-07-04T12:58:55.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
 <a id="more"></a>
@@ -3597,299 +3680,6 @@
       <category term="database" scheme="http://chars.tech/tags/database/"/>
     
       <category term="存储" scheme="http://chars.tech/tags/persistence/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>日语-动词</title>
-    <link href="http://chars.tech/2017/02/26/japanese-verb/"/>
-    <id>http://chars.tech/2017/02/26/japanese-verb/</id>
-    <published>2017-02-26T13:33:06.000Z</published>
-    <updated>2017-07-03T06:56:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。<br>&lt;比如&gt; 突跃,突击,突袭等描述动作过程均属动词。<br>中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。</p>
-<p>日语中动词主要分为3大类，称为一类动词，二类动词和三类动词（简称，动1，动2和动3），而三类动词中又可以分为2类，即カ变和サ变动词。</p>
-<p>另外，还有一种经常用到的动词，即授受动词。</p>
-<a id="more"></a>
-<h2 id="授受动词"><a href="#授受动词" class="headerlink" title="授受动词"></a>授受动词</h2><h3 id="授受主体为物品"><a href="#授受主体为物品" class="headerlink" title="授受主体为物品"></a>授受主体为物品</h3><ul>
-<li>あげます：我或我方给别人，常用于上对下</li>
-</ul>
-<p>私は小野さんにパンカチをあげます。<br>彼氏は李さんにバラをあげます。</p>
-<p><strong>注意：</strong>若分不清我方和别人时，一律用这种句型。</p>
-<p>父は母に本をあげます。<br>私は先生に本をあげます。</p>
-<p><strong>注意：</strong>变疑问句</p>
-<p>[我方]は誰（だれ）に何をあげますか。</p>
-<ul>
-<li>もらいます：我或我方从别人那里得到，礼貌用法</li>
-</ul>
-<p>私は先生から<strong>に</strong>辞書をもらいます。<br>私は会社<strong>から</strong>パソコンをもらいます。</p>
-<p><strong>注意：</strong>别人为个人时，后面用に；别人为团体时，后面用から。</p>
-<ul>
-<li>くれます：别人给我或我方，平级间使用</li>
-</ul>
-<p>先生は私に辞書をくれます。<br>社長は弟におもちゃをくれます。</p>
-<p><strong>注意</strong> 还有一些动词也属于授受类，例如，借东西，还东西。</p>
-<p>教えます、貸します：我或我方教别人学习东西或借东西给别人。<br>習います、借ります：我或我方跟别人学习东西或从别人那里借东西。</p>
-<h3 id="授受主体为动作"><a href="#授受主体为动作" class="headerlink" title="授受主体为动作"></a>授受主体为动作</h3><ul>
-<li>てあげます：我或我方为别人做某事，常用于上对下</li>
-</ul>
-<p>おじいさんが孫(まご)に本を読んであげました。<br>分(わ)からないですか、じゃ教え(おしえ)てあげましよう。</p>
-<ul>
-<li>てもらいます：我或我方请别人做某事，礼貌用法</li>
-</ul>
-<p>冷蔵庫はもう電話して明日送(おく)ってもらいました。<br>冷蔵庫はもう電話して明日届(とど)けてもらいました。</p>
-<ul>
-<li>てくれます：别人为我或我方做某事，平级间使用</li>
-</ul>
-<p>信(しん)じてくれて。<br>ごみを出(だ)してくれますか。</p>
-<h2 id="自动词和他动词"><a href="#自动词和他动词" class="headerlink" title="自动词和他动词"></a>自动词和他动词</h2><h3 id="他动词"><a href="#他动词" class="headerlink" title="他动词"></a>他动词</h3><p>带宾语才能完整表达意思。<br><strong>规律：</strong>え段＋る；以す结尾。<br>ドアを開ける、消す、話す</p>
-<h3 id="自动词"><a href="#自动词" class="headerlink" title="自动词"></a>自动词</h3><p>无需带宾语就能完整表达意思。<br><strong>规律：</strong>あ段＋る；一般以く结尾。<br>ドアが開く、歩く、咲く</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
-<li>没有他动词的自动词</li>
-</ul>
-<p>歩く、帰る、行く、遊ぶ、走る</p>
-<ul>
-<li>没有自动词的他动词</li>
-</ul>
-<p>食べる、見る、話す、言う、買う、飲む</p>
-<ul>
-<li>既有自动词，也有他动词</li>
-</ul>
-<p>開ける、開く；閉める、閉まる</p>
-<ul>
-<li>既是自动词，又是他动词</li>
-</ul>
-<p>笑う（わらう）、終わる、休み</p>
-<h2 id="动词分类"><a href="#动词分类" class="headerlink" title="动词分类"></a>动词分类</h2><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类动词（动1）</td>
-<td>以う段假名结尾的词　</td>
-<td>　行く、読む、帰る（かえる）、滑る（すべる）　</td>
-</tr>
-<tr>
-<td>二类动词（动2）</td>
-<td>以る结尾，且る前为い段假名或え段假名的词　</td>
-<td>　寝る、見る、食べる （<strong>注意</strong>一个汉字一个音）</td>
-</tr>
-<tr>
-<td>三类动词（サ变）</td>
-<td>する（万能动词）</td>
-<td>　勉強する、電話する　</td>
-</tr>
-<tr>
-<td>三类动词（カ变）</td>
-<td>　来（く）る　</td>
-<td>　</td>
-</tr>
-</tbody>
-</table>
-<h2 id="动词变形"><a href="#动词变形" class="headerlink" title="动词变形"></a>动词变形</h2><h3 id="原形变ます形"><a href="#原形变ます形" class="headerlink" title="原形变ます形"></a>原形变ます形</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类动词</td>
-<td>う段-&gt;い段＋ます　</td>
-<td>　行く-&gt;行きます　</td>
-</tr>
-<tr>
-<td>二类动词</td>
-<td>去る-&gt;＋ます　</td>
-<td>　見る-&gt;見ます　</td>
-</tr>
-<tr>
-<td>三类动词（サ变）</td>
-<td>　する-&gt;します　</td>
-<td>　勉強する-&gt;勉強します　</td>
-</tr>
-<tr>
-<td>三类动词（カ变）</td>
-<td>　くる-&gt;きます　</td>
-<td>　来る-&gt;来ます　</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ます形变原形"><a href="#ます形变原形" class="headerlink" title="ます形变原形"></a>ます形变原形</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类动词</td>
-<td>去掉ます，将ます前一个假名按行后移一个　</td>
-<td>　あります-&gt;ある　</td>
-</tr>
-<tr>
-<td>二类动词</td>
-<td>将ます去掉，直接换成る　</td>
-<td>　見ます-&gt;見る　</td>
-</tr>
-<tr>
-<td>三类动词（サ变）</td>
-<td>　します-&gt;する　</td>
-<td>　勉強します-&gt;勉強する　</td>
-</tr>
-<tr>
-<td>三类动词（カ变）</td>
-<td>　きます-&gt;くる　</td>
-<td>　来ます-&gt;来る　</td>
-</tr>
-</tbody>
-</table>
-<h3 id="原形变命令形"><a href="#原形变命令形" class="headerlink" title="原形变命令形"></a>原形变命令形</h3><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类动词</td>
-<td>去掉最后一个假名按行后移到え段　</td>
-<td>　とまります-&gt;とまれ、行く-&gt;行け、死(し)ぬ-&gt;死ね　</td>
-</tr>
-<tr>
-<td>二类动词</td>
-<td>将る去掉，直接换成ろ　</td>
-<td>　見る-&gt;見ろ、やめる-&gt;やめろ、逃(に)げる-&gt;逃げろ　</td>
-</tr>
-<tr>
-<td>三类动词（サ变）</td>
-<td>　する-&gt;しろ　</td>
-<td>　勉強する-&gt;勉強しろ　</td>
-</tr>
-<tr>
-<td>三类动词（カ变）</td>
-<td>　来(く)る-&gt;こい　</td>
-<td>　来る-&gt;こい　</td>
-</tr>
-</tbody>
-</table>
-<p>命令形一般男性使用，但是在看球赛或危险时使用。<br>女性可以使用<code>动词&lt;动词ます形去掉ます&gt;+なさい</code>语法来表达。</p>
-<p>しっかりしろ。给我醒醒。</p>
-<h3 id="原形变意志形（よう形）"><a href="#原形变意志形（よう形）" class="headerlink" title="原形变意志形（よう形）"></a>原形变意志形（よう形）</h3><p><code>动词よう形</code>是<code>动词ましよう</code>的口语，表示劝诱。翻译成“···吧”</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>规则</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一类动词</td>
-<td>把最后一个假名变成お段，再加う　</td>
-<td>　行く-&gt;行こう　</td>
-</tr>
-<tr>
-<td>二类动词</td>
-<td>将る去掉，直接换成よう　</td>
-<td>　見る-&gt;見よう　</td>
-</tr>
-<tr>
-<td>三类动词（サ变）</td>
-<td>　する-&gt;しよう　</td>
-<td>　勉強する-&gt;勉強しよう　</td>
-</tr>
-<tr>
-<td>三类动词（カ变）</td>
-<td>　くる-&gt;こよう　</td>
-<td>　来る-&gt;来よう　</td>
-</tr>
-</tbody>
-</table>
-<h3 id="原形变て形"><a href="#原形变て形" class="headerlink" title="原形变て形"></a>原形变て形</h3><p>て形作用：两个动词间使用，表中顿，表相继；语法接续。</p>
-<ul>
-<li>一类动词变て形</li>
-</ul>
-<p>1）う、つ、る结尾，促音变。即去掉结尾假名变成って<br>示例：買う-&gt;買って、待つ-&gt;待って、売る（うる）-&gt;売って<br>2）ぬ、ぶ、む结尾，拨音变。即去掉结尾假名变成んで<br>示例：死ぬ-&gt;死んで、飛ぶ-&gt;飛んで、飲む-&gt;飲んで<br>3）く、ぐ结尾，い音变。即去掉结尾假名分别变成いて、いで<br>示例：歩く-&gt;歩いて、急ぐ-&gt;急いで<br>4）す变成して<br>示例：話す-&gt;話して<br><strong>特例</strong><br>行く-&gt;行って</p>
-<ul>
-<li>二类动词变て形</li>
-</ul>
-<p>去る+て<br>示例：見る-&gt;見て、食べる-&gt;食べて</p>
-<ul>
-<li>三类动词变て形</li>
-</ul>
-<p>1）する-&gt;して<br>示例：勉強する-&gt;勉強して<br>2）来る（くる）-&gt;来て（きて）</p>
-<h3 id="原形变た形"><a href="#原形变た形" class="headerlink" title="原形变た形"></a>原形变た形</h3><p>变形规则和原形变て形一样，只要将て换成た即可。</p>
-<h3 id="原形变ない形"><a href="#原形变ない形" class="headerlink" title="原形变ない形"></a>原形变ない形</h3><ul>
-<li>一类动词变ない形</li>
-</ul>
-<p>变う段为あ段+ない</p>
-<p>示例：行く（いく）-&gt;行か（いか）ない</p>
-<p><strong>特例：</strong>う-&gt;わ</p>
-<p>手伝う（てつだう）-&gt;手伝わない（てつだわない）</p>
-<ul>
-<li>二类动词变ない形</li>
-</ul>
-<p>去る+ない</p>
-<p>示例：見る-&gt;見ない、食べる-&gt;食べない</p>
-<ul>
-<li>三类动词变ない形</li>
-</ul>
-<p>1）する-&gt;しない</p>
-<p>示例：勉強する-&gt;勉強しない</p>
-<p>2）来る（くる）-&gt;来ない（こない）</p>
-<h3 id="原形变禁止形"><a href="#原形变禁止形" class="headerlink" title="原形变禁止形"></a>原形变禁止形</h3><p>动词原形+な</p>
-<h2 id="动词规则"><a href="#动词规则" class="headerlink" title="动词规则"></a>动词规则</h2><ul>
-<li>一类动词</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>あ段</th>
-<th>い段</th>
-<th>う段</th>
-<th>え段</th>
-<th>お段</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ない形</td>
-<td>ます形</td>
-<td>原形</td>
-<td>命令形</td>
-<td>意志形</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。&lt;br&gt;&amp;lt;比如&amp;gt; 突跃,突击,突袭等描述动作过程均属动词。&lt;br&gt;中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。&lt;/p&gt;
-&lt;p&gt;日语中动词主要分为3大类，称为一类动词，二类动词和三类动词（简称，动1，动2和动3），而三类动词中又可以分为2类，即カ变和サ变动词。&lt;/p&gt;
-&lt;p&gt;另外，还有一种经常用到的动词，即授受动词。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="talk" scheme="http://chars.tech/categories/talk/"/>
-    
-    
-      <category term="碎碎念" scheme="http://chars.tech/tags/text/"/>
-    
-      <category term="日语" scheme="http://chars.tech/tags/japan-language/"/>
     
   </entry>
   
