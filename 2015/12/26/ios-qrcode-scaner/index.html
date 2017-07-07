@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="en">
+<head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1696534394699613",
+      enable_page_level_ads: true
+    });
+</script>
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -12,9 +23,59 @@
 
 
 
-  <meta name="description" content="iOS 二维码扫描"/>
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="ios,外设," />
@@ -22,16 +83,15 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Chars's Blog">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=2.4.x" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
 
 
 
-<link rel="canonical" href="http://chars.tech/2015/12/26/ios-qrcode-scaner/"/>
+
 
 
 <meta name="description" content="二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字">
@@ -46,41 +106,841 @@
 <meta name="twitter:description" content="二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'UG7I248E1X',
+      apiKey: '39daa80db5305fba3705069658223736',
+      indexName: 'Chars_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+  <link rel="canonical" href="http://chars.tech/2015/12/26/ios-qrcode-scaner/"/>
 
+
+
+
+
+  <title> iOS 二维码扫描 | Chars's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
 
 
 
 
 <script>
-  var CONFIG = {
-    search: true,
-    searchPath: "/search.xml",
-    fancybox: true,
-    toc: true,
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">Chars's Blog</span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+<!--
+<div>
+<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
+	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
+</a>
+</div>
+</br>
+
+<div>
+<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
+	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
+</a>
+</div>
+-->
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://chars.tech/2015/12/26/ios-qrcode-scaner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS 二维码扫描
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-26T15:33:03+08:00">
+                2015-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/" itemprop="url" rel="index">
+                    <span itemprop="name">code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。</p>
+<p>在这么一个二维码泛滥的时代，一般的App都会支持二维码扫描，那么这个功能应该如何实现呢？</p>
+<a id="more"></a>
+<p>这几天博主高仿新浪微博的项目进行一个阶段性的tag，在此也将这个项目在实现二维码扫描这个功能来做一个简要的记录。关于高仿新浪微博的源代码，已经将全部代码托管到<a href="https://github.com/CharsDavy/iWeibo" target="_blank" rel="external">github</a>。</p>
+<p>关于二维码的扫描，网上说的最多的框架莫过于<a href="https://github.com/bmorton/ZBarSDK" target="_blank" rel="external">ZBar</a>和ZXing框架，刚开始也是想使用第三方框架，但是，在iOS7之后苹果官方已经提供了二维码扫描方法，而且实现起来还是蛮简单的，故而选择原生态方法。不过，我们还是来看看，如何使用ZBar实现二维码扫描。</p>
+<p>首先在github上下载ZBar代码，然后将如下的相关类库添加进去：　</p>
+<ul>
+<li>AVFoundation.framwork</li>
+<li>CoreMedia.framework</li>
+<li>CoreVideo.framework</li>
+<li>libiconv.dylib</li>
+<li>libzbar.a</li>
+</ul>
+<p>接下来在.h文件中#import “ZBarSDK.h”，同时添加代理ZBarReaderDelegate，然后在.m文件中添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">-(void)sysbutbuttonclick&#123;</span><br><span class="line">      </span><br><span class="line">     ZBarReaderViewController *reader = [ZBarReaderViewController new];</span><br><span class="line">     reader.readerDelegate = self;</span><br><span class="line">     ZBarImageScanner *scanner = reader.scanner;</span><br><span class="line">      </span><br><span class="line">     [scanner setSymbology: ZBAR_I25</span><br><span class="line">                    config: ZBAR_CFG_ENABLE</span><br><span class="line">                        to: 0];</span><br><span class="line">     [self presentModalViewController: reader    animated: YES];</span><br><span class="line"> &#125;</span><br><span class="line">  </span><br><span class="line"> - (void) imagePickerController: (UIImagePickerController*) reader</span><br><span class="line">  didFinishPickingMediaWithInfo: (NSDictionary*) info</span><br><span class="line"> &#123;</span><br><span class="line">      </span><br><span class="line">     NSLog(@&quot;info=%@&quot;,info);</span><br><span class="line">     // 得到条形码结果</span><br><span class="line">     id&lt;NSFastEnumeration&gt; results =[info objectForKey: ZBarReaderControllerResults];</span><br><span class="line">     ZBarSymbol *symbol = nil;</span><br><span class="line">     for(symbol in results)</span><br><span class="line">         // EXAMPLE: just grab the first barcode</span><br><span class="line">         break;</span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@&quot;信息提示!&quot; message:symbol.data delegate:self cancelButtonTitle:@&quot;取消&quot; otherButtonTitles:@&quot;确定&quot;, nil];</span><br><span class="line">     [alert show];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p> 最后触发扫描事件的时候调用sysbutbuttonclick即可。</p>
+<p>博主在项目中使用的是苹果官方提供的，并将其实现单独封装，以方便使用。</p>
+<p>其实我们只需要三个步骤即可实现二维码扫描功能：</p>
+<p>1）导入AVFoundation框架，<code>import &lt;AVFoundation/AVFoundation.h&gt;</code>；</p>
+<p>2）设置一个用于显示扫描的view；</p>
+<p>3）实例化AVCaptureSession、AVCaptureVideoPreviewLayer。</p>
+<p>具体实现方式如下：</p>
+<p>1）添加开始扫描方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">- (void)startReading</span><br><span class="line">&#123;</span><br><span class="line">    NSError *error;</span><br><span class="line">     </span><br><span class="line">    //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo</span><br><span class="line">    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];</span><br><span class="line">     </span><br><span class="line">    //2.用captureDevice创建输入流</span><br><span class="line">    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&amp;error];</span><br><span class="line">    if (!input) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, [error localizedDescription]);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    //3.创建媒体数据输出流</span><br><span class="line">    AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];</span><br><span class="line">     </span><br><span class="line">    //4.实例化捕捉会话</span><br><span class="line">    _captureSession = [[AVCaptureSession alloc] init];</span><br><span class="line">    //4.1.将输入流添加到会话</span><br><span class="line">    [_captureSession addInput:input];</span><br><span class="line">    //4.2.将媒体输出流添加到会话中</span><br><span class="line">    [_captureSession addOutput:captureMetadataOutput];</span><br><span class="line">     </span><br><span class="line">    //5.创建串行队列，并加媒体输出流添加到队列当中</span><br><span class="line">    dispatch_queue_t dispatchQueue;</span><br><span class="line">    dispatchQueue = dispatch_queue_create(&quot;myScanQueue&quot;, NULL);</span><br><span class="line">    //5.1.设置代理</span><br><span class="line">    [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];</span><br><span class="line">    //5.2.设置输出媒体数据类型为QRCode</span><br><span class="line">    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];</span><br><span class="line">     </span><br><span class="line">    //6.实例化预览图层</span><br><span class="line">    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];</span><br><span class="line">     </span><br><span class="line">    //7.设置预览图层填充方式</span><br><span class="line">    [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];</span><br><span class="line">     </span><br><span class="line">    //8.设置图层的frame</span><br><span class="line">    [_videoPreviewLayer setFrame:_viewPreview.layer.bounds];</span><br><span class="line">     </span><br><span class="line">    //9.将图层添加到预览view的图层上</span><br><span class="line">    [_viewPreview.layer addSublayer:_videoPreviewLayer];</span><br><span class="line">     </span><br><span class="line">    //10.设置扫描范围</span><br><span class="line">    captureMetadataOutput.rectOfInterest = CGRectMake(0.2f, 0.2f, 0.8f, 0.8f);</span><br><span class="line">    //10.1.扫描框</span><br><span class="line">    _boxView = [[UIView alloc] initWithFrame:CGRectMake(_viewPreview.bounds.size.width * 0.1f, _viewPreview.bounds.size.height * 0.2f, _viewPreview.bounds.size.width * 0.8f, _viewPreview.bounds.size.width * 0.8f)];</span><br><span class="line">    _boxView.layer.borderColor = kRangeColor;</span><br><span class="line">    _boxView.layer.borderWidth = 1.0f;</span><br><span class="line">    [_viewPreview addSubview:_boxView];</span><br><span class="line">    //10.2.扫描线</span><br><span class="line">    _scanLayer = [[CALayer alloc] init];</span><br><span class="line">    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, kLineBorad);</span><br><span class="line">    _scanLayer.backgroundColor = kLineColor;</span><br><span class="line">    [_boxView.layer addSublayer:_scanLayer];</span><br><span class="line">     </span><br><span class="line">    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];   </span><br><span class="line">    [timer fire];</span><br><span class="line">     </span><br><span class="line">    //11.开始扫描</span><br><span class="line">    [_captureSession startRunning];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2）实现代理方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - AVCaptureMetadataOutputObjectsDelegate</span><br><span class="line">- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection</span><br><span class="line">&#123;</span><br><span class="line">    NSString *urlStr;</span><br><span class="line">    //判断是否有数据</span><br><span class="line">    if (metadataObjects != nil &amp;&amp; [metadataObjects count] &gt; 0) &#123;</span><br><span class="line">        AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex:0];</span><br><span class="line">        //判断回传的数据类型</span><br><span class="line">        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]) &#123;</span><br><span class="line">            urlStr = metadataObj.stringValue;</span><br><span class="line">            [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    _videoPreviewLayer.hidden = YES;</span><br><span class="line">    _webView.hidden = NO;</span><br><span class="line">    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];</span><br><span class="line">    [self.webView loadRequest:request];   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3）设置好页面布局，用来显示扫描结果即可。</p>
+<p>以上就是两种二维码扫描实现简要过程。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
+          <p>微信赞赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
+          <p>支付宝赞赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># ios</a>
+          
+            <a href="/tags/peripheral/" rel="tag"># 外设</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/30/php-mvc-framework/" rel="next" title="PHP MVC模式简单实现">
+                <i class="fa fa-chevron-left"></i> PHP MVC模式简单实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/11/http-state-code-list/" rel="prev" title="HTTP 状态码清单">
+                HTTP 状态码清单 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+<!--
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+            </div>
+          
+-->
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Gmail
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        <!--
+<div style="font-size:13px">
+	<a href="/about#ad">购买广告位</a>
+</div>
+-->
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
   }
 </script>
 
 
 
 
+
+
+
+
+
   
 
-  <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-80507808-1', 'auto');
-        ga('send', 'pageview');
-  </script>
 
 
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
+    
+
+    
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -189,439 +1049,52 @@
 
 
 
-
-
-    <title> iOS 二维码扫描 · Chars's Blog </title>
-  </head>
-
-  <body><div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/." class="logo">Chars's Blog</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            Categories
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-  </ul>
-</nav>
-
-    <div class="container" id="mobile-panel">
-      <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">Chars's Blog</a>
-</div>
-
-<nav class="site-navbar">
   
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/about/">
-            
-            
-              About
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/categories/">
-            
-            
-              Categories
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
-        </li>
-      
-      
-        <li class="menu-search">
-          <form>
-            <i class="iconfont icon-search" id="open-search"></i>
-            <input type="text" class="search-input" id="search-input" />
-            <i class="iconfont icon-close" id="close-search"></i>
-          </form>
-        </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
-
-      <main id="main" class="main">
-        <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          iOS 二维码扫描
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          Dec 26, 2015
-        </span>
-
-        
-            <span class="post-divider">|</span>
-            <span class="post-categories" >
-              In
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        <p>二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。</p>
-<p>在这么一个二维码泛滥的时代，一般的App都会支持二维码扫描，那么这个功能应该如何实现呢？</p>
-<a id="more"></a>
-<p>这几天博主高仿新浪微博的项目进行一个阶段性的tag，在此也将这个项目在实现二维码扫描这个功能来做一个简要的记录。关于高仿新浪微博的源代码，已经将全部代码托管到<a href="https://github.com/CharsDavy/iWeibo" target="_blank" rel="external">github</a>。</p>
-<p>关于二维码的扫描，网上说的最多的框架莫过于<a href="https://github.com/bmorton/ZBarSDK" target="_blank" rel="external">ZBar</a>和ZXing框架，刚开始也是想使用第三方框架，但是，在iOS7之后苹果官方已经提供了二维码扫描方法，而且实现起来还是蛮简单的，故而选择原生态方法。不过，我们还是来看看，如何使用ZBar实现二维码扫描。</p>
-<p>首先在github上下载ZBar代码，然后将如下的相关类库添加进去：　</p>
-<ul>
-<li>AVFoundation.framwork</li>
-<li>CoreMedia.framework</li>
-<li>CoreVideo.framework</li>
-<li>libiconv.dylib</li>
-<li>libzbar.a</li>
-</ul>
-<p>接下来在.h文件中#import “ZBarSDK.h”，同时添加代理ZBarReaderDelegate，然后在.m文件中添加如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">-(void)sysbutbuttonclick&#123;</span><br><span class="line">      </span><br><span class="line">     ZBarReaderViewController *reader = [ZBarReaderViewController new];</span><br><span class="line">     reader.readerDelegate = self;</span><br><span class="line">     ZBarImageScanner *scanner = reader.scanner;</span><br><span class="line">      </span><br><span class="line">     [scanner setSymbology: ZBAR_I25</span><br><span class="line">                    config: ZBAR_CFG_ENABLE</span><br><span class="line">                        to: 0];</span><br><span class="line">     [self presentModalViewController: reader    animated: YES];</span><br><span class="line"> &#125;</span><br><span class="line">  </span><br><span class="line"> - (void) imagePickerController: (UIImagePickerController*) reader</span><br><span class="line">  didFinishPickingMediaWithInfo: (NSDictionary*) info</span><br><span class="line"> &#123;</span><br><span class="line">      </span><br><span class="line">     NSLog(@&quot;info=%@&quot;,info);</span><br><span class="line">     // 得到条形码结果</span><br><span class="line">     id&lt;NSFastEnumeration&gt; results =[info objectForKey: ZBarReaderControllerResults];</span><br><span class="line">     ZBarSymbol *symbol = nil;</span><br><span class="line">     for(symbol in results)</span><br><span class="line">         // EXAMPLE: just grab the first barcode</span><br><span class="line">         break;</span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@&quot;信息提示!&quot; message:symbol.data delegate:self cancelButtonTitle:@&quot;取消&quot; otherButtonTitles:@&quot;确定&quot;, nil];</span><br><span class="line">     [alert show];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p> 最后触发扫描事件的时候调用sysbutbuttonclick即可。</p>
-<p>博主在项目中使用的是苹果官方提供的，并将其实现单独封装，以方便使用。</p>
-<p>其实我们只需要三个步骤即可实现二维码扫描功能：</p>
-<p>1）导入AVFoundation框架，<code>import &lt;AVFoundation/AVFoundation.h&gt;</code>；</p>
-<p>2）设置一个用于显示扫描的view；</p>
-<p>3）实例化AVCaptureSession、AVCaptureVideoPreviewLayer。</p>
-<p>具体实现方式如下：</p>
-<p>1）添加开始扫描方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">- (void)startReading</span><br><span class="line">&#123;</span><br><span class="line">    NSError *error;</span><br><span class="line">     </span><br><span class="line">    //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo</span><br><span class="line">    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];</span><br><span class="line">     </span><br><span class="line">    //2.用captureDevice创建输入流</span><br><span class="line">    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&amp;error];</span><br><span class="line">    if (!input) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, [error localizedDescription]);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    //3.创建媒体数据输出流</span><br><span class="line">    AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];</span><br><span class="line">     </span><br><span class="line">    //4.实例化捕捉会话</span><br><span class="line">    _captureSession = [[AVCaptureSession alloc] init];</span><br><span class="line">    //4.1.将输入流添加到会话</span><br><span class="line">    [_captureSession addInput:input];</span><br><span class="line">    //4.2.将媒体输出流添加到会话中</span><br><span class="line">    [_captureSession addOutput:captureMetadataOutput];</span><br><span class="line">     </span><br><span class="line">    //5.创建串行队列，并加媒体输出流添加到队列当中</span><br><span class="line">    dispatch_queue_t dispatchQueue;</span><br><span class="line">    dispatchQueue = dispatch_queue_create(&quot;myScanQueue&quot;, NULL);</span><br><span class="line">    //5.1.设置代理</span><br><span class="line">    [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];</span><br><span class="line">    //5.2.设置输出媒体数据类型为QRCode</span><br><span class="line">    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];</span><br><span class="line">     </span><br><span class="line">    //6.实例化预览图层</span><br><span class="line">    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];</span><br><span class="line">     </span><br><span class="line">    //7.设置预览图层填充方式</span><br><span class="line">    [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];</span><br><span class="line">     </span><br><span class="line">    //8.设置图层的frame</span><br><span class="line">    [_videoPreviewLayer setFrame:_viewPreview.layer.bounds];</span><br><span class="line">     </span><br><span class="line">    //9.将图层添加到预览view的图层上</span><br><span class="line">    [_viewPreview.layer addSublayer:_videoPreviewLayer];</span><br><span class="line">     </span><br><span class="line">    //10.设置扫描范围</span><br><span class="line">    captureMetadataOutput.rectOfInterest = CGRectMake(0.2f, 0.2f, 0.8f, 0.8f);</span><br><span class="line">    //10.1.扫描框</span><br><span class="line">    _boxView = [[UIView alloc] initWithFrame:CGRectMake(_viewPreview.bounds.size.width * 0.1f, _viewPreview.bounds.size.height * 0.2f, _viewPreview.bounds.size.width * 0.8f, _viewPreview.bounds.size.width * 0.8f)];</span><br><span class="line">    _boxView.layer.borderColor = kRangeColor;</span><br><span class="line">    _boxView.layer.borderWidth = 1.0f;</span><br><span class="line">    [_viewPreview addSubview:_boxView];</span><br><span class="line">    //10.2.扫描线</span><br><span class="line">    _scanLayer = [[CALayer alloc] init];</span><br><span class="line">    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, kLineBorad);</span><br><span class="line">    _scanLayer.backgroundColor = kLineColor;</span><br><span class="line">    [_boxView.layer addSublayer:_scanLayer];</span><br><span class="line">     </span><br><span class="line">    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];   </span><br><span class="line">    [timer fire];</span><br><span class="line">     </span><br><span class="line">    //11.开始扫描</span><br><span class="line">    [_captureSession startRunning];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2）实现代理方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - AVCaptureMetadataOutputObjectsDelegate</span><br><span class="line">- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection</span><br><span class="line">&#123;</span><br><span class="line">    NSString *urlStr;</span><br><span class="line">    //判断是否有数据</span><br><span class="line">    if (metadataObjects != nil &amp;&amp; [metadataObjects count] &gt; 0) &#123;</span><br><span class="line">        AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex:0];</span><br><span class="line">        //判断回传的数据类型</span><br><span class="line">        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]) &#123;</span><br><span class="line">            urlStr = metadataObj.stringValue;</span><br><span class="line">            [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    _videoPreviewLayer.hidden = YES;</span><br><span class="line">    _webView.hidden = NO;</span><br><span class="line">    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];</span><br><span class="line">    [self.webView loadRequest:request];   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3）设置好页面布局，用来显示扫描结果即可。</p>
-<p>以上就是两种二维码扫描实现简要过程。</p>
-
-      
-    </div>
-
-    
-      
-      
-
-
-
-      
-      
-  <div class="post-reward">
-    <input type="checkbox" name="reward" id="reward" hidden />
-    <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="/images/wechatpay.jpg" title="wechat">
-        </label>
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="/images/alipay.jpg" title="alipay">
-        </label>
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/ios/">ios</a>
-            
-              <a href="/tags/peripheral/">外设</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2016/01/11/http-state-code-list/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">HTTP 状态码清单</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
-    
-    
-      <a class="next" href="/2015/11/30/php-mvc-framework/">
-        <span class="next-text nav-default">PHP MVC模式简单实现</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    
-  </nav>
-
-      </footer>
-    
-
-    
-
-  </article>
-
-
-          </div>
-          
-
-        </div>  
-      </main>
-
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:chars.davy@gmail.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-    
-      
-        
-          <a href="https://twitter.com/charsdavy" class="iconfont icon-twitter" title="twitter"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.facebook.com/wei.deng.1460" class="iconfont icon-facebook" title="facebook"></a>
-        
-      
-    
-      
-    
-      
-    
-      
-        
-          <a href="https://github.com/charsdavy" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="http://weibo.com/u/3875245858/" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-    
-      
-    
-    
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
-  </span>
-  
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
-  </span>
-
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2016 - 
-    
-    2017
-
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Chars</span>
-  </span>
-</div>
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-        
-      </footer>
-
-      <div class="back-to-top" id="back-to-top">
-        <i class="iconfont icon-up"></i>
-      </div>
-    </div>
-
-    
-  
-
-  
-  <script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'http://chars.tech/2015/12/26/ios-qrcode-scaner/';
-        this.page.identifier = '2015/12/26/ios-qrcode-scaner/';
-        this.page.title = 'iOS 二维码扫描';
-    };
-    (function() {
-    var d = document, s = d.createElement('script');
-
-    s.src = '//charstechblog.disqus.com/embed.js';
-
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();  
-  </script>
-
-  
-
-
-
-
-    
-  
-
-
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
 
   
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
 
-    
-  <script type="text/html" id="search-result">
-    <article class="post">
-      <header class="post-header">
-        <h1 class="post-title">
-          <a href="$url$" class="post-link">
-            $title$
-          </a>
-        </h1>
-      </header>
-      <div class="post-content">
-        $content$
-        <div class="read-more">
-          <a href="$url$" class="read-more-link">
-            Read more..
-          </a>
-        </div>
-      </div>
-    </article>
-  </script>
-  <script type="text/html" id="no-search-result">
-    <div class="no-result">
-      <h2>No result found!</h2>
-    </div>
-  </script>
-  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+</body>
 
-    
-  </body>
 </html>
