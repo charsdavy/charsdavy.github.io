@@ -1,21 +1,10 @@
-<!doctype html>
-
-
-
-
-<html class="theme-next pisces" lang="en">
-<head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-1696534394699613",
-      enable_page_level_ads: true
-    });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -23,59 +12,9 @@
 
 
 
-  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+  <meta name="description" content="FMDB 代码阅读"/>
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="ios,objc,开源框架,database,存储," />
@@ -83,15 +22,16 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=2.4.x" />
 
 
 
-
+<link rel="canonical" href="http://chars.tech/2017/03/21/fmdb-reading/"/>
 
 
 <meta name="description" content="FMDB 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。">
@@ -106,929 +46,41 @@
 <meta name="twitter:description" content="FMDB 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'UG7I248E1X',
-      apiKey: '39daa80db5305fba3705069658223736',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
 
 
 
-  <link rel="canonical" href="http://chars.tech/2017/03/21/fmdb-reading/"/>
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
-
-
-
-
-  <title> FMDB 代码阅读 | Chars's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
 
 
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="site-title">Chars's Blog</span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
-</nav>
-
-<!--
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
-</a>
-</div>
-</br>
-
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
-</a>
-</div>
--->
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://chars.tech/2017/03/21/fmdb-reading/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                FMDB 代码阅读
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-21T22:51:12+08:00">
-                2017-03-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p><a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
-<a id="more"></a>
-<h2 id="项目文件"><a href="#项目文件" class="headerlink" title="项目文件"></a>项目文件</h2><ul>
-<li><p>FMDatabase : 一个SQLite数据库操作单例，通过它可以对数据库进行增删改查等操作。</p>
-</li>
-<li><p>FMResultSet : FMDatabase执行查询之后的结果集。</p>
-</li>
-<li><p>FMDatabaseAdditions : 拓展FMDatabase类，新增对查询结果只返回单个值的方法进行简化，对表、列是否存在，版本号，校验SQL等功能。</p>
-</li>
-<li><p>FMDatabaseQueue : 使用串行对列 ，操作多线程。</p>
-</li>
-<li><p>FMDatabasePool : 使用任务池的形式，操作多线程。</p>
-</li>
-</ul>
-<h2 id="FMDatabase"><a href="#FMDatabase" class="headerlink" title="FMDatabase"></a>FMDatabase</h2><h3 id="打开数据库连接"><a href="#打开数据库连接" class="headerlink" title="打开数据库连接"></a>打开数据库连接</h3><ul>
-<li><p><code>-(BOOL)open;</code> 其实是对sqlite3_open()函数的封装。</p>
-</li>
-<li><p><code>- (void)setMaxBusyRetryTimeInterval:(NSTimeInterval)timeout;</code> 设置重试时间。其实调用的是 <code>int sqlite3_busy_handler(sqlite3 *,int(*)(void *,int),void *);</code></p>
-</li>
-</ul>
-<p>该函数的第一个参数：需要告知哪一个数据库需要设置busy handler。</p>
-<p>第二个参数：需要回调的busy handler，当你调用该回调函数的时候，需要传给它一个void*的参数，也就是sqlite3_busy_handler的第三个参数。</p>
-<p>第三个参数：需要传给回调函数的int参数表示这次锁事件，该回调函数被调用的次数。如果回调函数返回0时，将不再尝试再次访问数据库，而返回SQLITE_BUSY或者SQLITE_IOERR_BLOCKED。如果回调函数返回非0，将会不断尝试操作数据库。程序运行过程中，如果有其他进程或者线程在读写数据库，那么sqlite3_busy_handler会不断用用该回调函数，直到其他线程或者进程释放锁。获得锁之后，不会再调用该回调函数，从而继续向下执行下去，进行数据库操作。该函数是在获取不到锁的时候，以执行回调函数的次数來进行延时，等待其他进程或者线程操作数据库结束，从而获得锁进行操作数据库。</p>
-<h3 id="查询数据库"><a href="#查询数据库" class="headerlink" title="查询数据库"></a>查询数据库</h3><p>executeQuery 系列函数从根本上看，其实调用的都是</p>
-<p><code>- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args</code></p>
-<ul>
-<li><p>参数sql: 需要查詢的sql语句。</p>
-</li>
-<li><p>参数arrayArgs: 数组类型的参数。</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FMResultSet *resultSet = [_db executeQuery:@&quot;SELECT * FROM t_student WHERE age &gt; ?&quot; withArgumentsInArray:@[@20]];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>参数dictionaryArgs: 字典类型的参数。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FMResultSet *resultSet = [_db executeQuery:@&quot;SELECT * FROM t_student WHERE age &gt; :age&quot; withParameterDictionary:@&#123;@&quot;age&quot;:@20&#125;];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>参数args: 可变参数类型。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FMResultSet *resultSet = [_db executeQuery:@&quot;SELECT * FROM t_student WHERE age &gt; ?&quot;,@(20)];</span><br></pre></td></tr></table></figure>
-<h3 id="更新数据库操作"><a href="#更新数据库操作" class="headerlink" title="更新数据库操作"></a>更新数据库操作</h3><p>这并不只是单单更新数据，而是对数据库有更改的操作，增删改都算。FMDB调用的都是<code>executeupdate</code>系列函数。这个函数基本上跟<code>executeQuery</code>系列函数的实现基本相同。只是它生成statement对象后，直接调用<code>rc = sqlite3_step(pStmt);</code>更新执行，而没有像<code>executeQuery</code>延迟到FMResultSet中的next函数中执行。</p>
-<h3 id="一次性执行多条sql语句。"><a href="#一次性执行多条sql语句。" class="headerlink" title="一次性执行多条sql语句。"></a>一次性执行多条sql语句。</h3><p>使用<code>executeStatements</code>函数可以一次性执行多条sql语句。其实现方式就是对<code>sqlite3_exec</code>函数的封装。</p>
-<h3 id="FMDB的加解密"><a href="#FMDB的加解密" class="headerlink" title="FMDB的加解密"></a>FMDB的加解密</h3><p>FMDataase中使用<code>- (BOOL)setKey:(NSString*)key;</code>和<code>- (BOOL)setKeyWithData:(NSData *)keyData;</code>输入数据库密码以求验证用户身份，使用<code>- (BOOL)rekey:(NSString*)key;</code>和<code>- (BOOL)rekeyWithData:(NSData *)keyData;</code>来给数据库设置密码或者清除密码。这两类函数分別对<code>sqlite3_key</code>和<code>sqlite3_rekey</code>函数进行了封装。</p>
-<h2 id="FMDatabaseAdditions"><a href="#FMDatabaseAdditions" class="headerlink" title="FMDatabaseAdditions"></a>FMDatabaseAdditions</h2><h3 id="XXXForQuery系列函数"><a href="#XXXForQuery系列函数" class="headerlink" title="XXXForQuery系列函数"></a>XXXForQuery系列函数</h3><p>对查询结果只有一个值的情况进行优化，有多个值也只取第一个值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  使用FMDatabaseAdditions中的intForQuery函数查找数据,如果返回结果有多个数据只取第一条数据</span><br><span class="line"> */</span><br><span class="line">- (void)queryForIntForQuery&#123;</span><br><span class="line">    int idx = [_db intForQuery:@&quot;SELECT id FROM t_student WHERE age = ?&quot;,@(26)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="数据库的一些概要信息"><a href="#数据库的一些概要信息" class="headerlink" title="数据库的一些概要信息"></a>数据库的一些概要信息</h3><p><code>-(BOOL)tableExists:(NSString*)tableName;</code>数据库表是否存在。</p>
-<p><code>-(BOOL)columnExists:(NSString*)columnName inTableWithName:(NSString*)tableName;</code>在tableName表中columnName是否存在。</p>
-<p><code>-(FMResultSet*)getSchema;</code>数据库的一些概要信息。</p>
-<h3 id="校验sql语句是否合法"><a href="#校验sql语句是否合法" class="headerlink" title="校验sql语句是否合法"></a>校验sql语句是否合法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(BOOL)validateSQL:(NSString *)sql error:(NSError **)error;</span><br></pre></td></tr></table></figure>
-<h2 id="FMResultSet"><a href="#FMResultSet" class="headerlink" title="FMResultSet"></a>FMResultSet</h2><h3 id="初始化对象"><a href="#初始化对象" class="headerlink" title="初始化对象"></a>初始化对象</h3><ul>
-<li>参数1：(FMStatement *)statement</li>
-</ul>
-<p>该对象主要是对sqlite3_stmt的封装，sqlite3_stmt * 所表示的内容可以看成是预处理过的sql语句，已经不是我们熟知的sql语句。它是一个已经把sql语句解析了，用sqlite自己表示记录的内部数据结构。</p>
-<ul>
-<li>参数2：(FMDatabase *)aDB<br>该结果集所属于的FMDatabase数据库操作对象。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(FMDatabase*)aDB;</span><br></pre></td></tr></table></figure>
-<h3 id="遍历取得所有的结果集合"><a href="#遍历取得所有的结果集合" class="headerlink" title="遍历取得所有的结果集合"></a>遍历取得所有的结果集合</h3><p><code>-(BOOL)next;</code> 其实是对 <code>-(BOOL)nextWithError:(NSError **)outErr;</code> 函数的封装。主要作用是通过sqlite3_step函数对FMStatement中的sqlite3_stmt对象进行逐行取值。</p>
-<h3 id="列名与该列的列数的一一对应关系"><a href="#列名与该列的列数的一一对应关系" class="headerlink" title="列名与该列的列数的一一对应关系"></a>列名与该列的列数的一一对应关系</h3><ul>
-<li><p><code>@property (readonly) NSMutableDictionary  *columnNameToIndexMap;</code> 对象中保存了列名与索引一一对应的关系的对照表。</p>
-</li>
-<li><p><code>-(int)columnIndexForName:(NSString *)columnName;</code> 根据列名获取该列所在第几列（列的索引）</p>
-</li>
-<li><p><code>-(NSString *)columnNameForIndex:(int)columnIdx;</code> 根据列的索引获取该列的名称。</p>
-</li>
-</ul>
-<h3 id="获得每一行中每一个列字段的值。"><a href="#获得每一行中每一个列字段的值。" class="headerlink" title="获得每一行中每一个列字段的值。"></a>获得每一行中每一个列字段的值。</h3><ul>
-<li><p><code>-XXXForColumnIndex:(int)columnIdx;</code> 根据列的索引获取该列的值。</p>
-</li>
-<li><p><code>-XXXForColumn:(NSString*)columnName;</code> 根据列的名称获取该列的值。</p>
-</li>
-<li><p><code>-XXXForColumnIndex:(int)columnIdx;</code> 其实是对sqlite3<em>column</em>*函数的封装。</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (int)intForColumnIndex:(int)columnIdx &#123;</span><br><span class="line">    return sqlite3_column_int([_statement statement], columnIdx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="获取每一行中所有的结果集合"><a href="#获取每一行中所有的结果集合" class="headerlink" title="获取每一行中所有的结果集合"></a>获取每一行中所有的结果集合</h3><p><code>- (NSDictionary*)resultDictionary;</code></p>
-<h2 id="FMDatabaseQueue"><a href="#FMDatabaseQueue" class="headerlink" title="FMDatabaseQueue"></a>FMDatabaseQueue</h2><p>使用实例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:aPath];</span><br><span class="line"></span><br><span class="line">[queue inDatabase:^(FMDatabase *db) &#123;</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:1]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:2]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:3]];</span><br><span class="line"></span><br><span class="line">    FMResultSet *rs = [db executeQuery:@&quot;select * from foo&quot;];</span><br><span class="line">    while ([rs next]) &#123;</span><br><span class="line">        …</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[queue inTransaction:^(FMDatabase *db, BOOL *rollback) &#123;</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:1]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:2]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:3]];</span><br><span class="line"></span><br><span class="line">    if (whoopsSomethingWrongHappened) &#123;</span><br><span class="line">        *rollback = YES;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // etc…</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:4]];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<h3 id="事务的实现"><a href="#事务的实现" class="headerlink" title="事务的实现"></a>事务的实现</h3><p>数据库中的事务也是保证数据库安全的一种手段。一段sql语句，要么全部成功，要么全部不成功。</p>
-<ul>
-<li>关于延时性事务和独占性事务的区别</li>
-</ul>
-<p>在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁，初次写入创建一个RESERVED锁。由于锁的获取被延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务写入数据库。若事务是即时的，则执行BEGIN命令后立即获取RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后， 你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE. 但其它进程可以获取数据库。 独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程能够读写数据库。</p>
-<h2 id="FMDatabasePool"><a href="#FMDatabasePool" class="headerlink" title="FMDatabasePool"></a>FMDatabasePool</h2><p>FMDatabasePool : 使用任务池的形式，对多线程的操作提供支持。</p>
-<p>不过官方对这种方式并不推荐使用（ONLY_USE_THE_POOL_IF_YOU_ARE_DOING_READS_OTHERWISE_YOULL_DEADLOCK_USE_FMDATABASEQUEUE_INSTEAD），优先选择FMDatabaseQueue的方式。</p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div></div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
-          <p>微信赞赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
-          <p>支付宝赞赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/ios/" rel="tag"># ios</a>
-          
-            <a href="/tags/objc/" rel="tag"># objc</a>
-          
-            <a href="/tags/framework/" rel="tag"># 开源框架</a>
-          
-            <a href="/tags/database/" rel="tag"># database</a>
-          
-            <a href="/tags/persistence/" rel="tag"># 存储</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/26/japanese-verb/" rel="next" title="日语-动词">
-                <i class="fa fa-chevron-left"></i> 日语-动词
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/22/mysql-install-config/" rel="prev" title="MySQL 安装配置">
-                MySQL 安装配置 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">88</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-<!--
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-            </div>
-          
--->
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
-                  
-                    <i class="fa fa-fw fa-envelope"></i>
-                  
-                  Gmail
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        <!--
-<div style="font-size:13px">
-	<a href="/about#ad">购买广告位</a>
-</div>
--->
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目文件"><span class="nav-number">1.</span> <span class="nav-text">项目文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FMDatabase"><span class="nav-number">2.</span> <span class="nav-text">FMDatabase</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开数据库连接"><span class="nav-number">2.1.</span> <span class="nav-text">打开数据库连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询数据库"><span class="nav-number">2.2.</span> <span class="nav-text">查询数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新数据库操作"><span class="nav-number">2.3.</span> <span class="nav-text">更新数据库操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次性执行多条sql语句。"><span class="nav-number">2.4.</span> <span class="nav-text">一次性执行多条sql语句。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FMDB的加解密"><span class="nav-number">2.5.</span> <span class="nav-text">FMDB的加解密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FMDatabaseAdditions"><span class="nav-number">3.</span> <span class="nav-text">FMDatabaseAdditions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XXXForQuery系列函数"><span class="nav-number">3.1.</span> <span class="nav-text">XXXForQuery系列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的一些概要信息"><span class="nav-number">3.2.</span> <span class="nav-text">数据库的一些概要信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验sql语句是否合法"><span class="nav-number">3.3.</span> <span class="nav-text">校验sql语句是否合法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FMResultSet"><span class="nav-number">4.</span> <span class="nav-text">FMResultSet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化对象"><span class="nav-number">4.1.</span> <span class="nav-text">初始化对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历取得所有的结果集合"><span class="nav-number">4.2.</span> <span class="nav-text">遍历取得所有的结果集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列名与该列的列数的一一对应关系"><span class="nav-number">4.3.</span> <span class="nav-text">列名与该列的列数的一一对应关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获得每一行中每一个列字段的值。"><span class="nav-number">4.4.</span> <span class="nav-text">获得每一行中每一个列字段的值。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取每一行中所有的结果集合"><span class="nav-number">4.5.</span> <span class="nav-text">获取每一行中所有的结果集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FMDatabaseQueue"><span class="nav-number">5.</span> <span class="nav-text">FMDatabaseQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务的实现"><span class="nav-number">5.1.</span> <span class="nav-text">事务的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FMDatabasePool"><span class="nav-number">6.</span> <span class="nav-text">FMDatabasePool</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-leaf"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chars</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
   }
 </script>
 
 
 
 
-
-
-
-
-
   
 
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+  </script>
 
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
-
-  
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -1137,52 +189,509 @@
 
 
 
+
+
+    <title> FMDB 代码阅读 · Chars's Blog </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Chars's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about/">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Chars's Blog</a>
+</div>
+
+<nav class="site-navbar">
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          FMDB 代码阅读
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Mar 21, 2017
+        </span>
+
+        
+            <span class="post-divider">|</span>
+            <span class="post-categories" >
+              In
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/" itemprop="url" rel="index">
+                    <span itemprop="name">code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#项目文件"><span class="toc-text">项目文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FMDatabase"><span class="toc-text">FMDatabase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#打开数据库连接"><span class="toc-text">打开数据库连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询数据库"><span class="toc-text">查询数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新数据库操作"><span class="toc-text">更新数据库操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一次性执行多条sql语句。"><span class="toc-text">一次性执行多条sql语句。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FMDB的加解密"><span class="toc-text">FMDB的加解密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FMDatabaseAdditions"><span class="toc-text">FMDatabaseAdditions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#XXXForQuery系列函数"><span class="toc-text">XXXForQuery系列函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库的一些概要信息"><span class="toc-text">数据库的一些概要信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#校验sql语句是否合法"><span class="toc-text">校验sql语句是否合法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FMResultSet"><span class="toc-text">FMResultSet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化对象"><span class="toc-text">初始化对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历取得所有的结果集合"><span class="toc-text">遍历取得所有的结果集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列名与该列的列数的一一对应关系"><span class="toc-text">列名与该列的列数的一一对应关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获得每一行中每一个列字段的值。"><span class="toc-text">获得每一行中每一个列字段的值。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取每一行中所有的结果集合"><span class="toc-text">获取每一行中所有的结果集合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FMDatabaseQueue"><span class="toc-text">FMDatabaseQueue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的实现"><span class="toc-text">事务的实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FMDatabasePool"><span class="toc-text">FMDatabasePool</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
+<a id="more"></a>
+<h2 id="项目文件"><a href="#项目文件" class="headerlink" title="项目文件"></a>项目文件</h2><ul>
+<li><p>FMDatabase : 一个SQLite数据库操作单例，通过它可以对数据库进行增删改查等操作。</p>
+</li>
+<li><p>FMResultSet : FMDatabase执行查询之后的结果集。</p>
+</li>
+<li><p>FMDatabaseAdditions : 拓展FMDatabase类，新增对查询结果只返回单个值的方法进行简化，对表、列是否存在，版本号，校验SQL等功能。</p>
+</li>
+<li><p>FMDatabaseQueue : 使用串行对列 ，操作多线程。</p>
+</li>
+<li><p>FMDatabasePool : 使用任务池的形式，操作多线程。</p>
+</li>
+</ul>
+<h2 id="FMDatabase"><a href="#FMDatabase" class="headerlink" title="FMDatabase"></a>FMDatabase</h2><h3 id="打开数据库连接"><a href="#打开数据库连接" class="headerlink" title="打开数据库连接"></a>打开数据库连接</h3><ul>
+<li><p><code>-(BOOL)open;</code> 其实是对sqlite3_open()函数的封装。</p>
+</li>
+<li><p><code>- (void)setMaxBusyRetryTimeInterval:(NSTimeInterval)timeout;</code> 设置重试时间。其实调用的是 <code>int sqlite3_busy_handler(sqlite3 *,int(*)(void *,int),void *);</code></p>
+</li>
+</ul>
+<p>该函数的第一个参数：需要告知哪一个数据库需要设置busy handler。</p>
+<p>第二个参数：需要回调的busy handler，当你调用该回调函数的时候，需要传给它一个void*的参数，也就是sqlite3_busy_handler的第三个参数。</p>
+<p>第三个参数：需要传给回调函数的int参数表示这次锁事件，该回调函数被调用的次数。如果回调函数返回0时，将不再尝试再次访问数据库，而返回SQLITE_BUSY或者SQLITE_IOERR_BLOCKED。如果回调函数返回非0，将会不断尝试操作数据库。程序运行过程中，如果有其他进程或者线程在读写数据库，那么sqlite3_busy_handler会不断用用该回调函数，直到其他线程或者进程释放锁。获得锁之后，不会再调用该回调函数，从而继续向下执行下去，进行数据库操作。该函数是在获取不到锁的时候，以执行回调函数的次数來进行延时，等待其他进程或者线程操作数据库结束，从而获得锁进行操作数据库。</p>
+<h3 id="查询数据库"><a href="#查询数据库" class="headerlink" title="查询数据库"></a>查询数据库</h3><p>executeQuery 系列函数从根本上看，其实调用的都是</p>
+<p><code>- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args</code></p>
+<ul>
+<li><p>参数sql: 需要查詢的sql语句。</p>
+</li>
+<li><p>参数arrayArgs: 数组类型的参数。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FMResultSet *resultSet = [_db executeQuery:@&quot;SELECT * FROM t_student WHERE age &gt; ?&quot; withArgumentsInArray:@[@20]];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数dictionaryArgs: 字典类型的参数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FMResultSet *resultSet = [_db executeQuery:@&quot;SELECT * FROM t_student WHERE age &gt; :age&quot; withParameterDictionary:@&#123;@&quot;age&quot;:@20&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数args: 可变参数类型。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FMResultSet *resultSet = [_db executeQuery:@&quot;SELECT * FROM t_student WHERE age &gt; ?&quot;,@(20)];</span><br></pre></td></tr></table></figure>
+<h3 id="更新数据库操作"><a href="#更新数据库操作" class="headerlink" title="更新数据库操作"></a>更新数据库操作</h3><p>这并不只是单单更新数据，而是对数据库有更改的操作，增删改都算。FMDB调用的都是<code>executeupdate</code>系列函数。这个函数基本上跟<code>executeQuery</code>系列函数的实现基本相同。只是它生成statement对象后，直接调用<code>rc = sqlite3_step(pStmt);</code>更新执行，而没有像<code>executeQuery</code>延迟到FMResultSet中的next函数中执行。</p>
+<h3 id="一次性执行多条sql语句。"><a href="#一次性执行多条sql语句。" class="headerlink" title="一次性执行多条sql语句。"></a>一次性执行多条sql语句。</h3><p>使用<code>executeStatements</code>函数可以一次性执行多条sql语句。其实现方式就是对<code>sqlite3_exec</code>函数的封装。</p>
+<h3 id="FMDB的加解密"><a href="#FMDB的加解密" class="headerlink" title="FMDB的加解密"></a>FMDB的加解密</h3><p>FMDataase中使用<code>- (BOOL)setKey:(NSString*)key;</code>和<code>- (BOOL)setKeyWithData:(NSData *)keyData;</code>输入数据库密码以求验证用户身份，使用<code>- (BOOL)rekey:(NSString*)key;</code>和<code>- (BOOL)rekeyWithData:(NSData *)keyData;</code>来给数据库设置密码或者清除密码。这两类函数分別对<code>sqlite3_key</code>和<code>sqlite3_rekey</code>函数进行了封装。</p>
+<h2 id="FMDatabaseAdditions"><a href="#FMDatabaseAdditions" class="headerlink" title="FMDatabaseAdditions"></a>FMDatabaseAdditions</h2><h3 id="XXXForQuery系列函数"><a href="#XXXForQuery系列函数" class="headerlink" title="XXXForQuery系列函数"></a>XXXForQuery系列函数</h3><p>对查询结果只有一个值的情况进行优化，有多个值也只取第一个值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  使用FMDatabaseAdditions中的intForQuery函数查找数据,如果返回结果有多个数据只取第一条数据</span><br><span class="line"> */</span><br><span class="line">- (void)queryForIntForQuery&#123;</span><br><span class="line">    int idx = [_db intForQuery:@&quot;SELECT id FROM t_student WHERE age = ?&quot;,@(26)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数据库的一些概要信息"><a href="#数据库的一些概要信息" class="headerlink" title="数据库的一些概要信息"></a>数据库的一些概要信息</h3><p><code>-(BOOL)tableExists:(NSString*)tableName;</code>数据库表是否存在。</p>
+<p><code>-(BOOL)columnExists:(NSString*)columnName inTableWithName:(NSString*)tableName;</code>在tableName表中columnName是否存在。</p>
+<p><code>-(FMResultSet*)getSchema;</code>数据库的一些概要信息。</p>
+<h3 id="校验sql语句是否合法"><a href="#校验sql语句是否合法" class="headerlink" title="校验sql语句是否合法"></a>校验sql语句是否合法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(BOOL)validateSQL:(NSString *)sql error:(NSError **)error;</span><br></pre></td></tr></table></figure>
+<h2 id="FMResultSet"><a href="#FMResultSet" class="headerlink" title="FMResultSet"></a>FMResultSet</h2><h3 id="初始化对象"><a href="#初始化对象" class="headerlink" title="初始化对象"></a>初始化对象</h3><ul>
+<li>参数1：(FMStatement *)statement</li>
+</ul>
+<p>该对象主要是对sqlite3_stmt的封装，sqlite3_stmt * 所表示的内容可以看成是预处理过的sql语句，已经不是我们熟知的sql语句。它是一个已经把sql语句解析了，用sqlite自己表示记录的内部数据结构。</p>
+<ul>
+<li>参数2：(FMDatabase *)aDB<br>该结果集所属于的FMDatabase数据库操作对象。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(FMDatabase*)aDB;</span><br></pre></td></tr></table></figure>
+<h3 id="遍历取得所有的结果集合"><a href="#遍历取得所有的结果集合" class="headerlink" title="遍历取得所有的结果集合"></a>遍历取得所有的结果集合</h3><p><code>-(BOOL)next;</code> 其实是对 <code>-(BOOL)nextWithError:(NSError **)outErr;</code> 函数的封装。主要作用是通过sqlite3_step函数对FMStatement中的sqlite3_stmt对象进行逐行取值。</p>
+<h3 id="列名与该列的列数的一一对应关系"><a href="#列名与该列的列数的一一对应关系" class="headerlink" title="列名与该列的列数的一一对应关系"></a>列名与该列的列数的一一对应关系</h3><ul>
+<li><p><code>@property (readonly) NSMutableDictionary  *columnNameToIndexMap;</code> 对象中保存了列名与索引一一对应的关系的对照表。</p>
+</li>
+<li><p><code>-(int)columnIndexForName:(NSString *)columnName;</code> 根据列名获取该列所在第几列（列的索引）</p>
+</li>
+<li><p><code>-(NSString *)columnNameForIndex:(int)columnIdx;</code> 根据列的索引获取该列的名称。</p>
+</li>
+</ul>
+<h3 id="获得每一行中每一个列字段的值。"><a href="#获得每一行中每一个列字段的值。" class="headerlink" title="获得每一行中每一个列字段的值。"></a>获得每一行中每一个列字段的值。</h3><ul>
+<li><p><code>-XXXForColumnIndex:(int)columnIdx;</code> 根据列的索引获取该列的值。</p>
+</li>
+<li><p><code>-XXXForColumn:(NSString*)columnName;</code> 根据列的名称获取该列的值。</p>
+</li>
+<li><p><code>-XXXForColumnIndex:(int)columnIdx;</code> 其实是对sqlite3<em>column</em>*函数的封装。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (int)intForColumnIndex:(int)columnIdx &#123;</span><br><span class="line">    return sqlite3_column_int([_statement statement], columnIdx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取每一行中所有的结果集合"><a href="#获取每一行中所有的结果集合" class="headerlink" title="获取每一行中所有的结果集合"></a>获取每一行中所有的结果集合</h3><p><code>- (NSDictionary*)resultDictionary;</code></p>
+<h2 id="FMDatabaseQueue"><a href="#FMDatabaseQueue" class="headerlink" title="FMDatabaseQueue"></a>FMDatabaseQueue</h2><p>使用实例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:aPath];</span><br><span class="line"></span><br><span class="line">[queue inDatabase:^(FMDatabase *db) &#123;</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:1]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:2]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:3]];</span><br><span class="line"></span><br><span class="line">    FMResultSet *rs = [db executeQuery:@&quot;select * from foo&quot;];</span><br><span class="line">    while ([rs next]) &#123;</span><br><span class="line">        …</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[queue inTransaction:^(FMDatabase *db, BOOL *rollback) &#123;</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:1]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:2]];</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:3]];</span><br><span class="line"></span><br><span class="line">    if (whoopsSomethingWrongHappened) &#123;</span><br><span class="line">        *rollback = YES;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // etc…</span><br><span class="line">    [db executeUpdate:@&quot;INSERT INTO myTable VALUES (?)&quot;, [NSNumber numberWithInt:4]];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h3 id="事务的实现"><a href="#事务的实现" class="headerlink" title="事务的实现"></a>事务的实现</h3><p>数据库中的事务也是保证数据库安全的一种手段。一段sql语句，要么全部成功，要么全部不成功。</p>
+<ul>
+<li>关于延时性事务和独占性事务的区别</li>
+</ul>
+<p>在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁，初次写入创建一个RESERVED锁。由于锁的获取被延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务写入数据库。若事务是即时的，则执行BEGIN命令后立即获取RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后， 你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE. 但其它进程可以获取数据库。 独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程能够读写数据库。</p>
+<h2 id="FMDatabasePool"><a href="#FMDatabasePool" class="headerlink" title="FMDatabasePool"></a>FMDatabasePool</h2><p>FMDatabasePool : 使用任务池的形式，对多线程的操作提供支持。</p>
+<p>不过官方对这种方式并不推荐使用（ONLY_USE_THE_POOL_IF_YOU_ARE_DOING_READS_OTHERWISE_YOULL_DEADLOCK_USE_FMDATABASEQUEUE_INSTEAD），优先选择FMDatabaseQueue的方式。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/wechatpay.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/alipay.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">ios</a>
+            
+              <a href="/tags/objc/">objc</a>
+            
+              <a href="/tags/framework/">开源框架</a>
+            
+              <a href="/tags/database/">database</a>
+            
+              <a href="/tags/persistence/">存储</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/03/22/mysql-install-config/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">MySQL 安装配置</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/02/26/japanese-verb/">
+        <span class="next-text nav-default">日语-动词</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+    
+
+  </article>
+
+
+          </div>
+          
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:chars.davy@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/charsdavy" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/wei.deng.1460" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/charsdavy" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="http://weibo.com/u/3875245858/" class="iconfont icon-weibo" title="weibo"></a>
+        
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2016 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chars</span>
+  </span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+</div>
+
+        
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://chars.tech/2017/03/21/fmdb-reading/';
+        this.page.identifier = '2017/03/21/fmdb-reading/';
+        this.page.title = 'FMDB 代码阅读';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//charstechblog.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+
+
+
+    
+  
+
+
+
 
 
   
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
 
-  
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
 
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
 
-
-</body>
-
+    
+  </body>
 </html>

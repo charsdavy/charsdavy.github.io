@@ -1,21 +1,10 @@
-<!doctype html>
-
-
-
-
-<html class="theme-next pisces" lang="en">
-<head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-1696534394699613",
-      enable_page_level_ads: true
-    });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -23,59 +12,9 @@
 
 
 
-  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+  <meta name="description" content="简单聊聊大小端问题"/>
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="c,内存,windows," />
@@ -83,15 +22,16 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=2.4.x" />
 
 
 
-
+<link rel="canonical" href="http://chars.tech/2016/08/13/memory-big-little-endian/"/>
 
 
 <meta name="description" content="在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。">
@@ -106,887 +46,41 @@
 <meta name="twitter:description" content="在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'UG7I248E1X',
-      apiKey: '39daa80db5305fba3705069658223736',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
 
 
 
-  <link rel="canonical" href="http://chars.tech/2016/08/13/memory-big-little-endian/"/>
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
-
-
-
-
-  <title> 简单聊聊大小端问题 | Chars's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
 
 
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="site-title">Chars's Blog</span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
-</nav>
-
-<!--
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
-</a>
-</div>
-</br>
-
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
-</a>
-</div>
--->
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://chars.tech/2016/08/13/memory-big-little-endian/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                简单聊聊大小端问题
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-13T21:34:48+08:00">
-                2016-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pieces/" itemprop="url" rel="index">
-                    <span itemprop="name">pieces</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。</p>
-<a id="more"></a>
-<p>先来看一段代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> bits32;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> bytes[<span class="number">4</span>];</span><br><span class="line">&#125;value;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isLittleEndian</span><span class="params">()</span></span>&#123;</span><br><span class="line">        value.bytes[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        value.bytes[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        value.bytes[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">        value.bytes[<span class="number">3</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value.bits32 == <span class="number">256</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( isLittleEndian())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"is little endian! "</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"is big endian! "</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>所谓的<strong>大端模式</strong>，是指数据的低位（就是权值较小的后面那几位）保存在内存的高地址中，而数据的高位，保存在内存的低地址中。这样的存储模式有点儿类似于把数据当作字符串顺序处理：地址由小向大增加，而数据从高位往低位放；</p>
-<p>所谓的<strong>小端模式</strong>，是指数据的低位保存在内存的低地址中，而数据的高位保存在内存的高地址中。这种存储模式将地址的高低和数据位权有效地结合起来，高地址部分权值高，低地址部分权值低，和我们的逻辑方法一致。 </p>
-<p><strong>为什么会有大小端模式之分呢？</strong></p>
-<p>这是因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。</p>
-<p>例如一个16bit的short型x，在内存中的地址为0x0010，x的值为0x1122，那么0x11为高字节，0x22为低字节。对于大端模式，就将0x11放在低地址中，即0x0010中，0x22放在高地址中，即0x0011中。小端模式，刚好相反。我们常用的X86结构是小端模式，而KEIL C51则为大端模式。很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。<br>下面这段代码可以用来测试一下你的编译器是大端模式还是小端模式：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> <span class="keyword">int</span> x; </span><br><span class="line"><span class="keyword">char</span> x0, x1; </span><br><span class="line">x = <span class="number">0x1122</span>; </span><br><span class="line">x0 = ((<span class="keyword">char</span>*)&amp;x)[<span class="number">0</span>]; <span class="comment">//低地址单元 </span></span><br><span class="line">x1 = ((<span class="keyword">char</span>*)&amp;x)[<span class="number">1</span>]; <span class="comment">//高地址单元</span></span><br></pre></td></tr></table></figure>
-<p>若x0=0x11,则是大端; 若x0=0x22,则是小端。</p>
-<p>上面的程序还可以看出，数据寻址时，用的是低位字节的地址。</p>
-<p><strong>什么是字节对齐，为什么要对齐?</strong></p>
-<p>现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问，这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是对齐。</p>
-<p><strong>对齐的作用和原因</strong>：各个硬件平台对存储空间的处理上有很大的不同。一些平台对某些特定类型的数据只能从某些特定地址开始存取。比如有些架构的CPU在访问一个没有进行对齐的变量的时候会发生错误，那么在这种架构下编程必须保证字节对齐。其他平台可能没有这种情况，但是最常见的是如果不按照适合其平台要求对数据存放进行对齐，会在存取效率上带来损失。比如有些平台每次读都是从偶地址开始，如果一个int型（假设为32位系统）如果存放在偶地址开始的地方，那么一个读周期就可以读出这32bit，而如果存放在奇地址开始的地方，就需要2个读周期，并对两次读出的结果的高低字节进行拼凑才能得到该32bit数据。显然在读取效率上下降很多。</p>
-<p><strong>字节对齐对程序的影响？</strong></p>
-<p>先让我们看几个例子(32bit，x86环境，gcc编译器)：<br>设结构体如下定义：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> B</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>现在已知32位机器上各种数据类型的长度如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char:1(有符号无符号同) </span><br><span class="line">short:2(有符号无符号同) </span><br><span class="line">int:4(有符号无符号同) </span><br><span class="line">long:4(有符号无符号同) </span><br><span class="line">float:4    double:8</span><br></pre></td></tr></table></figure>
-<p>那么上面两个结构大小如何呢?</p>
-<p>结果是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sizeof(strcut A)值为8</span><br><span class="line">sizeof(struct B)的值却是12</span><br></pre></td></tr></table></figure>
-<p>结构体A中包含了4字节长度的int一个，1字节长度的char一个和2字节长度的short型数据一个,B也一样；按理说A，B大小应该都是7字节。之所以出现上面的结果是因为编译器要对数据成员在空间上进行对齐。上面是按照编译器的默认设置进行对齐的结果，那么我们是不是可以改变编译器的这种默认对齐设置呢，当然可以。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#pragma pack (2) /*指定按2字节对齐*/</span><br><span class="line">struct C</span><br><span class="line">&#123;</span><br><span class="line">    char b;</span><br><span class="line">    int a;</span><br><span class="line">    short c;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#pragma pack () /*取消指定对齐，恢复缺省对齐*/</span><br><span class="line">sizeof(struct C)值是8。</span><br><span class="line">修改对齐值为1：</span><br><span class="line">#pragma pack (1) /*指定按1字节对齐*/</span><br><span class="line">struct D</span><br><span class="line">&#123;</span><br><span class="line">    char b;</span><br><span class="line">    int a;</span><br><span class="line">    short c;</span><br><span class="line">&#125;;</span><br><span class="line">#pragma pack () /*取消指定对齐，恢复缺省对齐*/</span><br><span class="line">sizeof(struct D)值为7。</span><br></pre></td></tr></table></figure>
-<p><strong>编译器是按照什么样的原则进行对齐的?</strong></p>
-<p>先让我们看四个重要的基本概念：</p>
-<p>1.数据类型自身的对齐值：</p>
-<p>对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，单位字节。</p>
-<p>2.结构体或者类的自身对齐值：其成员中自身对齐值最大的那个值。</p>
-<p>3.指定对齐值：#pragma pack (value)时的指定对齐值value。</p>
-<p>4.数据成员、结构体和类的有效对齐值：自身对齐值和指定对齐值中小的那个值。</p>
-<p>有了这些值，我们就可以很方便的来讨论具体数据结构的成员和其自身的对齐方式。有效对齐值N是最终用来决定数据存放地址方式的值，最重要。有效对齐N，就是表示“对齐在N上”，也就是说该数据的“存放起始地址%N=0”。而数据结构中的数据变量都是按定义的先后顺序来排放的。第一个数据变量的起始地址就是数据结构的起始地址。结构体的成员变量要对齐排放，结构体本身也要根据自身的有效对齐值圆整(就是结构体成员变量占用总长度需要是对结构体有效对齐值的整数倍，结合下面例子理解)。这样就不难理解上面的几个例子的值了。</p>
-<p>例子分析：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> B</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>假设B从地址空间0x0000开始排放。该例子中没有定义指定对齐值，在笔者环境下，该值默认为4。第一个成员变量b的自身对齐值是1，比指定或者默认指定对齐值4小，所以其有效对齐值为1，所以其存放地址0x0000符合0x0000%1=0。第二个成员变量a，其自身对齐值为4，所以有效对齐值也为4，所以只能存放在起始地址为0x0004到0x0007这四个连续的字节空间中，复核0x0004%4=0,且紧靠第一个变量。第三个变量c，自身对齐值为2，所以有效对齐值也是2，可以存放在0x0008到0x0009这两个字节空间中，符合0x0008%2=0。所以从0x0000到0x0009存放的都是B内容。再看数据结构B的自身对齐值为其变量中最大对齐值(这里是b）所以就是4，所以结构体的有效对齐值也是4。根据结构体圆整的要求，0x0009到0x0000=10字节，（10＋2）％4＝0。所以0x000A到0x000B也为结构体B所占用。故B从0x0000到0x000B共有12个字节，sizeof(struct B)=12;其实如果就这一个就来说它已经满足字节对齐了，因为它的起始地址是0，因此肯定是对齐的。之所以在后面补充2个字节，是因为编译器为了实现结构数组的存取效率，试想如果我们定义了一个结构B的数组，那么第一个结构起始地址是0没有问题，但是第二个结构呢?按照数组的定义，数组中所有元素都是紧挨着的，如果我们不把结构的大小补充为4的整数倍，那么下一个结构的起始地址将是0x000A，这显然不能满足结构的地址对齐了，因此我们要把结构补充成有效对齐大小的整数倍。其实诸如：对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，这些已有类型的自身对齐值也是基于数组考虑的，只是因为这些类型的长度已知了，所以他们的自身对齐值也就已知了。</p>
-<p>同理，分析下面例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pragma pack (2) /*指定按2字节对齐*/</span><br><span class="line">struct C</span><br><span class="line">&#123;</span><br><span class="line">    char b;</span><br><span class="line">    int a;</span><br><span class="line">    short c;</span><br><span class="line">&#125;;</span><br><span class="line">#pragma pack () /*取消指定对齐，恢复缺省对齐*/</span><br></pre></td></tr></table></figure>
-<p>第一个变量b的自身对齐值为1，指定对齐值为2，所以，其有效对齐值为1，假设C从0x0000开始，那么b存放在0x0000，符合0x0000%1=0；第二个变量，自身对齐值为4，指定对齐值为2，所以有效对齐值为2，所以顺序存放在0x0002、0x0003、0x0004、0x0005四个连续字节中，符合0x0002%2=0。第三个变量c的自身对齐值为2，所以有效对齐值为2，顺序存放在0x0006、0x0007中，符合0x0006%2=0。所以从0x0000到0x00007共八字节存放的是C的变量。又C的自身对齐值为4，所以C的有效对齐值为2。又8%2=0，C只占用0x0000到0x0007的八个字节。所以sizeof(struct C)=8。</p>
-<p><strong>如何修改编译器的默认对齐值?</strong></p>
-<p>1.在VC IDE中，可以这样修改：[Project]|[Settings],c/c++选项卡Category的Code Generation选项的Struct Member Alignment中修改，默认是8字节。</p>
-<p>2.在编码时，可以这样动态修改：#pragma pack。注意：是pragma而不是progma。</p>
-<p><strong>针对字节对齐，我们在编程中如何考虑?</strong></p>
-<p>如果在编程的时候要考虑节约空间的话,那么我们只需要假定结构的首地址是0，然后各个变量按照上面的原则进行排列即可，基本的原则就是把结构中的变量按照类型大小从小到大声明，尽量减少中间的填补空间。还有一种就是为了以空间换取时间的效率，我们显示的进行填补空间进行对齐，比如：有一种使用空间换时间做法是显式的插入reserved成员：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> A&#123;</span><br><span class="line">	<span class="keyword">char</span> a;</span><br><span class="line">	<span class="keyword">char</span> reserved[<span class="number">3</span>];<span class="comment">//使用空间换时间</span></span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>reserved成员对我们的程序没有什么意义，它只是起到填补空间以达到字节对齐的目的。当然即使不加这个成员，通常编译器也会给我们自动填补对齐，我们自己加上它只是起到显式的提醒作用。</p>
-<p><strong>字节对齐可能带来的隐患？</strong></p>
-<p>代码中关于对齐的隐患，很多是隐式的。比如在强制类型转换的时候。例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0x12345678</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> *p=<span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> *p1=<span class="literal">NULL</span>;</span><br><span class="line">p=&amp;i;</span><br><span class="line">*p=<span class="number">0x00</span>;</span><br><span class="line">p1=(<span class="keyword">unsigned</span> <span class="keyword">short</span> *)(p+<span class="number">1</span>);</span><br><span class="line">*p1=<span class="number">0x0000</span>;</span><br></pre></td></tr></table></figure>
-<p>最后两句代码，从奇数边界去访问unsigned short型变量，显然不符合对齐的规定。在x86上，类似的操作只会影响效率，但是在MIPS或者sparc上，可能就是一个error，因为它们要求必须字节对齐。</p>
-<p><strong>如何查找与字节对齐方面的问题？</strong></p>
-<p>如果出现对齐或者赋值问题首先查看:</p>
-<ol>
-<li>编译器的big little端设置；</li>
-<li>看这种体系本身是否支持非对齐访问；</li>
-<li>如果支持，看设置了对齐与否；如果没有，则看访问时需要加某些特殊的修饰来标志其特殊访问操作。</li>
-</ol>
-<p><strong>ARM下的对齐处理？</strong></p>
-<p>对齐的使用：</p>
-<p>1.__align(num)</p>
-<p>这个用于修改最高级别对象的字节边界。在汇编中使用LDRD或者STRD时，就要用到此命令<strong>align(8)进行修饰限制来保证数据对象是相应对齐。这个修饰对象的命令最大是8个字节限制，可以让2字节的对象进行4字节对齐，但是不能让4字节的对象2字节对齐。</strong>align是存储类修改，它只修饰最高级类型对象，不能用于结构或者函数对象。</p>
-<p>2.__packed </p>
-<p>__packed是进行一字节对齐</p>
-<p>1）不能对packed的对象进行对齐；</p>
-<p>2）所有对象的读写访问都进行非对齐访问；</p>
-<p>3）float及包含float的结构联合及未用__packed的对象将不能字节对齐；</p>
-<p>4）__packed对局部整型变量无影响；</p>
-<p>5）强制由unpacked对象向packed对象转化是未定义，整型指针可以合法定义为packed。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__packed int* p;  //__packed int 则没有意义</span><br></pre></td></tr></table></figure>
-<p>6）对齐或非对齐读写访问带来问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">__packed struct STRUCT_TEST</span><br><span class="line">&#123;</span><br><span class="line">   char a;</span><br><span class="line">   int b;</span><br><span class="line">   char c;</span><br><span class="line">&#125;;    //定义如下结构此时b的起始地址一定是不对齐的</span><br><span class="line">       //在栈中访问b可能有问题,因为栈上数据肯定是对齐访问[from CL]</span><br><span class="line">//将下面变量定义成全局静态不在栈上 </span><br><span class="line">static char* p;</span><br><span class="line">static struct STRUCT_TEST a;</span><br><span class="line">void Main()</span><br><span class="line">&#123;</span><br><span class="line">__packed int* q;  //此时定义成__packed来修饰当前q指向为非对齐的数据地址下面的访问则可以</span><br><span class="line">p = (char*)&amp;a;          </span><br><span class="line">q = (int*)(p+1);      </span><br><span class="line"></span><br><span class="line">*q = 0x87654321; </span><br><span class="line">/*   </span><br><span class="line">得到赋值的汇编指令很清楚</span><br><span class="line">ldr      r5,0x20001590 ; = #0x12345678</span><br><span class="line">[0xe1a00005]   mov      r0,r5</span><br><span class="line">[0xeb0000b0]   bl       __rt_uwrite4  //在此处调用一个写4byte的操作函数 </span><br><span class="line">      </span><br><span class="line">[0xe5c10000]   strb     r0,[r1,#0]   //函数进行4次strb操作然后返回保证了数据正确的访问</span><br><span class="line">[0xe1a02420]   mov      r2,r0,lsr #8</span><br><span class="line">[0xe5c12001]   strb     r2,[r1,#1]</span><br><span class="line">[0xe1a02820]   mov      r2,r0,lsr #16</span><br><span class="line">[0xe5c12002]   strb     r2,[r1,#2]</span><br><span class="line">[0xe1a02c20]   mov      r2,r0,lsr #24</span><br><span class="line">[0xe5c12003]   strb     r2,[r1,#3]</span><br><span class="line">[0xe1a0f00e]   mov      pc,r14</span><br><span class="line">*/</span><br><span class="line">/*</span><br><span class="line">如果q没有加__packed修饰则汇编出来指令是这样直接会导致奇地址处访问失败</span><br><span class="line">[0xe59f2018]   ldr      r2,0x20001594 ; = #0x87654321</span><br><span class="line">[0xe5812000]   str      r2,[r1,#0]</span><br><span class="line">*/</span><br><span class="line">//这样可以很清楚的看到非对齐访问是如何产生错误的</span><br><span class="line">//以及如何消除非对齐访问带来问题</span><br><span class="line">//也可以看到非对齐访问和对齐访问的指令差异导致效率问题</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>有关于内存对齐的问题，可以看看<a href="http://charsdavy.github.io/2016/02/10/memory-alignment/" target="_blank" rel="external">《内存对齐详解》</a></p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div></div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
-          <p>微信赞赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
-          <p>支付宝赞赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/c-language/" rel="tag"># c</a>
-          
-            <a href="/tags/storage/" rel="tag"># 内存</a>
-          
-            <a href="/tags/windows-os/" rel="tag"># windows</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/08/12/mac-os-develop-prepare/" rel="next" title="Mac OS 开发 (一) 准备工作">
-                <i class="fa fa-chevron-left"></i> Mac OS 开发 (一) 准备工作
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/22/ImageHosting-use-introduction/" rel="prev" title="ImageHosting 开源软件的使用说明">
-                ImageHosting 开源软件的使用说明 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">88</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-<!--
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-            </div>
-          
--->
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
-                  
-                    <i class="fa fa-fw fa-envelope"></i>
-                  
-                  Gmail
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        <!--
-<div style="font-size:13px">
-	<a href="/about#ad">购买广告位</a>
-</div>
--->
-
-
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-leaf"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chars</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
   }
 </script>
 
 
 
 
-
-
-
-
-
   
 
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+  </script>
 
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
-
-  
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -1095,52 +189,485 @@
 
 
 
+
+
+    <title> 简单聊聊大小端问题 · Chars's Blog </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Chars's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about/">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Chars's Blog</a>
+</div>
+
+<nav class="site-navbar">
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          简单聊聊大小端问题
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Aug 13, 2016
+        </span>
+
+        
+            <span class="post-divider">|</span>
+            <span class="post-categories" >
+              In
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。</p>
+<a id="more"></a>
+<p>先来看一段代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span>&#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> bits32;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> bytes[<span class="number">4</span>];</span><br><span class="line">&#125;value;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isLittleEndian</span><span class="params">()</span></span>&#123;</span><br><span class="line">        value.bytes[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        value.bytes[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        value.bytes[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">        value.bytes[<span class="number">3</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value.bits32 == <span class="number">256</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>( isLittleEndian())</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"is little endian! "</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"is big endian! "</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所谓的<strong>大端模式</strong>，是指数据的低位（就是权值较小的后面那几位）保存在内存的高地址中，而数据的高位，保存在内存的低地址中。这样的存储模式有点儿类似于把数据当作字符串顺序处理：地址由小向大增加，而数据从高位往低位放；</p>
+<p>所谓的<strong>小端模式</strong>，是指数据的低位保存在内存的低地址中，而数据的高位保存在内存的高地址中。这种存储模式将地址的高低和数据位权有效地结合起来，高地址部分权值高，低地址部分权值低，和我们的逻辑方法一致。 </p>
+<p><strong>为什么会有大小端模式之分呢？</strong></p>
+<p>这是因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。</p>
+<p>例如一个16bit的short型x，在内存中的地址为0x0010，x的值为0x1122，那么0x11为高字节，0x22为低字节。对于大端模式，就将0x11放在低地址中，即0x0010中，0x22放在高地址中，即0x0011中。小端模式，刚好相反。我们常用的X86结构是小端模式，而KEIL C51则为大端模式。很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。<br>下面这段代码可以用来测试一下你的编译器是大端模式还是小端模式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> <span class="keyword">int</span> x; </span><br><span class="line"><span class="keyword">char</span> x0, x1; </span><br><span class="line">x = <span class="number">0x1122</span>; </span><br><span class="line">x0 = ((<span class="keyword">char</span>*)&amp;x)[<span class="number">0</span>]; <span class="comment">//低地址单元 </span></span><br><span class="line">x1 = ((<span class="keyword">char</span>*)&amp;x)[<span class="number">1</span>]; <span class="comment">//高地址单元</span></span><br></pre></td></tr></table></figure>
+<p>若x0=0x11,则是大端; 若x0=0x22,则是小端。</p>
+<p>上面的程序还可以看出，数据寻址时，用的是低位字节的地址。</p>
+<p><strong>什么是字节对齐，为什么要对齐?</strong></p>
+<p>现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问，这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是对齐。</p>
+<p><strong>对齐的作用和原因</strong>：各个硬件平台对存储空间的处理上有很大的不同。一些平台对某些特定类型的数据只能从某些特定地址开始存取。比如有些架构的CPU在访问一个没有进行对齐的变量的时候会发生错误，那么在这种架构下编程必须保证字节对齐。其他平台可能没有这种情况，但是最常见的是如果不按照适合其平台要求对数据存放进行对齐，会在存取效率上带来损失。比如有些平台每次读都是从偶地址开始，如果一个int型（假设为32位系统）如果存放在偶地址开始的地方，那么一个读周期就可以读出这32bit，而如果存放在奇地址开始的地方，就需要2个读周期，并对两次读出的结果的高低字节进行拼凑才能得到该32bit数据。显然在读取效率上下降很多。</p>
+<p><strong>字节对齐对程序的影响？</strong></p>
+<p>先让我们看几个例子(32bit，x86环境，gcc编译器)：<br>设结构体如下定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> B</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>现在已知32位机器上各种数据类型的长度如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char:1(有符号无符号同) </span><br><span class="line">short:2(有符号无符号同) </span><br><span class="line">int:4(有符号无符号同) </span><br><span class="line">long:4(有符号无符号同) </span><br><span class="line">float:4    double:8</span><br></pre></td></tr></table></figure>
+<p>那么上面两个结构大小如何呢?</p>
+<p>结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sizeof(strcut A)值为8</span><br><span class="line">sizeof(struct B)的值却是12</span><br></pre></td></tr></table></figure>
+<p>结构体A中包含了4字节长度的int一个，1字节长度的char一个和2字节长度的short型数据一个,B也一样；按理说A，B大小应该都是7字节。之所以出现上面的结果是因为编译器要对数据成员在空间上进行对齐。上面是按照编译器的默认设置进行对齐的结果，那么我们是不是可以改变编译器的这种默认对齐设置呢，当然可以。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#pragma pack (2) /*指定按2字节对齐*/</span><br><span class="line">struct C</span><br><span class="line">&#123;</span><br><span class="line">    char b;</span><br><span class="line">    int a;</span><br><span class="line">    short c;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#pragma pack () /*取消指定对齐，恢复缺省对齐*/</span><br><span class="line">sizeof(struct C)值是8。</span><br><span class="line">修改对齐值为1：</span><br><span class="line">#pragma pack (1) /*指定按1字节对齐*/</span><br><span class="line">struct D</span><br><span class="line">&#123;</span><br><span class="line">    char b;</span><br><span class="line">    int a;</span><br><span class="line">    short c;</span><br><span class="line">&#125;;</span><br><span class="line">#pragma pack () /*取消指定对齐，恢复缺省对齐*/</span><br><span class="line">sizeof(struct D)值为7。</span><br></pre></td></tr></table></figure>
+<p><strong>编译器是按照什么样的原则进行对齐的?</strong></p>
+<p>先让我们看四个重要的基本概念：</p>
+<p>1.数据类型自身的对齐值：</p>
+<p>对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，单位字节。</p>
+<p>2.结构体或者类的自身对齐值：其成员中自身对齐值最大的那个值。</p>
+<p>3.指定对齐值：#pragma pack (value)时的指定对齐值value。</p>
+<p>4.数据成员、结构体和类的有效对齐值：自身对齐值和指定对齐值中小的那个值。</p>
+<p>有了这些值，我们就可以很方便的来讨论具体数据结构的成员和其自身的对齐方式。有效对齐值N是最终用来决定数据存放地址方式的值，最重要。有效对齐N，就是表示“对齐在N上”，也就是说该数据的“存放起始地址%N=0”。而数据结构中的数据变量都是按定义的先后顺序来排放的。第一个数据变量的起始地址就是数据结构的起始地址。结构体的成员变量要对齐排放，结构体本身也要根据自身的有效对齐值圆整(就是结构体成员变量占用总长度需要是对结构体有效对齐值的整数倍，结合下面例子理解)。这样就不难理解上面的几个例子的值了。</p>
+<p>例子分析：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> B</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>假设B从地址空间0x0000开始排放。该例子中没有定义指定对齐值，在笔者环境下，该值默认为4。第一个成员变量b的自身对齐值是1，比指定或者默认指定对齐值4小，所以其有效对齐值为1，所以其存放地址0x0000符合0x0000%1=0。第二个成员变量a，其自身对齐值为4，所以有效对齐值也为4，所以只能存放在起始地址为0x0004到0x0007这四个连续的字节空间中，复核0x0004%4=0,且紧靠第一个变量。第三个变量c，自身对齐值为2，所以有效对齐值也是2，可以存放在0x0008到0x0009这两个字节空间中，符合0x0008%2=0。所以从0x0000到0x0009存放的都是B内容。再看数据结构B的自身对齐值为其变量中最大对齐值(这里是b）所以就是4，所以结构体的有效对齐值也是4。根据结构体圆整的要求，0x0009到0x0000=10字节，（10＋2）％4＝0。所以0x000A到0x000B也为结构体B所占用。故B从0x0000到0x000B共有12个字节，sizeof(struct B)=12;其实如果就这一个就来说它已经满足字节对齐了，因为它的起始地址是0，因此肯定是对齐的。之所以在后面补充2个字节，是因为编译器为了实现结构数组的存取效率，试想如果我们定义了一个结构B的数组，那么第一个结构起始地址是0没有问题，但是第二个结构呢?按照数组的定义，数组中所有元素都是紧挨着的，如果我们不把结构的大小补充为4的整数倍，那么下一个结构的起始地址将是0x000A，这显然不能满足结构的地址对齐了，因此我们要把结构补充成有效对齐大小的整数倍。其实诸如：对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，这些已有类型的自身对齐值也是基于数组考虑的，只是因为这些类型的长度已知了，所以他们的自身对齐值也就已知了。</p>
+<p>同理，分析下面例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#pragma pack (2) /*指定按2字节对齐*/</span><br><span class="line">struct C</span><br><span class="line">&#123;</span><br><span class="line">    char b;</span><br><span class="line">    int a;</span><br><span class="line">    short c;</span><br><span class="line">&#125;;</span><br><span class="line">#pragma pack () /*取消指定对齐，恢复缺省对齐*/</span><br></pre></td></tr></table></figure>
+<p>第一个变量b的自身对齐值为1，指定对齐值为2，所以，其有效对齐值为1，假设C从0x0000开始，那么b存放在0x0000，符合0x0000%1=0；第二个变量，自身对齐值为4，指定对齐值为2，所以有效对齐值为2，所以顺序存放在0x0002、0x0003、0x0004、0x0005四个连续字节中，符合0x0002%2=0。第三个变量c的自身对齐值为2，所以有效对齐值为2，顺序存放在0x0006、0x0007中，符合0x0006%2=0。所以从0x0000到0x00007共八字节存放的是C的变量。又C的自身对齐值为4，所以C的有效对齐值为2。又8%2=0，C只占用0x0000到0x0007的八个字节。所以sizeof(struct C)=8。</p>
+<p><strong>如何修改编译器的默认对齐值?</strong></p>
+<p>1.在VC IDE中，可以这样修改：[Project]|[Settings],c/c++选项卡Category的Code Generation选项的Struct Member Alignment中修改，默认是8字节。</p>
+<p>2.在编码时，可以这样动态修改：#pragma pack。注意：是pragma而不是progma。</p>
+<p><strong>针对字节对齐，我们在编程中如何考虑?</strong></p>
+<p>如果在编程的时候要考虑节约空间的话,那么我们只需要假定结构的首地址是0，然后各个变量按照上面的原则进行排列即可，基本的原则就是把结构中的变量按照类型大小从小到大声明，尽量减少中间的填补空间。还有一种就是为了以空间换取时间的效率，我们显示的进行填补空间进行对齐，比如：有一种使用空间换时间做法是显式的插入reserved成员：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> A&#123;</span><br><span class="line">	<span class="keyword">char</span> a;</span><br><span class="line">	<span class="keyword">char</span> reserved[<span class="number">3</span>];<span class="comment">//使用空间换时间</span></span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>reserved成员对我们的程序没有什么意义，它只是起到填补空间以达到字节对齐的目的。当然即使不加这个成员，通常编译器也会给我们自动填补对齐，我们自己加上它只是起到显式的提醒作用。</p>
+<p><strong>字节对齐可能带来的隐患？</strong></p>
+<p>代码中关于对齐的隐患，很多是隐式的。比如在强制类型转换的时候。例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0x12345678</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> *p=<span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> *p1=<span class="literal">NULL</span>;</span><br><span class="line">p=&amp;i;</span><br><span class="line">*p=<span class="number">0x00</span>;</span><br><span class="line">p1=(<span class="keyword">unsigned</span> <span class="keyword">short</span> *)(p+<span class="number">1</span>);</span><br><span class="line">*p1=<span class="number">0x0000</span>;</span><br></pre></td></tr></table></figure>
+<p>最后两句代码，从奇数边界去访问unsigned short型变量，显然不符合对齐的规定。在x86上，类似的操作只会影响效率，但是在MIPS或者sparc上，可能就是一个error，因为它们要求必须字节对齐。</p>
+<p><strong>如何查找与字节对齐方面的问题？</strong></p>
+<p>如果出现对齐或者赋值问题首先查看:</p>
+<ol>
+<li>编译器的big little端设置；</li>
+<li>看这种体系本身是否支持非对齐访问；</li>
+<li>如果支持，看设置了对齐与否；如果没有，则看访问时需要加某些特殊的修饰来标志其特殊访问操作。</li>
+</ol>
+<p><strong>ARM下的对齐处理？</strong></p>
+<p>对齐的使用：</p>
+<p>1.__align(num)</p>
+<p>这个用于修改最高级别对象的字节边界。在汇编中使用LDRD或者STRD时，就要用到此命令<strong>align(8)进行修饰限制来保证数据对象是相应对齐。这个修饰对象的命令最大是8个字节限制，可以让2字节的对象进行4字节对齐，但是不能让4字节的对象2字节对齐。</strong>align是存储类修改，它只修饰最高级类型对象，不能用于结构或者函数对象。</p>
+<p>2.__packed </p>
+<p>__packed是进行一字节对齐</p>
+<p>1）不能对packed的对象进行对齐；</p>
+<p>2）所有对象的读写访问都进行非对齐访问；</p>
+<p>3）float及包含float的结构联合及未用__packed的对象将不能字节对齐；</p>
+<p>4）__packed对局部整型变量无影响；</p>
+<p>5）强制由unpacked对象向packed对象转化是未定义，整型指针可以合法定义为packed。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__packed int* p;  //__packed int 则没有意义</span><br></pre></td></tr></table></figure>
+<p>6）对齐或非对齐读写访问带来问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">__packed struct STRUCT_TEST</span><br><span class="line">&#123;</span><br><span class="line">   char a;</span><br><span class="line">   int b;</span><br><span class="line">   char c;</span><br><span class="line">&#125;;    //定义如下结构此时b的起始地址一定是不对齐的</span><br><span class="line">       //在栈中访问b可能有问题,因为栈上数据肯定是对齐访问[from CL]</span><br><span class="line">//将下面变量定义成全局静态不在栈上 </span><br><span class="line">static char* p;</span><br><span class="line">static struct STRUCT_TEST a;</span><br><span class="line">void Main()</span><br><span class="line">&#123;</span><br><span class="line">__packed int* q;  //此时定义成__packed来修饰当前q指向为非对齐的数据地址下面的访问则可以</span><br><span class="line">p = (char*)&amp;a;          </span><br><span class="line">q = (int*)(p+1);      </span><br><span class="line"></span><br><span class="line">*q = 0x87654321; </span><br><span class="line">/*   </span><br><span class="line">得到赋值的汇编指令很清楚</span><br><span class="line">ldr      r5,0x20001590 ; = #0x12345678</span><br><span class="line">[0xe1a00005]   mov      r0,r5</span><br><span class="line">[0xeb0000b0]   bl       __rt_uwrite4  //在此处调用一个写4byte的操作函数 </span><br><span class="line">      </span><br><span class="line">[0xe5c10000]   strb     r0,[r1,#0]   //函数进行4次strb操作然后返回保证了数据正确的访问</span><br><span class="line">[0xe1a02420]   mov      r2,r0,lsr #8</span><br><span class="line">[0xe5c12001]   strb     r2,[r1,#1]</span><br><span class="line">[0xe1a02820]   mov      r2,r0,lsr #16</span><br><span class="line">[0xe5c12002]   strb     r2,[r1,#2]</span><br><span class="line">[0xe1a02c20]   mov      r2,r0,lsr #24</span><br><span class="line">[0xe5c12003]   strb     r2,[r1,#3]</span><br><span class="line">[0xe1a0f00e]   mov      pc,r14</span><br><span class="line">*/</span><br><span class="line">/*</span><br><span class="line">如果q没有加__packed修饰则汇编出来指令是这样直接会导致奇地址处访问失败</span><br><span class="line">[0xe59f2018]   ldr      r2,0x20001594 ; = #0x87654321</span><br><span class="line">[0xe5812000]   str      r2,[r1,#0]</span><br><span class="line">*/</span><br><span class="line">//这样可以很清楚的看到非对齐访问是如何产生错误的</span><br><span class="line">//以及如何消除非对齐访问带来问题</span><br><span class="line">//也可以看到非对齐访问和对齐访问的指令差异导致效率问题</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有关于内存对齐的问题，可以看看<a href="http://charsdavy.github.io/2016/02/10/memory-alignment/" target="_blank" rel="external">《内存对齐详解》</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/wechatpay.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/alipay.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/c-language/">c</a>
+            
+              <a href="/tags/storage/">内存</a>
+            
+              <a href="/tags/windows-os/">windows</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/08/22/ImageHosting-use-introduction/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">ImageHosting 开源软件的使用说明</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/08/12/mac-os-develop-prepare/">
+        <span class="next-text nav-default">Mac OS 开发 (一) 准备工作</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+    
+
+  </article>
+
+
+          </div>
+          
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:chars.davy@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/charsdavy" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/wei.deng.1460" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/charsdavy" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="http://weibo.com/u/3875245858/" class="iconfont icon-weibo" title="weibo"></a>
+        
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2016 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chars</span>
+  </span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+</div>
+
+        
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://chars.tech/2016/08/13/memory-big-little-endian/';
+        this.page.identifier = '2016/08/13/memory-big-little-endian/';
+        this.page.title = '简单聊聊大小端问题';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//charstechblog.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+
+
+
+    
+  
+
+
+
 
 
   
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
 
-  
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
 
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
 
-
-</body>
-
+    
+  </body>
 </html>

@@ -1,21 +1,10 @@
-<!doctype html>
-
-
-
-
-<html class="theme-next pisces" lang="en">
-<head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-1696534394699613",
-      enable_page_level_ads: true
-    });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -23,59 +12,9 @@
 
 
 
-  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+  <meta name="description" content="聊聊Objective-C的Runtime"/>
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="ios,objc,runtime,读书笔记" />
@@ -83,15 +22,16 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=2.4.x" />
 
 
 
-
+<link rel="canonical" href="http://chars.tech/2017/05/09/objc-runtime/"/>
 
 
 <meta name="description" content="Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。
@@ -112,897 +52,41 @@
 在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'UG7I248E1X',
-      apiKey: '39daa80db5305fba3705069658223736',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
 
 
 
-  <link rel="canonical" href="http://chars.tech/2017/05/09/objc-runtime/"/>
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
-
-
-
-
-  <title> 聊聊Objective-C的Runtime | Chars's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
 
 
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="site-title">Chars's Blog</span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
-</nav>
-
-<!--
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
-</a>
-</div>
-</br>
-
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
-</a>
-</div>
--->
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://chars.tech/2017/05/09/objc-runtime/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                聊聊Objective-C的Runtime
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-09T08:36:49+08:00">
-                2017-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pieces/" itemprop="url" rel="index">
-                    <span itemprop="name">pieces</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
-<p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
-<p>在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。</p>
-<p>找出方法的最终执行代码：当程序执行<code>[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。</p>
-<a id="more"></a>
-<h1 id="1-消息机制"><a href="#1-消息机制" class="headerlink" title="1 消息机制"></a>1 消息机制</h1><p>与古老的C语言不同，Objective-C虽然源自C语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。</p>
-<p><strong>C语言和Objective-C编译时的区别：</strong></p>
-<p>C语言在编译的时候，已经知道调用哪一个函数。</p>
-<p>Objective-C不一样，只有在运行时才知道需要调用的方法和函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OBJC_EXPORT void objc_msgSend(void /* id self, SEL op, ... */ )</span><br><span class="line">    OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0);</span><br></pre></td></tr></table></figure>
-<p>使用这个方法要<code>#import &lt;objc/message.h&gt;</code>，另外，Apple在Xcode5开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode就会报错，那么，如何解决呢？</p>
-<p>解决方案如下：</p>
-<ul>
-<li>1）打开Project的<code>Build Settings</code>，搜索“msg”。</li>
-<li>2）将<code>Enable Strict Checking of objc_msgSend Calls</code>的值设置为NO。</li>
-</ul>
-<h2 id="发送无参消息"><a href="#发送无参消息" class="headerlink" title="发送无参消息"></a>发送无参消息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@interface Sample : NSObject</span><br><span class="line">+ (void)run;</span><br><span class="line">- (void)run;</span><br><span class="line">- (void)eatWithFood:(NSString *)food;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Sample</span><br><span class="line">+ (void)run</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;类方法 run&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)run</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;实例方法 run&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)eatWithFood:(NSString *)food</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;实例方法 eat：%@&quot;, food);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">- (void)test &#123;</span><br><span class="line">	Sample *t = [[Sample alloc] init];</span><br><span class="line">	objc_msgSend(t, @selector(run));</span><br><span class="line"></span><br><span class="line">	objc_msgSend([Sample class], @selector(run));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="发送带参消息"><a href="#发送带参消息" class="headerlink" title="发送带参消息"></a>发送带参消息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)test &#123;</span><br><span class="line">	Sample *t = [[Sample alloc] init];</span><br><span class="line">	objc_msgSend(t, @selector(eatWithFood:), @&quot;apple&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>附加：将Objective-C转换出Runtime代码方法</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc xxxx.m</span><br></pre></td></tr></table></figure>
-<h2 id="交换方法的实现"><a href="#交换方法的实现" class="headerlink" title="交换方法的实现"></a>交换方法的实现</h2><p><code>class_getInstanceMethod(__unsafe_unretained Class cls, SEL name)</code>获取对象方法。</p>
-<p><code>class_getClassMethod(__unsafe_unretained Class cls, SEL name)</code>获取类方法。</p>
-<p><code>method_exchangeImplementations(Method m1, Method m2)</code>交换方法的实现方式。</p>
-<p>常见示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = [NSURL URLWithString:@&quot;https://charsdavy.github.io&quot;];</span><br><span class="line">[NSURLRequest requestWithURL:url];</span><br></pre></td></tr></table></figure>
-<p>但<code>url</code>可能返回nil，而此段代码未能对返回值<code>url</code>进行合法判断。但每次使用以上类似代码都需要进行合法性判断，那么有什么更好的方法使<code>URLWithString:</code>能够做合法性判断呢？这个时候就需要使用Runtime的特有方法了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@interface NSURL (DD)</span><br><span class="line">+ (instancetype)dd_URLWithString:(NSString *)URLString;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation NSURL (DD)</span><br><span class="line">// 加载此分类时调用</span><br><span class="line">+ (void)load</span><br><span class="line">&#123;</span><br><span class="line">    //获取方法名称</span><br><span class="line">    Method urlMethod = class_getClassMethod([NSURL class], @selector(URLWithString:));</span><br><span class="line">    Method ddUrlMethod = class_getClassMethod([NSURL class], @selector(dd_URLWithString:));</span><br><span class="line">    //交换方法的实现</span><br><span class="line">    method_exchangeImplementations(urlMethod, ddUrlMethod);</span><br><span class="line">&#125;</span><br><span class="line">//此方法与URLWithString:交换了实现方式</span><br><span class="line">+ (instancetype)dd_URLWithString:(NSString *)URLString</span><br><span class="line">&#123;</span><br><span class="line">//    NSURL *url = [NSURL URLWithString:URLString]; 此处不能再调用此方法，否则会死循环</span><br><span class="line">    NSURL *url = [NSURL dd_URLWithString:URLString];</span><br><span class="line">    if (!url) &#123;</span><br><span class="line">        NSLog(@&quot;url is nil&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return url;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<h2 id="归档和解档"><a href="#归档和解档" class="headerlink" title="归档和解档"></a>归档和解档</h2><p>先来理解几个Objective-C中的概念：</p>
-<p>序列化：将自定义的Objective-C的对象转化成二进制文件数据。</p>
-<p>反序列化：将二进制文件数据转化成自定义的Objective-C的对象。</p>
-<p>归档：将自定义的Objective-C的对象存储到本地磁盘。</p>
-<p>解档：将存储在本地磁盘的数据转换成自定义的Objective-C的对象。</p>
-<p>Ivar类型：成员属性。</p>
-<p>Method类型：成员方法。</p>
-<p>通常我们使用归档和解档的方式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">@interface Sample : NSObject&lt;NSCoding&gt;</span><br><span class="line">@property (nonatomic) NSString *name;</span><br><span class="line">@property (nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Sample</span><br><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder</span><br><span class="line">&#123;</span><br><span class="line">    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];</span><br><span class="line">    [aCoder encodeObject:self.age forKey:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br><span class="line">- (instancetype)initWithCoder:(NSCoder *)aDecoder</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];</span><br><span class="line">        self.age = [aDecoder decodeObjectForKey:@&quot;age&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">- (void)saveObject</span><br><span class="line">&#123;</span><br><span class="line">    Sample *p = [[Sample alloc] init];</span><br><span class="line">    p.name = @&quot;Chars&quot;;</span><br><span class="line">    p.age = @&quot;18&quot;;</span><br><span class="line">    </span><br><span class="line">    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;chars.dat&quot;];</span><br><span class="line">    </span><br><span class="line">    BOOL flag = [NSKeyedArchiver archiveRootObject:p toFile:path];</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">        NSLog(@&quot;success&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;falied&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;%@&quot;, path);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)readObject</span><br><span class="line">&#123;</span><br><span class="line">    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;chars.dat&quot;];</span><br><span class="line">    </span><br><span class="line">    Sample *p = [NSKeyedUnarchiver unarchiveObjectWithFile:path];</span><br><span class="line">    if (p) &#123;</span><br><span class="line">        NSLog(@&quot;name:%@,age:%@&quot;, p.name, p.age);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;falied&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;%@&quot;, path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Objective-C中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。</p>
-<p>但是，当model中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用Runtime来简化工作。</p>
-<p><code>class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)</code>获取Class中成员变量的个数。</p>
-<p>以下就是使用Runtime消息机制编写的归档与解档方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder</span><br><span class="line">&#123;   </span><br><span class="line">    unsigned int count = 0;</span><br><span class="line">    Ivar *ivars = class_copyIvarList([Sample class], &amp;count);</span><br><span class="line">    for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">        Ivar ivar = ivars[i];</span><br><span class="line">        const char *name = ivar_getName(ivar);</span><br><span class="line">        NSString *key = [NSString stringWithUTF8String:name];</span><br><span class="line">        [aCoder encodeObject:[self valueForKey:key] forKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">    free(ivars);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithCoder:(NSCoder *)aDecoder</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        unsigned int count = 0;</span><br><span class="line">        Ivar *ivars = class_copyIvarList([Sample class], &amp;count);</span><br><span class="line">        for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">            Ivar ivar = ivars[i];</span><br><span class="line">            const char *name = ivar_getName(ivar);</span><br><span class="line">            NSString *key = [NSString stringWithUTF8String:name];</span><br><span class="line">            id value = [aDecoder decodeObjectForKey:key];</span><br><span class="line">            [self setValue:value forKey:key];</span><br><span class="line">        &#125;</span><br><span class="line">        free(ivars);</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-KVO"><a href="#2-KVO" class="headerlink" title="2 KVO"></a>2 KVO</h1><p>利用Runtime，在运行时动态创建一个对象。</p>
-<p>实现原理：</p>
-<ol>
-<li>创建<code>NSKVONotifying_XXX:XXX</code>类(XXX为被监听者)。</li>
-<li>重写属性set方法，调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法，进而触发调用观察者的<code>observeValueForKeyPath:ofObject:change:context:</code></li>
-</ol>
-<p>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@interface Viewer : NSObject</span><br><span class="line">@property (nonatomic) NSString *name;</span><br><span class="line">@property (nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface Observer : NSObject</span><br><span class="line">@property (nonatomic) NSString *name;</span><br><span class="line">@property (nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Observer</span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;object:%@, keyPath:%@, change:%@&quot;, object, keyPath, change);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">Observer *observer = [[Observer alloc] init];</span><br><span class="line">Viewr *viewer = [[Viewer alloc] init];</span><br><span class="line">//注册监听,viewer为被监听者，observer为观察者</span><br><span class="line">[viewr addObserver:observer forKeyPath:@&quot;age&quot; options:NSKeyValueObservingOptionNew context:nil];</span><br><span class="line">//触发KVO</span><br><span class="line">viewer.age = @&quot;99&quot;;</span><br></pre></td></tr></table></figure>
-<h1 id="3-动态添加方法"><a href="#3-动态添加方法" class="headerlink" title="3 动态添加方法"></a>3 动态添加方法</h1><p>当方法被调用时，才被加载。</p>
-<p><code>+ (BOOL)resolveClassMethod:(SEL)sel;</code>当一个类被调用了一个没有实现的方法时，则会调用此方法。</p>
-<p><code>+ (BOOL)resolveInstanceMethod:(SEL)sel</code>当一个类被调用了一个没有实现的实例方法时，则会调用此方法。</p>
-<p><code>class_addMethod(__unsafe_unretained Class cls, SEL name, IMP imp, const char *types)</code>动态添加方法。</p>
-<p>参数<code>cls</code>：类类型。参数<code>name</code>：方法编号。参数<code>imp</code>：方法实现，就是一个函数的指针。参数<code>* types</code>：方法类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@implementation Sample</span><br><span class="line">//一个类被调用了一个没有实现的实例方法时，则会调用此方法。</span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel</span><br><span class="line">&#123;</span><br><span class="line">    if (sel == @selector(eat)) &#123;</span><br><span class="line">        //添加一个实例方法</span><br><span class="line">        class_addMethod([Sample class], sel, (IMP)eat, &quot;v@:&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//隐式参数,self和_cmd是系统传过来的参数</span><br><span class="line">void eat(id self, SEL _cmd) &#123;</span><br><span class="line">    NSLog(@&quot;调用了%@的%@方法&quot;, self, NSStringFromSelector(_cmd));</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">[[[Sample alloc] init] performSelector:@selector(eat)];</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div></div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
-          <p>微信赞赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
-          <p>支付宝赞赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/ios/" rel="tag"># ios</a>
-          
-            <a href="/tags/objc/" rel="tag"># objc</a>
-          
-            <a href="/tags/notes/" rel="tag"># 读书笔记</a>
-          
-            <a href="/tags/runtime/" rel="tag"># runtime</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/04/23/japanese-honorific-tongue/" rel="next" title="日语-敬体和简体">
-                <i class="fa fa-chevron-left"></i> 日语-敬体和简体
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/16/mysql-study/" rel="prev" title="与 MySQL 的零距离接触">
-                与 MySQL 的零距离接触 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">88</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-<!--
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-            </div>
-          
--->
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
-                  
-                    <i class="fa fa-fw fa-envelope"></i>
-                  
-                  Gmail
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        <!--
-<div style="font-size:13px">
-	<a href="/about#ad">购买广告位</a>
-</div>
--->
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-消息机制"><span class="nav-number">1.</span> <span class="nav-text">1 消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发送无参消息"><span class="nav-number">1.1.</span> <span class="nav-text">发送无参消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送带参消息"><span class="nav-number">1.2.</span> <span class="nav-text">发送带参消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换方法的实现"><span class="nav-number">1.3.</span> <span class="nav-text">交换方法的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归档和解档"><span class="nav-number">1.4.</span> <span class="nav-text">归档和解档</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-KVO"><span class="nav-number">2.</span> <span class="nav-text">2 KVO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-动态添加方法"><span class="nav-number">3.</span> <span class="nav-text">3 动态添加方法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-leaf"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chars</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
   }
 </script>
 
 
 
 
-
-
-
-
-
   
 
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+  </script>
 
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
-
-  
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -1111,52 +195,477 @@
 
 
 
+
+
+    <title> 聊聊Objective-C的Runtime · Chars's Blog </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Chars's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about/">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Chars's Blog</a>
+</div>
+
+<nav class="site-navbar">
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          聊聊Objective-C的Runtime
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          May 9, 2017
+        </span>
+
+        
+            <span class="post-divider">|</span>
+            <span class="post-categories" >
+              In
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-消息机制"><span class="toc-text">1 消息机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#发送无参消息"><span class="toc-text">发送无参消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送带参消息"><span class="toc-text">发送带参消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交换方法的实现"><span class="toc-text">交换方法的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归档和解档"><span class="toc-text">归档和解档</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-KVO"><span class="toc-text">2 KVO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-动态添加方法"><span class="toc-text">3 动态添加方法</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
+<p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
+<p>在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。</p>
+<p>找出方法的最终执行代码：当程序执行<code>[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。</p>
+<a id="more"></a>
+<h1 id="1-消息机制"><a href="#1-消息机制" class="headerlink" title="1 消息机制"></a>1 消息机制</h1><p>与古老的C语言不同，Objective-C虽然源自C语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。</p>
+<p><strong>C语言和Objective-C编译时的区别：</strong></p>
+<p>C语言在编译的时候，已经知道调用哪一个函数。</p>
+<p>Objective-C不一样，只有在运行时才知道需要调用的方法和函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OBJC_EXPORT void objc_msgSend(void /* id self, SEL op, ... */ )</span><br><span class="line">    OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0);</span><br></pre></td></tr></table></figure>
+<p>使用这个方法要<code>#import &lt;objc/message.h&gt;</code>，另外，Apple在Xcode5开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode就会报错，那么，如何解决呢？</p>
+<p>解决方案如下：</p>
+<ul>
+<li>1）打开Project的<code>Build Settings</code>，搜索“msg”。</li>
+<li>2）将<code>Enable Strict Checking of objc_msgSend Calls</code>的值设置为NO。</li>
+</ul>
+<h2 id="发送无参消息"><a href="#发送无参消息" class="headerlink" title="发送无参消息"></a>发送无参消息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@interface Sample : NSObject</span><br><span class="line">+ (void)run;</span><br><span class="line">- (void)run;</span><br><span class="line">- (void)eatWithFood:(NSString *)food;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Sample</span><br><span class="line">+ (void)run</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;类方法 run&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)run</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;实例方法 run&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)eatWithFood:(NSString *)food</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;实例方法 eat：%@&quot;, food);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">- (void)test &#123;</span><br><span class="line">	Sample *t = [[Sample alloc] init];</span><br><span class="line">	objc_msgSend(t, @selector(run));</span><br><span class="line"></span><br><span class="line">	objc_msgSend([Sample class], @selector(run));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="发送带参消息"><a href="#发送带参消息" class="headerlink" title="发送带参消息"></a>发送带参消息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)test &#123;</span><br><span class="line">	Sample *t = [[Sample alloc] init];</span><br><span class="line">	objc_msgSend(t, @selector(eatWithFood:), @&quot;apple&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>附加：将Objective-C转换出Runtime代码方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc xxxx.m</span><br></pre></td></tr></table></figure>
+<h2 id="交换方法的实现"><a href="#交换方法的实现" class="headerlink" title="交换方法的实现"></a>交换方法的实现</h2><p><code>class_getInstanceMethod(__unsafe_unretained Class cls, SEL name)</code>获取对象方法。</p>
+<p><code>class_getClassMethod(__unsafe_unretained Class cls, SEL name)</code>获取类方法。</p>
+<p><code>method_exchangeImplementations(Method m1, Method m2)</code>交换方法的实现方式。</p>
+<p>常见示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = [NSURL URLWithString:@&quot;https://charsdavy.github.io&quot;];</span><br><span class="line">[NSURLRequest requestWithURL:url];</span><br></pre></td></tr></table></figure>
+<p>但<code>url</code>可能返回nil，而此段代码未能对返回值<code>url</code>进行合法判断。但每次使用以上类似代码都需要进行合法性判断，那么有什么更好的方法使<code>URLWithString:</code>能够做合法性判断呢？这个时候就需要使用Runtime的特有方法了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@interface NSURL (DD)</span><br><span class="line">+ (instancetype)dd_URLWithString:(NSString *)URLString;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation NSURL (DD)</span><br><span class="line">// 加载此分类时调用</span><br><span class="line">+ (void)load</span><br><span class="line">&#123;</span><br><span class="line">    //获取方法名称</span><br><span class="line">    Method urlMethod = class_getClassMethod([NSURL class], @selector(URLWithString:));</span><br><span class="line">    Method ddUrlMethod = class_getClassMethod([NSURL class], @selector(dd_URLWithString:));</span><br><span class="line">    //交换方法的实现</span><br><span class="line">    method_exchangeImplementations(urlMethod, ddUrlMethod);</span><br><span class="line">&#125;</span><br><span class="line">//此方法与URLWithString:交换了实现方式</span><br><span class="line">+ (instancetype)dd_URLWithString:(NSString *)URLString</span><br><span class="line">&#123;</span><br><span class="line">//    NSURL *url = [NSURL URLWithString:URLString]; 此处不能再调用此方法，否则会死循环</span><br><span class="line">    NSURL *url = [NSURL dd_URLWithString:URLString];</span><br><span class="line">    if (!url) &#123;</span><br><span class="line">        NSLog(@&quot;url is nil&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return url;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="归档和解档"><a href="#归档和解档" class="headerlink" title="归档和解档"></a>归档和解档</h2><p>先来理解几个Objective-C中的概念：</p>
+<p>序列化：将自定义的Objective-C的对象转化成二进制文件数据。</p>
+<p>反序列化：将二进制文件数据转化成自定义的Objective-C的对象。</p>
+<p>归档：将自定义的Objective-C的对象存储到本地磁盘。</p>
+<p>解档：将存储在本地磁盘的数据转换成自定义的Objective-C的对象。</p>
+<p>Ivar类型：成员属性。</p>
+<p>Method类型：成员方法。</p>
+<p>通常我们使用归档和解档的方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">@interface Sample : NSObject&lt;NSCoding&gt;</span><br><span class="line">@property (nonatomic) NSString *name;</span><br><span class="line">@property (nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Sample</span><br><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder</span><br><span class="line">&#123;</span><br><span class="line">    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];</span><br><span class="line">    [aCoder encodeObject:self.age forKey:@&quot;age&quot;];</span><br><span class="line">&#125;</span><br><span class="line">- (instancetype)initWithCoder:(NSCoder *)aDecoder</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];</span><br><span class="line">        self.age = [aDecoder decodeObjectForKey:@&quot;age&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">- (void)saveObject</span><br><span class="line">&#123;</span><br><span class="line">    Sample *p = [[Sample alloc] init];</span><br><span class="line">    p.name = @&quot;Chars&quot;;</span><br><span class="line">    p.age = @&quot;18&quot;;</span><br><span class="line">    </span><br><span class="line">    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;chars.dat&quot;];</span><br><span class="line">    </span><br><span class="line">    BOOL flag = [NSKeyedArchiver archiveRootObject:p toFile:path];</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">        NSLog(@&quot;success&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;falied&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;%@&quot;, path);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)readObject</span><br><span class="line">&#123;</span><br><span class="line">    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;chars.dat&quot;];</span><br><span class="line">    </span><br><span class="line">    Sample *p = [NSKeyedUnarchiver unarchiveObjectWithFile:path];</span><br><span class="line">    if (p) &#123;</span><br><span class="line">        NSLog(@&quot;name:%@,age:%@&quot;, p.name, p.age);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;falied&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;%@&quot;, path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objective-C中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。</p>
+<p>但是，当model中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用Runtime来简化工作。</p>
+<p><code>class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)</code>获取Class中成员变量的个数。</p>
+<p>以下就是使用Runtime消息机制编写的归档与解档方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder</span><br><span class="line">&#123;   </span><br><span class="line">    unsigned int count = 0;</span><br><span class="line">    Ivar *ivars = class_copyIvarList([Sample class], &amp;count);</span><br><span class="line">    for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">        Ivar ivar = ivars[i];</span><br><span class="line">        const char *name = ivar_getName(ivar);</span><br><span class="line">        NSString *key = [NSString stringWithUTF8String:name];</span><br><span class="line">        [aCoder encodeObject:[self valueForKey:key] forKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">    free(ivars);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithCoder:(NSCoder *)aDecoder</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        unsigned int count = 0;</span><br><span class="line">        Ivar *ivars = class_copyIvarList([Sample class], &amp;count);</span><br><span class="line">        for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">            Ivar ivar = ivars[i];</span><br><span class="line">            const char *name = ivar_getName(ivar);</span><br><span class="line">            NSString *key = [NSString stringWithUTF8String:name];</span><br><span class="line">            id value = [aDecoder decodeObjectForKey:key];</span><br><span class="line">            [self setValue:value forKey:key];</span><br><span class="line">        &#125;</span><br><span class="line">        free(ivars);</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-KVO"><a href="#2-KVO" class="headerlink" title="2 KVO"></a>2 KVO</h1><p>利用Runtime，在运行时动态创建一个对象。</p>
+<p>实现原理：</p>
+<ol>
+<li>创建<code>NSKVONotifying_XXX:XXX</code>类(XXX为被监听者)。</li>
+<li>重写属性set方法，调用<code>willChangeValueForKey:</code>和<code>didChangeValueForKey:</code>方法，进而触发调用观察者的<code>observeValueForKeyPath:ofObject:change:context:</code></li>
+</ol>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@interface Viewer : NSObject</span><br><span class="line">@property (nonatomic) NSString *name;</span><br><span class="line">@property (nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface Observer : NSObject</span><br><span class="line">@property (nonatomic) NSString *name;</span><br><span class="line">@property (nonatomic) NSString *age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Observer</span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;object:%@, keyPath:%@, change:%@&quot;, object, keyPath, change);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">Observer *observer = [[Observer alloc] init];</span><br><span class="line">Viewr *viewer = [[Viewer alloc] init];</span><br><span class="line">//注册监听,viewer为被监听者，observer为观察者</span><br><span class="line">[viewr addObserver:observer forKeyPath:@&quot;age&quot; options:NSKeyValueObservingOptionNew context:nil];</span><br><span class="line">//触发KVO</span><br><span class="line">viewer.age = @&quot;99&quot;;</span><br></pre></td></tr></table></figure>
+<h1 id="3-动态添加方法"><a href="#3-动态添加方法" class="headerlink" title="3 动态添加方法"></a>3 动态添加方法</h1><p>当方法被调用时，才被加载。</p>
+<p><code>+ (BOOL)resolveClassMethod:(SEL)sel;</code>当一个类被调用了一个没有实现的方法时，则会调用此方法。</p>
+<p><code>+ (BOOL)resolveInstanceMethod:(SEL)sel</code>当一个类被调用了一个没有实现的实例方法时，则会调用此方法。</p>
+<p><code>class_addMethod(__unsafe_unretained Class cls, SEL name, IMP imp, const char *types)</code>动态添加方法。</p>
+<p>参数<code>cls</code>：类类型。参数<code>name</code>：方法编号。参数<code>imp</code>：方法实现，就是一个函数的指针。参数<code>* types</code>：方法类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@implementation Sample</span><br><span class="line">//一个类被调用了一个没有实现的实例方法时，则会调用此方法。</span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel</span><br><span class="line">&#123;</span><br><span class="line">    if (sel == @selector(eat)) &#123;</span><br><span class="line">        //添加一个实例方法</span><br><span class="line">        class_addMethod([Sample class], sel, (IMP)eat, &quot;v@:&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//隐式参数,self和_cmd是系统传过来的参数</span><br><span class="line">void eat(id self, SEL _cmd) &#123;</span><br><span class="line">    NSLog(@&quot;调用了%@的%@方法&quot;, self, NSStringFromSelector(_cmd));</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">[[[Sample alloc] init] performSelector:@selector(eat)];</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/wechatpay.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/alipay.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ios/">ios</a>
+            
+              <a href="/tags/objc/">objc</a>
+            
+              <a href="/tags/notes/">读书笔记</a>
+            
+              <a href="/tags/runtime/">runtime</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/05/16/mysql-study/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">与 MySQL 的零距离接触</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/04/23/japanese-honorific-tongue/">
+        <span class="next-text nav-default">日语-敬体和简体</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+    
+
+  </article>
+
+
+          </div>
+          
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:chars.davy@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/charsdavy" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/wei.deng.1460" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/charsdavy" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="http://weibo.com/u/3875245858/" class="iconfont icon-weibo" title="weibo"></a>
+        
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2016 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chars</span>
+  </span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+</div>
+
+        
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://chars.tech/2017/05/09/objc-runtime/';
+        this.page.identifier = '2017/05/09/objc-runtime/';
+        this.page.title = '聊聊Objective-C的Runtime';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//charstechblog.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+
+
+
+    
+  
+
+
+
 
 
   
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
 
-  
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
 
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
 
-
-</body>
-
+    
+  </body>
 </html>

@@ -1,21 +1,10 @@
-<!doctype html>
-
-
-
-
-<html class="theme-next pisces" lang="en">
-<head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-1696534394699613",
-      enable_page_level_ads: true
-    });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -23,59 +12,9 @@
 
 
 
-  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+  <meta name="description" content="GitHub 使用"/>
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="工具,git," />
@@ -83,15 +22,16 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog">
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=2.4.x" />
 
 
 
-
+<link rel="canonical" href="http://chars.tech/2016/05/20/github-using/"/>
 
 
 <meta name="description" content="摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。">
@@ -106,895 +46,41 @@
 <meta name="twitter:description" content="摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'UG7I248E1X',
-      apiKey: '39daa80db5305fba3705069658223736',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
 
 
 
-  <link rel="canonical" href="http://chars.tech/2016/05/20/github-using/"/>
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
-
-
-
-
-  <title> GitHub 使用 | Chars's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
 
 
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="site-title">Chars's Blog</span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
-</nav>
-
-<!--
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
-</a>
-</div>
-</br>
-
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
-</a>
-</div>
--->
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://chars.tech/2016/05/20/github-using/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                GitHub 使用
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-20T22:17:11+08:00">
-                2016-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pieces/" itemprop="url" rel="index">
-                    <span itemprop="name">pieces</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。</p>
-<a id="more"></a>
-<h1 id="下载github客户端软件"><a href="#下载github客户端软件" class="headerlink" title="下载github客户端软件"></a>下载github客户端软件</h1><ol>
-<li>官网<a href="https://help.github.com/" target="_blank" rel="external">下载</a></li>
-<li>Google搜索，一般用于windows7以前的系统</li>
-</ol>
-<h1 id="安装github软件"><a href="#安装github软件" class="headerlink" title="安装github软件"></a>安装github软件</h1><p>根据软件安装指导，按步骤安装即可。</p>
-<h1 id="使用git命令提交"><a href="#使用git命令提交" class="headerlink" title="使用git命令提交"></a>使用git命令提交</h1><h2 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h2><p>安装Git后首先要做的事情是设置用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Chars Davy&quot;</span><br><span class="line">git config --global user.email chars_d@example.com</span><br></pre></td></tr></table></figure>
-<p>重申一遍，只需要做一次这个设置。如果传递了 <code>--global</code> 选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或e-mail地址，你可以在该项目中运行该命令而不要<code>--global</code>选项。</p>
-<p><strong>注意：</strong></p>
-<p>默认git对大小写是不敏感的，可以通过命令关掉其配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase false</span><br></pre></td></tr></table></figure>
-<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h2><p>这是一种较为简单的初始化方式，当你已经有一个远程的Git版本库，只需要在本地克隆一份:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  clone  git://github.com/someone/some_project.git   some_project</span><br></pre></td></tr></table></figure>
-<p>上面的命令就是将<code>git://github.com/someone/some_project.git</code>这个URL地址的远程版本库，完全克隆到本地some_project目录下。</p>
-<h2 id="git-init-和-git-remote"><a href="#git-init-和-git-remote" class="headerlink" title="git init 和 git remote"></a>git init 和 git remote</h2><p>这种方式稍微复杂一些，当你本地创建了一个工作目录，你可以进入这个目录，使用<code>git init</code>命令进行初始化；Git以后就会对该目录下的文件进行版本控制，这时候如果你需要将它放到远程服务器上，可以在远程服务器上创建一个目录，并把可访问的URL记录下来，此时你就可以利用<code>git remote add</code>命令来增加一个远程服务器端，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  remote  add  origin  git://github.com/someone/another_project.git</span><br></pre></td></tr></table></figure>
-<p>上面的命令就会增加URL地址为<code>git: //github.com/someone/another_project.git</code>，名称为origin的远程服务器，以后提交代码的时候只需要使用 origin别名即可。</p>
-<h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>将当前更改或者新增的文件加入到Git的索引中，加入到Git的索引中就表示记入了版本历史中，这也是提交之前所需要执行的一步，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add app/model/user.rb</span><br></pre></td></tr></table></figure>
-<p>就会增加<code>app/model/user.rb</code>文件到Git的索引中，该功能类似于SVN的add，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
-<p>上面的命令会将所有改动过的文件及文件夹迭代全部添加进本地代码仓库。</p>
-<h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h2><p>提交当前工作空间的修改内容，类似于SVN的commit命令，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m story #3, add user model</span><br></pre></td></tr></table></figure>
-<p>提交的时候必须用-m来输入一条提交信息，该功能类似于SVN的commit，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit –m beta</span><br></pre></td></tr></table></figure>
-<p>上面的命令会将beta作为log显示在代码提交记录中。</p>
-<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>将本地commit的代码更新到远程版本库中，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin</span><br></pre></td></tr></table></figure>
-<p>上面的命令就会将本地的代码更新到名为orgin的远程版本库中。</p>
-<h1 id="git代码提交中可能遇到的问题"><a href="#git代码提交中可能遇到的问题" class="headerlink" title="git代码提交中可能遇到的问题"></a>git代码提交中可能遇到的问题</h1><p>问题1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">You can&apos;t push to git://github.com/example/example_pro.git</span><br><span class="line">Use https://github.com/ example/example_pro.git</span><br></pre></td></tr></table></figure>
-<p>解决办法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote remove origin</span><br><span class="line">git remote add origin git@github.com:user_name/user_repo.git</span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
-<p>原因：</p>
-<p>如果在<code>git clone</code>的时候用的是<code>git://github.com:xx/xxx.git</code> 的形式, 那么就会出现这个问题，因为这个protocol是不支持push的，而使用<code>git clone git@github.com:lujinjianst/myNCCL.git</code>就可以用git push。</p>
-<p>问题2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Permission denied(publickey).</span><br><span class="line">fatal:Could not read from remote repository.</span><br></pre></td></tr></table></figure>
-<p>解决办法：</p>
-<p>在终端输入:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;chars&quot;//注意,chars为用户名</span><br></pre></td></tr></table></figure>
-<p>如果执行成功。返回:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair. </span><br><span class="line">Enter file in which to save the key (/home/forwhat.cn/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
-<p>在这里就是设置存储地址了.反正我是直接按的回车,然后还会返回:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span><br></pre></td></tr></table></figure>
-<p>再次直接回车。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter same passphrase again:</span><br></pre></td></tr></table></figure>
-<p>再次回车。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved in /home/forwhat.cn/.ssh/id_rsa. </span><br><span class="line">Your public key has been saved in /home/forwhat.cn/.ssh/id_rsa.pub. </span><br><span class="line">The key fingerprint is:</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">The key&apos;s randomart image is: </span><br><span class="line">+--[ RSA 2048]----+ </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|    o            | </span><br><span class="line">|   + .  S        | </span><br><span class="line">|  . = .  o       | </span><br><span class="line">|   o + +o.o      | </span><br><span class="line">|E o . o.=+.      | </span><br><span class="line">|.+   ==+ooo.     | </span><br><span class="line">+-----------------+</span><br></pre></td></tr></table></figure>
-<p>这样SSH key就生成了。直接cat一下就好了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:~/a$ cat /home/forwhat.cn/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-<p>把显示出来的直接添加到github账户设置里边的SSH keys。<br>回来再git pull就开始远程拷贝代码了。</p>
-<p>原因：</p>
-<p>没有在github账号添加SSH key。</p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div></div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
-          <p>微信赞赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
-          <p>支付宝赞赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/tool/" rel="tag"># 工具</a>
-          
-            <a href="/tags/git-tool/" rel="tag"># git</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/05/05/flappy-bird-game/" rel="next" title="flappy bird 游戏实现">
-                <i class="fa fa-chevron-left"></i> flappy bird 游戏实现
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/26/ios-simultaneously/" rel="prev" title="iOS 并发概念浅析">
-                iOS 并发概念浅析 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">88</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-<!--
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-            </div>
-          
--->
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
-                  
-                    <i class="fa fa-fw fa-envelope"></i>
-                  
-                  Gmail
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        <!--
-<div style="font-size:13px">
-	<a href="/about#ad">购买广告位</a>
-</div>
--->
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载github客户端软件"><span class="nav-number">1.</span> <span class="nav-text">下载github客户端软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装github软件"><span class="nav-number">2.</span> <span class="nav-text">安装github软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用git命令提交"><span class="nav-number">3.</span> <span class="nav-text">使用git命令提交</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-config"><span class="nav-number">3.1.</span> <span class="nav-text">git config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-clone"><span class="nav-number">3.2.</span> <span class="nav-text">git clone</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-init-和-git-remote"><span class="nav-number">3.3.</span> <span class="nav-text">git init 和 git remote</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-add"><span class="nav-number">3.4.</span> <span class="nav-text">git add</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-commit"><span class="nav-number">3.5.</span> <span class="nav-text">git commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-push"><span class="nav-number">3.6.</span> <span class="nav-text">git push</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git代码提交中可能遇到的问题"><span class="nav-number">4.</span> <span class="nav-text">git代码提交中可能遇到的问题</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-leaf"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chars</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
   }
 </script>
 
 
 
 
-
-
-
-
-
   
 
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+  </script>
 
 
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
-
-  
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -1103,52 +189,475 @@
 
 
 
+
+
+    <title> GitHub 使用 · Chars's Blog </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Chars's Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about/">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Chars's Blog</a>
+</div>
+
+<nav class="site-navbar">
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          GitHub 使用
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          May 20, 2016
+        </span>
+
+        
+            <span class="post-divider">|</span>
+            <span class="post-categories" >
+              In
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#下载github客户端软件"><span class="toc-text">下载github客户端软件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装github软件"><span class="toc-text">安装github软件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用git命令提交"><span class="toc-text">使用git命令提交</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-config"><span class="toc-text">git config</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-clone"><span class="toc-text">git clone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-init-和-git-remote"><span class="toc-text">git init 和 git remote</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-add"><span class="toc-text">git add</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-commit"><span class="toc-text">git commit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-push"><span class="toc-text">git push</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git代码提交中可能遇到的问题"><span class="toc-text">git代码提交中可能遇到的问题</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>摘要：GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。</p>
+<a id="more"></a>
+<h1 id="下载github客户端软件"><a href="#下载github客户端软件" class="headerlink" title="下载github客户端软件"></a>下载github客户端软件</h1><ol>
+<li>官网<a href="https://help.github.com/" target="_blank" rel="external">下载</a></li>
+<li>Google搜索，一般用于windows7以前的系统</li>
+</ol>
+<h1 id="安装github软件"><a href="#安装github软件" class="headerlink" title="安装github软件"></a>安装github软件</h1><p>根据软件安装指导，按步骤安装即可。</p>
+<h1 id="使用git命令提交"><a href="#使用git命令提交" class="headerlink" title="使用git命令提交"></a>使用git命令提交</h1><h2 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h2><p>安装Git后首先要做的事情是设置用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Chars Davy&quot;</span><br><span class="line">git config --global user.email chars_d@example.com</span><br></pre></td></tr></table></figure>
+<p>重申一遍，只需要做一次这个设置。如果传递了 <code>--global</code> 选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或e-mail地址，你可以在该项目中运行该命令而不要<code>--global</code>选项。</p>
+<p><strong>注意：</strong></p>
+<p>默认git对大小写是不敏感的，可以通过命令关掉其配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase false</span><br></pre></td></tr></table></figure>
+<h2 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h2><p>这是一种较为简单的初始化方式，当你已经有一个远程的Git版本库，只需要在本地克隆一份:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  clone  git://github.com/someone/some_project.git   some_project</span><br></pre></td></tr></table></figure>
+<p>上面的命令就是将<code>git://github.com/someone/some_project.git</code>这个URL地址的远程版本库，完全克隆到本地some_project目录下。</p>
+<h2 id="git-init-和-git-remote"><a href="#git-init-和-git-remote" class="headerlink" title="git init 和 git remote"></a>git init 和 git remote</h2><p>这种方式稍微复杂一些，当你本地创建了一个工作目录，你可以进入这个目录，使用<code>git init</code>命令进行初始化；Git以后就会对该目录下的文件进行版本控制，这时候如果你需要将它放到远程服务器上，可以在远程服务器上创建一个目录，并把可访问的URL记录下来，此时你就可以利用<code>git remote add</code>命令来增加一个远程服务器端，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  remote  add  origin  git://github.com/someone/another_project.git</span><br></pre></td></tr></table></figure>
+<p>上面的命令就会增加URL地址为<code>git: //github.com/someone/another_project.git</code>，名称为origin的远程服务器，以后提交代码的时候只需要使用 origin别名即可。</p>
+<h2 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h2><p>将当前更改或者新增的文件加入到Git的索引中，加入到Git的索引中就表示记入了版本历史中，这也是提交之前所需要执行的一步，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add app/model/user.rb</span><br></pre></td></tr></table></figure>
+<p>就会增加<code>app/model/user.rb</code>文件到Git的索引中，该功能类似于SVN的add，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<p>上面的命令会将所有改动过的文件及文件夹迭代全部添加进本地代码仓库。</p>
+<h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h2><p>提交当前工作空间的修改内容，类似于SVN的commit命令，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m story #3, add user model</span><br></pre></td></tr></table></figure>
+<p>提交的时候必须用-m来输入一条提交信息，该功能类似于SVN的commit，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit –m beta</span><br></pre></td></tr></table></figure>
+<p>上面的命令会将beta作为log显示在代码提交记录中。</p>
+<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>将本地commit的代码更新到远程版本库中，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+<p>上面的命令就会将本地的代码更新到名为orgin的远程版本库中。</p>
+<h1 id="git代码提交中可能遇到的问题"><a href="#git代码提交中可能遇到的问题" class="headerlink" title="git代码提交中可能遇到的问题"></a>git代码提交中可能遇到的问题</h1><p>问题1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">You can&apos;t push to git://github.com/example/example_pro.git</span><br><span class="line">Use https://github.com/ example/example_pro.git</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote remove origin</span><br><span class="line">git remote add origin git@github.com:user_name/user_repo.git</span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+<p>原因：</p>
+<p>如果在<code>git clone</code>的时候用的是<code>git://github.com:xx/xxx.git</code> 的形式, 那么就会出现这个问题，因为这个protocol是不支持push的，而使用<code>git clone git@github.com:lujinjianst/myNCCL.git</code>就可以用git push。</p>
+<p>问题2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Permission denied(publickey).</span><br><span class="line">fatal:Could not read from remote repository.</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<p>在终端输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;chars&quot;//注意,chars为用户名</span><br></pre></td></tr></table></figure>
+<p>如果执行成功。返回:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair. </span><br><span class="line">Enter file in which to save the key (/home/forwhat.cn/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
+<p>在这里就是设置存储地址了.反正我是直接按的回车,然后还会返回:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span><br></pre></td></tr></table></figure>
+<p>再次直接回车。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter same passphrase again:</span><br></pre></td></tr></table></figure>
+<p>再次回车。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved in /home/forwhat.cn/.ssh/id_rsa. </span><br><span class="line">Your public key has been saved in /home/forwhat.cn/.ssh/id_rsa.pub. </span><br><span class="line">The key fingerprint is:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">The key&apos;s randomart image is: </span><br><span class="line">+--[ RSA 2048]----+ </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|                 | </span><br><span class="line">|    o            | </span><br><span class="line">|   + .  S        | </span><br><span class="line">|  . = .  o       | </span><br><span class="line">|   o + +o.o      | </span><br><span class="line">|E o . o.=+.      | </span><br><span class="line">|.+   ==+ooo.     | </span><br><span class="line">+-----------------+</span><br></pre></td></tr></table></figure>
+<p>这样SSH key就生成了。直接cat一下就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:~/a$ cat /home/forwhat.cn/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>把显示出来的直接添加到github账户设置里边的SSH keys。<br>回来再git pull就开始远程拷贝代码了。</p>
+<p>原因：</p>
+<p>没有在github账号添加SSH key。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/wechatpay.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/images/alipay.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/tool/">工具</a>
+            
+              <a href="/tags/git-tool/">git</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/05/26/ios-simultaneously/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">iOS 并发概念浅析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/05/05/flappy-bird-game/">
+        <span class="next-text nav-default">flappy bird 游戏实现</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+    
+
+  </article>
+
+
+          </div>
+          
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:chars.davy@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/charsdavy" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.facebook.com/wei.deng.1460" class="iconfont icon-facebook" title="facebook"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/charsdavy" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="http://weibo.com/u/3875245858/" class="iconfont icon-weibo" title="weibo"></a>
+        
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2016 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chars</span>
+  </span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+</div>
+
+        
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://chars.tech/2016/05/20/github-using/';
+        this.page.identifier = '2016/05/20/github-using/';
+        this.page.title = 'GitHub 使用';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//charstechblog.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+
+
+
+    
+  
+
+
+
 
 
   
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
 
-  
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
 
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            Read more..
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
 
-
-</body>
-
+    
+  </body>
 </html>
