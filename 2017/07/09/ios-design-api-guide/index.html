@@ -1,0 +1,1230 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="en">
+<head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1696534394699613",
+      enable_page_level_ads: true
+    });
+</script>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ios,objc,框架" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些设计iOS API需要知道的事">
+<meta property="og:url" content="http://chars.tech/2017/07/09/ios-design-api-guide/index.html">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-2.png?imageView/2/w/500">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400">
+<meta property="og:updated_time" content="2017-07-23T14:06:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="那些设计iOS API需要知道的事">
+<meta name="twitter:description" content="为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'UG7I248E1X',
+      apiKey: '39daa80db5305fba3705069658223736',
+      indexName: 'Chars_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chars.tech/2017/07/09/ios-design-api-guide/"/>
+
+
+
+
+
+  <title> 那些设计iOS API需要知道的事 | Chars's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">Chars's Blog</span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+<!--
+<div>
+<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
+	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
+</a>
+</div>
+</br>
+
+<div>
+<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
+	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
+</a>
+</div>
+-->
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://chars.tech/2017/07/09/ios-design-api-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                那些设计iOS API需要知道的事
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-09T22:32:33+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pieces/" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/09/ios-design-api-guide/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/09/ios-design-api-guide/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。</p>
+<a id="more"></a>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><h3 id="命名冲突的问题"><a href="#命名冲突的问题" class="headerlink" title="命名冲突的问题"></a>命名冲突的问题</h3><p>Objective-C没有其他语言的那种内置命名空间（namespace）机制。因此，我们只能自己想办法来解决命名冲突问题。最常用的解决方式就是，仿照其他语言（C++）建立自己的namespace，例如，使用前缀。</p>
+<p>所选前缀可以是与公司、应用程序或二者皆有关联之名。例如，ZAKER User Interface可以使用ZUI作为前缀。使用Cocoa创建应用程序时一定要注意，Apple宣称其保留使用所有“两字母前缀”(two-letter prefix)的权利，所以开发者选用的前缀应该是三个字母的。如果开发者使用了两个字母作前缀，那么很有可能开发者自定义的API和Apple的API冲突。</p>
+<p>不仅仅是类名，应用程序中的所有名称都应该加前缀。如果要为既有类新增“分类”(category)，那么一定要给“分类”及“分类”中的方法加上前缀。另外，类的实现文件中所用的纯C函数及全局变量也应该注意添加前缀。</p>
+<p>如果使用了第三方库编写自己的代码，并准备将其发布为程序库供他人开发应用程序所用，则尤其要注意重复符号问题。这种情况下为了避免使用者使用了与你相同的第三方库，应该为第三方库都加上你自己的前缀。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400" alt="第三方库引入使用前缀"></p>
+<h3 id="命名方式"><a href="#命名方式" class="headerlink" title="命名方式"></a>命名方式</h3><p>类、方法和变量的命名是Objective-C编程的重要环节。如果命名方式好，可以提高代码可读性，减少不必要的注释。<br>初学者通常会觉得Objective-C是门很繁琐的语言，因为其语法结构使得代码读起来和句子一样。命名中一般都带有“in”、“for”、“with”等介词，特别是在命名时还要讲究英文语法。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *text = @&quot;This is a good idea.&quot;;</span><br><span class="line">NSString *newText = [text stringByReplacingOccurrencesOfString:@&quot;idea&quot; withString:@&quot;think&quot;];</span><br></pre></td></tr></table></figure>
+<p>上面的代码虽然用了比较啰嗦的方式描述一个看上去很简单的表达式。对于执行替换的那个方法，代码读起来就像日常语言里的那个句子：“Take text and give me a new string by replacing the occurrences of the string ‘idea’ with the string ‘think’”。<br>这个句子准确描述了开发者想做的事。在命名不像Objective-C这般繁琐的语言中，类似的程序可能会写成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string text = &quot;This is a good idea.&quot;;</span><br><span class="line">string new Text = text.replace(&quot;idea&quot;, &quot;think&quot;);</span><br></pre></td></tr></table></figure>
+<p>上面代码这样写，看起来方法名简洁很多，但是带来的代码不可读性却是非常大的。首先，我们不知道 text.replace 方法的两个参数到底按照什么顺序解读（除非查看方法声明）；再者，这两个参数谁替换谁？</p>
+<p>另外，和大多数语言一样，Objective-C也是采用“驼峰式大小写命名法”（camel casing）——以小写字母开头，其后每个单词首字母大写。</p>
+<h4 id="方法命名"><a href="#方法命名" class="headerlink" title="方法命名"></a>方法命名</h4><p>清晰的方法名从左至右读起来好似一段文章。并不是说非得按照那些命名规则来给方法起名，不过这样做可以令代码变得更好维护，使他人更容易读懂。<br>虽然类似C++或Java中那种函数命名简单，但是，若想知道每个参数的用途，就得查看函数原型，这会令代码难于读懂。<br>NSString这个类展示了一套良好的命名习惯。下面列举几个方法及命名缘由：</p>
+<p>1）<code>+ (instancetype)string;</code><br>工厂方法（factory method），用于创建新的空字符串。方法名清晰地描述了返回值的类型。</p>
+<p>2）<code>+ (instancetype)stringWithString:(NSString *)string;</code><br>工厂方法，根据某字符串创建出与之内容相同的新字符串。与创建空字符串所用的那个工厂方法一样，方法名的第一个单词也指明了返回类型。</p>
+<p>3）<code>+ (instancetype)localizedStringWithFormat:(NSString *)format, ...;</code><br>工厂方法，根据特定格式创建出新的“本地化字符串”（localized string）。返回值类型是方法名的第二个单词（string），因为其前面还有个修饰语（localized）用来描述其逻辑含义。此方法的返回值依然是“字符串”（string），只不过是一种经过本地化处理的特殊字符串。</p>
+<p>4）<code>- (NSUInteger)lengthOfBytesUsingEncoding:(NSStringEncoding)enc;</code><br>若字符串是以给定的编码格式（ASCII、UTF8、UTF16）来编码的，则返回其字节数组长度。此方法与length相似，但该方法还需一个参数，该参数紧跟着方法名中描述其类型的那个名词（encoding）。</p>
+<p>因此，我们可以总结成几条方法命名规则：</p>
+<p>1）如果方法的返回值是新创建的，那么方法名的首个词应该是返回值的类型，除非前面还有修饰语，例如localizedString。属性的存取方法不遵循这种命名方式，因为一般认为这些方法不会创建新对象。即便有时返回内部对象的一份拷贝，我们也认为那相当于原有对象。这些存取方法应该按照其所对应的属性来命名。</p>
+<p>2）应该把表示参数类型的名词放在参数前面。</p>
+<p>3）如果方法要在当前对象上执行操作，那么就应该包含动词；若执行操作时还需要参数，则应该在动词后面加上一个或多个名词。</p>
+<p>4）不要使用str这种简称，应该使用string这样的全称。</p>
+<p>5）boolean属性应加is前缀。如果某方法返回非属性的boolean值，那么应该根据其功能，选用has或is当前缀。</p>
+<p>6）将get这个前缀留给那些借由“输出参数”来保存返回值的方法，比如说，把返回值填充到“C语言式数组”（C-style array）里的那种方法就可以使用这个词做前缀。</p>
+<h4 id="类与协议命名"><a href="#类与协议命名" class="headerlink" title="类与协议命名"></a>类与协议命名</h4><p>不仅仅是方法，类和协议也应该加上前缀，避免命名空间冲突。例如：</p>
+<ul>
+<li>UIView</li>
+<li>UIViewController</li>
+<li>UITableViewDelegate</li>
+</ul>
+<h2 id="错误模型"><a href="#错误模型" class="headerlink" title="错误模型"></a>错误模型</h2><p>目前有很多编程语言都有“异常”(exception)机制，Objective-C也不例外。</p>
+<p>“自动引用计数”(ARC, Automatic Reference Counting)在默认情况下不是“异常安全的”。这意味着：如果抛出异常，那么本应该在作用域末尾释放的对象现在却不会自动释放了。如果想生成“异常安全”的代码，可以通过设置编译器的标志来实现，不过这将引入额外代码，在不抛出异常时，也照样要执行这部分代码。需要打开的编译器标志叫做<code>-fobjc-arc-exception</code>。</p>
+<p>Objective-C现在所采用的办法是：只在极其罕见的情况下抛出异常，异常抛出之后，无须考虑恢复问题，而且应用程序此时也应该退出。这就是说，不用再编写复杂的“异常安全”代码了。</p>
+<p>异常只应该用于极其严重的错误，比如，你编写了某个抽象基类，它的正确用法是先从中继承一个子类，然后使用这个子类。在这种情况下，如果有人直接使用了这个抽象基类，那么可以考虑抛出异常。与其他语言不同，Objective-C中没办法将某个类标识为“抽象类”。要想达成类似效果，最好的办法是在那些子类必须覆写的超类方法里抛出异常。</p>
+<p>异常只用于处理严重错误(fatal error)，对于其他错误，Objective-C语言所用的编程范式为：令方法返回nil/0，或使用NSError，以表明有错误发生。</p>
+<p>NSError对象里封装了三条信息：</p>
+<ul>
+<li>Error domain (错误范围，其类型为字符串)</li>
+</ul>
+<p>错误发生的范围，也就是产生错误的根源，通常用一个特有的全局变量来定义。例如，URL-handling-subsystem，在从URL中解析或获取数据时如果出错了，那么就使用NSURLErrorDomain来表示错误范围。</p>
+<ul>
+<li>Error code (错误码，其类型为整数)</li>
+</ul>
+<p>独有的错误码，用以指明在某个范围内具体发生了何种错误。某个特定范围内可能会发生一系列相关错误，这些错误情况通常采用enum来定义。</p>
+<ul>
+<li>User info (用户信息，其类型为字典)</li>
+</ul>
+<p>有关此错误的额外信息，其中或许包含一段“本地化描述”，或许还包含有导致该错误发生的另外一个错误，经由此种信息，可将相关错误串成一条“错误链”。</p>
+<h2 id="使用不可变对象"><a href="#使用不可变对象" class="headerlink" title="使用不可变对象"></a>使用不可变对象</h2><p>设计类的时候，应充分使用属性来封装数据。而在使用属性时，则可将其声明为<code>readonly</code>。默认情况下，属性是<code>readwrite</code>。</p>
+<p>因为如果把可变对象(mutable object)放入collection之后又修改其内容，那么很容易就会破坏set的内部数据结构，使其失去固有的语义。故此，我们应该尽量减少对象中的可变内容。具体到编程实践中，则应该尽量把对外公布出来的属性设为<code>readonly</code>，而且只在有必要时才将属性对外公布。</p>
+<p>定义类的公共API时，需要注意，对象里表示各种collection的那些属性究竟应该设成可变的，还是不可变的。如果某个属性可以为外界所增删，那么这个属性就需要用可变的set来实现。在这种情况下，通常应该提供一个readonly属性供外界使用，该属性将返回不可变的set，而此set则是内部那个可变set的一份拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">//  ZKRPointOfInterest.h</span><br><span class="line"></span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line"></span><br><span class="line">@interface ZKRPointOfInterest : NSObject</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy, readonly) NSString *identifier;</span><br><span class="line">@property (nonatomic, copy, readonly) NSString *title;</span><br><span class="line">@property (nonatomic, assign, readonly) CGFloat latitude;</span><br><span class="line">@property (nonatomic, assign, readonly) CGFloat longitude;</span><br><span class="line">@property (nonatomic, strong, readonly) NSSet *locations;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithIdentifier:(NSString *)identifier</span><br><span class="line">                             title:(NSString *)title</span><br><span class="line">                          latitude:(CGFloat)latitude</span><br><span class="line">                         longitude:(CGFloat)longitude;</span><br><span class="line"></span><br><span class="line">- (void)addLocation:(ZKRPointOfInterest *)location;</span><br><span class="line">- (void)removeLocation:(ZKRPointOfInterest *)location;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//  ZKRPointOfInterest.m</span><br><span class="line"></span><br><span class="line">#import &quot;ZKRPointOfInterest.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation ZKRPointOfInterest</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableSet *_internalLocations;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithIdentifier:(NSString *)identifier</span><br><span class="line">                             title:(NSString *)title</span><br><span class="line">                          latitude:(CGFloat)latitude</span><br><span class="line">                         longitude:(CGFloat)longitude</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSSet *)locations</span><br><span class="line">&#123;</span><br><span class="line">    return [_internalLocations copy];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)addLocation:(ZKRPointOfInterest *)location</span><br><span class="line">&#123;</span><br><span class="line">    if (location) &#123;</span><br><span class="line">        [_internalLocations addObject:location];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)removeLocation:(ZKRPointOfInterest *)location</span><br><span class="line">&#123;</span><br><span class="line">    [_internalLocations removeObject:location];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>不要在返回的对象上查询类型以确定其是否可变。(即使不用<code>isKindOfClass:</code>方法来判断返回值类型是否可变)</p>
+<h2 id="description方法"><a href="#description方法" class="headerlink" title="description方法"></a>description方法</h2><p>在调试程序时，经常需要打印并查看对象信息。一种办法是编写代码把对象的全部属性都log到日志中。<code>NSLog(@&quot;object=%@&quot;, object);</code></p>
+<p>在构建需要打印到日志的字符串时，object对象会收到description消息，该方法所返回的描述信息将取代“格式字符串”(format string)里的“%@”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSArray *obj = @[@&quot;A string&quot;, @(123)];</span><br><span class="line">NSLog(@&quot;object=%@&quot;, obj);</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">object=(</span><br><span class="line">	&quot;A string&quot;,</span><br><span class="line">	123</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>如果在自定义类上这么做，那么则输出的信息却是如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">object=&lt;ZKRSqure: 0x7656d8a90060&gt;</span><br></pre></td></tr></table></figure>
+<p>如果想要像上面NSArray那样打印出有用的信息，那么我们就应该在自己的类中覆写description方法，否则打印信息时就会调用NSObject类所实现的默认方法。此方法定义在NSObject协议里，不过NSObject类也实现了它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (NSString *)description</span><br><span class="line">&#123;</span><br><span class="line">    return [NSString stringWithFormat:@&quot;&lt;%@: %p, \&quot;%f %f\&quot;&gt;&quot;, [self class], self, _width, _height];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ZKRRectangle *rectangle = [[ZKRRectangle alloc] initWithWidth:5.0 height:7.0];</span><br><span class="line">NSLog(@&quot;%@&quot;, rectangle);</span><br><span class="line"></span><br><span class="line">//Output</span><br><span class="line">&lt;ZKRRectangle: 0x60000002fc20, &quot;5.000000 7.000000&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>NSObject协议中还有个需要注意的方法，就是<code>debugDescription</code>，此方法用意与<code>description</code>相似。二者区别在于，<code>debugDescription</code>方法是开发者在调试器(debugger)中以控制台命令打印对象时才调用的。在NSObject类的默认实现中，它只是直接调用<code>description</code>。</p>
+<h2 id="初始化方法"><a href="#初始化方法" class="headerlink" title="初始化方法"></a>初始化方法</h2><p>所有对象均要初始化，在初始化时，有些对象可能无须开发者向其提供额外信息，不过一般来说还是需要提供的。通常情况下，对象若不知道必要的信息，则无法完成其工作。例如，UITAbleViewCell类初始化该类对象时，需要指明其样式及标识符，标识符能够区分不同类型的单元格。由于这种对象的创建成本较高，所以绘制表格时可依照标识符来复用，以提升程序效率。这种可为对象提供必要信息以便其能完成工作的初始化方法叫做“全能初始化方法”(designated initializer)。</p>
+<p>如果创建类实例的方式不止一种，那么这个类就会有多个初始化方法。但是，我们仍然需要选定一个作为全能初始化方法，令其他初始化方法都来调用它。例如，NSDate类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init NS_DESIGNATED_INITIALIZER;</span><br><span class="line">- (instancetype)initWithTimeIntervalSinceReferenceDate:(NSTimeInterval)ti NS_DESIGNATED_INITIALIZER;</span><br><span class="line">- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;</span><br><span class="line">- (instancetype)initWithTimeIntervalSinceNow:(NSTimeInterval)secs;</span><br><span class="line">- (instancetype)initWithTimeIntervalSince1970:(NSTimeInterval)secs;</span><br><span class="line">- (instancetype)initWithTimeInterval:(NSTimeInterval)secsToBeAdded sinceDate:(NSDate *)date;</span><br></pre></td></tr></table></figure>
+<p>在上面几个初始化方法中，<code>initWithTimeIntervalSinceReferenceDate:</code>是全能初始化方法。只有在全能初始化方法中，才会存储内部数据。这样的话，当底层数据存储机制改变时，只需修改此方法的代码就好，无须改动其他初始化方法。</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">//  ZKRRectangle.h</span><br><span class="line"></span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line"></span><br><span class="line">@interface ZKRRectangle : NSObject&lt;NSCopying&gt;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, assign, readonly) CGFloat width;</span><br><span class="line">@property (nonatomic, assign, readonly) CGFloat height;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//  ZKRRectangle.m</span><br><span class="line"></span><br><span class="line">#import &quot;ZKRRectangle.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation ZKRRectangle</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithCoder:(NSCoder *)aDecoder</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        _width = [[aDecoder decodeObjectForKey:@&quot;width&quot;] floatValue];</span><br><span class="line">        _height = [[aDecoder decodeObjectForKey:@&quot;height&quot;] floatValue];</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@&quot;Must use initWithWidth:height: instad.&quot; userInfo:nil];</span><br><span class="line">    </span><br><span class="line">    return [self initWithWidth:0 height:0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        _width = width;</span><br><span class="line">        _height = height;</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//  ZKRSquare.h</span><br><span class="line"></span><br><span class="line">#import &quot;ZKRRectangle.h&quot;</span><br><span class="line"></span><br><span class="line">@interface ZKRSquare : ZKRRectangle</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithDimension:(CGFloat)dimension;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//  ZKRSquare.m</span><br><span class="line"></span><br><span class="line">#import &quot;ZKRSquare.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation ZKRSquare</span><br><span class="line"></span><br><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@&quot;Must use initWithDimension: instad.&quot; userInfo:nil];</span><br><span class="line">    </span><br><span class="line">    return [self initWithDimension:0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithDimension:(CGFloat)dimension</span><br><span class="line">&#123;</span><br><span class="line">    return [super initWithWidth:dimension height:dimension];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height</span><br><span class="line">&#123;</span><br><span class="line">    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@&quot;Must use initWithDimension: instad.&quot; userInfo:nil];</span><br><span class="line">    CGFloat dimension = MIN(width, height);</span><br><span class="line">    return [self initWithDimension:dimension];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>在类中提供一个全能初始化方法，并于文档里指明。其他初始化方法均调用此方法。</li>
+<li>若全能方法于超类不同，则需要覆写超类中的对应方法。</li>
+<li>如果超类的初始化方法不适用于子类，那么应该覆写这个超类方法，并在其中抛出异常。</li>
+</ul>
+<h2 id="NSCopying协议"><a href="#NSCopying协议" class="headerlink" title="NSCopying协议"></a>NSCopying协议</h2><p>使用对象时经常需要拷贝它。在Objective-C中，此操作通过copy方法完成。如果想令自己的类支持拷贝操作，那就要实现NSCopying协议，该协议只有一个方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (id)copyWithZone:(nullable NSZone *)zone;</span><br></pre></td></tr></table></figure>
+<p>为什么会出现NSZone呢？因为以前开发程序时，会据此把内容分成不同的“区”(zone)，而对象会创建在某个区里面。现在不用了，每个程序只有一个区：“默认区”(default zone)。所以说，尽管必须实现这个方法，但是你不必担心其中的zone参数。</p>
+<p>copy方法由NSObject实现，该方法只是以“默认区”为参数来调用<code>copyWithZone:</code>。我们总是想覆写copy方法，其实真正需要实现的是<code>copyWithZone:</code>方法。若想使某个类支持拷贝功能，只需声明该类遵从NSCopying协议，并实现其中的那个方法即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (id)copyWithZone:(NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    ZKRRectangle *copy = [[[self class] allocWithZone:zone] initWithWidth:_width height:_height];</span><br><span class="line">    return copy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说到copy方法，除了NSString这样的不可变类型的copy，与之类似的还有NSMutableString类的<code>mutableCopy</code>方法。与<code>copyWithZone:</code>方法相对应的可变内容的copy方法<code>mutableCopyWithZone:</code>方法来自于<code>NSMutableCopying</code>协议。如果你的类分为可变版本(mutable)与不可变版本(immutable)，那么就应该实现NSMutableCopying协议。若采用此模式，则在可变类中覆写<code>copyWithZone:</code>方法时，不要返回可变的拷贝，而应该返回一份不可变的版本。无论当前实例是否可变，需要获取其可变版本的拷贝，均应调用mutableCopy方法；获取不可变版本的拷贝，则总应该通过copy方法。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-2.png?imageView/2/w/500" alt="mutableCopy和copy类"></p>
+<p>深拷贝就是在拷贝对象自身时，将其底层数据也一并复制过去。<br>浅拷贝就是在拷贝对象时，只拷贝容器对象本身，而不复制其中数据。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400" alt="深拷贝和浅拷贝比较"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
+          <p>微信赞赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
+          <p>支付宝赞赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># ios</a>
+          
+            <a href="/tags/objc/" rel="tag"># objc</a>
+          
+            <a href="/tags/framework/" rel="tag"># 框架</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/03/ios-corner-radius/" rel="next" title="从iOS的图片圆角想到渲染">
+                <i class="fa fa-chevron-left"></i> 从iOS的图片圆角想到渲染
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">89</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+<!--
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+            </div>
+          
+-->
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/wei.deng.1460" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Gmail
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        <!--
+<div style="font-size:13px">
+	<a href="/about#ad">购买广告位</a>
+</div>
+-->
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#命名"><span class="nav-number">1.</span> <span class="nav-text">命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命名冲突的问题"><span class="nav-number">1.1.</span> <span class="nav-text">命名冲突的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名方式"><span class="nav-number">1.2.</span> <span class="nav-text">命名方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法命名"><span class="nav-number">1.2.1.</span> <span class="nav-text">方法命名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类与协议命名"><span class="nav-number">1.2.2.</span> <span class="nav-text">类与协议命名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误模型"><span class="nav-number">2.</span> <span class="nav-text">错误模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用不可变对象"><span class="nav-number">3.</span> <span class="nav-text">使用不可变对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#description方法"><span class="nav-number">4.</span> <span class="nav-text">description方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化方法"><span class="nav-number">5.</span> <span class="nav-text">初始化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSCopying协议"><span class="nav-number">6.</span> <span class="nav-text">NSCopying协议</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://chars.tech/2017/07/09/ios-design-api-guide/';
+          this.page.identifier = '2017/07/09/ios-design-api-guide/';
+          this.page.title = '那些设计iOS API需要知道的事';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://charstechblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("Vih6Dyi1ROtHxoMYALRbVTW8-gzGzoHsz", "jcATphjojcSCLm4xme5hyE3o");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
+
+
+
+</body>
+
+</html>
