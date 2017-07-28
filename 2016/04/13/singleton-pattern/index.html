@@ -1,975 +1,62 @@
-<!doctype html>
 
-
-
-
-<html class="theme-next muse" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+    
 <head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-1696534394699613",
-      enable_page_level_ads: true
-    });
-</script>
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Chars&#39;s Blog">
+    <title>单例模式 - Chars&#39;s Blog</title>
+    <meta name="author" content="Chars">
     
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+        <link rel="icon" href="http://chars.tech/assets/images/avatar.png">
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="objc,设计模式," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
-<meta property="og:type" content="article">
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="单例模式">
 <meta property="og:url" content="http://chars.tech/2016/04/13/singleton-pattern/index.html">
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-07-04T14:49:59.000Z">
+<meta property="og:updated_time" content="2017-07-05T08:03:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单例模式">
 <meta name="twitter:description" content="摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'UG7I248E1X',
-      apiKey: '39daa80db5305fba3705069658223736',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://chars.tech/2016/04/13/singleton-pattern/"/>
-
-
-
-
-
-  <title> 单例模式 | Chars's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
+<meta name="twitter:creator" content="@charsdavy">
     
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="site-title">Chars's Blog</span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
-</nav>
-
-<!--
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
-</a>
-</div>
-</br>
-
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
-</a>
-</div>
--->
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://chars.tech/2016/04/13/singleton-pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
+    
+        <meta property="og:image" content="http://chars.tech/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-80507808-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 
     
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                单例模式
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-13T08:23:37+08:00">
-                2016-04-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/pieces/" itemprop="url" rel="index">
-                    <span itemprop="name">pieces</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
     
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
-<a id="more"></a>
-<h1 id="问题的提出"><a href="#问题的提出" class="headerlink" title="问题的提出　"></a>问题的提出　</h1><p>在一个iOS 应用的生命周期中，有时候我们只需要某个类的一个实例。例如，iOS 设备都有一个重力加速计硬件设备，要访问设备在x轴、y轴和z轴上的重力加速度，就必然要有一个类能够与硬件设备沟通来实时获得这些数据，这个类就是UIAccelerometer 。除了实时地获得数据，该类还能够保持x 轴、y轴和z 轴的状态。但是这个类只需要一个实例就够了，如果有多个实例，就会占用过多的内存。 再有，当应用程序启动时，应用的状态由UIApplication 类的一个实例维护，这个实例代表了整个“应用程序对象”，它只能是一个实例，其作用是实现应用程序中一些共享资源的访问和状态的保持等。</p>
-<h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><p>单例模式一般会封装一个静态属性，并提供静态实例的创建方法，其UML类图如图所示。<br>                               <img src="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单例设计模式类图"></p>
-<h1 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//Singleton.h</span><br><span class="line">//</span><br><span class="line">@interface Singleton : NSObject</span><br><span class="line">+ (Singleton*)sharedManager;</span><br><span class="line">@property (nonatomic ,strong) NSString* singletonData;</span><br><span class="line">@end</span><br><span class="line">   </span><br><span class="line">//Singleton.m </span><br><span class="line">//</span><br><span class="line">#import &quot;Singleton.h&quot;</span><br><span class="line">@implementation Singleton</span><br><span class="line">@synthesize singletonData = _singletonData;</span><br><span class="line">static Singleton *sharedManager = nil;</span><br><span class="line">+ (Singleton*)sharedManager</span><br><span class="line">&#123;</span><br><span class="line">    static dispatch_once_t once;</span><br><span class="line">    dispatch_once(&amp;once, ^&#123;</span><br><span class="line">        sharedManager = [[self alloc] init];</span><br><span class="line">    &#125;);</span><br><span class="line">    return sharedManager;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>其中<code>static Singleton *sharedManager</code> 为静态变量，类方法为<code>+ (Singleton*)sharedManager</code>。sharedManager 方法采用了GCD（Grand Central Dispatch）技术，这是一种基于C语言的多线程访问技术。在上述代码中，<code>dispatch_once</code> 函数就是由GCD提供的，它的作用是在整个应用程序生命周期中只执行一次代码块（^{…}）。 <code>dispatch_once_t</code> 是GCD提供的结构体，使用时需要将GCD地址传给<code>dispatch_once</code> 函数。<code>dispatch_once</code> 函数能够记录该代码块是否被调用过。<code>dispatch_once</code>函数不仅意味着代码仅会被运行一次，而且还意味着此运行还是线程同步的。也就是说，当我们使用了<code>dispatch_once</code>函数时，就不再需要使用诸如<code>@synchronized</code>之类的语句。</p>
-<p>将以上单例实现代码，抽成宏，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// @interface</span><br><span class="line">#define singleton_interface(className) \</span><br><span class="line">+ (className *)shared##className;</span><br><span class="line"> </span><br><span class="line">// @implementation</span><br><span class="line">#define singleton_implementation(className) \</span><br><span class="line">static className *_instance; \</span><br><span class="line">+ (id)allocWithZone:(NSZone *)zone \</span><br><span class="line">&#123; \</span><br><span class="line">    static dispatch_once_t onceToken; \</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [super allocWithZone:zone]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    return _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">+ (className *)shared##className \</span><br><span class="line">&#123; \</span><br><span class="line">    static dispatch_once_t onceToken; \</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [[self alloc] init]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    return _instance; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h1><p>在Cocoa Touch框架中，有UIApplication、UIAccelerometer 、NSUserDefaults和NSNotificationCenter等单例类。另外，NSFileManager 和NSBundle 类虽然属于Cocoa框架的内容，但也可以在Cocoa Touch框架中使用（Cocoa框架中的单例类有NSFileManager 、NSBundle 、NSWorkspace和NSApplication 等）。 </p>
-<h2 id="1-UIApplication"><a href="#1-UIApplication" class="headerlink" title="1. UIApplication"></a>1. UIApplication</h2><p>UIApplication 类的实例提供了应用程序的集中控制点来保持应用的状态。UIApplication 实例总是分配给应用程序委托对象（UIApplicationDelegate ），通过应用程序委托对象来响应低内存、应用启动、后台运行和应用终止等事件。在HelloWorld 案例中，AppDelegate 就是这个应用程序的委托对象，它实现了UIApplicationDelegate协议。</p>
-<p>UIApplication 类有很多方法和属性，下面我们重点介绍其中几个：<br><code>+ sharedApplication</code> 方法。创建和获得UIApplication 实例的方法。<br><code>idleTimerDisabled</code>属性。设定和获得“空闲时间禁止”的状态。idleTimerDisabled属性的默认值是NO，即默认情况下系统会锁定屏幕。当idleTimerDisabled = YES 时，则不会开启“空闲时间禁止”状态，系统不会锁定屏幕。开启这项设定需要谨慎，它会使你的应用比较耗电。<br><code>- openURL:</code>方法。可以打开一些内置的iOS 应用，其中包括打开浏览器、打开Google 地图、拨打电话、发送短信和发送E-mail 等。</p>
-<p>打开浏览器的示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = [NSURL URLWithString:@&quot;http://www.cnblogs.com/chars&quot;];</span><br><span class="line">[[UIApplication sharedApplication] openURL:url];</span><br></pre></td></tr></table></figure></p>
-<p>打开Google 地图时，实际上是通过内置浏览器来打开，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString* searchQuery = @&quot;清华大学&quot;;</span><br><span class="line">searchQuery = [searchQuery stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">NSString* urlString = [NSString stringWithFormat: @&quot;http://maps.google.com/maps?q=%@&quot;, searchQuery];</span><br><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];</span><br></pre></td></tr></table></figure></p>
-<p>其中NSString 的<code>stringByAddingPercentEscapesUsingEncoding</code>方法将字符串转换为URL编码，例如 “%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6 ”是“清华大学”的 URL 编码。 拨打电话时，苹果官方要求使用该方法调用内置拨号程序，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;tel://10010&quot;]];</span><br></pre></td></tr></table></figure></p>
-<p>发送短信时，苹果官方要求使用该方法调用内置发送短信程序，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;sms:10010&quot;]];</span><br></pre></td></tr></table></figure></p>
-<p>发送E-mail 时，这种方式可以发送简单的不带附件的E-mail ，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;mailto://eorient@sina.com&quot;]];</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-UIAccelerometer"><a href="#2-UIAccelerometer" class="headerlink" title="2.   UIAccelerometer"></a>2.   UIAccelerometer</h2><p>单例类UIAccelerometer 前面也讲过，它可以访问重力加速计硬件设备，实时获得设备在x 轴、y轴和z 轴方向上的重力加速度。<br><code>+ sharedAccelerometer</code>方法是创建和获得UIAccelerometer实例的共享方法。</p>
-<p>与UIApplication类似，UIAccelerometer也有对应的委托对象，其委托对象为UIAccelerometerDelegate。UIAccelerometer 将实例分配给委托对象UIAccelerometerDelegate ，然后由委托对象响应重力加速计事件。</p>
-<h2 id="3-NSUserDefaults"><a href="#3-NSUserDefaults" class="headerlink" title="3.   NSUserDefaults"></a>3.   NSUserDefaults</h2><p>单例类NSUserDefaults可以很方便地读取应用设置项目。<br><code>+ standardUserDefaults</code>方法是创建和获得NSUserDefaults实例的静态方法。</p>
-<h2 id="4-NSNotificationCenter"><a href="#4-NSNotificationCenter" class="headerlink" title="4.   NSNotificationCenter"></a>4.   NSNotificationCenter</h2><p>单例类NSNotificationCenter提供信息广播通知，它采用观察者模式的通知机制。<br><code>+ defaultCenter</code>方法是创建和获得NSNotificationCenter实例的共享方法。</p>
-<h2 id="5-NSFileManager"><a href="#5-NSFileManager" class="headerlink" title="5.   NSFileManager"></a>5.   NSFileManager</h2><p>NSFileManager 提供了访问文件系统的通用操作，可以定位、创建、复制文件和文件夹。在iOS 5和Mac OS X v10.7之后，它还可以管理存储在iCloud 上的数据。</p>
-<p><code>+ defaultManager</code>方法是创建和获得NSFileManager 实例的方法。除了该方法外，创建NSFileMa nager对象时还可以使用实例构造方法– init。这两种方法有着比较大的差别，+ defaultManager方法总是返回相同的NSFileManager 对象，但如果要使用委托（NSFileManagerDelegate）完成基于文件的操作并接收通知，应该使用– init 方法创建一个新的实例，而不是使用共享的对象。</p>
-<h2 id="6-NSBundle"><a href="#6-NSBundle" class="headerlink" title="6.   NSBundle"></a>6.   NSBundle</h2><p>NSBundle 提供了动态加载（或卸载）可执行代码、定位资源文件以及资源本地化、访问文件系统等功能。<br><code>+ mainBundle</code>方法是创建和获得NSBundle 实例的共享方法。</p>
-<h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><p>单例模式无疑是Cocoa框架下最重要的设计模式之一。灵活而有机地运用设计模式，意味着编程工作的高效性和产品健壮性、安全性的提高。因此，我们应该要善于使用设计模式，将自己的开发经验与代码、设计模式完美融合起来，提高软件代码质量。</p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div></div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
-          <p>微信赞赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
-          <p>支付宝赞赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/objc/" rel="tag"># objc</a>
-          
-            <a href="/tags/design-pattern/" rel="tag"># 设计模式</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/04/12/design-pattern-introduction/" rel="next" title="设计模式 - 概述">
-                <i class="fa fa-chevron-left"></i> 设计模式 - 概述
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/13/ruby-regular-expression/" rel="prev" title="Ruby 正则表达式">
-                Ruby 正则表达式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">89</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-<!--
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-            </div>
-          
--->
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.facebook.com/wei.deng.1460" target="_blank" title="Facebook">
-                  
-                    <i class="fa fa-fw fa-facebook"></i>
-                  
-                  Facebook
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
-                  
-                    <i class="fa fa-fw fa-envelope"></i>
-                  
-                  Gmail
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        <!--
-<div style="font-size:13px">
-	<a href="/about#ad">购买广告位</a>
-</div>
--->
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题的提出"><span class="nav-number">1.</span> <span class="nav-text">问题的提出　</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现原理"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例代码："><span class="nav-number">3.</span> <span class="nav-text">示例代码：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用案例"><span class="nav-number">4.</span> <span class="nav-text">应用案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-UIApplication"><span class="nav-number">4.1.</span> <span class="nav-text">1. UIApplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-UIAccelerometer"><span class="nav-number">4.2.</span> <span class="nav-text">2.   UIAccelerometer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-NSUserDefaults"><span class="nav-number">4.3.</span> <span class="nav-text">3.   NSUserDefaults</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-NSNotificationCenter"><span class="nav-number">4.4.</span> <span class="nav-text">4.   NSNotificationCenter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-NSFileManager"><span class="nav-number">4.5.</span> <span class="nav-text">5.   NSFileManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-NSBundle"><span class="nav-number">4.6.</span> <span class="nav-text">6.   NSBundle</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尾声"><span class="nav-number">5.</span> <span class="nav-text">尾声</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-leaf"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chars</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("Vih6Dyi1ROtHxoMYALRbVTW8-gzGzoHsz", "jcATphjojcSCLm4xme5hyE3o");</script>
+  <script type="text/javascript" src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);
@@ -1073,53 +160,703 @@
   </script>
 
 
+</head>
 
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Chars&#39;s Blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Chars</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-user"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/charsdavy" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/charsdavy" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://facebook.com/wei.deng.1460" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="http://weibo.com/u/3875245858" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                        <span class="sidebar-button-desc">Weibo</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:chars.davy@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            单例模式
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-04-13T08:23:37+08:00">
+	
+		    Apr 13, 2016
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/pieces/">pieces</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>摘要：单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
+<a id="more"></a>
+<h1 id="问题的提出"><a href="#问题的提出" class="headerlink" title="问题的提出　"></a>问题的提出　</h1><p>在一个iOS 应用的生命周期中，有时候我们只需要某个类的一个实例。例如，iOS 设备都有一个重力加速计硬件设备，要访问设备在x轴、y轴和z轴上的重力加速度，就必然要有一个类能够与硬件设备沟通来实时获得这些数据，这个类就是UIAccelerometer 。除了实时地获得数据，该类还能够保持x 轴、y轴和z 轴的状态。但是这个类只需要一个实例就够了，如果有多个实例，就会占用过多的内存。 再有，当应用程序启动时，应用的状态由UIApplication 类的一个实例维护，这个实例代表了整个“应用程序对象”，它只能是一个实例，其作用是实现应用程序中一些共享资源的访问和状态的保持等。</p>
+<h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><p>单例模式一般会封装一个静态属性，并提供静态实例的创建方法，其UML类图如图所示。<br>                               <img src="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单例设计模式类图"></p>
+<h1 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//Singleton.h</span><br><span class="line">//</span><br><span class="line">@interface Singleton : NSObject</span><br><span class="line">+ (Singleton*)sharedManager;</span><br><span class="line">@property (nonatomic ,strong) NSString* singletonData;</span><br><span class="line">@end</span><br><span class="line">   </span><br><span class="line">//Singleton.m </span><br><span class="line">//</span><br><span class="line">#import &quot;Singleton.h&quot;</span><br><span class="line">@implementation Singleton</span><br><span class="line">@synthesize singletonData = _singletonData;</span><br><span class="line">static Singleton *sharedManager = nil;</span><br><span class="line">+ (Singleton*)sharedManager</span><br><span class="line">&#123;</span><br><span class="line">    static dispatch_once_t once;</span><br><span class="line">    dispatch_once(&amp;once, ^&#123;</span><br><span class="line">        sharedManager = [[self alloc] init];</span><br><span class="line">    &#125;);</span><br><span class="line">    return sharedManager;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>其中<code>static Singleton *sharedManager</code> 为静态变量，类方法为<code>+ (Singleton*)sharedManager</code>。sharedManager 方法采用了GCD（Grand Central Dispatch）技术，这是一种基于C语言的多线程访问技术。在上述代码中，<code>dispatch_once</code> 函数就是由GCD提供的，它的作用是在整个应用程序生命周期中只执行一次代码块（^{…}）。 <code>dispatch_once_t</code> 是GCD提供的结构体，使用时需要将GCD地址传给<code>dispatch_once</code> 函数。<code>dispatch_once</code> 函数能够记录该代码块是否被调用过。<code>dispatch_once</code>函数不仅意味着代码仅会被运行一次，而且还意味着此运行还是线程同步的。也就是说，当我们使用了<code>dispatch_once</code>函数时，就不再需要使用诸如<code>@synchronized</code>之类的语句。</p>
+<p>将以上单例实现代码，抽成宏，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// @interface</span><br><span class="line">#define singleton_interface(className) \</span><br><span class="line">+ (className *)shared##className;</span><br><span class="line"> </span><br><span class="line">// @implementation</span><br><span class="line">#define singleton_implementation(className) \</span><br><span class="line">static className *_instance; \</span><br><span class="line">+ (id)allocWithZone:(NSZone *)zone \</span><br><span class="line">&#123; \</span><br><span class="line">    static dispatch_once_t onceToken; \</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [super allocWithZone:zone]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    return _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">+ (className *)shared##className \</span><br><span class="line">&#123; \</span><br><span class="line">    static dispatch_once_t onceToken; \</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [[self alloc] init]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    return _instance; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h1><p>在Cocoa Touch框架中，有UIApplication、UIAccelerometer 、NSUserDefaults和NSNotificationCenter等单例类。另外，NSFileManager 和NSBundle 类虽然属于Cocoa框架的内容，但也可以在Cocoa Touch框架中使用（Cocoa框架中的单例类有NSFileManager 、NSBundle 、NSWorkspace和NSApplication 等）。 </p>
+<h2 id="1-UIApplication"><a href="#1-UIApplication" class="headerlink" title="1. UIApplication"></a>1. UIApplication</h2><p>UIApplication 类的实例提供了应用程序的集中控制点来保持应用的状态。UIApplication 实例总是分配给应用程序委托对象（UIApplicationDelegate ），通过应用程序委托对象来响应低内存、应用启动、后台运行和应用终止等事件。在HelloWorld 案例中，AppDelegate 就是这个应用程序的委托对象，它实现了UIApplicationDelegate协议。</p>
+<p>UIApplication 类有很多方法和属性，下面我们重点介绍其中几个：<br><code>+ sharedApplication</code> 方法。创建和获得UIApplication 实例的方法。<br><code>idleTimerDisabled</code>属性。设定和获得“空闲时间禁止”的状态。idleTimerDisabled属性的默认值是NO，即默认情况下系统会锁定屏幕。当idleTimerDisabled = YES 时，则不会开启“空闲时间禁止”状态，系统不会锁定屏幕。开启这项设定需要谨慎，它会使你的应用比较耗电。<br><code>- openURL:</code>方法。可以打开一些内置的iOS 应用，其中包括打开浏览器、打开Google 地图、拨打电话、发送短信和发送E-mail 等。</p>
+<p>打开浏览器的示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = [NSURL URLWithString:@&quot;http://www.cnblogs.com/chars&quot;];</span><br><span class="line">[[UIApplication sharedApplication] openURL:url];</span><br></pre></td></tr></table></figure></p>
+<p>打开Google 地图时，实际上是通过内置浏览器来打开，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString* searchQuery = @&quot;清华大学&quot;;</span><br><span class="line">searchQuery = [searchQuery stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">NSString* urlString = [NSString stringWithFormat: @&quot;http://maps.google.com/maps?q=%@&quot;, searchQuery];</span><br><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];</span><br></pre></td></tr></table></figure></p>
+<p>其中NSString 的<code>stringByAddingPercentEscapesUsingEncoding</code>方法将字符串转换为URL编码，例如 “%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6 ”是“清华大学”的 URL 编码。 拨打电话时，苹果官方要求使用该方法调用内置拨号程序，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;tel://10010&quot;]];</span><br></pre></td></tr></table></figure></p>
+<p>发送短信时，苹果官方要求使用该方法调用内置发送短信程序，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;sms:10010&quot;]];</span><br></pre></td></tr></table></figure></p>
+<p>发送E-mail 时，这种方式可以发送简单的不带附件的E-mail ，示例代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;mailto://eorient@sina.com&quot;]];</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-UIAccelerometer"><a href="#2-UIAccelerometer" class="headerlink" title="2.   UIAccelerometer"></a>2.   UIAccelerometer</h2><p>单例类UIAccelerometer 前面也讲过，它可以访问重力加速计硬件设备，实时获得设备在x 轴、y轴和z 轴方向上的重力加速度。<br><code>+ sharedAccelerometer</code>方法是创建和获得UIAccelerometer实例的共享方法。</p>
+<p>与UIApplication类似，UIAccelerometer也有对应的委托对象，其委托对象为UIAccelerometerDelegate。UIAccelerometer 将实例分配给委托对象UIAccelerometerDelegate ，然后由委托对象响应重力加速计事件。</p>
+<h2 id="3-NSUserDefaults"><a href="#3-NSUserDefaults" class="headerlink" title="3.   NSUserDefaults"></a>3.   NSUserDefaults</h2><p>单例类NSUserDefaults可以很方便地读取应用设置项目。<br><code>+ standardUserDefaults</code>方法是创建和获得NSUserDefaults实例的静态方法。</p>
+<h2 id="4-NSNotificationCenter"><a href="#4-NSNotificationCenter" class="headerlink" title="4.   NSNotificationCenter"></a>4.   NSNotificationCenter</h2><p>单例类NSNotificationCenter提供信息广播通知，它采用观察者模式的通知机制。<br><code>+ defaultCenter</code>方法是创建和获得NSNotificationCenter实例的共享方法。</p>
+<h2 id="5-NSFileManager"><a href="#5-NSFileManager" class="headerlink" title="5.   NSFileManager"></a>5.   NSFileManager</h2><p>NSFileManager 提供了访问文件系统的通用操作，可以定位、创建、复制文件和文件夹。在iOS 5和Mac OS X v10.7之后，它还可以管理存储在iCloud 上的数据。</p>
+<p><code>+ defaultManager</code>方法是创建和获得NSFileManager 实例的方法。除了该方法外，创建NSFileMa nager对象时还可以使用实例构造方法– init。这两种方法有着比较大的差别，+ defaultManager方法总是返回相同的NSFileManager 对象，但如果要使用委托（NSFileManagerDelegate）完成基于文件的操作并接收通知，应该使用– init 方法创建一个新的实例，而不是使用共享的对象。</p>
+<h2 id="6-NSBundle"><a href="#6-NSBundle" class="headerlink" title="6.   NSBundle"></a>6.   NSBundle</h2><p>NSBundle 提供了动态加载（或卸载）可执行代码、定位资源文件以及资源本地化、访问文件系统等功能。<br><code>+ mainBundle</code>方法是创建和获得NSBundle 实例的共享方法。</p>
+<h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><p>单例模式无疑是Cocoa框架下最重要的设计模式之一。灵活而有机地运用设计模式，意味着编程工作的高效性和产品健壮性、安全性的提高。因此，我们应该要善于使用设计模式，将自己的开发经验与代码、设计模式完美融合起来，提高软件代码质量。</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">Tag In</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/objc/">objc</a> <a class="tag tag--primary tag--small t-link" href="/tags/design-pattern/">设计模式</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/13/ruby-regular-expression/"  data-tooltip="Ruby 正则表达式">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/12/design-pattern-introduction/" data-tooltip="设计模式 - 概述">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-angle-double-up"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+    	&copy; 
+    	 
+    		2016 - 
+    	
+        2017 Chars. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/13/ruby-regular-expression/"  data-tooltip="Ruby 正则表达式">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/12/design-pattern-introduction/" data-tooltip="设计模式 - 概述">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-angle-double-up"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2016/04/13/singleton-pattern/">
+                    <i class="fa fa-weibo"></i><span>Share on Weibo</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Chars</h4>
+        
+            <div id="about-card-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>iOS developer @ZAKER</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Guangzhou, China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/college-thesis-summary-skill/">
+                            <h3 class="media-heading">毕业论文摘要的书写方法和技巧</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 18, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要也就是内容提要，是论文中不可缺少的一部分。论文摘要是一篇具有独立性的短文，有其特别的地方。它是建立在对论文进行总结的基础之上，用简单、明确、易懂、精辟的语言对全文内容加以概括，留主干去枝叶，提取论文的主要信息。作者的观点、论文的主要内容、研究成果、独到的见解，这些都应该在摘要中体现出来。好的摘要便于索引与查找，易于收录到大型资料库中并为他人提供信息。因此摘要在资料交流方面承担着至关重要的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/vc-6-mfc-develop-summary/">
+                            <h3 class="media-heading">VC++6.0 MFC编程心得小结</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 18, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/19/os-32-64-bit/">
+                            <h3 class="media-heading">操作系统 32位和64位</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 19, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>两者之间存在的“五大不同”。与此同时，着重说明Microsoft Windows64位（x64）操作系统，相对于32位（x86）操作系统的最大优势和劣势是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/20/sql-server-state-code-list-1/">
+                            <h3 class="media-heading">SQL Server 错误代码和解释 (上篇)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>SQL Server 是高校专业在教学数据库时一定会选用的案例之一，这个数据库是结合微软产品一起使用的，不仅贵，而且不好用。这是在使用之后的心得体会。在代码层面来说，这个是很难使用的。但是，老师说这个以后工作了都会使用到，所以，还是要好好学的。</p>
+<p>文中罗列了各种状态码的解释，这些对调试SQL Server数据库程序是很有帮助的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                            <h3 class="media-heading">SQL Server 错误代码和解释 (中篇)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 21, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>承接《上篇》继续罗列分享SQL Server状态码。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/22/sql-server-state-code-list-3/">
+                            <h3 class="media-heading">SQL Server 错误代码和解释 (下篇)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 22, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>承接《下篇》继续罗列分享SQL Server状态码。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/23/factory-prototype-diff/">
+                            <h3 class="media-heading">Factory模式与Prototype模式的异同</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 23, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/24/vc-invoke-dll/">
+                            <h3 class="media-heading">VC 调用 DLL</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 24, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>DLL 动态数据链路库。</p>
+<p>调用DLL有两种方法：静态调用和动态调用.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                89 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('UG7I248E1X', '39daa80db5305fba3705069658223736');
+        var algoliaIndex = algoliaClient.initIndex('Chars_Blog');
     </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
-
-
-  
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
-
-
-
-</body>
-
+    </body>
 </html>

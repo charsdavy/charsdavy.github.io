@@ -1,927 +1,60 @@
-<!doctype html>
 
-
-
-
-<html class="theme-next muse" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+    
 <head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-1696534394699613",
-      enable_page_level_ads: true
-    });
-</script>
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="1c0YcInzO12jg61ug6cwrlMhcpVaMUGmhiOI59WxQ2A" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Chars&#39;s Blog">
+    <title>SQL Server 错误代码和解释 (中篇) - Chars&#39;s Blog</title>
+    <meta name="author" content="Chars">
     
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+        <link rel="icon" href="http://chars.tech/assets/images/avatar.png">
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="database,debug," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="承接《上篇》继续罗列分享SQL Server状态码。">
-<meta property="og:type" content="article">
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="承接《上篇》继续罗列分享SQL Server状态码。">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="SQL Server 错误代码和解释 (中篇)">
 <meta property="og:url" content="http://chars.tech/2013/01/21/sql-server-state-code-list-2/index.html">
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="承接《上篇》继续罗列分享SQL Server状态码。">
-<meta property="og:updated_time" content="2017-07-04T14:49:59.000Z">
+<meta property="og:updated_time" content="2017-07-05T08:03:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL Server 错误代码和解释 (中篇)">
 <meta name="twitter:description" content="承接《上篇》继续罗列分享SQL Server状态码。">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'UG7I248E1X',
-      apiKey: '39daa80db5305fba3705069658223736',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://chars.tech/2013/01/21/sql-server-state-code-list-2/"/>
-
-
-
-
-
-  <title> SQL Server 错误代码和解释 (中篇) | Chars's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
+<meta name="twitter:creator" content="@charsdavy">
     
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="site-title">Chars's Blog</span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
-</nav>
-
-<!--
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176787145" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-bill.png" height="200" width="235" alt="今日账单">
-</a>
-</div>
-</br>
-
-<div>
-<a href="https://itunes.apple.com/cn/app/id1176789830" target="_blank">
-	<img src="http://o88e8any8.bkt.clouddn.com/charsdavy.github.io-ad-2048.png" height="100" width="235" alt="2048">
-</a>
-</div>
--->
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chars's Blog">
-    </span>
+    
+        <meta property="og:image" content="http://chars.tech/assets/images/avatar.png"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-80507808-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 
     
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                SQL Server 错误代码和解释 (中篇)
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-21T09:37:18+08:00">
-                2013-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">code</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
     
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>承接《上篇》继续罗列分享SQL Server状态码。</p>
-<a id="more"></a>
-<p>2001 指定的驱动程序无效。<br>2002 窗口样式或类别属性对此操作无效。<br>2003 不支持请求的图元操作。<br>2004 不支持请求的变换操作。<br>2005 不支持请求的剪切操作。<br>2010 指定的颜色管理模块无效。<br>2011 制定的颜色文件配置无效。<br>2012 找不到指定的标识。<br>2013 找不到所需的标识。<br>2014 指定的标识已经存在。<br>2015 指定的颜色文件配置与任何设备都不相关。<br>2016 找不到该指定的颜色文件配置<br>2017 指定的颜色空间无效。<br>2018 图像颜色管理没有启动。<br>2019 在删除该颜色传输时有一个错误。<br>2020 该指定的颜色传输无效。<br>2021 该指定的变换与位图的颜色空间不匹配。<br>2022 该指定的命名颜色索引在配置文件中不存在。<br>2102 没有安装工作站驱动程序。<br>2103 无法定位服务器。<br>2104 发生内部错误，网络无法访问共享内存段。<br>2105 网络资源不足。<br>2106 工作站不支持这项操作。<br>2107 设备没有连接。<br>2108 网络连接已成功，但需要提示用户输入一个不同于原始指定的密码。<br>2114 没有启动服务器服务。<br>2115 队列空。<br>2116 设备或目录不存在。<br>2117 无法在重定向的资源上执行这项操作。<br>2118 名称已经共享。<br>2119 服务器当前无法提供所需的资源。<br>2121 额外要求的项目超过允许的上限。<br>2122 对等服务只支持两个同时操作的用户 。<br>2123 API 返回缓冲区太小。<br>2127 远程 API 错误。<br>2131 打开或读取配置文件时出错。<br>2136 发生一般网络错误。<br>2137 工作站服务的状态不一致。重新启动工作站服务之前，请先重新启动计算机。<br>2138 工作站服务没有启动。<br>2139 所需信息不可用。<br>2140 发生 Windows 2000 内部错误。<br>2141 服务器没有设置事务处理。<br>2142 远程服务器不支持请求的 API。<br>2143 事件名无效。<br>2144 网络上已经有此计算机名。请更名后重新启动。<br>2146 配置信息中找不到指定的组件。<br>2147 配置信息中找不到指定的参数。<br>2149 配置文件中有一个命令行太长。<br>2150 打印机不存在。<br>2151 打印作业不存在。<br>2152 打印机目标找不到。<br>2153 打印机目标已经存在。<br>2154 打印机队列已经存在。<br>2155 无法添加其它的打印机。<br>2156 无法添加其它的打印作业。<br>2157 无法添加其它的打印机目标。<br>2158 此打印机目标处于空闲中，不接受控制操作。<br>2159 此“打印机目标请求”包含无效的控制函数。<br>2160 打印处理程序没有响应。<br>2161 后台处理程序没有运行。<br>2162 打印目标当前的状况，无法执行这项操作。<br>2163 打印机队列当前的状况，无法执行这项操作。<br>2164 打印作业当前的状况，无法执行这项操作。<br>2165 无法为后台处理程序分配内存。<br>2166 设备驱动程序不存在。<br>2167 打印处理程序不支持这种数据类型。<br>2168 没有安装打印处理程序。<br>2180 锁定服务数据库。<br>2181 服务表已满。<br>2182 请求的服务已经启动。<br>2183 这项服务没有响应控制操作。<br>2184 服务仍未启动。<br>2185 服务名无效。<br>2186 服务没有响应控制功能。<br>2187 服务控制处于忙碌状态。<br>2188 配置文件包含无效的服务程序名。<br>2189 在当前的状况下无法控制服务。<br>2190 服务异常终止。<br>2191 这项服务无法接受请求的 “暂停” 或 “停止” 操作。<br>2192 服务控制“计划程序”在“计划表”中找不到服务名。<br>2193 无法读取服务控制计划程序管道。<br>2194 无法创建新服务的线程。<br>2200 此工作站已经登录到局域网。<br>2201 工作站没有登录到局域网。<br>2202 指定的用户名无效。<br>2203 密码参数无效。<br>2204 登录处理器没有添加消息别名。<br>2205 登录处理器没有添加消息别名。<br>2206 注销处理器没有删除消息别名。<br>2207 注销处理器没有删除消息别名。<br>2209 暂停网络登录。<br>2210 中心登录服务器发生冲突。<br>2211 服务器没有设置正确的用户路径。<br>2212 加载或运行登录脚本时出错。<br>2214 没有指定登录服务器，计算机的登录状态是单机操作。<br>2215 登录服务器找不到。<br>2216 此计算机已经有一个登录域。<br>2217 登录服务器无法验证登录。<br>2219 安全数据库找不到。<br>2220 组名找不到。<br>2221 用户名找不到。<br>2222 资源名找不到。<br>2223 组已经存在。<br>2224 帐户已经存在。<br>2225 资源使用权限清单已经存在。<br>2226 此操作只能在该域的主域控制器上执行。<br>2227 安全数据库没有启动。<br>2228 用户帐户数据库中的名称太多。<br>2229 磁盘 I/O 失败。<br>2230 已经超过每个资源 64 个项目的限制。<br>2231 不得删除带会话的用户。<br>2232 上层目录找不到。<br>2233 无法添加到安全数据库会话高速缓存段。<br>2234 这项操作不能在此特殊的组上执行。<br>2235 用户帐户数据库会话高速缓存没有记录此用户。<br>2236 用户已经属于此组。<br>2237 用户不属于此组。<br>2238 此用户帐户尚未定义。<br>2239 此用户帐户已过期。<br>2240 此用户不得从此工作站登录网络。<br>2241 这时候不允许用户登录网络。<br>2242 此用户的密码已经过期。<br>2243 此用户的密码无法更改。<br>2244 现在无法使用此密码。<br>2245 密码不满足密码策略的需要。检查最小密码长度、密码复杂性和密码历史的需求。<br>2246 此用户的密码最近才启用，现在不能更改。<br>2247 安全数据库已损坏。<br>2248 不需要更新此副本复制的网络/本地安全数据库。<br>2249 此副本复制的数据库已过时；请同步处理其中的数据。<br>2250 此网络连接不存在。<br>2251 此 asg_type 无效。<br>2252 此设备当前正在共享中。<br>2270 计算机名无法作为消息别名添加。网络上可能已经有此名称。<br>2271 信使服务已经启动。<br>2272 信使服务启动失败。<br>2273 网络上找不到此消息别名。<br>2274 此消息别名已经转发出去。<br>2275 已经添加了此消息别名，但是仍被转发。<br>2276 此消息别名已在本地存在。<br>2277 添加的消息别名已经超过数目上限。<br>2278 无法删除计算机名。<br>2279 消息无法转发回到同一个工作站。<br>2280 域消息处理器出错。<br>2281 消息已经发送出去，但是收件者已经暂停信使服务。<br>2282 消息已经发送出去，但尚未收到。<br>2283 消息别名当前正在使用中。请稍候片刻再试。<br>2284 信使服务尚未启动。<br>2285 该名称不在本地计算机上。<br>2286 网络上找不到转发的消息别名。<br>2287 远程通讯站的消息别名表已经满了。<br>2288 此别名的消息当前没有在转发中。<br>2289 广播的消息被截断。<br>2294 设备名无效。<br>2295 写入出错。<br>2297 网络上的消息别名重复。<br>2298 此消息别名会在稍后删除。<br>2299 没有从所有的网络删除消息别名。<br>2300 这项操作无法在使用多种网络的计算机上执行。<br>2310 此共享的资源不存在。<br>2311 设备没有共享。<br>2312 带此计算机名的会话不存在。<br>2314 没有用此识别号打开的文件。<br>2315 执行远程管理命令失败。<br>2316 打开远程临时文件失败。<br>2317 从远程管理命令返回的数据已经被截断成 64K。<br>2318 此设备无法同时共享为后台处理资源和非后台处理资源。<br>2319 服务器清单中的信息可能不正确<br>2320 计算机在此域未处于活动状态<br>2321 在删除共享之前，需要将该共享从分布式文件系统中删除。<br>2331 无法在此设备执行这项操作<br>2332 此设备无法共享。<br>2333 此设备未打开。<br>2334 此设备名清单无效。<br>2335 队列优先级无效。<br>2337 没有任何共享的通讯设备。<br>2338 指定的队列不存在。<br>2340 此设备清单无效。<br>2341 请求的设备无效。<br>2342 后台处理程序正在使用此设备。<br>2343 此设备已经被当成通讯设备来使用。<br>2351 此计算机名无效。<br>2354 指定的字符串及前缀太长。<br>2356 此路径组成部分无效。<br>2357 无法判断输入类型。<br>2362 类型缓冲区不够大。<br>2370 配置文件不得超过 64K。<br>2371 初始偏移量越界。<br>2372 系统无法删除当前到网络资源的连接。<br>2373 系统无法分析此文件中的命令行。<br>2374 加载配置文件时出错。\<br>2375 保存配置文件时出错，只部份地保存了配置文件。<br>2378 此日志文件在前后两次读取之间已经发生变化。<br>2380 资源路径不可以是目录。<br>2381 资源路径无效。<br>2382 目标路径无效。<br>2383 源路径及目标路径分属不同的服务器。<br>2385 请求的 Run 服务器现在暂停。<br>2389 与 Run 服务器通讯时出错。<br>2391 启动后台处理时出错。<br>2392 找不到您连接的共享资源。<br>2400 LAN 适配器号码无效。<br>2401 此网络连接有文件打开或请求挂起。<br>2402 使用中的连接仍存在。<br>2403 此共享名或密码无效。<br>2404 设备正由活动进程使用，无法断开。<br>2405 此驱动器号已在本地使用。<br>2430 指定的客户已经在指定的事件注册。<br>2431 警报表已满。<br>2432 发出的警报名称无效或不存在。<br>2433 警报接收者无效。<br>2434 用户的登录时间长短不再合法。 所以已经删除用户与该服务器的会话。<br>2440 日志文件中没有请求的记录号。<br>2450 用户帐户数据库没有正确配置。<br>2451 当 Netlogon 服务正在运行时，不允许执行这项操作。<br>2452 这项操作无法在最后的管理帐户上执行。<br>2453 找不到此域的域控制器。<br>2454 无法设置此用户的登录信息。<br>2455 Netlogon 服务尚未启动。<br>2456 无法添加到用户帐户数据库。<br>2457 此服务器的时钟与主域控制器的时钟不一致。<br>2458 检测到密码不匹配。<br>2460 服务器识别码没有指定有效的服务器。<br>2461 会话标识没有指定有效的会话。<br>2462 连接识别码没有指定有效的连接。<br>2463 可用服务器表中无法再加上其它项。<br>2464 服务器已经到了支持的会话数目上限。<br>2465 服务器已经到了支持的连接数目上限。<br>2466 服务器打开的文件到了上限，无法打开更多文件。<br>2467 这台服务器没有登记替换的服务器。<br>2470 请用低级的 API (远程管理协议)。<br>2480 UPS 服务无法访问 UPS 驱动程序。<br>2481 UPS 服务设置错误。<br>2482 UPS 服务无法访问指定通讯端口 (Comm Port)。<br>2483 UPS 显示线路中断或电池不足，服务没有启动。<br>2484 UPS 服务无法执行系统关机的操作。<br>2500 下面的程序返回一个 MS-DOS 错误码:<br>2501 下面的程序需要更多的内存:<br>2502 下面程序调用了不支持的 MS-DOS 函数:<br>2503 工作站无法启动。<br>2504 下面的文件已损坏。<br>2505 启动块定义文件中没有指定引导程序。<br>2506 NetBIOS 返回错误: NCB 及 SMB 数据转储。<br>2507 磁盘 I/O 错误。<br>2508 无法替换映像参数。<br>2509 跨越磁盘扇区范围的映像参数太多。<br>2510 不是从用 /S 格式化的 MS-DOS软盘产生的映像。<br>2511 稍后会从远程重新启动。<br>2512 无法调用远程启动服务器。<br>2513 无法连接到远程启动服务器。<br>2514 无法打开远程启动服务器上的映像文件。<br>2515 正在连接到远程启动服务器…<br>2516 正在连接到远程启动服务器…<br>2517 远程启动服务已经停止，请检测错误记录文件，查明出错的原因。<br>2518 远程启动失败，请检查错误日志文件，查明出错的原因。<br>2519 不允许第二个远程启动 (Remoteboot) 资源连接。<br>2550 浏览服务设置成 MaintainServerList=No。<br>2610 因为没有网卡与这项服务一起启动，所以无法启动服务。<br>2611 因为注册表中的启动信息不正确，所以无法启动服务。<br>2612 无法启动服务，原因是它的数据库找不到或损坏。<br>2613 因为找不到 RPLFILES 共享的资源，所以无法启动服务。<br>2614 因为找不到 RPLUSER 组，所以无法启动服务。<br>2615 无法枚举服务记录。<br>2616 工作站记录信息已损坏。<br>2617 工作站记录找不到。<br>2618 其它的工作站正在使用此工作站名。<br>2619 配置文件记录已损坏。<br>2620 配置文件记录找不到。<br>2621 其它的配置文件正在使用此名称。<br>2622 有很多工作站正在使用此配置文件。<br>2623 配置记录已损坏。<br>2624 配置记录找不到。<br>2625 适配器识别记录已损坏。<br>2626 内部服务出错。<br>2627 供应商识别记录已损坏。<br>2628 启动块记录已损坏。<br>2629 找不到此工作站的用户帐户记录。<br>2630 RPLUSER 本地组找不到。<br>2631 找不到启动块记录。<br>2632 所选的配置文件与此工作站不兼容。<br>2633 其它的工作站正在使用所选的网卡。<br>2634 有些配置文件正在使用此配置。<br>2635 有数个工作站、配置文件或配置正在使用此启动块。<br>2636 服务无法制作远程启动数据库的备份。<br>2637 找不到适配器记录。<br>2638 找不到供应商记录。<br>2639 其它供应商记录正在使用此供应商名称。<br>2640 其它的启动区记录正在使用启动名称或供应商识别记录。<br>2641 其它的配置正在使用此配置名称。<br>2660 由 Dfs 服务所维护的内部数据库已损坏<br>2661 内部数据库中的一条记录已 损坏<br>2662 输入项路径与卷路径不匹配<br>2663 给定卷名已存在<br>2664 指定的服务器共享已在 Dfs 中共享<br>2665 所显示的服务器共享不支持所显示的 Dfs 卷<br>2666 此操作在非叶卷上无效。<br>2667 此操作在叶卷上无效。<br>2668 此操作不明确，因为该卷存在多服务器。<br>2669 无法创建连接点<br>2670 该服务器不是 Dfs 可识别的<br>2671 指定的重命名目标路径无效。<br>2672 指定 Dfs 卷脱线<br>2673 指定的服务器不为此卷服务<br>2674 检测到 Dfs 名中的环路<br>2675 在基于服务器的 Dfs 上不支持该操作<br>2676 这个卷已经受该指定服务器共享支持<br>2677 无法删除这个卷的上一个服务器共享支持<br>2678 Inter-Dfs 卷不支持该操作<br>2679 Dfs 服务的内部状态已经变得不一致<br>2680 Dfs 服务已经安装在指定的服务器上<br>2681 被协调的 Dfs 数据是一样的<br>2682 无法删除 Dfs 根目录卷 - 如需要请卸载 Dfs<br>2683 该共享的子目录或父目录已经存在在一个 Dfs 中<br>2690 Dfs 内部错误<br>2691 这台机器已经加入域 。<br>2692 这个机器目前未加入域。<br>2693 这台机器是域控制器，而且无法从域中退出。<br>2694 目标域控制器不支持在 OU 中创建的机器帐户。<br>2695 指定的工作组名无效<br>2696 指定的计算机名与域控制器上使用的默认语言不兼容。<br>2697 找不到指定的计算机帐户。<br>2999 这是 NERR 范围内的最后一个错误。<br>3000 指定了未知的打印监视器。<br>3001 指定的打印机驱动程序当前正在使用。<br>3002 找不到缓冲文件。<br>3003 未发送 StartDocPrinter 调用。<br>3004 未发送 AddJob 调用。<br>3005 指定的打印处理器已经安装。<br>3006 指定的打印监视器已经安装。<br>3007 该指定的打印监视器不具备所要求的功能。　<br>3008 该指定的打印监视器正在使用中。<br>3009 当打印机有作业排成队列时此操作请求是不允许的。<br>3010 请求的操作成功。直到重新启动系统前更改将不会生效。<br>3011 请求的操作成功。直到重新启动服务前更改将不会生效。<br>3012 找不到打印机。<br>3023 用户指定的关机命令文件，它的配置有问题。 不过 UPS 服务已经启动。<br>3029 因为用户帐户数据库 (NET.ACC) 找不到或损坏， 而且也没有可用的备份数据库， 所以不能启动本地安全机制。 系统不安全！<br>3037 @I <em>登录小时数<br>3039 已经超过一个目录中文件的副本复制的限制。<br>3040 已经超过副本复制的目录树深度限制。<br>3046 无法登录。用户当前已经登录，同时参数 TRYUSER 设置为 NO。<br>3052 命令行或配置文件中 没有提供必要的参数。<br>3054 无法满足资源的请求。<br>3055 系统配置有问题。<br>3056 系统出错。<br>3057 发生内部一致性的错误。<br>3058 配置文件或命令行的选项不明确。<br>3059 配置文件或命令行的参数重复。<br>3060 服务没有响应控制， DosKillProc 函数已经停止服务。<br>3061 运行服务程序时出错。<br>3062 无法启动次级服务。<br>3064 文件有问题。<br>3070 内存<br>3071 磁盘空间<br>3072 线程<br>3073 过程<br>3074 安全性失败。<br>3075 LAN Manager 根目录不正确或找不到。<br>3076 未安装网络软件。<br>3077 服务器未启动。<br>3078 服务器无法访问用户帐户数据库 (NET.ACC)。<br>3079 LANMAN 树中安装的文件不兼容。<br>3080 LANMAN\LOGS 目录无效。<br>3081 指定的域无法使用。<br>3082 另一计算机正将此计算机名当作消息别名使用。<br>3083 宣布服务器名失败。<br>3084 用户帐户数据库没有正确配置。<br>3085 服务器没有运行用户级安全功能。<br>3087 工作站设置不正确。<br>3088 查看您的错误日志文件以了解详细信息。<br>3089 无法写入此文件。<br>3090 ADDPAK 文件损坏。请删除 LANMAN\NETPROG\ADDPAK.SER 后重新应用所有的 ADDPAK。<br>3091 因为没有运行 CACHE.EXE，所以无法启动 LM386 服务器。<br>3092 安全数据库中找不到这台计算机的帐户。<br>3093 这台计算机不是 SERVERS 组的成员。<br>3094 SERVERS 组没有在本地安全数据库中。<br>3095 此 Windows NT 计算机被设置为某个组的成员， 并不是域的成员。 此种配置下不需要运行 Netlogon 服务。<br>3096 找不到此域的 Windows NT 域控制器。<br>3098 服务无法与主域控制器进行验证。<br>3099 安全数据库文件创建日期或序号有问题。<br>3100 因为网络软件出错，所以无法执行操作。<br>3102 这项服务无法长期锁定网络控制块 (NCB) 的段。 错误码就是相关数据。<br>3103 这项服务无法解除网络控制块 (NCB) 段的长期锁定。 错误码就是相关数据。<br>3106 收到意外的网络控制块 (NCB)。NCB 就是相关数据。<br>3107 网络没有启动。<br>3108 NETWKSTA.SYS 的 DosDevIoctl 或 DosFsCtl 调用失败。 显示的数据为以下格式: DWORD 值代表调用 Ioctl 或 FsCtl 的 CS:IP WORD 错误代码 WORD Ioctl 或 FsCtl 号<br>3111 发生意外的 NetBIOS 错误。 错误码就是相关数据。<br>3112 收到的服务器消息块 (SMB) 无效。 SMB 就是相关数据。<br>3114 因为缓冲区溢出， 所以错误日志文件中部份的项目丢失。<br>3120 控制网络缓冲区以外资源用量的初始化参数被设置大小， 因此需要的内存太多。<br>3121 服务器无法增加内存段的大小。<br>3124 服务器启动失败。三个 chdev 参数必须同时为零或者同时不为零。<br>3129 服务器无法更新 AT 计划文件。 文件损坏。<br>3130 服务器调用 NetMakeLMFileName 时出错。 错误码就是相关数据。<br>3132 无法长期锁定服务器缓冲区。 请检查交换磁盘的可用空间，然后重新启动系统以启动服务器。<br>3140 因为多次连续出现网络控制块 (NCB) 错误，所以停止服务。 最后一个坏的 NCB 以原始数据形式出现。<br>3141 因为消息服务器共享的数据段被锁住， 所以消息服务器已经停止运行。<br>3151 因为 VIO 调用出错，所以无法弹出显示消息。 错误码就是相关数据。<br>3152 收到的服务器消息块 (SMB) 无效。SMB 就是相关数据。<br>3160 工作站信息段大于 64K。 大小如下(以 DWORD 值的格式):<br>3161 工作站无法取得计算机的名称号码。<br>3162 工作站无法初始化 Async NetBIOS 线程。 错误码就是相关数据。<br>3163 工作站无法打开最前面的共享段。 错误码就是相关数据。<br>3164 工作站主机表已满。<br>3165 收到的邮筒服务器消息块 (SMB) 有问题，SMB 就是相关数据。<br>3166 工作站启动用户帐户数据库时出错。 错误码就是相关数据。<br>3167 工作站响应 SSI 重新验证请求时出错。 函数码及错误码就是相关数据。<br>3174 服务器无法读取 AT 计划文件。<br>3175 服务器发现错误的 AT 计划记录。<br>3176 服务器找不到 AT 计划文件，所以创建一个计划文件。<br>3185 因为用户帐户数据库 (NET.ACC) 找不到或损坏， 而且也没有可用的备份数据库， 所以不能启动本地安全机制。 系统不安全！<br>3204 服务器无法创建线程。 CONFIG.SYS 中的 THREADS 参数必须加大。<br>3213 已经超过一个目录中文件的副本复制的限制。<br>3214 已经超过副本复制的目录树深度限制。<br>3215 邮筒中收到的消息无法识别。<br>3217 无法登录。用户当前已经登录，同时参数 TRYUSER 设置为 NO。<br>3230 检测到服务器的电源中断。<br>3231 UPS 服务已经关掉服务器。<br>3232 UPS 服务没有完成执行用户指定的 关机命令文件。<br>3233 无法打开 UPS 驱动程序。 错误码就是相关数据。<br>3234 电源已经恢复。<br>3235 用户指定的关机命令文件 有问题。<br>3256 该项服务的动态链接库 发生无法修复的错误。<br>3257 系统返回意外的错误码。 错误码就是相关数据。<br>3258 容错错误日志文件 - LANROOT\LOGS\FT.LOG 超过 64K。<br>3259 容错错误日志文件 - LANROOT\LOGS\FT.LOG，在被打开时就已设置 更新进度位，这表示上次使用错误日志时， 系统死机。<br>3301 Remote IPC<br>3302 Remote Admin<br>3303 Logon server share<br>3304 网络出错。<br>3400 内存不足，无法启动工作站服务。<br>3401 读取 LAMAN.INI 文件的 NETWORKS 项目出错。<br>3404 LAMAN.INI 文件中的 NETWORKS 项目太多。<br>3408 程序无法用在此操作系统。<br>3409 已经安装转发程序。<br>3411 安装 NETWKSTA.SYS 时出错。 请按 ENTER 继续。<br>3412 求解程序链接问题。<br>3419 您已经打开文件或设备， 强制断开会造成数据丢失。<br>3420 内部用的默认共享<br>3421 信使服务<br>3500 命令成功完成。<br>3501 使用的选项无效。<br>3503 命令包含无效的参数个数。<br>3504 命令运行完毕，但发生一个或多个错误。<br>3505 使用的选项数值不正确。<br>3510 命令使用了冲突的选项。<br>3512 软件需要新版的 操作系统。<br>3513 数据多于 Windows 2000 所能够返回的。<br>3515 此命令只能用在 Windows 2000 域控制器。<br>3516 这个指令不能用于一个 Windows 2000 域控制器。<br>3520 已经启动以下 Windows 2000 服务:<br>3525 停止工作站服务也会同时停止服务器服务 。<br>3526 工作站有打开的文件。<br>3533 服务正在启动或停止中，请稍候片刻后再试一次。<br>3534 服务没有报告任何错误。<br>3535 正在控制设备时出错。<br>3660 这些工作站在这台服务器上有会话:<br>3661 这些工作站有会话打开了此台服务器上的文件:<br>3666 消息别名已经转发出去。<br>3670 您有以下的远程连接:<br>3671 继续运行会取消连接。<br>3676 会记录新的网络连接。<br>3677 不记录新的网络连接。<br>3678 保存配置文件时出错，原先记录的网络连接状态没有更改。<br>3679 读取配置文件时出错。<br>3682 没有启动任何网络服务。<br>3683 清单是空的。<br>3689 工作站服务已经在运行中，Windows 2000 会忽略工作站的命令选项。<br>3694 在打印作业正在后台处理到队列时，无法删除共享的队列。<br>3710 打开帮助文件时出错。<br>3711 帮助文件是空的。<br>3712 帮助文件已经损坏。<br>3714 这是专为那些安装旧版软件的系统 提供的操作。<br>3716 设备类型未知。<br>3717 日志文件已经损坏。<br>3718 程序文件名后必须以 .EXE 结束。<br>3719 找不到匹配的共享，因此没有删除。<br>3720 用户记录中的 “单位/星期” 的值不正确。<br>3725 删除共享时出错。<br>3726 用户名无效。<br>3727 密码无效。<br>3728 密码不匹配。<br>3729 永久连接没有完全还原。<br>3730 计算机名或域名错误。<br>3732 无法设置该资源的默认权限。<br>3734 没有输入正确的密码。<br>3735 没有输入正确的名称。<br>3736 该资源无法共享。<br>3737 权限字符串包含无效的权限。<br>3738 您只能在打印机或通讯设备上执行这项操作。<br>3743 服务器没有设置远程管理的功能。<br>3752 这台服务器上没有用户的会话。<br>3756 响应无效。<br>3757 没有提供有效的响应。<br>3758 提供的目标清单与打印机队列目标清单不匹配。<br>3761 指定的时间范围中结束的时间比开始的时间早。<br>3764 提供的时间不是整点。<br>3765 12 与 24 小时格式不能混用。<br>3767 提供的日期格式无效。<br>3768 提供的日期范围无效。<br>3769 提供的时间范围无效。<br>3770 NET USER 的参数无效。请检查最短的密码长度 和/或提供参数。<br>3771 ENABLESCRIPT 的值必须是 YES。<br>3773 提供的国家(地区)代码无效。<br>3774 用户已经创建成功，但是无法添加到 USERS 本地组中。<br>3775 提供的用户上下文无效。<br>3777 文件发送功能已不再支持。<br>3778 您可能没有指定 ADMIN$ 及 IPC$ 共享的路径。<br>3784 只有磁盘共享可以标记为可以缓存。<br>3802 此计划日期无效。<br>3803 LANMAN 根目录无法使用。<br>3804 SCHED.LOG 文件无法打开。<br>3805 服务器服务尚未启动。<br>3806 AT 作业标识不存在。<br>3807 AT 计划文件已损坏。<br>3808 因为 AT 计划文件发生问题，所以无法运行删除操作。<br>3809 命令行不得超过 259 个字符。<br>3810 因为磁盘已满，所以 AT 计划文件无法更新。<br>3812 AT 计划文件无效。请删除此文件并创建新的文件。<br>3813 AT 计划文件已经删除。<br>3814 此命令的语法是: AT [id] [/Delete] AT 时间 [/EVERY:日期 | /NEXT:日期] 命令 AT 命令会在以后的 指定日期及时间，安排程序在服务器上运行。 它也会显示安排运行的程序及命令的清单。 您可以将日期指定为M、T、W、Th、F、Sa、Su 或 1-31 的格式。 您可以将时间指定为HH:3814<br>3815 AT 命令已经超时。 请稍后再试一次。<br>3816 用户帐户的密码使用最短期限不得 大于密码最长使用期限。<br>3817 指定的数值与安装下层软件的服务器不兼容。 请指定较小的值。<br>3901 <strong><strong><br>3902 </strong></strong> 意外到达消息的结尾 <em>*</em></em><br>3905 请按 ESC 退出<br>3906 …<br>3912 找不到时间服务器。<br>3915 无法判断用户的主目录。<br>3916 没有指定用户的主目录。<br>3920 已经没有可用的驱动器号。<br>3936 这台计算机目前没有配置成使用一个指定的 SNTP 服务器。<br>3953 语法错误。<br>3960 指定的文件号码无效。<br>3961 指定的打印作业号码无效。<br>3963 指定的用户或组帐户找不到。<br>3965 已添加用户，但 NetWare 的文件和打印服务无法启用。<br>3966 没有安装 NetWare 的文件和打印服务。<br>3967 无法为 NetWare 的文件和打印服务设置用户属性。<br>3969 NetWare 兼容登录<br>4000 WINS 在处理命令时遇到错误。<br>4001 本地的 WINS 不能删除。<br>4002 文件导入操作失败。<br>4003 备份操作失败。是否先前已作过完整备份?<br>4004 备份操作失败。请检查您备份数据库的目录。<br>4005 WINS 数据库中没有这个名称。<br>4006 不允许复制一个尚未配置的伙伴。<br>4100 DHCP 客户获得一个在网上已被使用的 IP 地址。 直到 DHCP 客户可以获得新的地址前，本地接口将被禁用。<br>4200 无法识别传来的 GUID 是否为有效的 WMI 数据提供程序。<br>4201 无法识别传来的实例名是否为有效的 WMI 数据提供程序。<br>4202 无法识别传来的数据项目标识符是否为有效的 WMI 数据提供程序。<br>4203 无法完成 WMI 请求，应该重试一次。<br>4204 找不到 WMI 数据提供程序。<br>4205 WMI 数据提供程序引用到一个未注册的实例组。<br>4206 WMI 数据块或事件通知已启用。<br>4207 WMI 数据块不再可用。<br>4208 WMI 数据服务无法使用。<br>4209 WMI 数据提供程序无法完成要求。<br>4210 WMI MOF 信息无效。<br>4211 WMI 注册信息无效。<br>4212 WMI 数据块或事件通知已禁用。<br>4213 WMI 数据项目或数据块为只读。<br>4214 WMI 数据项目或数据块不能更改。<br>4300 媒体标识符没有表示一个有效的媒体。<br>4301 库标识符没有表示一个有效的库。<br>4302 媒体缓冲池标识符没有表示一个有效的媒体缓冲池。<br>4303 驱动器和媒体不兼容或位于不同的库中。<br>4304 媒体目前在脱机库中，您必须联机才能运行这个操作。<br>4305 操作无法在脱机库中运行。<br>4306 库、驱动器或媒体缓冲池是空的。<br>4307 库、磁盘或媒体缓冲池必须是空的，才能运行这个操作。<br>4308 在这个媒体缓冲池或库中目前没有可用的媒体。<br>4309 这个操作所需的资源已禁用。<br>4310 媒体标识符没有表示一个有效的清洗器。<br>4311 无法清洗驱动器或不支持清洗。<br>4312 对象标识符没有表示一个有效的对象。<br>4313 无法读取或写入数据库。<br>4314 数据库已满。<br>4315 媒体与设备或媒体缓冲池不兼容。<br>4316 这个操作所需的资源不存在。<br>4317 操作标识符不正确。<br>4318 媒体未被安装，或未就绪。<br>4319 设备未就绪。<br>4320 操作员或系统管理员拒绝了请求。<br>4321 驱动器标识符不代表一个有效的驱动器。<br>4322 程序库已满。没有可使用的插槽。<br>4323 传输程序不能访问媒体。<br>4324 无法将媒体加载到驱动器中。<br>4325 无法检索有关驱动器的状态。<br>4326 无法检索有关插槽的状态。<br>4327 无法检索传输的状态。<br>4328 因为传输已在使用中，所以无法使用。<br>4329 无法打开或关闭弹入/弹出端口。<br>4330 因为媒体在驱动器中，无法将其弹出。<br>4331 清洗器插槽已被保留。<br>4332 没有保留清洗器插槽。<br>4333 清洗器墨盒已进行了最大次数的驱动器清洗。<br>4334 意外媒体标识号。<br>4335 在这个组或源中最后剩下的项目不能被删除。<br>4336 提供的消息超过了这个参数所允许的最大尺寸。<br>4337 该卷含有系统和页面文件。<br>4338 由于库中至少有一个驱动器可以支持该媒体类型，不能从库中删除媒体类型。<br>4339 由于没有可以使用的已被启动的驱动器，无法将该脱机媒体装入这个系统。<br>4340 (Y/N) [Y]<br>4341 (Y/N) [N]<br>4342 错误<br>4343 OK<br>4344 Y<br>4345 N<br>4346 任何<br>4347 A<br>4348 P<br>4349 (找不到)<br>4350 远程存储服务无法撤回文件。<br>4351 远程存储服务此时不可操作。<br>4352 远程存储服务遇到一个媒体错误。<br>4354 请键入密码:<br>4358 请键入用户的密码:<br>4359 请键入共享资源的密码:<br>4360 请键入您的密码:<br>4361 请再键入一次密码以便确认:<br>4362 请键入用户的旧密码:<br>4363 请键入用户的新密码:<br>4364 请键入您的新密码:<br>4365 请键入复制器服务密码:<br>4368 请键入您的用户名:<br>4372 打印作业详细信息<br>4378 控制下列正在运行的服务:<br>4379 统计数据可用于正在运行的下列服务:<br>4381 此命令的语法是:<br>4382 此命令的选项是:<br>4383 请键入主域控制器的名称:<br>4385 Sunday<br>4386 Monday<br>4387 Tuesday<br>4388 Wednesday<br>4389 Thursday<br>4390 此文件或目录不是一个重解析点。<br>4391 重解析点的属性不能被设置，因为它与已有的属性冲突。<br>4392 在重解析点缓冲区中的数据无效。<br>4393 在重解析点缓冲区中的标签无效。<br>4394 请求中指定的标签和重解析点中的不匹配。<br>4395 W<br>4396 Th<br>4397 F<br>4398 S<br>4399 Sa<br>4401 组名<br>4402 注释<br>4403 成员<br>4406 别名<br>4407 注释<br>4408 成员<br>4411 用户名<br>4412 全名<br>4413 注释<br>4414 用户的注释<br>4415 参数<br>4416 国家(地区)代码<br>4417 权限等级<br>4418 操作员权限<br>4419 帐户启用<br>4420 帐户到期<br>4421 上次设置密码<br>4422 密码到期<br>4423 密码可更改<br>4424 允许的工作站<br>4425 磁盘空间上限<br>4426 无限制<br>4427 本地组会员<br>4428 域控制器<br>4429 登录脚本<br>4430 上次登录<br>4431 全局组成员<br>4432 可允许的登录小时数<br>4433 全部<br>4434 无<br>4436 主目录<br>4437 需要密码<br>4438 用户可以更改密码<br>4439 用户配置文件<br>4440 已锁定<br>4450 计算机名<br>4451 用户名<br>4452 软件版本<br>4453 工作站活动在<br>4454 Windows NT 根目录<br>4455 工作站域<br>4456 登录域<br>4457 其它域<br>4458 COM 打开超时 (秒)<br>4459 COM 发送计数 (字节)<br>4460 COM 发送超时 (毫秒)<br>4461 DOS 会话打印超时 (秒)<br>4462 错误日志文件大小上限 (K)<br>4463 高速缓存上限 (K)<br>4464 网络缓冲区数<br>4465 字符缓冲区数<br>4466 域缓冲区大小<br>4467 字符缓冲区大小<br>4468 计算机全名<br>4469 工作站域 DNS 名称<br>4470 Windows 2000<br>4481 服务器名称<br>4482 服务器注释<br>4483 发送管理警报到<br>4484 软件版本<br>4485 对等服务器<br>4486 Windows NT<br>4487 服务器等级<br>4488 Windows NT Server<br>4489 服务器正运行于<br>4492 服务器已隐藏<br>4500 零备份存储在这个卷上不可用。<br>4506 登录的用户数量上限<br>4507 同时可并存的管理员数量上限<br>4508 资源共享数量上限<br>4509 资源连接数量上限<br>4510 服务器打开的文件数量上限<br>4511 每个会话打开的文件数量上限<br>4512 文件锁定数量上限<br>4520 空闲的会话时间 (分)<br>4526 共享等级<br>4527 用户等级<br>4530 未限制的服务器<br>4570 强制用户在时间到期之后多久必须注销?:<br>4571 多少次密码不正确后锁住帐户?:<br>4572 密码最短使用期限 (天):<br>4573 密码最长使用期限 (天):<br>4574 密码长度下限:<br>4575 保持的密码历史记录长度:<br>4576 计算机角色:<br>4577 工作站域的主域控制器:<br>4578 锁定阈值:<br>4579 锁定持续时间(分):<br>4580 锁定观测窗口(分):<br>4600 统计开始于<br>4601 接受的会话<br>4602 会话超时<br>4603 会话出错<br>4604 发送的 KB<br>4605 接收的 KB<br>4606 平均响应时间 (毫秒)<br>4607 网络错误<br>4608 访问的文件<br>4609 后台处理的打印作业<br>4610 系统出错<br>4611 密码违规<br>4612 权限违规<br>4613 访问的通讯设备<br>4614 会话已启动<br>4615 重新连接的会话<br>4616 会话启动失败<br>4617 断开的会话<br>4618 网络 I/O 执行<br>4619 文件及管道被访问<br>4620 时间缓冲区耗尽<br>4621 大缓冲区<br>4622 请求缓冲区<br>4626 已做连接<br>4627 连接失败<br>4630 接收的字节数<br>4631 接收的服务器消息块 (SMB)<br>4632 传输的字节数<br>4633 传输的服务器消息块 (SMB)<br>4634 读取操作<br>4635 写入操作<br>4636 拒绝原始读取<br>4637 拒绝原始写入<br>4638 网络错误<br>4639 已做连接<br>4640 重新连接<br>4641 服务器断开<br>4642 会话已启动<br>4643 会话挂起<br>4644 失败的会话<br>4645 操作失败<br>4646 使用计数<br>4647 使用计数失败<br>4655 消息名称转发已经取消。<br>4661 密码已经更改成功。<br>4664 消息已经发给网络上所有的用户。<br>4666 消息已经送到此服务器上的所有用户。<br>4696 Windows NT Server<br>4697 Windows NT Workstation<br>4698 MS-DOS 增强型工作站<br>4700 服务器名称 注释<br>4701 资源共享名 类型 用途 注释<br>4702 (UNC)<br>4703 …<br>4704 Domain<br>4706 其它可用的网络:<br>4710 Disk<br>4711 Print<br>4712 Comm<br>4713 IPC<br>4714 状态 本地 远程 网络<br>4715 OK<br>4716 休止<br>4717 已暂停<br>4718 断开<br>4719 错误<br>4720 正在连接<br>4721 正在重新连接<br>4722 状态<br>4723 本地名称<br>4724 远程名称<br>4725 资源类型<br>4726 # 打开<br>4727 # 连接<br>4728 不可用<br>4730 共享名 资源 注释<br>4731 共享名<br>4732 资源<br>4733 后台处理<br>4734 权限<br>4735 最多用户<br>4736 无限制<br>4737 用户<br>4740 识别码 路径 用户名 # 锁定<br>4741 文件识别码<br>4742 锁定<br>4743 权限<br>4750 计算机 用户名 客户类型 打开空闲时间<br>4751 计算机<br>4752 会话时间<br>4753 空闲时间<br>4754 资源共享名 类型 # 打开<br>4755 客户类型<br>4756 来宾登录<br>4770 脱机缓存被启用:手动恢复<br>4771 脱机缓存被启用:自动恢复<br>4772 脱机缓存被启用:用户之间没有共享<br>4773 脱机缓存被停用<br>4774 自动<br>4775 手动<br>4800 名称<br>4801 转发到<br>4802 已经从下列位置转发给您<br>4803 这台服务器的用户<br>4804 用户已经按 Ctrl+Break 中断网络发送。<br>4810 名称 作业编号 大小 状态<br>4811 作业<br>4812 打印<br>4813 名称<br>4814 作业 #<br>4815 大小<br>4816 状态<br>4817 分隔文件<br>4818 注释<br>4819 优先级<br>4820 打印后于<br>4821 打印直到<br>4822 打印处理程序<br>4823 附加信息<br>4824 参数<br>4825 打印设备<br>4826 打印机活动中<br>4827 打印机搁置<br>4828 打印机出错<br>4829 正在删除打印机<br>4830 打印机状态未知<br>4841 作业 #<br>4842 正在提交用户<br>4843 通知<br>4844 作业数据类型<br>4845 作业参数<br>4846 正在等候<br>4847 搁置于队列<br>4848 正在后台处理<br>4849 已暂停<br>4850 脱机<br>4851 错误<br>4852 缺纸<br>4853 需要干预<br>4854 正在打印<br>4855 on<br>4862 驱动程序<br>4930 用户名 类型 日期<br>4931 锁定<br>4932 服务<br>4933 服务器<br>4934 服务器已启动<br>4935 服务器已暂停<br>4936 服务器已继续操作<br>4937 服务器已停止<br>4938 会话<br>4939 登录来宾<br>4940 登录用户<br>4941 登录管理员<br>4942 正常注销<br>4943 登录<br>4944 注销错误<br>4945 注销自动断开<br>4946 注销管理员断开<br>4947 注销受登录限制<br>4948 服务<br>4957 帐户<br>4964 已修改帐户系统设置<br>4965 登录限制<br>4966 超过限制: 未知<br>4967 超过限制: 登录时间<br>4968 超过限制: 帐户过期<br>4969 超过限制: 工作站识别码无效<br>4970 超过限制: 帐户停用<br>4971 超过限制: 帐户已删除<br>4972 资源<br>4978 密码不正确<br>4979 需要管理员特权<br>4980 访问<br>4984 拒绝访问<br>4985 未知<br>4986 其它<br>4987 持续时间:<br>4988 持续时间: 无效<br>4989 持续时间: 1 秒以下<br>4990 (无)<br>4994 访问结束<br>4995 登录到网络<br>4996 拒绝登录<br>4997 程序 消息 时间<br>4999 管理员已解除帐户的锁定状态<br>5000 注销网络</p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-<div style="text-align:center;color: #ccc;font-size:14px;">------ The End ------</div>
-
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div></div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Chars WeChat Pay"/>
-          <p>微信赞赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="Chars Alipay"/>
-          <p>支付宝赞赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/database/" rel="tag"># database</a>
-          
-            <a href="/tags/debug/" rel="tag"># debug</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2013/01/20/sql-server-state-code-list-1/" rel="next" title="SQL Server 错误代码和解释 (上篇)">
-                <i class="fa fa-chevron-left"></i> SQL Server 错误代码和解释 (上篇)
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/01/22/sql-server-state-code-list-3/" rel="prev" title="SQL Server 错误代码和解释 (下篇)">
-                SQL Server 错误代码和解释 (下篇) <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">89</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-<!--
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-            </div>
-          
--->
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">44</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.facebook.com/wei.deng.1460" target="_blank" title="Facebook">
-                  
-                    <i class="fa fa-fw fa-facebook"></i>
-                  
-                  Facebook
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/3875245858/" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="mailto:chars.davy@gmail.com" target="_blank" title="Gmail">
-                  
-                    <i class="fa fa-fw fa-envelope"></i>
-                  
-                  Gmail
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-            <div class="links-of-blogroll-title">
-              <i class="fa  fa-fw fa-globe"></i>
-              Links
-            </div>
-            <ul class="links-of-blogroll-list">
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176789830" title="2048" target="_blank">2048</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://itunes.apple.com/cn/app/id1176787145" title="今日账单" target="_blank">今日账单</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://www.tensorfly.cn/" title="TensorFlow社区" target="_blank">TensorFlow社区</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://leetcode.com/" title="LeetCode" target="_blank">LeetCode</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://objccn.io/" title="ObjC中国" target="_blank">ObjC中国</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="https://www.tensorflow.org/" title="TensorFlow" target="_blank">TensorFlow</a>
-                </li>
-              
-                <li class="links-of-blogroll-item">
-                  <a href="http://wereadteam.github.io/" title="WeRead团队" target="_blank">WeRead团队</a>
-                </li>
-              
-            </ul>
-          </div>
-        
-
-        <!--
-<div style="font-size:13px">
-	<a href="/about#ad">购买广告位</a>
-</div>
--->
-
-
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-leaf"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Chars</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://charstechblog.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("Vih6Dyi1ROtHxoMYALRbVTW8-gzGzoHsz", "jcATphjojcSCLm4xme5hyE3o");</script>
+  <script type="text/javascript" src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);
@@ -1025,53 +158,682 @@
   </script>
 
 
+</head>
 
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
 
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Chars&#39;s Blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Chars</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-user"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/charsdavy" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/charsdavy" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://facebook.com/wei.deng.1460" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="http://weibo.com/u/3875245858" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
+                        <span class="sidebar-button-desc">Weibo</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:chars.davy@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            SQL Server 错误代码和解释 (中篇)
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2013-01-21T09:37:18+08:00">
+	
+		    Jan 21, 2013
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/code/">code</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>承接《上篇》继续罗列分享SQL Server状态码。</p>
+<a id="more"></a>
+<p>2001 指定的驱动程序无效。<br>2002 窗口样式或类别属性对此操作无效。<br>2003 不支持请求的图元操作。<br>2004 不支持请求的变换操作。<br>2005 不支持请求的剪切操作。<br>2010 指定的颜色管理模块无效。<br>2011 制定的颜色文件配置无效。<br>2012 找不到指定的标识。<br>2013 找不到所需的标识。<br>2014 指定的标识已经存在。<br>2015 指定的颜色文件配置与任何设备都不相关。<br>2016 找不到该指定的颜色文件配置<br>2017 指定的颜色空间无效。<br>2018 图像颜色管理没有启动。<br>2019 在删除该颜色传输时有一个错误。<br>2020 该指定的颜色传输无效。<br>2021 该指定的变换与位图的颜色空间不匹配。<br>2022 该指定的命名颜色索引在配置文件中不存在。<br>2102 没有安装工作站驱动程序。<br>2103 无法定位服务器。<br>2104 发生内部错误，网络无法访问共享内存段。<br>2105 网络资源不足。<br>2106 工作站不支持这项操作。<br>2107 设备没有连接。<br>2108 网络连接已成功，但需要提示用户输入一个不同于原始指定的密码。<br>2114 没有启动服务器服务。<br>2115 队列空。<br>2116 设备或目录不存在。<br>2117 无法在重定向的资源上执行这项操作。<br>2118 名称已经共享。<br>2119 服务器当前无法提供所需的资源。<br>2121 额外要求的项目超过允许的上限。<br>2122 对等服务只支持两个同时操作的用户 。<br>2123 API 返回缓冲区太小。<br>2127 远程 API 错误。<br>2131 打开或读取配置文件时出错。<br>2136 发生一般网络错误。<br>2137 工作站服务的状态不一致。重新启动工作站服务之前，请先重新启动计算机。<br>2138 工作站服务没有启动。<br>2139 所需信息不可用。<br>2140 发生 Windows 2000 内部错误。<br>2141 服务器没有设置事务处理。<br>2142 远程服务器不支持请求的 API。<br>2143 事件名无效。<br>2144 网络上已经有此计算机名。请更名后重新启动。<br>2146 配置信息中找不到指定的组件。<br>2147 配置信息中找不到指定的参数。<br>2149 配置文件中有一个命令行太长。<br>2150 打印机不存在。<br>2151 打印作业不存在。<br>2152 打印机目标找不到。<br>2153 打印机目标已经存在。<br>2154 打印机队列已经存在。<br>2155 无法添加其它的打印机。<br>2156 无法添加其它的打印作业。<br>2157 无法添加其它的打印机目标。<br>2158 此打印机目标处于空闲中，不接受控制操作。<br>2159 此“打印机目标请求”包含无效的控制函数。<br>2160 打印处理程序没有响应。<br>2161 后台处理程序没有运行。<br>2162 打印目标当前的状况，无法执行这项操作。<br>2163 打印机队列当前的状况，无法执行这项操作。<br>2164 打印作业当前的状况，无法执行这项操作。<br>2165 无法为后台处理程序分配内存。<br>2166 设备驱动程序不存在。<br>2167 打印处理程序不支持这种数据类型。<br>2168 没有安装打印处理程序。<br>2180 锁定服务数据库。<br>2181 服务表已满。<br>2182 请求的服务已经启动。<br>2183 这项服务没有响应控制操作。<br>2184 服务仍未启动。<br>2185 服务名无效。<br>2186 服务没有响应控制功能。<br>2187 服务控制处于忙碌状态。<br>2188 配置文件包含无效的服务程序名。<br>2189 在当前的状况下无法控制服务。<br>2190 服务异常终止。<br>2191 这项服务无法接受请求的 “暂停” 或 “停止” 操作。<br>2192 服务控制“计划程序”在“计划表”中找不到服务名。<br>2193 无法读取服务控制计划程序管道。<br>2194 无法创建新服务的线程。<br>2200 此工作站已经登录到局域网。<br>2201 工作站没有登录到局域网。<br>2202 指定的用户名无效。<br>2203 密码参数无效。<br>2204 登录处理器没有添加消息别名。<br>2205 登录处理器没有添加消息别名。<br>2206 注销处理器没有删除消息别名。<br>2207 注销处理器没有删除消息别名。<br>2209 暂停网络登录。<br>2210 中心登录服务器发生冲突。<br>2211 服务器没有设置正确的用户路径。<br>2212 加载或运行登录脚本时出错。<br>2214 没有指定登录服务器，计算机的登录状态是单机操作。<br>2215 登录服务器找不到。<br>2216 此计算机已经有一个登录域。<br>2217 登录服务器无法验证登录。<br>2219 安全数据库找不到。<br>2220 组名找不到。<br>2221 用户名找不到。<br>2222 资源名找不到。<br>2223 组已经存在。<br>2224 帐户已经存在。<br>2225 资源使用权限清单已经存在。<br>2226 此操作只能在该域的主域控制器上执行。<br>2227 安全数据库没有启动。<br>2228 用户帐户数据库中的名称太多。<br>2229 磁盘 I/O 失败。<br>2230 已经超过每个资源 64 个项目的限制。<br>2231 不得删除带会话的用户。<br>2232 上层目录找不到。<br>2233 无法添加到安全数据库会话高速缓存段。<br>2234 这项操作不能在此特殊的组上执行。<br>2235 用户帐户数据库会话高速缓存没有记录此用户。<br>2236 用户已经属于此组。<br>2237 用户不属于此组。<br>2238 此用户帐户尚未定义。<br>2239 此用户帐户已过期。<br>2240 此用户不得从此工作站登录网络。<br>2241 这时候不允许用户登录网络。<br>2242 此用户的密码已经过期。<br>2243 此用户的密码无法更改。<br>2244 现在无法使用此密码。<br>2245 密码不满足密码策略的需要。检查最小密码长度、密码复杂性和密码历史的需求。<br>2246 此用户的密码最近才启用，现在不能更改。<br>2247 安全数据库已损坏。<br>2248 不需要更新此副本复制的网络/本地安全数据库。<br>2249 此副本复制的数据库已过时；请同步处理其中的数据。<br>2250 此网络连接不存在。<br>2251 此 asg_type 无效。<br>2252 此设备当前正在共享中。<br>2270 计算机名无法作为消息别名添加。网络上可能已经有此名称。<br>2271 信使服务已经启动。<br>2272 信使服务启动失败。<br>2273 网络上找不到此消息别名。<br>2274 此消息别名已经转发出去。<br>2275 已经添加了此消息别名，但是仍被转发。<br>2276 此消息别名已在本地存在。<br>2277 添加的消息别名已经超过数目上限。<br>2278 无法删除计算机名。<br>2279 消息无法转发回到同一个工作站。<br>2280 域消息处理器出错。<br>2281 消息已经发送出去，但是收件者已经暂停信使服务。<br>2282 消息已经发送出去，但尚未收到。<br>2283 消息别名当前正在使用中。请稍候片刻再试。<br>2284 信使服务尚未启动。<br>2285 该名称不在本地计算机上。<br>2286 网络上找不到转发的消息别名。<br>2287 远程通讯站的消息别名表已经满了。<br>2288 此别名的消息当前没有在转发中。<br>2289 广播的消息被截断。<br>2294 设备名无效。<br>2295 写入出错。<br>2297 网络上的消息别名重复。<br>2298 此消息别名会在稍后删除。<br>2299 没有从所有的网络删除消息别名。<br>2300 这项操作无法在使用多种网络的计算机上执行。<br>2310 此共享的资源不存在。<br>2311 设备没有共享。<br>2312 带此计算机名的会话不存在。<br>2314 没有用此识别号打开的文件。<br>2315 执行远程管理命令失败。<br>2316 打开远程临时文件失败。<br>2317 从远程管理命令返回的数据已经被截断成 64K。<br>2318 此设备无法同时共享为后台处理资源和非后台处理资源。<br>2319 服务器清单中的信息可能不正确<br>2320 计算机在此域未处于活动状态<br>2321 在删除共享之前，需要将该共享从分布式文件系统中删除。<br>2331 无法在此设备执行这项操作<br>2332 此设备无法共享。<br>2333 此设备未打开。<br>2334 此设备名清单无效。<br>2335 队列优先级无效。<br>2337 没有任何共享的通讯设备。<br>2338 指定的队列不存在。<br>2340 此设备清单无效。<br>2341 请求的设备无效。<br>2342 后台处理程序正在使用此设备。<br>2343 此设备已经被当成通讯设备来使用。<br>2351 此计算机名无效。<br>2354 指定的字符串及前缀太长。<br>2356 此路径组成部分无效。<br>2357 无法判断输入类型。<br>2362 类型缓冲区不够大。<br>2370 配置文件不得超过 64K。<br>2371 初始偏移量越界。<br>2372 系统无法删除当前到网络资源的连接。<br>2373 系统无法分析此文件中的命令行。<br>2374 加载配置文件时出错。\<br>2375 保存配置文件时出错，只部份地保存了配置文件。<br>2378 此日志文件在前后两次读取之间已经发生变化。<br>2380 资源路径不可以是目录。<br>2381 资源路径无效。<br>2382 目标路径无效。<br>2383 源路径及目标路径分属不同的服务器。<br>2385 请求的 Run 服务器现在暂停。<br>2389 与 Run 服务器通讯时出错。<br>2391 启动后台处理时出错。<br>2392 找不到您连接的共享资源。<br>2400 LAN 适配器号码无效。<br>2401 此网络连接有文件打开或请求挂起。<br>2402 使用中的连接仍存在。<br>2403 此共享名或密码无效。<br>2404 设备正由活动进程使用，无法断开。<br>2405 此驱动器号已在本地使用。<br>2430 指定的客户已经在指定的事件注册。<br>2431 警报表已满。<br>2432 发出的警报名称无效或不存在。<br>2433 警报接收者无效。<br>2434 用户的登录时间长短不再合法。 所以已经删除用户与该服务器的会话。<br>2440 日志文件中没有请求的记录号。<br>2450 用户帐户数据库没有正确配置。<br>2451 当 Netlogon 服务正在运行时，不允许执行这项操作。<br>2452 这项操作无法在最后的管理帐户上执行。<br>2453 找不到此域的域控制器。<br>2454 无法设置此用户的登录信息。<br>2455 Netlogon 服务尚未启动。<br>2456 无法添加到用户帐户数据库。<br>2457 此服务器的时钟与主域控制器的时钟不一致。<br>2458 检测到密码不匹配。<br>2460 服务器识别码没有指定有效的服务器。<br>2461 会话标识没有指定有效的会话。<br>2462 连接识别码没有指定有效的连接。<br>2463 可用服务器表中无法再加上其它项。<br>2464 服务器已经到了支持的会话数目上限。<br>2465 服务器已经到了支持的连接数目上限。<br>2466 服务器打开的文件到了上限，无法打开更多文件。<br>2467 这台服务器没有登记替换的服务器。<br>2470 请用低级的 API (远程管理协议)。<br>2480 UPS 服务无法访问 UPS 驱动程序。<br>2481 UPS 服务设置错误。<br>2482 UPS 服务无法访问指定通讯端口 (Comm Port)。<br>2483 UPS 显示线路中断或电池不足，服务没有启动。<br>2484 UPS 服务无法执行系统关机的操作。<br>2500 下面的程序返回一个 MS-DOS 错误码:<br>2501 下面的程序需要更多的内存:<br>2502 下面程序调用了不支持的 MS-DOS 函数:<br>2503 工作站无法启动。<br>2504 下面的文件已损坏。<br>2505 启动块定义文件中没有指定引导程序。<br>2506 NetBIOS 返回错误: NCB 及 SMB 数据转储。<br>2507 磁盘 I/O 错误。<br>2508 无法替换映像参数。<br>2509 跨越磁盘扇区范围的映像参数太多。<br>2510 不是从用 /S 格式化的 MS-DOS软盘产生的映像。<br>2511 稍后会从远程重新启动。<br>2512 无法调用远程启动服务器。<br>2513 无法连接到远程启动服务器。<br>2514 无法打开远程启动服务器上的映像文件。<br>2515 正在连接到远程启动服务器…<br>2516 正在连接到远程启动服务器…<br>2517 远程启动服务已经停止，请检测错误记录文件，查明出错的原因。<br>2518 远程启动失败，请检查错误日志文件，查明出错的原因。<br>2519 不允许第二个远程启动 (Remoteboot) 资源连接。<br>2550 浏览服务设置成 MaintainServerList=No。<br>2610 因为没有网卡与这项服务一起启动，所以无法启动服务。<br>2611 因为注册表中的启动信息不正确，所以无法启动服务。<br>2612 无法启动服务，原因是它的数据库找不到或损坏。<br>2613 因为找不到 RPLFILES 共享的资源，所以无法启动服务。<br>2614 因为找不到 RPLUSER 组，所以无法启动服务。<br>2615 无法枚举服务记录。<br>2616 工作站记录信息已损坏。<br>2617 工作站记录找不到。<br>2618 其它的工作站正在使用此工作站名。<br>2619 配置文件记录已损坏。<br>2620 配置文件记录找不到。<br>2621 其它的配置文件正在使用此名称。<br>2622 有很多工作站正在使用此配置文件。<br>2623 配置记录已损坏。<br>2624 配置记录找不到。<br>2625 适配器识别记录已损坏。<br>2626 内部服务出错。<br>2627 供应商识别记录已损坏。<br>2628 启动块记录已损坏。<br>2629 找不到此工作站的用户帐户记录。<br>2630 RPLUSER 本地组找不到。<br>2631 找不到启动块记录。<br>2632 所选的配置文件与此工作站不兼容。<br>2633 其它的工作站正在使用所选的网卡。<br>2634 有些配置文件正在使用此配置。<br>2635 有数个工作站、配置文件或配置正在使用此启动块。<br>2636 服务无法制作远程启动数据库的备份。<br>2637 找不到适配器记录。<br>2638 找不到供应商记录。<br>2639 其它供应商记录正在使用此供应商名称。<br>2640 其它的启动区记录正在使用启动名称或供应商识别记录。<br>2641 其它的配置正在使用此配置名称。<br>2660 由 Dfs 服务所维护的内部数据库已损坏<br>2661 内部数据库中的一条记录已 损坏<br>2662 输入项路径与卷路径不匹配<br>2663 给定卷名已存在<br>2664 指定的服务器共享已在 Dfs 中共享<br>2665 所显示的服务器共享不支持所显示的 Dfs 卷<br>2666 此操作在非叶卷上无效。<br>2667 此操作在叶卷上无效。<br>2668 此操作不明确，因为该卷存在多服务器。<br>2669 无法创建连接点<br>2670 该服务器不是 Dfs 可识别的<br>2671 指定的重命名目标路径无效。<br>2672 指定 Dfs 卷脱线<br>2673 指定的服务器不为此卷服务<br>2674 检测到 Dfs 名中的环路<br>2675 在基于服务器的 Dfs 上不支持该操作<br>2676 这个卷已经受该指定服务器共享支持<br>2677 无法删除这个卷的上一个服务器共享支持<br>2678 Inter-Dfs 卷不支持该操作<br>2679 Dfs 服务的内部状态已经变得不一致<br>2680 Dfs 服务已经安装在指定的服务器上<br>2681 被协调的 Dfs 数据是一样的<br>2682 无法删除 Dfs 根目录卷 - 如需要请卸载 Dfs<br>2683 该共享的子目录或父目录已经存在在一个 Dfs 中<br>2690 Dfs 内部错误<br>2691 这台机器已经加入域 。<br>2692 这个机器目前未加入域。<br>2693 这台机器是域控制器，而且无法从域中退出。<br>2694 目标域控制器不支持在 OU 中创建的机器帐户。<br>2695 指定的工作组名无效<br>2696 指定的计算机名与域控制器上使用的默认语言不兼容。<br>2697 找不到指定的计算机帐户。<br>2999 这是 NERR 范围内的最后一个错误。<br>3000 指定了未知的打印监视器。<br>3001 指定的打印机驱动程序当前正在使用。<br>3002 找不到缓冲文件。<br>3003 未发送 StartDocPrinter 调用。<br>3004 未发送 AddJob 调用。<br>3005 指定的打印处理器已经安装。<br>3006 指定的打印监视器已经安装。<br>3007 该指定的打印监视器不具备所要求的功能。　<br>3008 该指定的打印监视器正在使用中。<br>3009 当打印机有作业排成队列时此操作请求是不允许的。<br>3010 请求的操作成功。直到重新启动系统前更改将不会生效。<br>3011 请求的操作成功。直到重新启动服务前更改将不会生效。<br>3012 找不到打印机。<br>3023 用户指定的关机命令文件，它的配置有问题。 不过 UPS 服务已经启动。<br>3029 因为用户帐户数据库 (NET.ACC) 找不到或损坏， 而且也没有可用的备份数据库， 所以不能启动本地安全机制。 系统不安全！<br>3037 @I <em>登录小时数<br>3039 已经超过一个目录中文件的副本复制的限制。<br>3040 已经超过副本复制的目录树深度限制。<br>3046 无法登录。用户当前已经登录，同时参数 TRYUSER 设置为 NO。<br>3052 命令行或配置文件中 没有提供必要的参数。<br>3054 无法满足资源的请求。<br>3055 系统配置有问题。<br>3056 系统出错。<br>3057 发生内部一致性的错误。<br>3058 配置文件或命令行的选项不明确。<br>3059 配置文件或命令行的参数重复。<br>3060 服务没有响应控制， DosKillProc 函数已经停止服务。<br>3061 运行服务程序时出错。<br>3062 无法启动次级服务。<br>3064 文件有问题。<br>3070 内存<br>3071 磁盘空间<br>3072 线程<br>3073 过程<br>3074 安全性失败。<br>3075 LAN Manager 根目录不正确或找不到。<br>3076 未安装网络软件。<br>3077 服务器未启动。<br>3078 服务器无法访问用户帐户数据库 (NET.ACC)。<br>3079 LANMAN 树中安装的文件不兼容。<br>3080 LANMAN\LOGS 目录无效。<br>3081 指定的域无法使用。<br>3082 另一计算机正将此计算机名当作消息别名使用。<br>3083 宣布服务器名失败。<br>3084 用户帐户数据库没有正确配置。<br>3085 服务器没有运行用户级安全功能。<br>3087 工作站设置不正确。<br>3088 查看您的错误日志文件以了解详细信息。<br>3089 无法写入此文件。<br>3090 ADDPAK 文件损坏。请删除 LANMAN\NETPROG\ADDPAK.SER 后重新应用所有的 ADDPAK。<br>3091 因为没有运行 CACHE.EXE，所以无法启动 LM386 服务器。<br>3092 安全数据库中找不到这台计算机的帐户。<br>3093 这台计算机不是 SERVERS 组的成员。<br>3094 SERVERS 组没有在本地安全数据库中。<br>3095 此 Windows NT 计算机被设置为某个组的成员， 并不是域的成员。 此种配置下不需要运行 Netlogon 服务。<br>3096 找不到此域的 Windows NT 域控制器。<br>3098 服务无法与主域控制器进行验证。<br>3099 安全数据库文件创建日期或序号有问题。<br>3100 因为网络软件出错，所以无法执行操作。<br>3102 这项服务无法长期锁定网络控制块 (NCB) 的段。 错误码就是相关数据。<br>3103 这项服务无法解除网络控制块 (NCB) 段的长期锁定。 错误码就是相关数据。<br>3106 收到意外的网络控制块 (NCB)。NCB 就是相关数据。<br>3107 网络没有启动。<br>3108 NETWKSTA.SYS 的 DosDevIoctl 或 DosFsCtl 调用失败。 显示的数据为以下格式: DWORD 值代表调用 Ioctl 或 FsCtl 的 CS:IP WORD 错误代码 WORD Ioctl 或 FsCtl 号<br>3111 发生意外的 NetBIOS 错误。 错误码就是相关数据。<br>3112 收到的服务器消息块 (SMB) 无效。 SMB 就是相关数据。<br>3114 因为缓冲区溢出， 所以错误日志文件中部份的项目丢失。<br>3120 控制网络缓冲区以外资源用量的初始化参数被设置大小， 因此需要的内存太多。<br>3121 服务器无法增加内存段的大小。<br>3124 服务器启动失败。三个 chdev 参数必须同时为零或者同时不为零。<br>3129 服务器无法更新 AT 计划文件。 文件损坏。<br>3130 服务器调用 NetMakeLMFileName 时出错。 错误码就是相关数据。<br>3132 无法长期锁定服务器缓冲区。 请检查交换磁盘的可用空间，然后重新启动系统以启动服务器。<br>3140 因为多次连续出现网络控制块 (NCB) 错误，所以停止服务。 最后一个坏的 NCB 以原始数据形式出现。<br>3141 因为消息服务器共享的数据段被锁住， 所以消息服务器已经停止运行。<br>3151 因为 VIO 调用出错，所以无法弹出显示消息。 错误码就是相关数据。<br>3152 收到的服务器消息块 (SMB) 无效。SMB 就是相关数据。<br>3160 工作站信息段大于 64K。 大小如下(以 DWORD 值的格式):<br>3161 工作站无法取得计算机的名称号码。<br>3162 工作站无法初始化 Async NetBIOS 线程。 错误码就是相关数据。<br>3163 工作站无法打开最前面的共享段。 错误码就是相关数据。<br>3164 工作站主机表已满。<br>3165 收到的邮筒服务器消息块 (SMB) 有问题，SMB 就是相关数据。<br>3166 工作站启动用户帐户数据库时出错。 错误码就是相关数据。<br>3167 工作站响应 SSI 重新验证请求时出错。 函数码及错误码就是相关数据。<br>3174 服务器无法读取 AT 计划文件。<br>3175 服务器发现错误的 AT 计划记录。<br>3176 服务器找不到 AT 计划文件，所以创建一个计划文件。<br>3185 因为用户帐户数据库 (NET.ACC) 找不到或损坏， 而且也没有可用的备份数据库， 所以不能启动本地安全机制。 系统不安全！<br>3204 服务器无法创建线程。 CONFIG.SYS 中的 THREADS 参数必须加大。<br>3213 已经超过一个目录中文件的副本复制的限制。<br>3214 已经超过副本复制的目录树深度限制。<br>3215 邮筒中收到的消息无法识别。<br>3217 无法登录。用户当前已经登录，同时参数 TRYUSER 设置为 NO。<br>3230 检测到服务器的电源中断。<br>3231 UPS 服务已经关掉服务器。<br>3232 UPS 服务没有完成执行用户指定的 关机命令文件。<br>3233 无法打开 UPS 驱动程序。 错误码就是相关数据。<br>3234 电源已经恢复。<br>3235 用户指定的关机命令文件 有问题。<br>3256 该项服务的动态链接库 发生无法修复的错误。<br>3257 系统返回意外的错误码。 错误码就是相关数据。<br>3258 容错错误日志文件 - LANROOT\LOGS\FT.LOG 超过 64K。<br>3259 容错错误日志文件 - LANROOT\LOGS\FT.LOG，在被打开时就已设置 更新进度位，这表示上次使用错误日志时， 系统死机。<br>3301 Remote IPC<br>3302 Remote Admin<br>3303 Logon server share<br>3304 网络出错。<br>3400 内存不足，无法启动工作站服务。<br>3401 读取 LAMAN.INI 文件的 NETWORKS 项目出错。<br>3404 LAMAN.INI 文件中的 NETWORKS 项目太多。<br>3408 程序无法用在此操作系统。<br>3409 已经安装转发程序。<br>3411 安装 NETWKSTA.SYS 时出错。 请按 ENTER 继续。<br>3412 求解程序链接问题。<br>3419 您已经打开文件或设备， 强制断开会造成数据丢失。<br>3420 内部用的默认共享<br>3421 信使服务<br>3500 命令成功完成。<br>3501 使用的选项无效。<br>3503 命令包含无效的参数个数。<br>3504 命令运行完毕，但发生一个或多个错误。<br>3505 使用的选项数值不正确。<br>3510 命令使用了冲突的选项。<br>3512 软件需要新版的 操作系统。<br>3513 数据多于 Windows 2000 所能够返回的。<br>3515 此命令只能用在 Windows 2000 域控制器。<br>3516 这个指令不能用于一个 Windows 2000 域控制器。<br>3520 已经启动以下 Windows 2000 服务:<br>3525 停止工作站服务也会同时停止服务器服务 。<br>3526 工作站有打开的文件。<br>3533 服务正在启动或停止中，请稍候片刻后再试一次。<br>3534 服务没有报告任何错误。<br>3535 正在控制设备时出错。<br>3660 这些工作站在这台服务器上有会话:<br>3661 这些工作站有会话打开了此台服务器上的文件:<br>3666 消息别名已经转发出去。<br>3670 您有以下的远程连接:<br>3671 继续运行会取消连接。<br>3676 会记录新的网络连接。<br>3677 不记录新的网络连接。<br>3678 保存配置文件时出错，原先记录的网络连接状态没有更改。<br>3679 读取配置文件时出错。<br>3682 没有启动任何网络服务。<br>3683 清单是空的。<br>3689 工作站服务已经在运行中，Windows 2000 会忽略工作站的命令选项。<br>3694 在打印作业正在后台处理到队列时，无法删除共享的队列。<br>3710 打开帮助文件时出错。<br>3711 帮助文件是空的。<br>3712 帮助文件已经损坏。<br>3714 这是专为那些安装旧版软件的系统 提供的操作。<br>3716 设备类型未知。<br>3717 日志文件已经损坏。<br>3718 程序文件名后必须以 .EXE 结束。<br>3719 找不到匹配的共享，因此没有删除。<br>3720 用户记录中的 “单位/星期” 的值不正确。<br>3725 删除共享时出错。<br>3726 用户名无效。<br>3727 密码无效。<br>3728 密码不匹配。<br>3729 永久连接没有完全还原。<br>3730 计算机名或域名错误。<br>3732 无法设置该资源的默认权限。<br>3734 没有输入正确的密码。<br>3735 没有输入正确的名称。<br>3736 该资源无法共享。<br>3737 权限字符串包含无效的权限。<br>3738 您只能在打印机或通讯设备上执行这项操作。<br>3743 服务器没有设置远程管理的功能。<br>3752 这台服务器上没有用户的会话。<br>3756 响应无效。<br>3757 没有提供有效的响应。<br>3758 提供的目标清单与打印机队列目标清单不匹配。<br>3761 指定的时间范围中结束的时间比开始的时间早。<br>3764 提供的时间不是整点。<br>3765 12 与 24 小时格式不能混用。<br>3767 提供的日期格式无效。<br>3768 提供的日期范围无效。<br>3769 提供的时间范围无效。<br>3770 NET USER 的参数无效。请检查最短的密码长度 和/或提供参数。<br>3771 ENABLESCRIPT 的值必须是 YES。<br>3773 提供的国家(地区)代码无效。<br>3774 用户已经创建成功，但是无法添加到 USERS 本地组中。<br>3775 提供的用户上下文无效。<br>3777 文件发送功能已不再支持。<br>3778 您可能没有指定 ADMIN$ 及 IPC$ 共享的路径。<br>3784 只有磁盘共享可以标记为可以缓存。<br>3802 此计划日期无效。<br>3803 LANMAN 根目录无法使用。<br>3804 SCHED.LOG 文件无法打开。<br>3805 服务器服务尚未启动。<br>3806 AT 作业标识不存在。<br>3807 AT 计划文件已损坏。<br>3808 因为 AT 计划文件发生问题，所以无法运行删除操作。<br>3809 命令行不得超过 259 个字符。<br>3810 因为磁盘已满，所以 AT 计划文件无法更新。<br>3812 AT 计划文件无效。请删除此文件并创建新的文件。<br>3813 AT 计划文件已经删除。<br>3814 此命令的语法是: AT [id] [/Delete] AT 时间 [/EVERY:日期 | /NEXT:日期] 命令 AT 命令会在以后的 指定日期及时间，安排程序在服务器上运行。 它也会显示安排运行的程序及命令的清单。 您可以将日期指定为M、T、W、Th、F、Sa、Su 或 1-31 的格式。 您可以将时间指定为HH:3814<br>3815 AT 命令已经超时。 请稍后再试一次。<br>3816 用户帐户的密码使用最短期限不得 大于密码最长使用期限。<br>3817 指定的数值与安装下层软件的服务器不兼容。 请指定较小的值。<br>3901 <strong><strong><br>3902 </strong></strong> 意外到达消息的结尾 <em>*</em></em><br>3905 请按 ESC 退出<br>3906 …<br>3912 找不到时间服务器。<br>3915 无法判断用户的主目录。<br>3916 没有指定用户的主目录。<br>3920 已经没有可用的驱动器号。<br>3936 这台计算机目前没有配置成使用一个指定的 SNTP 服务器。<br>3953 语法错误。<br>3960 指定的文件号码无效。<br>3961 指定的打印作业号码无效。<br>3963 指定的用户或组帐户找不到。<br>3965 已添加用户，但 NetWare 的文件和打印服务无法启用。<br>3966 没有安装 NetWare 的文件和打印服务。<br>3967 无法为 NetWare 的文件和打印服务设置用户属性。<br>3969 NetWare 兼容登录<br>4000 WINS 在处理命令时遇到错误。<br>4001 本地的 WINS 不能删除。<br>4002 文件导入操作失败。<br>4003 备份操作失败。是否先前已作过完整备份?<br>4004 备份操作失败。请检查您备份数据库的目录。<br>4005 WINS 数据库中没有这个名称。<br>4006 不允许复制一个尚未配置的伙伴。<br>4100 DHCP 客户获得一个在网上已被使用的 IP 地址。 直到 DHCP 客户可以获得新的地址前，本地接口将被禁用。<br>4200 无法识别传来的 GUID 是否为有效的 WMI 数据提供程序。<br>4201 无法识别传来的实例名是否为有效的 WMI 数据提供程序。<br>4202 无法识别传来的数据项目标识符是否为有效的 WMI 数据提供程序。<br>4203 无法完成 WMI 请求，应该重试一次。<br>4204 找不到 WMI 数据提供程序。<br>4205 WMI 数据提供程序引用到一个未注册的实例组。<br>4206 WMI 数据块或事件通知已启用。<br>4207 WMI 数据块不再可用。<br>4208 WMI 数据服务无法使用。<br>4209 WMI 数据提供程序无法完成要求。<br>4210 WMI MOF 信息无效。<br>4211 WMI 注册信息无效。<br>4212 WMI 数据块或事件通知已禁用。<br>4213 WMI 数据项目或数据块为只读。<br>4214 WMI 数据项目或数据块不能更改。<br>4300 媒体标识符没有表示一个有效的媒体。<br>4301 库标识符没有表示一个有效的库。<br>4302 媒体缓冲池标识符没有表示一个有效的媒体缓冲池。<br>4303 驱动器和媒体不兼容或位于不同的库中。<br>4304 媒体目前在脱机库中，您必须联机才能运行这个操作。<br>4305 操作无法在脱机库中运行。<br>4306 库、驱动器或媒体缓冲池是空的。<br>4307 库、磁盘或媒体缓冲池必须是空的，才能运行这个操作。<br>4308 在这个媒体缓冲池或库中目前没有可用的媒体。<br>4309 这个操作所需的资源已禁用。<br>4310 媒体标识符没有表示一个有效的清洗器。<br>4311 无法清洗驱动器或不支持清洗。<br>4312 对象标识符没有表示一个有效的对象。<br>4313 无法读取或写入数据库。<br>4314 数据库已满。<br>4315 媒体与设备或媒体缓冲池不兼容。<br>4316 这个操作所需的资源不存在。<br>4317 操作标识符不正确。<br>4318 媒体未被安装，或未就绪。<br>4319 设备未就绪。<br>4320 操作员或系统管理员拒绝了请求。<br>4321 驱动器标识符不代表一个有效的驱动器。<br>4322 程序库已满。没有可使用的插槽。<br>4323 传输程序不能访问媒体。<br>4324 无法将媒体加载到驱动器中。<br>4325 无法检索有关驱动器的状态。<br>4326 无法检索有关插槽的状态。<br>4327 无法检索传输的状态。<br>4328 因为传输已在使用中，所以无法使用。<br>4329 无法打开或关闭弹入/弹出端口。<br>4330 因为媒体在驱动器中，无法将其弹出。<br>4331 清洗器插槽已被保留。<br>4332 没有保留清洗器插槽。<br>4333 清洗器墨盒已进行了最大次数的驱动器清洗。<br>4334 意外媒体标识号。<br>4335 在这个组或源中最后剩下的项目不能被删除。<br>4336 提供的消息超过了这个参数所允许的最大尺寸。<br>4337 该卷含有系统和页面文件。<br>4338 由于库中至少有一个驱动器可以支持该媒体类型，不能从库中删除媒体类型。<br>4339 由于没有可以使用的已被启动的驱动器，无法将该脱机媒体装入这个系统。<br>4340 (Y/N) [Y]<br>4341 (Y/N) [N]<br>4342 错误<br>4343 OK<br>4344 Y<br>4345 N<br>4346 任何<br>4347 A<br>4348 P<br>4349 (找不到)<br>4350 远程存储服务无法撤回文件。<br>4351 远程存储服务此时不可操作。<br>4352 远程存储服务遇到一个媒体错误。<br>4354 请键入密码:<br>4358 请键入用户的密码:<br>4359 请键入共享资源的密码:<br>4360 请键入您的密码:<br>4361 请再键入一次密码以便确认:<br>4362 请键入用户的旧密码:<br>4363 请键入用户的新密码:<br>4364 请键入您的新密码:<br>4365 请键入复制器服务密码:<br>4368 请键入您的用户名:<br>4372 打印作业详细信息<br>4378 控制下列正在运行的服务:<br>4379 统计数据可用于正在运行的下列服务:<br>4381 此命令的语法是:<br>4382 此命令的选项是:<br>4383 请键入主域控制器的名称:<br>4385 Sunday<br>4386 Monday<br>4387 Tuesday<br>4388 Wednesday<br>4389 Thursday<br>4390 此文件或目录不是一个重解析点。<br>4391 重解析点的属性不能被设置，因为它与已有的属性冲突。<br>4392 在重解析点缓冲区中的数据无效。<br>4393 在重解析点缓冲区中的标签无效。<br>4394 请求中指定的标签和重解析点中的不匹配。<br>4395 W<br>4396 Th<br>4397 F<br>4398 S<br>4399 Sa<br>4401 组名<br>4402 注释<br>4403 成员<br>4406 别名<br>4407 注释<br>4408 成员<br>4411 用户名<br>4412 全名<br>4413 注释<br>4414 用户的注释<br>4415 参数<br>4416 国家(地区)代码<br>4417 权限等级<br>4418 操作员权限<br>4419 帐户启用<br>4420 帐户到期<br>4421 上次设置密码<br>4422 密码到期<br>4423 密码可更改<br>4424 允许的工作站<br>4425 磁盘空间上限<br>4426 无限制<br>4427 本地组会员<br>4428 域控制器<br>4429 登录脚本<br>4430 上次登录<br>4431 全局组成员<br>4432 可允许的登录小时数<br>4433 全部<br>4434 无<br>4436 主目录<br>4437 需要密码<br>4438 用户可以更改密码<br>4439 用户配置文件<br>4440 已锁定<br>4450 计算机名<br>4451 用户名<br>4452 软件版本<br>4453 工作站活动在<br>4454 Windows NT 根目录<br>4455 工作站域<br>4456 登录域<br>4457 其它域<br>4458 COM 打开超时 (秒)<br>4459 COM 发送计数 (字节)<br>4460 COM 发送超时 (毫秒)<br>4461 DOS 会话打印超时 (秒)<br>4462 错误日志文件大小上限 (K)<br>4463 高速缓存上限 (K)<br>4464 网络缓冲区数<br>4465 字符缓冲区数<br>4466 域缓冲区大小<br>4467 字符缓冲区大小<br>4468 计算机全名<br>4469 工作站域 DNS 名称<br>4470 Windows 2000<br>4481 服务器名称<br>4482 服务器注释<br>4483 发送管理警报到<br>4484 软件版本<br>4485 对等服务器<br>4486 Windows NT<br>4487 服务器等级<br>4488 Windows NT Server<br>4489 服务器正运行于<br>4492 服务器已隐藏<br>4500 零备份存储在这个卷上不可用。<br>4506 登录的用户数量上限<br>4507 同时可并存的管理员数量上限<br>4508 资源共享数量上限<br>4509 资源连接数量上限<br>4510 服务器打开的文件数量上限<br>4511 每个会话打开的文件数量上限<br>4512 文件锁定数量上限<br>4520 空闲的会话时间 (分)<br>4526 共享等级<br>4527 用户等级<br>4530 未限制的服务器<br>4570 强制用户在时间到期之后多久必须注销?:<br>4571 多少次密码不正确后锁住帐户?:<br>4572 密码最短使用期限 (天):<br>4573 密码最长使用期限 (天):<br>4574 密码长度下限:<br>4575 保持的密码历史记录长度:<br>4576 计算机角色:<br>4577 工作站域的主域控制器:<br>4578 锁定阈值:<br>4579 锁定持续时间(分):<br>4580 锁定观测窗口(分):<br>4600 统计开始于<br>4601 接受的会话<br>4602 会话超时<br>4603 会话出错<br>4604 发送的 KB<br>4605 接收的 KB<br>4606 平均响应时间 (毫秒)<br>4607 网络错误<br>4608 访问的文件<br>4609 后台处理的打印作业<br>4610 系统出错<br>4611 密码违规<br>4612 权限违规<br>4613 访问的通讯设备<br>4614 会话已启动<br>4615 重新连接的会话<br>4616 会话启动失败<br>4617 断开的会话<br>4618 网络 I/O 执行<br>4619 文件及管道被访问<br>4620 时间缓冲区耗尽<br>4621 大缓冲区<br>4622 请求缓冲区<br>4626 已做连接<br>4627 连接失败<br>4630 接收的字节数<br>4631 接收的服务器消息块 (SMB)<br>4632 传输的字节数<br>4633 传输的服务器消息块 (SMB)<br>4634 读取操作<br>4635 写入操作<br>4636 拒绝原始读取<br>4637 拒绝原始写入<br>4638 网络错误<br>4639 已做连接<br>4640 重新连接<br>4641 服务器断开<br>4642 会话已启动<br>4643 会话挂起<br>4644 失败的会话<br>4645 操作失败<br>4646 使用计数<br>4647 使用计数失败<br>4655 消息名称转发已经取消。<br>4661 密码已经更改成功。<br>4664 消息已经发给网络上所有的用户。<br>4666 消息已经送到此服务器上的所有用户。<br>4696 Windows NT Server<br>4697 Windows NT Workstation<br>4698 MS-DOS 增强型工作站<br>4700 服务器名称 注释<br>4701 资源共享名 类型 用途 注释<br>4702 (UNC)<br>4703 …<br>4704 Domain<br>4706 其它可用的网络:<br>4710 Disk<br>4711 Print<br>4712 Comm<br>4713 IPC<br>4714 状态 本地 远程 网络<br>4715 OK<br>4716 休止<br>4717 已暂停<br>4718 断开<br>4719 错误<br>4720 正在连接<br>4721 正在重新连接<br>4722 状态<br>4723 本地名称<br>4724 远程名称<br>4725 资源类型<br>4726 # 打开<br>4727 # 连接<br>4728 不可用<br>4730 共享名 资源 注释<br>4731 共享名<br>4732 资源<br>4733 后台处理<br>4734 权限<br>4735 最多用户<br>4736 无限制<br>4737 用户<br>4740 识别码 路径 用户名 # 锁定<br>4741 文件识别码<br>4742 锁定<br>4743 权限<br>4750 计算机 用户名 客户类型 打开空闲时间<br>4751 计算机<br>4752 会话时间<br>4753 空闲时间<br>4754 资源共享名 类型 # 打开<br>4755 客户类型<br>4756 来宾登录<br>4770 脱机缓存被启用:手动恢复<br>4771 脱机缓存被启用:自动恢复<br>4772 脱机缓存被启用:用户之间没有共享<br>4773 脱机缓存被停用<br>4774 自动<br>4775 手动<br>4800 名称<br>4801 转发到<br>4802 已经从下列位置转发给您<br>4803 这台服务器的用户<br>4804 用户已经按 Ctrl+Break 中断网络发送。<br>4810 名称 作业编号 大小 状态<br>4811 作业<br>4812 打印<br>4813 名称<br>4814 作业 #<br>4815 大小<br>4816 状态<br>4817 分隔文件<br>4818 注释<br>4819 优先级<br>4820 打印后于<br>4821 打印直到<br>4822 打印处理程序<br>4823 附加信息<br>4824 参数<br>4825 打印设备<br>4826 打印机活动中<br>4827 打印机搁置<br>4828 打印机出错<br>4829 正在删除打印机<br>4830 打印机状态未知<br>4841 作业 #<br>4842 正在提交用户<br>4843 通知<br>4844 作业数据类型<br>4845 作业参数<br>4846 正在等候<br>4847 搁置于队列<br>4848 正在后台处理<br>4849 已暂停<br>4850 脱机<br>4851 错误<br>4852 缺纸<br>4853 需要干预<br>4854 正在打印<br>4855 on<br>4862 驱动程序<br>4930 用户名 类型 日期<br>4931 锁定<br>4932 服务<br>4933 服务器<br>4934 服务器已启动<br>4935 服务器已暂停<br>4936 服务器已继续操作<br>4937 服务器已停止<br>4938 会话<br>4939 登录来宾<br>4940 登录用户<br>4941 登录管理员<br>4942 正常注销<br>4943 登录<br>4944 注销错误<br>4945 注销自动断开<br>4946 注销管理员断开<br>4947 注销受登录限制<br>4948 服务<br>4957 帐户<br>4964 已修改帐户系统设置<br>4965 登录限制<br>4966 超过限制: 未知<br>4967 超过限制: 登录时间<br>4968 超过限制: 帐户过期<br>4969 超过限制: 工作站识别码无效<br>4970 超过限制: 帐户停用<br>4971 超过限制: 帐户已删除<br>4972 资源<br>4978 密码不正确<br>4979 需要管理员特权<br>4980 访问<br>4984 拒绝访问<br>4985 未知<br>4986 其它<br>4987 持续时间:<br>4988 持续时间: 无效<br>4989 持续时间: 1 秒以下<br>4990 (无)<br>4994 访问结束<br>4995 登录到网络<br>4996 拒绝登录<br>4997 程序 消息 时间<br>4999 管理员已解除帐户的锁定状态<br>5000 注销网络</p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">Tag In</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/database/">database</a> <a class="tag tag--primary tag--small t-link" href="/tags/debug/">debug</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2013/01/22/sql-server-state-code-list-3/"  data-tooltip="SQL Server 错误代码和解释 (下篇)">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2013/01/20/sql-server-state-code-list-1/" data-tooltip="SQL Server 错误代码和解释 (上篇)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-angle-double-up"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+    	&copy; 
+    	 
+    		2016 - 
+    	
+        2017 Chars. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2013/01/22/sql-server-state-code-list-3/"  data-tooltip="SQL Server 错误代码和解释 (下篇)">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2013/01/20/sql-server-state-code-list-1/" data-tooltip="SQL Server 错误代码和解释 (上篇)">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-weibo"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-angle-double-up"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                    <i class="fa fa-weibo"></i><span>Share on Weibo</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Chars</h4>
+        
+            <div id="about-card-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>iOS developer @ZAKER</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Guangzhou, China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/college-thesis-summary-skill/">
+                            <h3 class="media-heading">毕业论文摘要的书写方法和技巧</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 18, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要也就是内容提要，是论文中不可缺少的一部分。论文摘要是一篇具有独立性的短文，有其特别的地方。它是建立在对论文进行总结的基础之上，用简单、明确、易懂、精辟的语言对全文内容加以概括，留主干去枝叶，提取论文的主要信息。作者的观点、论文的主要内容、研究成果、独到的见解，这些都应该在摘要中体现出来。好的摘要便于索引与查找，易于收录到大型资料库中并为他人提供信息。因此摘要在资料交流方面承担着至关重要的作用。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/vc-6-mfc-develop-summary/">
+                            <h3 class="media-heading">VC++6.0 MFC编程心得小结</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 18, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/19/os-32-64-bit/">
+                            <h3 class="media-heading">操作系统 32位和64位</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 19, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>两者之间存在的“五大不同”。与此同时，着重说明Microsoft Windows64位（x64）操作系统，相对于32位（x86）操作系统的最大优势和劣势是什么？</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/20/sql-server-state-code-list-1/">
+                            <h3 class="media-heading">SQL Server 错误代码和解释 (上篇)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>SQL Server 是高校专业在教学数据库时一定会选用的案例之一，这个数据库是结合微软产品一起使用的，不仅贵，而且不好用。这是在使用之后的心得体会。在代码层面来说，这个是很难使用的。但是，老师说这个以后工作了都会使用到，所以，还是要好好学的。</p>
+<p>文中罗列了各种状态码的解释，这些对调试SQL Server数据库程序是很有帮助的。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
+                            <h3 class="media-heading">SQL Server 错误代码和解释 (中篇)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 21, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>承接《上篇》继续罗列分享SQL Server状态码。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/22/sql-server-state-code-list-3/">
+                            <h3 class="media-heading">SQL Server 错误代码和解释 (下篇)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 22, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>承接《下篇》继续罗列分享SQL Server状态码。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/23/factory-prototype-diff/">
+                            <h3 class="media-heading">Factory模式与Prototype模式的异同</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 23, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2013/01/24/vc-invoke-dll/">
+                            <h3 class="media-heading">VC 调用 DLL</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 24, 2013
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>DLL 动态数据链路库。</p>
+<p>调用DLL有两种方法：静态调用和动态调用.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                89 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('UG7I248E1X', '39daa80db5305fba3705069658223736');
+        var algoliaIndex = algoliaClient.initIndex('Chars_Blog');
     </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
-
-
-  
-  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.0"></script>
-
-
-
-</body>
-
+    </body>
 </html>
