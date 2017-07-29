@@ -353,284 +353,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2016/04/12/design-pattern-introduction/">
-                            设计模式 - 概述
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-04-12T08:08:59+08:00">
-	
-		    Apr 12, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
-                    
-                        <a href="/2016/04/12/design-pattern-introduction/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/03/29/list-code-reading/">
-                            list.h文件分析
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-03-29T22:10:59+08:00">
-	
-		    Mar 29, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structlist_head &#123;</span><br><span class="line">       struct list_head *next, *prev; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>一上来就放这么一个数据结构，那么，这个到底要做什么呢？没错，就如上面代码所示，本文的主角就是它，由它衍生而来的一些问题。首先自我介绍，它，来自Linux系统中的链表。</p>
-<p>就是个链表的头！是不觉得很奇怪？怎么只有两个指针域，没有数据域呢？其实笔者现在也纠结这这个问题着呢！没事，咱们先往下看。说不定什么时候，咱就明白了这是怎么一回事情呢。</p>
-                    
-                        <a href="/2016/03/29/list-code-reading/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/03/23/class-dump-using/">
-                            聊聊 class-dump 使用
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-03-23T14:17:46+08:00">
-	
-		    Mar 23, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>class-dump is a command-line utility for examining the Objective-C segment of Mach-O files. It generates declarations for the classes, categories and protocols. This is the same information provided by using ‘otool -ov’, but presented as normal Objective-C declarations.</p>
-                    
-                        <a href="/2016/03/23/class-dump-using/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/03/15/objc-quote-count/">
-                            Objective-C中的引用计数
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-03-15T21:58:29+08:00">
-	
-		    Mar 15, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。</p>
-                    
-                        <a href="/2016/03/15/objc-quote-count/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/03/09/socket-communicate-introduction/">
-                            socket 通信简介
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-03-09T11:33:12+08:00">
-	
-		    Mar 09, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。</p>
-                    
-                        <a href="/2016/03/09/socket-communicate-introduction/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/03/06/ios-application-plist-diff/">
-                            iOS Project与OS X Project中plist使用区别
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-03-06T21:46:41+08:00">
-	
-		    Mar 06, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。</p>
-                    
-                        <a href="/2016/03/06/ios-application-plist-diff/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
                         <a class="link-unstyled" href="/2016/03/02/oauth2-protocol/">
                             OAuth2.0 协议
                         </a>
@@ -715,6 +437,195 @@
     
     
     
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/02/10/memory-alignment/">
+                            内存对齐详解
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2016-02-10T20:17:11+08:00">
+	
+		    Feb 10, 2016
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/pieces/">pieces</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>摘要：现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。<br>本文分享博主对内存对齐的一些理解。</p>
+                    
+                        <a href="/2016/02/10/memory-alignment/" class="postShorten-excerpt_link link">
+                            Read More
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/01/19/ios-data-persistence/">
+                            拆拆 iOS 数据持久化
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2016-01-19T14:50:24+08:00">
+	
+		    Jan 19, 2016
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/pieces/">pieces</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：</p>
+<p>1）属性列表；</p>
+<p>2）对象归档；</p>
+<p>3）iOS的嵌入式关系数据库SQLite3；</p>
+<p>4）Core Data。</p>
+<p>在iOS开发中，持久化数据的方法也并不限于属性列表、对象归档、SQLite3和Core Data。它们只是四种最常用且简单的方法。其实也可以使用传统C语言I/O调用（比如，fopen()）读写数据，也可以使用Cocoa的底层文件管理工具。只不过这两种方法都需要写很多代码，并且没有必要这么做。</p>
+                    
+                        <a href="/2016/01/19/ios-data-persistence/" class="postShorten-excerpt_link link">
+                            Read More
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/01/15/ios-preference-setting/">
+                            iOS App 偏好设置
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2016-01-15T15:17:17+08:00">
+	
+		    Jan 15, 2016
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/pieces/">pieces</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>如今，即便是最简单的计算机程序也会包含一个偏好设置窗口，用户可以在其中设置应用专属的选项。在MAC OS X中，Preferences…菜单通常位于应用菜单中。选择该菜单项会弹出一个窗口，用户可以在其中输入和更改各种选项。iPhone和其他iOS设备有一个专门的“设置”应用程序来进行各种设置，你肯定用过很多次了。</p>
+                    
+                        <a href="/2016/01/15/ios-preference-setting/" class="postShorten-excerpt_link link">
+                            Read More
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2013/01/23/factory-prototype-diff/">
+                            Factory模式与Prototype模式的异同
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2013-01-23T20:35:18+08:00">
+	
+		    Jan 23, 2013
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/pieces/">pieces</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p>
+                    
+                        <a href="/2013/01/23/factory-prototype-diff/" class="postShorten-excerpt_link link">
+                            Read More
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    
 
     <div class="pagination-bar">
     <ul class="pagination">
@@ -729,14 +640,7 @@
         </li>
         
         
-        <li class="pagination-next">
-            <a class="btn btn--default btn--small" href="/categories/pieces/page/5/">
-                    <span>Next</span>
-                <i class="fa fa-angle-right text-base icon-ml"></i>
-            </a>
-        </li>
-        
-        <li class="pagination-number">page 4 of 5</li>
+        <li class="pagination-number">page 4 of 4</li>
     </ul>
 </div>
 
@@ -963,6 +867,44 @@
                         </span>
                         <div class="media-content hide-xs font-merryweather"><p>DLL 动态数据链路库。</p>
 <p>调用DLL有两种方法：静态调用和动态调用.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2015/09/13/nsstring-using/">
+                            <h3 class="media-heading">NSString 字符串使用（基础篇）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Sep 13, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2015/09/26/Objc-inherit-multimodal/">
+                            <h3 class="media-heading">Objective-C 继承和多态</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Sep 26, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>

@@ -353,58 +353,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2017/05/09/objc-runtime/">
-                            聊聊Objective-C的Runtime
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2017-05-09T08:36:49+08:00">
-	
-		    May 09, 2017
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
-<p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
-<p>在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。</p>
-<p>找出方法的最终执行代码：当程序执行<code>[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。</p>
-                    
-                        <a href="/2017/05/09/objc-runtime/" class="postShorten-excerpt_link link">
-                            Read More
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    
-    
-    
-    
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
                         <a class="link-unstyled" href="/2017/04/22/python-basic-knowledge/">
                             Python 学习 基础篇
                         </a>
@@ -642,6 +590,106 @@
     
     
     
+    
+    
+    
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/03/28/objective-c-NSPredicate/">
+                            Objective-C中的NSPredicate
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-03-28T07:51:52+08:00">
+	
+		    Mar 28, 2017
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/pieces/">pieces</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>编写软件时，经常需要获取一个对象集合，并通过某些已经条件计算该集合的值。你需要保留符合某个条件的对象，删除那些不满足条件的对象，从而提供一些有意义的对象。</p>
+<p>在使用软件iPhoto的过程中，经常会看到这种现象，如果通知iPhoto仅显示等级为三星级或三星级以上的图片，则指定的条件为“照片的等级必须为三星级或三星级以上”。这样，所有照片都需要经过该过滤器过滤。满足条件的对象通过了过滤器，而其他对象被筛除了。最后，iPhoto将显示出所有高质量的图片。</p>
+<p>Cocoa提供了一个名为NSPredicate的类，它用于指定过滤器的条件。可以创建NSPredicate对象，通过该对象准确地描述所需的条件，对每个对象通过谓词进行筛选，判断它们是否与条件相匹配。这里的“谓词”通常用在数学和计算机科学概念中，表示计算真值或假值的函数。</p>
+                    
+                        <a href="/2017/03/28/objective-c-NSPredicate/" class="postShorten-excerpt_link link">
+                            Read More
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    
+    
+    
+    
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/03/22/mysql-install-config/">
+                            MySQL 安装配置
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-03-22T23:04:47+08:00">
+	
+		    Mar 22, 2017
+    	
+    </time>
+    
+        <span>In </span>
+        
+    <a class="category-link" href="/categories/web/">web</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p><a href="https://www.mysql.com/">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。<br>MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。<br>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。</p>
+                    
+                        <a href="/2017/03/22/mysql-install-config/" class="postShorten-excerpt_link link">
+                            Read More
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    
 
     <div class="pagination-bar">
     <ul class="pagination">
@@ -663,7 +711,7 @@
             </a>
         </li>
         
-        <li class="pagination-number">page 2 of 12</li>
+        <li class="pagination-number">page 2 of 9</li>
     </ul>
 </div>
 
@@ -890,6 +938,44 @@
                         </span>
                         <div class="media-content hide-xs font-merryweather"><p>DLL 动态数据链路库。</p>
 <p>调用DLL有两种方法：静态调用和动态调用.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2015/09/13/nsstring-using/">
+                            <h3 class="media-heading">NSString 字符串使用（基础篇）</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Sep 13, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://chars.tech/2015/09/26/Objc-inherit-multimodal/">
+                            <h3 class="media-heading">Objective-C 继承和多态</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Sep 26, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
