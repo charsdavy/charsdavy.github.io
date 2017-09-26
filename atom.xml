@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://chars.tech/"/>
-  <updated>2017-07-29T02:01:28.000Z</updated>
+  <updated>2017-09-26T07:11:01.000Z</updated>
   <id>http://chars.tech/</id>
   
   <author>
@@ -16,11 +16,80 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Tensorflow + PyCharm （Mac）</title>
+    <link href="http://chars.tech/2017/09/26/tensorflow-pycharm-mac/"/>
+    <id>http://chars.tech/2017/09/26/tensorflow-pycharm-mac/</id>
+    <published>2017-09-26T07:03:16.000Z</published>
+    <updated>2017-09-26T07:11:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。目前来说，<a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="external">Github</a>上star最多的项目就是它了。</p>
+<p>在这之前，笔者写过一篇简单的入门文章<a href="/2017/06/07/tensorflow-primer-guide/">《初探 TensorFlow》</a>。当时没能成功搭建环境，加上后期的工作原因，至此搁置了一段时间。今天，终于各种折腾，在自己的Mac上经过多种尝试之后，完美搭建成功。这里就把它分享出来，希望对大家有所帮助。</p>
+<a id="more"></a>
+<h2 id="基于-Anaconda-的安装"><a href="#基于-Anaconda-的安装" class="headerlink" title="基于 Anaconda 的安装"></a>基于 Anaconda 的安装</h2><p><a href="https://www.anaconda.com/" target="_blank" rel="external">Anaconda</a> 是一个集成许多第三方科学计算库的 <code>Python</code> 科学计算环境,<code>Anaconda</code> 使用 <code>conda</code> 作为自己的包管理工具,同时具有自己的计算环境,类似 <code>Virtualenv</code>.</p>
+<p>和 <code>Virtualenv</code> 一样,不同 <code>Python</code> 工程需要的依赖包,<code>conda</code> 将他们存储在不同的地方。 <code>TensorFlow</code> 上安装的 <code>Anaconda</code> 不会对之前安装的 <code>Python</code> 包进行覆盖.</p>
+<ul>
+<li>安装 <a href="https://www.anaconda.com/download/" target="_blank" rel="external">Anaconda</a></li>
+<li>建立一个 <code>conda</code> 计算环境</li>
+<li>激活环境,使用 <code>conda</code> 安装 <code>TensorFlow</code></li>
+<li>安装成功后,每次使用 <code>TensorFlow</code> 的时候需要激活 <code>conda</code> 环境</li>
+</ul>
+<h3 id="安装-Anaconda"><a href="#安装-Anaconda" class="headerlink" title="安装 Anaconda :"></a>安装 Anaconda :</h3><p>参考 Anaconda 的下载页面的<a href="https://www.anaconda.com/download/" target="_blank" rel="external">指导</a></p>
+<h3 id="建立环境"><a href="#建立环境" class="headerlink" title="建立环境"></a>建立环境</h3><p>建立一个 conda 计算环境名字叫<code>tensorflow</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Python 2.7</span><br><span class="line">$ conda create -n tensorflow python=2.7</span><br><span class="line"></span><br><span class="line"># Python 3.4</span><br><span class="line">$ conda create -n tensorflow python=3.4</span><br></pre></td></tr></table></figure>
+<h3 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h3><p>激活<code>tensorflow</code>环境,然后使用其中的 <code>pip</code> 安装 <code>TensorFlow</code>. 当使用<code>easy_install</code>使用<code>--ignore-installed</code>标记防止错误的产生。</p>
+<p><a href="https://www.tensorflow.org/install/install_mac#the_url_of_the_tensorflow_python_package" target="_blank" rel="external">URL of the TensorFlow Python package</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ source activate tensorflow</span><br><span class="line">(tensorflow)$  # Your prompt should change</span><br><span class="line"></span><br><span class="line"># Ubuntu/Linux 64-bit, CPU only, Python 2.7:</span><br><span class="line">(tensorflow)$ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.8.0rc0-cp27-none-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"># Ubuntu/Linux 64-bit, GPU enabled, Python 2.7. Requires CUDA toolkit 7.5 and CuDNN v4.</span><br><span class="line"># For other versions, see &quot;Install from sources&quot; below.</span><br><span class="line">(tensorflow)$ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.8.0rc0-cp27-none-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"># Mac OS X, CPU only:</span><br><span class="line">(tensorflow)$ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-0.11.0rc0-py2-none-any.whl</span><br></pre></td></tr></table></figure>
+<p>对于 Python 3.x :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ source activate tensorflow</span><br><span class="line">(tensorflow)$  # Your prompt should change</span><br><span class="line"></span><br><span class="line"># Ubuntu/Linux 64-bit, CPU only, Python 3.4:</span><br><span class="line">(tensorflow)$ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.8.0rc0-cp34-cp34m-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"># Ubuntu/Linux 64-bit, GPU enabled, Python 3.4. Requires CUDA toolkit 7.5 and CuDNN v4.</span><br><span class="line"># For other versions, see &quot;Install from sources&quot; below.</span><br><span class="line">(tensorflow)$ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.8.0rc0-cp34-cp34m-linux_x86_64.whl</span><br><span class="line"></span><br><span class="line"># Mac OS X, CPU only:</span><br><span class="line">(tensorflow)$ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/mac/tensorflow-0.8.0rc0-py3-none-any.whl</span><br></pre></td></tr></table></figure>
+<p>conda 环境激活后,你可以测试:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; print(tf.__version__)</span><br><span class="line"># 0.11.0rc0</span><br></pre></td></tr></table></figure>
+<h3 id="开启或关闭环境"><a href="#开启或关闭环境" class="headerlink" title="开启或关闭环境"></a>开启或关闭环境</h3><p>当你不用 TensorFlow 的时候,关闭环境:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ source deactivate</span><br><span class="line"></span><br><span class="line">$  # Your prompt should change back</span><br></pre></td></tr></table></figure>
+<p>再次使用的时候再激活 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ source activate tensorflow</span><br><span class="line">(tensorflow)$  # Your prompt should change.</span><br><span class="line"># Run Python programs that use TensorFlow.</span><br><span class="line">...</span><br><span class="line"># When you are done using TensorFlow, deactivate the environment.</span><br><span class="line">(tensorflow)$ source deactivate</span><br></pre></td></tr></table></figure>
+<h2 id="PyCharm-配置"><a href="#PyCharm-配置" class="headerlink" title="PyCharm 配置"></a>PyCharm 配置</h2><p><strong>重点：</strong>正确配置<code>Project</code>的<code>Interpreter</code>即可</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li>Preferences</li>
+<li>Project Interpreter</li>
+<li>Click More</li>
+</ul>
+<h3 id="附图"><a href="#附图" class="headerlink" title="附图"></a>附图</h3><ul>
+<li>打开Preferences</li>
+</ul>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_1.png" alt="打开Preferences"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_2.png" alt="选择more"></p>
+<ul>
+<li>打开Project Interpreters</li>
+</ul>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_3.png" alt="选择正确的tensorflow路径"></p>
+<ul>
+<li>Demo运行结果</li>
+</ul>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_4.png" alt="demo运行结果"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。目前来说，&lt;a href=&quot;https://github.com/tensorflow/tensorflow&quot;&gt;Github&lt;/a&gt;上star最多的项目就是它了。&lt;/p&gt;
+&lt;p&gt;在这之前，笔者写过一篇简单的入门文章&lt;a href=&quot;/2017/06/07/tensorflow-primer-guide/&quot;&gt;《初探 TensorFlow》&lt;/a&gt;。当时没能成功搭建环境，加上后期的工作原因，至此搁置了一段时间。今天，终于各种折腾，在自己的Mac上经过多种尝试之后，完美搭建成功。这里就把它分享出来，希望对大家有所帮助。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ml" scheme="http://chars.tech/categories/machine-learning/"/>
+    
+    
+      <category term="python" scheme="http://chars.tech/tags/python/"/>
+    
+      <category term="tensorflow" scheme="http://chars.tech/tags/tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
     <title>那些设计iOS API需要知道的事</title>
     <link href="http://chars.tech/2017/07/09/ios-design-api-guide/"/>
     <id>http://chars.tech/2017/07/09/ios-design-api-guide/</id>
     <published>2017-07-09T14:32:33.000Z</published>
-    <updated>2017-07-29T02:01:28.000Z</updated>
+    <updated>2017-07-28T11:03:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。</p>
 <a id="more"></a>
@@ -1325,7 +1394,7 @@
     <link href="http://chars.tech/2017/04/23/japanese-honorific-tongue/"/>
     <id>http://chars.tech/2017/04/23/japanese-honorific-tongue/</id>
     <published>2017-04-23T13:17:27.000Z</published>
-    <updated>2017-07-30T15:46:24.000Z</updated>
+    <updated>2017-09-26T07:02:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>在口语里，日语的谓语形式根据说话人之间的上下级关系、亲疏关系的不同而不同。“～ます”、“～です”是对长辈或关系不太亲密的人使用的形式。这种形式我们称为“敬体形”。与此相反，如对方是自己的同辈或晚辈，或者关系比较密切时则使用“简体形”。“简体形”是不使用“ます”、“です”的形式。</p>
 <p>动词本身即具有“敬体形”和“简体形”，“～ます”、“～ません”、“～ました”、“～ませんでした”等四种礼貌的表达形式即是“敬体形”，而动词的“基本形”、“ない形”、“た形”都属于简体形。但一类形容词、二类形容词和名词本身没有“敬体形”和“简体形”之分，只有在做谓语时，其谓语形式才具有“敬体形”和“简体形”。</p>
@@ -1443,6 +1512,80 @@
 <p>昨日、暑かった？ううん、全然暑くなかった。</p>
 <p>この着物、派手（はで）？ううん、全然派手じゃないわ（此处男性使用时不加わ）。</p>
 <h2 id="3-名词"><a href="#3-名词" class="headerlink" title="3 名词"></a>3 名词</h2><p>形式规则与二类形容词一致。</p>
+<h2 id="4-敬语的基本型"><a href="#4-敬语的基本型" class="headerlink" title="4 敬语的基本型"></a>4 敬语的基本型</h2><h3 id="尊敬语"><a href="#尊敬语" class="headerlink" title="尊敬语"></a>尊敬语</h3><table>
+<thead>
+<tr>
+<th>基本型</th>
+<th>尊敬语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>　お〜になら　</td>
+<td>　お待ちになる　<br>　お読みになる　<br>　お書きになる　<br>　お聴きになる　</td>
+</tr>
+<tr>
+<td>　ご〜になら　</td>
+<td>　ご入学になる　<br>　ご視察になる　<br>　ご說明になる　</td>
+</tr>
+<tr>
+<td>　〜れる　<br>　〜られる　</td>
+<td>　行かれる　<br>　聞かれる　<br>　話される <br>　来られる　</td>
+</tr>
+</tbody>
+</table>
+<h3 id="自谦语"><a href="#自谦语" class="headerlink" title="自谦语"></a>自谦语</h3><table>
+<thead>
+<tr>
+<th>基本型</th>
+<th>自谦语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>　お〜する　</td>
+<td>　お待ちする　<br>　お書きする　<br>　お聴きする　</td>
+</tr>
+<tr>
+<td>　ご〜する　</td>
+<td>　ご案內する　<br>　ご返事する　<br>　ご說明する　</td>
+</tr>
+<tr>
+<td>　〜いただく(相手の動作)　</td>
+<td>　お越しいただく　<br>　ご覽いただく　</td>
+</tr>
+<tr>
+<td>　〜させていただく(自分の動作)　</td>
+<td>　聞かせていただく　<br>　読ませていただく　<br>　出席させていただく　</td>
+</tr>
+<tr>
+<td>　〜いたす　</td>
+<td>　出席いただく　<br>　連絡させていただく　</td>
+</tr>
+</tbody>
+</table>
+<h3 id="礼貌语"><a href="#礼貌语" class="headerlink" title="礼貌语"></a>礼貌语</h3><table>
+<thead>
+<tr>
+<th>基本型</th>
+<th>礼貌语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>　〜です　</td>
+<td>　〜です　<br>　〜ます　<br>　〜ございます　</td>
+</tr>
+<tr>
+<td>　〜ます　</td>
+<td>　　</td>
+</tr>
+<tr>
+<td>　〜ございます　</td>
+<td>　　</td>
+</tr>
+</tbody>
+</table>
 ]]></content>
     
     <summary type="html">
@@ -2331,7 +2474,7 @@
     <link href="http://chars.tech/2017/04/10/japanese-pronounce/"/>
     <id>http://chars.tech/2017/04/10/japanese-pronounce/</id>
     <published>2017-04-10T14:05:00.000Z</published>
-    <updated>2017-07-30T15:49:22.000Z</updated>
+    <updated>2017-09-26T07:02:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>日语以东京音为标准音，其声调可以分为如下几种：0型，①型，②型，③型，④型，⑤型，⑥型和⑦型等。高声调表示重音，低声调表示轻音。</p>
 <p>0型：表示只有第一拍低，其它各拍都高。</p>
@@ -3429,7 +3572,7 @@
     <link href="http://chars.tech/2017/03/26/japanese-auxiliary-word/"/>
     <id>http://chars.tech/2017/03/26/japanese-auxiliary-word/</id>
     <published>2017-03-26T13:34:16.000Z</published>
-    <updated>2017-07-31T13:25:02.000Z</updated>
+    <updated>2017-09-26T07:02:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。</p>
 <p>日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。</p>
@@ -3626,61 +3769,6 @@
       <category term="碎碎念" scheme="http://chars.tech/tags/text/"/>
     
       <category term="日语" scheme="http://chars.tech/tags/japan-language/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 安装配置</title>
-    <link href="http://chars.tech/2017/03/22/mysql-install-config/"/>
-    <id>http://chars.tech/2017/03/22/mysql-install-config/</id>
-    <published>2017-03-22T15:04:47.000Z</published>
-    <updated>2017-07-05T08:03:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。<br>MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。<br>MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。</p>
-<a id="more"></a>
-<p>以v5.6.36为例</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>拷贝<code>/usr/local/mysql/support-files/</code>中<code>my-default.cnf</code>文件，改名为<code>my.cnf</code>并放至<code>/usr/local/mysql/</code>文件夹下。</p>
-<p>后续数据库的配置都可以在此文件中设置。</p>
-<h2 id="密码修改"><a href="#密码修改" class="headerlink" title="密码修改"></a>密码修改</h2><p>Mac 安装完 MySQL 之后，软件会生成一个默认密码给我们。但是，当我使用Navicat来建立连接是却提示密码失效，无奈，只能修改数据库默认密码。</p>
-<p>接下来，记录整个root密码修改过程。</p>
-<p><strong>在开始下面的步骤之前必须先停止mysql服务！</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1, cd /usr/local/mysql/bin/</span><br><span class="line">2, sudo su</span><br></pre></td></tr></table></figure>
-<p>跨过权限验证:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3, ./mysqld_safe --skip-grant-tables &amp;</span><br></pre></td></tr></table></figure>
-<p>这时不要关窗口，再打开一个终端窗口。以root身份登录，因为第三步的原因不需要密码了。</p>
-<p><del>4, ./mysql -uroot</del> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4，sudo /usr/local/mysql/bin/mysql -u root</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">5, use mysql;</span><br><span class="line">6, update user set authentication_string=&apos;123456&apos; where User=&apos;root&apos;;</span><br><span class="line">7, flush privileges;</span><br><span class="line">8, exit;</span><br></pre></td></tr></table></figure>
-<p>网上流传的版本全部是set password ＝‘’ ，这样写一直报错说 ‘password’列不存在！<br>最终用sql命令查出来只有authentication_string字段，并没有password字段。</p>
-<p>上一步执行之后本来以为已经可以登录了，可是navicat连接测试时出现了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1862 (HY000): Your password has expired. To log in you must</span><br><span class="line">change it using a client that supports expired passwords.</span><br></pre></td></tr></table></figure>
-<p>所以还需要下面步骤</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1, cd /usr/local/mysql/bin/</span><br><span class="line">2, sudo su</span><br><span class="line">3, ./mysql -uroot  -p123456</span><br><span class="line">4, set password = password(&apos;123456&apos;)</span><br></pre></td></tr></table></figure>
-<p>用户名：root，密码：123456<br>修改成功</p>
-<p>关闭或启动MySQL：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/support-files/mysql.server stop</span><br><span class="line">sudo /usr/local/mysql/support-files/mysql.server start</span><br></pre></td></tr></table></figure>
-<p>打开MySQL数据库：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysql -uroot  -p123456</span><br></pre></td></tr></table></figure>
-<h3 id="Warning"><a href="#Warning" class="headerlink" title="Warning"></a>Warning</h3><p>可能在打开数据库时会出现下面错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Warning: Using a password on the command line interface can be insecure.</span><br><span class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</span><br></pre></td></tr></table></figure>
-<p>解决方案：</p>
-<p>在<code>my.cnf</code>配置文件中添加账户配置:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">user = whatever #账户，一般配置root</span><br><span class="line">password = whatever #账户密码</span><br><span class="line">host = whatever #主机，可以为localhost</span><br></pre></td></tr></table></figure>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>为了方便使用，我们可以设置几个常用的命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 启动MySQL</span><br><span class="line">startmysql() &#123;</span><br><span class="line">	sudo /usr/local/mysql/support-files/mysql.server start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 关闭MySQL</span><br><span class="line">stopmysql() &#123;</span><br><span class="line">	sudo /usr/local/mysql/support-files/mysql.server stop</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 连接MySQL</span><br><span class="line">openmysql() &#123;</span><br><span class="line">	sudo /usr/local/mysql/bin/mysql -u&quot;$1&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://www.mysql.com/&quot;&gt;MySQL&lt;/a&gt;是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。&lt;br&gt;MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。&lt;br&gt;MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="web" scheme="http://chars.tech/categories/web/"/>
-    
-    
-      <category term="database" scheme="http://chars.tech/tags/database/"/>
-    
-      <category term="mysql" scheme="http://chars.tech/tags/mysql/"/>
     
   </entry>
   
