@@ -1,27 +1,41 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Chars&#39;s Blog">
-    <title>拆拆 iOS 数据持久化 - Chars&#39;s Blog</title>
-    <meta name="author" content="Chars">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
     
     
-        <link rel="icon" href="http://chars.tech/assets/images/avatar.png">
+    
+    <title>拆拆 iOS 数据持久化 | Chars&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#6E7AB9">
     
     
-        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
-    
+    <meta name="keywords" content="ios,存储">
     <meta name="description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：
 1）属性列表；
 2）对象归档；
 3）iOS的嵌入式关系数据库SQLite3；
 4）Core Data。
 在iOS开发中，持久化数据的方法也并不限于属性列表、对象归档、SQLite3和Core Data。它们只是四种最常用且简单的方法。其实也可以使用传统C语言I/O调用（比如，fopen()）读写数据，">
-<meta property="og:type" content="blog">
+<meta property="og:type" content="article">
 <meta property="og:title" content="拆拆 iOS 数据持久化">
 <meta property="og:url" content="http://chars.tech/2016/01/19/ios-data-persistence/index.html">
 <meta property="og:site_name" content="Chars's Blog">
@@ -47,322 +61,175 @@
 4）Core Data。
 在iOS开发中，持久化数据的方法也并不限于属性列表、对象归档、SQLite3和Core Data。它们只是四种最常用且简单的方法。其实也可以使用传统C语言I/O调用（比如，fopen()）读写数据，">
 <meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200">
-<meta name="twitter:creator" content="@charsdavy">
     
+        <link rel="alternate" type="application/atom+xml" title="Chars&#39;s Blog" href="/atom.xml">
     
-        
-    
-    
-        <meta property="og:image" content="http://chars.tech/assets/images/avatar.png"/>
-    
-    
-    
-    
-    <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
-    <!--STYLES END-->
-    
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-80507808-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
 
+    <!-- custom head -->
     
-    
-  <script type="text/javascript" src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
 
 </head>
 
-    <body>
-        <div id="blog">
-            <!-- Define author's picture -->
+<body>
+    <div id="loading" class="active"></div>
 
-
-    
-        
-            
-        
-    
-
-<header id="header" data-behavior="4">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
-    <div class="header-title">
-        <a class="header-title-link" href="/ ">Chars&#39;s Blog</a>
-    </div>
-    
-        
-            <a  class="header-right-picture "
-                href="#about">
-        
-        
-            <img class="header-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
-        
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
         </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Chars</h5>
+          <a href="mailto:chars.davy@gmail.com" title="chars.davy@gmail.com" class="mail">chars.davy@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/charsdavy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/u/3875245858" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://twitter.com/charsdavy" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">拆拆 iOS 数据持久化</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">拆拆 iOS 数据持久化</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-01-19T06:50:24.000Z" itemprop="datePublished" class="page-time">
+  2016-01-19
+</time>
+
+
+	<ul class="article-category-list"><a class="article-category-list-link" href="/categories/pieces/">pieces</a></ul>
+
+            
+        </h5>
+    </div>
+
     
+
+
 </header>
 
-            <!-- Define author's picture -->
 
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一、应用的沙盒"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、应用的沙盒</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取Documents目录"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">获取Documents目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取Library目录"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">获取Library目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取tmp目录"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">获取tmp目录</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二、文件保存方案"><span class="post-toc-number">2.</span> <span class="post-toc-text">二、文件保存方案</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单文件持久化"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">单文件持久化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多文件持久化"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">多文件持久化</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#三、属性列表"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、属性列表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#属性列表序列化"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">属性列表序列化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NSData"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">NSData</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解析plist"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">解析plist</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#读写plist"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">读写plist</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建工程"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">创建工程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#四、归档"><span class="post-toc-number">4.</span> <span class="post-toc-text">四、归档</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遵循NSCoding协议"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">遵循NSCoding协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现NSCopying协议"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">实现NSCopying协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建工程-1"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">创建工程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#五、SQLite3"><span class="post-toc-number">5.</span> <span class="post-toc-text">五、SQLite3</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绑定变量"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">绑定变量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建工程-2"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">创建工程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#六、Core-Data"><span class="post-toc-number">6.</span> <span class="post-toc-text">六、Core Data</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#术语"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">术语</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建工程-3"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">创建工程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#七、总结"><span class="post-toc-number">7.</span> <span class="post-toc-text">七、总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-ios-data-persistence"
+  class="post-article article-type-post fade" itemprop="blogPost">
 
-
-        
-    
-
-<nav id="sidebar" data-behavior="4">
-    <div class="sidebar-container">
-        
-            <div class="sidebar-profile">
-                <a href="/#about">
-                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
-                </a>
-                <h4 class="sidebar-profile-name">Chars</h4>
-                
-                    <h5 class="sidebar-profile-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
-</h5>
-                
-            </div>
-        
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/ "
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/categories"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/tags"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/about"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-user"></i>
-                        <span class="sidebar-button-desc">About</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="https://github.com/charsdavy" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
-                        <span class="sidebar-button-desc">GitHub</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="https://twitter.com/charsdavy" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
-                        <span class="sidebar-button-desc">Twitter</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="https://facebook.com/wei.deng.1460" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
-                        <span class="sidebar-button-desc">Facebook</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="http://weibo.com/u/3875245858" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
-                        <span class="sidebar-button-desc">Weibo</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-    </div>
-</nav>
-
-            
-            <div id="main" data-behavior="4"
-                 class="
-                        hasCoverMetaIn
-                        ">
-                
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
-    
-    
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title" itemprop="headline">
-            拆拆 iOS 数据持久化
-        </h1>
-    
-    
+    <div class="post-card">
+        <h1 class="post-card-title">拆拆 iOS 数据持久化</h1>
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2016-01-19T14:50:24+08:00">
-	
-		    Jan 19, 2016
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/pieces/">pieces</a>
+            <time class="post-time" title="2016-01-19 14:50:24" datetime="2016-01-19T06:50:24.000Z"  itemprop="datePublished">2016-01-19</time>
+
+            
+	<ul class="article-category-list"><a class="article-category-list-link" href="/categories/pieces/">pieces</a></ul>
 
 
-    
-</div>
 
-    
-</div>
-    
-    <div class="post-content markdown" itemprop="articleBody">
-        <div class="main-content-wrap">
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
             <p>持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：</p>
 <p>1）属性列表；</p>
 <p>2）对象归档；</p>
@@ -423,7 +290,13 @@
 <p>如果能将数据精简为属性列表类型，则可以使用这些非常便捷的调用来将内容保存到磁盘中，供以后读取。如果你正在从事一项新创意或设计一个新项目，可以使用这些便捷方法来快速编写和运行程序。即使只想把数据块保存到磁盘中，并且根本不需要使用对象，也可以使用NSData来简化工作。只需要将数据包装在一个NSData对象中，然后再NSData对象上调用<code>writeToFile: atomically:</code>方法。</p>
 <p>这些函数的一个缺点就是，它们不会返回任何错误信息。如果不能加载文件，只能从方法中得到nil指针，而不能确定出现了何种错误。</p>
 <h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><p>在Xcode中，使用Single View Application模板创建一个项目，命名Persistence，点击Main.storyboard，布局如下图</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200" alt="布局"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200" alt="布局" title="">
+                </div>
+                <div class="image-caption">布局</div>
+            </figure>
 <p>连线，添加处理函数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@interface PlistViewController ()</span><br><span class="line">- (IBAction)saveClicked:(id)sender;</span><br><span class="line">@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *lineFields;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view.</span><br><span class="line">    </span><br><span class="line">    NSString *filePath = [self dataFilePath];</span><br><span class="line">    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) &#123;</span><br><span class="line">        NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];</span><br><span class="line">        for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">            UITextField *theField = self.lineFields[i];</span><br><span class="line">            theField.text = array[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(NSString *)dataFilePath&#123;</span><br><span class="line">    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</span><br><span class="line">    NSString *documentsDirectory = [paths objectAtIndex:0];</span><br><span class="line">    return [documentsDirectory stringByAppendingPathComponent:@&quot;data.plist&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)saveClicked:(id)sender &#123;</span><br><span class="line">    NSString *filePath = [self dataFilePath];</span><br><span class="line">    NSArray *array = [self.lineFields valueForKey:@&quot;text&quot;];</span><br><span class="line">    [array writeToFile:filePath atomically:YES];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -477,513 +350,319 @@
 <p>3）提取属性（fetched property）：提取属性是关系的备选方法。用提取属性可以创建一个能在提取时被评估的查询，从而确定哪些对象属于这个关系。沿用刚才的例子，一个Person对象可以拥有一个名为Neighbors的提取属性，该属性查找数据存储中与这个Person的HomeAddr拥有相同zipCode的所有HomeAddr对象。由于提取属性的结构和使用方式，它们通常都是一对一关系。提取属性也是唯一一种能够让你跨越多个数据存储的关系。</p>
 <h2 id="创建工程-3"><a href="#创建工程-3" class="headerlink" title="创建工程"></a>创建工程</h2><p>依旧如前文方式创建工程，添加响应参数，不过在这里要注意的是，Core Data的创建方法步骤：</p>
 <p>1）创建Model文件</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png" alt="创建Model文件"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png" alt="创建Model文件" title="">
+                </div>
+                <div class="image-caption">创建Model文件</div>
+            </figure>
 <p>2）编辑Model文件，点击“Add Entity”添加实体，点击“Add Attribute”添加特性</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png" alt="编辑Model文件"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png" alt="编辑Model文件" title="">
+                </div>
+                <div class="image-caption">编辑Model文件</div>
+            </figure>
 <p>3）创建NSManagedObject文件，关联数据模型</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png" alt="创建NSManagedObject文件-1"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png" alt="创建NSManagedObject文件-2"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png" alt="创建NSManagedObject文件-3"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png" alt="创建NSManagedObject文件-1" title="">
+                </div>
+                <div class="image-caption">创建NSManagedObject文件-1</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png" alt="创建NSManagedObject文件-2" title="">
+                </div>
+                <div class="image-caption">创建NSManagedObject文件-2</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png" alt="创建NSManagedObject文件-3" title="">
+                </div>
+                <div class="image-caption">创建NSManagedObject文件-3</div>
+            </figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;CoreDataViewController.h&quot;</span><br><span class="line">#import &lt;CoreData/CoreData.h&gt;</span><br><span class="line"></span><br><span class="line">static NSString *const kLineEntityName = @&quot;Line&quot;;</span><br><span class="line">static NSString *const kLineNumberKey = @&quot;lineNumber&quot;;</span><br><span class="line">static NSString *const kLineTextKey = @&quot;lineText&quot;;</span><br><span class="line"></span><br><span class="line">@interface CoreDataViewController ()</span><br><span class="line">- (IBAction)saveClicked:(id)sender;</span><br><span class="line">@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *lineFields;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view.</span><br><span class="line">    </span><br><span class="line">    NSManagedObjectContext *context = [self myContext];</span><br><span class="line"></span><br><span class="line">    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:kLineEntityName];</span><br><span class="line">    NSError *error;</span><br><span class="line">    NSArray *objects = [context executeFetchRequest:request error:&amp;error];</span><br><span class="line">    if (objects == nil) &#123;</span><br><span class="line">        NSLog(@&quot;There was an error!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (NSManagedObject *oneObject in objects) &#123;</span><br><span class="line">        int lineNum = [[oneObject valueForKey:kLineNumberKey] intValue];</span><br><span class="line">        NSString *lineText = [oneObject valueForKey:kLineTextKey];</span><br><span class="line"></span><br><span class="line">        UITextField *theField = self.lineFields[lineNum];</span><br><span class="line">        theField.text = lineText;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(NSManagedObjectContext *)myContext&#123;</span><br><span class="line">    //上下文 关联Company.xcdatamodeld模型文件</span><br><span class="line">    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];</span><br><span class="line">    //模型文件</span><br><span class="line">    NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];</span><br><span class="line">    //持久化存储调度器</span><br><span class="line">    NSPersistentStoreCoordinator *store = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</span><br><span class="line">    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];</span><br><span class="line">    NSString *sqlitePath = [doc stringByAppendingPathComponent:@&quot;line.sqlite&quot;];</span><br><span class="line">    //数据存储的类型 数据库存储路径</span><br><span class="line">    [store addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:sqlitePath] options:nil error:nil];</span><br><span class="line">    context.persistentStoreCoordinator = store;</span><br><span class="line">    </span><br><span class="line">    return context;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (IBAction)saveClicked:(id)sender &#123;</span><br><span class="line">    </span><br><span class="line">    NSManagedObjectContext *context = [self myContext];</span><br><span class="line">    </span><br><span class="line">    NSError *error;</span><br><span class="line">    for (int i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">        UITextField *theField = self.lineFields[i];</span><br><span class="line">        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:kLineEntityName];</span><br><span class="line">        NSPredicate *pred = [NSPredicate predicateWithFormat:@&quot;(%K = %d)&quot;, kLineNumberKey, i];</span><br><span class="line">        [request setPredicate:pred];</span><br><span class="line"></span><br><span class="line">        NSArray *objects = [context executeFetchRequest:request error:&amp;error];</span><br><span class="line">        if (objects == nil) &#123;</span><br><span class="line">            NSLog(@&quot;There was an error!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        NSManagedObject *theLine = nil;</span><br><span class="line">        if ([objects count] &gt; 0) &#123;</span><br><span class="line">            theLine = [objects objectAtIndex:0];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            theLine = [NSEntityDescription insertNewObjectForEntityForName:kLineEntityName inManagedObjectContext:context];</span><br><span class="line">        &#125;</span><br><span class="line">        [theLine setValue:[NSNumber numberWithInt:i] forKey:kLineNumberKey];</span><br><span class="line">        [theLine setValue:theField.text forKey:kLineTextKey];</span><br><span class="line">    &#125;</span><br><span class="line">    [context save:nil];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Core Data版本与之前的版本功能完全相同。Core Data需要的工作量很大。对于这种简单的应用，它并没有提供明显的优势。但是在比较复杂的应用中，Core Data可以显著减少设计和编写数据模型所需的时间。</p>
 <h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><p>四种数据持久化机制，各有优势，根据使用情况选择对应机制进行数据持久化。</p>
 <p><a href="https://github.com/charsdavy/Persistence" target="_blank" rel="external">Demo on Github</a></p>
 
-            
         </div>
-    </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
-        
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">Tag In</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/ios/">ios</a> <a class="tag tag--primary tag--small t-link" href="/tags/persistence/">存储</a>
 
-            </div>
+        <blockquote class="post-copyright">
+    <div class="content">
         
+
         
-            <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/10/memory-alignment/"  data-tooltip="内存对齐详解">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/15/ios-preference-setting/" data-tooltip="iOS App 偏好设置">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
+        转载请注明出处：<a href="/2016/01/19/ios-data-persistence/" target="_blank" rel="external">http://chars.tech/2016/01/19/ios-data-persistence/</a>
         
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-facebook-official"></i>
-                </a>
-            </li>
+    </div>
+    <footer>
+        <a href="http://chars.tech">
+            <img src="/img/avatar.png" alt="Chars">
+            Chars
+        </a>
+    </footer>
+</blockquote>
+
         
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-twitter"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-weibo"></i>
-                </a>
-            </li>
-        
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-angle-double-up"></i>
-            </a>
-        </li>
-    </ul>
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
 </div>
 
 
-        
-        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/persistence/">存储</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chars.tech/2016/01/19/ios-data-persistence/&title=《拆拆 iOS 数据持久化》 — Chars's Blog&pic=http://chars.tech/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chars.tech/2016/01/19/ios-data-persistence/&title=《拆拆 iOS 数据持久化》 — Chars's Blog&source=持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：
+1）属性列表；
+2）对象归档；
+3）iOS的嵌入式关系数..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/01/19/ios-data-persistence/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《拆拆 iOS 数据持久化》 — Chars's Blog&url=http://chars.tech/2016/01/19/ios-data-persistence/&via=http://chars.tech" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chars.tech/2016/01/19/ios-data-persistence/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
     </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/02/10/memory-alignment/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">内存对齐详解</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/01/15/ios-preference-setting/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">iOS App 偏好设置</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
 </article>
 
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        你的支持是wo持续输出的动力
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
 
 
-                <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-    	&copy; 
-    	 
-    		2016 - 
-    	
-        2017 Chars. All Rights Reserved.
-    </span>
+
+</div>
+
+        <footer class="footer">
+    <!--<div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Chars &copy; 2016 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>-->
 </footer>
 
-            </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/10/memory-alignment/"  data-tooltip="内存对齐详解">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/15/ios-preference-setting/" data-tooltip="iOS App 偏好设置">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-facebook-official"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-twitter"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-weibo"></i>
-                </a>
-            </li>
-        
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-angle-double-up"></i>
-            </a>
-        </li>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chars.tech/2016/01/19/ios-data-persistence/&title=《拆拆 iOS 数据持久化》 — Chars's Blog&pic=http://chars.tech/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chars.tech/2016/01/19/ios-data-persistence/&title=《拆拆 iOS 数据持久化》 — Chars's Blog&source=持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：
+1）属性列表；
+2）对象归档；
+3）iOS的嵌入式关系数..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/01/19/ios-data-persistence/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《拆拆 iOS 数据持久化》 — Chars's Blog&url=http://chars.tech/2016/01/19/ios-data-persistence/&via=http://chars.tech" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chars.tech/2016/01/19/ios-data-persistence/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
     </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aS27DMAwFwN7/0u62QGDnkZILSBqvAtdxNFqw/OjnJ76uj+vv/bsnP+/ffev5u9MuDAyMZRnX45UsLvnh5yfvkMnaMDAwzmFUX10NuHd/fd6sZG0YGBgYs6i9tBIDAwNjZIl5sZqHVAwMDIxnRlLEJoGy10pLiudptTgGBsaCjLzr/v+fX5lvYGBgLMW4ildvbFlN/sqrwsDA2JqRB7h8qPlcas4KuBgYGOcwkuKwWnzm78ypz89gYGDszai2tPJ2WG9ZvZQUAwPjNEZ1DJmz87Z+9UkMDIy9GdWkLbmfBM28DVdICjEwMA5g5D/WGzT2EsfoaAUGBsbWjF4jvpoI9g6WVctjDAyMXRl5Mfl20BxJQzEwMPZm9BK48YZar4QuvB8DA2MjRm/cWE0iq0VysokYGBjnMKpl6nudrvxgx5ctxsDA2I5RHTpWi8nkfrNMHZmdYmBgLMXIA1xvbFndrF7ZjIGBcQ6j2nqbNSToBd/ChmJgYGzBqB6kqLbn8qZbLzHFwMA4jVFtkL09WigkjhgYGAcw8s+zFt3LWKMjFxgYGBsxruI1cpwi36C8JRf18zAwMBZnjKRrI0F5pOgdGlRgYGAsy6iOGEcC9EgO++UNGBgYBzCqRWYvvRufrH7JczEwMDBaP5OXwROyVwwMDIzWgDN/T28jMDAwzmHMPVqRh9dqIMbAwDiTMX4wIgmRSZhO/gEMDTUxMDDWY/wCJh/bGU1xQzQAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
-                </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-    <i id="btn-close-shareoptions" class="fa fa-close"></i>
-    <ul class="share-options">
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
-                </a>
-            </li>
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
-                </a>
-            </li>
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
-                </a>
-            </li>
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2016/01/19/ios-data-persistence/">
-                    <i class="fa fa-weibo"></i><span>Share on Weibo</span>
-                </a>
-            </li>
-        
-    </ul>
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
 </div>
-
-            
-        </div>
-        
-
-
-    
-        
-    
-
-<div id="about">
-    <div id="about-card">
-        <div id="about-btn-close">
-            <i class="fa fa-remove"></i>
-        </div>
-        
-            <img id="about-card-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
-        
-            <h4 id="about-card-name">Chars</h4>
-        
-            <div id="about-card-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
-</div>
-        
-        
-            <div id="about-card-job">
-                <i class="fa fa-briefcase"></i>
-                <br/>
-                <p>iOS developer @ZAKER</p>
-
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
             </div>
-        
-        
-            <div id="about-card-location">
-                <i class="fa fa-map-marker"></i>
-                <br/>
-                Guangzhou, China
-            </div>
-        
-    </div>
-</div>
-
-        <div id="algolia-search-modal" class="modal-container">
-    <div class="modal">
-        <div class="modal-header">
-            <span class="close-button"><i class="fa fa-close"></i></span>
-            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
-                <span class="searchby-algolia-text text-color-light text-small">by</span>
-                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
-            </a>
-            <i class="search-icon fa fa-search"></i>
-            <form id="algolia-search-form">
-                <input type="text" id="algolia-search-input" name="search"
-                    class="form-control input--large search-input" placeholder="Search "
-                    />
-            </form>
+            <time class="flex-col time">{date}</time>
         </div>
-        <div class="modal-body">
-            <div class="no-result text-color-light text-center">no post found</div>
-            <div class="results">
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/college-thesis-summary-skill/">
-                            <h3 class="media-heading">毕业论文摘要的书写方法和技巧</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 18, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要也就是内容提要，是论文中不可缺少的一部分。论文摘要是一篇具有独立性的短文，有其特别的地方。它是建立在对论文进行总结的基础之上，用简单、明确、易懂、精辟的语言对全文内容加以概括，留主干去枝叶，提取论文的主要信息。作者的观点、论文的主要内容、研究成果、独到的见解，这些都应该在摘要中体现出来。好的摘要便于索引与查找，易于收录到大型资料库中并为他人提供信息。因此摘要在资料交流方面承担着至关重要的作用。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/vc-6-mfc-develop-summary/">
-                            <h3 class="media-heading">VC++6.0 MFC编程心得小结</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 18, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/19/os-32-64-bit/">
-                            <h3 class="media-heading">操作系统 32位和64位</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 19, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>两者之间存在的“五大不同”。与此同时，着重说明Microsoft Windows64位（x64）操作系统，相对于32位（x86）操作系统的最大优势和劣势是什么？</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/20/sql-server-state-code-list-1/">
-                            <h3 class="media-heading">SQL Server 错误代码和解释 (上篇)</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 20, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>SQL Server 是高校专业在教学数据库时一定会选用的案例之一，这个数据库是结合微软产品一起使用的，不仅贵，而且不好用。这是在使用之后的心得体会。在代码层面来说，这个是很难使用的。但是，老师说这个以后工作了都会使用到，所以，还是要好好学的。</p>
-<p>文中罗列了各种状态码的解释，这些对调试SQL Server数据库程序是很有帮助的。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
-                            <h3 class="media-heading">SQL Server 错误代码和解释 (中篇)</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 21, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>承接《上篇》继续罗列分享SQL Server状态码。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/22/sql-server-state-code-list-3/">
-                            <h3 class="media-heading">SQL Server 错误代码和解释 (下篇)</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 22, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>承接《下篇》继续罗列分享SQL Server状态码。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/23/factory-prototype-diff/">
-                            <h3 class="media-heading">Factory模式与Prototype模式的异同</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 23, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/24/vc-invoke-dll/">
-                            <h3 class="media-heading">VC 调用 DLL</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 24, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>DLL 动态数据链路库。</p>
-<p>调用DLL有两种方法：静态调用和动态调用.</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2015/09/13/nsstring-using/">
-                            <h3 class="media-heading">NSString 字符串使用（基础篇）</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Sep 13, 2015
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2015/09/26/Objc-inherit-multimodal/">
-                            <h3 class="media-heading">Objective-C 继承和多态</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Sep 26, 2015
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-            </div>
-        </div>
-        <div class="modal-footer">
-            <p class="results-count text-medium"
-                data-message-zero="no post found"
-                data-message-one="1 post found"
-                data-message-other="{n} posts found">
-                90 posts found
-            </p>
-        </div>
-    </div>
-</div>
+    </a>
+</li>
+</template>
 
-        
-<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
-        <!--SCRIPTS-->
-<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
-<!--SCRIPTS END-->
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
-    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script>
-        var algoliaClient = algoliasearch('UG7I248E1X', '39daa80db5305fba3705069658223736');
-        var algoliaIndex = algoliaClient.initIndex('Chars_Blog');
-    </script>
 
-    </body>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Chars's Blog';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Tech Blog';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
 </html>

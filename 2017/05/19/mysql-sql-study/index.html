@@ -1,26 +1,38 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Chars&#39;s Blog">
-    <title>MySQL 中的SQL - Chars&#39;s Blog</title>
-    <meta name="author" content="Chars">
     
-        <meta name="keywords" content="mysql,database,sql">
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-80507808-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
     
     
-        <link rel="icon" href="http://chars.tech/assets/images/avatar.png">
+    
+    <title>MySQL 中的SQL | Chars&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#6E7AB9">
     
     
-        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
-    
+    <meta name="keywords" content="database,读书笔记,mysql">
     <meta name="description" content="结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。
 不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。
 文章以MySQL数据库为演示环境，主要分享MySQL中的SQL使用。">
-<meta property="og:type" content="blog">
+<meta property="og:type" content="article">
 <meta property="og:title" content="MySQL 中的SQL">
 <meta property="og:url" content="http://chars.tech/2017/05/19/mysql-sql-study/index.html">
 <meta property="og:site_name" content="Chars's Blog">
@@ -42,322 +54,175 @@
 不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。
 文章以MySQL数据库为演示环境，主要分享MySQL中的SQL使用。">
 <meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png">
-<meta name="twitter:creator" content="@charsdavy">
     
+        <link rel="alternate" type="application/atom+xml" title="Chars&#39;s Blog" href="/atom.xml">
     
-        
-    
-    
-        <meta property="og:image" content="http://chars.tech/assets/images/avatar.png"/>
-    
-    
-    
-    
-    <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
-    <!--STYLES END-->
-    
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-80507808-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
 
+    <!-- custom head -->
     
-    
-  <script type="text/javascript" src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
 
 </head>
 
-    <body>
-        <div id="blog">
-            <!-- Define author's picture -->
+<body>
+    <div id="loading" class="active"></div>
 
-
-    
-        
-            
-        
-    
-
-<header id="header" data-behavior="4">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
-    <div class="header-title">
-        <a class="header-title-link" href="/ ">Chars&#39;s Blog</a>
-    </div>
-    
-        
-            <a  class="header-right-picture "
-                href="#about">
-        
-        
-            <img class="header-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
-        
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
         </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Chars</h5>
+          <a href="mailto:chars.davy@gmail.com" title="chars.davy@gmail.com" class="mail">chars.davy@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/charsdavy" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/u/3875245858" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://twitter.com/charsdavy" target="_blank" >
+                <i class="icon icon-lg icon-twitter"></i>
+                Twitter
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MySQL 中的SQL</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MySQL 中的SQL</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-19T07:43:18.000Z" itemprop="datePublished" class="page-time">
+  2017-05-19
+</time>
+
+
+	<ul class="article-category-list"><a class="article-category-list-link" href="/categories/web/">web</a></ul>
+
+            
+        </h5>
+    </div>
+
     
+
+
 </header>
 
-            <!-- Define author's picture -->
 
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据库操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">数据库操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建数据库"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">创建数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看当前服务器下的数据表列表"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">查看当前服务器下的数据表列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除数据库"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">删除数据库</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AUTO-INCREMENT"><span class="post-toc-number">2.</span> <span class="post-toc-text">AUTO_INCREMENT</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#约束"><span class="post-toc-number">3.</span> <span class="post-toc-text">约束</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#空值与非空值"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">空值与非空值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PRIMARY-KEY"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">PRIMARY KEY</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#UNIQUE-KEY"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">UNIQUE KEY</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DEFAULT"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">DEFAULT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#FOREIGN-KEY"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">FOREIGN KEY</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#外键约束的要求"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">外键约束的要求</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#外键约束的参照操作"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">外键约束的参照操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#编辑数据表的默认存储引擎"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">编辑数据表的默认存储引擎</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#表级约束和列级约束"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">表级约束和列级约束</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据表操作"><span class="post-toc-number">4.</span> <span class="post-toc-text">数据表操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#USE"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">USE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建数据表"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">创建数据表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看数据表列表"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">查看数据表列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看数据表结构"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">查看数据表结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插入表记录"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">插入表记录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#记录查找"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">记录查找</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加单列（数据表字段）"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">添加单列（数据表字段）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加多列（数据表字段）"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">添加多列（数据表字段）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除列（数据表字段）"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">删除列（数据表字段）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加主键约束"><span class="post-toc-number">4.10.</span> <span class="post-toc-text">添加主键约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加唯一约束"><span class="post-toc-number">4.11.</span> <span class="post-toc-text">添加唯一约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加外键约束"><span class="post-toc-number">4.12.</span> <span class="post-toc-text">添加外键约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加／删除默认约束"><span class="post-toc-number">4.13.</span> <span class="post-toc-text">添加／删除默认约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除主键约束"><span class="post-toc-number">4.14.</span> <span class="post-toc-text">删除主键约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除唯一约束"><span class="post-toc-number">4.15.</span> <span class="post-toc-text">删除唯一约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除外键约束"><span class="post-toc-number">4.16.</span> <span class="post-toc-text">删除外键约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改列定义"><span class="post-toc-number">4.17.</span> <span class="post-toc-text">修改列定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改列名称"><span class="post-toc-number">4.18.</span> <span class="post-toc-text">修改列名称</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据表更名"><span class="post-toc-number">4.19.</span> <span class="post-toc-text">数据表更名</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据表数据操作"><span class="post-toc-number">5.</span> <span class="post-toc-text">数据表数据操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#INSERT"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">INSERT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#UPDATE"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">UPDATE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DELETE"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">DELETE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SELECT"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">SELECT</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#select-expr-查询表达式"><span class="post-toc-number">5.4.1.</span> <span class="post-toc-text">select_expr 查询表达式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#WHERE-条件表达式"><span class="post-toc-number">5.4.2.</span> <span class="post-toc-text">WHERE 条件表达式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GROUP-BY-查询结果分组"><span class="post-toc-number">5.4.3.</span> <span class="post-toc-text">GROUP BY 查询结果分组</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HAVING-分组条件"><span class="post-toc-number">5.4.4.</span> <span class="post-toc-text">HAVING 分组条件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ORDER-BY-对查询结果进行排序"><span class="post-toc-number">5.4.5.</span> <span class="post-toc-text">ORDER BY 对查询结果进行排序</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LIMIT-限制查询返回的数量"><span class="post-toc-number">5.4.6.</span> <span class="post-toc-text">LIMIT 限制查询返回的数量</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CREATE-…-SELECT"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">CREATE … SELECT</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#子查询"><span class="post-toc-number">6.</span> <span class="post-toc-text">子查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据准备"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">数据准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分类"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用比较运算符的子查询"><span class="post-toc-number">6.2.1.</span> <span class="post-toc-text">使用比较运算符的子查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#用ANY、SOME或ALL修饰的比较运算符"><span class="post-toc-number">6.2.1.1.</span> <span class="post-toc-text">用ANY、SOME或ALL修饰的比较运算符</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用-NOT-IN的子查询"><span class="post-toc-number">6.2.2.</span> <span class="post-toc-text">使用[NOT]IN的子查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用-NOT-EXISTS的子查询"><span class="post-toc-number">6.2.3.</span> <span class="post-toc-text">使用[NOT]EXISTS的子查询</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#连接"><span class="post-toc-number">7.</span> <span class="post-toc-text">连接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多表更新"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">多表更新</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据表参照"><span class="post-toc-number">7.1.1.</span> <span class="post-toc-text">数据表参照</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#连接类型"><span class="post-toc-number">7.1.2.</span> <span class="post-toc-text">连接类型</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多表删除"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">多表删除</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内连接"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">内连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#外连接"><span class="post-toc-number">7.4.</span> <span class="post-toc-text">外连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#连接条件"><span class="post-toc-number">7.5.</span> <span class="post-toc-text">连接条件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#无限级分类表设计"><span class="post-toc-number">7.6.</span> <span class="post-toc-text">无限级分类表设计</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自身连接"><span class="post-toc-number">7.7.</span> <span class="post-toc-text">自身连接</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mysql-sql-study"
+  class="post-article article-type-post fade" itemprop="blogPost">
 
-
-        
-    
-
-<nav id="sidebar" data-behavior="4">
-    <div class="sidebar-container">
-        
-            <div class="sidebar-profile">
-                <a href="/#about">
-                    <img class="sidebar-profile-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
-                </a>
-                <h4 class="sidebar-profile-name">Chars</h4>
-                
-                    <h5 class="sidebar-profile-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
-</h5>
-                
-            </div>
-        
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/ "
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/categories"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/tags"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
-                             href="/about"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-user"></i>
-                        <span class="sidebar-button-desc">About</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="https://github.com/charsdavy" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
-                        <span class="sidebar-button-desc">GitHub</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="https://twitter.com/charsdavy" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
-                        <span class="sidebar-button-desc">Twitter</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="https://facebook.com/wei.deng.1460" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
-                        <span class="sidebar-button-desc">Facebook</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link " href="http://weibo.com/u/3875245858" target="_blank" rel="noopener">
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-weibo"></i>
-                        <span class="sidebar-button-desc">Weibo</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-    </div>
-</nav>
-
-            
-            <div id="main" data-behavior="4"
-                 class="
-                        hasCoverMetaIn
-                        ">
-                
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
-    
-    
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title" itemprop="headline">
-            MySQL 中的SQL
-        </h1>
-    
-    
+    <div class="post-card">
+        <h1 class="post-card-title">MySQL 中的SQL</h1>
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2017-05-19T15:43:18+08:00">
-	
-		    May 19, 2017
-    	
-    </time>
-    
-        <span>In </span>
-        
-    <a class="category-link" href="/categories/web/">web</a>
+            <time class="post-time" title="2017-05-19 15:43:18" datetime="2017-05-19T07:43:18.000Z"  itemprop="datePublished">2017-05-19</time>
+
+            
+	<ul class="article-category-list"><a class="article-category-list-link" href="/categories/web/">web</a></ul>
 
 
-    
-</div>
 
-    
-</div>
-    
-    <div class="post-content markdown" itemprop="articleBody">
-        <div class="main-content-wrap">
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
             <p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。</p>
 <p>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
 <p>文章以MySQL数据库为演示环境，主要分享MySQL中的SQL使用。</p>
@@ -381,9 +246,21 @@
 <li>FOREIGN KEY 外键约束</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE t6(id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20) NOT NULL UNIQUE KEY, sex ENUM(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;) DEFAULT &apos;3&apos;);</span><br></pre></td></tr></table></figure>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png" alt="t6表结构"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png" alt="t6表结构" title="">
+                </div>
+                <div class="image-caption">t6表结构</div>
+            </figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT t6 (username) VALUES (&apos;Chars&apos;);</span><br></pre></td></tr></table></figure>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png" alt="t6表插入值"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png" alt="t6表插入值" title="">
+                </div>
+                <div class="image-caption">t6表插入值</div>
+            </figure>
 <h3 id="空值与非空值"><a href="#空值与非空值" class="headerlink" title="空值与非空值"></a>空值与非空值</h3><p>NULL，字段值可以为空。</p>
 <p>NOT NULL，字段值禁止为空。不存在表级约束。</p>
 <h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p>主键约束。</p>
@@ -419,8 +296,20 @@
 <p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table provinces(id smallint unsigned primary key auto_increment, pname varchar(20) not null);</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table users(id smallint unsigned primary key auto_increment, username varchar(10) not null, pid bigint, foreign key(pid) references provinces(id));</span><br><span class="line"></span><br><span class="line"># 报错</span><br><span class="line"># ERROR 1215 (HY000): Cannot add foreign key constraint</span><br><span class="line"># 因为类型不匹配</span><br><span class="line"></span><br><span class="line"># 正确命令应该是：</span><br><span class="line">create table users(id smallint unsigned primary key auto_increment, username varchar(10) not null, pid smallint unsigned, foreign key(pid) references provinces(id));</span><br></pre></td></tr></table></figure>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png" alt="provinces表索引结构"></p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png" alt="users表索引结构"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png" alt="provinces表索引结构" title="">
+                </div>
+                <div class="image-caption">provinces表索引结构</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png" alt="users表索引结构" title="">
+                </div>
+                <div class="image-caption">users表索引结构</div>
+            </figure>
 <h3 id="表级约束和列级约束"><a href="#表级约束和列级约束" class="headerlink" title="表级约束和列级约束"></a>表级约束和列级约束</h3><p>对一个数据列建立的约束，称为列级约束。</p>
 <p>对多个数据列建立的约束，称为表级约束。</p>
 <p>列级约束既可以在列定义时声明，也可以在列定义后声明。</p>
@@ -491,7 +380,13 @@
 </ul>
 <h5 id="用ANY、SOME或ALL修饰的比较运算符"><a href="#用ANY、SOME或ALL修饰的比较运算符" class="headerlink" title="用ANY、SOME或ALL修饰的比较运算符"></a>用ANY、SOME或ALL修饰的比较运算符</h5><p><code>operand comparison_operator ANY(subquery)</code><br><code>operand comparison_operator SOME(subquery)</code><br><code>operand comparison_operator ALL(subquery)</code></p>
 <p>ANY、SOME、ALL关键字</p>
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>示例：</p>
 <ul>
 <li>查询价格大于或等于”超级本”价格的商品，并且按价格降序排列<br><code>SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price = ANY(SELECT goods_price FROM tdb_goods WHERE goods_cate = &#39;超级本&#39;) ORDER BY goods_price DESC;</code></li>
@@ -512,11 +407,30 @@
 <li>通过tdb_goods_cates数据表来更新tdb_goods表<br><code>UPDATE tdb_goods INNER JOIN tdb_goods_cates ON goods_cate = cate_name SET goods_cate = cate_id ;</code></li>
 </ul>
 <h3 id="多表删除"><a href="#多表删除" class="headerlink" title="多表删除"></a>多表删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE tbl_name [.*] [, tbl_name [.*]] ... FROM table_references [WHERE where_condition]</span><br></pre></td></tr></table></figure>
-<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接"></p>
+<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接" title="">
+                </div>
+                <div class="image-caption">内连接</div>
+            </figure></p>
 <h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>A LEFT JOIN B join_condition.<br>数据表B的结果集依赖数据表A。<br>数据表A的结果集根据左连接条件依赖所有数据表（B表除外）。<br>左外连接条件决定如何检索数据表B（在没有指定WHERE条件的情况下）。<br>如果数据表A的某条记录符合WHERE条件，但是在数据表B不存在符合连接条件的记录，将生成一个所有列为空的额外的B行。<br>如果使用内连接查找的记录在连接数据表中不存在，并且在WHERE子句中尝试以下操作：col_name IS NULL时，如果col_name被定义为NOT NULL，MySQL将在找到符合连接条件的记录后停止搜索更多的行。</p>
 <ul>
-<li>左外连接<br>显示左表的全部记录及右表符合连接条件的记录。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150" alt="左外连接"></li>
-<li>右外连接<br>显示右表的全部记录及左表符合连接条件的记录。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150" alt="右外连接"></li>
+<li>左外连接<br>显示左表的全部记录及右表符合连接条件的记录。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150" alt="左外连接" title="">
+                </div>
+                <div class="image-caption">左外连接</div>
+            </figure></li>
+<li>右外连接<br>显示右表的全部记录及左表符合连接条件的记录。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150" alt="右外连接" title="">
+                </div>
+                <div class="image-caption">右外连接</div>
+            </figure>
+</li>
 </ul>
 <h3 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h3><p>使用ON关键字来设定连接条件，也可以使用WHERE来代替。<br>通常使用ON关键字来设定连接条件，使用WHERE关键字进行结果集记录的过滤。</p>
 <h3 id="无限级分类表设计"><a href="#无限级分类表设计" class="headerlink" title="无限级分类表设计"></a>无限级分类表设计</h3><ul>
@@ -532,500 +446,270 @@
 </ul>
 <h3 id="自身连接"><a href="#自身连接" class="headerlink" title="自身连接"></a>自身连接</h3><p>同一个数据表对其自身进行连接。</p>
 
-            
         </div>
-    </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
-        
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">Tag In</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/database/">database</a> <a class="tag tag--primary tag--small t-link" href="/tags/mysql/">mysql</a> <a class="tag tag--primary tag--small t-link" href="/tags/notes/">读书笔记</a>
 
-            </div>
+        <blockquote class="post-copyright">
+    <div class="content">
         
+
         
-            <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/29/mysql-advanced-study/"  data-tooltip="拆解 MySQL 的高阶使用与概念">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/16/mysql-study/" data-tooltip="与 MySQL 的零距离接触">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
+        转载请注明出处：<a href="/2017/05/19/mysql-sql-study/" target="_blank" rel="external">http://chars.tech/2017/05/19/mysql-sql-study/</a>
         
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-facebook-official"></i>
-                </a>
-            </li>
+    </div>
+    <footer>
+        <a href="http://chars.tech">
+            <img src="/img/avatar.png" alt="Chars">
+            Chars
+        </a>
+    </footer>
+</blockquote>
+
         
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-twitter"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-weibo"></i>
-                </a>
-            </li>
-        
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-angle-double-up"></i>
-            </a>
-        </li>
-    </ul>
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
 </div>
 
 
-        
-        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">读书笔记</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chars.tech/2017/05/19/mysql-sql-study/&title=《MySQL 中的SQL》 — Chars's Blog&pic=http://chars.tech/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chars.tech/2017/05/19/mysql-sql-study/&title=《MySQL 中的SQL》 — Chars's Blog&source=结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2017/05/19/mysql-sql-study/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL 中的SQL》 — Chars's Blog&url=http://chars.tech/2017/05/19/mysql-sql-study/&via=http://chars.tech" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chars.tech/2017/05/19/mysql-sql-study/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
     </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/05/29/mysql-advanced-study/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">拆解 MySQL 的高阶使用与概念</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/05/16/mysql-study/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">与 MySQL 的零距离接触</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
 </article>
 
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        你的支持是wo持续输出的动力
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
 
 
-                <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-    	&copy; 
-    	 
-    		2016 - 
-    	
-        2017 Chars. All Rights Reserved.
-    </span>
+
+</div>
+
+        <footer class="footer">
+    <!--<div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Chars &copy; 2016 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>-->
 </footer>
 
-            </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/29/mysql-advanced-study/"  data-tooltip="拆解 MySQL 的高阶使用与概念">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">Previous</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/16/mysql-study/" data-tooltip="与 MySQL 的零距离接触">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">Next</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-facebook-official"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-twitter"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-weibo"></i>
-                </a>
-            </li>
-        
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-angle-double-up"></i>
-            </a>
-        </li>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chars.tech/2017/05/19/mysql-sql-study/&title=《MySQL 中的SQL》 — Chars's Blog&pic=http://chars.tech/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chars.tech/2017/05/19/mysql-sql-study/&title=《MySQL 中的SQL》 — Chars's Blog&source=结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2017/05/19/mysql-sql-study/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL 中的SQL》 — Chars's Blog&url=http://chars.tech/2017/05/19/mysql-sql-study/&via=http://chars.tech" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chars.tech/2017/05/19/mysql-sql-study/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
     </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3awW7rMAwEwP7/T+ddCxR2dyn3AZZGp8BRYo0OBEXx6ysen9txNefn86sn988fGxgYGK9ltEvMf/V95srn5C0YGBgnMK4i2Oyvk/n3MTNfGwYGBkY7Zxa4V96LgYGBcT8n/zZJHDEwMDDuGSup3v2cZHF5Ce+BszgGBsYLGXnV/f9//pP7DQwMjFcxPuV4KvgmJbZiVRgYGFsz8gA3O4jOjr7tejAwMPZmrJf+i90abUq0cRgYGIcxnlpoftLMl3v5LQYGxjGMNiDmx9f8t8PkEgMD4wBG+9ezC8tZ0S3aYgwMjMMY+XJb6qwJI5qDgYGxNWPlPiG5HmgLcMmlZlR0w8DA2IiRX0bOLizz1LMtt11eYWJgYGzNaNsj2vRu5Rj8S2KKgYGxNaO9bsz/enZ5kLedRQMDA2MjxlMJ3KzNK9mCKEnFwMDYlDEr4rfXkPn15Kzaj4GBcRpj5WWzjWjTwctmCwwMjE0Z7SLqBoiyTLYU9DEwMI5hrDd+5cfa5L35SjAwME5j5EGwbZJoq/rJZmFgYJzGWGmYaMtkDxfgMDAwNmV8ypEE4mRrVho46jYLDAyMlzPy0R5HV8J60kA2hGFgYLyWkZe98tDZHlxnARcDA+M0xnrgS6j1CTvGY2BgYKwU4+4DdF6w+2UNGBgYGOXV5qzxoi3kLaWGGBgYL2Tk7Vl5KFw/HhcJIgYGxtaMtsVhlibmqWGeMmJgYBzA+AecXWqYTG4vpwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 
-                </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-    <i id="btn-close-shareoptions" class="fa fa-close"></i>
-    <ul class="share-options">
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
-                </a>
-            </li>
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
-                </a>
-            </li>
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
-                </a>
-            </li>
-        
-            
-            
-            <li class="share-option">
-                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=http://chars.tech/2017/05/19/mysql-sql-study/">
-                    <i class="fa fa-weibo"></i><span>Share on Weibo</span>
-                </a>
-            </li>
-        
-    </ul>
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
 </div>
-
-            
-        </div>
-        
-
-
-    
-        
-    
-
-<div id="about">
-    <div id="about-card">
-        <div id="about-btn-close">
-            <i class="fa fa-remove"></i>
-        </div>
-        
-            <img id="about-card-picture" src="/assets/images/avatar.png" alt="Author&#39;s picture"/>
-        
-            <h4 id="about-card-name">Chars</h4>
-        
-            <div id="about-card-bio"><p>Currently engaged in iOS development, learning Unity, like to study all kinds of novelty</p>
-</div>
-        
-        
-            <div id="about-card-job">
-                <i class="fa fa-briefcase"></i>
-                <br/>
-                <p>iOS developer @ZAKER</p>
-
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
             </div>
-        
-        
-            <div id="about-card-location">
-                <i class="fa fa-map-marker"></i>
-                <br/>
-                Guangzhou, China
-            </div>
-        
-    </div>
-</div>
-
-        <div id="algolia-search-modal" class="modal-container">
-    <div class="modal">
-        <div class="modal-header">
-            <span class="close-button"><i class="fa fa-close"></i></span>
-            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
-                <span class="searchby-algolia-text text-color-light text-small">by</span>
-                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
-            </a>
-            <i class="search-icon fa fa-search"></i>
-            <form id="algolia-search-form">
-                <input type="text" id="algolia-search-input" name="search"
-                    class="form-control input--large search-input" placeholder="Search "
-                    />
-            </form>
+            <time class="flex-col time">{date}</time>
         </div>
-        <div class="modal-body">
-            <div class="no-result text-color-light text-center">no post found</div>
-            <div class="results">
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/college-thesis-summary-skill/">
-                            <h3 class="media-heading">毕业论文摘要的书写方法和技巧</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 18, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要也就是内容提要，是论文中不可缺少的一部分。论文摘要是一篇具有独立性的短文，有其特别的地方。它是建立在对论文进行总结的基础之上，用简单、明确、易懂、精辟的语言对全文内容加以概括，留主干去枝叶，提取论文的主要信息。作者的观点、论文的主要内容、研究成果、独到的见解，这些都应该在摘要中体现出来。好的摘要便于索引与查找，易于收录到大型资料库中并为他人提供信息。因此摘要在资料交流方面承担着至关重要的作用。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/18/vc-6-mfc-develop-summary/">
-                            <h3 class="media-heading">VC++6.0 MFC编程心得小结</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 18, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/19/os-32-64-bit/">
-                            <h3 class="media-heading">操作系统 32位和64位</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 19, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>两者之间存在的“五大不同”。与此同时，着重说明Microsoft Windows64位（x64）操作系统，相对于32位（x86）操作系统的最大优势和劣势是什么？</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/20/sql-server-state-code-list-1/">
-                            <h3 class="media-heading">SQL Server 错误代码和解释 (上篇)</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 20, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>SQL Server 是高校专业在教学数据库时一定会选用的案例之一，这个数据库是结合微软产品一起使用的，不仅贵，而且不好用。这是在使用之后的心得体会。在代码层面来说，这个是很难使用的。但是，老师说这个以后工作了都会使用到，所以，还是要好好学的。</p>
-<p>文中罗列了各种状态码的解释，这些对调试SQL Server数据库程序是很有帮助的。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/21/sql-server-state-code-list-2/">
-                            <h3 class="media-heading">SQL Server 错误代码和解释 (中篇)</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 21, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>承接《上篇》继续罗列分享SQL Server状态码。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/22/sql-server-state-code-list-3/">
-                            <h3 class="media-heading">SQL Server 错误代码和解释 (下篇)</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 22, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>承接《下篇》继续罗列分享SQL Server状态码。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/23/factory-prototype-diff/">
-                            <h3 class="media-heading">Factory模式与Prototype模式的异同</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 23, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2013/01/24/vc-invoke-dll/">
-                            <h3 class="media-heading">VC 调用 DLL</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Jan 24, 2013
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>DLL 动态数据链路库。</p>
-<p>调用DLL有两种方法：静态调用和动态调用.</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2015/09/13/nsstring-using/">
-                            <h3 class="media-heading">NSString 字符串使用（基础篇）</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Sep 13, 2015
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://chars.tech/2015/09/26/Objc-inherit-multimodal/">
-                            <h3 class="media-heading">Objective-C 继承和多态</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Sep 26, 2015
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-            </div>
-        </div>
-        <div class="modal-footer">
-            <p class="results-count text-medium"
-                data-message-zero="no post found"
-                data-message-one="1 post found"
-                data-message-other="{n} posts found">
-                90 posts found
-            </p>
-        </div>
-    </div>
-</div>
+    </a>
+</li>
+</template>
 
-        
-<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
-        <!--SCRIPTS-->
-<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
-<!--SCRIPTS END-->
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
-    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script>
-        var algoliaClient = algoliasearch('UG7I248E1X', '39daa80db5305fba3705069658223736');
-        var algoliaIndex = algoliaClient.initIndex('Chars_Blog');
-    </script>
 
-    </body>
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Chars's Blog';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Tech Blog';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
 </html>
