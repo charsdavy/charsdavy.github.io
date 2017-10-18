@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://chars.tech/"/>
-  <updated>2017-09-26T07:11:01.000Z</updated>
+  <updated>2017-10-18T02:35:41.062Z</updated>
   <id>http://chars.tech/</id>
   
   <author>
@@ -14,6 +14,226 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊 iOS 数据保护</title>
+    <link href="http://chars.tech/2017/10/17/ios-data-protection/"/>
+    <id>http://chars.tech/2017/10/17/ios-data-protection/</id>
+    <published>2017-10-17T07:18:19.000Z</published>
+    <updated>2017-10-18T02:35:41.062Z</updated>
+    
+    <content type="html"><![CDATA[<p>文件系统中的文件、keychain中的项，都是加密存储的。当用户解锁设备后，系统通过UDID密钥和用户设定的密码生成一个用于解密的密码密钥，存放在内存中，直到设备再次被锁，开发者可以通过Data Protection API 来设定文件系统中的文件、keychain中的项应该何时被解密。这个就是数据保护的内容。</p>
+<a id="more"></a>
+<h2 id="钥匙串（keychain）"><a href="#钥匙串（keychain）" class="headerlink" title="钥匙串（keychain）"></a>钥匙串（keychain）</h2><p>keychain服务提供了一种安全的保存私密信息（密码，序列号，私钥，证书等）的方式，每个iOS程序都有一个独立的keychain存储。相对于NSUserDefaults、文件保存等一般方式，keychain保存更为安全，而且keychain里保存的信息不会因APP被删除而丢失。</p>
+<p>基于钥匙串的特点，我们在使用时对于新增的数据项目，要注意数据删除的时机。还有一点需要注意的就是，保护属性的指定。如果没有指定保护属性，这将被视为严重的安全漏洞。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><h4 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h4><p>当我们备份设备数据时，系统会将用户数据保存在相应的钥匙串中，并依照相应的安全策略保存。主要分成两类：<strong>加密</strong>和<strong>不加密</strong>。</p>
+<p>两者的主要区别在于恢复数据时的范围不同。加密备份的数据可以恢复到任何设备上（ThisDeviceOnly指定的项目除外），而不加密的备份则只能恢复至同一台设备。</p>
+<h4 id="共享"><a href="#共享" class="headerlink" title="共享"></a>共享</h4><p>keychain支持在多个应用之间共享数据。但现实开发中<code>UIPasteboardNameFind</code>的使用代替了keychain。不过好在Apple在iOS11中已经废弃它。看来Apple想规范开发者对于用户敏感数据的共享使用，同时提醒大家使用更加安全的方式存储用户敏感数据。</p>
+<h3 id="使用范例"><a href="#使用范例" class="headerlink" title="使用范例"></a>使用范例</h3><h4 id="SecItemAdd"><a href="#SecItemAdd" class="headerlink" title="SecItemAdd"></a>SecItemAdd</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *dict = [NSMutableDictionary dictionary];</span><br><span class="line">NSData *passwordData = [@&quot;myPassword&quot; dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line"></span><br><span class="line">[dict setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];</span><br><span class="line">[dict setObject:@&quot;Conglomco&quot; forKey:(__bridge id)kSecAttrLabel];</span><br><span class="line">[dict setObject:@&quot;This is your password for the Conglomco service.&quot; forKey:(__bridge id)kSecAttrDescription];</span><br><span class="line">[dict setObject:@&quot;chars&quot; forKey:(__bridge id)kSecAttrAccount];</span><br><span class="line">[dict setObject:@&quot;cn.zaker.keychain.sample&quot; forKey:(__bridge id)kSecAttrService];</span><br><span class="line">[dict setObject:passwordData forKey:(__bridge id)kSecValueData];</span><br><span class="line">[dict setObject:(__bridge id)kSecAttrAccessibleWhenUnlocked forKey:(__bridge id)kSecAttrAccessible];</span><br><span class="line"></span><br><span class="line">OSStatus error = SecItemAdd((__bridge CFDictionaryRef)dict, NULL);</span><br><span class="line">if (error == errSecSuccess) &#123;</span><br><span class="line">    NSLog(@&quot;Yay&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SecItemDelete"><a href="#SecItemDelete" class="headerlink" title="SecItemDelete"></a>SecItemDelete</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *dict = [NSMutableDictionary dictionary];</span><br><span class="line"></span><br><span class="line">[dict setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];</span><br><span class="line">[dict setObject:@&quot;chars&quot; forKey:(__bridge id)kSecAttrAccount];</span><br><span class="line">[dict setObject:@&quot;cn.zaker.keychain.sample&quot; forKey:(__bridge id)kSecAttrService];</span><br><span class="line"></span><br><span class="line">OSStatus error = SecItemDelete((__bridge CFDictionaryRef)dict);</span><br><span class="line">if (error == errSecSuccess) &#123;</span><br><span class="line">	NSLog(@&quot;Yay&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SecItemUpdate"><a href="#SecItemUpdate" class="headerlink" title="SecItemUpdate"></a>SecItemUpdate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *dict = [NSMutableDictionary dictionary];</span><br><span class="line">NSData *newPasswordData = [@&quot;newMyPassword&quot; dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line"></span><br><span class="line">[dict setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];</span><br><span class="line">[dict setObject:@&quot;chars&quot; forKey:(__bridge id)kSecAttrAccount];</span><br><span class="line">[dict setObject:@&quot;cn.zaker.keychain.sample&quot; forKey:(__bridge id)kSecAttrService];</span><br><span class="line"></span><br><span class="line">NSDictionary *updatedAttribute = [NSDictionary dictionaryWithObject:newPasswordData forKey:(__bridge id)kSecValueData];</span><br><span class="line"></span><br><span class="line">OSStatus error = SecItemUpdate((__bridge CFDictionaryRef)dict, (__bridge CFDictionaryRef)updatedAttribute);</span><br><span class="line">if (error == errSecSuccess) &#123;</span><br><span class="line">	NSLog(@&quot;Yay&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SecItemCopyMatching"><a href="#SecItemCopyMatching" class="headerlink" title="SecItemCopyMatching"></a>SecItemCopyMatching</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *dict = [NSMutableDictionary dictionary];</span><br><span class="line"></span><br><span class="line">[dict setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];</span><br><span class="line">[dict setObject:@&quot;chars&quot; forKey:(__bridge id)kSecAttrAccount];</span><br><span class="line">[dict setObject:@&quot;cn.zaker.keychain.sample&quot; forKey:(__bridge id)kSecAttrService];</span><br><span class="line">[dict setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnAttributes];</span><br><span class="line"></span><br><span class="line">NSDictionary *result = nil;</span><br><span class="line">OSStatus error = SecItemCopyMatching((__bridge CFDictionaryRef)dict, (void *)&amp;result);</span><br><span class="line">if (error == errSecSuccess) &#123;</span><br><span class="line">	NSLog(@&quot;Yay %@&quot;, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecItemAdd</td>
+<td>添加数据</td>
+</tr>
+<tr>
+<td>SecItemDelete</td>
+<td>删除数据</td>
+</tr>
+<tr>
+<td>SecItemUpdate</td>
+<td>修改数据</td>
+</tr>
+<tr>
+<td>SecItemCopyMatching</td>
+<td>查找数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="保护属性"><a href="#保护属性" class="headerlink" title="保护属性"></a>保护属性</h3><table>
+<thead>
+<tr>
+<th>钥匙串保护属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kSecAttrAccessibleAfterFirstUnlock</td>
+<td>开机之后密钥不可用，直到用户首次输入密码</td>
+</tr>
+<tr>
+<td>kSecAttrAccessibleAlways</td>
+<td>密钥在设备开机后依旧可用。在iOS9中已经废弃</td>
+</tr>
+<tr>
+<td>kSecAttrAccessibleAlwaysThisDeviceOnly</td>
+<td>密钥始终可用，但无法迁移到其他设备</td>
+</tr>
+<tr>
+<td>kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly</td>
+<td>作用同上</td>
+</tr>
+<tr>
+<td>kSecAttrAccessibleWhenUnlocked</td>
+<td>只要解锁过设备，则密钥保持可用状态</td>
+</tr>
+<tr>
+<td>kSecAttrAccessibleWhenUnlockedThisDeviceOnly</td>
+<td>作用同上</td>
+</tr>
+<tr>
+<td>kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly</td>
+<td>作用同上，只有用户设置密码密钥才可用</td>
+</tr>
+</tbody>
+</table>
+<p><code>kSecAttrAccessibleAlways</code> 将会引入一个很明显的安全问题，因为此种保护属性，只要有人窃取了你的设备，他们就能读取钥匙串的内容。</p>
+<p><code>kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly</code> 这个属性可以完美的解决上述的安全问题。因为越狱时通常需要重启设备。</p>
+<p><code>kSecAttrAccessibleWhenUnlocked</code> 这个属性要求攻击者必须知道用户密码才能提取隐私数据。它很适合做默认属性值。</p>
+<p><code>kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly</code> 是iOS8新增的保护属性。这个属性要求在使用时用户设定了密码，否则使用就失败。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><table>
+<thead>
+<tr>
+<th>项目类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kSecClassGenericPassword</td>
+<td>普通密码</td>
+</tr>
+<tr>
+<td>kSecClassInternetPassword</td>
+<td>专门用于互联网服务的密码</td>
+</tr>
+<tr>
+<td>kSecClassCertificate</td>
+<td>加密证书</td>
+</tr>
+<tr>
+<td>kSecClassKey</td>
+<td>加密密钥</td>
+</tr>
+<tr>
+<td>kSecClassIdentity</td>
+<td>一个密钥对（包括公共证书和私钥）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iCloud同步"><a href="#iCloud同步" class="headerlink" title="iCloud同步"></a>iCloud同步</h3><p>这是iOS7引入的一种新机制，可以把钥匙串项目同步到iCloud，允许用户在多个设备之间共享钥匙串项目。</p>
+<p>默认情况下，应用程序创建的钥匙串项目会禁用这个机制，但可以把<code>kSecAttrSynchronizable</code>设置为<code>true</code>来启用。</p>
+<p>另外请注意，使用此选项时无法指定不兼容的kSecAttrAccessible属性。例如，指定kSecAttrAccessibleWhenUnlockedThisDeviceOnly不起作用，因为ThisDeviceOnly指定的项目不会备份，也不能同步到iCloud、笔记本电脑、台式机或其他同步位置。</p>
+<h2 id="数据保护"><a href="#数据保护" class="headerlink" title="数据保护"></a>数据保护</h2><p>Apple 推出了数据保护API作为额外的保护层，它允许开发者指定文件解密密钥的生命周期。可以使用这个API控制文件的访问权限，与钥匙串项目中的kSecAttrAccessible 属性类似。</p>
+<p>数据保护API使用用户密码和层级密钥来加密保护文件的密钥，而当这些文件不能被访问时，会从内存中删除这个层级密钥。</p>
+<h3 id="文件保护过程"><a href="#文件保护过程" class="headerlink" title="文件保护过程"></a>文件保护过程</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_2.png" alt="文件保护过程" title="">
+                </div>
+                <div class="image-caption">文件保护过程</div>
+            </figure>
+<p>1.文件生成一个<code>文件密钥</code>来加密文件的内容。</p>
+<p>2.生成一个额外的密钥对，用于生成<code>文件公钥</code>和<code>文件私钥</code>。</p>
+<p>3.用<code>文件私钥</code>和<code>Protected Unless Open等级公钥</code>计算出一个<code>共享密码</code>。</p>
+<p>4.用<code>共享密码</code> SHA-1散列值加密文件密钥。</p>
+<p>5.加密过的<code>文件密钥</code>会存储在文件的元数据中，元数据中还有文件的公钥。</p>
+<p>6.系统丢弃<code>文件私钥</code>。</p>
+<p>7.关闭文件时从内存中删除未加密的文件密钥。</p>
+<p>8.需要再次打开文件时，用<code>Protected Unless Open等级私钥</code>和<code>文件公钥</code>计算<code>共享密码</code>。</p>
+<p>9.计算<code>共享密码</code>的SHA-1散列值，把它当作解密文件的密钥。</p>
+<h3 id="DataProtectionClass-权限"><a href="#DataProtectionClass-权限" class="headerlink" title="DataProtectionClass 权限"></a>DataProtectionClass 权限</h3><p>如果你的应用在设备进入后台或锁定时不需要写入或读取文件，那你就可以在工程中配置一个<code>NSFileProtectionComplete</code>值来添加权限。这将确保所有受保护的文件数据只能在设备解锁时访问，相当于为所有的应用文件都设置<code>kSecAttrAccessibleWhenUnlocked</code>选项。</p>
+<p>从Xcode5开始，新工程会默认启用数据保护权限，但是一些旧工程并不会自动开启。</p>
+<p>开启方式如下图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_1.png?imageView2/2/w/800" alt="开启DataProtectionClass权限" title="">
+                </div>
+                <div class="image-caption">开启DataProtectionClass权限</div>
+            </figure>
+<h3 id="使用范例-1"><a href="#使用范例-1" class="headerlink" title="使用范例"></a>使用范例</h3><h4 id="NSDataWritingFileProtectionComplete"><a href="#NSDataWritingFileProtectionComplete" class="headerlink" title="NSDataWritingFileProtectionComplete"></a>NSDataWritingFileProtectionComplete</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = [self generateData];</span><br><span class="line">NSError *error = nil;</span><br><span class="line">NSString *path = [NSString stringWithFormat:@&quot;%@_demo.pdf&quot;, NSTemporaryDirectory()];</span><br><span class="line">[data writeToFile:path options:NSDataWritingFileProtectionComplete error:&amp;error];</span><br><span class="line">if (error) &#123;</span><br><span class="line">	NSLog(@&quot;%@&quot;, error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="NSFileProtectionComplete"><a href="#NSFileProtectionComplete" class="headerlink" title="NSFileProtectionComplete"></a>NSFileProtectionComplete</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@&quot;demo.txt&quot;];</span><br><span class="line">NSError *error = nil;</span><br><span class="line">NSDictionary *attr = [NSDictionary dictionaryWithObject:NSFileProtectionComplete forKey:NSFileProtectionKey];</span><br><span class="line">[[NSFileManager defaultManager] setAttributes:attr ofItemAtPath:path error:&amp;error];</span><br><span class="line">if (error) &#123;</span><br><span class="line">	NSLog(@&quot;%@&quot;, error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SQLITE-OPEN-FILEPROTECTION-COMPLETEUNLESSOPEN"><a href="#SQLITE-OPEN-FILEPROTECTION-COMPLETEUNLESSOPEN" class="headerlink" title="SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN"></a>SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@&quot;demo.sqlite&quot;];</span><br><span class="line">sqlite3 *handle = NULL;</span><br><span class="line">sqlite3_open_v2([path UTF8String],</span><br><span class="line">                &amp;handle,</span><br><span class="line">                SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN,</span><br><span class="line">                NULL);</span><br></pre></td></tr></table></figure>
+<h3 id="保护等级"><a href="#保护等级" class="headerlink" title="保护等级"></a>保护等级</h3><h4 id="CompleteUntilFirstUserAuthentication"><a href="#CompleteUntilFirstUserAuthentication" class="headerlink" title="CompleteUntilFirstUserAuthentication"></a>CompleteUntilFirstUserAuthentication</h4><p>这个保护等级是iOS5开始使用的默认值。主要用来防御一些需要重启的攻击。</p>
+<h4 id="Complete"><a href="#Complete" class="headerlink" title="Complete"></a>Complete</h4><p>官方称这是目前最安全的文件保护等级。在这种情况下，锁屏之后系统就会删除内存中的层级密钥，并把文件改为不可读。</p>
+<p>具体使用的范例前文可见。</p>
+<p>使用Complete保护之前，考虑是否合适。如果你的应用进程需要持续写/读一个文件，那这种保护模式就不合适了。</p>
+<h4 id="CompleteUnlessOpen"><a href="#CompleteUnlessOpen" class="headerlink" title="CompleteUnlessOpen"></a>CompleteUnlessOpen</h4><p>如果一个文件当前被一个应用打开，那会暂时禁用该文件的保护。它会确保打开的文件在设备被锁定时依然能够写入，并且允许新建文件到磁盘。不过这个等级保护的文件在锁屏时无法打开，除非锁屏时就已经提前打开。</p>
+<h2 id="CommonCrypto加密"><a href="#CommonCrypto加密" class="headerlink" title="CommonCrypto加密"></a>CommonCrypto加密</h2><p>CommonCrypto是Apple官方提供的一套加密框架。在使用这套方案时，主要注意以下几个问题即可。</p>
+<h3 id="避免弱算法"><a href="#避免弱算法" class="headerlink" title="避免弱算法"></a>避免弱算法</h3><p>众所周知，DES就是一种很典型的弱算法。如果你使用弱算法，那应用就很容易遭受密码攻击和暴力破解。</p>
+<p>我们在实际使用时，可以考虑使用AES算法、MD5算法或MD5加盐算法等。</p>
+<h3 id="破碎的熵"><a href="#破碎的熵" class="headerlink" title="破碎的熵"></a>破碎的熵</h3><p>我们通常会使用<code>rand</code>方法来产生随机数，但是系统的这个随机函数并不是真正的随机。它产生的随机数符合正态分布，我们可以使用官方提供的方法<code>SecRandomCopyBytes</code>获得。也可以自己使用算法产生随机数。</p>
+<p>这里分享一个笔者以前自己实现的随机数案例。<a href="/2016/04/30/uniform-random/">《均匀分布随机函数的实现》</a></p>
+<h3 id="弱密钥"><a href="#弱密钥" class="headerlink" title="弱密钥"></a>弱密钥</h3><p>开发者经常将用户的密码当作加密密钥，尤其在移动设备上，这将导致一个非常脆弱、低熵加密的密钥。</p>
+<p>那么正确的姿势是使用<code>CCKeyDerivationPBKDF</code>方法来生成。</p>
+<h2 id="Touch-ID"><a href="#Touch-ID" class="headerlink" title="Touch ID"></a>Touch ID</h2><h3 id="使用范例-2"><a href="#使用范例-2" class="headerlink" title="使用范例"></a>使用范例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;LocalAuthentication/LocalAuthentication.h&gt;</span><br><span class="line"></span><br><span class="line">LAContext *context = [[LAContext alloc] init];</span><br><span class="line">NSError *error = nil;</span><br><span class="line">NSString *reason = @&quot;We use this to verify your identify&quot;;</span><br><span class="line">if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&amp;error]) &#123;</span><br><span class="line">	[context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:reason reply:^(BOOL success, NSError * _Nullable error) &#123;</span><br><span class="line">		if (success) &#123;</span><br><span class="line">			NSLog(@&quot;Hello, that&apos;s your finger!&quot;);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			NSLog(@&quot;Couldn&apos;t read your fingerprint. Falling back to PIN or somthing.&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;];</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	NSLog(@&quot;Error : %@ %@&quot;, error, [error userInfo]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Touch-ID-与普通密码相比的安全性"><a href="#Touch-ID-与普通密码相比的安全性" class="headerlink" title="Touch ID 与普通密码相比的安全性"></a>Touch ID 与普通密码相比的安全性</h3><p>一个人的指纹是世界上最好的密码之一。它独一无二，高度特异，并且无需记忆。它会伴随人终生，所以你可以一直使用同一个指纹密码。</p>
+<p>比起简单的4位数字锁屏密码一万分之一的破解可能性，能找到同样单个指纹的人的概率为五万分之一，这是非常安全的，比起前者我可以不断尝试，Touch ID 指纹的硬性破解几率几乎没有，因为不可能有五万多个人排队来一一解锁你的设备，况且 Touch ID 会拒绝第五次以后的尝试而要求输入密码。所以我们可以添加更加复杂的密码而不是简单的数字密码来进一步提高安全性。</p>
+<h3 id="Touch-ID-指纹识别的原理"><a href="#Touch-ID-指纹识别的原理" class="headerlink" title="Touch ID 指纹识别的原理"></a>Touch ID 指纹识别的原理</h3><p>在如此快速的识别过程中，Home 按钮上的一圈金属环起到了感应手指的功能，通知 Touch ID 来读取指纹。Touch ID 置于该按钮中，传感器的厚度只有 170 微米，拥有 500 ppi 高分辨率，可读取极小的指纹细节。传感器可从皮肤皮下层指纹的一些小部分拍摄高分辨率图像，然后会分析该信息，根据三种基本指纹类型（弧形纹、箕形纹或斗形纹）将指纹分类，它会绘制比人眼不可见的纹路细节，确保指纹读取准确无误。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_3.png" alt="touch id sensor" title="">
+                </div>
+                <div class="image-caption">touch id sensor</div>
+            </figure>
+<p>Touch ID 可从 360 度方向读取指纹，随后创建指纹的某种数学表达式，并将其与已注册的数据进行比较，以确定是否匹配。如果匹配，便可替代密码来解锁设备或通过某个令牌。</p>
+<p>此外，根据苹果官方的描述，Touch ID 会向以注册的指纹数据里持续的添加新的特征数据，随着时间的推移，这能不断提高匹配准确度，也能进一步的提高安全性。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_4.png" alt="touch id ontouch" title="">
+                </div>
+                <div class="image-caption">touch id ontouch</div>
+            </figure>
+<p>除了上述的内容，苹果还加入可以一些有效的手段来进一步确保安全，例如设备再重新启动或者保持锁定 48 小时后，就只能通过密码而不是指纹来解锁设备。</p>
+<h3 id="Secure-Enclave"><a href="#Secure-Enclave" class="headerlink" title="Secure Enclave"></a>Secure Enclave</h3><p>Apple声明指纹的图案不会被保存，存储于设备中的是指纹特征的数学表达式，而且从这些表达式不可能直接反推出指纹图像。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_5.png" alt="touch-id-structure" title="">
+                </div>
+                <div class="image-caption">touch-id-structure</div>
+            </figure>
+<p>指纹的验证运算独立于主要处理器芯片（例如 A7、A8），芯片内有称为 “Secure Enclave” 的高级安全架构，专用于密码指纹数据，并使用 Secure Enclave 的专用密钥加密，以及每次启动以随机的 UID 进行管理。指纹数据仅能被 Secure Enclave 处理和使用，正因为此架构独立于其它设备部件，仅有 Touch ID 使用它，且不能将它用于匹配其他指纹数据库，所以存储的指纹数据不会由 iOS 或其他应用访问，也不会被存储到 Apple 服务器或备份到 iCloud 等地方。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_6.png" alt="A7-Secure-Enclave" title="">
+                </div>
+                <div class="image-caption">A7-Secure-Enclave</div>
+            </figure>
+<p>从硬件上来看指纹特征数据尚不能被 “Secure Enclave” 和 Touch ID 以外的部件访问到，并且两者芯片互相隔离开来，所有软件都没有权利获得指纹数据，仅能得到指纹是否错误的回馈。因为架构的核心秘密仅仅只有苹果公司知道，所以目前几乎没有第三方软件可以访问到这部分敏感信息。</p>
+<p>到此，关于 iOS 数据保护的问题暂时告一段落。欢迎大家评论指正。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;文件系统中的文件、keychain中的项，都是加密存储的。当用户解锁设备后，系统通过UDID密钥和用户设定的密码生成一个用于解密的密码密钥，存放在内存中，直到设备再次被锁，开发者可以通过Data Protection API 来设定文件系统中的文件、keychain中的项应该何时被解密。这个就是数据保护的内容。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://chars.tech/categories/pieces/"/>
+    
+    
+      <category term="ios" scheme="http://chars.tech/tags/ios/"/>
+    
+      <category term="存储" scheme="http://chars.tech/tags/persistence/"/>
+    
+      <category term="安全" scheme="http://chars.tech/tags/security/"/>
+    
+  </entry>
   
   <entry>
     <title>Tensorflow + PyCharm （Mac）</title>
@@ -4041,211 +4261,6 @@
       <category term="ios" scheme="http://chars.tech/tags/ios/"/>
     
       <category term="objc" scheme="http://chars.tech/tags/objc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>日语-助词</title>
-    <link href="http://chars.tech/2017/03/26/japanese-auxiliary-word/"/>
-    <id>http://chars.tech/2017/03/26/japanese-auxiliary-word/</id>
-    <published>2017-03-26T13:34:16.000Z</published>
-    <updated>2017-09-26T07:02:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。</p>
-<p>日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。</p>
-<a id="more"></a>
-<h2 id="1-に用法"><a href="#1-に用法" class="headerlink" title="1 に用法"></a>1 に用法</h2><ul>
-<li>1）表地点，场所名词+に+名词，具体位置</li>
-</ul>
-<p>部屋に机があります。</p>
-<ul>
-<li>2）表时间点（包含数字的时间）</li>
-</ul>
-<p>学校は８時半に始まります。</p>
-<ul>
-<li>3）表附着点</li>
-</ul>
-<p>温泉に入ります。</p>
-<p>船に乗ります。</p>
-<ul>
-<li>4）表目的</li>
-</ul>
-<p>日本へ花見に行きます。</p>
-<p>土曜日か日曜日に買い物に行きます。（第一个に表示时间点，第二个に表示目的）</p>
-<ul>
-<li>5）表对象，人物对象，抽象事物</li>
-</ul>
-<p>友達に会います。</p>
-<ul>
-<li>6）表频率</li>
-</ul>
-<p>李さんは１週間に２回プールへ行きます。</p>
-<p>李さんは週に２回プールへ行きます。</p>
-<ul>
-<li>7）表目的地</li>
-</ul>
-<p>日本に行きます。</p>
-<p>家に帰ります。</p>
-<ul>
-<li>8）表选择</li>
-</ul>
-<p>赤いほうがいいです。じゃあ、これにします。</p>
-<ul>
-<li>9）表基准（“相对而言”）</li>
-</ul>
-<p>体にいいです。对身体好。</p>
-<ul>
-<li>10）表结果</li>
-</ul>
-<p>中国語を日本語に訳(やく)す。</p>
-<h2 id="2-で用法"><a href="#2-で用法" class="headerlink" title="2 で用法"></a>2 で用法</h2><ul>
-<li>1）表交通手段</li>
-</ul>
-<p>上海まで飛行機で行きます。</p>
-<ul>
-<li>2）表地点范围，名词+で+动词</li>
-</ul>
-<p>図書館で勉強します。</p>
-<p>お昼は食堂（しよくどう）で食べます。</p>
-<p>妹は部屋で音樂を聞きます。</p>
-<ul>
-<li>3）表方式，手段</li>
-</ul>
-<p>速達で送ります。</p>
-<p>メールで両親と連絡します。</p>
-<ul>
-<li>4）表原材料（で表示能看出原材料，から表示不能看出原材料）</li>
-</ul>
-<p>こむぎこでパンを作ります。</p>
-<ul>
-<li>5）表花费（时间，金钱）</li>
-</ul>
-<p>このケーキは３個で１５０円です。</p>
-<ul>
-<li>6）表主体</li>
-</ul>
-<p>みなさんで読みましょう。</p>
-<ul>
-<li>7）表并列（二类形容词或名词）</li>
-</ul>
-<p>森さんは親切（しんせつ）で優（やさ）しいです。</p>
-<ul>
-<li>8）表原因、理由</li>
-</ul>
-<p>仕事(しごと)、楊(よう)さんと会(あ)っていたんですよ。</p>
-<ul>
-<li>9）表状态</li>
-</ul>
-<p>患者(かんじゃ)でいっぱい。</p>
-<h3 id="2-1-で和に的区别"><a href="#2-1-で和に的区别" class="headerlink" title="2.1 で和に的区别"></a>2.1 で和に的区别</h3><p>１）で强调后接动态动词。に强调后接静态动词。</p>
-<h2 id="3-が用法"><a href="#3-が用法" class="headerlink" title="3 が用法"></a>3 が用法</h2><ul>
-<li>1）表情感词前</li>
-</ul>
-<p>ネズミがこれい。</p>
-<ul>
-<li>2）表能力词前</li>
-</ul>
-<p>日本語が分かる。</p>
-<p>日本語ができる。</p>
-<ul>
-<li>3）自动词前</li>
-</ul>
-<p>足が疲れる。</p>
-<p>足が痛い。</p>
-<ul>
-<li>4）形容词前</li>
-</ul>
-<p>箱根はホテルや旅館が多いですね。</p>
-<ul>
-<li>5）存在句（が表听话方不知道的，は表双方都知道的）</li>
-</ul>
-<p>ホテルで友達の写真展があります。</p>
-<ul>
-<li>6）疑问词作主语</li>
-</ul>
-<p>この中でどの料理がいちばんおいしいですか。</p>
-<h2 id="4-を用法"><a href="#4-を用法" class="headerlink" title="4 を用法"></a>4 を用法</h2><ul>
-<li>1）表对象，动宾结构，名词+を+动词</li>
-</ul>
-<p>パンヤミルクなどを食べます。</p>
-<ul>
-<li>2）表范围，路线</li>
-</ul>
-<p>駅前を通る（とおる）。</p>
-<ul>
-<li>3）表出发点</li>
-</ul>
-<p>家をでます。</p>
-<h2 id="5-から用法"><a href="#5-から用法" class="headerlink" title="5 から用法"></a>5 から用法</h2><ul>
-<li>1）表时间起点</li>
-</ul>
-<p>來週、金曜日の夜７時から、ホテルでパーテイーがあります。</p>
-<ul>
-<li>2）表空间起点</li>
-</ul>
-<p>大阪（おおさか）から上海（シャンハイ）まで飛行機（ひこうき）で行きますか。</p>
-<ul>
-<li>3）表因为</li>
-</ul>
-<p>私はドリアンを全然食べません。嫌いですから。</p>
-<h2 id="6-へ用法"><a href="#6-へ用法" class="headerlink" title="6 へ用法"></a>6 へ用法</h2><ul>
-<li>1）表去向</li>
-</ul>
-<p>吉田さんは中国へ行きます。</p>
-<h2 id="7-か用法"><a href="#7-か用法" class="headerlink" title="7 か用法"></a>7 か用法</h2><ul>
-<li>1）表选择，二选一，名词+か+名词</li>
-</ul>
-<p>毎月（まいつき）１回か２回映画（えいが）を見ます。</p>
-<h2 id="8-假设用法总结"><a href="#8-假设用法总结" class="headerlink" title="8 假设用法总结"></a>8 假设用法总结</h2><h3 id="8-1-と"><a href="#8-1-と" class="headerlink" title="8.1 と"></a>8.1 と</h3><p><strong>注意：</strong>不能和祈使语气连用。</p>
-<p><code>动词原形／动词ない形+と</code>表示必然结果或假设。</p>
-<h4 id="8-1-1-必然结果"><a href="#8-1-1-必然结果" class="headerlink" title="8.1.1 必然结果"></a>8.1.1 必然结果</h4><p>翻译成“一···就···”。</p>
-<ul>
-<li>1）恒常状态</li>
-</ul>
-<p>ボタンを押す（おす）と電源（でんげん）が入る（はいる）。<br>お金を入れ（いれ）ると、切符（きっぷ）が出る（だる）。</p>
-<ul>
-<li>2）自然现象</li>
-</ul>
-<p>春（はる）になると、花（はな）が咲く（さく）。<br>夜（よる）になると、気温（きおん）が下がる（さがる）。</p>
-<ul>
-<li>3）习惯</li>
-</ul>
-<p>彼（あれ）は家（うち）に帰ると、パソコンに向かって（むかって）いる。<br>朝起（お）きると、コーヒーを飲む。</p>
-<ul>
-<li>4）意外发现</li>
-</ul>
-<p>学校（がっこう）に着（つき）くと、雨（あめ）が止（や）んだ。<br>窓（まど）を開（ひら）けると、富士山が見えました。</p>
-<ul>
-<li>5）客观真理</li>
-</ul>
-<p>道（みち）を右（みぎ）に曲がる（まがる）と、床屋（とこや）があります。</p>
-<p><code>床屋：理发店</code></p>
-<h4 id="8-1-2-假设"><a href="#8-1-2-假设" class="headerlink" title="8.1.2 假设"></a>8.1.2 假设</h4><p>翻译成“如果···的话”。</p>
-<p>人間（にんげん）は水（みず）を飲まないと、生（い）きていけない。</p>
-<h3 id="8-2-たら"><a href="#8-2-たら" class="headerlink" title="8.2 たら"></a>8.2 たら</h3><p><code>动词た形</code>/<code>A1 かった</code>/<code>N/A2 だった</code>+ら表示假设，意外发现，之后。</p>
-<p>N/A2 で<del>は</del>なかったら 表示假设，意外发现，之后。</p>
-<p>例句：<br>1億（おく）円の宝くじに当たったら、世界旅行をします。<br>安かったら買います。<br>明日暇だったら、行きません。<br>明日雨だったら、行きません。<br>明日雨で<del>は</del>なかったら、行く。</p>
-<p>窓を開けたら、富士山が見えた。<br>会社へ行ったら、休みだった。</p>
-<p>家に着いたら、電話してください。<br>卒業したら、どうするつもりですか。</p>
-<h3 id="8-3-ば"><a href="#8-3-ば" class="headerlink" title="8.3 ば"></a>8.3 ば</h3><p>&lt;条件&gt;<br>一般不能用于祈使语气，但是，当前后主语不一样时可以使用祈使语气。<br>前项是后项的条件。</p>
-<p>例句：<br>暇があれば行きます。“只要闲暇就去。”<br>夏になれば、海へ行く。“一到夏天就去海边。”<br>体が元気であれば、働いていきます。“如果身体健康，一直工作下去。”<br>安ければ、買う。“如果便宜就买。”<br>天気がよければ、行きます。“如果天气好就去。”<br>あなたが行げば、私も行く。“如果你去，我就去。”<br>質題があれば、聞いてください。“(你)如果有问题，请问我。”<br>雨が降らなければ、ハイキングに行きましょう。“要是不下雨，就去郊游。”<br>質題がなければ、ましょう終わり。“如果没问题，我就结束。”<br>質題がなければ、ここで終わり。“如果没问题，我就结束。”</p>
-<h3 id="8-4-なら"><a href="#8-4-なら" class="headerlink" title="8.4 なら"></a>8.4 なら</h3><p>&lt;话题&gt;<br>动词原型／名词+なら<br>“…的话”。后面多接建议、提醒。</p>
-<p>例句：<br>温泉なら箱根が最高（せいこ）だよ。“泡温泉的话，箱根最好。”<br>電気（でんき）製品を買うなら、秋葉原（あきはばら）のがいいですよ。“买电器的话，秋叶原最好。”<br>タバコを吸うなら、出てください。“如果抽烟请出去。”<br>先生なら、トイレにいます。“老师在厕所。”</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;助词，又称为语助词。文法术语，指的是一种词类，属于虚词，附着在其他词汇、词组，或是句子上，作为辅助之用。通常用于句子前、中、后，表示各种语气；或是用于语句中间，表示结构上的关系。&lt;/p&gt;
-&lt;p&gt;日语中的助词极为丰富，而每一个助词的使用场景也非常多，不得不承认这是一大难点，也是重点。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="talk" scheme="http://chars.tech/categories/talk/"/>
-    
-    
-      <category term="碎碎念" scheme="http://chars.tech/tags/text/"/>
-    
-      <category term="日语" scheme="http://chars.tech/tags/japan-language/"/>
     
   </entry>
   
