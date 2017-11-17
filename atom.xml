@@ -136,13 +136,7 @@
 <p>另外请注意，使用此选项时无法指定不兼容的kSecAttrAccessible属性。例如，指定kSecAttrAccessibleWhenUnlockedThisDeviceOnly不起作用，因为ThisDeviceOnly指定的项目不会备份，也不能同步到iCloud、笔记本电脑、台式机或其他同步位置。</p>
 <h2 id="数据保护"><a href="#数据保护" class="headerlink" title="数据保护"></a>数据保护</h2><p>Apple 推出了数据保护API作为额外的保护层，它允许开发者指定文件解密密钥的生命周期。可以使用这个API控制文件的访问权限，与钥匙串项目中的kSecAttrAccessible 属性类似。</p>
 <p>数据保护API使用用户密码和层级密钥来加密保护文件的密钥，而当这些文件不能被访问时，会从内存中删除这个层级密钥。</p>
-<h3 id="文件保护过程"><a href="#文件保护过程" class="headerlink" title="文件保护过程"></a>文件保护过程</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_2.png" alt="文件保护过程" title="">
-                </div>
-                <div class="image-caption">文件保护过程</div>
-            </figure>
+<h3 id="文件保护过程"><a href="#文件保护过程" class="headerlink" title="文件保护过程"></a>文件保护过程</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_2.png" alt="文件保护过程"></p>
 <p>1.文件生成一个<code>文件密钥</code>来加密文件的内容。</p>
 <p>2.生成一个额外的密钥对，用于生成<code>文件公钥</code>和<code>文件私钥</code>。</p>
 <p>3.用<code>文件私钥</code>和<code>Protected Unless Open等级公钥</code>计算出一个<code>共享密码</code>。</p>
@@ -155,13 +149,7 @@
 <h3 id="DataProtectionClass-权限"><a href="#DataProtectionClass-权限" class="headerlink" title="DataProtectionClass 权限"></a>DataProtectionClass 权限</h3><p>如果你的应用在设备进入后台或锁定时不需要写入或读取文件，那你就可以在工程中配置一个<code>NSFileProtectionComplete</code>值来添加权限。这将确保所有受保护的文件数据只能在设备解锁时访问，相当于为所有的应用文件都设置<code>kSecAttrAccessibleWhenUnlocked</code>选项。</p>
 <p>从Xcode5开始，新工程会默认启用数据保护权限，但是一些旧工程并不会自动开启。</p>
 <p>开启方式如下图：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_1.png?imageView2/2/w/800" alt="开启DataProtectionClass权限" title="">
-                </div>
-                <div class="image-caption">开启DataProtectionClass权限</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_1.png?imageView2/2/w/800" alt="开启DataProtectionClass权限"></p>
 <h3 id="使用范例-1"><a href="#使用范例-1" class="headerlink" title="使用范例"></a>使用范例</h3><h4 id="NSDataWritingFileProtectionComplete"><a href="#NSDataWritingFileProtectionComplete" class="headerlink" title="NSDataWritingFileProtectionComplete"></a>NSDataWritingFileProtectionComplete</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = [self generateData];</span><br><span class="line">NSError *error = nil;</span><br><span class="line">NSString *path = [NSString stringWithFormat:@&quot;%@_demo.pdf&quot;, NSTemporaryDirectory()];</span><br><span class="line">[data writeToFile:path options:NSDataWritingFileProtectionComplete error:&amp;error];</span><br><span class="line">if (error) &#123;</span><br><span class="line">	NSLog(@&quot;%@&quot;, error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="NSFileProtectionComplete"><a href="#NSFileProtectionComplete" class="headerlink" title="NSFileProtectionComplete"></a>NSFileProtectionComplete</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@&quot;demo.txt&quot;];</span><br><span class="line">NSError *error = nil;</span><br><span class="line">NSDictionary *attr = [NSDictionary dictionaryWithObject:NSFileProtectionComplete forKey:NSFileProtectionKey];</span><br><span class="line">[[NSFileManager defaultManager] setAttributes:attr ofItemAtPath:path error:&amp;error];</span><br><span class="line">if (error) &#123;</span><br><span class="line">	NSLog(@&quot;%@&quot;, error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="SQLITE-OPEN-FILEPROTECTION-COMPLETEUNLESSOPEN"><a href="#SQLITE-OPEN-FILEPROTECTION-COMPLETEUNLESSOPEN" class="headerlink" title="SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN"></a>SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@&quot;demo.sqlite&quot;];</span><br><span class="line">sqlite3 *handle = NULL;</span><br><span class="line">sqlite3_open_v2([path UTF8String],</span><br><span class="line">                &amp;handle,</span><br><span class="line">                SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN,</span><br><span class="line">                NULL);</span><br></pre></td></tr></table></figure>
@@ -181,39 +169,15 @@
 <h3 id="Touch-ID-与普通密码相比的安全性"><a href="#Touch-ID-与普通密码相比的安全性" class="headerlink" title="Touch ID 与普通密码相比的安全性"></a>Touch ID 与普通密码相比的安全性</h3><p>一个人的指纹是世界上最好的密码之一。它独一无二，高度特异，并且无需记忆。它会伴随人终生，所以你可以一直使用同一个指纹密码。</p>
 <p>比起简单的4位数字锁屏密码一万分之一的破解可能性，能找到同样单个指纹的人的概率为五万分之一，这是非常安全的，比起前者我可以不断尝试，Touch ID 指纹的硬性破解几率几乎没有，因为不可能有五万多个人排队来一一解锁你的设备，况且 Touch ID 会拒绝第五次以后的尝试而要求输入密码。所以我们可以添加更加复杂的密码而不是简单的数字密码来进一步提高安全性。</p>
 <h3 id="Touch-ID-指纹识别的原理"><a href="#Touch-ID-指纹识别的原理" class="headerlink" title="Touch ID 指纹识别的原理"></a>Touch ID 指纹识别的原理</h3><p>在如此快速的识别过程中，Home 按钮上的一圈金属环起到了感应手指的功能，通知 Touch ID 来读取指纹。Touch ID 置于该按钮中，传感器的厚度只有 170 微米，拥有 500 ppi 高分辨率，可读取极小的指纹细节。传感器可从皮肤皮下层指纹的一些小部分拍摄高分辨率图像，然后会分析该信息，根据三种基本指纹类型（弧形纹、箕形纹或斗形纹）将指纹分类，它会绘制比人眼不可见的纹路细节，确保指纹读取准确无误。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_3.png" alt="touch id sensor" title="">
-                </div>
-                <div class="image-caption">touch id sensor</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_3.png" alt="touch id sensor"></p>
 <p>Touch ID 可从 360 度方向读取指纹，随后创建指纹的某种数学表达式，并将其与已注册的数据进行比较，以确定是否匹配。如果匹配，便可替代密码来解锁设备或通过某个令牌。</p>
 <p>此外，根据苹果官方的描述，Touch ID 会向以注册的指纹数据里持续的添加新的特征数据，随着时间的推移，这能不断提高匹配准确度，也能进一步的提高安全性。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_4.png" alt="touch id ontouch" title="">
-                </div>
-                <div class="image-caption">touch id ontouch</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_4.png" alt="touch id ontouch"></p>
 <p>除了上述的内容，苹果还加入可以一些有效的手段来进一步确保安全，例如设备再重新启动或者保持锁定 48 小时后，就只能通过密码而不是指纹来解锁设备。</p>
 <h3 id="Secure-Enclave"><a href="#Secure-Enclave" class="headerlink" title="Secure Enclave"></a>Secure Enclave</h3><p>Apple声明指纹的图案不会被保存，存储于设备中的是指纹特征的数学表达式，而且从这些表达式不可能直接反推出指纹图像。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_5.png" alt="touch-id-structure" title="">
-                </div>
-                <div class="image-caption">touch-id-structure</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_5.png" alt="touch-id-structure"></p>
 <p>指纹的验证运算独立于主要处理器芯片（例如 A7、A8），芯片内有称为 “Secure Enclave” 的高级安全架构，专用于密码指纹数据，并使用 Secure Enclave 的专用密钥加密，以及每次启动以随机的 UID 进行管理。指纹数据仅能被 Secure Enclave 处理和使用，正因为此架构独立于其它设备部件，仅有 Touch ID 使用它，且不能将它用于匹配其他指纹数据库，所以存储的指纹数据不会由 iOS 或其他应用访问，也不会被存储到 Apple 服务器或备份到 iCloud 等地方。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_6.png" alt="A7-Secure-Enclave" title="">
-                </div>
-                <div class="image-caption">A7-Secure-Enclave</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_6.png" alt="A7-Secure-Enclave"></p>
 <p>从硬件上来看指纹特征数据尚不能被 “Secure Enclave” 和 Touch ID 以外的部件访问到，并且两者芯片互相隔离开来，所有软件都没有权利获得指纹数据，仅能得到指纹是否错误的回馈。因为架构的核心秘密仅仅只有苹果公司知道，所以目前几乎没有第三方软件可以访问到这部分敏感信息。</p>
 <p>到此，关于 iOS 数据保护的问题暂时告一段落。欢迎大家评论指正。</p>
 ]]></content>
@@ -276,40 +240,17 @@
 <h3 id="附图"><a href="#附图" class="headerlink" title="附图"></a>附图</h3><ul>
 <li>打开Preferences</li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_1.png" alt="打开Preferences" title="">
-                </div>
-                <div class="image-caption">打开Preferences</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_2.png" alt="选择more" title="">
-                </div>
-                <div class="image-caption">选择more</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_1.png" alt="打开Preferences"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_2.png" alt="选择more"></p>
 <ul>
 <li>打开Project Interpreters</li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_3.png" alt="选择正确的tensorflow路径" title="">
-                </div>
-                <div class="image-caption">选择正确的tensorflow路径</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_3.png" alt="选择正确的tensorflow路径"></p>
 <ul>
 <li>Demo运行结果</li>
 </ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_4.png" alt="demo运行结果" title="">
-                </div>
-                <div class="image-caption">demo运行结果</div>
-            </figure>]]></content>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensorflow_pycharm_config_mac_4.png" alt="demo运行结果"></p>
+]]></content>
     
     <summary type="html">
     
@@ -339,13 +280,7 @@
 <h2 id="启动时间"><a href="#启动时间" class="headerlink" title="启动时间"></a>启动时间</h2><p>总时间 = T1 + T2</p>
 <h3 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h3><p>加载<code>系统dylib</code>和<code>可执行文件</code>的时间。</p>
 <h3 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h3><p>从<code>main</code>到<code>applicationWillFinishLaunching</code>结束的时间。</p>
-<h2 id="App启动过程"><a href="#App启动过程" class="headerlink" title="App启动过程"></a>App启动过程</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-1.png" alt="App启动过程" title="">
-                </div>
-                <div class="image-caption">App启动过程</div>
-            </figure>
+<h2 id="App启动过程"><a href="#App启动过程" class="headerlink" title="App启动过程"></a>App启动过程</h2><p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-1.png" alt="App启动过程"></p>
 <p>1）解析<code>Info.plist</code></p>
 <ul>
 <li>加载相关信息，例如如闪屏</li>
@@ -367,13 +302,7 @@
 <li>调用<code>applicationWillFinishLaunching</code></li>
 </ul>
 <h3 id="Mach-O"><a href="#Mach-O" class="headerlink" title="Mach-O"></a>Mach-O</h3><p>Mach-O 是针对不同运行时可执行文件的文件类型。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-4.png" alt="Mach-O" title="">
-                </div>
-                <div class="image-caption">Mach-O</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-4.png" alt="Mach-O"></p>
 <h4 id="文件类型："><a href="#文件类型：" class="headerlink" title="文件类型："></a>文件类型：</h4><p>Executable： 应用的主要二进制</p>
 <p>Dylib： 动态链接库（又称 DSO 或 DLL）</p>
 <p>Bundle： 不能被链接的 Dylib，只能在运行时使用 dlopen() 加载，可当做 macOS 的插件。</p>
@@ -403,20 +332,8 @@
 <h3 id="热启动"><a href="#热启动" class="headerlink" title="热启动"></a>热启动</h3><p>应用非首次启动。即后台线程中保留有当前应用，应用的资源在内存中有保存。</p>
 <h2 id="启动时间分析"><a href="#启动时间分析" class="headerlink" title="启动时间分析"></a>启动时间分析</h2><p>1）开启时间分析功能</p>
 <p>在Xcode的菜单中选择<code>Project</code>→<code>Scheme</code>→<code>Edit Scheme...</code>，然后找到<code>Run</code> → <code>Environment Variables</code> →<code>+</code>，添加<code>name</code>为<code>DYLD_PRINT_STATISTICSvalue</code>为<code>1</code>的环境变量。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-2.png" alt="开启时间分析功能" title="">
-                </div>
-                <div class="image-caption">开启时间分析功能</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-3.png" alt="启动时间" title="">
-                </div>
-                <div class="image-caption">启动时间</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-2.png" alt="开启时间分析功能"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-3.png" alt="启动时间"></p>
 <h3 id="load-dylibs-image"><a href="#load-dylibs-image" class="headerlink" title="load dylibs image"></a>load dylibs image</h3><p>在每个动态库的加载过程中， dyld需要：</p>
 <p>1.分析所依赖的动态库</p>
 <p>2.找到动态库的mach-o文件</p>
@@ -494,13 +411,7 @@
 <p>所选前缀可以是与公司、应用程序或二者皆有关联之名。例如，ZAKER User Interface可以使用ZUI作为前缀。使用Cocoa创建应用程序时一定要注意，Apple宣称其保留使用所有“两字母前缀”(two-letter prefix)的权利，所以开发者选用的前缀应该是三个字母的。如果开发者使用了两个字母作前缀，那么很有可能开发者自定义的API和Apple的API冲突。</p>
 <p>不仅仅是类名，应用程序中的所有名称都应该加前缀。如果要为既有类新增“分类”(category)，那么一定要给“分类”及“分类”中的方法加上前缀。另外，类的实现文件中所用的纯C函数及全局变量也应该注意添加前缀。</p>
 <p>如果使用了第三方库编写自己的代码，并准备将其发布为程序库供他人开发应用程序所用，则尤其要注意重复符号问题。这种情况下为了避免使用者使用了与你相同的第三方库，应该为第三方库都加上你自己的前缀。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400" alt="第三方库引入使用前缀" title="">
-                </div>
-                <div class="image-caption">第三方库引入使用前缀</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400" alt="第三方库引入使用前缀"></p>
 <h3 id="命名方式"><a href="#命名方式" class="headerlink" title="命名方式"></a>命名方式</h3><p>类、方法和变量的命名是Objective-C编程的重要环节。如果命名方式好，可以提高代码可读性，减少不必要的注释。<br>初学者通常会觉得Objective-C是门很繁琐的语言，因为其语法结构使得代码读起来和句子一样。命名中一般都带有“in”、“for”、“with”等介词，特别是在命名时还要讲究英文语法。例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *text = @&quot;This is a good idea.&quot;;</span><br><span class="line">NSString *newText = [text stringByReplacingOccurrencesOfString:@&quot;idea&quot; withString:@&quot;think&quot;];</span><br></pre></td></tr></table></figure>
 <p>上面的代码虽然用了比较啰嗦的方式描述一个看上去很简单的表达式。对于执行替换的那个方法，代码读起来就像日常语言里的那个句子：“Take text and give me a new string by replacing the occurrences of the string ‘idea’ with the string ‘think’”。<br>这个句子准确描述了开发者想做的事。在命名不像Objective-C这般繁琐的语言中，类似的程序可能会写成：</p>
@@ -577,21 +488,9 @@
 <p>copy方法由NSObject实现，该方法只是以“默认区”为参数来调用<code>copyWithZone:</code>。我们总是想覆写copy方法，其实真正需要实现的是<code>copyWithZone:</code>方法。若想使某个类支持拷贝功能，只需声明该类遵从NSCopying协议，并实现其中的那个方法即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (id)copyWithZone:(NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    ZKRRectangle *copy = [[[self class] allocWithZone:zone] initWithWidth:_width height:_height];</span><br><span class="line">    return copy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>说到copy方法，除了NSString这样的不可变类型的copy，与之类似的还有NSMutableString类的<code>mutableCopy</code>方法。与<code>copyWithZone:</code>方法相对应的可变内容的copy方法<code>mutableCopyWithZone:</code>方法来自于<code>NSMutableCopying</code>协议。如果你的类分为可变版本(mutable)与不可变版本(immutable)，那么就应该实现NSMutableCopying协议。若采用此模式，则在可变类中覆写<code>copyWithZone:</code>方法时，不要返回可变的拷贝，而应该返回一份不可变的版本。无论当前实例是否可变，需要获取其可变版本的拷贝，均应调用mutableCopy方法；获取不可变版本的拷贝，则总应该通过copy方法。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-2.png?imageView/2/w/500" alt="mutableCopy和copy类" title="">
-                </div>
-                <div class="image-caption">mutableCopy和copy类</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-2.png?imageView/2/w/500" alt="mutableCopy和copy类"></p>
 <p>深拷贝就是在拷贝对象自身时，将其底层数据也一并复制过去。<br>浅拷贝就是在拷贝对象时，只拷贝容器对象本身，而不复制其中数据。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400" alt="深拷贝和浅拷贝比较" title="">
-                </div>
-                <div class="image-caption">深拷贝和浅拷贝比较</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400" alt="深拷贝和浅拷贝比较"></p>
 ]]></content>
     
     <summary type="html">
@@ -625,36 +524,18 @@
 <h2 id="什么是像素"><a href="#什么是像素" class="headerlink" title="什么是像素"></a>什么是像素</h2><p>像素，为视频显示的基本单位，译自英文“pixel”，pix是英语单词picture的常用简写，加上英语单词“元素”element，就得到pixel，故“像素”表示“画像元素”之意，有时亦被称为pel（picture element）。每个这样的消息元素不是一个点或者一个方块，而是一个抽象的取样。像素是由红，绿，蓝三种颜色组件构成的。因此，位图数据有时也被叫做 RGB 数据。</p>
 <h2 id="显示机制"><a href="#显示机制" class="headerlink" title="显示机制"></a>显示机制</h2><p>一个像素是如何绘制到屏幕上去的？有很多种方式将一些东西映射到显示屏上，他们需要调用不同的框架、许多功能和方法的结合体。这里我们大概看一下屏幕之后发生的事情。</p>
 <p>图像想显示到屏幕上使人肉眼可见都需借助像素的力量。它们密集的排布在手机屏幕上，将任何图形通过不同的色值表现出来。计算机显示的流程大致可以描述为将图像转化为一系列像素点的排列然后打印在屏幕上，由图像转化为像素点的过程又可以称之为光栅化，就是从矢量的点线面的描述，变成像素的描述。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300" alt="display screen" title="">
-                </div>
-                <div class="image-caption">display screen</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300" alt="display screen"></p>
 <p>回溯历史，可以从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。</p>
 <h3 id="关于卡顿的简单原理解释"><a href="#关于卡顿的简单原理解释" class="headerlink" title="关于卡顿的简单原理解释"></a>关于卡顿的简单原理解释</h3><p>在 VSync 信号到来后，系统图形服务会通过 CADisplayLink 等机制通知 App，App 主线程开始在 CPU 中计算显示内容，比如视图的创建、布局计算、图片解码、文本绘制等。随后 CPU 会将计算好的内容提交到 GPU 去，由 GPU 进行变换、合成、渲染。随后 GPU 会把渲染结果提交到帧缓冲区去，等待下一次 VSync 信号到来时显示到屏幕上。由于垂直同步的机制，如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。这就是界面卡顿的原因。</p>
 <p>CPU 和 GPU 不论哪个阻碍了显示流程，都会造成掉帧现象。所以开发时，也需要分别对 CPU 和 GPU 压力进行评估和优化。</p>
 <h2 id="渲染机制"><a href="#渲染机制" class="headerlink" title="渲染机制"></a>渲染机制</h2><p>当像素映射到屏幕上的时候，后台发生了很多事情。但一旦它们显示到屏幕上，每一个像素均由三个颜色组件构成：红，绿，蓝。三个独立的颜色单元会根据给定的颜色显示到一个像素上。在 iPhoneSE 的显示器上有1,136×640=727,040个像素，因此有2,181,120个颜色单元。在一些Retina屏幕上，这一数字将达到百万以上。所有的图形堆栈一起工作以确保每次正确的显示。当你滚动整个屏幕的时候，数以百万计的颜色单元必须以每秒60次的速度刷新，这就是一个很大的工作量。</p>
-<p>简单来说，iOS的显示机制大致如此：<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png" alt="pixels software stack" title="">
-                </div>
-                <div class="image-caption">pixels software stack</div>
-            </figure></p>
+<p>简单来说，iOS的显示机制大致如此：<br><img src="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png" alt="pixels software stack"></p>
 <p>Display 的上一层便是图形处理单元 GPU，GPU 是一个专门为图形高并发计算而量身定做的处理单元。这也是为什么它能同时更新所有的像素，并呈现到显示器上。它的并发本性让它能高效的将不同纹理合成起来。所以，开发中我们应该尽量让CPU负责主线程的UI调动，把图形显示相关的工作交给GPU来处理。</p>
 <p>GPU Driver 是直接和 GPU 交流的代码块。不同的GPU是不同的性能怪兽，但是驱动使它们在下一个层级上显示的更为统一，典型的下一层级有 OpenGL/OpenGL ES.</p>
 <p>OpenGL(Open Graphics Library) 是一个提供了 2D 和 3D 图形渲染的 API。GPU 是一块非常特殊的硬件，OpenGL 和 GPU 密切的工作以提高GPU的能力，并实现硬件加速渲染。</p>
 <p>OpenGL 之上扩展出很多东西。在 iOS 上，几乎所有的东西都是通过 Core Animation 绘制出来，然而在 OS X 上，绕过 Core Animation 直接使用 Core Graphics 绘制的情况并不少见。对于一些专门的应用，尤其是游戏，程序可能直接和 OpenGL/OpenGL ES 交流。</p>
 <p>需要强调的是，GPU 是一个非常强大的图形硬件，并且在显示像素方面起着核心作用。它连接到 CPU。从硬件上讲两者之间存在某种类型的总线，并且有像 OpenGL，Core Animation 和 Core Graphics 这样的框架来在 GPU 和 CPU 之间精心安排数据的传输。为了将像素显示到屏幕上，一些处理将在 CPU 上进行。然后数据将会传送到 GPU，最终像素显示到屏幕上。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png" alt="pixels hardware" title="">
-                </div>
-                <div class="image-caption">pixels hardware</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png" alt="pixels hardware"></p>
 <p>正如上图显示，GPU 需要将每一个 frame 的纹理(位图)合成在一起(一秒60次)。每一个纹理会占用 VRAM(video RAM)，所以需要给 GPU 同时保持纹理的数量做一个限制。GPU 在合成方面非常高效，但是某些合成任务却比其他更复杂，并且 GPU在 16.7ms(1/60s)内能做的工作也是有限的。</p>
 <p>另外一个问题就是将数据传输到 GPU 上。为了让 GPU 访问数据，需要将数据从 RAM 移动到 VRAM 上。这就是提及到的上传数据到 GPU。这些看起来貌似微不足道，但是一些大型的纹理却会非常耗时。</p>
 <p>最终，CPU 开始运行程序。你可能会让 CPU 从 bundle 加载一张 PNG 的图片并且解压它。这所有的事情都在 CPU 上进行。然后当你需要显示解压缩后的图片时，它需要以某种方式上传到 GPU。一些看似平凡的，比如显示文本，对 CPU 来说却是一件非常复杂的事情，这会促使 Core Text 和 Core Graphics 框架更紧密的集成来根据文本生成一个位图。一旦准备好，它将会被作为一个纹理上传到 GPU 并准备显示出来。当你滚动或者在屏幕上移动文本时，同样的纹理能够被复用，CPU 只需简单的告诉 GPU 新的位置就行了,所以 GPU 就可以重用存在的纹理了。CPU 并不需要重新渲染文本，并且位图也不需要重新上传到 GPU。</p>
@@ -794,54 +675,24 @@
     
     <content type="html"><![CDATA[<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。</p>
 <a id="more"></a>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree.png" alt="binary search tree" title="">
-                </div>
-                <div class="image-caption">binary search tree</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree.png" alt="binary search tree"></p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>二叉排序树的查找过程和次优二叉树类似，通常采取二叉链表作为二叉排序树的存储结构。中序遍历二叉排序树可得到一个关键字的有序序列，一个无序序列可以通过构造一棵二叉排序树变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。每次插入的新的节点都是二叉排序树上新的叶子节点，在进行插入操作时，不必移动其它节点，只需改动某个节点的指针，由空变为非空即可。搜索，插入，删除的复杂度等于树高，O(log(n))。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="树节点"><a href="#树节点" class="headerlink" title="树节点"></a>树节点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">/** 二叉树节点 */</span><br><span class="line">@interface DDBinaryTreeNode : NSObject</span><br><span class="line"></span><br><span class="line">/** 值 */</span><br><span class="line">@property (nonatomic, assign) NSInteger value;</span><br><span class="line">/** 左节点 */</span><br><span class="line">@property (nonatomic, strong) DDBinaryTreeNode *leftNode;</span><br><span class="line">/** 右节点 */</span><br><span class="line">@property (nonatomic, strong) DDBinaryTreeNode *rightNode;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>二叉排序树的创建无非就是不断查找和插入的过程，当我们查找某个值没有找到时，我们就会将该值插入到二叉排序树中。因为在查找的过程中可以确定该结点要插入的合适位置，所以插入就显得比较简单了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@class DDBinaryTreeNode;</span><br><span class="line"></span><br><span class="line">@interface DDBinarySearchTreeHandler : NSObject</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  创建二叉排序树</span><br><span class="line"> *  二叉排序树：左节点值全部小于根节点值，右节点值全部大于根节点值</span><br><span class="line"> *</span><br><span class="line"> *  @param values 数组</span><br><span class="line"> *</span><br><span class="line"> *  @return 二叉树根节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  向二叉排序树节点添加一个节点</span><br><span class="line"> *</span><br><span class="line"> *  @param treeNode 根节点</span><br><span class="line"> *  @param value	值</span><br><span class="line"> *</span><br><span class="line"> *  @return 根节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  二叉搜索树中某个值的节点</span><br><span class="line"> *</span><br><span class="line"> *  @param value	值</span><br><span class="line"> *  @param rootNode 树根节点</span><br><span class="line"> *</span><br><span class="line"> *  @return 节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values</span><br><span class="line">&#123;</span><br><span class="line">    DDBinaryTreeNode *root = nil;</span><br><span class="line">    for (NSInteger i = 0; i &lt; values.count; i++) &#123;</span><br><span class="line">        NSInteger value = [(NSNumber *)[values objectAtIndex:i] integerValue];</span><br><span class="line">        root = [DDBinarySearchTreeHandler addTreeNode:root value:value];</span><br><span class="line">    &#125;</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h3><p>根据查找树的性质我们可以很简单的写出添加的代码，一个一个的比较，注意每插入的一个总是叶子节点。再进行调整。最终形成的效果图如下：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-01.png" alt="添加节点" title="">
-                </div>
-                <div class="image-caption">添加节点</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-01.png" alt="添加节点"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value</span><br><span class="line">&#123;</span><br><span class="line">    if (!treeNode) &#123;</span><br><span class="line">        treeNode = [[DDBinaryTreeNode alloc] init];</span><br><span class="line">        treeNode.value = value;</span><br><span class="line">        NSLog(@&quot;node:%td&quot;, value);</span><br><span class="line">    &#125; else if (value &lt;= treeNode.value) &#123;</span><br><span class="line">        NSLog(@&quot;to left&quot;);</span><br><span class="line">        //值小于根节点，则插入到左子树</span><br><span class="line">        treeNode.leftNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.leftNode value:value];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;to right&quot;);</span><br><span class="line">        //值大于根节点，则插入到右子树</span><br><span class="line">        treeNode.rightNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.rightNode value:value];</span><br><span class="line">    &#125;</span><br><span class="line">    return treeNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="查找节点"><a href="#查找节点" class="headerlink" title="查找节点"></a>查找节点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode</span><br><span class="line">&#123;</span><br><span class="line">    if (!rootNode) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (rootNode.value == value) &#123;</span><br><span class="line">        return rootNode;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (value &lt; rootNode.value) &#123;</span><br><span class="line">        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.leftNode];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.rightNode];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><p>对于树来说，删除是最复杂的，主要需要考虑4种情况：叶子节点，只有左子树，只有右子树和左右子树都有。</p>
 <h4 id="叶子节点"><a href="#叶子节点" class="headerlink" title="叶子节点"></a>叶子节点</h4><p>删除的节点没有左子树也没有右子树，也就是删除的节点为叶子节点。这种情况下我们有可以细分为两类，一种是该叶子节点就是二叉排序树的根节点，也就是二叉排序树中只有一个节点的情况。只需要将root指针置为空即可。再一种情况是删除的叶子节点有父节点，直接将父节点连接该删除节点的指针置空即可。</p>
 <h4 id="只有一个子节点"><a href="#只有一个子节点" class="headerlink" title="只有一个子节点"></a>只有一个子节点</h4><p>如果删除的节点有左子树那就把左子树顶上去，如果有右子树就把右子树顶上去即可。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-03.png?v=20170612" alt="左子树节点" title="">
-                </div>
-                <div class="image-caption">左子树节点</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-03.png?v=20170612" alt="左子树节点"></p>
 <h4 id="左右子树都有"><a href="#左右子树都有" class="headerlink" title="左右子树都有"></a>左右子树都有</h4><p>首先可以这么想象，如果我们要删除一个数组的元素，那么我们在删除后会将其后面的一个元素顶到被删除的位置。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-04.png?v=20170612" alt="双孩子节点1" title="">
-                </div>
-                <div class="image-caption">双孩子节点1</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-04.png?v=20170612" alt="双孩子节点1"></p>
 <p>那么二叉树操作同样也是一样，我们根据”中序遍历“找到要删除节点的后一个节点，然后顶上去就行了，原理跟”数组”一样一样的。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-05.png?v=20170612.png" alt="双孩子节点2" title="">
-                </div>
-                <div class="image-caption">双孩子节点2</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-05.png?v=20170612.png" alt="双孩子节点2"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">+ (void)deleteTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode</span><br><span class="line">&#123;</span><br><span class="line">    DDBinaryTreeNode *parent = rootNode;</span><br><span class="line">    DDBinaryTreeNode *current = rootNode;</span><br><span class="line">    // 记录被找到的节点是父节点的左子节点还是右子节点</span><br><span class="line">    BOOL isLeftChild = false;</span><br><span class="line">    // 循环直到找到目标节点的位置,否则返回</span><br><span class="line">    while (current.value != value) &#123;</span><br><span class="line">        parent = current;</span><br><span class="line">        if (current.value &gt; value) &#123;</span><br><span class="line">            isLeftChild = true;</span><br><span class="line">            current = current.leftNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            isLeftChild = false;</span><br><span class="line">            current = current.rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">        if (current == nil) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点没有任何子节点</span><br><span class="line">    // 直接将该节点的原本指向该节点的指针设置为nil</span><br><span class="line">    if (current.leftNode == nil &amp;&amp; current.rightNode == nil) &#123;</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = nil;</span><br><span class="line">        &#125;</span><br><span class="line">        if (isLeftChild == true) &#123;</span><br><span class="line">            parent.leftNode = nil;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点有一个子节点,且其为左子节点</span><br><span class="line">    else if (current.rightNode == nil) &#123;</span><br><span class="line">        // 判断当前节点是否为根节点</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = current.leftNode;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            // 挂载到父节点的左子树</span><br><span class="line">            parent.leftNode = current.leftNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 挂载到父节点的右子树</span><br><span class="line">            parent.rightNode = current.leftNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (current.leftNode == nil) &#123;</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = current.rightNode;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            parent.leftNode = current.rightNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = current.rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点有两个子节点</span><br><span class="line">    else if (current.leftNode != nil &amp;&amp; current.rightNode != nil) &#123;</span><br><span class="line">        // 寻找右子树中的最小值</span><br><span class="line">        DDBinaryTreeNode *successor = [DDBinarySearchTreeHandler successor:current];</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = successor;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            parent.leftNode = successor;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = successor;</span><br><span class="line">        &#125;</span><br><span class="line">        successor.leftNode = current.leftNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> 在树中查找最合适的节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)successor:(DDBinaryTreeNode *)node &#123;</span><br><span class="line">    DDBinaryTreeNode *successsor = nil;</span><br><span class="line">    DDBinaryTreeNode *successsorParent = nil;</span><br><span class="line">    DDBinaryTreeNode *current = node.rightNode;</span><br><span class="line">    while (current != nil) &#123;</span><br><span class="line">        successsorParent = successsor;</span><br><span class="line">        successsor = current;</span><br><span class="line">        current = current.leftNode;</span><br><span class="line">    &#125;</span><br><span class="line">    if (successsor != node.rightNode) &#123;</span><br><span class="line">        successsorParent.leftNode = successsor.rightNode;</span><br><span class="line">        successsor.rightNode = node.rightNode;</span><br><span class="line">    &#125;</span><br><span class="line">    return successsor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
@@ -870,13 +721,7 @@
     
     <content type="html"><![CDATA[<p>TensorFlow 是一个采用数据流图（data flow graphs），用于数值计算的开源软件库。节点（Nodes）在图中表示数学操作，图中的线（edges）则表示在节点间相互联系的多维数据数组，即张量（tensor）。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。</p>
 <a id="more"></a>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/tensors_flowing.gif" alt="tensors_flowing" title="">
-                </div>
-                <div class="image-caption">tensors_flowing</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensors_flowing.gif" alt="tensors_flowing"></p>
 <h2 id="什么是数据流图（Data-Flow-Graph）"><a href="#什么是数据流图（Data-Flow-Graph）" class="headerlink" title="什么是数据流图（Data Flow Graph）"></a>什么是数据流图（Data Flow Graph）</h2><p>数据流图用“结点”(nodes)和“线”(edges)的有向图来描述数学计算。“节点” 一般用来表示施加的数学操作，但也可以表示数据输入(feed in)的起点/输出(push out)的终点，或者是读取/写入持久变量(persistent variable)的终点。“线”表示“节点”之间的输入/输出关系。这些数据“线”可以输运“size可动态调整”的多维数据数组，即“张量”(tensor)。张量从图中流过的直观图像是这个工具取名为“Tensorflow”的原因。一旦输入端的所有张量准备好，节点将被分配到各种计算设备完成异步并行地执行运算。</p>
 <h2 id="TensorFlow的特征"><a href="#TensorFlow的特征" class="headerlink" title="TensorFlow的特征"></a>TensorFlow的特征</h2><ul>
 <li>高度的灵活性</li>
@@ -1201,14 +1046,7 @@
 </ul>
 <p>示例</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line">CREATE FUNCTION f1() RETURNS VARCHAR(30) RETURN DATE_FORMAT(NOW(), &apos;%Y-%m-%d %H:%i:%s&apos;);</span><br><span class="line"></span><br><span class="line"># 带参数</span><br><span class="line">CREATE FUNCTION f2(num1 SMALLINT UNSIGNED, num2 SMALLINT UNSIGNED) RETURNS FLOAT(10, 2) UNSIGNED RETURN (num1 + num2) / 2;</span><br><span class="line"></span><br><span class="line"># 具有复合结构函数体</span><br><span class="line"># 可能需要使用DELIMITER命令修改分隔符</span><br><span class="line">CREATE FUNCTION f3(username VARCHAR(20)) RETURNS INT UNSIGNED </span><br><span class="line">BEGIN </span><br><span class="line">INSERT test(username) VALUES(username);</span><br><span class="line">RETURN LAST_INSERT_ID();</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
-<h1 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2 存储过程"></a>2 存储过程</h1><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-22.png" alt="命令执行流程" title="">
-                </div>
-                <div class="image-caption">命令执行流程</div>
-            </figure>
-<p>存储过程是SQL语句和控制语句的预编译集合，以一个名称存储作为一个单元处理。可以由用户调用执行，允许用户声明变量以及进行流程控制。存储过程可以接收输入类型的参数，也可以接收输出类型的参数，并可以存在多个返回值。执行效率比单一的SQL语句高。</p>
+<h1 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2 存储过程"></a>2 存储过程</h1><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-22.png" alt="命令执行流程"><br>存储过程是SQL语句和控制语句的预编译集合，以一个名称存储作为一个单元处理。可以由用户调用执行，允许用户声明变量以及进行流程控制。存储过程可以接收输入类型的参数，也可以接收输出类型的参数，并可以存在多个返回值。执行效率比单一的SQL语句高。</p>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
 <li>增强SQL语句的功能和灵活性</li>
 </ul>
@@ -1392,21 +1230,9 @@
 <li>FOREIGN KEY 外键约束</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE t6(id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20) NOT NULL UNIQUE KEY, sex ENUM(&apos;1&apos;, &apos;2&apos;, &apos;3&apos;) DEFAULT &apos;3&apos;);</span><br></pre></td></tr></table></figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png" alt="t6表结构" title="">
-                </div>
-                <div class="image-caption">t6表结构</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png" alt="t6表结构"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT t6 (username) VALUES (&apos;Chars&apos;);</span><br></pre></td></tr></table></figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png" alt="t6表插入值" title="">
-                </div>
-                <div class="image-caption">t6表插入值</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png" alt="t6表插入值"></p>
 <h3 id="空值与非空值"><a href="#空值与非空值" class="headerlink" title="空值与非空值"></a>空值与非空值</h3><p>NULL，字段值可以为空。</p>
 <p>NOT NULL，字段值禁止为空。不存在表级约束。</p>
 <h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p>主键约束。</p>
@@ -1442,20 +1268,8 @@
 <p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table provinces(id smallint unsigned primary key auto_increment, pname varchar(20) not null);</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table users(id smallint unsigned primary key auto_increment, username varchar(10) not null, pid bigint, foreign key(pid) references provinces(id));</span><br><span class="line"></span><br><span class="line"># 报错</span><br><span class="line"># ERROR 1215 (HY000): Cannot add foreign key constraint</span><br><span class="line"># 因为类型不匹配</span><br><span class="line"></span><br><span class="line"># 正确命令应该是：</span><br><span class="line">create table users(id smallint unsigned primary key auto_increment, username varchar(10) not null, pid smallint unsigned, foreign key(pid) references provinces(id));</span><br></pre></td></tr></table></figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png" alt="provinces表索引结构" title="">
-                </div>
-                <div class="image-caption">provinces表索引结构</div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png" alt="users表索引结构" title="">
-                </div>
-                <div class="image-caption">users表索引结构</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png" alt="provinces表索引结构"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png" alt="users表索引结构"></p>
 <h3 id="表级约束和列级约束"><a href="#表级约束和列级约束" class="headerlink" title="表级约束和列级约束"></a>表级约束和列级约束</h3><p>对一个数据列建立的约束，称为列级约束。</p>
 <p>对多个数据列建立的约束，称为表级约束。</p>
 <p>列级约束既可以在列定义时声明，也可以在列定义后声明。</p>
@@ -1526,13 +1340,7 @@
 </ul>
 <h5 id="用ANY、SOME或ALL修饰的比较运算符"><a href="#用ANY、SOME或ALL修饰的比较运算符" class="headerlink" title="用ANY、SOME或ALL修饰的比较运算符"></a>用ANY、SOME或ALL修饰的比较运算符</h5><p><code>operand comparison_operator ANY(subquery)</code><br><code>operand comparison_operator SOME(subquery)</code><br><code>operand comparison_operator ALL(subquery)</code></p>
 <p>ANY、SOME、ALL关键字</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png" alt=""></p>
 <p>示例：</p>
 <ul>
 <li>查询价格大于或等于”超级本”价格的商品，并且按价格降序排列<br><code>SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price = ANY(SELECT goods_price FROM tdb_goods WHERE goods_cate = &#39;超级本&#39;) ORDER BY goods_price DESC;</code></li>
@@ -1553,30 +1361,11 @@
 <li>通过tdb_goods_cates数据表来更新tdb_goods表<br><code>UPDATE tdb_goods INNER JOIN tdb_goods_cates ON goods_cate = cate_name SET goods_cate = cate_id ;</code></li>
 </ul>
 <h3 id="多表删除"><a href="#多表删除" class="headerlink" title="多表删除"></a>多表删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE tbl_name [.*] [, tbl_name [.*]] ... FROM table_references [WHERE where_condition]</span><br></pre></td></tr></table></figure>
-<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接" title="">
-                </div>
-                <div class="image-caption">内连接</div>
-            </figure></p>
+<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接"></p>
 <h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>A LEFT JOIN B join_condition.<br>数据表B的结果集依赖数据表A。<br>数据表A的结果集根据左连接条件依赖所有数据表（B表除外）。<br>左外连接条件决定如何检索数据表B（在没有指定WHERE条件的情况下）。<br>如果数据表A的某条记录符合WHERE条件，但是在数据表B不存在符合连接条件的记录，将生成一个所有列为空的额外的B行。<br>如果使用内连接查找的记录在连接数据表中不存在，并且在WHERE子句中尝试以下操作：col_name IS NULL时，如果col_name被定义为NOT NULL，MySQL将在找到符合连接条件的记录后停止搜索更多的行。</p>
 <ul>
-<li>左外连接<br>显示左表的全部记录及右表符合连接条件的记录。<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150" alt="左外连接" title="">
-                </div>
-                <div class="image-caption">左外连接</div>
-            </figure></li>
-<li>右外连接<br>显示右表的全部记录及左表符合连接条件的记录。<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150" alt="右外连接" title="">
-                </div>
-                <div class="image-caption">右外连接</div>
-            </figure>
-</li>
+<li>左外连接<br>显示左表的全部记录及右表符合连接条件的记录。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150" alt="左外连接"></li>
+<li>右外连接<br>显示右表的全部记录及左表符合连接条件的记录。<br><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150" alt="右外连接"></li>
 </ul>
 <h3 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h3><p>使用ON关键字来设定连接条件，也可以使用WHERE来代替。<br>通常使用ON关键字来设定连接条件，使用WHERE关键字进行结果集记录的过滤。</p>
 <h3 id="无限级分类表设计"><a href="#无限级分类表设计" class="headerlink" title="无限级分类表设计"></a>无限级分类表设计</h3><ul>
@@ -1716,13 +1505,7 @@
 <h1 id="5-SQL"><a href="#5-SQL" class="headerlink" title="5 SQL"></a>5 SQL</h1><p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言。<br>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
 <p>具体参看文章<br><a href="/2017/05/19/mysql-sql-study/">《MySQL 中的SQL》</a></p>
 <h1 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6 数据类型"></a>6 数据类型</h1><p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
-<h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表" title="">
-                </div>
-                <div class="image-caption">整型表</div>
-            </figure>
+<h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表"></p>
 <h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><table>
 <thead>
 <tr>
@@ -2444,13 +2227,7 @@
 <p>print语句也可以跟上多个字符串，用逗号“,”隔开，就可以连成一串输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print &apos;The quick brown fox&apos;, &apos;jumps over&apos;, &apos;the lazy dog&apos;</span><br><span class="line">The quick brown fox jumps over the lazy dog</span><br></pre></td></tr></table></figure>
 <p>print会依次打印每个字符串，遇到逗号“,”会输出一个空格，因此，输出的字符串是这样拼起来的：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-1.jpg" alt="print解释图" title="">
-                </div>
-                <div class="image-caption">print解释图</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-1.jpg" alt="print解释图"></p>
 <p>print也可以打印整数，或者计算结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print 300</span><br><span class="line">300    #运行结果</span><br><span class="line">&gt;&gt;&gt; print 100 + 200</span><br><span class="line">300    #运行结果</span><br></pre></td></tr></table></figure>
 <p>因此，我们可以把计算100 + 200的结果打印得更漂亮一点：</p>
@@ -2489,29 +2266,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = &apos;ABC&apos;</span><br><span class="line">b = a</span><br><span class="line">a = &apos;XYZ&apos;</span><br><span class="line">print b</span><br></pre></td></tr></table></figure>
 <p>最后一行打印出变量b的内容到底是<code>&#39;ABC&#39;</code>呢还是<code>&#39;XYZ&#39;</code>？如果从数学意义上理解，就会错误地得出b和a相同，也应该是<code>&#39;XYZ&#39;</code>，但实际上b的值是<code>&#39;ABC&#39;</code>，让我们一行一行地执行代码，就可以看到到底发生了什么事：</p>
 <p>执行<code>a = &#39;ABC&#39;</code>，解释器创建了字符串<code>&#39;ABC&#39;</code>和变量<code>a</code>，并把a指向<code>&#39;ABC&#39;</code>：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-2.jpg" alt="变量图1" title="">
-                </div>
-                <div class="image-caption">变量图1</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-2.jpg" alt="变量图1"></p>
 <p>执行<code>b = a</code>，解释器创建了变量 b，并把b指向 a 指向的字符串<code>&#39;ABC&#39;</code>：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-3.jpg" alt="变量图2" title="">
-                </div>
-                <div class="image-caption">变量图2</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-3.jpg" alt="变量图2"></p>
 <p>执行<code>a = &#39;XYZ&#39;</code>，解释器创建了字符串<code>&#39;XYZ&#39;</code>，并把a的指向改为<code>&#39;XYZ&#39;</code>，但b并没有更改：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-4.jpg" alt="变量图3" title="">
-                </div>
-                <div class="image-caption">变量图3</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-4.jpg" alt="变量图3"></p>
 <p>所以，最后打印变量b的结果自然是<code>&#39;ABC&#39;</code>了。</p>
 <h2 id="字符串-1"><a href="#字符串-1" class="headerlink" title="字符串"></a>字符串</h2><h3 id="定义字符串"><a href="#定义字符串" class="headerlink" title="定义字符串"></a>定义字符串</h3><p>前面我们讲解了什么是字符串。字符串可以用<code>&#39;&#39;</code>或者<code>&quot;&quot;</code>括起来表示。</p>
 <p>如果字符串本身包含’怎么办？比如我们要表示字符串 <code>I&#39;m OK</code>，这时，可以用<code>&quot; &quot;</code>括起来表示：</p>
@@ -2643,21 +2402,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print t</span><br><span class="line">(&apos;a&apos;, &apos;b&apos;, [&apos;X&apos;, &apos;Y&apos;])</span><br></pre></td></tr></table></figure>
 <p>不是说tuple一旦定义后就不可变了吗？怎么现在又变了？</p>
 <p>别急，我们先看看定义的时候tuple包含的3个元素：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-5.jpg" alt="tuple图1" title="">
-                </div>
-                <div class="image-caption">tuple图1</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-5.jpg" alt="tuple图1"></p>
 <p>当我们把list的元素’A’和’B’修改为’X’和’Y’后，tuple变为：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-6.jpg" alt="tuple图2" title="">
-                </div>
-                <div class="image-caption">tuple图2</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/python-basic-knowledge-6.jpg" alt="tuple图2"></p>
 <p>表面上看，tuple的元素确实变了，但其实变的不是 tuple 的元素，而是list的元素。</p>
 <p>tuple一开始指向的list并没有改成别的list，所以，tuple所谓的“不变”是说，tuple的每个元素，指向永远不变。即指向’a’，就不能改成指向’b’，指向一个list，就不能改成指向其他对象，但指向的这个list本身是可变的！</p>
 <p>理解了“指向不变”后，要创建一个内容也不变的tuple怎么做？那就必须保证tuple的每一个元素本身也不能变。</p>
@@ -3076,13 +2823,7 @@
 <p>文件系统加密并不能防止从一个正在运行的设备上窃取数据的行为。如果一个App可以从磁盘中读取一个文件，那文件系统加密并没有任何用武之处，因为内核对于任何尝试读取这些文件的进程都是透明解密的。换句话说，相比那些读取文件的调用行为，文件系统加密工作都是更底层。一旦攻破者攻破了系统验证，那就能无障碍地读取任意文件。</p>
 <p>全盘加密对于以下两个安全特性是必要的：安全删除文件、远程设备擦出。iOS中使用的加密密钥是分层级的，只需要简单丢弃一个加密密钥就能彻底销毁整层的数据，甚至是销毁整个文件系统。</p>
 <h2 id="加密密钥的层级"><a href="#加密密钥的层级" class="headerlink" title="加密密钥的层级"></a>加密密钥的层级</h2><p>iOS文件系统中用于数据加密的密钥是分等级的，即用密钥来加密其它密钥，这样Apple就能更精确的控制数据什么时候可用。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-security-pattarn-01.png" alt="加密密钥层级图" title="">
-                </div>
-                <div class="image-caption">加密密钥层级图</div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-security-pattarn-01.png" alt="加密密钥层级图"></p>
 <p>文件密钥（File Key）针对每个文件独立生成，存储在文件的元数据中。</p>
 <p>层级密钥（Class Key）为数据提供不同级别的保护。</p>
 <p>文件系统密钥（Filesystem Key）是一种全局加密密钥，当元数据被层级密钥加密后，使用文件系统密钥来加密涉及文件安全的元数据。</p>
@@ -3150,13 +2891,7 @@
 </ul>
 <p>处于挂起的应用进入一种“冷冻”状态,不能执行代码。如果系统内存不够,系统就把挂起的程序清除掉，为前台程序提供更多的内存，应用会被终止。</p>
 <p>作为应用程序的委托对象，AppDelegate类在应用生命周期的不同阶段会回调不同的方法。首先，让我们先了解一下iOS 应用的不同状态及它们彼此间的关系，如下图所示 ：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-1.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-1.png" alt=""></p>
 <p>在应用状态跃迁的过程中，iOS 系统会回调AppDelegate中的一些方法，并且发送一些通知。实际上，在应用的生命周期中用到的方法和通知很多，我们选取了几个主要的方法和通知进行详细介绍，具体如下表所述：</p>
 <p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-2.jpeg" alt=""></p>
 <p>为了便于观察应用程序的运行状态，为AppDelegate.m中的方法添加一些日志输出，具体代码如下：</p>
@@ -3171,13 +2906,7 @@
 <li>2)在Inactive →Active 阶段。</li>
 </ul>
 <p>调用 <code>applicationDidBecomeActive:</code>方法，发出<code>UIApplicationDidBecomeActiveNotification</code> 通知。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-3.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-3.png" alt=""></p>
 <h3 id="（二）点击Home键——应用退出场景"><a href="#（二）点击Home键——应用退出场景" class="headerlink" title="（二）点击Home键——应用退出场景"></a>（二）点击Home键——应用退出场景</h3><p>场景描述：应用处于运行状态（即Active状态）时，点击Home键或者有其他的应用导致当前应用中断。该场景的状态跃迁过程可以分成两种情况：可以在后台运行或者挂起，不可以在后台运行或者挂起。根据产品属性文件（如HelloWorld-Info.plist）中的相关属性Application does not run in background 是与否可以控制这两种状态。如果采用文本编辑器打开HelloWorldInfo.plist文件该设置项对应的键是UIApplicationExitsOnSuspend。　</p>
 <p>状态跃迁的第一种情况：应用可以在后台运行或者挂起，该场景的状态跃迁过程见下图 ，共经历3 个阶段4个状态：Active → Inactive → Background→Suspended。 </p>
 <ul>
@@ -3233,13 +2962,7 @@
 <p>在内存清除场景下，应用不会调用任何方法，也不会发出任何通知。</p>
 <h2 id="视图生命周期"><a href="#视图生命周期" class="headerlink" title="视图生命周期"></a>视图生命周期</h2><p>视图是应用的一个重要组成部分，功能的实现与其息息相关，而视图控制器控制着视图，其重要性在整个应用中不言而喻。</p>
 <h3 id="视图生命周期与视图控制器关系"><a href="#视图生命周期与视图控制器关系" class="headerlink" title="视图生命周期与视图控制器关系"></a>视图生命周期与视图控制器关系</h3><p>以视图的4 种状态为基础，我们来系统了解一下视图控制器的生命周期。在视图不同的生命周期中，视图控制器会回调不同的方法，具体如下图所示。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-ui-lifecycle-1.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-ui-lifecycle-1.png" alt=""></p>
 <p>在视图控制器已被实例化，视图被加载到内存中时调用viewDidLoad方法，这个时候视图并未出现。在该方法中，通常进行的是对所控制的视图进行初始化处理。 </p>
 <p>视图可见前后会调用<code>viewWillAppear:</code>方法和<code>viewDidAppear:</code> 方法；视图不可见前后会调用<code>viewWillDisappear:</code> 方法和<code>viewDidDisappear:</code>方法。4个方法调用父类相应的方法以实现其功能，编码时该方法的位置可根据实际情况做以调整，参见如下代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-(void)viewWillAppear:(BOOL)animated&#123;</span><br><span class="line">    [super viewWillAppear:YES];</span><br><span class="line">    //something code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3270,29 +2993,11 @@
 <p>其中<code>encodeRestorableStateWithCoder:</code>方法在保存时候调用，<code>[coder encodeObject:self. txtField.textforKey:kSaveKey]</code>语句是按照指定的键保存文本框的内容。</p>
 <p><code>decodeRestorableStateWithCoder:</code>方法在恢复时调用，<code>[coder decodeObjectForKey:kSaveKey]</code>在恢复文本框内容时调用，保存和恢复事实上就是向一个归档文件中编码和解码的过程。</p>
 <h2 id="移除Main-storyboard"><a href="#移除Main-storyboard" class="headerlink" title="移除Main.storyboard"></a>移除Main.storyboard</h2><p>每次使用Single View Application模板创建工程之后，总是会有一个Main.storyboard文件，那么，当我们使用代码布局的时候，很显然是不需要它的。那么，如何将它从工程中移除呢？只要进行如下几步即可。</p>
-<h3 id="在工程配置中移除关联"><a href="#在工程配置中移除关联" class="headerlink" title="在工程配置中移除关联"></a>在工程配置中移除关联</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-1.jpeg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h3 id="在工程配置中移除关联"><a href="#在工程配置中移除关联" class="headerlink" title="在工程配置中移除关联"></a>在工程配置中移除关联</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-1.jpeg" alt=""></p>
 <p>在TARGETS中，将Main InInterface选项中的值清空并保存设置。</p>
-<h3 id="移除Main-storyboard中的关联文件"><a href="#移除Main-storyboard中的关联文件" class="headerlink" title="移除Main.storyboard中的关联文件"></a>移除Main.storyboard中的关联文件</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-2.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h3 id="移除Main-storyboard中的关联文件"><a href="#移除Main-storyboard中的关联文件" class="headerlink" title="移除Main.storyboard中的关联文件"></a>移除Main.storyboard中的关联文件</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-2.png" alt=""></p>
 <p>选择storyboard文件。将类关联文件项清空并保存设置。</p>
-<h3 id="移除Main-storyboard文件"><a href="#移除Main-storyboard文件" class="headerlink" title="移除Main.storyboard文件"></a>移除Main.storyboard文件</h3><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-3.jpeg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h3 id="移除Main-storyboard文件"><a href="#移除Main-storyboard文件" class="headerlink" title="移除Main.storyboard文件"></a>移除Main.storyboard文件</h3><p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-3.jpeg" alt=""></p>
 <p>从工程中移除文件。</p>
 <h3 id="在AppDelegate中添加代码"><a href="#在AppDelegate中添加代码" class="headerlink" title="在AppDelegate中添加代码"></a>在AppDelegate中添加代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</span><br><span class="line">    // Override point for customization after application launch.   </span><br><span class="line">    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</span><br><span class="line">    </span><br><span class="line">    ViewController *viewController = [[ViewController alloc] init];</span><br><span class="line">    self.window.rootViewController = viewController;  </span><br><span class="line">    self.window.backgroundColor = [UIColor purpleColor];</span><br><span class="line">　[self.window makeKeyAndVisible];    </span><br><span class="line">   return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>完成以上几步，运行工程即可，顺利运行，没有出现任何error或waring。</p>
