@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://chars.tech/"/>
-  <updated>2017-10-18T02:35:41.062Z</updated>
+  <updated>2017-11-17T10:05:07.388Z</updated>
   <id>http://chars.tech/</id>
   
   <author>
@@ -14,6 +14,103 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>扒一扒 iOS 内存管理</title>
+    <link href="http://chars.tech/2017/10/31/objc-memory-management/"/>
+    <id>http://chars.tech/2017/10/31/objc-memory-management/</id>
+    <published>2017-10-31T13:15:19.000Z</published>
+    <updated>2017-11-17T10:05:07.388Z</updated>
+    
+    <content type="html"><![CDATA[<p>内存管理是程序设计中很重要的一部分，程序在运行的过程中消耗内存，运行结束后释放占用的内存。如果程序运行时一直分配内存而不及时释放无用的内存，会造成这样的后果：程序占用的内存越来越大，直至内存消耗殆尽，程序因无内存可用导致崩溃，这样的情况我们称之为内存泄漏。</p>
+<p>理解好内存管理，能让我们写出更有质量的代码。</p>
+<p>iOS 内存管理的核心是<strong>引用计数</strong>。</p>
+<a id="more"></a>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>追溯历史，我们知道引用计数经历了 ARC 和 MRC 两个时代。那么，什么是 ARC 呢？</p>
+<p>顾名思义,自动引用计数(ARC, Automatic reference counting)是指内存管理中对引用采取自动计数的技术。</p>
+<blockquote>
+<p>在 Objective-C 中采用 Automatic Reference Counting(ARC) 机制，让编译器来进行内存管理。在新一代 Apple LLVM 编译器中设置 ARC 为有效状态，就无需再次键入 retain 或者 release 代码，这在降低程序崩溃、内存泄漏等风险的同时，很大程度上减少了开发程序的工作量。编译器完全清楚目标对象，并能立刻释放那些不再被使用的对象。如此一来，应用程序将具有可预测性，且能流畅运行，速度也将大幅提升。</p>
+</blockquote>
+<h3 id="举个栗子🌰"><a href="#举个栗子🌰" class="headerlink" title="举个栗子🌰"></a>举个栗子🌰</h3><p>为了更好的解释什么是 引用计数 ，我们可以用一个生活中的例子来说明。下面以开关房间的灯为例子来说明。</p>
+<p>假设办公室里的照明设备只有一个。上班进入办公室的人需要照明，所以要把灯打开。而对于下班离开办公室的人来说，已经不需要照明了，所以要把灯关掉。若是很多人上下班，每个人都开灯或是关灯，那么办公室的情况又将如何呢？最早下班离开的人如果关了灯，办公室里还没走的所有人都将处于一片黑暗之中。</p>
+<p>解决这一问题的办法是使办公室在还有至少1人的情况下保持开灯状态，而在无人时保持关灯状态。</p>
+<p>(1)最早进入办公室的人开灯</p>
+<p>(2)之后进入办公室的人，需要照明。</p>
+<p>(3)下班离开办公室的人，不需要照明。</p>
+<p>(4)最后离开办公室的人关灯(此时已无人需要照明)。</p>
+<p>为判断是否还有人在办公室里，这里导入计数功能来计算“需要照明的人数”。下面让我们来看看这一功能是如何运作的吧。</p>
+<p>(1)第一个人进入办公室，“需要照明的人数”加1。计数值从0变成了1，因此要开灯。</p>
+<p>(2)之后每当有人进入办公室，“需要照明的人数”就加1。如计数值从1变成2。</p>
+<p>(3)每当有人下班离开办公室，“需要照明的人数”就减1。如计数值从2变成1。</p>
+<p>(4)最后一个人下班离开办公室时，“需要照明的人数”减1。计数值从1变成了0，因此要关灯。</p>
+<p>这样就能在不需要照明的时候保持关灯状态。办公室中仅有的照明设备得到了很好的管理。</p>
+<p>在 Objective-C中，“对象”相当于办公室的照明设备。在现实世界中办公室的照明设备只有一个，但在 Objective-C 的世界里，虽然计算机资源有限，但一台计算机可以同时处理好几个对象。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>对办公室照明设备所做的动作和对 Objective-C 的对象所做的动作</p>
+<table>
+<thead>
+<tr>
+<th>对照明设备所做的动作</th>
+<th>对 Objective-C 的对象所做的动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开灯</td>
+<td>生成对象</td>
+</tr>
+<tr>
+<td>需要照明</td>
+<td>持有对象</td>
+</tr>
+<tr>
+<td>不需要照明</td>
+<td>释放对象</td>
+</tr>
+<tr>
+<td>关灯</td>
+<td>废弃对象</td>
+</tr>
+</tbody>
+</table>
+<p>使用计数功能计算需要照明的人数，使办公室的照明得到了很好的管理。同样，使用引用计数功能，对象也就能够得到很好的管理，这就是 Objective-C的内存管理。</p>
+<h2 id="内存管理原则"><a href="#内存管理原则" class="headerlink" title="内存管理原则"></a>内存管理原则</h2><ul>
+<li>自己生成的对象，自己所持有。</li>
+</ul>
+<p>使用 alloc、new、copy、mutableCopy 名称开头的方法名意味着自己生成的对象只有自己持有。</p>
+<p>copy 方法利用基于 NSCopying 方法约定，由各类实现的 copyWithZone: 方法生成并持有对象的副本。与 copy 方法类似，mutableCopy 方法利用基于 NSMutableCopying 方法约定，由各类实现的 mutableCopyWithZone: 方法生成并持有对象的副本。两者的区别在于，copy 方法生成不可变更的对象，而 mutableCopy 方法生成可变更的对象。这类似于 NSArray 类对象与<br> NSMutableArray 类对象的差异。用这些方法生成的对象，虽然是对象的副本，但同 alloc、new 方法一样，在“自己生成并持有对象”这点上没有改变。</p>
+<ul>
+<li>非自己生成的对象，自己也能持有。</li>
+</ul>
+<p>通过 retain 方法，非自己生成的对象跟用 alloc、new、copy、mutableCopy 方法生成并持有的对象一样，成为了自己所持有的。</p>
+<ul>
+<li>不再需要自己持有的对象时释放</li>
+</ul>
+<p>自己持有的对象，一旦不再需要，持有者有义务释放该对象。</p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/objc-memory-management-1.png" alt="release 和 autorelease 区别"></p>
+<ul>
+<li>非自己持有的对象无法释放。</li>
+</ul>
+<p>对于用 alloc、new、copy、mutableCopy 方法生成并持有的对象，或是用 retain方法持有的对象，由于持有者是自己，所以在不需要该对象时需要将其释放。而由此以外所得到的对象绝对不能释放。倘若在应用程序中释放了非自己所持有的对象就会造成崩溃。例如自己生成并持有对象后，在释放完不再需要的对象之后再次释放。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;内存管理是程序设计中很重要的一部分，程序在运行的过程中消耗内存，运行结束后释放占用的内存。如果程序运行时一直分配内存而不及时释放无用的内存，会造成这样的后果：程序占用的内存越来越大，直至内存消耗殆尽，程序因无内存可用导致崩溃，这样的情况我们称之为内存泄漏。&lt;/p&gt;
+&lt;p&gt;理解好内存管理，能让我们写出更有质量的代码。&lt;/p&gt;
+&lt;p&gt;iOS 内存管理的核心是&lt;strong&gt;引用计数&lt;/strong&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="pieces" scheme="http://chars.tech/categories/pieces/"/>
+    
+    
+      <category term="ios" scheme="http://chars.tech/tags/ios/"/>
+    
+      <category term="objc" scheme="http://chars.tech/tags/objc/"/>
+    
+      <category term="内存" scheme="http://chars.tech/tags/storage/"/>
+    
+  </entry>
   
   <entry>
     <title>聊聊 iOS 数据保护</title>
@@ -200,11 +297,11 @@
   </entry>
   
   <entry>
-    <title>Tensorflow + PyCharm （Mac）</title>
+    <title>MacOS 搭建 Tensorflow PyCharm 环境</title>
     <link href="http://chars.tech/2017/09/26/tensorflow-pycharm-mac/"/>
     <id>http://chars.tech/2017/09/26/tensorflow-pycharm-mac/</id>
     <published>2017-09-26T07:03:16.000Z</published>
-    <updated>2017-09-26T07:11:01.000Z</updated>
+    <updated>2017-11-20T02:14:48.181Z</updated>
     
     <content type="html"><![CDATA[<p>TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。目前来说，<a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="external">Github</a>上star最多的项目就是它了。</p>
 <p>在这之前，笔者写过一篇简单的入门文章<a href="/2017/06/07/tensorflow-primer-guide/">《初探 TensorFlow》</a>。当时没能成功搭建环境，加上后期的工作原因，至此搁置了一段时间。今天，终于各种折腾，在自己的Mac上经过多种尝试之后，完美搭建成功。这里就把它分享出来，希望对大家有所帮助。</p>
@@ -3750,317 +3847,6 @@
     
       <category term="talk" scheme="http://chars.tech/categories/talk/"/>
     
-    
-      <category term="碎碎念" scheme="http://chars.tech/tags/text/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS的那些面试</title>
-    <link href="http://chars.tech/2017/03/28/ios-interview/"/>
-    <id>http://chars.tech/2017/03/28/ios-interview/</id>
-    <published>2017-03-28T00:01:18.000Z</published>
-    <updated>2017-07-05T08:03:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
-<a id="more"></a>
-<h2 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h2><p>1.Objective-C语言的基本特点？</p>
-<p>Objective-C语言是C语言的一个超集，只是在C的基础之上添加了面向对象（OO）的特性；Objective-C与Java语言相同都是单继承，这一点与C++语言不同（多重继承），这一点可以参看之前有关讲解继承的文章；Objective-C不支持命名空间，取而代之的是在类名之前添加前缀，以此来区分。</p>
-<p>2.#include与#import的区别，#import与@class的区别？</p>
-<p>1）#include和#import效果相同，只是后者不会引起交叉编译，确保头文件只会被导入一次。</p>
-<p>2）#import会包含这个类的所有信息，包括实体变量和方法，而@class只是告诉编译器，其后面声明的名称是类的名称，至于这些类是如何定义的，暂时不用考虑，后面会再告诉你。使用#import编译效率高，防止相互包含的编译错误。</p>
-<p>3.简述类目优缺点，如果覆盖本类或者父类的方法会出现什么问题？</p>
-<p>优点：不需要通过增加子类而增加现有类的行为（方法），且类目中的方法与原始类方法基本没有区别。</p>
-<p>缺点：无法向类目添加实例变量。覆盖原始类方法后，原始类的方法没办法调用。</p>
-<p>4.简述内存管理基本原则？</p>
-<p>如果使用alloc、copy（mutableCopy）或者retain一个对象时，你就有义务向它发送一条release或autorelease消息。其他方法创建的对象，不需要由你来管理内存。</p>
-<p>5.什么是ARC技术？与GC是否相同？</p>
-<p>ARC是Automatic Reference Counting的简称，我们称之为自动引用计数，是iOS5.0之后推出的内存管理的新特性。本质上还是使用引用计数来管理对象，只是我们在编写代码时，不需要向对象发送release或autorelease方法，也不可以调用dealloc方法，编译器会在合适的位置自动给用户生成release（autorelease）消息。GC是Garbage Collection，内存垃圾回收机制，ARC比GC性能好。</p>
-<p>6.iOS中是否支持垃圾回收机制？</p>
-<p>iOS开发只支持MRC与ARC，Mac开发支持GC垃圾回收机制，10.8之后弃用了GC，推荐使用ARC。</p>
-<p>7.深、浅复制的基本概念以及区别？</p>
-<p>浅复制：只复制对象本身，不对里面的属性复制。</p>
-<p>深复制：不仅复制对象本身，对象持有的属性对象也做复制。</p>
-<p>8.内存中的堆区和栈区的差别？</p>
-<p>栈区（stack）由编译器自动分配释放，存放方法（函数）的参数值，局部变量的值等。</p>
-<p>堆区（heap）一般由程序员分配与释放，若程序员不释放，则会内存溢出。</p>
-<p>9.用户自定义了一个对象，如何实现拷贝（可变和不可变拷贝）？</p>
-<p>必须实现copying和mutableCopying协议，表示返回一个不可变和可变的对象。否则，程序将会出现异常。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(id)copyWithZone:(NSZone *)zone &#123;</span><br><span class="line">	Person *person = [[self Class] allocWithZone:zone];</span><br><span class="line">	person-&gt;age = self.age;</span><br><span class="line">	person-&gt;name = self.name;</span><br><span class="line">	return person;</span><br><span class="line">&#125;</span><br><span class="line">-(id)mutableCopyWithZone:(NSZone *)zone;</span><br></pre></td></tr></table></figure>
-<p>10.定义属性时，什么时候用assign、retain、copy和nonatomic？</p>
-<p>assign：普通赋值，一般常用于基本数据类型，常见委托设计模式，以此来防止循环引用。</p>
-<p>retain：保留计数，获得了对象的所有权。引用计数在原有基础上加1。</p>
-<p>copy：用来复制对象，一般字符串使用，Foundation中的不可变对象使用，效果相当于retain，只是引用计数加1。</p>
-<p>nonatomic：非原子性访问，不加同步，多线程并发访问会提高性能。</p>
-<p>11.strong和weak，_unsafe_unretained与weak的区别？</p>
-<p>strong：强引用，在ARC中告诉编译器帮助我们自动插入retain。</p>
-<p>weak：弱引用，是普通赋值，相当于手动管理内存的assign。</p>
-<p>_unsafe_unretained：与weak功能一致，区别在于当指向的对象销毁后，weak会将变量置为nil，防止调用野指针。</p>
-<p>12.ARC存在内存泄露吗？</p>
-<p>ARC中如果内存管理不当的话，同样会存在内存泄露。例如，ARC中也会循环引用导致内存泄露；Objective-C对象与CoreFoundation类之间桥接时，管理不当也会产生内存泄露。</p>
-<p>13.当我们释放对象时，为什么需要调用[super dealloc]方法？</p>
-<p>子类是继承自父类，那么子类中有一些实例变量（对象），是继承自父类的，因此，我们需要调用父类方法，将父类所拥有的实例进行释放。</p>
-<p>14.自动释放池是什么，如何工作？</p>
-<p>自动释放池是NSAutorelease类的一个实例，当向一个对象发送autorelease消息时，该对象会自动入池，待池销毁时，将会向池中所有对象发送一条release消息，释放对象。</p>
-<p>15.为什么delegate（代理）属性都是assign而不是retain的？</p>
-<p>防止循环引用，以至对象无法得到正确的释放。</p>
-<p>16.delegate使用weak还是strong？为什么？苹果有delegate使用strong的类吗？为什么？</p>
-<p>delegate一般使用weak，主要是为了避免出现循环引用。苹果官方<code>NSURLSession</code>类中的delegate使用strong引用。因为苹果要求所有的网络请求都用同一个对象去发送，那么这个对象就封装为一个单例对象。</p>
-<h2 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h2><p>1.iOS开发中数据持久性有哪几种？</p>
-<p>plist文件写入，对象归档，sqlite3数据库，CoreData。</p>
-<p>2.什么是KVC和KVO？它们之间的关系是什么？</p>
-<p>KVC：键值编码，是一种间接访问对象实例变量的机制，该机制可以不通过存取方法就可以访问对象的实例变量。</p>
-<p>KVO：键值观察，是一种能使得对象获取到其他对象属性变化的通知机制。<br>实现KVO键值观察模式，被观察的对象必须使用KVC键值编码来修改它的实例变量，这样才能被观察者观察到。因此，KVC是KVO的基础或者说KVO的实现是建立在KVC的基础之上的。</p>
-<p>3.简述常见的设计模式？</p>
-<p>单例模式、代理设计、观察者（通知）、工厂方法、模板方法。</p>
-<p>4.内存管理在dealloc方法中用release方法与self.xx=nil哪个好？</p>
-<p>使用self.xx=nil更好，因为先调用了release方法，而且还将变量设置为nil，这样就更安全的释放对象，防止野指针调用。</p>
-<p>5.线程与进程的区别和联系？</p>
-<p>一般的应用程序是单个进程，也有多进程（Chrome），进程是个静态的容器，里面容纳了很多个线程，线程是一系列方法的线性执行路径。</p>
-<p>6.Objective-C语言的优缺点？</p>
-<p>优点：类目、动态识别、支持C语言、Objective-C与C++可以混编。</p>
-<p>缺点：不支持命名空间、不支持运算符重载、不支持多重继承。</p>
-<p>7.代理delegate、通知Notification与block的使用区别？</p>
-<p>delegate和block一般是用于两个对象一对一之间的通信交互，delegate需要定义协议方法，代理对象实现协议方法，并且需要建立代理关系才可以实现通信。block更加简洁，不需要定义繁琐的协议方法，但是如果通信事件比较多的话，建议使用delegate。<br>Notification主要用于一对多情况下通信，而且，通信对象之间不需要建立关系，但是使用通知，代码可读性差。</p>
-<p>8.控制器ViewController的loadView、viewDidLoad、viewWillApear和viewDidUnload分别是在什么时候调用？</p>
-<p>loadView：当控制器的根视图view为空，且此view被访问时调用。</p>
-<p>viewDidLoad：loadView调用之后被调用。</p>
-<p>viewWillApear：当控制器根视图view被添加到父视图上时调用。</p>
-<p>viewDidUnload：iOS6.0之前，当内存警告时，先卸载视图，再调用<br>viewDidUnload来释放内存。</p>
-<p>9.@synthesize和@dynamic的区别？</p>
-<p>@synthesize：系统自动生成getter和setter属性声明。</p>
-<p>@dynamic：告诉编译器，属性的获取与赋值方法由用户自己实现，不自动生成。</p>
-<p>10.事件响应者链的概念？</p>
-<p>响应者链表示一系列的响应者对象。事件被交由第一响应者对象处理，如果第一响应者不处理，事件被沿着响应者链向上传递，交给下一个响应者。一般来说，第一响应者是个视图对象或者其子类对象，当其被触摸后事件交由它处理，如果它不处理，事件会被传递给它的视图控制器对象（如果存在），然后是它的父视图对象（如果存在），以此类推，直到顶层视图。接下来会沿着顶层视图到窗口（UIWindow对象），再到程序（UIApplication对象）。如果整个过程都没有响应这个事件，该事件被丢弃。一般情况下，在响应者链中只要有对象处理事件，事件就停止传递。但有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。</p>
-<p>11.C语言中的static变量和static函数有什么作用？</p>
-<p>1）表示变量是静态存储变量，表示变量存放在静态存储区。</p>
-<p>2）加在函数前面的时候表示该函数是内部连接，只在本文件中有效，别的文件中不能使用该函数。</p>
-<p>12.指针题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1）int a; //一个数值。</span><br><span class="line">2）int *a; //一个指向数值的指针。</span><br><span class="line">3）int **a; //一个指向指针的指针。</span><br><span class="line">4）int a[10]; //一个有10个指针的数组，该指针是指向一个整型数的。</span><br><span class="line">5）int *a[10]; //一个有10个指针的数组，该指针是指向一个整型数的。</span><br><span class="line">6）int (*a)[10]; //一个指向有10个整型数数组的指针。</span><br><span class="line">7）int (*a)(int); //一个指向函数的指针，该函数有一个整型参数并返回一个整型数。</span><br><span class="line">8）int (*a[10])(int); //一个有10个指针的数组，该指针指向一个函数，该函数有一个整型参数并返回一个整型数。</span><br></pre></td></tr></table></figure>
-<p>13.写一个NSString类的实现？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+(id)initWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding &#123;</span><br><span class="line">	NSString *obj;</span><br><span class="line">	obj = [self allocWithZone:NSDefaultMallocZone()];</span><br><span class="line">	obj = [obj initWithCString:nullTerminatedCString encoding:encoding];</span><br><span class="line">	return autorelease(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>14.Objective-C与C如何混用？Objective-C与C++如何混用？</p>
-<p>实现文件的扩展名.m改成.mm即可，但cpp文件必须只能使用C/C++代码，而且cpp文件include的头文件中，也不能出现Objective-C的代码，因为cpp只能写C++的代码。</p>
-<p>15.Objective-C中有私有方法和私有变量吗？</p>
-<p>使用private修饰的全局变量是私有的变量。</p>
-<p>Objective-C在语法上没有设计私有的方法，不过可以通过延展在实现文件里定义方法作为私有的方法。但不是真正意义上的私有方法，也是可以调用的，只是外部不可见而已。</p>
-<h2 id="第三部分"><a href="#第三部分" class="headerlink" title="第三部分"></a>第三部分</h2><p>1.下面关键字const有什么含义？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const int a;</span><br><span class="line">int const a;</span><br><span class="line">const int *a;</span><br><span class="line">int * const a;</span><br></pre></td></tr></table></figure>
-<p>前两个的作用是一样的，a是一个常整型数。</p>
-<p>第三个意味着a是一个指向常整型数的指针（即整型数是不可修改的，但指针可以）。</p>
-<p>第四个意味着a是一个指向整型数的常指针（即指针指向的整型数是可以修改的，但指针是不可修改的）。</p>
-<p>2.C语言中extern的作用，extern “C”的作用？</p>
-<p>1）extern可以置于变量或者函数前，以标示变量或函数的定义在别的文件中，提示编译器遇到此变量和函数时在其他模块中寻找其定义。</p>
-<p>2）C++语言在编译的时候为了解决函数的多态问题，会将函数名和参数联合起来生成一个中间的函数名称，而C语言则不会，因此会造成链接时找不到对应函数的情况，此时C函数就需要用extern “C”进行链接指定，这告诉编译器，请保持我的名称，不要给我生成用于链接的中间函数名。</p>
-<p>3.Objective-C是如何管理内存的？</p>
-<p>Objective-C语言是使用引用计数来管理一个对象的生命周期，当对象被其他“人”使用的时候引用计数加1，不使用时减1，当此对象的引用计数为0时，则对象被系统回收。</p>
-<p>4.什么是动态绑定（多态）？</p>
-<p>动态绑定是面向对象特性之一多态的体现，声明一个变量，在运行的时候可以绑定不同的对象，比如在方法的参数中声明这样一个变量UIView *view，运行的时候，我们可以根据不同的应用场景给view变量传入不同的对象，可以传递一个UIButton对象，也可以传入UIImageView对象。</p>
-<p>5.如何理解delegate？</p>
-<p>delegate，又称为委托或代理，它是一种设计模式。delegate主要用于两个对象之间的通信交互，并且解除两个通信对象的耦合性，iOS中大量使用了delegate设计，主要用于视图与使用对象之间的通信交互。</p>
-<p>6.block与函数有何异同？block有何优点？</p>
-<p>1）block类似于C里面的函数指针，都可以作为参数进行传递，用于回调。但是block的实现可以定义在方法中，函数则不可以。</p>
-<p>2）block语法简洁，可以在方法中定义实现，这样可以访问方法中的局部变量，使代码更加的紧凑，结构化。</p>
-<p>7.为什么标准头文件都有类似以下的结构？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __INCvxWorksh</span><br><span class="line">#define __INCvxWorksh</span><br><span class="line">#ifdef __cplusplus</span><br><span class="line">extern &quot;C&quot; &#123;</span><br><span class="line">#endif</span><br><span class="line">/*...*/</span><br><span class="line">#ifdef __cplusplus</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br><span class="line">#endif /*__INCvxWorksh*/</span><br></pre></td></tr></table></figure>
-<p>显然，头文件中的编译宏“#ifndef <strong>INCvxWorksh、#define </strong>INCvxWorksh、#endif”的作用是防止该头文件被重复引用。</p>
-<p>8.CocoaTouch框架？</p>
-<p>UIKit、Foundation、CoreGraphic、CoreAnimation</p>
-<p>1）音频和视频：Core Audio、OpenAL、Media Library、AV Foundation</p>
-<p>2）数据管理：Core Data、SQLite</p>
-<p>3）图形和动画：Core Animation、OpenGL ES、Quartz 2D、Core Graphic</p>
-<p>4）用户应用：Address Book、Core Location、Map Kit、Store Kit</p>
-<p>9.栈结构与队列的区别？</p>
-<p>栈（stack）：限定只能在表的一端进行插入和删除操作的线性表。</p>
-<p>队列（queue）：限定只能在表的一端插入和在另一端进行删除操作的线性表。</p>
-<p>1）队列先进先出，栈先进后出。</p>
-<p>2）对插入和删除操作的“限定”不同。</p>
-<p>3）遍历数据速度不同。队列遍历数据的速度要快得多。</p>
-<p>10.Objective-C中有无多重继承？如何实现多重继承？</p>
-<p>Objective-C是没有多重继承的。</p>
-<p>Cocoa中所有的类都是NSObject的子类，多继承在这里是用protocol委托代理来实现的。</p>
-<p>面向对象语言大部分都是单继承，例如：Java、C#。</p>
-<p>C++支持多继承。</p>
-<p>11.static全局变量与普通的全局变量的区别？局部变量呢？函数呢？</p>
-<p>1）static全局变量与普通全局变量的区别：static全局变量只初始化一次，防止在其他文件单元中被引用。</p>
-<p>2）static局部变量与普通局部变量的区别：static局部变量只被初始化一次，下一次依据上一次结果值。</p>
-<p>3）static函数与普通函数的区别：static函数在内存中只有一份，普通函数在每个被调用中维持一份拷贝。</p>
-<p>12.什么是类目与延展？</p>
-<p>类目：为已知的类增加新的方法。</p>
-<p>延展：通知在本类的定义里使用类目来声明私有方法。</p>
-<p>13.Objective-C中的协议和Java中的接口区别？</p>
-<p>协议定义的方法，可以设置可选实现和必须实现。</p>
-<p>接口则是必须全部实现。</p>
-<p>14.在一个对象的方法里self.name=”object”和name=”object”有什么不同？</p>
-<p>前者调用的是设置器方法，后者是普通赋值。</p>
-<p>15.单例设计模式的实现？为什么使用单例设计？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">static File *instance = nil;</span><br><span class="line">@implementation File</span><br><span class="line">//获取单例的方法</span><br><span class="line">+(id)shareInstance &#123;</span><br><span class="line">	@synthesize (self) &#123;</span><br><span class="line">		if(instance == nil) &#123;</span><br><span class="line">			instance = [[File alloc] init];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return instance;</span><br><span class="line">&#125;</span><br><span class="line">//覆写allocWithZone、copyWithZone、retain、release和autorelease方法，目的是限制这个类只创建一个对象</span><br></pre></td></tr></table></figure>
-<p>为什么使用单例设计？</p>
-<p>1）单例设计是用来限制一个类只能创建一个对象，那么此对象中的属性可以存储全局共享的数据，所有的类都可以访问、设置此单例对象中的属性数据。</p>
-<p>2）如果一个类创建的时候非常的耗费性能，那么此类如果能满足要求，可以设置为单例节约性能。</p>
-<h2 id="第四部分"><a href="#第四部分" class="headerlink" title="第四部分"></a>第四部分</h2><p>1.层CALayer和UIView的区别是什么？</p>
-<p>两者最大的区别是，图层不会直接渲染到屏幕上。UIView是iOS系统中界面元素的基础，所有的界面元素都是继承自它，它本身是由CoreAnimation来实现的，它真正绘图的部分是由一个CALayer类来管理的。UIView本身更像是一个CALayer的管理器。一个UIView上可以有多个CALayer，每个CALayer显示一种东西，增强UIView的展现能力。</p>
-<p>2.什么是GCD？</p>
-<p>GCD是Apple开发的一个多核编程的较新的解决方法。在Mac OS X 10.6雪豹中首次推出，并引入到iOS4.0。GCD是一个替代诸如NSThread等技术的很高效和强大的技术。GCD完全可以处理诸如数据锁定和资源泄漏等复杂的异步编程问题。</p>
-<p>3.TCP/UDP的区别和联系？</p>
-<p>1）TCP的全称为传输控制协议，这种协议可以提供面向连接的、可靠的、点到点的通信。</p>
-<p>2）UDP的全称为用户数据报协议，它可以提供非连接的不可靠的点到多点的通信。</p>
-<p>3）用TCP还是UDP，需要看程序注重哪一个方面，需要可靠还是快速。</p>
-<p>4.Socket连接和Http连接的区别？</p>
-<p>Http连接：Http连接就是所谓的短链接，即客户端向服务器发送一次请求，服务器响应后连接即会断掉。</p>
-<p>Socket连接：Socket连接就是所谓的长连接，理论上客户端和服务器端一旦建立起连接将不会主动断掉。</p>
-<p>5.什么是TCP连接的三次握手？</p>
-<p>第一次握手：客户端发送SYN包（SYN=j）到服务器，并进入SYN_SEND状态，等待服务器确认。</p>
-<p>第二次握手：服务器收到SYN包，必须确认客户的SYN（ACK=j+1），同时自己也发送一个SYN包（SYN=k），即SYN+ACK包，此时服务器进入SYN_RECV状态。</p>
-<p>第三次握手：客户端接收到服务器的SYN+ACK包，向服务器发送确认包ACK（ACK=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。</p>
-<p>6.frame和bounds的区别？</p>
-<p>frame指的是：该view在父view坐标系统中的位置大小（参照点是父视图的坐标系统）。</p>
-<p>bounds指的是：该view在本身坐标系统中的位置和大小（参照点是本身的坐标系统）。</p>
-<p>7.如何理解MVC设计模式？</p>
-<p>MVC是一种架构设计，M表示数据模型，V表示视图，C表示控制器。</p>
-<p>数据模型：负责存储、定义、操作数据。</p>
-<p>视图：用来展示数据给用户，和用户进行操作交互。</p>
-<p>控制器：它是M与V的协调者，控制器获取数据，将数据交给视图去展示。</p>
-<p>8.控制器的xib是怎么加载的？</p>
-<p>当UIViewController的loadView被调用时，在此方法中，通过NSBundle加载xib，先通过控制器的类名作为xib的文件名加载此xib文件。如果找到此xib文件，则加载为view对象作为控制器的根视图，如果没有xib文件，则通过alloc创建一个view对象作为根视图。</p>
-<p>9.控制器如何处理系统内存不足警告？</p>
-<p>内存不足时，系统会调用控制器didReceiveMemoryWaring方法通知控制器内存不足。iOS6.0与6.0之前的处理方式不一样。</p>
-<p>1）iOS6.0之前：调用didReceiveMemoryWaring后，将self.view设置为nil，并且再调用viewDidUnload方法，在此方法中我们应该释放子视图。</p>
-<p>2）iOS6.0之后：调用didReceiveMemoryWaring后，不再调用viewDidUnload方法，则应该在didReceiveMemoryWaring方法中手动将self.view=nil，并且释放子视图。</p>
-<p>10.iOS中对象间有哪些通信方式？</p>
-<p>代理delegate、block、通知和KVO。</p>
-<p>11.block在内存管理上的特点？需要注意循环引用，如何解决循环引用？</p>
-<p>1）block中使用了局部对象，则会将此对象retain，引用了当前对象的属性或者方法，则会将当前对象retain。</p>
-<p>2）解决循环引用：将当前对象赋值给一个局部变量，并且使用__block关键字修饰该局部变量，使用该变量访问当前对象的属性和方法。</p>
-<p>12.Objective-C中有线程池（线程队列）吗？NSOperationQueue是如何管理线程的？</p>
-<p>NSOperationQueue是Objective-C的线程池，线程池中可以存放多个线程。</p>
-<p>NSOperationQueue可以管理线程的并发数，还可以管理线程间的优先级。</p>
-<p>13.timer的间隔周期准吗？为什么？怎样实现一个精准的timer？</p>
-<p>定时器timer一般都是准确的，但是当主线程有些时候难免会出现堵塞情况，这样就有可能导致定时器timer会延迟从而不准确。我们可以开发一个多线程，在此多线程上运行定时器，这样多线程只运行定时器，不会因堵塞而导致误差。</p>
-<p>14.Http协议的特点？GET与POST的区别？什么是Https协议？</p>
-<p>1）Http协议是短链接，都是客户端主动发送请求，服务器做出响应，服务器响应之后，连接则断开。</p>
-<p>2）GET请求没有请求体，POST含有请求体，请求参数可以放入请求体中，所以，POST可以提交大量的数据给服务器，更加安全。</p>
-<p>3）HTTPS（Secure Hypertext Transfer Protocol）安全超文本传输协议，它是一个安全通信通道，它基于HTTP开发，用于在客户计算机和服务器之间交换信息。它使用安全套接字层（SSL）进行信息交换，简单来说它是HTTP的安全版。</p>
-<p>15.XML数据的解析方式各有什么不同？JSON解析有哪些框架？</p>
-<p>XML数据解析有两种方式：DOM解析和SAX解析。</p>
-<p>DOM解析：必须完成DOM树的构造，在处理规模较大的XML文档时就很耗费内存，占用资源较多。</p>
-<p>SAX解析：与DOM不同的是，SAX是用事件驱动模型，解析XML文档时每遇到一个开始或者结束标签、属性或一条指令时，程序就产生一个事件来进行相应的处理。因此，SAX相对于DOM来说更适合操作大的XML文档。</p>
-<p>JSON解析：现在性能比较好的主要是第三方的JSONKit和iOS自带的JSON解析类，自带的JSON解析性能是最高的，但是只能是iOS5之后才可以使用。</p>
-<h2 id="第五部分"><a href="#第五部分" class="headerlink" title="第五部分"></a>第五部分</h2><p>1.tableView是如何复用的？</p>
-<p>如果屏幕上能显示10个单元格，则tableView只会创建11个单元格，也就是n+1，当滑到第12个单元格时就会复用第1个单元格对象。tableView中有个单元格池的概念，tableView调用协议方法获取单元格时，先从池子中查找是否有可复用的单元格，如果有则复用，如果没有则创建一个单元格对象。</p>
-<p>2.如何优化tableView的滑动速度？</p>
-<p>1）复用单元格。</p>
-<p>2）使用不透明的视图，单元格中尽量少使用动画。</p>
-<p>3）图片加载使用异步加载，并且设置图片加载的并发数。</p>
-<p>4）滑动时不加载图片，停止滑动开始加载。</p>
-<p>5）文字、图片可直接drawInRect绘制。</p>
-<p>6）如非必要，减少reloadData全部cell，只reloadRowsAtIndexPaths。</p>
-<p>7）如果cell是动态行高度，计算出高度后缓存。</p>
-<p>8）cell高度固定的话直接用cell.rowHeight设置高度。</p>
-<p>3.谈谈对Runloop的理解？</p>
-<p>Run loops是线程相关的基础框架的一部分。一个run loop就是一个事件处理的循环，用来不停的调度工作以及处理输入事件。使用run loop的目的是让你的线程在有工作的时候忙于工作，而没有工作的时候处于休眠状态。</p>
-<p>4.如何调用drawRect方法与layoutSubView方法？这两个方法的作用？</p>
-<p>通过setNeedsLayout方法异步调用layoutSubView方法。</p>
-<p>通过setNeedsDisplay方法异步调用drawRect方法。<br>drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
-<p>5.UIView与UIViewController的关系？</p>
-<p>每个控制器都有一个根视图，控制器UIViewController用来管理此视图的加载和显示。</p>
-<p>6.iOS中有哪些手势？</p>
-<p>轻击、捏合、平移、轻扫、旋转和长按。</p>
-<p>7.Http和Socket的区别？</p>
-<p>Http是客户端用Http协议进行请求，发送请求时需要封装http请求头，并绑定请求的数据，服务器一般有Web服务器配合（当然也非绝对）。Http请求方式为客户端主动发起请求，服务器才能给响应，一次请求完毕后则断开连接，以节省资源。服务器不能主动给客户端响应（除非采用http长连接技术）。iPhone主要使用的类是NSURLConnection。</p>
-<p>Socket是客户端跟服务器直接使用Socket套接字进行连接，并没有规定连接后断开，所以客户端和服务器可以保持连接通道，双方都可以主动发送数据。一般在游戏开发或股票开发，这种要求即时性很强并且保持发送数据量比较大的场合使用。主要使用的类是CFSocketRef。</p>
-<p>8.storyboard有什么特点？</p>
-<p>storyboard是iOS5新增的特性，是对xib的升级版本，引入了一个容器用于管理多个xib文件，和它们之间的跳转交互。</p>
-<p>优点：不用再为每个控制器创建xib文件；可以使用静态cell，当cell固定且不多时，使用起来比较方便。</p>
-<p>缺点：storyboard单个文件，不利于团队协作开发。</p>
-<p>9.如何打包静态库？</p>
-<p>新建一个Framework&amp;Library的项目，编译的时候会将项目中的代码文件打包成一个.a静态库文件。</p>
-<p>10.APP发布的上架流程？</p>
-<p>1）在苹果官网的开发者中心，新建一个APP，填写此APP相关的一些描述信息。</p>
-<p>2）下载安装发布证书。</p>
-<p>3）选择发布证书，使用Archive编译发布包。</p>
-<p>4）使用Xcode提交发布包。</p>
-<p>11.iOS5有哪些新特性？</p>
-<p>iCloud、定制UI、storyboard、ARC、CoreImage滤镜、新增JSON解析类。</p>
-<p>12.iOS6有哪些新特性？</p>
-<p>UIRefreshControl水滴效果下拉刷新、UICollectionView控件的使用、SLComposeViewController新浪微博控件、PassKit中Passbook、AutoLayout自动布局。</p>
-<p>13、iOS7有哪些新特性？</p>
-<p>系统：全新的UI设计与交互；Control Center控制中心；全新的多任务Multitasking；AirDrop共享文件；全新的Safari浏览器交互式体验。</p>
-<p>SDK：动态UIKit，新增了UIDynamicItem委托，用来为UIView制定动态行为；新增游戏引擎Sprite Kit Framework框架，类似于Cocos2D。</p>
-<p>14.ARC有什么特点？</p>
-<p>ARC是编译器特性，iOS5.0新添加的特性，使用ARC开发者不需要再retain、release、autorelease，因为编译器会在合适的地方自动插入retain、release。</p>
-<p>ARC不会因少release而导致内存泄漏，过度使用release导致程序崩溃，</p>
-<p>ARC可以产生更简洁的代码和更健壮的应用。</p>
-<p>15.SVN、Git协作开发，怎么防止代码文件冲突？</p>
-<p>防止代码冲突：不要多人同时修改同一个文件。例如，A、B都修改同一个文件，先让A修改，然后提交到服务器，然后B更新下来，再进行修改。<br>服务器上的项目文件xcodeproj，仅让一个人管理提交，其他人只更新。防止此文件产生冲突。</p>
-<h2 id="第六部分"><a href="#第六部分" class="headerlink" title="第六部分"></a>第六部分</h2><p>1.什么是ARC？</p>
-<p>ARC是automatic reference counting自动引用计数，在程序编译时自动加入retain/release。在对象被创建时retain count+1，在对象被release时count-1，当count=0时，销毁对象。程序中加入autoreleasepool对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁。那么ARC是为了解决MRC手动管理内存存在的一些而诞生的。</p>
-<p>MRC下内存管理的缺点：</p>
-<p>1）释放一个堆内存时，首先要确定指向这个堆空间的指针都被release了。(避免提前释放)</p>
-<p>2）释放指针指向的堆空间，首先要确定哪些指向同一个堆，这些指针只能释放一次。(避免释放多次，造成内存泄露)</p>
-<p>3）模块化操作时，对象可能被多个模块创建和使用，不能确定最后由谁释放。</p>
-<p>4）多线程操作时，不确定哪个线程最后使用完毕。<br>虽然ARC给我们编程带来的很多好多，但也可能出现内存泄露。如下面两种情况：</p>
-<p>1）循环参照：A有个属性参照B，B有个属性参照A，如果都是strong参照的话，两个对象都无法释放。</p>
-<p>2）死循环：如果有个ViewController中有无限循环，也会导致即使ViewController对应的view消失了，ViewController也不能释放。</p>
-<p>2.block一般用哪个关键字修饰，为什么？</p>
-<p>block一般使用copy关键之进行修饰，block使用copy是从MRC遗留下来的“传统”，在MRC中，方法内容的block是在栈区的，使用copy可以把它放到堆区。但在ARC中写不写都行：编译器自动对block进行了copy操作。</p>
-<p>3.用@property声明的NSString（或NSArray，NSDictionary）经常</p>
-<p>使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？<br>用@property声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。</p>
-<p>如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性。</p>
-<p>copy此特质所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝” (copy)。 当属性类型为NSString时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变” (immutable)的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的” (mutable)，就应该在设置新属性值时拷贝一份。</p>
-<p>4.runloop、autorelease pool以及线程之间的关系？</p>
-<p>每个线程(包含主线程)都有一个Runloop。对于每一个Runloop，系统会隐式创建一个Autorelease pool，这样所有的release pool会构成一个像callstack一样的一个栈式结构，在每一个Runloop结束时，当前栈顶的Autorelease pool会被销毁，这样这个pool里的每个Object会被release。</p>
-<p>5.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</p>
-<p>“属性”(property)有两大概念：ivar(实例变量)、存取方法(access method=getter)，即@property = ivar + getter + setter。<br>例如下面的这个类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@interface WBTextView :UITextView  </span><br><span class="line">@property (nonatomic,copy)NSString *placehold;  </span><br><span class="line">@property (nonatomic,copy)UIColor *placeholdColor;  </span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>类完成属性的定以后，编译器会自动编写访问这些属性的方法(自动合成autosynthesis)，上述代码写出来的类等效与下面的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@interface WBTextView :UITextView  </span><br><span class="line">- (NSString *)placehold;  </span><br><span class="line">-(void)setPlacehold:(NSString *)placehold;  </span><br><span class="line">-(UIColor *)placeholdColor;  </span><br><span class="line">-(void)setPlaceholdColor:(UIColor *)placeholdColor;  </span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>详细介绍见：<a href="http://blog.csdn.net/jasonjwl/article/details/49427377" target="_blank" rel="external">http://blog.csdn.net/jasonjwl/article/details/49427377</a></p>
-<p>6.分别写一个setter方法用于完成<code>@property (nonatomic,retain)NSString *name</code>和<code>@property (nonatomic,copy) NSString *name</code>？</p>
-<p>retain属性的setter方法是保留新值并释放旧值，然后更新实例变量，令其指向新值。顺序很重要。假如还未保留新值就先把旧值释放了，而且两个值又指向同一个对象，先执行的release操作就可能导致系统将此对象永久回收。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-(void)setName:(NSString *)name&#123;</span><br><span class="line">    [name retain];</span><br><span class="line">    [_name release];</span><br><span class="line">    _name = name;</span><br><span class="line">&#125;</span><br><span class="line">-(void)setName:(NSString *)name&#123;     </span><br><span class="line">    [_name release];</span><br><span class="line">    _name = [name copy];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>7.说说assign和weak，_block和 _weak的区别？</p>
-<p>assign适用于基本数据类型，weak是适用于NSObject对象，并且是一个弱引用。</p>
-<p>assign其实也可以用来修饰对象，那么为什么不用它呢？因为被assign修饰的对象在释放之后，指针的地址还是存在的，也就是说指针并没有被置为nil。如果在后续内存分配中，刚巧分到了这块地址，程序就会崩溃掉。而weak修饰的对象在释放之后，指针地址会被置为nil。</p>
-<p><code>_block</code>是用来修饰一个变量，这个变量就可以在block中被修改。</p>
-<p><code>_block</code>:使用_block修饰的变量在block代码块中会被retain(ARC下，MRC下不会retain)。</p>
-<p>_weak:使用_weak修饰的变量不会在block代码块中被retain。</p>
-<p>8.请说出下面代码是否有问题，如果有问题请修改？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@autoreleasepool &#123;</span><br><span class="line">        for (int i=0; i&lt;largeNumber; i++) &#123;</span><br><span class="line">            Person *per = [[Person alloc] init];</span><br><span class="line">            [per autorelease];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>内存管理的原则：如果对一个对象使用了alloc、copy、retain，那么你必须使用相应的release或者autorelease。咋一看，这道题目有alloc，也有autorelease，两者对应起来，应该没问题。但autorelease虽然会使引用计数减一，但是它并不是立即减一，它的本质功能只是把对象放到离他最近的自动释放池里。当自动释放池销毁了，才会向自动释放池中的每一个对象发送release消息。这道题的问题就在autorelease。因为largeNumber是一个很大的数，autorelease又不能使引用计数立即减一，所以在循环结束前会造成内存溢出的问题。</p>
-<p>解决方案如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@autoreleasepool &#123;</span><br><span class="line">        for (int i=0; i&lt;100000; i++) &#123; </span><br><span class="line">            @autoreleasepool &#123;</span><br><span class="line">            Person *per = [[Person alloc] init];</span><br><span class="line">            [per autorelease];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>在循环内部再加一个自动释放池，这样就能保证每创建一个对象就能及时释放。</p>
-<p>9.请问下面代码是否有问题，如有问题请修改？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@autoreleasepool &#123;</span><br><span class="line">        NSString *str = [[NSString alloc] init];</span><br><span class="line">        [str retain];</span><br><span class="line">        [str retain];</span><br><span class="line">        str = @&quot;jxl&quot;;</span><br><span class="line">        [str release];</span><br><span class="line">        [str release];</span><br><span class="line">        [str release];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这道题跟第8题一样存在内存泄露问题，</p>
-<p>1）内存泄露 ；</p>
-<p>2）指向常量区的对象不能release。</p>
-<p>指针变量str原本指向一块开辟的堆区空间，但是经过重新给str赋值，str的指向发生了变化，由原来指向堆区空间，到指向常量区。常量区的变量根本不需要释放，这就导致了原来开辟的堆区空间没有释放，造成内存泄露。</p>
-<p>10.什么情况下使用weak关键字，相比assign有什么不同？什么情况使用weak关键字？</p>
-<p>1）在ARC中，在有可能出现循环引用的时候，往往要通过让其中一端使用weak来解决。比如delegate代理。</p>
-<p>2）自身已经对它进行一次强引用，没有必要再强引用一次，此时也会使用weak，自定义控件属性一般也使用weak。</p>
-<p>不同点：</p>
-<p>1）weak此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性与assign一样，然而在属性所指的对象遭到销毁时，属性值也会清空。而assign的“设置方法”只会执行针对“纯量类型” (scalar type，例如 CGFloat 或 NSlnteger 等)的简单赋值操作。</p>
-<p>2）assign可以用非OC对象，而weak必须用于OC对象。</p>
-<p>11.内存管理语义(assign、strong、weak等的区别)?</p>
-<p>1）assign “设置方法” 只会执行针对“纯量”的简单赋值操作。</p>
-<p>2）strong  此特性表明该属性定义了一种“拥有关系”。为这种属性设置新值时，设置方法会先保留新值，并释放旧值，然后再将新值设置上去。</p>
-<p>3）weak 此特性表明该属性定义了一种“非拥有关系”。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特性同assign类似，然而在属性所指的对象遭到销毁时，属性值也会清空。</p>
-<p>4）unsafe_unretained  此特性的语义和assign相同，但是它适用于“对象类型”，该特性表达一种“非拥有关系”，当目标对象遭到销毁时，属性值不会自动清空，这一点与weak有区别。</p>
-<p>5）copy 此特性所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为NSString*时，经常用此特性来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变”的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的”，就应该在设置新属性值时拷贝一份。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="talk" scheme="http://chars.tech/categories/talk/"/>
-    
-    
-      <category term="ios" scheme="http://chars.tech/tags/ios/"/>
     
       <category term="碎碎念" scheme="http://chars.tech/tags/text/"/>
     
