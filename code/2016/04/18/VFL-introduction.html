@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/code/2016/04/18/VFL-introduction.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>VFL 语言简介</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="VFL 语言简介" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。" />
+<meta property="og:description" content="VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。" />
+<link rel="canonical" href="http://chars.tech/code/2016/04/18/VFL-introduction.html" />
+<meta property="og:url" content="http://chars.tech/code/2016/04/18/VFL-introduction.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-18T05:49:29+08:00" />
+<script type="application/ld+json">
+{"description":"VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。","@type":"BlogPosting","url":"http://chars.tech/code/2016/04/18/VFL-introduction.html","headline":"VFL 语言简介","dateModified":"2016-04-18T05:49:29+08:00","datePublished":"2016-04-18T05:49:29+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/code/2016/04/18/VFL-introduction.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>VFL 语言简介 | Chars</title>
+    <meta name="description" content="VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="VFL+%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B" class="title">VFL 语言简介</h1>
+    <p class="meta">
+    April 18, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。</p>
+
+<h1 id="什么是vfl语言">什么是VFL语言</h1>
+<p>VFL（Visual Format Language），“可视化格式语言”。</p>
+
+<p>VFL 是苹果公司为了简化autolayout的编码而推出的抽象语言。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-97f98b166f068033.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<h1 id="语法说明">语法说明</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>H:[cancelButton(72)]-12-[acceptButton(50)]
+cancelButton宽72，acceptButton宽50，它们之间间距12
+ 
+H:[wideView(&gt;=60@700)]
+wideView宽度大于等于60point，该约束条件优先级为700（优先级最大值为1000，优先级越高的约束条件越先被满足）
+  
+V:[redBox][yellowBox(==redBox)]
+垂直方向上，先有一个redBox，其下方紧接一个高度等于redBox高度的yellowBox
+  
+H:|-10-[Find]-[FindNext]-[FindField(&gt;=20)]-|
+水平方向上，Find距离父view左边缘间隔10，之后是FindNext距离Find间隔默认宽度；再之后是宽度不小于20的FindField，它和FindNext以及父view右边边缘的间距都是默认宽度。（竖线“|”表示superview的边缘）。
+</code></pre></div></div>
+
+<h1 id="使用方法">使用方法</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>使用VFL来创建约束数组
++(NSArray *)constraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary *)metrics views:(NSDictionary *)views;
+  
+format：VFL语句
+opts：约束类型
+metrics：VFL语句中用到的具体数值
+views：VFL语句中用到的控件
+  
+创建一个字典（内部包含VFL语句中用到的控件）的快捷宏定义
+NSDictionaryOfVariableBindings(...)
+</code></pre></div></div>
+
+<h1 id="实例展示">实例展示</h1>
+<p>效果图如下：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-dcd649f93914b79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />  
+<img src="http://upload-images.jianshu.io/upload_images/1492739-1ddb3f7e5926f466.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<h1 id="实现代码">实现代码</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(void)horizontalLayout{
+    //1.添加两个控件
+    UIView *blueView = [[UIView alloc] init];
+    blueView.backgroundColor = [UIColor blueColor];
+    
+    blueView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:blueView];
+    
+    UIView *redView = [[UIView alloc] init];
+    redView.backgroundColor = [UIColor redColor];
+    redView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:redView];
+    
+    //2.添加约束
+    //2.1水平方向的约束
+    NSString *hVFL = @"H:|-30-[blueView]-30-[redView(==blueView)]-30-|";
+    NSArray *hCons = [NSLayoutConstraint constraintsWithVisualFormat:hVFL options:NSLayoutFormatAlignAllBottom | NSLayoutFormatAlignAllTop metrics:nil views:@{@"blueView":blueView, @"redView":redView}];
+    [self.view addConstraints:hCons];
+    
+    //2.2垂直方向的约束
+    NSString *vVFL = @"V:[blueView(50)]-30-|";
+    NSArray *vCons = [NSLayoutConstraint constraintsWithVisualFormat:vVFL options:0 metrics:nil views:@{@"blueView":blueView}];
+    [self.view addConstraints:vCons];
+}
+
+-(void)verticalLayout{
+    //1.添加两个控件
+    UIView *blueView = [[UIView alloc] init];
+    blueView.backgroundColor = [UIColor blueColor];
+    blueView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:blueView];
+
+    UIView *redView = [[UIView alloc] init];
+    redView.backgroundColor = [UIColor redColor];
+    redView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:redView];
+
+    //2.添加约束
+    //2.1水平方向的约束
+    NSString *hVFL = @"H:|-30-[blueView]-30-|";
+    NSArray *hCons = [NSLayoutConstraint constraintsWithVisualFormat:hVFL options:0 metrics:nil views:@{@"blueView":blueView}];
+    [self.view addConstraints:hCons];
+
+    //2.2垂直方向的约束
+    NSString *vVFL = @"V:|-30-[blueView(50)]-30-[redView(==blueView)]";
+    NSArray *vCons = [NSLayoutConstraint constraintsWithVisualFormat:vVFL options:NSLayoutFormatAlignAllRight metrics:nil views:@{@"blueView":blueView, @"redView":redView}];
+    [self.view addConstraints:vCons];
+    NSLayoutConstraint *redLeftCon = [NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:blueView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+    [self.view addConstraint:redLeftCon];
+}
+</code></pre></div></div>
+
+<h1 id="小结">小结</h1>
+<p>最后对格式的字符串作一个总结介绍：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>表达式</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>水平方向</td>
+      <td>H:</td>
+    </tr>
+    <tr>
+      <td>垂直方向</td>
+      <td>V:</td>
+    </tr>
+    <tr>
+      <td>Views</td>
+      <td>[view]</td>
+    </tr>
+    <tr>
+      <td>SuperView</td>
+      <td>竖线符号</td>
+    </tr>
+    <tr>
+      <td>关系</td>
+      <td>&gt;=,==,&lt;=</td>
+    </tr>
+    <tr>
+      <td>空间，间隙</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>优先级</td>
+      <td>@value</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#objc">
+            <p><i class="fa fa-tag fa-fw"></i> objc</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/code/2016/04/14/Grand-Central-Dispatch.html">
+        GCD（Grand Central Dispatch）
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/algorithm/2016/04/30/uniform-random.html">
+        均匀分布随机函数的实现
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/code/2016/06/02/qiniu-using.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>七牛云存储应用</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="七牛云存储应用" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。" />
+<meta property="og:description" content="七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。" />
+<link rel="canonical" href="http://chars.tech/code/2016/06/02/qiniu-using.html" />
+<meta property="og:url" content="http://chars.tech/code/2016/06/02/qiniu-using.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-06-02T16:17:42+08:00" />
+<script type="application/ld+json">
+{"description":"七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。","@type":"BlogPosting","url":"http://chars.tech/code/2016/06/02/qiniu-using.html","headline":"七牛云存储应用","dateModified":"2016-06-02T16:17:42+08:00","datePublished":"2016-06-02T16:17:42+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/code/2016/06/02/qiniu-using.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>七牛云存储应用 | Chars</title>
+    <meta name="description" content="七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%BA%94%E7%94%A8" class="title">七牛云存储应用</h1>
+    <p class="meta">
+    June 2, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。</p>
+
+<h1 id="前言">前言</h1>
+<p>七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。
+七牛云官网http://www.qiniu.com/ ，进入开发者平台，浏览了所有的开发指南，可是却是没有具体清晰的操作步骤。今天自己试着通过网络，实现了使用七牛云存储文件。现在，将操作步骤记录如下。</p>
+<h1 id="准备工作">准备工作</h1>
+<p>1.注册七牛云账号。</p>
+
+<p>2.创建空间。</p>
+
+<p>3.获取Access Key。</p>
+
+<p>4.获取Secret Key。</p>
+
+<p>5.获取官方SDK（https://github.com/qiniu/objc-sdk ）。</p>
+<h1 id="导入工程">导入工程</h1>
+<p>1.打开Xcode创建Project。</p>
+
+<p>2.从获取的官方SDK导入库，如下图</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-cd5c98eeccbbaef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
+3.获取token</p>
+
+<p>这一步，网上大家都说得很简单，在这一步卡壳许久。现在说说自己使用的方法：</p>
+
+<p>1）获取服务器代码，编译工程，以备生成token。</p>
+
+<p>服务器代码地址：https://github.com/CharsDavy/QiNiuGenertorToken
+2）使用Eclipse导入上述服务器代码</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-825661cf6c402c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p>在Test.java文件中，修改自己的空间名称，Access Key和Secret Key。运行程序，即可获得token。</p>
+
+<p>这种方式生成的token的有效期是可以自己设定的，如果你想，设定1000年过期也是可以的。</p>
+
+<p>4.使用代码上传文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;QiniuSDK.h&gt;
+...
+    NSString token = @"从服务端SDK获取";
+    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
+    [upManager putData:data key:@"hello" token:token
+        complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        NSLog(@"%@", info);
+        NSLog(@"%@", resp);
+    } option:nil];
+...
+</code></pre></div></div>
+
+<h1 id="调试">调试</h1>
+<p>工程导入之后，可能会出现以下几种可能的错误。</p>
+
+<p>1.若报 <code class="highlighter-rouge">Undefined symbols for architecture x86_64: "_crc32", referenced from:</code>，项目中需导入 libz.dylib。(Build Phases—Link Binary With Libraries)</p>
+
+<p>2.若报<code class="highlighter-rouge">"_res_9_ninit", referenced from: _setup_dns_server in QNResolver.o</code>等，</p>
+
+<p>1）项目中需导入 libresolv.dylib或libresolv.9.dylib。(Build Phases— Link Binary With Libraries)；</p>
+
+<p>2）或 (Build Settings— Linking— Other Linker Flags) 添加 -lresolv选项。</p>
+
+<p>3.若报 Thread 1: EXC_BAD_ACCESS(code=1,address=0x180f4beb8)类似错误，将 QN打头的都设置 arc (Build Phases — Compile Sources)</p>
+
+<p>4.可能需要修改部分内容，如 <code class="highlighter-rouge">#import &lt;AFNetworking/AFNetworking.h&gt;</code>改为 <code class="highlighter-rouge">#import "AFNetworking.h"</code></p>
+
+<h1 id="小结">小结</h1>
+<p>以上就是本人在工程中使用七牛云进行文件云存储的过程，本文中使用的仅仅是上传文件，更多其他操作功能请参照官方文档。</p>
+
+<p>最后，附上一个使用七牛云存储的软件，源码地址：https://github.com/CharsDavy/MyNotes</p>
+
+<p>其实，对于获取token来完成上载操作，也可以参考官方文档，地址
+http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html</p>
+
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#存储">
+            <p><i class="fa fa-tag fa-fw"></i> 存储</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2016/06/01/build-blog-by-hexo.html">
+        手把手教 GitHub + Hexo 搭建博客
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/pieces/2016/06/05/git-using-remote.html">
+        Git 使用 - 远程操作
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

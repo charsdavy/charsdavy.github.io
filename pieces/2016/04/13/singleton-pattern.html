@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/04/13/singleton-pattern.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>单例模式</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="单例模式" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。" />
+<meta property="og:description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。" />
+<link rel="canonical" href="http://chars.tech/pieces/2016/04/13/singleton-pattern.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/04/13/singleton-pattern.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-13T16:23:37+08:00" />
+<script type="application/ld+json">
+{"description":"单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/04/13/singleton-pattern.html","headline":"单例模式","dateModified":"2016-04-13T16:23:37+08:00","datePublished":"2016-04-13T16:23:37+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/04/13/singleton-pattern.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>单例模式 | Chars</title>
+    <meta name="description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F" class="title">单例模式</h1>
+    <p class="meta">
+    April 13, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
+
+<h1 id="问题的提出">问题的提出　</h1>
+<p>在一个iOS 应用的生命周期中，有时候我们只需要某个类的一个实例。例如，iOS 设备都有一个重力加速计硬件设备，要访问设备在x轴、y轴和z轴上的重力加速度，就必然要有一个类能够与硬件设备沟通来实时获得这些数据，这个类就是UIAccelerometer 。除了实时地获得数据，该类还能够保持x 轴、y轴和z 轴的状态。但是这个类只需要一个实例就够了，如果有多个实例，就会占用过多的内存。 再有，当应用程序启动时，应用的状态由UIApplication 类的一个实例维护，这个实例代表了整个“应用程序对象”，它只能是一个实例，其作用是实现应用程序中一些共享资源的访问和状态的保持等。</p>
+<h1 id="实现原理">实现原理</h1>
+<p>单例模式一般会封装一个静态属性，并提供静态实例的创建方法，其UML类图如图所示。
+                               <img src="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单例设计模式类图" /></p>
+<h1 id="示例代码">示例代码：</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//Singleton.h
+//
+@interface Singleton : NSObject
++ (Singleton*)sharedManager;
+@property (nonatomic ,strong) NSString* singletonData;
+@end
+   
+//Singleton.m 
+//
+#import "Singleton.h"
+@implementation Singleton
+@synthesize singletonData = _singletonData;
+static Singleton *sharedManager = nil;
++ (Singleton*)sharedManager
+{
+    static dispatch_once_t once;
+    dispatch_once(&amp;once, ^{
+        sharedManager = [[self alloc] init];
+    });
+    return sharedManager;
+}
+@end
+</code></pre></div></div>
+<p>其中<code class="highlighter-rouge">static Singleton *sharedManager</code> 为静态变量，类方法为<code class="highlighter-rouge">+ (Singleton*)sharedManager</code>。sharedManager 方法采用了GCD（Grand Central Dispatch）技术，这是一种基于C语言的多线程访问技术。在上述代码中，<code class="highlighter-rouge">dispatch_once</code> 函数就是由GCD提供的，它的作用是在整个应用程序生命周期中只执行一次代码块（^{…}）。 <code class="highlighter-rouge">dispatch_once_t</code> 是GCD提供的结构体，使用时需要将GCD地址传给<code class="highlighter-rouge">dispatch_once</code> 函数。<code class="highlighter-rouge">dispatch_once</code> 函数能够记录该代码块是否被调用过。<code class="highlighter-rouge">dispatch_once</code>函数不仅意味着代码仅会被运行一次，而且还意味着此运行还是线程同步的。也就是说，当我们使用了<code class="highlighter-rouge">dispatch_once</code>函数时，就不再需要使用诸如<code class="highlighter-rouge">@synchronized</code>之类的语句。</p>
+
+<p>将以上单例实现代码，抽成宏，代码如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// @interface
+#define singleton_interface(className) \
++ (className *)shared##className;
+ 
+// @implementation
+#define singleton_implementation(className) \
+static className *_instance; \
++ (id)allocWithZone:(NSZone *)zone \
+{ \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&amp;onceToken, ^{ \
+        _instance = [super allocWithZone:zone]; \
+    }); \
+    return _instance; \
+} \
++ (className *)shared##className \
+{ \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&amp;onceToken, ^{ \
+        _instance = [[self alloc] init]; \
+    }); \
+    return _instance; \
+}
+</code></pre></div></div>
+<h1 id="应用案例">应用案例</h1>
+<p>在Cocoa Touch框架中，有UIApplication、UIAccelerometer 、NSUserDefaults和NSNotificationCenter等单例类。另外，NSFileManager 和NSBundle 类虽然属于Cocoa框架的内容，但也可以在Cocoa Touch框架中使用（Cocoa框架中的单例类有NSFileManager 、NSBundle 、NSWorkspace和NSApplication 等）。 </p>
+<h2 id="1-uiapplication">1. UIApplication</h2>
+<p>UIApplication 类的实例提供了应用程序的集中控制点来保持应用的状态。UIApplication 实例总是分配给应用程序委托对象（UIApplicationDelegate ），通过应用程序委托对象来响应低内存、应用启动、后台运行和应用终止等事件。在HelloWorld 案例中，AppDelegate 就是这个应用程序的委托对象，它实现了UIApplicationDelegate协议。</p>
+
+<p>UIApplication 类有很多方法和属性，下面我们重点介绍其中几个：
+<code class="highlighter-rouge">+ sharedApplication</code> 方法。创建和获得UIApplication 实例的方法。
+<code class="highlighter-rouge">idleTimerDisabled</code>属性。设定和获得“空闲时间禁止”的状态。idleTimerDisabled属性的默认值是NO，即默认情况下系统会锁定屏幕。当idleTimerDisabled = YES 时，则不会开启“空闲时间禁止”状态，系统不会锁定屏幕。开启这项设定需要谨慎，它会使你的应用比较耗电。
+<code class="highlighter-rouge">- openURL: </code>方法。可以打开一些内置的iOS 应用，其中包括打开浏览器、打开Google 地图、拨打电话、发送短信和发送E-mail 等。</p>
+
+<p>打开浏览器的示例代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *url = [NSURL URLWithString:@"http://www.cnblogs.com/chars"];
+[[UIApplication sharedApplication] openURL:url];
+</code></pre></div></div>
+<p>打开Google 地图时，实际上是通过内置浏览器来打开，示例代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString* searchQuery = @"清华大学";
+searchQuery = [searchQuery stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+NSString* urlString = [NSString stringWithFormat: @"http://maps.google.com/maps?q=%@", searchQuery];
+[[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+</code></pre></div></div>
+<p>其中NSString 的<code class="highlighter-rouge">stringByAddingPercentEscapesUsingEncoding</code>方法将字符串转换为URL编码，例如 “%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6 ”是“清华大学”的 URL 编码。 拨打电话时，苹果官方要求使用该方法调用内置拨号程序，示例代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://10010"]];
+</code></pre></div></div>
+<p>发送短信时，苹果官方要求使用该方法调用内置发送短信程序，示例代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"sms:10010"]];
+</code></pre></div></div>
+<p>发送E-mail 时，这种方式可以发送简单的不带附件的E-mail ，示例代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto://eorient@sina.com"]];
+</code></pre></div></div>
+<h2 id="2-uiaccelerometer">2.   UIAccelerometer</h2>
+<p>单例类UIAccelerometer 前面也讲过，它可以访问重力加速计硬件设备，实时获得设备在x 轴、y轴和z 轴方向上的重力加速度。
+<code class="highlighter-rouge">+ sharedAccelerometer</code>方法是创建和获得UIAccelerometer实例的共享方法。</p>
+
+<p>与UIApplication类似，UIAccelerometer也有对应的委托对象，其委托对象为UIAccelerometerDelegate。UIAccelerometer 将实例分配给委托对象UIAccelerometerDelegate ，然后由委托对象响应重力加速计事件。</p>
+<h2 id="3-nsuserdefaults">3.   NSUserDefaults</h2>
+<p>单例类NSUserDefaults可以很方便地读取应用设置项目。
+<code class="highlighter-rouge">+ standardUserDefaults</code>方法是创建和获得NSUserDefaults实例的静态方法。</p>
+<h2 id="4-nsnotificationcenter">4.   NSNotificationCenter </h2>
+<p>单例类NSNotificationCenter提供信息广播通知，它采用观察者模式的通知机制。
+<code class="highlighter-rouge">+ defaultCenter </code>方法是创建和获得NSNotificationCenter实例的共享方法。</p>
+<h2 id="5-nsfilemanager">5.   NSFileManager </h2>
+<p>NSFileManager 提供了访问文件系统的通用操作，可以定位、创建、复制文件和文件夹。在iOS 5和Mac OS X v10.7之后，它还可以管理存储在iCloud 上的数据。</p>
+
+<p><code class="highlighter-rouge">+ defaultManager </code>方法是创建和获得NSFileManager 实例的方法。除了该方法外，创建NSFileMa nager对象时还可以使用实例构造方法– init。这两种方法有着比较大的差别，+ defaultManager方法总是返回相同的NSFileManager 对象，但如果要使用委托（NSFileManagerDelegate）完成基于文件的操作并接收通知，应该使用– init 方法创建一个新的实例，而不是使用共享的对象。</p>
+<h2 id="6-nsbundle">6.   NSBundle </h2>
+<p>NSBundle 提供了动态加载（或卸载）可执行代码、定位资源文件以及资源本地化、访问文件系统等功能。
+<code class="highlighter-rouge">+ mainBundle</code>方法是创建和获得NSBundle 实例的共享方法。
+ </p>
+<h1 id="尾声">尾声</h1>
+<p>单例模式无疑是Cocoa框架下最重要的设计模式之一。灵活而有机地运用设计模式，意味着编程工作的高效性和产品健壮性、安全性的提高。因此，我们应该要善于使用设计模式，将自己的开发经验与代码、设计模式完美融合起来，提高软件代码质量。
+ </p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#objc">
+            <p><i class="fa fa-tag fa-fw"></i> objc</p>
+          </a>
+        
+          <a class="button" href="/tags#设计模式">
+            <p><i class="fa fa-tag fa-fw"></i> 设计模式</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2016/04/12/design-pattern-introduction.html">
+        设计模式 - 概述
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/web/2016/04/14/ruby-regular-expression.html">
+        Ruby 正则表达式
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

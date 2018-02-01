@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2017/05/09/objc-runtime.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>聊聊Objective-C的Runtime</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="聊聊Objective-C的Runtime" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。" />
+<meta property="og:description" content="Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。" />
+<link rel="canonical" href="http://chars.tech/pieces/2017/05/09/objc-runtime.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2017/05/09/objc-runtime.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-05-09T16:36:49+08:00" />
+<script type="application/ld+json">
+{"description":"Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。","@type":"BlogPosting","url":"http://chars.tech/pieces/2017/05/09/objc-runtime.html","headline":"聊聊Objective-C的Runtime","dateModified":"2017-05-09T16:36:49+08:00","datePublished":"2017-05-09T16:36:49+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2017/05/09/objc-runtime.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>聊聊Objective-C的Runtime | Chars</title>
+    <meta name="description" content="Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E8%81%8A%E8%81%8AObjective-C%E7%9A%84Runtime" class="title">聊聊Objective-C的Runtime</h1>
+    <p class="meta">
+    May 9, 2017
+    
+    </p>
+  </header>
+  <section class="post-content"><p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
+
+<p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
+
+<p>在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。</p>
+
+<p>找出方法的最终执行代码：当程序执行<code class="highlighter-rouge">[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。</p>
+
+<h1 id="1-消息机制">1 消息机制</h1>
+
+<p>与古老的C语言不同，Objective-C虽然源自C语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。</p>
+
+<p><strong>C语言和Objective-C编译时的区别：</strong></p>
+
+<p>C语言在编译的时候，已经知道调用哪一个函数。</p>
+
+<p>Objective-C不一样，只有在运行时才知道需要调用的方法和函数。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OBJC_EXPORT void objc_msgSend(void /* id self, SEL op, ... */ )
+    OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0);
+</code></pre></div></div>
+
+<p>使用这个方法要<code class="highlighter-rouge">#import &lt;objc/message.h&gt;</code>，另外，Apple在Xcode5开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode就会报错，那么，如何解决呢？</p>
+
+<p>解决方案如下：</p>
+
+<ul>
+  <li>1）打开Project的<code class="highlighter-rouge">Build Settings</code>，搜索“msg”。</li>
+  <li>2）将<code class="highlighter-rouge">Enable Strict Checking of objc_msgSend Calls</code>的值设置为NO。</li>
+</ul>
+
+<h2 id="发送无参消息">发送无参消息</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface Sample : NSObject
++ (void)run;
+- (void)run;
+- (void)eatWithFood:(NSString *)food;
+@end
+
+@implementation Sample
++ (void)run
+{
+    NSLog(@"类方法 run");
+}
+
+- (void)run
+{
+    NSLog(@"实例方法 run");
+}
+
+- (void)eatWithFood:(NSString *)food
+{
+    NSLog(@"实例方法 eat：%@", food);
+}
+@end
+
+- (void)test {
+	Sample *t = [[Sample alloc] init];
+	objc_msgSend(t, @selector(run));
+
+	objc_msgSend([Sample class], @selector(run));
+}
+</code></pre></div></div>
+
+<h2 id="发送带参消息">发送带参消息</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)test {
+	Sample *t = [[Sample alloc] init];
+	objc_msgSend(t, @selector(eatWithFood:), @"apple");
+}
+</code></pre></div></div>
+
+<p><strong>附加：将Objective-C转换出Runtime代码方法</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clang -rewrite-objc xxxx.m
+</code></pre></div></div>
+
+<h2 id="交换方法的实现">交换方法的实现</h2>
+
+<p><code class="highlighter-rouge">class_getInstanceMethod(__unsafe_unretained Class cls, SEL name)</code>获取对象方法。</p>
+
+<p><code class="highlighter-rouge">class_getClassMethod(__unsafe_unretained Class cls, SEL name)</code>获取类方法。</p>
+
+<p><code class="highlighter-rouge">method_exchangeImplementations(Method m1, Method m2)</code>交换方法的实现方式。</p>
+
+<p>常见示例代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSURL *url = [NSURL URLWithString:@"https://charsdavy.github.io"];
+[NSURLRequest requestWithURL:url];
+</code></pre></div></div>
+
+<p>但<code class="highlighter-rouge">url</code>可能返回nil，而此段代码未能对返回值<code class="highlighter-rouge">url</code>进行合法判断。但每次使用以上类似代码都需要进行合法性判断，那么有什么更好的方法使<code class="highlighter-rouge">URLWithString:</code>能够做合法性判断呢？这个时候就需要使用Runtime的特有方法了。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface NSURL (DD)
++ (instancetype)dd_URLWithString:(NSString *)URLString;
+@end
+
+@implementation NSURL (DD)
+// 加载此分类时调用
++ (void)load
+{
+    //获取方法名称
+    Method urlMethod = class_getClassMethod([NSURL class], @selector(URLWithString:));
+    Method ddUrlMethod = class_getClassMethod([NSURL class], @selector(dd_URLWithString:));
+    //交换方法的实现
+    method_exchangeImplementations(urlMethod, ddUrlMethod);
+}
+//此方法与URLWithString:交换了实现方式
++ (instancetype)dd_URLWithString:(NSString *)URLString
+{
+//    NSURL *url = [NSURL URLWithString:URLString]; 此处不能再调用此方法，否则会死循环
+    NSURL *url = [NSURL dd_URLWithString:URLString];
+    if (!url) {
+        NSLog(@"url is nil");
+    }
+    return url;
+}
+@end
+
+</code></pre></div></div>
+
+<h2 id="归档和解档">归档和解档</h2>
+
+<p>先来理解几个Objective-C中的概念：</p>
+
+<p>序列化：将自定义的Objective-C的对象转化成二进制文件数据。</p>
+
+<p>反序列化：将二进制文件数据转化成自定义的Objective-C的对象。</p>
+
+<p>归档：将自定义的Objective-C的对象存储到本地磁盘。</p>
+
+<p>解档：将存储在本地磁盘的数据转换成自定义的Objective-C的对象。</p>
+
+<p>Ivar类型：成员属性。</p>
+
+<p>Method类型：成员方法。</p>
+
+<p>通常我们使用归档和解档的方式如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface Sample : NSObject&lt;NSCoding&gt;
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *age;
+@end
+
+@implementation Sample
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.age forKey:@"age"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.age = [aDecoder decodeObjectForKey:@"age"];
+    }
+    return self;
+}
+@end
+
+- (void)saveObject
+{
+    Sample *p = [[Sample alloc] init];
+    p.name = @"Chars";
+    p.age = @"18";
+    
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"chars.dat"];
+    
+    BOOL flag = [NSKeyedArchiver archiveRootObject:p toFile:path];
+    if (flag) {
+        NSLog(@"success");
+    } else {
+        NSLog(@"falied");
+    }
+    NSLog(@"%@", path);
+}
+
+- (void)readObject
+{
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"chars.dat"];
+    
+    Sample *p = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (p) {
+        NSLog(@"name:%@,age:%@", p.name, p.age);
+    } else {
+        NSLog(@"falied");
+    }
+    NSLog(@"%@", path);
+}
+</code></pre></div></div>
+<p>Objective-C中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。</p>
+
+<p>但是，当model中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用Runtime来简化工作。</p>
+
+<p><code class="highlighter-rouge">class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)</code>获取Class中成员变量的个数。</p>
+
+<p>以下就是使用Runtime消息机制编写的归档与解档方法：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- (void)encodeWithCoder:(NSCoder *)aCoder
+{   
+    unsigned int count = 0;
+    Ivar *ivars = class_copyIvarList([Sample class], &amp;count);
+    for (int i = 0; i &lt; count; i++) {
+        Ivar ivar = ivars[i];
+        const char *name = ivar_getName(ivar);
+        NSString *key = [NSString stringWithUTF8String:name];
+        [aCoder encodeObject:[self valueForKey:key] forKey:key];
+    }
+    free(ivars);
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        unsigned int count = 0;
+        Ivar *ivars = class_copyIvarList([Sample class], &amp;count);
+        for (int i = 0; i &lt; count; i++) {
+            Ivar ivar = ivars[i];
+            const char *name = ivar_getName(ivar);
+            NSString *key = [NSString stringWithUTF8String:name];
+            id value = [aDecoder decodeObjectForKey:key];
+            [self setValue:value forKey:key];
+        }
+        free(ivars);
+    }
+    return self;
+}
+</code></pre></div></div>
+
+<h1 id="2-kvo">2 KVO</h1>
+
+<p>利用Runtime，在运行时动态创建一个对象。</p>
+
+<p>实现原理：</p>
+
+<ol>
+  <li>创建<code class="highlighter-rouge">NSKVONotifying_XXX:XXX</code>类(XXX为被监听者)。</li>
+  <li>重写属性set方法，调用<code class="highlighter-rouge">willChangeValueForKey:</code>和<code class="highlighter-rouge">didChangeValueForKey:</code>方法，进而触发调用观察者的<code class="highlighter-rouge">observeValueForKeyPath:ofObject:change:context:</code></li>
+</ol>
+
+<p>示例代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@interface Viewer : NSObject
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *age;
+@end
+
+@interface Observer : NSObject
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *age;
+@end
+
+@implementation Observer
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context
+{
+    NSLog(@"object:%@, keyPath:%@, change:%@", object, keyPath, change);
+}
+@end
+
+Observer *observer = [[Observer alloc] init];
+Viewr *viewer = [[Viewer alloc] init];
+//注册监听,viewer为被监听者，observer为观察者
+[viewr addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionNew context:nil];
+//触发KVO
+viewer.age = @"99";
+</code></pre></div></div>
+
+<h1 id="3-动态添加方法">3 动态添加方法</h1>
+
+<p>当方法被调用时，才被加载。</p>
+
+<p><code class="highlighter-rouge">+ (BOOL)resolveClassMethod:(SEL)sel;</code>当一个类被调用了一个没有实现的方法时，则会调用此方法。</p>
+
+<p><code class="highlighter-rouge">+ (BOOL)resolveInstanceMethod:(SEL)sel</code>当一个类被调用了一个没有实现的实例方法时，则会调用此方法。</p>
+
+<p><code class="highlighter-rouge">class_addMethod(__unsafe_unretained Class cls, SEL name, IMP imp, const char *types)</code>动态添加方法。</p>
+
+<p>参数<code class="highlighter-rouge">cls </code>：类类型。参数<code class="highlighter-rouge">name </code>：方法编号。参数<code class="highlighter-rouge">imp </code>：方法实现，就是一个函数的指针。参数<code class="highlighter-rouge">* types </code>：方法类型</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@implementation Sample
+//一个类被调用了一个没有实现的实例方法时，则会调用此方法。
++ (BOOL)resolveInstanceMethod:(SEL)sel
+{
+    if (sel == @selector(eat)) {
+        //添加一个实例方法
+        class_addMethod([Sample class], sel, (IMP)eat, "v@:");
+    }
+    return [super resolveInstanceMethod:sel];
+}
+
+//隐式参数,self和_cmd是系统传过来的参数
+void eat(id self, SEL _cmd) {
+    NSLog(@"调用了%@的%@方法", self, NSStringFromSelector(_cmd));
+}
+@end
+
+[[[Sample alloc] init] performSelector:@selector(eat)];
+</code></pre></div></div>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#objc">
+            <p><i class="fa fa-tag fa-fw"></i> objc</p>
+          </a>
+        
+          <a class="button" href="/tags#runtime">
+            <p><i class="fa fa-tag fa-fw"></i> runtime</p>
+          </a>
+        
+          <a class="button" href="/tags#读书笔记">
+            <p><i class="fa fa-tag fa-fw"></i> 读书笔记</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/web/2017/04/22/python-basic-knowledge.html">
+        Python 学习 基础篇
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/web/2017/05/17/mysql-study.html">
+        与 MySQL 的零距离接触
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

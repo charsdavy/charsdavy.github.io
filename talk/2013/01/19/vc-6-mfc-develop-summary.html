@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/talk/2013/01/19/vc-6-mfc-develop-summary.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>VC++6.0 MFC编程心得小结</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="VC++6.0 MFC编程心得小结" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。" />
+<meta property="og:description" content="作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。" />
+<link rel="canonical" href="http://chars.tech/talk/2013/01/19/vc-6-mfc-develop-summary.html" />
+<meta property="og:url" content="http://chars.tech/talk/2013/01/19/vc-6-mfc-develop-summary.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-01-19T07:10:16+08:00" />
+<script type="application/ld+json">
+{"description":"作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。","@type":"BlogPosting","url":"http://chars.tech/talk/2013/01/19/vc-6-mfc-develop-summary.html","headline":"VC++6.0 MFC编程心得小结","dateModified":"2013-01-19T07:10:16+08:00","datePublished":"2013-01-19T07:10:16+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/talk/2013/01/19/vc-6-mfc-develop-summary.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>VC++6.0 MFC编程心得小结 | Chars</title>
+    <meta name="description" content="作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="VC%2B%2B6.0+MFC%E7%BC%96%E7%A8%8B%E5%BF%83%E5%BE%97%E5%B0%8F%E7%BB%93" class="title">VC++6.0 MFC编程心得小结</h1>
+    <p class="meta">
+    January 19, 2013
+    
+    </p>
+  </header>
+  <section class="post-content"><p>作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。</p>
+
+<h2 id="数据库">数据库</h2>
+<p>一个程序的最基本功能有输入、查询、修改、删除、保存、打印，均与数据库有关。而对数据库的基本操作使用最频繁，以Access 为例：</p>
+
+<p>1、用程序创建Access 数据库文件：</p>
+
+<p>手工创建数据文件的方法大家并不陌生，如果用程序创建有时候也需要，下面就是其中一种方法，可以使用ADOX::CatalogPtr来创建mdb文件。用下面“配置设置文件”文件方法设置数据库的参数，配置数据文件的名称、密码、ID和路径，在有安装程序的情况下需要它。</p>
+
+<p>ADOX的建库，它是在没有数据库文件的情况下，用ADOX的目录指针CatalogPtr来创建ACCESS数据库文件，如下：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="n">CRecord</span><span class="o">::</span><span class="n">UseADOXCatalogPtrCreatAccessDB</span><span class="p">()</span>
+
+<span class="p">{</span>
+
+       <span class="n">CString</span> <span class="n">str</span><span class="o">=</span><span class="n">DBPath</span> <span class="o">+</span> <span class="n">DBName</span><span class="p">;</span>         <span class="c1">//数据库的路径和名称</span>
+
+       <span class="n">CString</span> <span class="n">strPassword</span><span class="o">=</span><span class="n">DBPasswd</span><span class="p">;</span>         <span class="c1">//数据库的密码</span>
+
+       <span class="n">CString</span> <span class="n">strcnn</span><span class="o">=</span><span class="n">_T</span><span class="p">(</span><span class="s">"Provider=Microsoft.JET.OLEDB.4.0;Data source ="</span><span class="o">+</span><span class="n">str</span><span class="o">+</span><span class="s">";\
+</span><span class="err">
+</span><span class="s">              Jet OLEDB:DatabasePassword="</span><span class="o">+</span><span class="n">strPassword</span><span class="p">);</span> <span class="c1">//数据库的字串</span>
+
+             
+
+       <span class="c1">//使用ADOX::CatalogPtr来创建mdb文件：</span>
+
+       <span class="n">HRESULT</span> <span class="n">hr</span> <span class="o">=</span> <span class="n">S_OK</span><span class="p">;</span>
+
+       <span class="n">hr</span><span class="o">=::</span><span class="n">CoInitialize</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+       <span class="k">if</span><span class="p">(</span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span>
+
+       <span class="p">{</span>
+
+              <span class="n">HRESULT</span> <span class="n">hr</span> <span class="o">=</span> <span class="n">S_OK</span><span class="p">;</span>
+
+              <span class="k">try</span>
+
+              <span class="p">{</span>
+
+                     <span class="n">ADOX</span><span class="o">::</span><span class="n">_CatalogPtrm_pCatalog</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+                     <span class="n">hr</span><span class="o">=</span><span class="n">m_pCatalog</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="kr">__uuidof</span><span class="p">(</span><span class="n">ADOX</span><span class="o">::</span><span class="n">Catalog</span><span class="p">));</span>
+
+                     <span class="k">if</span><span class="p">(</span><span class="n">FAILED</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span>
+
+                     <span class="p">{</span>
+
+                            <span class="n">_com_issue_error</span><span class="p">(</span><span class="n">hr</span><span class="p">);</span>
+
+						<span class="p">}</span>
+						<span class="k">else</span><span class="p">{</span>
+
+                            <span class="n">m_pCatalog</span><span class="o">-&gt;</span><span class="n">Create</span><span class="p">(</span><span class="n">_bstr_t</span><span class="p">(</span><span class="n">strcnn</span><span class="p">));</span><span class="c1">//Create MDB</span>
+
+                     <span class="p">}</span>
+
+              <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="n">_com_error</span> <span class="n">e</span><span class="p">)</span>  <span class="c1">//异常处理</span>
+
+			<span class="p">{</span><span class="c1">//错误显示}</span>
+
+       <span class="p">}</span>
+
+       <span class="o">::</span><span class="n">CoUninitialize</span><span class="p">();</span>
+
+       <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>2、用程序在系统中创建Access的数据源名称DSN：</p>
+
+<p>手工配置ODBC的数据源名称，大家也不陌生。而通过程序动态建立ODBC的DSN，在有安装程序的情况下也需要它。它是在已有数据库文件的情况下建立数据源名称。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="n">CRecord</span><span class="o">::</span><span class="n">CreatAccessDSN</span><span class="p">()</span>
+
+<span class="p">{</span>
+
+              <span class="n">CString</span> <span class="n">DBID</span> <span class="p">,</span><span class="n">lpszFile</span><span class="o">=</span><span class="n">DBPath</span><span class="o">+</span><span class="n">DBName</span><span class="p">;</span>
+
+              <span class="kt">int</span> <span class="n">mlen</span><span class="p">;</span>
+
+              <span class="kt">char</span><span class="o">*</span> <span class="n">szDesc</span><span class="o">=</span><span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>
+
+              <span class="n">sprintf</span><span class="p">(</span><span class="n">szDesc</span><span class="p">,</span><span class="s">"DSN=%s?UID=%s?;PWD=%s?;DESCRIPTION=;?DBQ=%s?\
+</span><span class="err">
+</span><span class="s">FIL=MicrosoftAccess?DEFAULTDIR=%s??"</span>\
+
+                     <span class="p">,</span><span class="n">DBName</span><span class="p">,</span><span class="n">DBID</span><span class="p">,</span><span class="n">DBPasswd</span><span class="p">,</span><span class="n">lpszFile</span><span class="p">,</span><span class="n">DBPath</span><span class="p">);</span>
+
+              <span class="n">mlen</span><span class="o">=</span><span class="n">strlen</span><span class="p">(</span><span class="n">szDesc</span><span class="p">);</span>
+
+              <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">mlen</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+
+              <span class="p">{</span>
+
+                     <span class="k">if</span><span class="p">(</span><span class="n">szDesc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">'?'</span><span class="p">)</span>    <span class="n">szDesc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="sc">'\0'</span><span class="p">;</span>
+
+              <span class="p">}</span>
+
+              <span class="k">if</span><span class="p">(</span><span class="n">SQLConfigDataSource</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="n">ODBC_ADD_DSN</span><span class="p">,</span><span class="s">"MicrosoftAccess\
+</span><span class="err">
+</span><span class="s">                    Driver (*.mdb)</span><span class="se">\0</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">LPCSTR</span><span class="p">)</span><span class="n">szDesc</span><span class="p">))</span> <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+
+              <span class="err">……</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>3、动态建数据库表</p>
+
+<p>一种方法可以通过一个配置数据库表的txt文件，它包括创建数据表的SQL语句，程序读入该文件的，并分析该文件的内容，得到一SQL字串，进行创建，这种方法建表比较灵活；另一种方法也可以通过有包括创建Access数据表SQL语句的程序代码创建。两种创建方法都要注意在字段名与它的字段类型之间必需用tab键隔开。如下，采用后者：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+
+<span class="p">{</span>
+
+      <span class="n">VARIANT</span><span class="o">*</span> <span class="n">RecordsAffected</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+      <span class="n">CString</span> <span class="n">strSQL</span><span class="o">=</span>\
+
+<span class="s">"CREATE TABLE accesstable(ID  longinteger ID ENTITY(1,1) not null,"</span><span class="p">;</span>
+
+      <span class="n">strPSW</span><span class="o">=</span><span class="n">strPSW</span><span class="o">+</span><span class="s">"name        text(10)not null,"</span><span class="p">;</span>
+
+      <span class="n">strPSW</span><span class="o">=</span><span class="n">strPSW</span><span class="o">+</span><span class="s">"cash  DOUBLE,remark   text(100));"</span><span class="p">;</span>   <span class="c1">//SQL字串</span>
+
+      <span class="n">m_pCon</span><span class="o">-&gt;</span><span class="n">Execute</span><span class="p">((</span><span class="n">_bstr_t</span><span class="p">)(</span><span class="n">LPCTSTR</span><span class="p">)</span><span class="n">strSQL</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">adExecuteNoRecords</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="k">catch</span><span class="p">(</span><span class="n">_com_error</span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span>    <span class="p">{</span> <span class="err">……</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>用VC++程序来动态建库很多数据类型不支持，但表名、字段名可以是变量。</p>
+
+<p>4、数据库的连接和关闭</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="n">CRecordSonPrg</span><span class="o">::</span><span class="n">CreatConnect</span><span class="p">()</span>   <span class="c1">//数据库的连接</span>
+
+<span class="p">{</span>
+
+<span class="n">CString</span> <span class="n">str</span><span class="o">=</span><span class="s">"Provider=MSDASQL.1;Password='"</span><span class="o">+</span><span class="n">DBPasswd</span><span class="o">+</span><span class="s">"';\
+</span><span class="err">
+</span><span class="s">              PersistSecurity Info=True;Data Source="</span><span class="o">+</span><span class="n">DBName</span><span class="p">;</span>  <span class="c1">//连接字串</span>
+
+              <span class="k">try</span>
+
+              <span class="p">{</span>
+
+                     <span class="n">m_pCon</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="kr">__uuidof</span><span class="p">(</span><span class="n">Connection</span><span class="p">));</span>
+
+                     <span class="n">m_strConnection</span> <span class="o">=</span> <span class="n">_T</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>  
+
+                     <span class="n">intbCon</span><span class="o">=</span><span class="n">m_pCon</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">(</span><span class="n">_bstr_t</span><span class="p">(</span><span class="n">m_strConnection</span><span class="p">),</span><span class="s">""</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="n">adConnectUnspecified</span><span class="p">);</span>
+
+              <span class="p">}</span>
+
+              <span class="k">catch</span><span class="p">(</span><span class="n">_com_error</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">)</span>    <span class="p">{</span> <span class="err">……</span>    <span class="p">}</span>
+
+              <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CRecordSonPrg</span><span class="o">::</span><span class="n">CloseConnect</span><span class="p">()</span>  <span class="c1">//数据库的关闭</span>
+
+<span class="p">{</span>
+
+       <span class="k">try</span>
+
+       <span class="p">{</span>
+
+              <span class="n">m_pCon</span><span class="o">-&gt;</span><span class="n">Close</span><span class="p">();</span>  <span class="c1">//关闭连接</span>
+
+              <span class="n">m_pCon</span><span class="p">.</span><span class="n">Release</span><span class="p">();</span> <span class="c1">//释放</span>
+
+       <span class="p">}</span>
+
+       <span class="k">catch</span><span class="p">(</span><span class="n">_com_error</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">){</span> <span class="err">……</span>       <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>5、用ADO对数据库记录的增、删、改、存、查、排序、过滤、打印</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//打开一个数据表DBtable</span>
+
+<span class="n">m_pRs</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="kr">__uuidof</span><span class="p">(</span><span class="n">Recordset</span><span class="p">));</span>
+
+<span class="n">m_strCmdText</span><span class="o">=</span> <span class="n">_T</span><span class="p">(</span><span class="s">"DBtable"</span><span class="p">);</span>
+
+<span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Open</span><span class="p">((</span><span class="n">LPCTSTR</span><span class="p">)</span><span class="n">m_strCmdText</span><span class="p">,(</span><span class="n">LPCTSTR</span><span class="p">)</span><span class="n">m_strConnection</span><span class="p">,</span><span class="n">adOpenStatic</span><span class="p">,</span><span class="n">adLockOptimistic</span><span class="p">,</span><span class="n">adCmdTable</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>①增加记录：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+
+<span class="p">{</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Supports</span><span class="p">(</span><span class="n">adAddNew</span><span class="p">))</span><span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+      <span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">AddNew</span><span class="p">();</span>
+
+<span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Fields</span><span class="o">-&gt;</span><span class="n">GetItem</span><span class="p">(</span><span class="s">"user"</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Value</span><span class="o">=</span><span class="p">(</span><span class="n">_variant_t</span><span class="p">)</span><span class="n">strm_newuser</span><span class="p">;</span>
+
+      <span class="err">……</span>
+
+     <span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">();</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>②删除记录：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+
+<span class="p">{</span>    
+
+      <span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Delete</span><span class="p">(</span><span class="n">adAffectCurrent</span> <span class="p">);</span>      <span class="c1">//删除当前记录</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>③改动、保存记录：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">CRsCgDlg</span><span class="o">::</span><span class="n">SaveModifiedRecord</span><span class="p">()</span>       <span class="c1">//记录修改后保存</span>
+
+<span class="p">{</span>
+
+      <span class="err">……</span>       <span class="c1">//拷贝对话框数据到ADOC++ 绑定成员</span>
+
+      <span class="c1">//调用ADO数据绑定更新模式的接口</span>
+
+      <span class="n">HRESULT</span> <span class="n">hr</span> <span class="o">=</span> <span class="n">m_piAdoRecordBinding</span><span class="o">-&gt;</span><span class="n">Update</span><span class="p">(</span> <span class="p">(</span><span class="n">CADORecordBinding</span><span class="o">*</span><span class="p">)</span><span class="k">this</span> <span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>④查找记录：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CString</span> <span class="n">temp</span> <span class="o">=</span><span class="s">"user='"</span><span class="o">+</span><span class="n">m_FindUserName</span><span class="o">+</span><span class="s">"'"</span><span class="p">;</span>  
+
+<span class="c1">//查找字串</span>
+
+<span class="n">_bstr_ttemp1</span><span class="o">=</span><span class="p">(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">temp</span><span class="p">;</span>                                  
+
+<span class="c1">//类型转换为_bstr_t</span>
+
+<span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Find</span><span class="p">(</span><span class="n">temp1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">adSearchForward</span><span class="p">,</span><span class="s">""</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>⑤排序记录：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CString</span> <span class="n">temp</span><span class="o">=</span><span class="s">"’user,"</span><span class="o">+</span><span class="n">m_FindUserName</span><span class="o">+</span><span class="s">"'"</span><span class="p">;</span>  
+
+<span class="c1">//排序字串</span>
+
+<span class="n">_bstr_ttemp1</span><span class="o">=</span><span class="p">(</span><span class="n">_bstr_t</span><span class="p">)</span><span class="n">temp</span><span class="p">;</span>                                  
+
+<span class="c1">//类型转换为_bstr_t</span>
+
+<span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Sort</span><span class="o">=</span><span class="p">(</span><span class="n">temp1</span><span class="p">);</span>
+
+<span class="n">m_pRs</span><span class="o">-&gt;</span><span class="n">Sort</span><span class="o">=</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>                                          
+
+<span class="c1">//取消排序</span>
+</code></pre></div></div>
+
+<p>⑥过滤记录：</p>
+
+<pre><code class="language-c+">CString strfilter = _T("name = '"+m_strFilter+"'");    
+
+//过滤字串
+
+m_pRs-&gt;Filter= (_variant_t)strfilter;
+
+m_pRs-&gt;Filter= (long) adFilterNone;        
+
+//取消过滤
+</code></pre>
+
+<p>⑦打印记录：</p>
+
+<p>打印记录可以采用CDocument类的serialize()文档类的方式，也可以借助显示控件实现。这里是用FlexGrid控件编写的打印代码。</p>
+
+<pre><code class="language-c+">void CMyApp::PrintToText()
+
+{
+
+      CString cFilePath = "C:\\Documents and Settings\\Administrator\\";
+
+      CString cFileName = "打印统计表.txt";
+
+      CString cFile = cFilePath+cFileName;
+
+CStdioFile file; 
+
+//CStdioFile类是CFile类的派生类,它是以流方式操作文本
+
+      file.Open(cFile,CFile::modeCreate|CFile::modeWrite|CFile::typeText)
+
+CString str;
+
+      str.Format("%s\n\n",cFileName);      
+
+//格式化文件主题
+
+      file.WriteString(str);                   
+
+//写入文件主题
+
+      int RowCount = m_MSFGrid.GetRows();   
+
+//从FlexGrid控件表取行数
+
+      int ColCount = m_MSFGrid.GetCol();       
+
+//从FlexGrid控件表取列数
+
+      for(long r=0;r&lt;RowCount;r++)     //行循环
+
+      {
+
+             for(long c=0;c&lt;ColCount;c++)     //列循环
+
+             {
+
+                    CString Matrix =m_MSFGrid.GetTextMatrix(r,c);
+
+//得到r行c列的文本
+
+                    switch(c)
+
+                    { str.Format( …… );//产生打印格式 }
+
+                    file.WriteString(str);
+
+             }
+
+      }
+
+      file.SetLength(file.GetPosition());     
+
+//设置文件长度
+
+      file.Close();                      
+
+//关闭文件
+
+      str="notepad "+cFile;
+
+      WinExec(str,SW_SHOW);            
+
+//利用记事本打开生成的文本文件
+
+}
+</code></pre>
+
+<p>6、配置设置文件：</p>
+
+<p>为了增加程序的灵活性，对配置文件的读、写也是必要的。Windows操作系统专门为此提供了6个API函数来对配置设置文件进行读、写：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GetPrivateProfileInt()               
+
+//从私有初始化文件获取整型数值  
+
+GetPrivateProfileString()  
+
+//从私有初始化文件获取字符串型值  
+
+GetProfileInt                    
+
+//从win.ini获取整数值  
+
+GetProfileString                      
+
+//从win.ini获取字符串值  
+
+WritePrivateProfileString  
+
+//写字符串到私有初始化文件  
+
+WriteProfileString      
+
+//写字符串到win.ini 
+</code></pre></div></div>
+
+<p>下面采用私有初始化文件获取或写入字符串型值的函数来读写配置文件：</p>
+
+<p>读文件：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CString</span> <span class="n">CMyApp</span><span class="o">::</span><span class="n">GetOneIniData</span><span class="p">(</span><span class="n">CString</span> <span class="n">sFilePath</span><span class="p">)</span>
+
+<span class="p">{</span>
+
+      <span class="n">CString</span> <span class="n">str</span><span class="p">;</span>
+
+      <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">256</span><span class="p">]</span> <span class="o">=</span><span class="nb">NULL</span><span class="p">;</span>
+
+      <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+      <span class="n">len</span> <span class="o">=</span> <span class="n">GetPrivateProfileString</span><span class="p">(</span>
+
+             <span class="s">"Custom"</span><span class="p">,</span>      <span class="c1">//节名</span>
+
+             <span class="s">"UserName"</span>   <span class="c1">//项名</span>
+
+             <span class="s">"No"</span><span class="p">,</span>             <span class="c1">//没找到此项时的返回值</span>
+
+             <span class="n">buf</span><span class="p">,</span>               <span class="c1">//目标缓冲区地址</span>
+
+             <span class="mi">256</span><span class="p">,</span>               <span class="c1">//目标缓冲区长度</span>
+
+             <span class="n">sFilePath</span>        <span class="c1">//配置文件的准确路径</span>
+
+      <span class="p">);</span>
+
+      <span class="n">str</span><span class="o">=</span><span class="n">buf</span><span class="p">;</span>
+
+      <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>写文件：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="n">CKaApp</span><span class="o">::</span><span class="n">WriteIniData</span><span class="p">(</span><span class="n">CString</span> <span class="n">cstr</span><span class="p">,</span><span class="n">CString</span> <span class="n">strUserName</span><span class="p">)</span>
+
+<span class="p">{</span>
+
+       <span class="n">CString</span> <span class="n">sFile</span> <span class="o">=</span> <span class="n">cstr</span><span class="p">;</span>
+
+       <span class="n">CFileStatus</span> <span class="n">status</span><span class="p">;</span>  
+
+       <span class="n">BOOL</span> <span class="n">RetUser</span><span class="o">=</span><span class="n">WritePrivateProfileString</span><span class="p">(</span>
+
+              <span class="s">"Custom"</span><span class="p">,</span>             <span class="c1">//节名</span>
+
+              <span class="s">"UserName"</span><span class="p">,</span>         <span class="c1">//项名</span>
+
+              <span class="n">strUserName</span><span class="p">,</span>         <span class="c1">//内容</span>
+
+              <span class="n">sFile</span>                            <span class="c1">//配置文件的准确路径</span>
+
+              <span class="p">);</span>
+
+      <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>对于SQL Server的操作类似。</p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#碎碎念">
+            <p><i class="fa fa-tag fa-fw"></i> 碎碎念</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/talk/2013/01/19/college-thesis-summary-skill.html">
+        毕业论文摘要的书写方法和技巧
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/talk/2013/01/19/os-32-64-bit.html">
+        操作系统 32位和64位
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

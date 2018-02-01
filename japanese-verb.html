@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/japanese-verb">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>日语-动词的变形和分类</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="日语-动词的变形和分类" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。 突跃,突击,突袭等描述动作过程均属动词。中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。" />
+<meta property="og:description" content="动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。 突跃,突击,突袭等描述动作过程均属动词。中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。" />
+<link rel="canonical" href="http://chars.tech/japanese-verb" />
+<meta property="og:url" content="http://chars.tech/japanese-verb" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-26T00:00:00+08:00" />
+<script type="application/ld+json">
+{"description":"动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。 突跃,突击,突袭等描述动作过程均属动词。中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。","@type":"BlogPosting","url":"http://chars.tech/japanese-verb","headline":"日语-动词的变形和分类","dateModified":"2017-02-26T00:00:00+08:00","datePublished":"2017-02-26T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/japanese-verb"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>日语-动词的变形和分类 | Chars</title>
+    <meta name="description" content="动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。 突跃,突击,突袭等描述动作过程均属动词。中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E6%97%A5%E8%AF%AD-%E5%8A%A8%E8%AF%8D%E7%9A%84%E5%8F%98%E5%BD%A2%E5%92%8C%E5%88%86%E7%B1%BB" class="title">日语-动词的变形和分类</h1>
+    <p class="meta">
+    February 26, 2017
+    
+    </p>
+  </header>
+  <section class="post-content"><p>动词（Verb），简称v 。 一般就是用来表示动作或状态的词汇。基本上每个完整的句子都有一个动词，要表示第二个动作时可使用不定词、动名词、对等连接词、从属连接词或增加子句等方法连结。<比如> 突跃,突击,突袭等描述动作过程均属动词。中文语法中表示人或事物的动作或一种动态变化。一般出现在名词主语或主句后面。</比如></p>
+
+<p>日语中动词主要分为3大类，称为一类动词，二类动词和三类动词（简称，动1，动2和动3），而三类动词中又可以分为2类，即カ变和サ变动词。另外，还有一种经常用到的动词，即授受动词。</p>
+
+<h2 id="1-授受动词">1 授受动词</h2>
+
+<h3 id="11-授受主体为物品">1.1 授受主体为物品</h3>
+
+<ul>
+  <li>あげます：我或我方给别人，常用于上对下</li>
+</ul>
+
+<p>私は小野さんにパンカチをあげます。
+彼氏は李さんにバラをあげます。</p>
+
+<p><strong>注意：</strong>若分不清我方和别人时，一律用这种句型。</p>
+
+<p>父は母に本をあげます。
+私は先生に本をあげます。</p>
+
+<p><strong>注意：</strong>变疑问句</p>
+
+<p>[我方]は誰（だれ）に何をあげますか。</p>
+
+<ul>
+  <li>もらいます：我或我方从别人那里得到，礼貌用法</li>
+</ul>
+
+<p>私は先生から<strong>に</strong>辞書をもらいます。
+私は会社<strong>から</strong>パソコンをもらいます。</p>
+
+<p><strong>注意：</strong>别人为个人时，后面用に；别人为团体时，后面用から。</p>
+
+<ul>
+  <li>くれます：别人给我或我方，平级间使用</li>
+</ul>
+
+<p>先生は私に辞書をくれます。
+社長は弟におもちゃをくれます。</p>
+
+<p><strong>注意</strong> 还有一些动词也属于授受类，例如，借东西，还东西。</p>
+
+<p>教えます、貸します：我或我方教别人学习东西或借东西给别人。
+習います、借ります：我或我方跟别人学习东西或从别人那里借东西。</p>
+
+<h3 id="12-授受主体为动作">1.2 授受主体为动作</h3>
+
+<ul>
+  <li>てあげます：我或我方为别人做某事，常用于上对下</li>
+</ul>
+
+<p>おじいさんが孫(まご)に本を読んであげました。
+分(わ)からないですか、じゃ教え(おしえ)てあげましよう。</p>
+
+<ul>
+  <li>てもらいます：我或我方请别人做某事，礼貌用法</li>
+</ul>
+
+<p>冷蔵庫はもう電話して明日送(おく)ってもらいました。
+冷蔵庫はもう電話して明日届(とど)けてもらいました。</p>
+
+<ul>
+  <li>てくれます：别人为我或我方做某事，平级间使用</li>
+</ul>
+
+<p>信(しん)じてくれて。
+ごみを出(だ)してくれますか。</p>
+
+<h2 id="2-自动词和他动词">2 自动词和他动词</h2>
+
+<h3 id="21-他动词">2.1 他动词</h3>
+
+<p>带宾语才能完整表达意思。
+<strong>规律：</strong>え段＋る；以す结尾。
+ドアを開ける、消す、話す</p>
+
+<h3 id="22-自动词">2.2 自动词</h3>
+
+<p>无需带宾语就能完整表达意思。
+<strong>规律：</strong>あ段＋る；一般以く结尾。
+ドアが開く、歩く、咲く</p>
+
+<h3 id="23-分类">2.3 分类</h3>
+
+<ul>
+  <li>没有他动词的自动词</li>
+</ul>
+
+<p>歩く、帰る、行く、遊ぶ、走る</p>
+
+<ul>
+  <li>没有自动词的他动词</li>
+</ul>
+
+<p>食べる、見る、話す、言う、買う、飲む</p>
+
+<ul>
+  <li>既有自动词，也有他动词</li>
+</ul>
+
+<p>開ける、開く；閉める、閉まる</p>
+
+<ul>
+  <li>既是自动词，又是他动词</li>
+</ul>
+
+<p>笑う（わらう）、終わる、休み</p>
+
+<h2 id="3-动词分类">3 动词分类</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词（动1）</td>
+      <td>以う段假名结尾的词　</td>
+      <td>　行く、読む、帰る（かえる）、滑る（すべる）　</td>
+    </tr>
+    <tr>
+      <td>二类动词（动2）</td>
+      <td>以る结尾，且る前为い段假名或え段假名的词　</td>
+      <td>　寝る、見る、食べる （<strong>注意</strong>一个汉字一个音）</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>する（万能动词）</td>
+      <td>　勉強する、電話する　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　来（く）る　</td>
+      <td>　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="4-动词变形">4 动词变形</h2>
+
+<h3 id="41-原形变ます形">4.1 原形变ます形</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>う段-&gt;い段＋ます　</td>
+      <td>　行く-&gt;行きます　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>去る-&gt;＋ます　</td>
+      <td>　見る-&gt;見ます　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;します　</td>
+      <td>　勉強する-&gt;勉強します　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;きます　</td>
+      <td>　来る-&gt;来ます　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="42-ます形变原形">4.2 ます形变原形</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>去掉ます，将ます前一个假名按行后移一个　</td>
+      <td>　あります-&gt;ある　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将ます去掉，直接换成る　</td>
+      <td>　見ます-&gt;見る　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　します-&gt;する　</td>
+      <td>　勉強します-&gt;勉強する　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　きます-&gt;くる　</td>
+      <td>　来ます-&gt;来る　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="43-原形变命令形">4.3 原形变命令形</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>去掉最后一个假名按行后移到え段　</td>
+      <td>　とまります-&gt;とまれ、行く-&gt;行け、死(し)ぬ-&gt;死ね　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成ろ　</td>
+      <td>　見る-&gt;見ろ、やめる-&gt;やめろ、逃(に)げる-&gt;逃げろ　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;しろ　</td>
+      <td>　勉強する-&gt;勉強しろ　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　来(く)る-&gt;こい　</td>
+      <td>　来る-&gt;こい　</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>命令形一般男性使用，但是在看球赛或危险时使用。
+女性可以使用<code class="highlighter-rouge">动词&lt;动词ます形去掉ます&gt;+なさい</code>语法来表达。</p>
+
+<p>しっかりしろ。给我醒醒。</p>
+
+<h3 id="44-原形变意志形よう形">4.4 原形变意志形（よう形）</h3>
+
+<p><code class="highlighter-rouge">动词よう形</code>是<code class="highlighter-rouge">动词ましよう</code>的口语，表示劝诱。翻译成“···吧”</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>把最后一个假名变成え段，再加ば　</td>
+      <td>　行く-&gt;行けば　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成れば　</td>
+      <td>　見る-&gt;見れば　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;すれば　</td>
+      <td>　勉強する-&gt;勉強すれば　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;くれば　</td>
+      <td>　来る-&gt;くれば　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="45-原形变ば形">4.5 原形变ば形</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>把最后一个假名变成お段，再加う　</td>
+      <td>　行く-&gt;行こう　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成よう　</td>
+      <td>　見る-&gt;見よう　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;しよう　</td>
+      <td>　勉強する-&gt;勉強しよう　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;こよう　</td>
+      <td>　来る-&gt;来よう　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="46-原形变能动态られる">4.6 原形变能动态(られる)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>把最后一个假名变成え段，再加る　</td>
+      <td>　行く-&gt;行ける　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成られる　</td>
+      <td>　見る-&gt;見られる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;できる　</td>
+      <td>　勉強する-&gt;勉強できる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;こられる　</td>
+      <td>　来る-&gt;こられる　</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注意：</strong> を要变が，其他不变。</p>
+
+<h3 id="47-原形变被动态される">4.7 原形变被动态(される)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>把最后一个假名变成あ段，再加れる　</td>
+      <td>　行く-&gt;行かれる、買う-&gt;買われる　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成られる　</td>
+      <td>　見る-&gt;見られる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;される　</td>
+      <td>　勉強する-&gt;勉強される　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;こられる　</td>
+      <td>　来る-&gt;こられる　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="48-原形变使役态させる">4.8 原形变使役态(させる)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>把最后一个假名变成あ段，再加せる　</td>
+      <td>　行く-&gt;行かせる　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成させる　</td>
+      <td>　見る-&gt;見させる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;させる　</td>
+      <td>　勉強する-&gt;勉強させる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;こさせる　</td>
+      <td>　来る-&gt;こさせる　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="49-原形变使役被动态させられる">4.9 原形变使役被动态(させられる)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>规则</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一类动词</td>
+      <td>把最后一个假名变成あ段，再加される/せられる　</td>
+      <td>　行く-&gt;行かされる、行く-&gt;行かせられる　</td>
+    </tr>
+    <tr>
+      <td>二类动词</td>
+      <td>将る去掉，直接换成させられる　</td>
+      <td>　見る-&gt;見させられる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（サ变）</td>
+      <td>　する-&gt;させられる　</td>
+      <td>　勉強する-&gt;勉強させられる　</td>
+    </tr>
+    <tr>
+      <td>三类动词（カ变）</td>
+      <td>　くる-&gt;こさせられる　</td>
+      <td>　来る-&gt;こさせられる　</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="410-原形变て形">4.10 原形变て形</h3>
+
+<p>て形作用：两个动词间使用，表中顿，表相继；语法接续。</p>
+
+<ul>
+  <li>一类动词变て形</li>
+</ul>
+
+<p>1）う、つ、る结尾，促音变。即去掉结尾假名变成って
+示例：買う-&gt;買って、待つ-&gt;待って、売る（うる）-&gt;売って
+2）ぬ、ぶ、む结尾，拨音变。即去掉结尾假名变成んで
+示例：死ぬ-&gt;死んで、飛ぶ-&gt;飛んで、飲む-&gt;飲んで
+3）く、ぐ结尾，い音变。即去掉结尾假名分别变成いて、いで
+示例：歩く-&gt;歩いて、急ぐ-&gt;急いで
+4）す变成して
+示例：話す-&gt;話して
+<strong>特例</strong>
+行く-&gt;行って</p>
+
+<ul>
+  <li>二类动词变て形</li>
+</ul>
+
+<p>去る+て
+示例：見る-&gt;見て、食べる-&gt;食べて</p>
+
+<ul>
+  <li>三类动词变て形</li>
+</ul>
+
+<p>1）する-&gt;して
+示例：勉強する-&gt;勉強して
+2）来る（くる）-&gt;来て（きて）</p>
+
+<h3 id="411-原形变た形">4.11 原形变た形</h3>
+
+<p>变形规则和原形变て形一样，只要将て换成た即可。</p>
+
+<h3 id="412-原形变ない形">4.12 原形变ない形</h3>
+
+<ul>
+  <li>一类动词变ない形</li>
+</ul>
+
+<p>变う段为あ段+ない</p>
+
+<p>示例：行く（いく）-&gt;行か（いか）ない</p>
+
+<p><strong>特例：</strong>う-&gt;わ</p>
+
+<p>手伝う（てつだう）-&gt;手伝わない（てつだわない）</p>
+
+<ul>
+  <li>二类动词变ない形</li>
+</ul>
+
+<p>去る+ない</p>
+
+<p>示例：見る-&gt;見ない、食べる-&gt;食べない</p>
+
+<ul>
+  <li>三类动词变ない形</li>
+</ul>
+
+<p>1）する-&gt;しない</p>
+
+<p>示例：勉強する-&gt;勉強しない</p>
+
+<p>2）来る（くる）-&gt;来ない（こない）</p>
+
+<h3 id="413-原形变禁止形">4.13 原形变禁止形</h3>
+
+<p>动词原形+な</p>
+
+<h2 id="5-动词规则">5 动词规则</h2>
+
+<ul>
+  <li>一类动词</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>あ段</th>
+      <th>い段</th>
+      <th>う段</th>
+      <th>え段</th>
+      <th>お段</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ない形</td>
+      <td>ます形</td>
+      <td>原形</td>
+      <td>命令形/能动态(え段+る)</td>
+      <td>意志形</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#日语">
+            <p><i class="fa fa-tag fa-fw"></i> 日语</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/japanese-adjective">
+        日语-形容词的分类和变形
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/japanese-auxiliary-word">
+        日语-助词
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

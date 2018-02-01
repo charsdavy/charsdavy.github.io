@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/09/05/effective-objc-2-introduction-objc.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Effective Objective-C 2.0 读书笔记 – 熟悉Objective-C语言</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="Effective Objective-C 2.0 读书笔记 – 熟悉Objective-C语言" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。" />
+<meta property="og:description" content="看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。" />
+<link rel="canonical" href="http://chars.tech/pieces/2016/09/05/effective-objc-2-introduction-objc.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/09/05/effective-objc-2-introduction-objc.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-05T23:27:15+08:00" />
+<script type="application/ld+json">
+{"description":"看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/09/05/effective-objc-2-introduction-objc.html","headline":"Effective Objective-C 2.0 读书笔记 – 熟悉Objective-C语言","dateModified":"2016-09-05T23:27:15+08:00","datePublished":"2016-09-05T23:27:15+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/09/05/effective-objc-2-introduction-objc.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Effective Objective-C 2.0 读书笔记 -- 熟悉Objective-C语言 | Chars</title>
+    <meta name="description" content="看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="Effective+Objective-C+2.0+%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0+--+%E7%86%9F%E6%82%89Objective-C%E8%AF%AD%E8%A8%80" class="title">Effective Objective-C 2.0 读书笔记 -- 熟悉Objective-C语言</h1>
+    <p class="meta">
+    September 5, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。</p>
+
+<p>作为Mac OS X与iOS应用程序的开发语言，Objective-C作为首选。那么，它有哪些需要注意的呢？</p>
+
+<h2 id="起源">起源</h2>
+
+<p>Objective-C与C++、Java一样，是面向对象的语言，是由Smalltalk演化而来。Smalltalk是消息型语言的鼻祖。消息与函数调用之间的区别看上去就像这样：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//Messaging (Objective-C)
+Object *obj = [Object new];
+[obj performWith:parameter1 and:parameter2];
+
+//Function calling (C++)
+Object *obj = new Object;
+obj-&gt;perform(parameter1, parameter2);
+</code></pre></div></div>
+
+<p>关键区别在于：使用消息结构的语言，其运行时所应执行的代码由运行环境来决定；而使用函数调用的语言，则由编译器决定。</p>
+
+<p>Objective-C是C的“超集”(superset)，所以C语言中的所有功能在编写Objective-C代码时依然适用。理解C语言的内存模型(memory model)，有助于理解Objective-C的内存模型及其“引用计数”(reference counting)机制的工作原理。Objective-C语言中的指针是用来指示对象的。</p>
+
+<h2 id="关于使用头文件">关于使用头文件</h2>
+
+<p>主要使用 <code class="highlighter-rouge">import</code> 关键字。然而，我们在 <code class="highlighter-rouge">.h</code> 文件中一般首选使用 <code class="highlighter-rouge">@class</code> 关键字，它能“向前声明”一个类。对于不需要知道类细节的情况下我们使用它。否则不会轻易使用 <code class="highlighter-rouge">import</code> 来引入整个头文件。</p>
+
+<p>过多的引入头文件，会增加编译时间。这就是我们多使用 <code class="highlighter-rouge">@class</code> 关键字的直接原因。</p>
+
+<p>除非确有必要，否则不要引入头文件。一般来说，应在某个类的头文件中使用“向前声明”来提及别的类，并在实现文件中引入那些类的头文件。这样做可以尽量降低类之间的耦合(coupling)。</p>
+
+<p>有时无法使用“向前声明”，比如要声明某个类遵循一项协议。这种情况下，尽量把“该类遵循某协议”的这条声明移至“class-continuation分类”中。如果不行的话，就把协议单独放在一个头文件中，然后将其引入。</p>
+
+<h2 id="字面量语法">字面量语法</h2>
+
+<p>在编写Objective-C程序时，总会用到某几个类，它们属于Foundation框架。虽然从技术上来说，不用Foundation框架也能写出Objective-C代码，但是实际上却经常要用到此框架。这几个类是NSString、NUNumber、NSArray、NSDictionary。从类名上即可看出各自所表示的数据结构。</p>
+
+<p>Objective-C以语法繁杂而著称。不过从Objective-C 1.0起，有一种简单的方式能创建NSString 对象。这就是“字符串字面量”(string literal)，其语法如下：</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="s">@"Effective Objective-C 2.0"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="字面数值">字面数值</h3>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSNumber</span> <span class="o">*</span><span class="n">number</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nf">numberWithInt</span><span class="p">:</span><span class="mi">10</span><span class="p">];</span>
+<span class="c1">//等价于</span>
+<span class="n">NSNumber</span> <span class="o">*</span><span class="n">number</span> <span class="o">=</span> <span class="mi">@10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>更多表示：</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSNumber</span> <span class="o">*</span><span class="n">intNumber</span> <span class="o">=</span> <span class="mi">@11</span><span class="p">;</span>
+<span class="n">NSNumber</span> <span class="o">*</span><span class="n">floatNumber</span> <span class="o">=</span> <span class="mf">@2.5f</span><span class="p">;</span>
+<span class="n">NSNumber</span> <span class="o">*</span><span class="n">doubleNumber</span> <span class="o">=</span> <span class="mf">@3.1415926</span><span class="p">;</span>
+<span class="n">NSNumber</span> <span class="o">*</span><span class="n">boolNumber</span> <span class="o">=</span> <span class="nb">@YES</span><span class="p">;</span>
+<span class="n">NSNumber</span> <span class="o">*</span><span class="n">charNumber</span> <span class="o">=</span> <span class="err">@'</span><span class="n">ABC</span><span class="err">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>字面量语法也适用于下述表达式</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int x =5;
+float y = 6.5f
+NSNumber *expressionNumber = @(x * y);
+</code></pre></div></div>
+
+<h3 id="字面量数组">字面量数组</h3>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSarray</span> <span class="o">*</span><span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nf">arrayWithObjects</span><span class="p">:</span><span class="s">@"cat"</span><span class="p">,</span> <span class="s">@"dog"</span><span class="p">,</span> <span class="s">@"mouse"</span><span class="p">,</span> <span class="s">@"badger"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="c1">// 等价于</span>
+<span class="n">NSarray</span> <span class="o">*</span><span class="n">animals</span> <span class="o">=</span> <span class="p">@[</span><span class="s">@"cat"</span><span class="p">,</span> <span class="s">@"dog"</span><span class="p">,</span> <span class="s">@"mouse"</span><span class="p">,</span> <span class="s">@"badger"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>使用数组</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">dog</span> <span class="o">=</span> <span class="p">[</span><span class="n">animals</span> <span class="nf">objectAtIndex</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="c1">// 等价于</span>
+<span class="n">NSString</span> <span class="o">*</span><span class="n">dog</span> <span class="o">=</span> <span class="n">animals</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h3 id="字面量字典">字面量字典</h3>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">personData</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nf">dictionaryWithObjectsAnsKeys</span><span class="p">:</span><span class="s">@"Matt"</span><span class="p">,</span> <span class="s">@"firstName"</span><span class="p">,</span> <span class="s">@"Galloway"</span><span class="p">,</span> <span class="s">@"lastName"</span><span class="p">,</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="nf">numberWithInt</span><span class="p">:</span><span class="mi">28</span><span class="p">],</span> <span class="s">@"age"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="c1">// 等价于</span>
+<span class="n">NSDictionary</span> <span class="o">*</span><span class="n">personData</span> <span class="o">=</span> <span class="p">@{</span><span class="s">@"firstName"</span><span class="o">:</span><span class="s">@"Matt"</span><span class="p">,</span> <span class="s">@"lastName"</span><span class="o">:</span><span class="s">@"Galloway"</span><span class="p">,</span> <span class="s">@"age"</span><span class="o">:</span><span class="p">[</span><span class="n">NSNumber</span> <span class="nf">numberWithInt</span><span class="p">:</span><span class="mi">28</span><span class="p">]};</span>
+</code></pre></div></div>
+
+<p>使用字典</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">lastName</span> <span class="o">=</span> <span class="p">[</span><span class="n">personData</span> <span class="nf">objectForKey</span><span class="p">:</span><span class="s">@"lastName"</span><span class="p">];</span>
+<span class="c1">// 等价于</span>
+<span class="n">NSString</span> <span class="o">*</span><span class="n">lastName</span> <span class="o">=</span> <span class="n">personData</span><span class="p">[</span><span class="s">@"lastName"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h3 id="可变数组和字典">可变数组和字典</h3>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">mutableArray</span> <span class="nf">replaceObjectAtIndex</span><span class="p">:</span><span class="mi">1</span> <span class="nf">withObject</span><span class="p">:</span><span class="s">@"dog"</span><span class="p">];</span>
+<span class="p">[</span><span class="n">mutableDictionary</span> <span class="nf">setObject</span><span class="p">:</span><span class="s">@"Galloway"</span> <span class="nf">forKey</span><span class="p">:</span><span class="s">@"lastName"</span><span class="p">];</span>
+<span class="c1">// 等价于</span>
+<span class="n">mutableArray</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">@"dog"</span><span class="p">;</span>
+<span class="n">mutableDictionary</span><span class="p">[</span><span class="s">@"lastName"</span><span class="p">]</span> <span class="o">=</span> <span class="s">@"Galloway"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="局限性">局限性</h3>
+
+<p>字面量语法有个小小的限制，就是除了字符串以外，所创建出来的对象必须属于Foundation框架才行。如果自定义了这些类的子类，则无法用字面量语法创建其对象。要想创建自定义子类的实例，必须采用“非字面量语法”(nonliteral syntax)。</p>
+
+<p>使用字面量语法创建出来的字符串、数组、字典对象都是不可变的(immutable)。若想要可变版本的对象，则需要复制一份：</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">mutable</span> <span class="o">=</span> <span class="p">[@[</span><span class="mi">@1</span><span class="p">,</span> <span class="mi">@2</span><span class="p">,</span> <span class="mi">@3</span><span class="p">,</span> <span class="mi">@4</span><span class="p">]</span> <span class="nf">mutableCopy</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>这么做会多调用一个方法，而且还要再创建一个对象，不过使用字面量语法所带来的好处还是多于上述缺点的。</p>
+
+<p>用字面量语法创建数组或字典时，若值中有nil，则会抛出异常。因此，务必确保值里不含nil。</p>
+
+<h2 id="多用类型常量-少用define预处理指令">多用类型常量 少用#define预处理指令</h2>
+
+<p>编写代码时经常要定义常量。掌握了Objective-C与其C语言的基础的人，也许会用这种方法来做：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define ANIMATION_DURATION 0.3
+</code></pre></div></div>
+
+<p>上述预处理指令会把源代码中的ANIMATION_DURATION字符串替换为0.3.预处理过程会把碰到的所有ANIMATION_DURATION一律替换成0.3，这样的话，假设此指令声明在某个头文件中，那么所有引入了这个头文件的代码，其ANIMATION_DURATION都会被替换。</p>
+
+<p>要解决此问题，应该设法利用编译器的某些特性才对。</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">const</span> <span class="n">NSTimeInterval</span> <span class="n">kAnimationDuration</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>用此方式定义的常量包含类型信息，其好处的清楚地描述了常量的含义。</p>
+
+<p>常用的命名法是：</p>
+
+<ul>
+  <li>若常量局限于某”编译单元”(translation unit，也就是“实现文件”，implementation file)之内，则在前面加字母k；</li>
+  <li>若常量在类之外可见，则通常以类名为前缀。</li>
+</ul>
+
+<p>定义常量的位置很重要。在头文件里声明预处理指令，这样会增加常量名称互相冲突的可能性。</p>
+
+<p>在头文件中使用extern来声明全局常量，并在相关实现文件中定义其值。这种常量要出现在全局符号表中，所以其名称应加以区隔，通常用与之相关的类名做前缀。</p>
+
+<h2 id="枚举使用">枚举使用</h2>
+
+<p>枚举只是一种常量命名方式。某个对象所经历的各种状态就可以定义为一个简单的枚举集(enumeration set)。</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">IHConnectionState</span> <span class="p">{</span>
+	<span class="n">IHConnectionStateDisconnected</span><span class="p">,</span>
+	<span class="n">IHConnectionStateConnecting</span><span class="p">,</span>
+	<span class="n">IHConnectionStateConnected</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>默认情况下，枚举起始值为0，以后依次递增，1,2,3…</p>
+
+<p>其实还可以我们自己指定枚举值：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">IHConnectionState</span> <span class="p">{</span>
+	<span class="n">IHConnectionStateDisconnected</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="n">IHConnectionStateConnecting</span><span class="p">,</span>
+	<span class="n">IHConnectionStateConnected</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>也可以定义为位移值：</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">UIViewAutoresizing</span> <span class="p">{</span>
+	<span class="n">UIViewAutoresizing</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="n">UIViewAutoresizingFlexibleLeftMargin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="n">UIViewAutoresizingFlexibleWidth</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="n">UIViewAutoresizingFlexibleRightMargin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="n">UIViewAutoresizingFlexibleTopMargin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">,</span>
+	<span class="n">UIViewAutoresizingFlexibleHeight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">,</span>
+	<span class="n">UIViewAutoresizingFlexibleBottomMargin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>关于枚举，Foundation框架中定义了一些辅助的宏，用这些来定义枚举类型时，也可以指定用于保存枚举值的底层数据类型。</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">IHConnectionState</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">IHConnectionStateDisconnected</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="n">IHConnectionStateConnecting</span><span class="p">,</span>
+	<span class="n">IHConnectionStateConnected</span>
+<span class="p">};</span>
+
+<span class="k">typedef</span> <span class="nf">NS_OPTIONS</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">IHPermittedDirection</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">IHPermittedDirectionUp</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="n">IHPermittedDirectionDown</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="n">IHPermittedDirectionLeft</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="n">IHPermittedDirectionRight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>这些宏的定义如下：</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#if(__cplusplus &amp;&amp; __cplusplus &gt;= 201103L &amp;&amp; (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) || (!__cplusplus &amp;&amp; __has_feature(objc_fixed_enum))
+</span>
+	<span class="cp">#define NS_ENUM(_type, _name)
+</span>		<span class="k">enum</span> <span class="n">_name</span><span class="o">:</span><span class="n">_type</span> <span class="n">_name</span><span class="p">;</span> <span class="k">enum</span> <span class="n">_name</span><span class="o">:</span><span class="n">_type</span>
+	<span class="cp">#if (__cplusplus)
+</span>		<span class="cp">#define NS_OPTIONS(_type, _name)
+</span>			<span class="n">type</span> <span class="n">_name</span><span class="p">;</span> <span class="k">enum</span><span class="o">:</span><span class="n">_type</span>
+	<span class="cp">#else
+</span>		<span class="cp">#define NS_OPTIONS(_type, _name)
+</span>			<span class="k">enum</span> <span class="n">_name</span><span class="o">:</span><span class="n">_type</span> <span class="n">_name</span><span class="p">;</span> <span class="k">enum</span> <span class="n">_name</span><span class="o">:</span><span class="n">_type</span>
+	<span class="cp">#endif
+#else
+</span>	<span class="cp">#define NS_ENUM(_type, _name) _type _name; enum
+</span>	<span class="cp">#define NS_OPTIONS(_type, _name) _type _name; enum
+#endif
+</span></code></pre></div></div>
+
+<p>第一个#if用于判断编译器是否支持新式枚举。如果不支持，那么就用老式语法来定义枚举。</p>
+
+<p>在处理枚举类型的switch语句中不要实现default分支。这样的话，加入新枚举之后，编译器就会提示开发者：switch语句并未处理所有枚举。</p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#objc">
+            <p><i class="fa fa-tag fa-fw"></i> objc</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/talk/2016/09/04/mac-ruby-update.html">
+        Mac 如何升级 Ruby 版本
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/pieces/2016/11/15/apple-app-release-analysis.html">
+        iOS App 上架（Analysis 工具使用）
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

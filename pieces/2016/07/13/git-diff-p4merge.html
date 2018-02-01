@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/07/13/git-diff-p4merge.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Git可视化比较工具P4Merge</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="Git可视化比较工具P4Merge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下" />
+<meta property="og:description" content="在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下" />
+<link rel="canonical" href="http://chars.tech/pieces/2016/07/13/git-diff-p4merge.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/07/13/git-diff-p4merge.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-07-13T02:41:40+08:00" />
+<script type="application/ld+json">
+{"description":"在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/07/13/git-diff-p4merge.html","headline":"Git可视化比较工具P4Merge","dateModified":"2016-07-13T02:41:40+08:00","datePublished":"2016-07-13T02:41:40+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/07/13/git-diff-p4merge.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Git可视化比较工具P4Merge | Chars</title>
+    <meta name="description" content="在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="Git%E5%8F%AF%E8%A7%86%E5%8C%96%E6%AF%94%E8%BE%83%E5%B7%A5%E5%85%B7P4Merge" class="title">Git可视化比较工具P4Merge</h1>
+    <p class="meta">
+    July 13, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/git-diff-p4merge.png?imageView/2/w/460" alt="效果图" /></p>
+
+<h1 id="下载">下载</h1>
+<p>打开这个链接: <a href="https://www.perforce.com/product/components/perforce-visual-merge-and-diff-tools">perforce-visual-merge-and-diff-tools</a>，点左上角的 <code class="highlighter-rouge">FREE DOWNLOAD P4Merge</code> , 找到 <code class="highlighter-rouge">Perforce Clients</code> 中的 <code class="highlighter-rouge">P4Merge: Visual Merge Tool</code> 项，在右边的第二行选择<code class="highlighter-rouge">Mac OS 10.6+ (64bit）</code> ，点下面橙色的 <code class="highlighter-rouge">Accept and Download</code>，选择跳过 <code class="highlighter-rouge">Skip Registration</code> ，就会开始下载了。</p>
+
+<p>下载到<code class="highlighter-rouge">P4V.dmg</code>文件后，双击打开，拖动<code class="highlighter-rouge">P4Merge</code>到<code class="highlighter-rouge">Application</code>文件夹上就可以完成安装了。</p>
+
+<h1 id="配置">配置</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global diff.tool p4merge
+git config --global difftool.p4merge.cmd /Applications/p4merge.app/Contents/MacOS/p4merge
+git config --global difftool.p4merge.cmd "/Applications/p4merge.app/Contents/Resources/launchp4merge \$LOCAL \$REMOTE"
+</code></pre></div></div>
+
+<p>如果直接复制原文的代码，运行上面的代码时会提示： 
+error: key does not contain a section: -global 
+跟别人的命令比较一下，就会发现应该是—global（要两个短横连在一起的），原文的短横线有问题</p>
+
+<p>现在敲<code class="highlighter-rouge">git difftool</code>命令执行时，会提示：</p>
+
+<p><code class="highlighter-rouge">/usr/libexec/git-core/mergetools/p4merge: line 2: p4merge: command not found</code></p>
+
+<p>原因是路径还需要再配置一下，如下</p>
+
+<p><code class="highlighter-rouge">git config --global difftool.p4merge.path "/Applications/p4merge.app/Contents/Resources/launchp4merge"
+</code>
+以后想要比较Git中的代码时，敲<code class="highlighter-rouge">git difftool filepath</code> 即可</p>
+
+<p>Linux、Windows下也都可以使用这个工具进行比较代码，只是需要另行配置了。P4Merge除了有比较功能，还有合并功能，怎么配置可以借鉴下面给出的参考链接。另外还有一个可视化比较工具meld，据说也不错，有时间试试.</p>
+
+<h1 id="参考">参考</h1>
+
+<p><a href="http://blog.csdn.net/ccf0703/article/details/7661789">《Mac os x下git merge工具P4Merge的安装与配置》</a></p>
+
+<p><a href="http://nieyong.github.io/wiki_ny/git%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95.html">《Git 用户信息》</a></p>
+
+<p><a href="https://gist.github.com/tony4d/3454372">《Setup p4merge as a visual diff and merge tool for git》</a></p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#git">
+            <p><i class="fa fa-tag fa-fw"></i> git</p>
+          </a>
+        
+          <a class="button" href="/tags#mac">
+            <p><i class="fa fa-tag fa-fw"></i> mac</p>
+          </a>
+        
+          <a class="button" href="/tags#工具">
+            <p><i class="fa fa-tag fa-fw"></i> 工具</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/talk/2016/06/30/xcode-update-sdk-devicesupport.html">
+        说说升级Xcode中SDK与真机调试版本
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/pieces/2016/07/13/finder-open-terminal.html">
+        在Finder中打开终端
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

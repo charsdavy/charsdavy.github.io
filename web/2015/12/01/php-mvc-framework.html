@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/web/2015/12/01/php-mvc-framework.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>PHP MVC模式简单实现</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="PHP MVC模式简单实现" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。" />
+<meta property="og:description" content="MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。" />
+<link rel="canonical" href="http://chars.tech/web/2015/12/01/php-mvc-framework.html" />
+<meta property="og:url" content="http://chars.tech/web/2015/12/01/php-mvc-framework.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-12-01T06:48:25+08:00" />
+<script type="application/ld+json">
+{"description":"MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。","@type":"BlogPosting","url":"http://chars.tech/web/2015/12/01/php-mvc-framework.html","headline":"PHP MVC模式简单实现","dateModified":"2015-12-01T06:48:25+08:00","datePublished":"2015-12-01T06:48:25+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/web/2015/12/01/php-mvc-framework.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>PHP MVC模式简单实现 | Chars</title>
+    <meta name="description" content="MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="PHP+MVC%E6%A8%A1%E5%BC%8F%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0" class="title">PHP MVC模式简单实现</h1>
+    <p class="meta">
+    December 1, 2015
+    
+    </p>
+  </header>
+  <section class="post-content"><p>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。</p>
+
+<p>代码结构</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/php-mvc-framework-1.png" alt="代码结构-1" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/php-mvc-framework-2.png" alt="代码结构-2" /></p>
+
+<p>代码实现</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+        <span class="c1">//function.php  </span>
+	<span class="c1">//控制器调用函数</span>
+	<span class="k">function</span> <span class="nf">C</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$method</span><span class="p">){</span>
+		<span class="k">require_once</span><span class="p">(</span><span class="s1">'libs/Controller/'</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Controller.class.php'</span><span class="p">);</span>
+		<span class="c1">//$testController = new testController();</span>
+		<span class="c1">//$testController-&gt;show();</span>
+		<span class="k">eval</span><span class="p">(</span><span class="s1">'$obj = new '</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Controller(); $obj-&gt;'</span><span class="o">.</span><span class="nv">$method</span><span class="o">.</span><span class="s1">'();'</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">//模型调用函数</span>
+	<span class="k">function</span> <span class="nf">M</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+		<span class="k">require_once</span><span class="p">(</span><span class="s1">'libs/Model/'</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Model.class.php'</span><span class="p">);</span>
+		<span class="k">eval</span><span class="p">(</span><span class="s1">'$obj = new '</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Model();'</span><span class="p">);</span>
+		<span class="k">return</span> <span class="nv">$obj</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">//视图调用函数</span>
+	<span class="k">function</span> <span class="nf">V</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+		<span class="k">require_once</span><span class="p">(</span><span class="s1">'libs/View/'</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'View.class.php'</span><span class="p">);</span>
+		<span class="k">eval</span><span class="p">(</span><span class="s1">'$obj = new '</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'View();'</span><span class="p">);</span>
+		<span class="k">return</span> <span class="nv">$obj</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">//过滤非法值</span>
+	<span class="k">function</span> <span class="nf">daddslashes</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+		<span class="k">return</span> <span class="p">(</span><span class="o">!</span><span class="nb">get_magic_quotes_gpc</span><span class="p">())</span><span class="o">?</span><span class="nb">addslashes</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span><span class="o">:</span><span class="nv">$str</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+ 
+
+<span class="cp">&lt;?php</span>
+<span class="c1">//test.php</span>
+<span class="cm">/*
+第一步 浏览者 -&gt; 调用控制器,对它发出指令
+第二步 控制器 -&gt; 按指令选取一个合适的模型
+第三步 模型 -&gt; 按控制器指令取相应数据
+第四步 控制器 -&gt; 按指令选取相应视图
+第五步 视图 -&gt; 把第三步取到的数据按用户想要的样子显示出来
+*/</span>
+
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'View/testView.class.php'</span><span class="p">);</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'Model/testModel.class.php'</span><span class="p">);</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'Controller/testController.class.php'</span><span class="p">);</span>
+
+<span class="nv">$testController</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">testController</span><span class="p">();</span>
+<span class="nv">$testController</span><span class="o">-&gt;</span><span class="na">show</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+<span class="cp">&lt;?php</span>
+<span class="c1">//testController.class.php</span>
+<span class="cm">/*
+控制器的作用是调用模型,并调用视图,将模型产生的数据传递给视图,并让相关视图去显示
+*/</span>
+	<span class="k">class</span> <span class="nc">testController</span><span class="p">{</span>
+		<span class="k">function</span> <span class="nf">show</span><span class="p">(){</span>
+			<span class="cm">/*$testModel = new testModel();
+			$data = $testModel-&gt;get();
+			$testView = new testView();
+			$testView-&gt;display($data);*/</span>
+			<span class="nv">$testModel</span> <span class="o">=</span> <span class="nx">M</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
+			<span class="nv">$data</span> <span class="o">=</span> <span class="nv">$testModel</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+			<span class="nv">$testView</span> <span class="o">=</span> <span class="nx">V</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
+			<span class="nv">$testView</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+ 
+
+<span class="cp">&lt;?php</span>
+<span class="c1">//testModel.class.php</span>
+<span class="cm">/*
+模型的作用是获取数据并处理,返回数据
+*/</span>
+	<span class="k">class</span> <span class="nc">testModel</span><span class="p">{</span>
+		<span class="k">function</span> <span class="nf">get</span><span class="p">(){</span>
+			<span class="k">return</span> <span class="s2">"hello world"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+ 
+
+<span class="cp">&lt;?php</span>
+<span class="c1">//testView.class.php</span>
+<span class="cm">/*
+视图的作用是将获得的数据进行组织,美化等,并最终向用户终端输出
+*/</span>
+	<span class="k">class</span> <span class="nc">testView</span><span class="p">{</span>
+		<span class="k">function</span> <span class="nf">display</span><span class="p">(</span><span class="nv">$data</span><span class="p">){</span>
+			<span class="k">echo</span> <span class="nv">$data</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>运行结果</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/php-mvc-framework-3.png" alt="运行结果" /></p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#php">
+            <p><i class="fa fa-tag fa-fw"></i> php</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/web/2015/11/27/js-adjust-window-page.html">
+        JavaScript 实现自适应窗口大小的网页
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/code/2015/12/26/ios-qrcode-scaner.html">
+        iOS 二维码扫描
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

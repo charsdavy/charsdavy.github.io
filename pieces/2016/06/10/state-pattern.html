@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/06/10/state-pattern.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>State 模式</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="State 模式" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容." />
+<meta property="og:description" content="State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容." />
+<link rel="canonical" href="http://chars.tech/pieces/2016/06/10/state-pattern.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/06/10/state-pattern.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-06-10T23:51:37+08:00" />
+<script type="application/ld+json">
+{"description":"State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/06/10/state-pattern.html","headline":"State 模式","dateModified":"2016-06-10T23:51:37+08:00","datePublished":"2016-06-10T23:51:37+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/06/10/state-pattern.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>State 模式 | Chars</title>
+    <meta name="description" content="State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="State+%E6%A8%A1%E5%BC%8F" class="title">State 模式</h1>
+    <p class="meta">
+    June 10, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460" alt="State模式图" /></p>
+
+<h1 id="定义">定义</h1>
+<p>不同的状态,不同的行为;或者说,每个状态有着相应的行为.</p>
+
+<h1 id="何时使用">何时使用</h1>
+<p>State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用 if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.</p>
+
+<p>不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.</p>
+
+<p>参考网址：
+http://www.jdon.com/designpatterns/designpattern_State.htm</p>
+
+<p>举例来说：一个人具有生气，高兴和抓狂等状态，在这些状态下做同一个事情可能会有不同的结果，一个人的心情可能在这三种状态中循环转变。使用一个moodState类表示一个人的心情，使用mad,Happy,Angry类代表不同的心情。使用UML图表示如下所示：</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-2.png?imageView/2/w/460" alt="State模式UML图" /></p>
+
+<p>适用性：在下面的两情况下均可以使用State模式：</p>
+
+<ul>
+  <li>
+    <p>一个对象的行为取决于它的状态，并且必须在运行时刻根据状态改变它的行为。</p>
+  </li>
+  <li>
+    <p>一个操作中含有庞大的多分支的条件豫剧，并且这些分支依赖于该对象的状态，这个状态通常用一个或多个枚举常量表示。通常，有多个操作包含这一相同的条件结构，State模式将每一个条件分支放入一个单独的类中。这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖于其他对象而独立变化。</p>
+  </li>
+</ul>
+
+<p>参与者：</p>
+
+<ul>
+  <li>
+    <p>Context(环境，Person)定义客户感兴趣的类。</p>
+  </li>
+  <li>
+    <p>State(Moodstate)：定义一个接口以封装与Context的一个特定状态相关的行为</p>
+  </li>
+  <li>
+    <p>ConcreteState Subclasses(具体状态子类，如Angry)每一个子类实现一个与Context的状态相关的行为。</p>
+  </li>
+</ul>
+
+<p>他们的协作关系是：</p>
+
+<ul>
+  <li>
+    <p>Context将于状态相关的请求委托给当前的ConcreteState对象处理。</p>
+  </li>
+  <li>
+    <p>Context可将自身作为一个参数传递给处理该请求的状态对象，这使得状态对象在必要的时候可访问Context。</p>
+  </li>
+  <li>
+    <p>Context是客户使用的主要接口，客户可用状态对象来配置一个Context，一旦一个Context配置完毕，他的客户不再需要直接与状态对象打交道。</p>
+  </li>
+  <li>
+    <p>Context或者ConcreteState子类都可以决定哪个状态是另外那个状态的后继者，以及是在何种条件下进行状态转换。</p>
+  </li>
+</ul>
+
+<h1 id="相应的代码">相应的代码：</h1>
+
+<p>MoodState代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">state</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">interface</span> <span class="n">MoodState</span><span class="p">{</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">doSomething</span><span class="p">();</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">changeState</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Angry代码:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">state</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">class</span> 
+<span class="n">implements</span> <span class="n">MoodState</span><span class="p">{</span>
+	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+	<span class="k">public</span> <span class="n">Angry</span><span class="p">(</span><span class="n">Person</span> <span class="n">p</span><span class="p">){</span>
+		<span class="n">this</span><span class="p">.</span><span class="n">p</span> <span class="p">=</span> <span class="n">p</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">doSomething</span><span class="p">(){</span>
+		<span class="nf">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"I'm angry!"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">changeState</span><span class="p">(){</span>
+		<span class="n">p</span><span class="p">.</span><span class="n">setState</span><span class="p">(</span><span class="n">new</span> <span class="n">Happy</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Happy代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">state</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">Happy</span> <span class="n">implements</span> <span class="n">MoodState</span><span class="p">{</span>
+	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+	<span class="k">public</span> <span class="n">Happy</span><span class="p">(</span><span class="n">Person</span> <span class="n">p</span><span class="p">){</span>
+		<span class="n">this</span><span class="p">.</span><span class="n">p</span> <span class="p">=</span> <span class="n">p</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">doSomething</span><span class="p">(){</span>
+		<span class="nf">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"I'm happy!"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">changeState</span><span class="p">(){</span>
+		<span class="n">p</span><span class="p">.</span><span class="n">setState</span><span class="p">(</span><span class="n">new</span> <span class="n">Mad</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Mad代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">state</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">Mad</span> <span class="n">implements</span> <span class="n">MoodState</span><span class="p">{</span>
+	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+	<span class="k">public</span> <span class="n">Mad</span><span class="p">(</span><span class="n">Person</span> <span class="n">p</span><span class="p">){</span>
+		<span class="n">this</span><span class="p">.</span><span class="n">p</span><span class="p">=</span><span class="n">p</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">doSomething</span><span class="p">(){</span>
+		<span class="nf">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s2">"I'm Mad"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">changeState</span><span class="p">(){</span>
+		<span class="n">p</span><span class="p">.</span><span class="n">setState</span><span class="p">(</span> <span class="n">new</span> <span class="n">Angry</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Person代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">state</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">Person</span><span class="p">{</span>
+	<span class="n">private</span> <span class="n">MoodState</span> <span class="n">state</span><span class="p">;</span>
+	<span class="k">public</span> <span class="n">Person</span><span class="p">(){</span>
+		<span class="n">state</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Mad</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">setState</span><span class="p">(</span><span class="n">MoodState</span> <span class="n">state</span><span class="p">){</span>
+		<span class="n">this</span><span class="p">.</span><span class="n">state</span> <span class="p">=</span> <span class="n">state</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">public</span> <span class="n">void</span> <span class="n">doSomething</span><span class="p">(){</span>
+		<span class="n">state</span><span class="p">.</span><span class="n">doSomething</span><span class="p">();</span>
+		<span class="n">state</span><span class="p">.</span><span class="n">changeState</span><span class="p">();</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Client代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">state</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">Client</span><span class="p">{</span>
+	<span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="k">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">){</span>
+		<span class="n">Person</span> <span class="n">p</span> <span class="p">=</span> <span class="n">new</span> <span class="n">Person</span><span class="p">();</span>
+		<span class="n">for</span><span class="p">(</span><span class="n">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span><span class="n">i</span><span class="p">&lt;</span><span class="m">10</span><span class="p">;</span><span class="n">i</span><span class="p">++)</span>
+			<span class="n">p</span><span class="p">.</span><span class="n">doSomething</span><span class="p">();</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="总结">总结</h1>
+<p>状态模式将与特定状态相关的行为局部化，并且将不同状态的行为分割开来，使得状态转换显式化并且可以被共享。</p>
+
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#java">
+            <p><i class="fa fa-tag fa-fw"></i> java</p>
+          </a>
+        
+          <a class="button" href="/tags#设计模式">
+            <p><i class="fa fa-tag fa-fw"></i> 设计模式</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2016/06/05/git-using-remote.html">
+        Git 使用 - 远程操作
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/pieces/2016/06/15/ios-network-encrypt.html">
+        简单聊聊 iOS 中的网络加密
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

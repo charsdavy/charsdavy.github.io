@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/web/2017/05/17/mysql-study.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>与 MySQL 的零距离接触</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="与 MySQL 的零距离接触" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。" />
+<meta property="og:description" content="MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。" />
+<link rel="canonical" href="http://chars.tech/web/2017/05/17/mysql-study.html" />
+<meta property="og:url" content="http://chars.tech/web/2017/05/17/mysql-study.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-05-17T07:05:12+08:00" />
+<script type="application/ld+json">
+{"description":"MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。","@type":"BlogPosting","url":"http://chars.tech/web/2017/05/17/mysql-study.html","headline":"与 MySQL 的零距离接触","dateModified":"2017-05-17T07:05:12+08:00","datePublished":"2017-05-17T07:05:12+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/web/2017/05/17/mysql-study.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>与 MySQL 的零距离接触 | Chars</title>
+    <meta name="description" content="MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E4%B8%8E+MySQL+%E7%9A%84%E9%9B%B6%E8%B7%9D%E7%A6%BB%E6%8E%A5%E8%A7%A6" class="title">与 MySQL 的零距离接触</h1>
+    <p class="meta">
+    May 17, 2017
+    
+    </p>
+  </header>
+  <section class="post-content"><p><a href="https://www.mysql.com/">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
+
+<p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
+
+<h1 id="1-安装">1 安装</h1>
+
+<p>直接前往官网 https://www.mysql.com/ ，进入download页面下载所需对应安装版本。默认配置安装即可。</p>
+
+<h1 id="2-配置">2 配置</h1>
+
+<p>安装成功之后，需要修改密码。详看<a href="/2017/03/22/mysql-install-config/">《MySQL 安装配置》</a></p>
+
+<p>修改编码方式：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[mysql]
+default-character-set=utf8
+
+[mysql]
+character-set-server=utf8
+</code></pre></div></div>
+
+<h1 id="3-目录结构">3 目录结构</h1>
+
+<p>bin目录，存储可执行文件。</p>
+
+<p>data目录，存储数据文件。</p>
+
+<p>docs，文档。</p>
+
+<p>include目录，存储包含的头文件。</p>
+
+<p>lib目录，存储库文件。</p>
+
+<p>share，错误消息和字符集文件。</p>
+
+<h1 id="4-命令参数说明">4 命令参数说明</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-D,–database=name</td>
+      <td>打开指定数据库</td>
+    </tr>
+    <tr>
+      <td>–delimiter=name</td>
+      <td>指定分隔符</td>
+    </tr>
+    <tr>
+      <td>-h,–host=name</td>
+      <td>服务器名称</td>
+    </tr>
+    <tr>
+      <td>-p,–password[=name]</td>
+      <td>密码</td>
+    </tr>
+    <tr>
+      <td>-P,–port=#</td>
+      <td>端口号</td>
+    </tr>
+    <tr>
+      <td>–prompt=name</td>
+      <td>设置提示符</td>
+    </tr>
+    <tr>
+      <td>-u,–user=name</td>
+      <td>用户名</td>
+    </tr>
+    <tr>
+      <td>-V,–version</td>
+      <td>输出版本信息并退出</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="mysql提示符">MySQL提示符</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\D</td>
+      <td>完整的日期</td>
+    </tr>
+    <tr>
+      <td>\d</td>
+      <td>当前数据库</td>
+    </tr>
+    <tr>
+      <td>\h</td>
+      <td>服务器名称</td>
+    </tr>
+    <tr>
+      <td>\u</td>
+      <td>当前用户</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="命令使用">命令使用</h2>
+
+<h3 id="修改mysql提示符">修改MySQL提示符</h3>
+
+<p>1.连接客户端时通过参数指定</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql -uroot -proot --prompt 提示符
+</code></pre></div></div>
+
+<p>2.连接上客户端后，通过prompt命令修改</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt;prompt 提示符
+</code></pre></div></div>
+
+<h3 id="mysql常用命令">MySQL常用命令</h3>
+
+<p>1.显示当前服务器版本</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT VERSION();
+</code></pre></div></div>
+
+<p>2.显示当前日期时间</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT NOW();
+</code></pre></div></div>
+
+<p>3.显示当前用户</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT USER();
+</code></pre></div></div>
+
+<h3 id="mysql语句规范">MySQL语句规范</h3>
+
+<p>1.关键字与函数名称全部大写。</p>
+
+<p>2.数据库名称、表名称、字段名称全部小写。</p>
+
+<p>3.SQL语句必须以”;”符号结尾。</p>
+
+<h1 id="5-sql">5 SQL</h1>
+
+<p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言。
+不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
+
+<p>具体参看文章
+<a href="/2017/05/19/mysql-sql-study/">《MySQL 中的SQL》</a></p>
+
+<h1 id="6-数据类型">6 数据类型</h1>
+
+<p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
+
+<h2 id="整型">整型</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表" /></p>
+
+<h2 id="浮点型">浮点型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>数据类型</th>
+      <th>存储范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FLOAT[(M,D)]</td>
+      <td>-3.402823466E+38到-1.175494351E-38、0和1.175494351E-38到3.402823466E+38。M是数字总位数，D是小数点后面的位数。如果M和D被省略，根据硬件允许的限制来保存值。单精度浮点数精确到大约7位小数点。</td>
+    </tr>
+    <tr>
+      <td>DOUBLE[(M,D)]</td>
+      <td>-1.7976931348623157E+308到-2.2250738585072014E-308、0和2.2250738585072014E-308到1.7976931348623157E+308。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="日期和时间型">日期和时间型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>列类型</th>
+      <th>存储需求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>YEAR</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>TIME</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>DATE</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>DATETIME</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>TIMESTAMP</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="字符型">字符型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>列类型</th>
+      <th>存储需求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CHAR(M)</td>
+      <td>M个字节，0&lt;=M&lt;=255</td>
+    </tr>
+    <tr>
+      <td>VARCHAR(M)</td>
+      <td>L+1个字节，其中L&lt;=M且0&lt;=M&lt;=65535</td>
+    </tr>
+    <tr>
+      <td>TINYTEXT</td>
+      <td>L+1个字节，其中L&lt;2^8</td>
+    </tr>
+    <tr>
+      <td>TEXT</td>
+      <td>L+2个字节，其中L&lt;2^16</td>
+    </tr>
+    <tr>
+      <td>MEDIUMTEXT</td>
+      <td>L+3个字节，其中L&lt;2^24</td>
+    </tr>
+    <tr>
+      <td>LONGTEXT</td>
+      <td>L+4个字节，其中L&lt;2^32</td>
+    </tr>
+    <tr>
+      <td>ENUM(‘VALUE1’,’VALUE2’,…)</td>
+      <td>1或2个字节，取决于枚举值的个数（最多65,535个值）</td>
+    </tr>
+    <tr>
+      <td>SET(‘VALUE1’,’VALUE2’,…)</td>
+      <td>1、2、3、4或者8个字节，取决于set成员的数目（最多64个成员）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>更多其他MySQL使用与知识可以参见<a href="/2017/05/29/mysql-advanced-study/">《拆解 MySQL 的高阶使用与概念》</a></p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#database">
+            <p><i class="fa fa-tag fa-fw"></i> database</p>
+          </a>
+        
+          <a class="button" href="/tags#mysql">
+            <p><i class="fa fa-tag fa-fw"></i> mysql</p>
+          </a>
+        
+          <a class="button" href="/tags#读书笔记">
+            <p><i class="fa fa-tag fa-fw"></i> 读书笔记</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2017/05/09/objc-runtime.html">
+        聊聊Objective-C的Runtime
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/web/2017/05/19/mysql-sql-study.html">
+        MySQL 中的SQL
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

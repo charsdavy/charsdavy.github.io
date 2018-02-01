@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/03/07/ios-application-plist-diff.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>iOS Project与OS X Project中plist使用区别</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="iOS Project与OS X Project中plist使用区别" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。" />
+<meta property="og:description" content="这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。" />
+<link rel="canonical" href="http://chars.tech/pieces/2016/03/07/ios-application-plist-diff.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/03/07/ios-application-plist-diff.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-03-07T05:46:41+08:00" />
+<script type="application/ld+json">
+{"description":"这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/03/07/ios-application-plist-diff.html","headline":"iOS Project与OS X Project中plist使用区别","dateModified":"2016-03-07T05:46:41+08:00","datePublished":"2016-03-07T05:46:41+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/03/07/ios-application-plist-diff.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>iOS Project与OS X Project中plist使用区别 | Chars</title>
+    <meta name="description" content="这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="iOS+Project%E4%B8%8EOS+X+Project%E4%B8%ADplist%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB" class="title">iOS Project与OS X Project中plist使用区别</h1>
+    <p class="meta">
+    March 7, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。</p>
+
+<p>之前在开源中国看到一个求源代码的问题:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>模拟一个动物园系统MyZoo 
+ 
+1、动物园里面有三种动物:Panda,Elephant,Kangaroo 
+2、三种动物都有一定的数量(不止一只) 
+3、动物有各自不同的食量(以天为单位的食量),并且每天都在消耗食物。 
+4、动物园里的食物有固定的储备,而且假设三种动物都吃这一种食物。 
+5、每个动物都有不同的生产周期,每当到了这种动物的生产周期,动物园就会出现一位新生宝宝(假设其食量和成年动物是一样的)。 
+6、在主循环里模拟动物园的运转情况,要求在控制台上输出如下内容:第几天、动物的数量、动物园饲料的余量,直到饲料不够吃为止。 
+7、动物的数量,食量,生产周期,饲料总量都应该是可以配置的(在同一个文件中统一配置) 
+</code></pre></div></div>
+
+<p>因此创建了一个OS X Project，使用plist当做这个动物园系统的初始数据的配置，代码结构如下：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-257080b90dc6a2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p>在main.m文件中实现上述题目的要求：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+#import "Tool.h"
+ 
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // insert code here...
+        Panda *panda = [[Panda alloc] init];
+        Elephant *elephant = [[Elephant alloc] init];
+        Kangaroo *kangaroo = [[Kangaroo alloc] init];
+         
+        //读取plist
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+        NSLog(@"%@", plistPath);
+         
+        [Tool initWithAnimalDictionary:panda andDict:data];
+        [Tool initWithAnimalDictionary:elephant andDict:data];
+        [Tool initWithAnimalDictionary:kangaroo andDict:data];
+         
+        int fooder_num = 0;
+        int surplus = 0;
+        int day = 1;
+         
+        NSDictionary *fooderDict = [data objectForKey:@"fodder"];
+        fooder_num = [[fooderDict objectForKey:@"count_num"] intValue];
+        surplus = fooder_num;
+         
+        while(surplus &gt; 0){
+            if(0 == (day % [panda parturitionDays])){
+                [panda setCount:([panda count] + 1)];
+            }
+            if(0 == (day % [elephant parturitionDays])){
+                [elephant setCount:([elephant count] + 1)];
+            }
+            if(0 == (day % [kangaroo parturitionDays])){
+                [kangaroo setCount:([kangaroo count] + 1)];
+            }
+            surplus = fooder_num - ([panda count] * [panda foodConsumption] + [elephant count] * [elephant foodConsumption] + [kangaroo count] * [kangaroo foodConsumption]);
+            fooder_num = surplus;
+             
+            if(surplus){
+                NSLog(@"第 %d 天，熊猫:%d 只，大象:%d 头，袋鼠:%d 只，饲料余量:%d 。\n", day, [panda count], [elephant count], [kangaroo count], surplus);
+            }
+            day++;
+        }
+    }
+    return 0;
+}
+</code></pre></div></div>
+
+<p>而这个时候遇见了问题，下面这句代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
+</code></pre></div></div>
+
+<p>在执行时一直是null，无法找到文件路径。而后在iOS Application Project – Single View Application中，plistPath是正确值,这下就不知道问题是什么了。看了<code class="highlighter-rouge">[NSBundle mainBundle]</code>中对于不同文件夹使用不同的方法,确定将文件放在工程下是使用上述代码。最后尝试各种方法，找到了一种解决方案：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-6ddfcf4c5dc25c68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p>如上图所示，在Build Phase中Compile Sources中添加data.plist文件即可。</p>
+
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#存储">
+            <p><i class="fa fa-tag fa-fw"></i> 存储</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/talk/2016/03/05/xcode-console-cli.html">
+        Xcode 使用小记
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/code/2016/03/08/objc-alloc-init.html">
+        Objective-C中的alloc和init问题
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/blog/page8/">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://chars.tech/blog/page8/" />
+<meta property="og:url" content="http://chars.tech/blog/page8/" />
+<link rel="prev" href="http://chars.tech/blog/page7" />
+<link rel="next" href="http://chars.tech/blog/page9" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://chars.tech/blog/page8/","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title> Chars</title>
+    <meta name="description" content="Chars's Tech Blog">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <div class="home">
+  
+  <div id="main" class="call-out"
+  style="background-image: url('/assets/img/pexels/look-out.jpeg')">
+    努力すれば、きっと报われる </br> 喜欢游泳、羽毛球、乒乓球、看书、日语爱好者。<a href="https://xiaozhuanlan.com/u/5723541907" target="_blank">小专栏作者</a>
+
+  </div>
+  
+
+  <div class="posts">
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/01/19/ios-data-persistence.html">
+                拆拆 iOS 数据持久化
+              </a>
+            </h1>
+            <p class="meta">
+              January 19, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：
+
+1）属性列表；
+
+2）对象归档；
+
+3）iOS的嵌入式关系数据库SQLite3；
+
+4）Core Data。
+
+在iOS开发中，持久化数据的方法也并不限于属性列表、对象归档、SQLite3和Core Data。它们只是四种最常用且简单的方法。其实也可以使用传统C语言I/O调用（比如，fopen()）读写数据，也可以使用Cocoa的底层文件管理工具。只不过这两种方法都需要写很多代码，并且没有必要这么做。
+
+一、应...
+            <!--<a class="button" href="/pieces/2016/01/19/ios-data-persistence.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/01/15/ios-preference-setting.html">
+                iOS App 偏好设置
+              </a>
+            </h1>
+            <p class="meta">
+              January 15, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            如今，即便是最简单的计算机程序也会包含一个偏好设置窗口，用户可以在其中设置应用专属的选项。在MAC OS X中，Preferences…菜单通常位于应用菜单中。选择该菜单项会弹出一个窗口，用户可以在其中输入和更改各种选项。iPhone和其他iOS设备有一个专门的“设置”应用程序来进行各种设置，你肯定用过很多次了。
+
+设置捆绑包
+通过应用设置，用户可以输入和更改任何带有设置捆绑包（settings bundle）的应用中的偏好设置。设置捆绑包是应用自带的一组文件，用于告诉设置该应用期望得到用户的哪些偏好设置。下...
+            <!--<a class="button" href="/pieces/2016/01/15/ios-preference-setting.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/web/2016/01/12/http-state-code-list.html">
+                HTTP 状态码清单
+              </a>
+            </h1>
+            <p class="meta">
+              January 12, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            HTTP 我们常用的网络请求之一，然因为各种网络或者硬件原因，网络请求之后总能拿到一些状态返回码，那么它们到底代表什么意思呢？本文就是将这些常见的状态码加以收集，整理归类。
+
+1xx消息
+
+这一类型的状态码，代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。由于HTTP/1.0协议中没有定义任何1xx状态码，所以除非在某些试验条件下，服务器禁止向此类客户端发送1xx响应。 这些状态码代表的响应都是信息性的，标示客户应该采取的其他行动。
+
+100 Contin...
+            <!--<a class="button" href="/web/2016/01/12/http-state-code-list.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2015/12/26/ios-qrcode-scaner.html">
+                iOS 二维码扫描
+              </a>
+            </h1>
+            <p class="meta">
+              December 26, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。
+
+在这么一个...
+            <!--<a class="button" href="/code/2015/12/26/ios-qrcode-scaner.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/web/2015/12/01/php-mvc-framework.html">
+                PHP MVC模式简单实现
+              </a>
+            </h1>
+            <p class="meta">
+              December 1, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。
+
+代码结构
+
+
+
+
+
+代码实现
+
+&lt;?php
+        //function.php  
+	//控制器调用函数
+...
+            <!--<a class="button" href="/web/2015/12/01/php-mvc-framework.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/web/2015/11/27/js-adjust-window-page.html">
+                JavaScript 实现自适应窗口大小的网页
+              </a>
+            </h1>
+            <p class="meta">
+              November 27, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            随着移动互联网的兴起，网页浏览端不再仅仅只是电脑，更多的用户选择在移动端使用，那么，我们肯定不能再使用电脑版的页面布局，那么我们将如何适应纷繁多样的界面尺寸呢，本问主要介绍如何使用JavaScript实现自适应窗口大小的网页。
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html; charset=utf-8"&gt;
+    &lt;meta htt...
+            <!--<a class="button" href="/web/2015/11/27/js-adjust-window-page.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/algorithm/2015/11/21/algorithm-md5-resolve.html">
+                MD5 算法解析
+              </a>
+            </h1>
+            <p class="meta">
+              November 21, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            MD5的全称是Message-Digest Algorithm 5，在90年代初由MIT的计算机科学实验室和RSA Data Security Inc发明，经MD2、MD3和MD4发展而来。
+
+MD5将任意长度的“字节串”变换成一个128bit的大整数，并且它是一个不可逆的字符串变换算法，换句话说就是，即使你看到源程序和算法描述，也无法将一个MD5的值变换回原始的字符串，从数学原理上说，是因为原始的字符串有无穷多个，这有点象不存在反函数的数学函数。
+
+MD5的典型应用是对一段Message(字节串)产生fin...
+            <!--<a class="button" href="/algorithm/2015/11/21/algorithm-md5-resolve.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2015/11/05/location-map-debug-error.html">
+                地图定位异常问题
+              </a>
+            </h1>
+            <p class="meta">
+              November 5, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            地图定位是做LBS服务的App通常用到的模块。但是，随着iOS系统的升级，地图定位模块出现了不一样的异常，这里将遇到的并解决的问题分享出来。
+
+一、CLLocationManagerDelegate不调用didUpdateLocations
+
+这是因为xcode升级造成的定位权限设置问题。
+
+升级xcode6以后打开以前xcode5工程，程序不能定位。工程升级到xcode6编译时需要iOS8 要自己写授权，不然没权限定位。
+
+解决方法：
+
+首先在 info.plist里加入对应的缺省字段，值设置为YES（前台...
+            <!--<a class="button" href="/code/2015/11/05/location-map-debug-error.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2015/09/26/Objc-inherit-multimodal.html">
+                Objective-C 继承和多态
+              </a>
+            </h1>
+            <p class="meta">
+              September 26, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。
+
+首先,我们来看看示例代码:
+
+//Animal.h
+#import &lt;Foundation/Foundation.h&gt;
+  
+@interface Animal : NSObject
+{
+    int food_consumption; //食量
+    int count; //数量
+    int parturition_days; //生产周...
+            <!--<a class="button" href="/code/2015/09/26/Objc-inherit-multimodal.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2015/09/14/nsstring-using.html">
+                NSString 字符串使用（基础篇）
+              </a>
+            </h1>
+            <p class="meta">
+              September 14, 2015
+            </p>
+          </header>
+          <div class="excerpt">
+            iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。
+
+一、不可变字符
+NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。
+
+1.创建方式
+1）字面量，它是常量字符串，存储常量区
+
+NSString *str=@"hello";
+
+2）通过快捷构造法，存储堆区
+
+NSString *str = [NSString stringWithFormat:@"hello...
+            <!--<a class="button" href="/code/2015/09/14/nsstring-using.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+  </div>
+
+  
+  <div class="pagination">
+    
+    <a href="/blog/page7" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+    <a href="/blog/page9" class="button" >
+      Next
+      <i class="fa fa-chevron-right"></i>
+    </a>
+    
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

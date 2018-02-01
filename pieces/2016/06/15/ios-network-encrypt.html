@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/06/15/ios-network-encrypt.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>简单聊聊 iOS 中的网络加密</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="简单聊聊 iOS 中的网络加密" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。" />
+<meta property="og:description" content="公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。" />
+<link rel="canonical" href="http://chars.tech/pieces/2016/06/15/ios-network-encrypt.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/06/15/ios-network-encrypt.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-06-15T15:55:50+08:00" />
+<script type="application/ld+json">
+{"description":"公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/06/15/ios-network-encrypt.html","headline":"简单聊聊 iOS 中的网络加密","dateModified":"2016-06-15T15:55:50+08:00","datePublished":"2016-06-15T15:55:50+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/06/15/ios-network-encrypt.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>简单聊聊 iOS 中的网络加密 | Chars</title>
+    <meta name="description" content="公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A+iOS+%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8A%A0%E5%AF%86" class="title">简单聊聊 iOS 中的网络加密</h1>
+    <p class="meta">
+    June 15, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
+
+<h1 id="导言">导言</h1>
+
+<p>公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。</p>
+
+<p>但是不论在任何时候，都应该将服务置于HTTPS上，因为它可以避免中间人攻击的问题，还自带了基于非对称密钥的加密通道。</p>
+
+<h1 id="https交互原理">HTTPS交互原理</h1>
+
+<p>简答说，HTTPS 就是 HTTP协议加了一层SSL协议的加密处理，SSL 证书就是遵守 SSL协议，由受信任的数字证书颁发机构CA（如GlobalSign，wosign），在验证服务器身份后颁发，这是需要花钱滴，签发后的证书作为公钥一般放在服务器的根目录下，便于客户端请求返回给客户端，私钥在服务器的内部中心保存，用于解密公钥。</p>
+
+<p>HTTPS 客户端与服务器交互过程：</p>
+
+<p>1）客户端发送请求，服务器返回公钥给客户端；</p>
+
+<p>2）客户端生成对称加密秘钥，用公钥对其进行加密后，返回给服务器；</p>
+
+<p>3）服务器收到后，利用私钥解开得到对称加密秘钥，保存；</p>
+
+<p>4）之后的交互都使用对称加密后的数据进行交互。</p>
+
+<h2 id="证书">证书</h2>
+<p>简单说，证书有两种，一种是正经的：</p>
+
+<p>CA颁发的证书</p>
+
+<p>一种是不正经的：</p>
+
+<p>自己生成签发的证书</p>
+
+<h1 id="我们需要做什么">我们需要做什么</h1>
+
+<p>如果遇到正经的证书，我们直接用AFNetworking 直接请求就好了，AFNetworking 内部帮我们封装了HTTPS的请求方式，但是大部分公司接口都是不正经的证书，这时需要我们做以下几步：</p>
+
+<p>1）将服务器的公钥证书拖到Xcode中</p>
+
+<p>2）修改验证模式</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
+</code></pre></div></div>
+
+<h2 id="原理">原理</h2>
+<p>简单来说，就是你本可以修改AFN这个设置来允许客户端接收服务器的任何证书，但是这么做有个问题，就是你无法验证证书是否是你的服务器后端的证书，给中间人攻击，即通过重定向路由来分析伪造你的服务器端打开了大门。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
+securityPolicy.allowInvalidCertificates = YES;
+</code></pre></div></div>
+
+<h2 id="解决方法">解决方法</h2>
+<p>AFNetworking是允许内嵌证书的，通过内嵌证书，AFNetworking就通过比对服务器端证书、内嵌的证书、站点域名是否一致来验证连接的服务器是否正确。由于CA证书验证是通过站点域名进行验证的，如果你的服务器后端有绑定的域名，这是最方便的。将你的服务器端证书，如果是pem格式的，用下面的命令转成cer格式</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl x509 -in &lt;你的服务器证书&gt;.pem -outform der -out server.cer
+</code></pre></div></div>
+
+<p>然后将生成的server.cer文件，如果有自建ca，再加上ca的cer格式证书，引入到app的bundle里，AFNetworking在</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModeCertificate];
+</code></pre></div></div>
+<p>或者</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AFSecurityPolicy *securityPolicy = [AFSecurityPolicy AFSSLPinningModePublicKey];
+</code></pre></div></div>
+
+<p>情况下，会自动扫描bundle中.cer的文件，并引入，这样就可以通过自签证书来验证服务器唯一性了。</p>
+
+<h1 id="afsecuritypolicy三种验证模式">AFSecurityPolicy三种验证模式</h1>
+
+<ul>
+  <li>
+    <p>AFSSLPinningModeNone
+这个模式表示不做SSL pinning，
+只跟浏览器一样在系统的信任机构列表里验证服务端返回的证书。若证书是信任机构签发的就会通过，若是自己服务器生成的证书就不会通过。</p>
+  </li>
+  <li>
+    <p>AFSSLPinningModeCertificate
+这个模式表示用证书绑定方式验证证书，需要客户端保存有服务端的证书拷贝，这里验证分两步，第一步验证证书的域名有效期等信息，第二步是对比服务端返回的证书跟客户端返回的是否一致。</p>
+  </li>
+  <li>
+    <p>AFSSLPinningModePublicKey
+这个模式同样是用证书绑定方式验证，客户端要有服务端的证书拷贝，
+只是验证时只验证证书里的公钥，不验证证书的有效期等信息。只要公钥是正确的，就能保证通信不会被窃听，因为中间人没有私钥，无法解开通过公钥加密的数据。</p>
+  </li>
+</ul>
+
+<p>参考</p>
+
+<p>http://www.jianshu.com/p/75d96b72bfb1</p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#安全">
+            <p><i class="fa fa-tag fa-fw"></i> 安全</p>
+          </a>
+        
+          <a class="button" href="/tags#框架">
+            <p><i class="fa fa-tag fa-fw"></i> 框架</p>
+          </a>
+        
+          <a class="button" href="/tags#网络">
+            <p><i class="fa fa-tag fa-fw"></i> 网络</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2016/06/10/state-pattern.html">
+        State 模式
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/pieces/2016/06/25/hexo-extern-scroll-top.html">
+        Hexo 博客功能扩展 - 添加回滚到顶部按钮
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

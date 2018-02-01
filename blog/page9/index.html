@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/blog/page9/">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://chars.tech/blog/page9/" />
+<meta property="og:url" content="http://chars.tech/blog/page9/" />
+<link rel="prev" href="http://chars.tech/blog/page8" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://chars.tech/blog/page9/","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title> Chars</title>
+    <meta name="description" content="Chars's Tech Blog">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <div class="home">
+  
+  <div id="main" class="call-out"
+  style="background-image: url('/assets/img/pexels/look-out.jpeg')">
+    努力すれば、きっと报われる </br> 喜欢游泳、羽毛球、乒乓球、看书、日语爱好者。<a href="https://xiaozhuanlan.com/u/5723541907" target="_blank">小专栏作者</a>
+
+  </div>
+  
+
+  <div class="posts">
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2013/01/25/vc-invoke-dll.html">
+                VC 调用 DLL
+              </a>
+            </h1>
+            <p class="meta">
+              January 25, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            DLL 动态数据链路库。
+
+调用DLL有两种方法：静态调用和动态调用.
+
+(一).静态调用其步骤如下:
+
+
+  
+    1.把你的youApp.DLL拷到你目标工程(需调用youApp.DLL的工程)的Debug目录下;
+  
+  
+    2.把你的youApp.lib拷到你目标工程(需调用youApp.DLL的工程)目录下;
+  
+  
+    3.把你的youApp.h(包含输出函数的定义)拷到你目标工程(需调用youApp.DLL的工程)目录下;
+  
+  
+    4.打开你的目标工程选中工程,选...
+            <!--<a class="button" href="/code/2013/01/25/vc-invoke-dll.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2013/01/24/factory-prototype-diff.html">
+                Factory模式与Prototype模式的异同
+              </a>
+            </h1>
+            <p class="meta">
+              January 24, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。
+
+原型模式与工厂模式的定义，本文不想...
+            <!--<a class="button" href="/pieces/2013/01/24/factory-prototype-diff.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2013/01/22/sql-server-state-code-list-3.html">
+                SQL Server 错误代码和解释 (下篇)
+              </a>
+            </h1>
+            <p class="meta">
+              January 22, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            承接《下篇》继续罗列分享SQL Server状态码。
+
+5001 因为其它资源需要它，不能将群集资源移到另一个组。 
+5002 找不到此群集资源的依存。 
+5003 因为已经处于依存状态，此群集资源不能依存于指定的资源。 
+5004 此群集资源未联机。 
+5005 此操作没有可用的群集节点。 
+5006 没有群集资源。 
+5007 找不到群集资源。 
+5008 正在关闭群集。 
+5009 因为联机，群集节点无法从群集中脱离。 
+5010 对象已存在。 
+5011 此对象已在列表中。 
+5012 新请求没有可用...
+            <!--<a class="button" href="/code/2013/01/22/sql-server-state-code-list-3.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2013/01/21/sql-server-state-code-list-2.html">
+                SQL Server 错误代码和解释 (中篇)
+              </a>
+            </h1>
+            <p class="meta">
+              January 21, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            承接《上篇》继续罗列分享SQL Server状态码。
+
+2001 指定的驱动程序无效。 
+2002 窗口样式或类别属性对此操作无效。 
+2003 不支持请求的图元操作。 
+2004 不支持请求的变换操作。 
+2005 不支持请求的剪切操作。 
+2010 指定的颜色管理模块无效。 
+2011 制定的颜色文件配置无效。 
+2012 找不到指定的标识。 
+2013 找不到所需的标识。 
+2014 指定的标识已经存在。 
+2015 指定的颜色文件配置与任何设备都不相关。 
+2016 找不到该指定的颜色文件配置 
+20...
+            <!--<a class="button" href="/code/2013/01/21/sql-server-state-code-list-2.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2013/01/20/sql-server-state-code-list-1.html">
+                SQL Server 错误代码和解释 (上篇)
+              </a>
+            </h1>
+            <p class="meta">
+              January 20, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            SQL Server 是高校专业在教学数据库时一定会选用的案例之一，这个数据库是结合微软产品一起使用的，不仅贵，而且不好用。这是在使用之后的心得体会。在代码层面来说，这个是很难使用的。但是，老师说这个以后工作了都会使用到，所以，还是要好好学的。
+
+文中罗列了各种状态码的解释，这些对调试SQL Server数据库程序是很有帮助的。
+
+0 操作成功完成。 
+1 功能错误。 
+2 系统找不到指定的文件。 
+3 系统找不到指定的路径。 
+4 系统无法打开文件。 
+5 拒绝访问。 
+6 句柄无效。 
+7 存储控制块被损...
+            <!--<a class="button" href="/code/2013/01/20/sql-server-state-code-list-1.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/talk/2013/01/19/os-32-64-bit.html">
+                操作系统 32位和64位
+              </a>
+            </h1>
+            <p class="meta">
+              January 19, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            两者之间存在的“五大不同”。与此同时，着重说明Microsoft Windows64位（x64）操作系统，相对于32位（x86）操作系统的最大优势和劣势是什么？
+
+第一，设计初衷不同
+
+64位操作系统的设计初衷是：满足机械设计和分析、三维动画、视频编辑和创作，以及科学计算和高性能计算应用程序等领域中需要大量内存和浮点性能的客户需求。换句简明的话说就是：它们是高科技人员使用本行业特殊软件的运行平台。而32位操作系统是为普通用户设计的。
+
+第二，要求配置不同
+
+64位操作系统只能安装在64位电脑上(CPU必须是6...
+            <!--<a class="button" href="/talk/2013/01/19/os-32-64-bit.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/talk/2013/01/19/vc-6-mfc-develop-summary.html">
+                VC++6.0 MFC编程心得小结
+              </a>
+            </h1>
+            <p class="meta">
+              January 19, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            作为一个正经的科班出身软件工程专业者，想必都知道什么是VC++6.0。这个充满神奇的工具。而作为专业教学课的首选编程IDE，它有着不可撼动的地位。博主不知道别家院系使用何种启蒙工具，反正博主就是这个工具启蒙的。对它，有着又爱又恨得情怀。
+
+数据库
+一个程序的最基本功能有输入、查询、修改、删除、保存、打印，均与数据库有关。而对数据库的基本操作使用最频繁，以Access 为例：
+
+1、用程序创建Access 数据库文件：
+
+手工创建数据文件的方法大家并不陌生，如果用程序创建有时候也需要，下面就是其中一种方法，可以...
+            <!--<a class="button" href="/talk/2013/01/19/vc-6-mfc-develop-summary.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/talk/2013/01/19/college-thesis-summary-skill.html">
+                毕业论文摘要的书写方法和技巧
+              </a>
+            </h1>
+            <p class="meta">
+              January 19, 2013
+            </p>
+          </header>
+          <div class="excerpt">
+            摘要也就是内容提要，是论文中不可缺少的一部分。论文摘要是一篇具有独立性的短文，有其特别的地方。它是建立在对论文进行总结的基础之上，用简单、明确、易懂、精辟的语言对全文内容加以概括，留主干去枝叶，提取论文的主要信息。作者的观点、论文的主要内容、研究成果、独到的见解，这些都应该在摘要中体现出来。好的摘要便于索引与查找，易于收录到大型资料库中并为他人提供信息。因此摘要在资料交流方面承担着至关重要的作用。
+
+书写摘要的基本规范和原则
+
+（1）论文摘要分为中文摘要和外文（一般为英文）摘要。摘要在篇幅方面的限定，不同的学...
+            <!--<a class="button" href="/talk/2013/01/19/college-thesis-summary-skill.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+  </div>
+
+  
+  <div class="pagination">
+    
+    <a href="/blog/page8" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

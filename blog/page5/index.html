@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/blog/page5/">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://chars.tech/blog/page5/" />
+<meta property="og:url" content="http://chars.tech/blog/page5/" />
+<link rel="prev" href="http://chars.tech/blog/page4" />
+<link rel="next" href="http://chars.tech/blog/page6" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://chars.tech/blog/page5/","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title> Chars</title>
+    <meta name="description" content="Chars's Tech Blog">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <div class="home">
+  
+  <div id="main" class="call-out"
+  style="background-image: url('/assets/img/pexels/look-out.jpeg')">
+    努力すれば、きっと报われる </br> 喜欢游泳、羽毛球、乒乓球、看书、日语爱好者。<a href="https://xiaozhuanlan.com/u/5723541907" target="_blank">小专栏作者</a>
+
+  </div>
+  
+
+  <div class="posts">
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/06/15/ios-network-encrypt.html">
+                简单聊聊 iOS 中的网络加密
+              </a>
+            </h1>
+            <p class="meta">
+              June 15, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。
+
+导言
+
+公司的接口一般会两种协议的，一种HTTP，一种HTTPS的，HTTP 只要请求，服务器就会响应，如果我们不对请求和响应做出加密处理，所有信息都是会被检测劫持到的，是很不安全的，客户端加密可以使用本文这套工具类进行处理。
+
+但是不论在任何时候，都应该将服务置于HTTPS上，因为它可以避...
+            <!--<a class="button" href="/pieces/2016/06/15/ios-network-encrypt.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/06/10/state-pattern.html">
+                State 模式
+              </a>
+            </h1>
+            <p class="meta">
+              June 10, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.
+...
+            <!--<a class="button" href="/pieces/2016/06/10/state-pattern.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/06/05/git-using-remote.html">
+                Git 使用 - 远程操作
+              </a>
+            </h1>
+            <p class="meta">
+              June 5, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为/gɪt/。
+
+Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。
+
+Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeep...
+            <!--<a class="button" href="/pieces/2016/06/05/git-using-remote.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2016/06/02/qiniu-using.html">
+                七牛云存储应用
+              </a>
+            </h1>
+            <p class="meta">
+              June 2, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。本文讲述如何使用七牛云存储来作为自己APP的数据云存储空间。
+
+前言
+七牛云存储，是专为移动时代开发者打造的数据管理平台，为互联网网站和移动App提供数据的在线托管、传输加速以及图片、音视频等富媒体的云处理服务。
+七牛云官网http://www.qiniu.com/ ，进入开发者平台，浏览了所有的开发指南，可是却是没有具体清晰的操作步骤。今天自己试着通过网络，实现了使用...
+            <!--<a class="button" href="/code/2016/06/02/qiniu-using.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/06/01/build-blog-by-hexo.html">
+                手把手教 GitHub + Hexo 搭建博客
+              </a>
+            </h1>
+            <p class="meta">
+              June 1, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            本文章主要介绍使用hexo框架搭建博客，使用GitHub免费托管自己的博客代码，并使用GitHub Pages提供的免费服务。换句话说，就是使用免费资源搭建属于自己的博客网站。
+
+前言
+
+在很久以前，博主就想着要有自主的博客专栏或者网站。经历了博客园这个需要所谓的编辑审核，一直比较困惑，这些编辑是什么出身，怎么知道技术博客的价值性。
+
+接下来找到了开源中国，这个可以自由发言的地方。不过，不知道是不是受众面不广，访问量都不是很理想。
+
+再然后就来自己动手开始搭建博客。从手写html发布文章，到使用jekyll，...
+            <!--<a class="button" href="/pieces/2016/06/01/build-blog-by-hexo.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/05/26/ios-simultaneously.html">
+                iOS 并发概念浅析
+              </a>
+            </h1>
+            <p class="meta">
+              May 26, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。
+
+前言
+
+在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GC...
+            <!--<a class="button" href="/pieces/2016/05/26/ios-simultaneously.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/05/21/github-using.html">
+                GitHub 使用
+              </a>
+            </h1>
+            <p class="meta">
+              May 21, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。
+
+下载github客户端软件
+
+  官网下载
+  Google搜索，一般用于windows7以前的系统
+
+
+安装github软件
+根据软件安装指导，按步骤安装即可。
+
+使用git命令提交
+git config
+安装Git后首先要做的事情是设置用户名称和e-mail地址。这...
+            <!--<a class="button" href="/pieces/2016/05/21/github-using.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/project/2016/05/06/flappy-bird-game.html">
+                flappy bird 游戏实现
+              </a>
+            </h1>
+            <p class="meta">
+              May 6, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。
+
+技术点
+flappyBird是单机游戏，主要涉及界面逻辑、图片资源、游戏动画、得分排行。
+
+为了实现这几个功能，需要使用以下几个技术框架：
+
+
+  AVFoundatio...
+            <!--<a class="button" href="/project/2016/05/06/flappy-bird-game.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/algorithm/2016/04/30/uniform-random.html">
+                均匀分布随机函数的实现
+              </a>
+            </h1>
+            <p class="meta">
+              April 30, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。
+
+前言
+随机函数就是产生数的函数，C语言里使用rand(),srand()等随机函数实现随机数生成。
+ 
+函数简介
+int rand( void );
+
+
+返回的是一个界于0～32767（0x7FFF）之间的伪随机数，包括0和32767。
+C预先生成一组随机数，每次调用随机函数时从指针所指向的位置...
+            <!--<a class="button" href="/algorithm/2016/04/30/uniform-random.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2016/04/18/VFL-introduction.html">
+                VFL 语言简介
+              </a>
+            </h1>
+            <p class="meta">
+              April 18, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            VFL（Visual Format Language），“可视化格式语言”。VFL是苹果公司为了简化autolayout的编码而推出的抽象语言。本文分享VFL的基本使用方法。
+
+什么是VFL语言
+VFL（Visual Format Language），“可视化格式语言”。
+
+VFL 是苹果公司为了简化autolayout的编码而推出的抽象语言。
+
+
+语法说明
+H:[cancelButton(72)]-12-[acceptButton(50)]
+cancelButton宽72，acceptButton宽50，它...
+            <!--<a class="button" href="/code/2016/04/18/VFL-introduction.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+  </div>
+
+  
+  <div class="pagination">
+    
+    <a href="/blog/page4" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+    <a href="/blog/page6" class="button" >
+      Next
+      <i class="fa fa-chevron-right"></i>
+    </a>
+    
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

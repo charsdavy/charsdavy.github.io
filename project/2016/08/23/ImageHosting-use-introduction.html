@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/project/2016/08/23/ImageHosting-use-introduction.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>ImageHosting 开源软件的使用说明</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="ImageHosting 开源软件的使用说明" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考《手把手教 GitHub + Hexo 搭建博客》 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。" />
+<meta property="og:description" content="博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考《手把手教 GitHub + Hexo 搭建博客》 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。" />
+<link rel="canonical" href="http://chars.tech/project/2016/08/23/ImageHosting-use-introduction.html" />
+<meta property="og:url" content="http://chars.tech/project/2016/08/23/ImageHosting-use-introduction.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-08-23T02:58:24+08:00" />
+<script type="application/ld+json">
+{"description":"博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考《手把手教 GitHub + Hexo 搭建博客》 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。","@type":"BlogPosting","url":"http://chars.tech/project/2016/08/23/ImageHosting-use-introduction.html","headline":"ImageHosting 开源软件的使用说明","dateModified":"2016-08-23T02:58:24+08:00","datePublished":"2016-08-23T02:58:24+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/project/2016/08/23/ImageHosting-use-introduction.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>ImageHosting 开源软件的使用说明 | Chars</title>
+    <meta name="description" content="博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考《手把手教 GitHub + Hexo 搭建博客》 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="ImageHosting+%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" class="title">ImageHosting 开源软件的使用说明</h1>
+    <p class="meta">
+    August 23, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考<a href="http://charsdavy.github.io/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-launchpad.png" alt="" /></p>
+
+<p>软件下载地址：<a href="https://github.com/charsdavy/ImageHosting/releases">ImageHosting for Mac</a></p>
+
+<p><a href="https://github.com/charsdavy/ImageHosting">源代码地址</a></p>
+
+<h2 id="安装">安装</h2>
+
+<p>遇到提示“不能安装未知来源程序”时，处理方法为，将权限改为“任何来源”即可。</p>
+
+<h2 id="软件菜单栏">软件菜单栏</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-stateMenu.png" alt="" /></p>
+
+<h2 id="打开软件配置添加账户信息">打开软件配置，添加账户信息</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-account.png" alt="" /></p>
+
+<h2 id="打开文件选择页选择文件">打开文件选择页，选择文件</h2>
+
+<h2 id="上传文件">上传文件</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload-main.png" alt="" /></p>
+
+<h2 id="上传进度提示">上传进度提示</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload_1.png" alt="" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload_2.png" alt="" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload_3.png" alt="" /></p>
+
+<h2 id="上传完成">上传完成</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload-success-main.png" alt="" /></p>
+
+<h2 id="操作提示">操作提示</h2>
+
+<h3 id="未添加账户信息提示">未添加账户信息提示</h3>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-no-account.png" alt="" /></p>
+
+<h3 id="未选择上传文件提示">未选择上传文件提示</h3>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-no-select.png" alt="" /></p>
+
+<h3 id="上传文件成功提示">上传文件成功提示</h3>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ImageHosting-use-introduction-upload-success.png" alt="" /></p>
+
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#mac">
+            <p><i class="fa fa-tag fa-fw"></i> mac</p>
+          </a>
+        
+          <a class="button" href="/tags#工具">
+            <p><i class="fa fa-tag fa-fw"></i> 工具</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2016/08/14/memory-big-little-endian.html">
+        简单聊聊大小端问题
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/pieces/2016/09/03/mac-os-archive-app.html">
+        Mac OS 开发 － 聊聊如何打包dmg文件
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

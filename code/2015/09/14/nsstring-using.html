@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/code/2015/09/14/nsstring-using.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>NSString 字符串使用（基础篇）</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="NSString 字符串使用（基础篇）" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。 一、不可变字符 NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。 1.创建方式 1）字面量，它是常量字符串，存储常量区 NSString *str=@&quot;hello&quot;; 2）通过快捷构造法，存储堆区 NSString *str = [NSString stringWithFormat:@&quot;hello %@&quot;, @&quot;world&quot;]; 3）初始化方法 NSString *str = [[NSString alloc] initWithFormat:@&quot;%@&quot;,@&quot;hello&quot;]; 2.字符串的获取 1）获取字符串长度 NSString *str=@&quot;hello&quot;; long length = str.length; 2）获取子串 NSString *str=@&quot;hello&quot;; /*从索引字符串开始截取，直到字符串末尾，包含索引上的字符*/ NSString *strSub = [str substringFormIndex:2]; /*从字符串开头开始截取，直到索引位置，不包含索引上的字符*/ NSString *strSubT = [str substringToIndex:2]; /*从哪个位置开始，截取多长*/ NSRange range = {2,4}; NSString *strSubR = [str substringWithRange:range]; /*获取某个子串所在的区域*/ NSRange rangeS = [str rangeOfString&quot;@&quot;el&quot;]; /*单词首字母转大写*/ [str capitalizedString]; /*字符替换*/ NSString *newStr = [str stringByReplacingOccurencesOfString:@&quot;ll&quot; withString:@&quot;al&quot;]; /*使用某个字符串替换掉原来字符串中某个区间的字符串*/ NSRange range = [str rangeOfString:@&quot;ll&quot;]; NSString *newStr = [str stringByReplacingCharactersInRange:range withSring:@&quot;hi&quot;]; /*删除原字符串中的所有指定字符串*/ NSString *newStr = [str stringByReplacingOccurencesOfString:@&quot;ll&quot; withString:@&quot;&quot;]; /*去掉两头空格*/ NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]; /*在原来路径上拼接一个路径*/ NSString *path = @&quot;/Users/dengwei&quot;; path = [path stringByAppendingPathComponent:@&quot;Desktop&quot;]; /*获取扩展名*/ NSString *path = @&quot;/Users/dengwei/Desktop/apple.txt&quot;; path = [path stringByDeletingPathExtension]; path = [path stringByAppendingPathExtension:@&quot;png&quot;]; /*把字符串写入文件*/ NSString *str = @&quot;today is cold!&quot;; NSString *path = @&quot;/Users/dengwei/Desktop/apple.txt&quot;; NSError *error; BOOL isSuccess = [str writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; /*读取文件*/ NSString *string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error]; /*字符串与URL*/ /* URL：Uniform Resource Locator 统一资源定位符 URL：格式 协议头://主机名称/资源路径 http://www.baidu.com/some/images/pic.png 404：没有找到资源 */ NSString *str = @&quot;today is cold!&quot;; /*url路径中不支持中文，若是有中文则需将中文转码*/ NSURL *url = [NSURL URLWithString:@&quot;file:///Users/dengwei/Desktop/apple.txt&quot;]; /*将中文转码*/ NSString *url_cn = @&quot;file:///Users/dengwei/Desktop/中文.txt&quot;; /*编码，把UTF8编码的字符串编码成URL中可用的字符串*/ url_cn = [url_cn stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; /*解码，把URL中可用的字符串编码的字符串解码成UTF8编码的字符串*/ url_cn = [url_cn stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; url_cn = [NSURL URLWithString:url_cn]; NSError *error; /*写入*/ BOOL isSuccess = [str writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; /*读取*/ NSString *string = [str stringWithContentsOfURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; 3.字符串范围获取 /*计算文本大小*/ CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);/*width与height都不限制*/ CGSize nameSize = [self.microBlogModel.name boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size; 二、可变字符 NSMutableString，可变字符，是NSString的子类。 一个字符串需要经常修改其中的内容，则使用NSMutableString。 NSMutableString *strM = [NSMutableString string]; /*Capacity表示容量，可以容纳多少字符，如果超过这个存储空间，就会扩展它*/ NSMutableString *strM = [NSMutableString stringWithCapacity:10];" />
+<meta property="og:description" content="iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。 一、不可变字符 NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。 1.创建方式 1）字面量，它是常量字符串，存储常量区 NSString *str=@&quot;hello&quot;; 2）通过快捷构造法，存储堆区 NSString *str = [NSString stringWithFormat:@&quot;hello %@&quot;, @&quot;world&quot;]; 3）初始化方法 NSString *str = [[NSString alloc] initWithFormat:@&quot;%@&quot;,@&quot;hello&quot;]; 2.字符串的获取 1）获取字符串长度 NSString *str=@&quot;hello&quot;; long length = str.length; 2）获取子串 NSString *str=@&quot;hello&quot;; /*从索引字符串开始截取，直到字符串末尾，包含索引上的字符*/ NSString *strSub = [str substringFormIndex:2]; /*从字符串开头开始截取，直到索引位置，不包含索引上的字符*/ NSString *strSubT = [str substringToIndex:2]; /*从哪个位置开始，截取多长*/ NSRange range = {2,4}; NSString *strSubR = [str substringWithRange:range]; /*获取某个子串所在的区域*/ NSRange rangeS = [str rangeOfString&quot;@&quot;el&quot;]; /*单词首字母转大写*/ [str capitalizedString]; /*字符替换*/ NSString *newStr = [str stringByReplacingOccurencesOfString:@&quot;ll&quot; withString:@&quot;al&quot;]; /*使用某个字符串替换掉原来字符串中某个区间的字符串*/ NSRange range = [str rangeOfString:@&quot;ll&quot;]; NSString *newStr = [str stringByReplacingCharactersInRange:range withSring:@&quot;hi&quot;]; /*删除原字符串中的所有指定字符串*/ NSString *newStr = [str stringByReplacingOccurencesOfString:@&quot;ll&quot; withString:@&quot;&quot;]; /*去掉两头空格*/ NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]; /*在原来路径上拼接一个路径*/ NSString *path = @&quot;/Users/dengwei&quot;; path = [path stringByAppendingPathComponent:@&quot;Desktop&quot;]; /*获取扩展名*/ NSString *path = @&quot;/Users/dengwei/Desktop/apple.txt&quot;; path = [path stringByDeletingPathExtension]; path = [path stringByAppendingPathExtension:@&quot;png&quot;]; /*把字符串写入文件*/ NSString *str = @&quot;today is cold!&quot;; NSString *path = @&quot;/Users/dengwei/Desktop/apple.txt&quot;; NSError *error; BOOL isSuccess = [str writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; /*读取文件*/ NSString *string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error]; /*字符串与URL*/ /* URL：Uniform Resource Locator 统一资源定位符 URL：格式 协议头://主机名称/资源路径 http://www.baidu.com/some/images/pic.png 404：没有找到资源 */ NSString *str = @&quot;today is cold!&quot;; /*url路径中不支持中文，若是有中文则需将中文转码*/ NSURL *url = [NSURL URLWithString:@&quot;file:///Users/dengwei/Desktop/apple.txt&quot;]; /*将中文转码*/ NSString *url_cn = @&quot;file:///Users/dengwei/Desktop/中文.txt&quot;; /*编码，把UTF8编码的字符串编码成URL中可用的字符串*/ url_cn = [url_cn stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; /*解码，把URL中可用的字符串编码的字符串解码成UTF8编码的字符串*/ url_cn = [url_cn stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; url_cn = [NSURL URLWithString:url_cn]; NSError *error; /*写入*/ BOOL isSuccess = [str writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; /*读取*/ NSString *string = [str stringWithContentsOfURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; 3.字符串范围获取 /*计算文本大小*/ CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);/*width与height都不限制*/ CGSize nameSize = [self.microBlogModel.name boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size; 二、可变字符 NSMutableString，可变字符，是NSString的子类。 一个字符串需要经常修改其中的内容，则使用NSMutableString。 NSMutableString *strM = [NSMutableString string]; /*Capacity表示容量，可以容纳多少字符，如果超过这个存储空间，就会扩展它*/ NSMutableString *strM = [NSMutableString stringWithCapacity:10];" />
+<link rel="canonical" href="http://chars.tech/code/2015/09/14/nsstring-using.html" />
+<meta property="og:url" content="http://chars.tech/code/2015/09/14/nsstring-using.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-09-14T00:43:27+08:00" />
+<script type="application/ld+json">
+{"description":"iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。 一、不可变字符 NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。 1.创建方式 1）字面量，它是常量字符串，存储常量区 NSString *str=@&quot;hello&quot;; 2）通过快捷构造法，存储堆区 NSString *str = [NSString stringWithFormat:@&quot;hello %@&quot;, @&quot;world&quot;]; 3）初始化方法 NSString *str = [[NSString alloc] initWithFormat:@&quot;%@&quot;,@&quot;hello&quot;]; 2.字符串的获取 1）获取字符串长度 NSString *str=@&quot;hello&quot;; long length = str.length; 2）获取子串 NSString *str=@&quot;hello&quot;; /*从索引字符串开始截取，直到字符串末尾，包含索引上的字符*/ NSString *strSub = [str substringFormIndex:2]; /*从字符串开头开始截取，直到索引位置，不包含索引上的字符*/ NSString *strSubT = [str substringToIndex:2]; /*从哪个位置开始，截取多长*/ NSRange range = {2,4}; NSString *strSubR = [str substringWithRange:range]; /*获取某个子串所在的区域*/ NSRange rangeS = [str rangeOfString&quot;@&quot;el&quot;]; /*单词首字母转大写*/ [str capitalizedString]; /*字符替换*/ NSString *newStr = [str stringByReplacingOccurencesOfString:@&quot;ll&quot; withString:@&quot;al&quot;]; /*使用某个字符串替换掉原来字符串中某个区间的字符串*/ NSRange range = [str rangeOfString:@&quot;ll&quot;]; NSString *newStr = [str stringByReplacingCharactersInRange:range withSring:@&quot;hi&quot;]; /*删除原字符串中的所有指定字符串*/ NSString *newStr = [str stringByReplacingOccurencesOfString:@&quot;ll&quot; withString:@&quot;&quot;]; /*去掉两头空格*/ NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]; /*在原来路径上拼接一个路径*/ NSString *path = @&quot;/Users/dengwei&quot;; path = [path stringByAppendingPathComponent:@&quot;Desktop&quot;]; /*获取扩展名*/ NSString *path = @&quot;/Users/dengwei/Desktop/apple.txt&quot;; path = [path stringByDeletingPathExtension]; path = [path stringByAppendingPathExtension:@&quot;png&quot;]; /*把字符串写入文件*/ NSString *str = @&quot;today is cold!&quot;; NSString *path = @&quot;/Users/dengwei/Desktop/apple.txt&quot;; NSError *error; BOOL isSuccess = [str writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; /*读取文件*/ NSString *string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error]; /*字符串与URL*/ /* URL：Uniform Resource Locator 统一资源定位符 URL：格式 协议头://主机名称/资源路径 http://www.baidu.com/some/images/pic.png 404：没有找到资源 */ NSString *str = @&quot;today is cold!&quot;; /*url路径中不支持中文，若是有中文则需将中文转码*/ NSURL *url = [NSURL URLWithString:@&quot;file:///Users/dengwei/Desktop/apple.txt&quot;]; /*将中文转码*/ NSString *url_cn = @&quot;file:///Users/dengwei/Desktop/中文.txt&quot;; /*编码，把UTF8编码的字符串编码成URL中可用的字符串*/ url_cn = [url_cn stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; /*解码，把URL中可用的字符串编码的字符串解码成UTF8编码的字符串*/ url_cn = [url_cn stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; url_cn = [NSURL URLWithString:url_cn]; NSError *error; /*写入*/ BOOL isSuccess = [str writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; /*读取*/ NSString *string = [str stringWithContentsOfURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error]; 3.字符串范围获取 /*计算文本大小*/ CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);/*width与height都不限制*/ CGSize nameSize = [self.microBlogModel.name boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size; 二、可变字符 NSMutableString，可变字符，是NSString的子类。 一个字符串需要经常修改其中的内容，则使用NSMutableString。 NSMutableString *strM = [NSMutableString string]; /*Capacity表示容量，可以容纳多少字符，如果超过这个存储空间，就会扩展它*/ NSMutableString *strM = [NSMutableString stringWithCapacity:10];","@type":"BlogPosting","url":"http://chars.tech/code/2015/09/14/nsstring-using.html","headline":"NSString 字符串使用（基础篇）","dateModified":"2015-09-14T00:43:27+08:00","datePublished":"2015-09-14T00:43:27+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/code/2015/09/14/nsstring-using.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>NSString 字符串使用（基础篇） | Chars</title>
+    <meta name="description" content="iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。一、不可变字符NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。1.创建方式1）字面量，它是常量字符串，存储常量...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="NSString+%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%BF%E7%94%A8%EF%BC%88%E5%9F%BA%E7%A1%80%E7%AF%87%EF%BC%89" class="title">NSString 字符串使用（基础篇）</h1>
+    <p class="meta">
+    September 14, 2015
+    
+    </p>
+  </header>
+  <section class="post-content"><p>iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p>
+
+<h1 id="一不可变字符">一、不可变字符</h1>
+<p>NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。</p>
+
+<h2 id="1创建方式">1.创建方式</h2>
+<p>1）字面量，它是常量字符串，存储常量区</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *str=@"hello";
+</code></pre></div></div>
+<p>2）通过快捷构造法，存储堆区</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *str = [NSString stringWithFormat:@"hello %@", @"world"];
+</code></pre></div></div>
+<p>3）初始化方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *str = [[NSString alloc] initWithFormat:@"%@",@"hello"];
+</code></pre></div></div>
+
+<h2 id="2字符串的获取">2.字符串的获取</h2>
+<p>1）获取字符串长度</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *str=@"hello";
+long length = str.length;
+</code></pre></div></div>
+
+<p>2）获取子串</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSString *str=@"hello";
+
+/*从索引字符串开始截取，直到字符串末尾，包含索引上的字符*/
+NSString *strSub = [str substringFormIndex:2];
+
+/*从字符串开头开始截取，直到索引位置，不包含索引上的字符*/
+NSString *strSubT = [str substringToIndex:2];
+
+/*从哪个位置开始，截取多长*/
+NSRange range = {2,4};
+NSString *strSubR = [str substringWithRange:range];
+
+/*获取某个子串所在的区域*/
+NSRange rangeS = [str rangeOfString"@"el"];
+
+/*单词首字母转大写*/
+[str capitalizedString];
+
+/*字符替换*/
+NSString *newStr = [str stringByReplacingOccurencesOfString:@"ll" withString:@"al"];
+
+/*使用某个字符串替换掉原来字符串中某个区间的字符串*/
+NSRange range = [str rangeOfString:@"ll"];
+NSString *newStr = [str stringByReplacingCharactersInRange:range withSring:@"hi"];
+
+/*删除原字符串中的所有指定字符串*/
+NSString *newStr = [str stringByReplacingOccurencesOfString:@"ll" withString:@""];
+
+/*去掉两头空格*/
+NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+/*在原来路径上拼接一个路径*/
+NSString *path = @"/Users/dengwei";
+path = [path stringByAppendingPathComponent:@"Desktop"];
+
+/*获取扩展名*/
+NSString *path = @"/Users/dengwei/Desktop/apple.txt";
+path = [path stringByDeletingPathExtension];
+path = [path stringByAppendingPathExtension:@"png"];
+
+/*把字符串写入文件*/
+NSString *str = @"today is cold!";
+NSString *path = @"/Users/dengwei/Desktop/apple.txt";
+NSError *error;
+BOOL isSuccess = [str writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&amp;error];
+
+/*读取文件*/
+NSString *string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
+
+/*字符串与URL*/
+/*
+URL：Uniform Resource Locator 统一资源定位符
+URL：格式  协议头://主机名称/资源路径
+http://www.baidu.com/some/images/pic.png
+404：没有找到资源
+*/
+NSString *str = @"today is cold!";
+/*url路径中不支持中文，若是有中文则需将中文转码*/
+NSURL *url =  [NSURL URLWithString:@"file:///Users/dengwei/Desktop/apple.txt"];
+
+/*将中文转码*/
+NSString *url_cn =  @"file:///Users/dengwei/Desktop/中文.txt";
+/*编码，把UTF8编码的字符串编码成URL中可用的字符串*/
+url_cn = [url_cn stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+/*解码，把URL中可用的字符串编码的字符串解码成UTF8编码的字符串*/
+url_cn = [url_cn stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+url_cn = [NSURL URLWithString:url_cn];
+NSError *error;
+/*写入*/
+BOOL isSuccess = [str writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error];
+/*读取*/
+NSString *string = [str stringWithContentsOfURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error];
+</code></pre></div></div>
+
+<h2 id="3字符串范围获取">3.字符串范围获取</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*计算文本大小*/
+CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);/*width与height都不限制*/
+CGSize nameSize = [self.microBlogModel.name boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
+</code></pre></div></div>
+
+<h1 id="二可变字符">二、可变字符</h1>
+<p>NSMutableString，可变字符，是NSString的子类。
+一个字符串需要经常修改其中的内容，则使用NSMutableString。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NSMutableString *strM = [NSMutableString string];
+/*Capacity表示容量，可以容纳多少字符，如果超过这个存储空间，就会扩展它*/
+NSMutableString *strM = [NSMutableString stringWithCapacity:10];
+</code></pre></div></div>
+
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+          <a class="button" href="/tags#objc">
+            <p><i class="fa fa-tag fa-fw"></i> objc</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/code/2013/01/25/vc-invoke-dll.html">
+        VC 调用 DLL
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/code/2015/09/26/Objc-inherit-multimodal.html">
+        Objective-C 继承和多态
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

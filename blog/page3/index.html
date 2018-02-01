@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/blog/page3/">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://chars.tech/blog/page3/" />
+<meta property="og:url" content="http://chars.tech/blog/page3/" />
+<link rel="prev" href="http://chars.tech/blog/page2" />
+<link rel="next" href="http://chars.tech/blog/page4" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://chars.tech/blog/page3/","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title> Chars</title>
+    <meta name="description" content="Chars's Tech Blog">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <div class="home">
+  
+  <div id="main" class="call-out"
+  style="background-image: url('/assets/img/pexels/look-out.jpeg')">
+    努力すれば、きっと报われる </br> 喜欢游泳、羽毛球、乒乓球、看书、日语爱好者。<a href="https://xiaozhuanlan.com/u/5723541907" target="_blank">小专栏作者</a>
+
+  </div>
+  
+
+  <div class="posts">
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2017/03/28/objective-c-NSPredicate.html">
+                Objective-C中的NSPredicate
+              </a>
+            </h1>
+            <p class="meta">
+              March 28, 2017
+            </p>
+          </header>
+          <div class="excerpt">
+            编写软件时，经常需要获取一个对象集合，并通过某些已经条件计算该集合的值。你需要保留符合某个条件的对象，删除那些不满足条件的对象，从而提供一些有意义的对象。
+
+在使用软件iPhoto的过程中，经常会看到这种现象，如果通知iPhoto仅显示等级为三星级或三星级以上的图片，则指定的条件为“照片的等级必须为三星级或三星级以上”。这样，所有照片都需要经过该过滤器过滤。满足条件的对象通过了过滤器，而其他对象被筛除了。最后，iPhoto将显示出所有高质量的图片。
+
+Cocoa提供了一个名为NSPredicate的类，它用于...
+            <!--<a class="button" href="/pieces/2017/03/28/objective-c-NSPredicate.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/web/2017/03/23/mysql-install-config.html">
+                MySQL 安装配置
+              </a>
+            </h1>
+            <p class="meta">
+              March 23, 2017
+            </p>
+          </header>
+          <div class="excerpt">
+            MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。
+MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。
+MySQL所使用的 SQL 语言是用于访问数据库的最常用标...
+            <!--<a class="button" href="/web/2017/03/23/mysql-install-config.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/code/2017/03/22/fmdb-reading.html">
+                FMDB 代码阅读
+              </a>
+            </h1>
+            <p class="meta">
+              March 22, 2017
+            </p>
+          </header>
+          <div class="excerpt">
+            FMDB 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。
+
+项目文件
+
+
+  
+    FMDatabase : 一个SQLite数据库操作单例，通过它可以对数据库进行增删改查等操作。
+  
+  
+    FMResultSet : FMDatabase执行查询之后的结果集。
+  
+ ...
+            <!--<a class="button" href="/code/2017/03/22/fmdb-reading.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/web/2017/01/02/mac-install-apache-tomcat.html">
+                Mac 安装和配置 Tomcat
+              </a>
+            </h1>
+            <p class="meta">
+              January 2, 2017
+            </p>
+          </header>
+          <div class="excerpt">
+            Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将Tomcat和Apache Web服务器混淆，Apache Web Server是一个用C语言实现的...
+            <!--<a class="button" href="/web/2017/01/02/mac-install-apache-tomcat.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/11/15/apple-app-release-analysis.html">
+                iOS App 上架（Analysis 工具使用）
+              </a>
+            </h1>
+            <p class="meta">
+              November 15, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。
+
+这些解决方案或工具节省了iOS开发者大量的开发时间，但是由于相关介绍文章的缺乏，许多开发者都在重复着自己一次又一次重新造轮子。...
+            <!--<a class="button" href="/pieces/2016/11/15/apple-app-release-analysis.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/09/05/effective-objc-2-introduction-objc.html">
+                Effective Objective-C 2.0 读书笔记 -- 熟悉Objective-C语言
+              </a>
+            </h1>
+            <p class="meta">
+              September 5, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            看到Effective这个词，大家一定会想到《Effective C++》、《Effective Java》等业界名著，那些书里汇聚了多项实用技巧，又系统而深入的讲解了各种编程知识。那么，《Effective Objective-C 2.0》也是如此。
+
+作为Mac OS X与iOS应用程序的开发语言，Objective-C作为首选。那么，它有哪些需要注意的呢？
+
+起源
+
+Objective-C与C++、Java一样，是面向对象的语言，是由Smalltalk演化而来。Smalltalk是消息型语言的鼻祖。消息...
+            <!--<a class="button" href="/pieces/2016/09/05/effective-objc-2-introduction-objc.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/talk/2016/09/04/mac-ruby-update.html">
+                Mac 如何升级 Ruby 版本
+              </a>
+            </h1>
+            <p class="meta">
+              September 4, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            Ruby 是一种面向对象、命令式、函数式、动态的通用编程语言。 在20世纪90年代中期由日本人松本行弘（Matz）设计并开发。 遵守BSD许可证和Ruby License。 它的灵感与特性来自于Perl、Smalltalk、Eiffel、Ada以及Lisp语言。
+
+Ruby 可运行于多种平台，如 Windows、MAC OS 和 UNIX 的各种版本。
+
+Ruby用于最明显，且和Apple系列的程序员最直接关联的就是Mac的开发环境，直接关联于Cocoapods工具。但是，cocoapods工具与Ruby的版...
+            <!--<a class="button" href="/talk/2016/09/04/mac-ruby-update.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/09/03/mac-os-archive-app.html">
+                Mac OS 开发 － 聊聊如何打包dmg文件
+              </a>
+            </h1>
+            <p class="meta">
+              September 3, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。
+
+BTW 推荐一款非Apple官方的App Store，HackStore是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的ImageHosting，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 ImageHosting for Mac
+
+现在，分享一下，当我们...
+            <!--<a class="button" href="/pieces/2016/09/03/mac-os-archive-app.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/project/2016/08/23/ImageHosting-use-introduction.html">
+                ImageHosting 开源软件的使用说明
+              </a>
+            </h1>
+            <p class="meta">
+              August 23, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考《手把手教 GitHub + Hexo 搭建博客》 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。
+
+
+
+软件下载地址：ImageHosting for Mac
+
+源代码地址
+
+安装
+
+遇到提示“不能安装未知来源程序”时，处理方法为...
+            <!--<a class="button" href="/project/2016/08/23/ImageHosting-use-introduction.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+    <div class="post-teaser">
+      
+      <span>
+          <header>
+            <h1>
+              <a class="post-link" href="/pieces/2016/08/14/memory-big-little-endian.html">
+                简单聊聊大小端问题
+              </a>
+            </h1>
+            <p class="meta">
+              August 14, 2016
+            </p>
+          </header>
+          <div class="excerpt">
+            在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。
+
+先来看一段代码：
+
+#include&lt;stdio.h&gt;
+
+union{
+        unsigned long b...
+            <!--<a class="button" href="/pieces/2016/08/14/memory-big-little-endian.html">
+              Continue reading
+            </a>-->
+          </div>
+      </span>
+    </div>
+    
+  </div>
+
+  
+  <div class="pagination">
+    
+    <a href="/blog/page2" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+    <a href="/blog/page4" class="button" >
+      Next
+      <i class="fa fa-chevron-right"></i>
+    </a>
+    
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

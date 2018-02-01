@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/pieces/2016/07/22/ios-app-distribution.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>谈谈iOS App打包发布</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="谈谈iOS App打包发布" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。" />
+<meta property="og:description" content="来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。" />
+<link rel="canonical" href="http://chars.tech/pieces/2016/07/22/ios-app-distribution.html" />
+<meta property="og:url" content="http://chars.tech/pieces/2016/07/22/ios-app-distribution.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-07-22T03:56:38+08:00" />
+<script type="application/ld+json">
+{"description":"来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。","@type":"BlogPosting","url":"http://chars.tech/pieces/2016/07/22/ios-app-distribution.html","headline":"谈谈iOS App打包发布","dateModified":"2016-07-22T03:56:38+08:00","datePublished":"2016-07-22T03:56:38+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/pieces/2016/07/22/ios-app-distribution.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>谈谈iOS App打包发布 | Chars</title>
+    <meta name="description" content="来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E8%B0%88%E8%B0%88iOS+App%E6%89%93%E5%8C%85%E5%8F%91%E5%B8%83" class="title">谈谈iOS App打包发布</h1>
+    <p class="meta">
+    July 22, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。</p>
+
+<p>1.安装发布证书</p>
+
+<ul>
+  <li>自己去Apple开发者中心配置</li>
+  <li>找其他已经有证书的小伙伴导出p12文件</li>
+</ul>
+
+<p>2.设置Scheme</p>
+
+<p><code class="highlighter-rouge">Xcode-&gt;Product-&gt;Scheme-&gt;Edit Scheme</code></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-1.png?imageView/2/w/460" alt="setting-scheme" /></p>
+
+<p>3.设置软件版本号</p>
+
+<p>版本号格式：<code class="highlighter-rouge">数字.数字-字符(驼峰式).数字</code></p>
+
+<p>示例：<code class="highlighter-rouge">1.1-beta.1</code> , <code class="highlighter-rouge">1.1.1-beta</code></p>
+
+<p><strong>说明：</strong>版本号从0开始，不过一般版本号为0的数字省略。</p>
+
+<p>4.Archive</p>
+
+<p><strong>注意：</strong>选择<code class="highlighter-rouge">真机</code>或者<code class="highlighter-rouge">Generic iOS Device</code></p>
+
+<p><code class="highlighter-rouge">Product-&gt;Archive</code></p>
+
+<p>5.Export</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-2.png?imageView/2/w/460" alt="export-1" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-3.png?imageView/2/w/460" alt="export-2" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-4.png?imageView/2/w/460" alt="export-3" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-5.png?imageView/2/w/460" alt="export-4" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-6.png?imageView/2/w/460" alt="export-5" /></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-distribution-7.png?imageView/2/w/460" alt="export-6" /></p>
+
+<p>6.安装企业应用证书</p>
+
+<p>7.上传到ZAKER服务器</p>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tags</div>
+        
+            
+        
+          <a class="button" href="/tags#application">
+            <p><i class="fa fa-tag fa-fw"></i> application</p>
+          </a>
+        
+          <a class="button" href="/tags#ios">
+            <p><i class="fa fa-tag fa-fw"></i> ios</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/pieces/2016/07/17/custom-myself-develop-tool.html">
+        打造自己的 Mac 环境
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/talk/2016/08/03/xcode-plugin-list.html">
+        Xcode 常用插件
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>

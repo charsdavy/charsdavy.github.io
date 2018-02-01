@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- JQuery (used for bootstrap and jekyll search) -->
+    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
+    
+    <!-- Main JS (navbar.js and katex_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://chars.tech/algorithm/2016/04/30/uniform-random.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
+
+    <!-- Font Awesome -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
+    
+
+    <!-- KaTeX 0.8.3 -->
+    
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
+    <script src="/assets/js/katex.min.js">
+    </script>
+    
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80507808-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    
+    
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>均匀分布随机函数的实现</title>
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="均匀分布随机函数的实现" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。" />
+<meta property="og:description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。" />
+<link rel="canonical" href="http://chars.tech/algorithm/2016/04/30/uniform-random.html" />
+<meta property="og:url" content="http://chars.tech/algorithm/2016/04/30/uniform-random.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-30T17:37:10+08:00" />
+<script type="application/ld+json">
+{"description":"随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。","@type":"BlogPosting","url":"http://chars.tech/algorithm/2016/04/30/uniform-random.html","headline":"均匀分布随机函数的实现","dateModified":"2016-04-30T17:37:10+08:00","datePublished":"2016-04-30T17:37:10+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://chars.tech/algorithm/2016/04/30/uniform-random.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>均匀分布随机函数的实现 | Chars</title>
+    <meta name="description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+    
+    <!-- Logo and title -->
+	<div class="branding">
+		<a href="/">
+			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
+		</a>
+
+		<h1 class="site-title">
+			<a href="/">Chars</a>
+		</h1>
+	</div>
+    
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+    
+    <!-- Menu -->
+    <ul>
+        
+        
+        
+        
+        <li>
+            <a class="clear" href="/about/">
+                About
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/hobby">
+                Hobby
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a class="clear" href="http://chars.tech/tags">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+    </ul>
+        
+	</nav>
+</header>
+
+    <div class="content">
+      <article >
+  <header id="main" style="background-image: url('/')">
+    <h1 id="%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0" class="title">均匀分布随机函数的实现</h1>
+    <p class="meta">
+    April 30, 2016
+    
+    </p>
+  </header>
+  <section class="post-content"><p>随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。</p>
+
+<h1 id="前言">前言</h1>
+<p>随机函数就是产生数的函数，C语言里使用rand(),srand()等随机函数实现随机数生成。
+ </p>
+<h1 id="函数简介">函数简介</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int rand( void );
+</code></pre></div></div>
+
+<p>返回的是一个界于0～32767（0x7FFF）之间的伪随机数，包括0和32767。
+C预先生成一组随机数，每次调用随机函数时从指针所指向的位置开始取值，因此使用rand()重复运行程序产生的随机数都是相同的，可以通过srand()函数来改变指针位置。
+srand()会设置供rand()使用的随机数种子。如果在第一次使用rand()之前没有调用srand()，那么系统会自动调用srand()。而使用同种子相同的数调用 rand()会导致相同的随机数序列被生成。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void srand( unsigned int seed );
+</code></pre></div></div>
+<p>改变随机数表的指针位置（用seed变量控制）。
+使用系统定时/计数器的值作为随机种子。每个种子对应一组根据算法预先生成的随机数，所以，在相同的平台环境下，不同时间产生的随机数会是不同的，相应的，若将srand（unsigned）time(NULL)改为srand(TP)（TP为任一常量），则无论何时运行、运行多少次得到的“随机数”都会是一组固定的序列，因此srand生成的随机数是伪随机数。
+一般配合time(NULL)使用，因为时间每时每刻都在改变，产生的seed值都不同。
+ </p>
+<h1 id="场景">场景</h1>
+<p>使用rand函数生成的随机数严格满足正态分布。而在很多时候，我们希望随机数的生成不要满足正态分布，特别是在处理网络通信报文的时候。
+例如，我们需要在交换机处理到海量报文时，能够使远端的从设备尽可能的分段同时向局端回应报文，以减轻局~~部~~端报文处理压力。
+ </p>
+<h1 id="均匀分布随机函数实现">均匀分布随机函数实现</h1>
+<h2 id="开发环境">开发环境</h2>
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-b2f082073e33ca94.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开发环境" /></p>
+<h2 id="实现步骤">实现步骤</h2>
+<p>1）打开Qt Creater，创建GUI工程
+<img src="http://upload-images.jianshu.io/upload_images/1492739-1c06b87e7e219e93.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建GUI工程" />
+ 
+<img src="http://upload-images.jianshu.io/upload_images/1492739-4b288fe958b3e962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目文件结构" /></p>
+
+<p>2）在mainwindow.h中添加函数声明</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void paintEvent(QPaintEvent *);
+</code></pre></div></div>
+
+<p>3）在mainwindow.cpp中添加函数实现</p>
+
+<p>导入头文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;QPainter&gt;
+</code></pre></div></div>
+
+<p> 
+实现<code class="highlighter-rouge">void paintEvent(QPaintEvent *)</code>函数</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+ *Qt中函数paintEvent(QPaintEvent*)是被系统自动调用。
+ *paintEvent(QPaintEvent *)函数是QWidget类中的虚函数，用于ui的绘制，会在多种情况下被其他函数自动调用。
+*/
+void MainWindow::paintEvent(QPaintEvent *)
+{
+    QPainter painter(this);
+    QPen pen; //画笔
+    pen.setColor(QColor(255,0,0)); //设置画笔颜色
+    painter.setPen(pen); //添加画笔
+
+    long int r[kSum] = {0};
+    int i = 0;
+    int j = 0;
+
+    do{
+        r[i] = Uniform(0, 300);
+        i++;
+    }while(i &lt; kSum);
+
+    while((j + 30) &lt; (kSum + 30)){
+        painter.drawPoint(j, r[j]);
+        j++;
+    }
+}
+</code></pre></div></div>
+
+<p> 
+4）添加随机函数实现代码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+
+#define kSum 1000
+//算法一
+/*
+ *均匀分布随机函数均匀化
+*/
+double _uniform(double min, double max, long int *seed) {
+    double t = 0;
+    *seed = 2045 * (*seed) + 1;
+    *seed = *seed - (*seed / 1048576) * 1048576;
+    t = (*seed) / 1048576.0;
+    t = min + (max - min) * t;
+    return t;
+}
+
+/*
+ *均匀分布随机函数产生随机数
+*/
+long int Uniform(double min, double max) {
+    long int s = 0;
+    double r = 0;
+
+    //srand((unsigned int)time(NULL)); /*同一个时间种子可能会从产生相同的随机数列*/
+    s = rand();
+    r = _uniform(min, max, &amp;s);
+
+    return ((long int)r);
+}
+
+//算法二
+double AverageRandom(double min, double max) {
+    int minInteger = (int)(min * 10000);
+    int maxInteger = (int)(max * 10000);
+    int randInteger = rand() * rand();
+    int diffInteger = maxInteger - minInteger;
+    int resultInteger = randInteger % diffInteger + minInteger;
+
+    return (resultInteger/10000.0);
+}
+</code></pre></div></div>
+
+<p> </p>
+<h1 id="实现效果">实现效果</h1>
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-af95ccbacb9b3231.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="实现效果" />
+ </p>
+<h1 id="小结">小结</h1>
+<p>从图中可以看出，使用上述函数生成的随机数符合均匀分布。
+本案例主要使用了Qt的绘图功能，用来直观展示生成随机数的效果。检验随机函数生成随机数的效果。
+ </p>
+<h1 id="附录">附录</h1>
+<p>最后附上该算法实现的全部代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//mainwindow.h
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include &lt;QMainWindow&gt;
+
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+    void paintEvent(QPaintEvent *);
+
+private:
+    Ui::MainWindow *ui;
+};
+
+#endif // MAINWINDOW_H
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//mainwindow.cpp
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include &lt;QPainter&gt;
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+
+#define kSum 1000
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui-&gt;setupUi(this);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+/*
+ *均匀分布随机函数均匀化
+*/
+double _uniform(double min, double max, long int *seed) {
+    double t = 0;
+    *seed = 2045 * (*seed) + 1;
+    *seed = *seed - (*seed / 1048576) * 1048576;
+    t = (*seed) / 1048576.0;
+    t = min + (max - min) * t;
+    return t;
+}
+
+/*
+ *均匀分布随机函数产生随机数
+*/
+long int Uniform(double min, double max) {
+    long int s = 0;
+    double r = 0;
+
+    //srand((unsigned int)time(NULL)); /*同一个时间种子可能会从产生相同的随机数列*/
+    s = rand();
+    r = _uniform(min, max, &amp;s);
+
+    return ((long int)r);
+}
+
+/*
+ *Qt中函数paintEvent(QPaintEvent*)是被系统自动调用。
+ *paintEvent(QPaintEvent *)函数是QWidget类中的虚函数，用于ui的绘制，会在多种情况下被其他函数自动调用。
+*/
+void MainWindow::paintEvent(QPaintEvent *)
+{
+    QPainter painter(this);
+    QPen pen; //画笔
+    pen.setColor(QColor(255,0,0)); //设置画笔颜色
+    painter.setPen(pen); //添加画笔
+
+    long int r[kSum] = {0};
+    int i = 0;
+    int j = 0;
+
+    do{
+        r[i] = Uniform(0, 300);
+        i++;
+    }while(i &lt; kSum);
+
+    while((j + 30) &lt; (kSum + 30)){
+        painter.drawPoint(j, r[j]);
+        j++;
+    }
+}
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//main.cpp
+#include "mainwindow.h"
+#include &lt;QApplication&gt;
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    return a.exec();
+}
+</code></pre></div></div>
+</section>
+   
+   <!-- Tag list -->
+  
+  
+
+
+    <footer>
+        <div class="tag-list">
+        
+          <div class="meta">Tag</div>
+        
+            
+        
+          <a class="button" href="/tags#c">
+            <p><i class="fa fa-tag fa-fw"></i> c</p>
+          </a>
+        
+        </div>
+    </footer>
+  
+
+    
+</article>
+
+<!-- comment -->
+
+<div class="comments">
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid=MTAyMC8zMzY4My8xMDIzOA==>
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+  
+  <div id="previous-post" class="post-nav-post">
+      <p>Previous</p>
+      <a href="/code/2016/04/18/VFL-introduction.html">
+        VFL 语言简介
+      </a>
+  </div>
+  
+  
+  <div id="next-post" class="post-nav-post">
+      <p>Next</p>
+      <a href="/project/2016/05/06/flappy-bird-game.html">
+        flappy bird 游戏实现
+      </a>
+  </div>
+  
+</div>
+
+    </div>
+    
+<footer class="site-footer">
+    <p class="text"></p>
+    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+	<a href="mailto:chars.davy@gmail.com" title="Email">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+<li>
+	<a href="https://github.com/charsdavy" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+	</a>
+</li>
+
+
+
+<li>
+    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+
+  </body>
+</html>
