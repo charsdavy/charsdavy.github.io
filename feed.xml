@@ -5,7 +5,1073 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://chars.tech/</link>
     <description>Chars's Tech Blog</description>
-    <pubDate>Fri, 02 Feb 2018 10:52:36 +0800</pubDate>
+    <pubDate>Mon, 05 Feb 2018 09:58:49 +0800</pubDate>
+    
+      <item>
+        <title>Tensorflow -- 基准</title>
+        <link>/ml/2018/02/05/tensorflow-performance-benchmarks.html</link>
+        <guid isPermaLink="true">/ml/2018/02/05/tensorflow-performance-benchmarks.html</guid>
+        <description>&lt;h1 id=&quot;基准&quot;&gt;基准&lt;/h1&gt;
+
+&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
+
+&lt;p&gt;TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 &lt;a href=&quot;#methodology&quot;&gt;方法&lt;/a&gt; 章节中会详细说明如何执行测试，并给出使用的脚本链接。&lt;/p&gt;
+
+&lt;h2 id=&quot;图像分类模型的结果&quot;&gt;图像分类模型的结果&lt;/h2&gt;
+
+&lt;p&gt;InceptionV3 (&lt;a href=&quot;https://arxiv.org/abs/1512.00567&quot;&gt;arXiv:1512.00567&lt;/a&gt;), ResNet-50
+(&lt;a href=&quot;https://arxiv.org/abs/1512.03385&quot;&gt;arXiv:1512.03385&lt;/a&gt;), ResNet-152
+(&lt;a href=&quot;https://arxiv.org/abs/1512.03385&quot;&gt;arXiv:1512.03385&lt;/a&gt;), VGG16
+(&lt;a href=&quot;https://arxiv.org/abs/1409.1556&quot;&gt;arXiv:1409.1556&lt;/a&gt;), 和
+&lt;a href=&quot;http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf&quot;&gt;AlexNet&lt;/a&gt; 使用 &lt;a href=&quot;http://www.image-net.org/&quot;&gt;ImageNet&lt;/a&gt; 数据集测试。这些测试运行在 Google 计算云引擎，亚马逊计算云 (Amazon EC2) 和 NVIDIA® DGX-1™ 。大部分测试使用合成和真实的数据。&lt;/p&gt;
+
+&lt;p&gt;对合成数据的测试是通过使用一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.Variable&lt;/code&gt; 设置相同的 shape，除了每个 ImageNet 模型。我们认为，当评估一个平台的基准时包含真实数据是很重要的。底层硬件和框架的加载测试是为了训练实际数据。我们开始合成数据用来移除磁盘 I/O 作为一个变量，并设置一个基准。然后使用真实的数据来验证 TensorFlow 的输入和底层磁盘 I/O 的计算单元。&lt;/p&gt;
+
+&lt;h3 id=&quot;使用-nvidia-dgx-1-nvidia-tesla-p100-训练&quot;&gt;使用 NVIDIA® DGX-1™ (NVIDIA® Tesla® P100) 训练&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:80%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_p100_single_server.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;细节和附加结果在 &lt;a href=&quot;#details_for_nvidia_dgx-1tm_nvidia_tesla_p100&quot;&gt;NVIDIA® DGX-1™ (NVIDIA®
+Tesla® P100) 的细节&lt;/a&gt; 章节中。&lt;/p&gt;
+
+&lt;h3 id=&quot;使用-nvidia-tesla-k80-训练&quot;&gt;使用 NVIDIA® Tesla® K80 训练&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:80%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_k80_single_server.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;细节和附加结果在 &lt;a href=&quot;#details_for_google_compute_engine_nvidia_tesla_k80&quot;&gt;Google 计算引擎
+(NVIDIA® Tesla® K80) 的细节&lt;/a&gt; 和
+&lt;a href=&quot;#details_for_amazon_ec2_nvidia_tesla_k80&quot;&gt;Amazon EC2 (NVIDIA® Tesla®
+K80) 的细节&lt;/a&gt; 章节中。&lt;/p&gt;
+
+&lt;h3 id=&quot;使用-nvidia-tesla-k80-分布式训练&quot;&gt;使用 NVIDIA® Tesla® K80 分布式训练&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:80%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_k80_aws_distributed.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;细节和附加结果在 &lt;a href=&quot;#details_for_amazon_ec2_distributed_nvidia_tesla_k80&quot;&gt;分布式 Amazon EC2
+(NVIDIA® Tesla® K80) 的细节&lt;/a&gt;
+章节中。&lt;/p&gt;
+
+&lt;h3 id=&quot;比较合成和真实训练数据&quot;&gt;比较合成和真实训练数据&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;NVIDIA® Tesla® P100&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_p100_data_compare_inceptionv3.png&quot; /&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_p100_data_compare_resnet50.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;NVIDIA® Tesla® K80&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_k80_data_compare_inceptionv3.png&quot; /&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_k80_data_compare_resnet50.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;nvidia-dgx-1-nvidia-tesla-p100-的细节&quot;&gt;NVIDIA® DGX-1™ (NVIDIA® Tesla® P100) 的细节&lt;/h2&gt;
+
+&lt;h3 id=&quot;环境配置&quot;&gt;环境配置&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Instance type&lt;/strong&gt;: NVIDIA® DGX-1™&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;GPU:&lt;/strong&gt; 8x NVIDIA® Tesla® P100&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OS:&lt;/strong&gt; Ubuntu 16.04 LTS with tests run via Docker&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CUDA / cuDNN:&lt;/strong&gt; 8.0 / 5.1&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TensorFlow GitHub hash:&lt;/strong&gt; b1e174e&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Benchmark GitHub hash:&lt;/strong&gt; 9165a70&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Build Command:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;bazel build -c opt --copt=-march=&quot;haswell&quot; --config=cuda
+//tensorflow/tools/pip_package:build_pip_package&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Disk:&lt;/strong&gt; Local SSD&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DataSet:&lt;/strong&gt; ImageNet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Test Date:&lt;/strong&gt; May 2017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每个模型的批处理大小和优化器如下表所示。除了下表所示的批处理大小，InceptionV3、ResNet-50、ResNet-152 和 VGG16 也用批处理大小为 32 进行测试。这些结果在 &lt;em&gt;其他结果&lt;/em&gt; 章节。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Options&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Batch size per GPU&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;512&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Optimizer&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;用于每个模型的配置。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Model&lt;/th&gt;
+      &lt;th&gt;variable_update&lt;/th&gt;
+      &lt;th&gt;local_parameter_device&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;InceptionV3&lt;/td&gt;
+      &lt;td&gt;parameter_server&lt;/td&gt;
+      &lt;td&gt;cpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ResNet50&lt;/td&gt;
+      &lt;td&gt;parameter_server&lt;/td&gt;
+      &lt;td&gt;cpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ResNet152&lt;/td&gt;
+      &lt;td&gt;parameter_server&lt;/td&gt;
+      &lt;td&gt;cpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AlexNet&lt;/td&gt;
+      &lt;td&gt;replicated (with NCCL)&lt;/td&gt;
+      &lt;td&gt;n/a&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VGG16&lt;/td&gt;
+      &lt;td&gt;replicated (with NCCL)&lt;/td&gt;
+      &lt;td&gt;n/a&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;结果&quot;&gt;结果&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:80%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_p100_single_server.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_dgx1_synth_p100_single_server_scaling.png&quot; /&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_dgx1_real_p100_single_server_scaling.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;142&lt;/td&gt;
+      &lt;td&gt;219&lt;/td&gt;
+      &lt;td&gt;91.8&lt;/td&gt;
+      &lt;td&gt;2987&lt;/td&gt;
+      &lt;td&gt;154&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;284&lt;/td&gt;
+      &lt;td&gt;422&lt;/td&gt;
+      &lt;td&gt;181&lt;/td&gt;
+      &lt;td&gt;5658&lt;/td&gt;
+      &lt;td&gt;295&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;569&lt;/td&gt;
+      &lt;td&gt;852&lt;/td&gt;
+      &lt;td&gt;356&lt;/td&gt;
+      &lt;td&gt;10509&lt;/td&gt;
+      &lt;td&gt;584&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;1131&lt;/td&gt;
+      &lt;td&gt;1734&lt;/td&gt;
+      &lt;td&gt;716&lt;/td&gt;
+      &lt;td&gt;17822&lt;/td&gt;
+      &lt;td&gt;1081&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;训练真实数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;142&lt;/td&gt;
+      &lt;td&gt;218&lt;/td&gt;
+      &lt;td&gt;91.4&lt;/td&gt;
+      &lt;td&gt;2890&lt;/td&gt;
+      &lt;td&gt;154&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;278&lt;/td&gt;
+      &lt;td&gt;425&lt;/td&gt;
+      &lt;td&gt;179&lt;/td&gt;
+      &lt;td&gt;4448&lt;/td&gt;
+      &lt;td&gt;284&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;551&lt;/td&gt;
+      &lt;td&gt;853&lt;/td&gt;
+      &lt;td&gt;359&lt;/td&gt;
+      &lt;td&gt;7105&lt;/td&gt;
+      &lt;td&gt;534&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;1079&lt;/td&gt;
+      &lt;td&gt;1630&lt;/td&gt;
+      &lt;td&gt;708&lt;/td&gt;
+      &lt;td&gt;N/A&lt;/td&gt;
+      &lt;td&gt;898&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;从上图表可以看出，由于最大输入的限制，AlexNet 模型没有使用 8 个 GPU 来训练数据。&lt;/p&gt;
+
+&lt;h3 id=&quot;其他结果&quot;&gt;其他结果&lt;/h3&gt;
+
+&lt;p&gt;以下是批处理大小为 32 的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;128&lt;/td&gt;
+      &lt;td&gt;195&lt;/td&gt;
+      &lt;td&gt;82.7&lt;/td&gt;
+      &lt;td&gt;144&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;259&lt;/td&gt;
+      &lt;td&gt;368&lt;/td&gt;
+      &lt;td&gt;160&lt;/td&gt;
+      &lt;td&gt;281&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;520&lt;/td&gt;
+      &lt;td&gt;768&lt;/td&gt;
+      &lt;td&gt;317&lt;/td&gt;
+      &lt;td&gt;549&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;995&lt;/td&gt;
+      &lt;td&gt;1485&lt;/td&gt;
+      &lt;td&gt;632&lt;/td&gt;
+      &lt;td&gt;820&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;训练真实数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;130&lt;/td&gt;
+      &lt;td&gt;193&lt;/td&gt;
+      &lt;td&gt;82.4&lt;/td&gt;
+      &lt;td&gt;144&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;257&lt;/td&gt;
+      &lt;td&gt;369&lt;/td&gt;
+      &lt;td&gt;159&lt;/td&gt;
+      &lt;td&gt;253&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;507&lt;/td&gt;
+      &lt;td&gt;760&lt;/td&gt;
+      &lt;td&gt;317&lt;/td&gt;
+      &lt;td&gt;457&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;966&lt;/td&gt;
+      &lt;td&gt;1410&lt;/td&gt;
+      &lt;td&gt;609&lt;/td&gt;
+      &lt;td&gt;690&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;google-compute-engine-nvidia-tesla-k80-的细节&quot;&gt;Google Compute Engine (NVIDIA® Tesla® K80) 的细节&lt;/h2&gt;
+
+&lt;h3 id=&quot;环境配置-1&quot;&gt;环境配置&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Instance type&lt;/strong&gt;: n1-standard-32-k80x8&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;GPU:&lt;/strong&gt; 8x NVIDIA® Tesla® K80&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OS:&lt;/strong&gt; Ubuntu 16.04 LTS&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CUDA / cuDNN:&lt;/strong&gt; 8.0 / 5.1&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TensorFlow GitHub hash:&lt;/strong&gt; b1e174e&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Benchmark GitHub hash:&lt;/strong&gt; 9165a70&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Build Command:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;bazel build -c opt --copt=-march=&quot;haswell&quot; --config=cuda
+//tensorflow/tools/pip_package:build_pip_package&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Disk:&lt;/strong&gt; 1.7 TB Shared SSD persistent disk (800 MB/s)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DataSet:&lt;/strong&gt; ImageNet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Test Date:&lt;/strong&gt; May 2017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每个模型的批处理大小和优化器如下表所示。除了下表所示的批处理大小，InceptionV3 和 ResNet-50 也用批处理大小为 32 进行测试。这些结果在 &lt;em&gt;其他结果&lt;/em&gt; 章节。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Options&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Batch size per GPU&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;512&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Optimizer&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;每个模型所用的配置中， variable_update 和 parameter_server 配置相同，local_parameter_device 和 cpu 配置相同。&lt;/p&gt;
+
+&lt;h3 id=&quot;结果-1&quot;&gt;结果&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_gce_synth_k80_single_server_scaling.png&quot; /&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_gce_real_k80_single_server_scaling.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;30.5&lt;/td&gt;
+      &lt;td&gt;51.9&lt;/td&gt;
+      &lt;td&gt;20.0&lt;/td&gt;
+      &lt;td&gt;656&lt;/td&gt;
+      &lt;td&gt;35.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;57.8&lt;/td&gt;
+      &lt;td&gt;99.0&lt;/td&gt;
+      &lt;td&gt;38.2&lt;/td&gt;
+      &lt;td&gt;1209&lt;/td&gt;
+      &lt;td&gt;64.8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;116&lt;/td&gt;
+      &lt;td&gt;195&lt;/td&gt;
+      &lt;td&gt;75.8&lt;/td&gt;
+      &lt;td&gt;2328&lt;/td&gt;
+      &lt;td&gt;120&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;227&lt;/td&gt;
+      &lt;td&gt;387&lt;/td&gt;
+      &lt;td&gt;148&lt;/td&gt;
+      &lt;td&gt;4640&lt;/td&gt;
+      &lt;td&gt;234&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;训练真实数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;30.6&lt;/td&gt;
+      &lt;td&gt;51.2&lt;/td&gt;
+      &lt;td&gt;20.0&lt;/td&gt;
+      &lt;td&gt;639&lt;/td&gt;
+      &lt;td&gt;34.2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;58.4&lt;/td&gt;
+      &lt;td&gt;98.8&lt;/td&gt;
+      &lt;td&gt;38.3&lt;/td&gt;
+      &lt;td&gt;1136&lt;/td&gt;
+      &lt;td&gt;62.9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;115&lt;/td&gt;
+      &lt;td&gt;194&lt;/td&gt;
+      &lt;td&gt;75.4&lt;/td&gt;
+      &lt;td&gt;2067&lt;/td&gt;
+      &lt;td&gt;118&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;225&lt;/td&gt;
+      &lt;td&gt;381&lt;/td&gt;
+      &lt;td&gt;148&lt;/td&gt;
+      &lt;td&gt;4056&lt;/td&gt;
+      &lt;td&gt;230&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;其他结果-1&quot;&gt;其他结果&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3 (batch size 32)&lt;/th&gt;
+      &lt;th&gt;ResNet-50 (batch size 32)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;29.3&lt;/td&gt;
+      &lt;td&gt;49.5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;55.0&lt;/td&gt;
+      &lt;td&gt;95.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;109&lt;/td&gt;
+      &lt;td&gt;183&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;216&lt;/td&gt;
+      &lt;td&gt;362&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;训练真实数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3 (batch size 32)&lt;/th&gt;
+      &lt;th&gt;ResNet-50 (batch size 32)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;29.5&lt;/td&gt;
+      &lt;td&gt;49.3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;55.4&lt;/td&gt;
+      &lt;td&gt;95.3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;110&lt;/td&gt;
+      &lt;td&gt;186&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;216&lt;/td&gt;
+      &lt;td&gt;359&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;amazon-ec2-nvidia-tesla-k80-的细节&quot;&gt;Amazon EC2 (NVIDIA® Tesla® K80) 的细节&lt;/h2&gt;
+
+&lt;h3 id=&quot;环境配置-2&quot;&gt;环境配置&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Instance type&lt;/strong&gt;: p2.8xlarge&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;GPU:&lt;/strong&gt; 8x NVIDIA® Tesla® K80&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OS:&lt;/strong&gt; Ubuntu 16.04 LTS&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CUDA / cuDNN:&lt;/strong&gt; 8.0 / 5.1&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TensorFlow GitHub hash:&lt;/strong&gt; b1e174e&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Benchmark GitHub hash:&lt;/strong&gt; 9165a70&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Build Command:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;bazel build -c opt --copt=-march=&quot;haswell&quot; --config=cuda
+//tensorflow/tools/pip_package:build_pip_package&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Disk:&lt;/strong&gt; 1TB Amazon EFS (burst 100 MiB/sec for 12 hours, continuous 50
+MiB/sec)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DataSet:&lt;/strong&gt; ImageNet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Test Date:&lt;/strong&gt; May 2017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每个模型的批处理大小和优化器如下表所示。除了下表所示的批处理大小，InceptionV3 和 ResNet-50 也用批处理大小为 32 进行测试。这些结果在 &lt;em&gt;其他结果&lt;/em&gt; 章节。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Options&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Batch size per GPU&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;512&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Optimizer&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;用于每个模型的配置。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Model&lt;/th&gt;
+      &lt;th&gt;variable_update&lt;/th&gt;
+      &lt;th&gt;local_parameter_device&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;InceptionV3&lt;/td&gt;
+      &lt;td&gt;parameter_server&lt;/td&gt;
+      &lt;td&gt;cpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ResNet-50&lt;/td&gt;
+      &lt;td&gt;replicated (without NCCL)&lt;/td&gt;
+      &lt;td&gt;gpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ResNet-152&lt;/td&gt;
+      &lt;td&gt;replicated (without NCCL)&lt;/td&gt;
+      &lt;td&gt;gpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AlexNet&lt;/td&gt;
+      &lt;td&gt;parameter_server&lt;/td&gt;
+      &lt;td&gt;gpu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VGG16&lt;/td&gt;
+      &lt;td&gt;parameter_server&lt;/td&gt;
+      &lt;td&gt;gpu&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;结果-2&quot;&gt;结果&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_aws_synth_k80_single_server_scaling.png&quot; /&gt;
+  &lt;img style=&quot;width:35%&quot; src=&quot;https://www.tensorflow.org/images/perf_aws_real_k80_single_server_scaling.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;30.8&lt;/td&gt;
+      &lt;td&gt;51.5&lt;/td&gt;
+      &lt;td&gt;19.7&lt;/td&gt;
+      &lt;td&gt;684&lt;/td&gt;
+      &lt;td&gt;36.3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;58.7&lt;/td&gt;
+      &lt;td&gt;98.0&lt;/td&gt;
+      &lt;td&gt;37.6&lt;/td&gt;
+      &lt;td&gt;1244&lt;/td&gt;
+      &lt;td&gt;69.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;117&lt;/td&gt;
+      &lt;td&gt;195&lt;/td&gt;
+      &lt;td&gt;74.9&lt;/td&gt;
+      &lt;td&gt;2479&lt;/td&gt;
+      &lt;td&gt;141&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;230&lt;/td&gt;
+      &lt;td&gt;384&lt;/td&gt;
+      &lt;td&gt;149&lt;/td&gt;
+      &lt;td&gt;4853&lt;/td&gt;
+      &lt;td&gt;260&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;训练真实数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+      &lt;th&gt;AlexNet&lt;/th&gt;
+      &lt;th&gt;VGG16&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;30.5&lt;/td&gt;
+      &lt;td&gt;51.3&lt;/td&gt;
+      &lt;td&gt;19.7&lt;/td&gt;
+      &lt;td&gt;674&lt;/td&gt;
+      &lt;td&gt;36.3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;59.0&lt;/td&gt;
+      &lt;td&gt;94.9&lt;/td&gt;
+      &lt;td&gt;38.2&lt;/td&gt;
+      &lt;td&gt;1227&lt;/td&gt;
+      &lt;td&gt;67.5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;118&lt;/td&gt;
+      &lt;td&gt;188&lt;/td&gt;
+      &lt;td&gt;75.2&lt;/td&gt;
+      &lt;td&gt;2201&lt;/td&gt;
+      &lt;td&gt;136&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;228&lt;/td&gt;
+      &lt;td&gt;373&lt;/td&gt;
+      &lt;td&gt;149&lt;/td&gt;
+      &lt;td&gt;N/A&lt;/td&gt;
+      &lt;td&gt;242&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;由于我们的 EFS 没有提供足够的吞吐量，上面的图表中我们排出了使用 8 个 GPU 来训练 AlexNet 模型的统计。&lt;/p&gt;
+
+&lt;h3 id=&quot;其他结果-2&quot;&gt;其他结果&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3 (batch size 32)&lt;/th&gt;
+      &lt;th&gt;ResNet-50 (batch size 32)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;29.9&lt;/td&gt;
+      &lt;td&gt;49.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;57.5&lt;/td&gt;
+      &lt;td&gt;94.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;114&lt;/td&gt;
+      &lt;td&gt;184&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;216&lt;/td&gt;
+      &lt;td&gt;355&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;训练真实数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3 (batch size 32)&lt;/th&gt;
+      &lt;th&gt;ResNet-50 (batch size 32)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;30.0&lt;/td&gt;
+      &lt;td&gt;49.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;57.5&lt;/td&gt;
+      &lt;td&gt;95.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;113&lt;/td&gt;
+      &lt;td&gt;185&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;212&lt;/td&gt;
+      &lt;td&gt;353&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;amazon-ec2-distributed-nvidia-tesla-k80-的细节&quot;&gt;Amazon EC2 Distributed (NVIDIA® Tesla® K80) 的细节&lt;/h2&gt;
+
+&lt;h3 id=&quot;环境配置-3&quot;&gt;环境配置&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Instance type&lt;/strong&gt;: p2.8xlarge&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;GPU:&lt;/strong&gt; 8x NVIDIA® Tesla® K80&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OS:&lt;/strong&gt; Ubuntu 16.04 LTS&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CUDA / cuDNN:&lt;/strong&gt; 8.0 / 5.1&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TensorFlow GitHub hash:&lt;/strong&gt; b1e174e&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Benchmark GitHub hash:&lt;/strong&gt; 9165a70&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Build Command:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;bazel build -c opt --copt=-march=&quot;haswell&quot; --config=cuda
+//tensorflow/tools/pip_package:build_pip_package&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Disk:&lt;/strong&gt; 1.0 TB EFS (burst 100 MB/sec for 12 hours, continuous 50 MB/sec)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DataSet:&lt;/strong&gt; ImageNet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Test Date:&lt;/strong&gt; May 2017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每个模型的批处理大小和优化器如下表所示。除了下表所示的批处理大小，InceptionV3 和 ResNet-50 也用批处理大小为 32 进行测试。这些结果在 &lt;em&gt;其他结果&lt;/em&gt; 章节。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Options&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Batch size per GPU&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Optimizer&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+      &lt;td&gt;sgd&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;用于每个模型的配置。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Model&lt;/th&gt;
+      &lt;th&gt;variable_update&lt;/th&gt;
+      &lt;th&gt;local_parameter_device&lt;/th&gt;
+      &lt;th&gt;cross_replica_sync&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;InceptionV3&lt;/td&gt;
+      &lt;td&gt;distributed_replicated&lt;/td&gt;
+      &lt;td&gt;n/a&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ResNet-50&lt;/td&gt;
+      &lt;td&gt;distributed_replicated&lt;/td&gt;
+      &lt;td&gt;n/a&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ResNet-152&lt;/td&gt;
+      &lt;td&gt;distributed_replicated&lt;/td&gt;
+      &lt;td&gt;n/a&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;为了简化服务器设置，EC2 实例（p2.8xlarge）运行了 worker 服务器和 parameter 服务器。相同数量的 worker 服务器和 parameter 服务器使用了下述的配置：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;InceptionV3: 8 instances / 6 parameter servers&lt;/li&gt;
+  &lt;li&gt;ResNet-50: (batch size 32) 8 instances / 4 parameter servers&lt;/li&gt;
+  &lt;li&gt;ResNet-152: 8 instances / 4 parameter servers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;结果-3&quot;&gt;结果&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:80%&quot; src=&quot;https://www.tensorflow.org/images/perf_summary_k80_aws_distributed.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:70%&quot; src=&quot;https://www.tensorflow.org/images/perf_aws_synth_k80_distributed_scaling.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3&lt;/th&gt;
+      &lt;th&gt;ResNet-50&lt;/th&gt;
+      &lt;th&gt;ResNet-152&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;29.7&lt;/td&gt;
+      &lt;td&gt;52.4&lt;/td&gt;
+      &lt;td&gt;19.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;229&lt;/td&gt;
+      &lt;td&gt;378&lt;/td&gt;
+      &lt;td&gt;146&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;16&lt;/td&gt;
+      &lt;td&gt;459&lt;/td&gt;
+      &lt;td&gt;751&lt;/td&gt;
+      &lt;td&gt;291&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;902&lt;/td&gt;
+      &lt;td&gt;1388&lt;/td&gt;
+      &lt;td&gt;565&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;1783&lt;/td&gt;
+      &lt;td&gt;2744&lt;/td&gt;
+      &lt;td&gt;981&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;其他结果-3&quot;&gt;其他结果&lt;/h3&gt;
+
+&lt;div style=&quot;width:95%; margin:auto; margin-bottom:10px; margin-top:20px;&quot;&gt;
+  &lt;img style=&quot;width:50%&quot; src=&quot;https://www.tensorflow.org/images/perf_aws_synth_k80_multi_server_batch32.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;训练合成数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;GPUs&lt;/th&gt;
+      &lt;th&gt;InceptionV3 (batch size 32)&lt;/th&gt;
+      &lt;th&gt;ResNet-50 (batch size 32)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;29.2&lt;/td&gt;
+      &lt;td&gt;48.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;219&lt;/td&gt;
+      &lt;td&gt;333&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;16&lt;/td&gt;
+      &lt;td&gt;427&lt;/td&gt;
+      &lt;td&gt;667&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;820&lt;/td&gt;
+      &lt;td&gt;1180&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt;1608&lt;/td&gt;
+      &lt;td&gt;2315&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;方法&quot;&gt;方法&lt;/h2&gt;
+
+&lt;p&gt;上述结果是使用该 &lt;a href=&quot;https://github.com/tensorflow/benchmarks/tree/master/scripts/tf_cnn_benchmarks&quot;&gt;脚本&lt;/a&gt; 运行在各种平台上而生成。&lt;a href=&quot;https://www.tensorflow.org/performance/performance_models&quot;&gt;《High-Performance Models》&lt;/a&gt; 文章详细描述了脚本中的技术，以及如何执行脚本的示例。&lt;/p&gt;
+
+&lt;p&gt;为了创建尽可能重复的结果，每个测试运行 5 次，然后取平均值。在给定的平台上，GPU 是在默认状态下运行的。对于 NVIDIA® Tesla® K80 来说这意味着不使用 &lt;a href=&quot;https://devblogs.nvidia.com/parallelforall/increase-performance-gpu-boost-k80-autoboost/&quot;&gt;GPU
+Boost&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;对于每个测试，需要完成 10 次预热，然后再平均完成 100 次测试。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;原文地址：&lt;a href=&quot;https://www.tensorflow.org/performance/benchmarks&quot;&gt;https://www.tensorflow.org/performance/benchmarks&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;译文出自：&lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;译者：&lt;a href=&quot;https://github.com/charsdavy&quot;&gt;charsdavy&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;校对者：&lt;a href=&quot;https://github.com/joyking7&quot;&gt;joyking7&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt; 是一个翻译优质互联网技术文章的社区，文章来源为 &lt;a href=&quot;https://juejin.im&quot;&gt;掘金&lt;/a&gt; 上的英文分享文章。内容覆盖 &lt;a href=&quot;https://github.com/xitu/gold-miner#android&quot;&gt;Android&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#ios&quot;&gt;iOS&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#前端&quot;&gt;前端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#后端&quot;&gt;后端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#区块链&quot;&gt;区块链&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#产品&quot;&gt;产品&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#设计&quot;&gt;设计&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#人工智能&quot;&gt;人工智能&lt;/a&gt;等领域，想要查看更多优质译文请持续关注 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;、&lt;a href=&quot;http://weibo.com/juejinfanyi&quot;&gt;官方微博&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/juejinfanyi&quot;&gt;知乎专栏&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Mon, 05 Feb 2018 00:00:00 +0800</pubDate>
+      </item>
     
       <item>
         <title>个人作品</title>
@@ -364,7 +1430,7 @@
       </item>
     
       <item>
-        <title>（译）TensorFlow 广度和深度学习的教程</title>
+        <title>TensorFlow 广度和深度学习的教程</title>
         <link>/ml/2017/11/30/tensorflow-wide-and-deep.html</link>
         <guid isPermaLink="true">/ml/2017/11/30/tensorflow-wide-and-deep.html</guid>
         <description>&lt;p&gt;在前文 &lt;a href=&quot;https://www.tensorflow.org/tutorials/wide&quot;&gt;《TensorFlow Liner Model Tutorial》&lt;/a&gt; 中，我们使用 &lt;a href=&quot;https://archive.ics.uci.edu/ml/datasets/Census+Income&quot;&gt;人口收入普查数据集&lt;/a&gt; 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？&lt;/p&gt;
@@ -610,9 +1676,15 @@ $ sudo easy_install --upgrade six
 
 &lt;blockquote&gt;
   &lt;ul&gt;
+    &lt;li&gt;原文地址：&lt;a href=&quot;https://www.tensorflow.org/tutorials/wide_and_deep&quot;&gt;https://www.tensorflow.org/tutorials/wide_and_deep&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;译文出自：&lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;译者：&lt;a href=&quot;https://github.com/charsdavy&quot;&gt;charsdavy&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;校对者：&lt;a href=&quot;https://github.com/MRNIU&quot;&gt;MRNIU&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt; 是一个翻译优质互联网技术文章的社区，文章来源为 &lt;a href=&quot;https://juejin.im&quot;&gt;掘金&lt;/a&gt; 上的英文分享文章。内容覆盖 &lt;a href=&quot;https://github.com/xitu/gold-miner#android&quot;&gt;Android&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#ios&quot;&gt;iOS&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#前端&quot;&gt;前端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#后端&quot;&gt;后端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#区块链&quot;&gt;区块链&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#产品&quot;&gt;产品&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#设计&quot;&gt;设计&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#人工智能&quot;&gt;人工智能&lt;/a&gt;等领域，想要查看更多优质译文请持续关注 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;、&lt;a href=&quot;http://weibo.com/juejinfanyi&quot;&gt;官方微博&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/juejinfanyi&quot;&gt;知乎专栏&lt;/a&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
         <pubDate>Thu, 30 Nov 2017 22:00:10 +0800</pubDate>
@@ -4020,314 +5092,6 @@ character-set-server=utf8
 &lt;p&gt;更多其他MySQL使用与知识可以参见&lt;a href=&quot;/2017/05/29/mysql-advanced-study/&quot;&gt;《拆解 MySQL 的高阶使用与概念》&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 17 May 2017 07:05:12 +0800</pubDate>
-      </item>
-    
-      <item>
-        <title>聊聊Objective-C的Runtime</title>
-        <link>/pieces/2017/05/09/objc-runtime.html</link>
-        <guid isPermaLink="true">/pieces/2017/05/09/objc-runtime.html</guid>
-        <description>&lt;p&gt;Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。&lt;/p&gt;
-
-&lt;p&gt;对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。&lt;/p&gt;
-
-&lt;p&gt;在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。&lt;/p&gt;
-
-&lt;p&gt;找出方法的最终执行代码：当程序执行&lt;code class=&quot;highlighter-rouge&quot;&gt;[object doSomething]&lt;/code&gt;时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。&lt;/p&gt;
-
-&lt;h1 id=&quot;1-消息机制&quot;&gt;1 消息机制&lt;/h1&gt;
-
-&lt;p&gt;与古老的C语言不同，Objective-C虽然源自C语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;C语言和Objective-C编译时的区别：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;C语言在编译的时候，已经知道调用哪一个函数。&lt;/p&gt;
-
-&lt;p&gt;Objective-C不一样，只有在运行时才知道需要调用的方法和函数。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;OBJC_EXPORT void objc_msgSend(void /* id self, SEL op, ... */ )
-    OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;使用这个方法要&lt;code class=&quot;highlighter-rouge&quot;&gt;#import &amp;lt;objc/message.h&amp;gt;&lt;/code&gt;，另外，Apple在Xcode5开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode就会报错，那么，如何解决呢？&lt;/p&gt;
-
-&lt;p&gt;解决方案如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1）打开Project的&lt;code class=&quot;highlighter-rouge&quot;&gt;Build Settings&lt;/code&gt;，搜索“msg”。&lt;/li&gt;
-  &lt;li&gt;2）将&lt;code class=&quot;highlighter-rouge&quot;&gt;Enable Strict Checking of objc_msgSend Calls&lt;/code&gt;的值设置为NO。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;发送无参消息&quot;&gt;发送无参消息&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@interface Sample : NSObject
-+ (void)run;
-- (void)run;
-- (void)eatWithFood:(NSString *)food;
-@end
-
-@implementation Sample
-+ (void)run
-{
-    NSLog(@&quot;类方法 run&quot;);
-}
-
-- (void)run
-{
-    NSLog(@&quot;实例方法 run&quot;);
-}
-
-- (void)eatWithFood:(NSString *)food
-{
-    NSLog(@&quot;实例方法 eat：%@&quot;, food);
-}
-@end
-
-- (void)test {
-	Sample *t = [[Sample alloc] init];
-	objc_msgSend(t, @selector(run));
-
-	objc_msgSend([Sample class], @selector(run));
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;发送带参消息&quot;&gt;发送带参消息&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- (void)test {
-	Sample *t = [[Sample alloc] init];
-	objc_msgSend(t, @selector(eatWithFood:), @&quot;apple&quot;);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;附加：将Objective-C转换出Runtime代码方法&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clang -rewrite-objc xxxx.m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;交换方法的实现&quot;&gt;交换方法的实现&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;class_getInstanceMethod(__unsafe_unretained Class cls, SEL name)&lt;/code&gt;获取对象方法。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;class_getClassMethod(__unsafe_unretained Class cls, SEL name)&lt;/code&gt;获取类方法。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;method_exchangeImplementations(Method m1, Method m2)&lt;/code&gt;交换方法的实现方式。&lt;/p&gt;
-
-&lt;p&gt;常见示例代码：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NSURL *url = [NSURL URLWithString:@&quot;https://charsdavy.github.io&quot;];
-[NSURLRequest requestWithURL:url];
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;但&lt;code class=&quot;highlighter-rouge&quot;&gt;url&lt;/code&gt;可能返回nil，而此段代码未能对返回值&lt;code class=&quot;highlighter-rouge&quot;&gt;url&lt;/code&gt;进行合法判断。但每次使用以上类似代码都需要进行合法性判断，那么有什么更好的方法使&lt;code class=&quot;highlighter-rouge&quot;&gt;URLWithString:&lt;/code&gt;能够做合法性判断呢？这个时候就需要使用Runtime的特有方法了。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@interface NSURL (DD)
-+ (instancetype)dd_URLWithString:(NSString *)URLString;
-@end
-
-@implementation NSURL (DD)
-// 加载此分类时调用
-+ (void)load
-{
-    //获取方法名称
-    Method urlMethod = class_getClassMethod([NSURL class], @selector(URLWithString:));
-    Method ddUrlMethod = class_getClassMethod([NSURL class], @selector(dd_URLWithString:));
-    //交换方法的实现
-    method_exchangeImplementations(urlMethod, ddUrlMethod);
-}
-//此方法与URLWithString:交换了实现方式
-+ (instancetype)dd_URLWithString:(NSString *)URLString
-{
-//    NSURL *url = [NSURL URLWithString:URLString]; 此处不能再调用此方法，否则会死循环
-    NSURL *url = [NSURL dd_URLWithString:URLString];
-    if (!url) {
-        NSLog(@&quot;url is nil&quot;);
-    }
-    return url;
-}
-@end
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;归档和解档&quot;&gt;归档和解档&lt;/h2&gt;
-
-&lt;p&gt;先来理解几个Objective-C中的概念：&lt;/p&gt;
-
-&lt;p&gt;序列化：将自定义的Objective-C的对象转化成二进制文件数据。&lt;/p&gt;
-
-&lt;p&gt;反序列化：将二进制文件数据转化成自定义的Objective-C的对象。&lt;/p&gt;
-
-&lt;p&gt;归档：将自定义的Objective-C的对象存储到本地磁盘。&lt;/p&gt;
-
-&lt;p&gt;解档：将存储在本地磁盘的数据转换成自定义的Objective-C的对象。&lt;/p&gt;
-
-&lt;p&gt;Ivar类型：成员属性。&lt;/p&gt;
-
-&lt;p&gt;Method类型：成员方法。&lt;/p&gt;
-
-&lt;p&gt;通常我们使用归档和解档的方式如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@interface Sample : NSObject&amp;lt;NSCoding&amp;gt;
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *age;
-@end
-
-@implementation Sample
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];
-    [aCoder encodeObject:self.age forKey:@&quot;age&quot;];
-}
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super init];
-    if (self) {
-        self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];
-        self.age = [aDecoder decodeObjectForKey:@&quot;age&quot;];
-    }
-    return self;
-}
-@end
-
-- (void)saveObject
-{
-    Sample *p = [[Sample alloc] init];
-    p.name = @&quot;Chars&quot;;
-    p.age = @&quot;18&quot;;
-    
-    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;chars.dat&quot;];
-    
-    BOOL flag = [NSKeyedArchiver archiveRootObject:p toFile:path];
-    if (flag) {
-        NSLog(@&quot;success&quot;);
-    } else {
-        NSLog(@&quot;falied&quot;);
-    }
-    NSLog(@&quot;%@&quot;, path);
-}
-
-- (void)readObject
-{
-    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@&quot;chars.dat&quot;];
-    
-    Sample *p = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    if (p) {
-        NSLog(@&quot;name:%@,age:%@&quot;, p.name, p.age);
-    } else {
-        NSLog(@&quot;falied&quot;);
-    }
-    NSLog(@&quot;%@&quot;, path);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Objective-C中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。&lt;/p&gt;
-
-&lt;p&gt;但是，当model中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用Runtime来简化工作。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)&lt;/code&gt;获取Class中成员变量的个数。&lt;/p&gt;
-
-&lt;p&gt;以下就是使用Runtime消息机制编写的归档与解档方法：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- (void)encodeWithCoder:(NSCoder *)aCoder
-{   
-    unsigned int count = 0;
-    Ivar *ivars = class_copyIvarList([Sample class], &amp;amp;count);
-    for (int i = 0; i &amp;lt; count; i++) {
-        Ivar ivar = ivars[i];
-        const char *name = ivar_getName(ivar);
-        NSString *key = [NSString stringWithUTF8String:name];
-        [aCoder encodeObject:[self valueForKey:key] forKey:key];
-    }
-    free(ivars);
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super init];
-    if (self) {
-        unsigned int count = 0;
-        Ivar *ivars = class_copyIvarList([Sample class], &amp;amp;count);
-        for (int i = 0; i &amp;lt; count; i++) {
-            Ivar ivar = ivars[i];
-            const char *name = ivar_getName(ivar);
-            NSString *key = [NSString stringWithUTF8String:name];
-            id value = [aDecoder decodeObjectForKey:key];
-            [self setValue:value forKey:key];
-        }
-        free(ivars);
-    }
-    return self;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;2-kvo&quot;&gt;2 KVO&lt;/h1&gt;
-
-&lt;p&gt;利用Runtime，在运行时动态创建一个对象。&lt;/p&gt;
-
-&lt;p&gt;实现原理：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;创建&lt;code class=&quot;highlighter-rouge&quot;&gt;NSKVONotifying_XXX:XXX&lt;/code&gt;类(XXX为被监听者)。&lt;/li&gt;
-  &lt;li&gt;重写属性set方法，调用&lt;code class=&quot;highlighter-rouge&quot;&gt;willChangeValueForKey:&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;didChangeValueForKey:&lt;/code&gt;方法，进而触发调用观察者的&lt;code class=&quot;highlighter-rouge&quot;&gt;observeValueForKeyPath:ofObject:change:context:&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;示例代码：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@interface Viewer : NSObject
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *age;
-@end
-
-@interface Observer : NSObject
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *age;
-@end
-
-@implementation Observer
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&amp;lt;NSKeyValueChangeKey,id&amp;gt; *)change context:(void *)context
-{
-    NSLog(@&quot;object:%@, keyPath:%@, change:%@&quot;, object, keyPath, change);
-}
-@end
-
-Observer *observer = [[Observer alloc] init];
-Viewr *viewer = [[Viewer alloc] init];
-//注册监听,viewer为被监听者，observer为观察者
-[viewr addObserver:observer forKeyPath:@&quot;age&quot; options:NSKeyValueObservingOptionNew context:nil];
-//触发KVO
-viewer.age = @&quot;99&quot;;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;3-动态添加方法&quot;&gt;3 动态添加方法&lt;/h1&gt;
-
-&lt;p&gt;当方法被调用时，才被加载。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+ (BOOL)resolveClassMethod:(SEL)sel;&lt;/code&gt;当一个类被调用了一个没有实现的方法时，则会调用此方法。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+ (BOOL)resolveInstanceMethod:(SEL)sel&lt;/code&gt;当一个类被调用了一个没有实现的实例方法时，则会调用此方法。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;class_addMethod(__unsafe_unretained Class cls, SEL name, IMP imp, const char *types)&lt;/code&gt;动态添加方法。&lt;/p&gt;
-
-&lt;p&gt;参数&lt;code class=&quot;highlighter-rouge&quot;&gt;cls &lt;/code&gt;：类类型。参数&lt;code class=&quot;highlighter-rouge&quot;&gt;name &lt;/code&gt;：方法编号。参数&lt;code class=&quot;highlighter-rouge&quot;&gt;imp &lt;/code&gt;：方法实现，就是一个函数的指针。参数&lt;code class=&quot;highlighter-rouge&quot;&gt;* types &lt;/code&gt;：方法类型&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@implementation Sample
-//一个类被调用了一个没有实现的实例方法时，则会调用此方法。
-+ (BOOL)resolveInstanceMethod:(SEL)sel
-{
-    if (sel == @selector(eat)) {
-        //添加一个实例方法
-        class_addMethod([Sample class], sel, (IMP)eat, &quot;v@:&quot;);
-    }
-    return [super resolveInstanceMethod:sel];
-}
-
-//隐式参数,self和_cmd是系统传过来的参数
-void eat(id self, SEL _cmd) {
-    NSLog(@&quot;调用了%@的%@方法&quot;, self, NSStringFromSelector(_cmd));
-}
-@end
-
-[[[Sample alloc] init] performSelector:@selector(eat)];
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 09 May 2017 16:36:49 +0800</pubDate>
       </item>
     
   </channel>
