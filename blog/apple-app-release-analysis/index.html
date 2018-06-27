@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>iOS App 上架（Analysis 工具使用）</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">15 Nov 2016</span>
+      				<h1>iOS App 上架（Analysis 工具使用）</h1>
+      				<p></p>
+<p>随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>随着iOS开发的流行，针对iOS开发涉及的方方面面，早有一些公司提供了专门的解决方案或工具。这些解决方案或工具包括：用户行为统计工具（友盟，Flurry，Google Analytics等), App Store销售分析工具（例如App annie)， App crash收集工具（例如Crashlytics)，App测试发布工具（Test Flight）, App Push服务等。</p>
+
+<p>这些解决方案或工具节省了iOS开发者大量的开发时间，但是由于相关介绍文章的缺乏，许多开发者都在重复着自己一次又一次重新造轮子。所以将自己使用的相关的第三方服务使用经验，整理成一系列文章，以便广大开发者能够省去大量的重复性工作。</p>
+
+<h1 id="用户习惯数据收集">用户习惯数据收集</h1>
+
+<p>了解用户的使用习惯以及相关数据信息，可以更好的帮助开发者调整产品的方向和重点。首先是数据的收集，受工作的影响，选择 <a href="https://mtj.baidu.com/">百度移动统计</a> 。不得不说，这是一款很符合国人使用习惯的工具。</p>
+
+<p>使用方法很简单，接入过程直接根据官方文档。自定义统计事件需要自己在web端逐个添加。而页面访问统计则不需要，只需要在App上将名字传入调用接口即可。</p>
+
+<p>百度移动统计不仅仅是做应用统计，也可以做crash分析，游戏统计分析，DSP统计，还有广告营销分析。</p>
+
+<p>页面数据的分析，可以帮助开发者很明了的知道用户群体的习惯与流失，有助于产品成长。</p>
+
+<h1 id="crash-数据收集">Crash 数据收集</h1>
+
+<p>作为上线App，最担心的就是crash数据的收集。<a href="http://try.crashlytics.com/">Crashlytics</a> 是专门为移动应用开者发提供的保存和分析应用崩溃信息的工具。</p>
+
+<h2 id="使用crashlytics的好处">使用Crashlytics的好处</h2>
+
+<ul>
+  <li>
+    <p>Crashlytics不会漏掉任何应用崩溃信息。在iTunes Connect的后台查看不到任何崩溃信息。但是用户通过微博或者客服电话反馈应用崩溃的情况，在Crashlytics中都可以统计到。</p>
+  </li>
+  <li>
+    <p>Crashlytics可以像Bug管理工具那样，管理这些崩溃日志。例如：Crashlytics会根据每种类型的Crash的出现频率以及影响的用户量来自动设置优先级。对于每种类型的Crash，Crashlytics除了会像一般的工具提供Call Stack外，还会显示更多相关的有助于诊断的信息，例如：设备是否越狱，当时的内存量，当时的iOS版本等。对于修复掉的Crash日志，可以在Crashlytics的后台将其关掉。</p>
+  </li>
+  <li>
+    <p>Crashlytics可以每天和每周将崩溃信息汇总发到你的邮箱，所有信息一目了然。</p>
+  </li>
+</ul>
+
+<h2 id="使用">使用</h2>
+
+<ul>
+  <li>注册</li>
+</ul>
+
+<p>使用邮箱在<a href="http://try.crashlytics.com/">Crashlytic官网</a>注册。稍后会收到官方验证邮件，根据邮件内容及稍后提示一步步操作。</p>
+
+<ul>
+  <li>接入工程</li>
+</ul>
+
+<p>根据官方接入引导<a href="https://www.fabric.io/kits">教程</a>，分为使用pod方式和手动下载sdk接入方式。具体的可以根据官方文档来操作。这里主要分享一下自己遇到的问题。</p>
+
+<p>1) 忘记添加 Run Script ，这个步骤会导致App无法build成功。</p>
+
+<p>2) 重新配置 Crashlytics 之后，需要删除 <code class="highlighter-rouge">~/Library/Caches/com.crashlytics.data/</code> 和 <code class="highlighter-rouge">~/Library/Caches/com.crashlytics.mac/</code> 文件夹下的所有文件，重新build。</p>
+
+<p>3) 注意配置 <code class="highlighter-rouge">Build Settings</code> 中 <code class="highlighter-rouge">Debug Information Format</code> 选项将debug和release全部设置成<code class="highlighter-rouge">DWARF with dSYM File</code>。</p>
+
+<p>4) 如果提示 <code class="highlighter-rouge">missing dSYMs</code> ，就需要自行上载文件，具体<a href="https://docs.fabric.io/apple/crashlytics/missing-dsyms.html">方法教程</a> 。</p>
+
+<p>希望对大家有所帮助。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/apple-app-release-analysis/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/apple-app-release-analysis/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

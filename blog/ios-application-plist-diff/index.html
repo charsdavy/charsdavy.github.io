@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>iOS Project与OS X Project中plist使用区别</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">07 Mar 2016</span>
+      				<h1>iOS Project与OS X Project中plist使用区别</h1>
+      				<p></p>
+<p>这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。</p>
+
+<p>之前在开源中国看到一个求源代码的问题:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>模拟一个动物园系统MyZoo 
+ 
+1、动物园里面有三种动物:Panda,Elephant,Kangaroo 
+2、三种动物都有一定的数量(不止一只) 
+3、动物有各自不同的食量(以天为单位的食量),并且每天都在消耗食物。 
+4、动物园里的食物有固定的储备,而且假设三种动物都吃这一种食物。 
+5、每个动物都有不同的生产周期,每当到了这种动物的生产周期,动物园就会出现一位新生宝宝(假设其食量和成年动物是一样的)。 
+6、在主循环里模拟动物园的运转情况,要求在控制台上输出如下内容:第几天、动物的数量、动物园饲料的余量,直到饲料不够吃为止。 
+7、动物的数量,食量,生产周期,饲料总量都应该是可以配置的(在同一个文件中统一配置) 
+</code></pre>
+</div>
+
+<p>因此创建了一个OS X Project，使用plist当做这个动物园系统的初始数据的配置，代码结构如下：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-257080b90dc6a2df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+<p>在main.m文件中实现上述题目的要求：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+#import "Tool.h"
+ 
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // insert code here...
+        Panda *panda = [[Panda alloc] init];
+        Elephant *elephant = [[Elephant alloc] init];
+        Kangaroo *kangaroo = [[Kangaroo alloc] init];
+         
+        //读取plist
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+        NSLog(@"%@", plistPath);
+         
+        [Tool initWithAnimalDictionary:panda andDict:data];
+        [Tool initWithAnimalDictionary:elephant andDict:data];
+        [Tool initWithAnimalDictionary:kangaroo andDict:data];
+         
+        int fooder_num = 0;
+        int surplus = 0;
+        int day = 1;
+         
+        NSDictionary *fooderDict = [data objectForKey:@"fodder"];
+        fooder_num = [[fooderDict objectForKey:@"count_num"] intValue];
+        surplus = fooder_num;
+         
+        while(surplus &gt; 0){
+            if(0 == (day % [panda parturitionDays])){
+                [panda setCount:([panda count] + 1)];
+            }
+            if(0 == (day % [elephant parturitionDays])){
+                [elephant setCount:([elephant count] + 1)];
+            }
+            if(0 == (day % [kangaroo parturitionDays])){
+                [kangaroo setCount:([kangaroo count] + 1)];
+            }
+            surplus = fooder_num - ([panda count] * [panda foodConsumption] + [elephant count] * [elephant foodConsumption] + [kangaroo count] * [kangaroo foodConsumption]);
+            fooder_num = surplus;
+             
+            if(surplus){
+                NSLog(@"第 %d 天，熊猫:%d 只，大象:%d 头，袋鼠:%d 只，饲料余量:%d 。\n", day, [panda count], [elephant count], [kangaroo count], surplus);
+            }
+            day++;
+        }
+    }
+    return 0;
+}
+</code></pre>
+</div>
+
+<p>而这个时候遇见了问题，下面这句代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
+</code></pre>
+</div>
+
+<p>在执行时一直是null，无法找到文件路径。而后在iOS Application Project – Single View Application中，plistPath是正确值,这下就不知道问题是什么了。看了<code class="highlighter-rouge">[NSBundle mainBundle]</code>中对于不同文件夹使用不同的方法,确定将文件放在工程下是使用上述代码。最后尝试各种方法，找到了一种解决方案：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-6ddfcf4c5dc25c68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+<p>如上图所示，在Build Phase中Compile Sources中添加data.plist文件即可。</p>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/ios-application-plist-diff/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/ios-application-plist-diff/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>打造自己的 Mac 环境</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">17 Jul 2016</span>
+      				<h1>打造自己的 Mac 环境</h1>
+      				<p></p>
+<p>作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。</p>
+
+<p>文章主要分享记录博主自己搭建环境的过程。</p>
+
+<h1 id="清单">清单</h1>
+
+<p>罗列一下博主 Mac 上的盆友们，顺便来个简要介绍。</p>
+
+<p>1）开发类</p>
+
+<ul>
+  <li>Xcode：苹果官方开发工具</li>
+  <li>PaintCode：可视化设计转代码神器</li>
+  <li>GitX：git可视化工具，<strong>开源</strong>
+</li>
+  <li>SimPholders：直接打开模拟器App文件神器</li>
+</ul>
+
+<p>2）工具类</p>
+
+<ul>
+  <li>奇妙清单：云记事本</li>
+  <li>Beyond Compare：文件比较神器，<strong>付费</strong>
+</li>
+  <li>Charles：网络抓包神器，<strong>付费</strong>
+</li>
+  <li>Go2Shell：命令行打开工具，可以实现Finder下打开terminal</li>
+  <li>Navicat Premium：数据库可视化工具，<strong>付费</strong>
+</li>
+  <li>Chrome：谷歌浏览器</li>
+  <li>The Unarchiver：文件解压缩工具</li>
+  <li>DaisyDisk：磁盘清理工具，<strong>付费</strong>
+</li>
+  <li>MindNode Pro：思维导图，<strong>付费</strong>
+</li>
+</ul>
+
+<p>3）文本编辑类</p>
+
+<ul>
+  <li>Sublime Text：文本编辑神器</li>
+  <li>Pages：苹果官方办公工具</li>
+  <li>Mou：markdown语法文本编辑器</li>
+</ul>
+
+<p>4）阅读类</p>
+
+<ul>
+  <li>Reeder：博客订阅</li>
+  <li>Pocket：文章收藏</li>
+  <li>Dash：离线开发文档阅读</li>
+  <li>Skim：PDF阅读，<strong>开源</strong>
+</li>
+  <li>CHM View：chm文件阅读</li>
+</ul>
+
+<p>5）图像类</p>
+
+<ul>
+  <li>Acorn：轻量级PhotoShop</li>
+  <li>ScreenFlow：录屏，生成视频文件，<strong>付费</strong>
+</li>
+  <li>licecap：录屏，生成.gif文件</li>
+  <li>Snip：截图</li>
+</ul>
+
+<h1 id="sublime-text">Sublime Text</h1>
+
+<p>配置命令打开 Sublime Text</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+</code></pre>
+</div>
+
+<p>之后使用时，使用如下命令即可打开：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ subl
+</code></pre>
+</div>
+
+<p>实际上这就是一个软链接的应用。</p>
+
+<h3 id="json代码格式化">JSON代码格式化</h3>
+
+<p>网上有很多工具可用，博主自己现在使用一个 Tidy 的插件，效果还是蛮不错的。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-1.png" alt="效果图"></p>
+
+<p>1.打开链接<a href="https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be">https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be</a>，下载文件。</p>
+
+<p>2.将解压后的文件夹中的 <code class="highlighter-rouge">prettify_json.py</code> 和 <code class="highlighter-rouge">tidy_xml.py</code> 问价拷贝到 <code class="highlighter-rouge">~/Library/Application Support/Sublime Text 2/Packages/User</code> 路径</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-2.png" alt="路径文件夹"></p>
+
+<p>3.打开 Sublime Text，从菜单中打开“Key-Bindings Default”文件</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-3.png" alt="打开Key-Bindings Default文件"></p>
+
+<p>4.添加快捷键</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ctrl+shift+x"</span><span class="p">],</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tidy_xml"</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ctrl+shift+j"</span><span class="p">],</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prettify_json"</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w"> 
+</span></code></pre>
+</div>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/custom-myself-develop-tool-subl-4.png" alt="添加快捷键"></p>
+
+<p>5.使用</p>
+
+<p>全选，然后按下 <code class="highlighter-rouge">Control + shift + j</code> 键即可。</p>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/custom-myself-develop-tool/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/custom-myself-develop-tool/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

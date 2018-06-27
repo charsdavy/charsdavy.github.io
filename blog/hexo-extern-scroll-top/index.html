@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>Hexo 博客功能扩展 - 添加回滚到顶部按钮</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">25 Jun 2016</span>
+      				<h1>Hexo 博客功能扩展 - 添加回滚到顶部按钮</h1>
+      				<p></p>
+<p>承接前文<a href="/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>承接前文<a href="/2016/05/31/build-blog-by-hexo/">《手把手教 GitHub + Hexo 搭建博客》</a> ，对现有博客进行功能扩展。因为随着文章的发表，页面变得很长，长文章也较多，偶尔需要立即回到顶部，这个时候，就需要添加新的快捷方式。于是乎，诞生了这个功能扩展。文章主要分享实现滚动到顶部按钮功能。</p>
+
+<p>** 以Yilia主题为例，不同的主题可以类比找到对应的文件地址。 **</p>
+
+<h1 id="添加html代码">添加html代码</h1>
+
+<p>打开文件夹<code class="highlighter-rouge">/themes/Yilia/layout/_partial</code>在此文件夹下，新建文件<code class="highlighter-rouge">totop.ejs</code>，并向其中加入如下代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>&lt;div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;"&gt;
+&lt;a title="返回顶部"&gt;&lt;img src="/img/scrollup.png"/&gt;&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+</div>
+
+<p>注意： 文件的编码格式为<code class="highlighter-rouge">utf-8</code>。</p>
+
+<h1 id="添加js代码">添加js代码</h1>
+
+<p>打开文件夹<code class="highlighter-rouge">/themes/Yilia/source/js</code>，新建文件<code class="highlighter-rouge">totop.js</code>，将如下代码复制其中：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>(function($) {
+    // When to show the scroll link
+    // higher number = scroll link appears further down the page
+    var upperLimit = 1000;
+
+    // Our scroll link element
+    var scrollElem = $('#totop');
+
+    // Scroll to top speed
+    var scrollSpeed = 1600;
+
+    // Show and hide the scroll to top link based on scroll position
+    scrollElem.hide();
+    $(window).scroll(function () {
+        var scrollTop = $(document).scrollTop();
+        if ( scrollTop &gt; upperLimit ) {
+            $(scrollElem).stop().fadeTo(300, 1); // fade back in
+        }else{
+            $(scrollElem).stop().fadeTo(300, 0); // fade out
+        }
+    });
+
+    // Scroll to top animation on click
+    $(scrollElem).click(function(){
+        $('html, body').animate({scrollTop:0}, scrollSpeed); return false;
+    });
+})(jQuery);
+</code></pre>
+</div>
+
+<p>可以对<code class="highlighter-rouge">upperLimit</code>和<code class="highlighter-rouge">scrollSpeed</code>参数进行修改，控制显示位置和回滚速度。</p>
+
+<h1 id="添加文件引用">添加文件引用</h1>
+
+<p>打开文件<code class="highlighter-rouge">/themes/Yilia/layout/_partial/after_footer.ejs</code>，在文件的末尾添加以下两行代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>&lt;%- partial('totop') %&gt;
+&lt;script src="&lt;%- config.root %&gt;js/totop.js"&gt;&lt;/script&gt;
+</code></pre>
+</div>
+
+<h1 id="资源">资源</h1>
+
+<p>将下面的图片复制到<code class="highlighter-rouge">/themes/Yilia/source/img</code>目录下，文件名为<code class="highlighter-rouge">scrollup.png</code>，页面足够长时，就可以看见按钮出现。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/scrollup.png" alt="scrollup.png"></p>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/hexo-extern-scroll-top/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/hexo-extern-scroll-top/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>GCD（Grand Central Dispatch）</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">14 Apr 2016</span>
+      				<h1>GCD（Grand Central Dispatch）</h1>
+      				<p></p>
+<p>GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。</p>
+
+<h1 id="前言">前言</h1>
+<p>GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。</p>
+
+<p>GCD 和 block 的配合使用，可以方便地进行多线程编程。</p>
+
+<h1 id="优势">优势</h1>
+<p>1）  苹果官方为多核的并行运算提出的解决方案。</p>
+
+<p>2）  会自动利用更多的CPU内核。</p>
+
+<p>3）  会自动管理线程的生命周期（创建线程、调度任务、销毁线程）。
+ </p>
+<h1 id="核心概念">核心概念</h1>
+<p>1）  任务：执行什么操作。block</p>
+
+<p>2）  队列：用来存放任务。</p>
+
+<p>串行队列：顺序，一个一个执行。一个任务执行完毕后才执行下一个任务。</p>
+
+<p>并发队列：同时，同时执行很多个任务。自动开启多个线程同时执行任务。并发功能只有在异步函数下才生效。
+ </p>
+<h1 id="使用步骤">使用步骤：</h1>
+<p>1）  定制任务</p>
+
+<p>确定想要做的事情。</p>
+
+<p>2）  将任务添加到队列中</p>
+
+<p>GCD会自动将队列中的任务取出，放到对应的线程中执行。</p>
+
+<p>任务的取出原则遵循队列的原则：先进先出，后进后出。
+ </p>
+<h1 id="执行任务的函数">执行任务的函数</h1>
+<p>1）同步方式　　</p>
+
+<p>dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</p>
+
+<p>queue:队列</p>
+
+<p>block:任务</p>
+
+<p>2）异步方式</p>
+
+<p>dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</p>
+
+<p>queue:队列</p>
+
+<p>block:任务</p>
+
+<p><strong>同步和异步的区别：</strong></p>
+
+<p>同步：在当前线程中执行。</p>
+
+<p>异步：在另一条线程中执行。</p>
+
+<p><strong>同步任务的作用：</strong></p>
+
+<p>1）  用户登录</p>
+
+<p>2）  下载任务1</p>
+
+<p>3）  下载任务2
+ </p>
+<h1 id="术语">术语</h1>
+<p>1）  同步和异步决定了是否要开辟新线程。</p>
+
+<p>同步：在当前线程中执行任务，不具备开启新线程的能力。</p>
+
+<p>异步：在新的线程中执行任务，具备开启新线程的能力。</p>
+
+<p>2）  并发和串行决定了任务执行的方式。</p>
+
+<p>并发：多个任务同时执行。</p>
+
+<p>串行：一个任务执行完毕后，再执行下一个任务。
+ </p>
+<h1 id="代码使用">代码使用　</h1>
+<div class="highlighter-rouge">
+<pre class="highlight"><code>/*串行队列*/
+/*创建队列
+参数：1.队列标签。 2.队列属性。
+*/
+dispatch_queue_t queue = dispatch_queue_create(”dengw”,DISPATCH_QUEUE_SERIAL);
+/*同步执行任务，不会开辟新线程，在当前线程中顺序执行。
+一般只要使用“同步”执行，串行队列对添加的同步任务，立马执行*/
+dispatch_sync(queue, ^{
+    NSLog(@”%@”, [NSThread currentThread]);
+});
+/*异步执行任务，开辟新线程，在新线程中执行。开辟新线程的数量与队列模式有关。串行队列中异步执行只会开启一个新线程。*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+　　
+/*并发队列：需要程序员释放。*/
+/*创建队列
+参数：1.队列标签。 2.队列属性。
+*/
+dispatch_queue_t queue = dispatch_queue_create(”dengw”,DISPATCH_QUEUE_CONCURRENT);
+/*异步执行任务，开辟新线程，在新线程中执行。开辟新线程的数量程序员无法控制。*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+/*同步执行任务，不开辟新线程，顺序执行*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_sync(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+
+/*主队列，专门负责在主线程上调度任务。程序启动以后至少有一个主线程，则会创建主队列。*/
+/*主队列不允许开辟新线程。不会在子线程调度任务。*/
+/*获得主队列*/
+dispatch_queue_t queue = dispatch_get_main_queue();
+/*异步执行任务，在主队列中，只能顺序执行。*/
+for(int I = 0; I &lt; 10; I++){
+/*异步：把任务放到主队列中，但不需要马上执行。*/
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+/*同步执行任务*/
+for(int I = 0; I &lt; 10; I++){
+/*同步：把任务放到主队列中，需要马上执行。*/
+/*阻塞*/
+    dispatch_sync(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+
+/*全局队列：本质是并发队列。
+与并发队列的区别：
+1）全局队列没有名字，而并发队列有名字。
+2）全局队列，是供所有的应用程序使用。
+3）在MRC中，全局队列不需要释放，并发队列需要释放。*/
+/*获得全局队列
+参数：
+参数1
+iOS7中
+DISPATCH_QUEUE_PRIORITY_HEGH    2 高优先级
+DISPATCH_QUEUE_PRIORITY_DEFAULT  0 默认优先级
+DISPATCH_QUEUE_PRIORITY_LOW   (-2) 低优先级
+DISPATCH_QUEUE_PRIORITY_BACKGROUND    INT16_MIN 后台优先级（最低）
+iOS8中
+DISPATCH_QUEUE_PRIORITY_HEGH:QOS_CLASS_USER_INITIATED
+DISPATCH_QUEUE_PRIORITY_DEFAULT:QOS_CLASS_USER_DEFAULT
+DISPATCH_QUEUE_PRIORITY_LOW:QOS_CLASS_USER_UTILITY
+DISPATCH_QUEUE_PRIORITY_BACKGROUND: QOS_CLASS_USER_BACKGROUND
+参数2
+保留参数。*/
+dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_DEFAULT,0);
+/*异步执行任务*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+</code></pre>
+</div>
+
+<h1 id="各队列的执行效果">各队列的执行效果</h1>
+<p> 
+| | 全局并行队列 | 手动创建串行队列 | 主队列 |
+| — | — | — |
+| 同步（sync） | 没有开启新线程。串行执行任务。| 没有开启新线程。串行执行任务。 | 会死锁 |
+| 异步（async）| 有开启新线程。并行执行任务。| 有开启新线程。串行执行任务。| 没有开启新线程。串行执行任务。|
+ </p>
+<h1 id="队列的选择">队列的选择</h1>
+<p>1）串行队列异步执行</p>
+
+<p>开一条线程，顺序执行。</p>
+
+<p>效率不高，执行比较慢，资源占用小，省电。</p>
+
+<p>应用场景：一般3G网络，对性能要求不高。</p>
+
+<p>2）并发队列异步执行</p>
+
+<p>开启多条线程，并发执行。</p>
+
+<p>效率高，执行快，资源消耗大，费电。</p>
+
+<p>应用场景：WIFI网络，或需要快速响应，用户体验要求高，对任务执行顺序没有要求。</p>
+
+<p>3）  同步任务</p>
+
+<p>一般只会在并发队列，需要阻塞后续任务，必须等待同步任务执行完毕，再去执行其他任务。“依赖关系” 
+ </p>
+<h1 id="线程间通信">线程间通信</h1>
+<div class="highlighter-rouge">
+<pre class="highlight"><code>/*从子线程回到主线程*/
+dispatch_async(
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //执行耗时的异步操作…
+    dispatch_async(dispatch_get_main_queue(), ^{
+    //回到主线程，执行UI刷新操作
+    });
+});
+</code></pre>
+</div>
+<p> </p>
+<h1 id="延时操作">延时操作</h1>
+<p>1）方式一，调用NSObject的方法</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>//2秒后再调用run方法
+[self performSelector:@selector(run) withObject:nil afterDelay:2.0];
+</code></pre>
+</div>
+
+<p>2）方式二，使用GCD函数</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),dispatch_get_main_queue(), ^{    
+    //2秒后再异步执行这里的代码
+});
+</code></pre>
+</div>
+<p> </p>
+<h1 id="调度组分组">调度组（分组）</h1>
+<p>应用场景：开发的时候，有的时候出现多个网络请求（每一个网络请求时间长短不一），都完成以后统一更新UI或通知用户。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>/*实例化一个调度组*/
+dispatch_group_t group = dispatch_group_create();
+//队列
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//将任务添加到队列
+dispatch_group_async(group, queue, ^{
+    NSLog(@”A %@”, [NSThread currentThread]);
+});
+dispatch_group_async(group, queue, ^{
+    NSLog(@”B %@”, [NSThread currentThread]);
+});
+//获得所有调度组里面的异步任务完成的通知
+/*在调度组完成通知里，可以跨队列通信*/
+dispatch_group_notifity(group, queue, ^{
+    //异步的
+    NSLog(@”finished”);
+});
+</code></pre>
+</div>
+<p> </p>
+<h1 id="一次性执行">一次性执行</h1>
+<p>常见于单例模型中代码使用。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>static dispatch_once_t onceToken;
+dispatch_once(&amp;onceToken, ^{
+    //只执行一次
+    NSLog(@”hi”);
+});
+</code></pre>
+</div>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/Grand-Central-Dispatch/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/Grand-Central-Dispatch/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

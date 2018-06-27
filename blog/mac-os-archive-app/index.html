@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>Mac OS 开发 － 聊聊如何打包dmg文件</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">03 Sep 2016</span>
+      				<h1>Mac OS 开发 － 聊聊如何打包dmg文件</h1>
+      				<p></p>
+<p>最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>最近因为博主自己的需求，而App Store上的App不能满足需求，或者是说，想借此机会涉猎一下Mac OS的开发。之前一直臆想iOS开发和Mac OS差不多，实则不然。</p>
+
+<p>BTW 推荐一款非Apple官方的App Store，<code class="highlighter-rouge">HackStore</code>是一款来自俄罗斯的Mac应用商店，我们可以将自己开发完的App免费发布上去，也是具有审核机制的，博主目前推广自己的<code class="highlighter-rouge">ImageHosting</code>，一款图床软件，目前支持七牛云存储。有需求欢迎大家使用，吐槽。 <a href="https://github.com/charsdavy/ImageHosting/releases">ImageHosting for Mac</a></p>
+
+<p>现在，分享一下，当我们完成Mac开发，release一个<code class="highlighter-rouge">.app</code>文件之后，我们应该如何打包成一个dmg文件的方法。</p>
+
+<p>言归正传，说到dmg，这个我们熟悉的格式，那么它是怎么生成的呢，跟着接下来的步骤吧。博主将它们分为<code class="highlighter-rouge">系统默认</code>和<code class="highlighter-rouge">自定义</code>，不过，两者都离不开一个工具 －－ <code class="highlighter-rouge">磁盘工具（Disk Utility）</code>。</p>
+
+<h3 id="系统默认">系统默认</h3>
+
+<p>打开 <code class="highlighter-rouge">磁盘工具</code> －&gt; <code class="highlighter-rouge">文件</code> －&gt; <code class="highlighter-rouge">新建映像</code> －&gt; <code class="highlighter-rouge">来自文件夹的映像</code></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-build.png?imageView2/2/w/460" alt=""></p>
+
+<p>资源文件夹内容</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-folder.png?imageView2/2/w/460" alt=""></p>
+
+<p>配置 选择包括 <code class="highlighter-rouge">.app</code> 和 <code class="highlighter-rouge">Applications 替身</code> 文件夹的路径，也就是上图说的 资源文件夹 路径</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-default-build-config.png?imageView2/2/w/460" alt=""></p>
+
+<p>点击 <code class="highlighter-rouge">打开</code> ，配置相关信息 点击 <code class="highlighter-rouge">存储</code> 即可。</p>
+
+<h3 id="自定义">自定义</h3>
+
+<p>1 准备资源，包括：背景图片，<code class="highlighter-rouge">.app</code> 和 <code class="highlighter-rouge">Applications 替身</code> 文件。</p>
+
+<p>2 创建一个空的映像文件</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-blank-dmg.png?imageView2/2/w/460" alt=""></p>
+
+<p>配置信息</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-config-blank-dmg.png?imageView2/2/w/460" alt=""></p>
+
+<p>3 配置资源 －－ 配置背景图</p>
+
+<p>1）打开显示选项</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-blank-fill-src.png?imageView2/2/w/460" alt=""></p>
+
+<p>2）配置背景图</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-show-view-option.png?imageView2/2/w/360" alt=""></p>
+
+<p>3）隐藏背景图片文件</p>
+
+<p>使用<code class="highlighter-rouge">mv</code>命令进行重命名</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ mv background.tif .background.tif
+</code></pre>
+</div>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-hidden-bg.png?imageView2/2/w/460" alt=""></p>
+
+<p>4 配置资源 －－ 拖拽<code class="highlighter-rouge">.app</code> 和 <code class="highlighter-rouge">Applications 替身</code></p>
+
+<p>5 转换</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert.png?imageView2/2/w/480" alt=""></p>
+
+<p>配置转换信息</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-convert-config.png?imageView2/2/w/480" alt=""></p>
+
+<p>6 效果</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mac-os-archive-app-build-result.png?imageView2/2/w/460" alt=""></p>
+
+<h3 id="附言">附言</h3>
+
+<p>每次自定义类型打包dmg，都需要从零开始，不能使用上一次的未转换时的文件直接替换<code class="highlighter-rouge">.app</code>文件。否则，呈现的样式将不是CD样式。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/mac-os-archive-app/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/mac-os-archive-app/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

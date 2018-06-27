@@ -1,0 +1,441 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>FMDB 代码阅读</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">22 Mar 2017</span>
+      				<h1>FMDB 代码阅读</h1>
+      				<p></p>
+<p><a href="https://github.com/ccgus/fmdb">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p><a href="https://github.com/ccgus/fmdb">FMDB</a> 是iOS平台的SQLite数据库框架，以ObjC的方式封装了SQLite的C语言的API。FMDB使用起來更加的面向对象，省去了很多麻烦、冗余的C语言代码。相比Apple自带的Core Data框架，更加的轻量和灵活。提供了多线程安全的数据库操作的方法，有效的防止数据混乱。</p>
+
+<h2 id="项目文件">项目文件</h2>
+
+<ul>
+  <li>
+    <p>FMDatabase : 一个SQLite数据库操作单例，通过它可以对数据库进行增删改查等操作。</p>
+  </li>
+  <li>
+    <p>FMResultSet : FMDatabase执行查询之后的结果集。</p>
+  </li>
+  <li>
+    <p>FMDatabaseAdditions : 拓展FMDatabase类，新增对查询结果只返回单个值的方法进行简化，对表、列是否存在，版本号，校验SQL等功能。</p>
+  </li>
+  <li>
+    <p>FMDatabaseQueue : 使用串行对列 ，操作多线程。</p>
+  </li>
+  <li>
+    <p>FMDatabasePool : 使用任务池的形式，操作多线程。</p>
+  </li>
+</ul>
+
+<h2 id="fmdatabase">FMDatabase</h2>
+
+<h3 id="打开数据库连接">打开数据库连接</h3>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">-(BOOL)open;</code> 其实是对sqlite3_open()函数的封装。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">- (void)setMaxBusyRetryTimeInterval:(NSTimeInterval)timeout;</code> 设置重试时间。其实调用的是 <code class="highlighter-rouge">int sqlite3_busy_handler(sqlite3 *,int(*)(void *,int),void *);</code></p>
+  </li>
+</ul>
+
+<p>该函数的第一个参数：需要告知哪一个数据库需要设置busy handler。</p>
+
+<p>第二个参数：需要回调的busy handler，当你调用该回调函数的时候，需要传给它一个void*的参数，也就是sqlite3_busy_handler的第三个参数。</p>
+
+<p>第三个参数：需要传给回调函数的int参数表示这次锁事件，该回调函数被调用的次数。如果回调函数返回0时，将不再尝试再次访问数据库，而返回SQLITE_BUSY或者SQLITE_IOERR_BLOCKED。如果回调函数返回非0，将会不断尝试操作数据库。程序运行过程中，如果有其他进程或者线程在读写数据库，那么sqlite3_busy_handler会不断用用该回调函数，直到其他线程或者进程释放锁。获得锁之后，不会再调用该回调函数，从而继续向下执行下去，进行数据库操作。该函数是在获取不到锁的时候，以执行回调函数的次数來进行延时，等待其他进程或者线程操作数据库结束，从而获得锁进行操作数据库。</p>
+
+<h3 id="查询数据库">查询数据库</h3>
+
+<p>executeQuery 系列函数从根本上看，其实调用的都是</p>
+
+<p><code class="highlighter-rouge">- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args</code></p>
+
+<ul>
+  <li>
+    <p>参数sql: 需要查詢的sql语句。</p>
+  </li>
+  <li>
+    <p>参数arrayArgs: 数组类型的参数。</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>FMResultSet *resultSet = [_db executeQuery:@"SELECT * FROM t_student WHERE age &gt; ?" withArgumentsInArray:@[@20]];
+</code></pre>
+</div>
+
+<ul>
+  <li>参数dictionaryArgs: 字典类型的参数。</li>
+</ul>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>FMResultSet *resultSet = [_db executeQuery:@"SELECT * FROM t_student WHERE age &gt; :age" withParameterDictionary:@{@"age":@20}];
+</code></pre>
+</div>
+
+<ul>
+  <li>参数args: 可变参数类型。</li>
+</ul>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>FMResultSet *resultSet = [_db executeQuery:@"SELECT * FROM t_student WHERE age &gt; ?",@(20)];
+</code></pre>
+</div>
+
+<h3 id="更新数据库操作">更新数据库操作</h3>
+
+<p>这并不只是单单更新数据，而是对数据库有更改的操作，增删改都算。FMDB调用的都是<code class="highlighter-rouge">executeupdate</code>系列函数。这个函数基本上跟<code class="highlighter-rouge">executeQuery</code>系列函数的实现基本相同。只是它生成statement对象后，直接调用<code class="highlighter-rouge">rc = sqlite3_step(pStmt);</code>更新执行，而没有像<code class="highlighter-rouge">executeQuery</code>延迟到FMResultSet中的next函数中执行。</p>
+
+<h3 id="一次性执行多条sql语句">一次性执行多条sql语句。</h3>
+
+<p>使用<code class="highlighter-rouge">executeStatements</code>函数可以一次性执行多条sql语句。其实现方式就是对<code class="highlighter-rouge">sqlite3_exec</code>函数的封装。</p>
+
+<h3 id="fmdb的加解密">FMDB的加解密</h3>
+
+<p>FMDataase中使用<code class="highlighter-rouge">- (BOOL)setKey:(NSString*)key;</code>和<code class="highlighter-rouge">- (BOOL)setKeyWithData:(NSData *)keyData;</code>输入数据库密码以求验证用户身份，使用<code class="highlighter-rouge">- (BOOL)rekey:(NSString*)key;</code>和<code class="highlighter-rouge">- (BOOL)rekeyWithData:(NSData *)keyData;</code>来给数据库设置密码或者清除密码。这两类函数分別对<code class="highlighter-rouge">sqlite3_key</code>和<code class="highlighter-rouge">sqlite3_rekey</code>函数进行了封装。</p>
+
+<h2 id="fmdatabaseadditions">FMDatabaseAdditions</h2>
+
+<h3 id="xxxforquery系列函数">XXXForQuery系列函数</h3>
+
+<p>对查询结果只有一个值的情况进行优化，有多个值也只取第一个值。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>/**
+ *  使用FMDatabaseAdditions中的intForQuery函数查找数据,如果返回结果有多个数据只取第一条数据
+ */
+- (void)queryForIntForQuery{
+    int idx = [_db intForQuery:@"SELECT id FROM t_student WHERE age = ?",@(26)];
+}
+</code></pre>
+</div>
+
+<h3 id="数据库的一些概要信息">数据库的一些概要信息</h3>
+
+<p><code class="highlighter-rouge">-(BOOL)tableExists:(NSString*)tableName;</code>数据库表是否存在。</p>
+
+<p><code class="highlighter-rouge">-(BOOL)columnExists:(NSString*)columnName inTableWithName:(NSString*)tableName;</code>在tableName表中columnName是否存在。</p>
+
+<p><code class="highlighter-rouge">-(FMResultSet*)getSchema;</code>数据库的一些概要信息。</p>
+
+<h3 id="校验sql语句是否合法">校验sql语句是否合法</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(BOOL)validateSQL:(NSString *)sql error:(NSError **)error;
+</code></pre>
+</div>
+
+<h2 id="fmresultset">FMResultSet</h2>
+
+<h3 id="初始化对象">初始化对象</h3>
+<ul>
+  <li>参数1：(FMStatement *)statement</li>
+</ul>
+
+<p>该对象主要是对sqlite3_stmt的封装，sqlite3_stmt * 所表示的内容可以看成是预处理过的sql语句，已经不是我们熟知的sql语句。它是一个已经把sql语句解析了，用sqlite自己表示记录的内部数据结构。</p>
+
+<ul>
+  <li>参数2：(FMDatabase *)aDB
+该结果集所属于的FMDatabase数据库操作对象。</li>
+</ul>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>+ (instancetype)resultSetWithStatement:(FMStatement *)statement usingParentDatabase:(FMDatabase*)aDB;
+</code></pre>
+</div>
+
+<h3 id="遍历取得所有的结果集合">遍历取得所有的结果集合</h3>
+
+<p><code class="highlighter-rouge">-(BOOL)next;</code> 其实是对 <code class="highlighter-rouge">-(BOOL)nextWithError:(NSError **)outErr;</code> 函数的封装。主要作用是通过sqlite3_step函数对FMStatement中的sqlite3_stmt对象进行逐行取值。</p>
+
+<h3 id="列名与该列的列数的一一对应关系">列名与该列的列数的一一对应关系</h3>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge"><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">)</span> <span class="n">NSMutableDictionary</span>  <span class="o">*</span><span class="n">columnNameToIndexMap</span><span class="p">;</span></code> 对象中保存了列名与索引一一对应的关系的对照表。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">-(int)columnIndexForName:(NSString *)columnName;</code> 根据列名获取该列所在第几列（列的索引）</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">-(NSString *)columnNameForIndex:(int)columnIdx;</code> 根据列的索引获取该列的名称。</p>
+  </li>
+</ul>
+
+<h3 id="获得每一行中每一个列字段的值">获得每一行中每一个列字段的值。</h3>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">-XXXForColumnIndex:(int)columnIdx;</code> 根据列的索引获取该列的值。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">-XXXForColumn:(NSString*)columnName;</code> 根据列的名称获取该列的值。</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">-XXXForColumnIndex:(int)columnIdx;</code> 其实是对sqlite3<em>column</em>*函数的封装。</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>- (int)intForColumnIndex:(int)columnIdx {
+    return sqlite3_column_int([_statement statement], columnIdx);
+}
+</code></pre>
+</div>
+
+<h3 id="获取每一行中所有的结果集合">获取每一行中所有的结果集合</h3>
+
+<p><code class="highlighter-rouge">- (NSDictionary*)resultDictionary;</code></p>
+
+<h2 id="fmdatabasequeue">FMDatabaseQueue</h2>
+
+<p>使用实例:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:aPath];
+
+[queue inDatabase:^(FMDatabase *db) {
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:1]];
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:2]];
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:3]];
+
+    FMResultSet *rs = [db executeQuery:@"select * from foo"];
+    while ([rs next]) {
+        …
+    }
+}];
+
+[queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:1]];
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:2]];
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:3]];
+
+    if (whoopsSomethingWrongHappened) {
+        *rollback = YES;
+        return;
+    }
+    // etc…
+    [db executeUpdate:@"INSERT INTO myTable VALUES (?)", [NSNumber numberWithInt:4]];
+}];
+</code></pre>
+</div>
+
+<h3 id="事务的实现">事务的实现</h3>
+
+<p>数据库中的事务也是保证数据库安全的一种手段。一段sql语句，要么全部成功，要么全部不成功。</p>
+
+<ul>
+  <li>关于延时性事务和独占性事务的区别</li>
+</ul>
+
+<p>在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁，初次写入创建一个RESERVED锁。由于锁的获取被延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务写入数据库。若事务是即时的，则执行BEGIN命令后立即获取RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后， 你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE. 但其它进程可以获取数据库。 独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程能够读写数据库。</p>
+
+<h2 id="fmdatabasepool">FMDatabasePool</h2>
+
+<p>FMDatabasePool : 使用任务池的形式，对多线程的操作提供支持。</p>
+
+<p>不过官方对这种方式并不推荐使用（ONLY_USE_THE_POOL_IF_YOU_ARE_DOING_READS_OTHERWISE_YOULL_DEADLOCK_USE_FMDATABASEQUEUE_INSTEAD），优先选择FMDatabaseQueue的方式。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/fmdb-reading/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/fmdb-reading/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>初探 TensorFlow</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">08 Jun 2017</span>
+      				<h1>初探 TensorFlow</h1>
+      				<p></p>
+<p>TensorFlow 是一个采用数据流图（data flow graphs），用于数值计算的开源软件库。节点（Nodes）在图中表示数学操作，图中的线（edges）则表示在节点间相互联系的多维数据数组，即张量（tensor）。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>TensorFlow 是一个采用数据流图（data flow graphs），用于数值计算的开源软件库。节点（Nodes）在图中表示数学操作，图中的线（edges）则表示在节点间相互联系的多维数据数组，即张量（tensor）。它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/tensors_flowing.gif" alt="tensors_flowing"></p>
+
+<h2 id="什么是数据流图data-flow-graph">什么是数据流图（Data Flow Graph）</h2>
+<p>数据流图用“结点”(nodes)和“线”(edges)的有向图来描述数学计算。“节点” 一般用来表示施加的数学操作，但也可以表示数据输入(feed in)的起点/输出(push out)的终点，或者是读取/写入持久变量(persistent variable)的终点。“线”表示“节点”之间的输入/输出关系。这些数据“线”可以输运“size可动态调整”的多维数据数组，即“张量”(tensor)。张量从图中流过的直观图像是这个工具取名为“Tensorflow”的原因。一旦输入端的所有张量准备好，节点将被分配到各种计算设备完成异步并行地执行运算。</p>
+
+<h2 id="tensorflow的特征">TensorFlow的特征</h2>
+<ul>
+  <li>高度的灵活性</li>
+  <li>真正的可移植性（Portability）</li>
+  <li>将科研和产品联系在一起</li>
+  <li>自动求微分</li>
+  <li>多语言支持</li>
+  <li>性能最优化</li>
+</ul>
+
+<h2 id="下载与安装">下载与安装</h2>
+
+<h3 id="源码安装">源码安装</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code># --recurse-submodules 参数是必须的, 用于获取 TesorFlow 依赖的 protobuf 库
+$ git clone --recurse-submodules https://github.com/tensorflow/tensorflow
+</code></pre>
+</div>
+
+<h4 id="linux-安装">Linux 安装</h4>
+
+<h5 id="安装-bazel">安装 Bazel</h5>
+
+<p>首先依照 <a href="https://bazel.build/versions/master/docs/install.html">教程</a> 安装 Bazel 的依赖. 然后使用下列命令下载和编译 Bazel 的源码:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ git clone https://github.com/bazelbuild/bazel.git
+$ cd bazel
+$ git checkout tags/0.1.0
+$ ./compile.sh
+</code></pre>
+</div>
+
+<p>上面命令中拉取的代码标签为 0.1.0, 兼容 Tensorflow 目前版本. bazel 的HEAD 版本 (即最新版本) 在这里可能不稳定.</p>
+
+<p>将执行路径 <code class="highlighter-rouge">output/bazel</code> 添加到 <code class="highlighter-rouge">$PATH</code> 环境变量中.</p>
+
+<h5 id="安装其他依赖">安装其他依赖</h5>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ sudo apt-get install python-numpy swig python-dev
+</code></pre>
+</div>
+
+<h4 id="mac-os-x-安装">Mac OS X 安装</h4>
+
+<p>Mac 和 Linux 需要的软件依赖完全一样, 但是安装过程区别很大. 以下链接用于帮助你 在 Mac OS X 上安装这些依赖:</p>
+
+<h5 id="bazel">Bazel</h5>
+
+<p>参见<a href="https://bazel.build/versions/master/docs/install.html">网页</a>的 Mac OS X 安装指南.</p>
+
+<h5 id="swig">SWIG</h5>
+
+<p><a href="http://www.swig.org/Doc3.0/Preface.html#Preface_osx_installation">Mac OS X 安装教程</a></p>
+
+<p>注意: 你需要安装<a href="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/">PCRE</a>, 而不是 PCRE2.</p>
+
+<h5 id="numpy">Numpy</h5>
+
+<p>参见<a href="https://docs.scipy.org/doc/numpy/user/install.html">安装教程</a>.</p>
+
+<h5 id="创建-pip-包并安装">创建 pip 包并安装</h5>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ bazel build -c opt //tensorflow/tools/pip_package:build_pip_package
+
+$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+
+# .whl 文件的实际名字与你所使用的平台有关
+$ pip install /tmp/tensorflow_pkg/tensorflow-0.5.0-cp27-none-linux_x86_64.whl
+</code></pre>
+</div>
+
+<h3 id="二进制安装">二进制安装</h3>
+
+<p>TensorFlow Python API 依赖 Python 2.7 版本.</p>
+
+<p>在 Linux 和 Mac 下最简单的安装方式, 是使用 <a href="https://pypi.python.org/pypi/pip">pip</a> 安装.</p>
+
+<p>为了简化安装步骤, 建议使用 virtualenv, 具体安装方法在后文具体说明.</p>
+
+<h4 id="ubuntulinux">Ubuntu/Linux</h4>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code># 仅使用 CPU 的版本
+$ pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.5.0-cp27-none-linux_x86_64.whl
+
+# 开启 GPU 支持的版本 (安装该版本的前提是已经安装了 CUDA sdk)
+$ pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.5.0-cp27-none-linux_x86_64.whl
+</code></pre>
+</div>
+
+<h4 id="mac-os-x">Mac OS X</h4>
+
+<p>在 OS X 系统上, 推荐先安装 <a href="https://brew.sh/">homebrew</a>, 然后执行 <code class="highlighter-rouge">brew install python</code>, 以便能够使用 homebrew 中的 Python 安装 TensorFlow. 另外一种推荐的方式是在 virtualenv 中安装 TensorFlow.</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code># 当前版本只支持 CPU
+$ pip install https://storage.googleapis.com/tensorflow/mac/tensorflow-0.5.0-py2-none-any.whl
+</code></pre>
+</div>
+
+<h4 id="基于-virtualenv-的安装">基于 VirtualEnv 的安装</h4>
+
+<p>推荐使用 <a href="https://pypi.python.org/pypi/virtualenv">virtualenv</a> 创建一个隔离的容器, 来安装 TensorFlow. 这是可选的, 但是这样做能使排查安装问题变得更容易.</p>
+
+<p>首先, 安装所有必备工具:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code># 在 Linux 上:
+$ sudo apt-get install python-pip python-dev python-virtualenv
+
+# 在 Mac 上:
+$ sudo easy_install pip  # 如果还没有安装 pip
+$ sudo pip install --upgrade virtualenv
+</code></pre>
+</div>
+
+<p>接下来, 建立一个全新的 virtualenv 环境. 为了将环境建在 ~/tensorflow 目录下, 执行:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ virtualenv --system-site-packages ~/tensorflow
+$ cd ~/tensorflow
+</code></pre>
+</div>
+<p>然后, 激活 virtualenv:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ source bin/activate  # 如果使用 bash
+$ source bin/activate.csh  # 如果使用 csh
+(tensorflow)$  # 终端提示符应该发生变化
+</code></pre>
+</div>
+<p>在 virtualenv 内, 安装 TensorFlow:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>(tensorflow)$ pip install --upgrade &lt;$url_to_binary.whl&gt;
+</code></pre>
+</div>
+<p>接下来, 使用类似命令运行 TensorFlow 程序:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>(tensorflow)$ cd tensorflow/models/image/mnist
+(tensorflow)$ python convolutional.py
+
+# 当使用完 TensorFlow
+(tensorflow)$ deactivate  # 停用 virtualenv
+
+$  # 你的命令提示符会恢复原样
+</code></pre>
+</div>
+
+<h2 id="运行-tensorflow">运行 TensorFlow</h2>
+
+<p>打开一个 python 终端:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>$ python
+
+&gt;&gt;&gt; import tensorflow as tf
+&gt;&gt;&gt; hello = tf.constant('Hello, TensorFlow!')
+&gt;&gt;&gt; sess = tf.Session()
+&gt;&gt;&gt; print sess.run(hello)
+Hello, TensorFlow!
+&gt;&gt;&gt; a = tf.constant(10)
+&gt;&gt;&gt; b = tf.constant(32)
+&gt;&gt;&gt; print sess.run(a+b)
+42
+&gt;&gt;&gt;
+</code></pre>
+</div>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/tensorflow-primer-guide/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/tensorflow-primer-guide/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

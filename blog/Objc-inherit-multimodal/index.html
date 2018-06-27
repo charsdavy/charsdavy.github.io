@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>Objective-C 继承和多态</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">26 Sep 2015</span>
+      				<h1>Objective-C 继承和多态</h1>
+      				<p></p>
+<p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>学习Java我们知道类有三大特征，封装，继承，多态。而在Objective-C中也有继承的概念，今天就来看看Objective-C中的继承和多态。</p>
+
+<p>首先,我们来看看示例代码:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//Animal.h
+</span><span class="cp">#import &lt;Foundation/Foundation.h&gt;
+</span>  
+<span class="k">@interface</span> <span class="nc">Animal</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">food_consumption</span><span class="p">;</span> <span class="c1">//食量
+</span>    <span class="kt">int</span> <span class="n">count</span><span class="p">;</span> <span class="c1">//数量
+</span>    <span class="kt">int</span> <span class="n">parturition_days</span><span class="p">;</span> <span class="c1">//生产周期
+</span><span class="p">}</span>
+ 
+<span class="o">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">count</span><span class="p">;</span>
+ 
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setCount</span><span class="p">:(</span><span class="kt">int</span><span class="p">)</span><span class="nv">c</span><span class="p">;</span>
+ 
+<span class="k">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">foodConsumption</span><span class="p">;</span>
+ 
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setFoodConsumption</span><span class="p">:(</span><span class="kt">int</span><span class="p">)</span><span class="nv">food_c</span><span class="p">;</span>
+ 
+<span class="k">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">parturitionDays</span><span class="p">;</span>
+ 
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setParturitionDays</span><span class="p">:(</span><span class="kt">int</span><span class="p">)</span><span class="nv">parturition_day</span><span class="p">;</span>
+ 
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//Animal.m
+</span><span class="cp">#import "Animal.h"
+</span> 
+<span class="k">@implementation</span> <span class="nc">Animal</span>
+ 
+<span class="k">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">count</span><span class="p">{</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setCount</span><span class="o">:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">c</span><span class="p">{</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="o">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">foodConsumption</span><span class="p">{</span>
+    <span class="k">return</span> <span class="n">food_consumption</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setFoodConsumption</span><span class="o">:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">food_c</span><span class="p">{</span>
+    <span class="n">food_consumption</span> <span class="o">=</span> <span class="n">food_c</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="o">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">parturitionDays</span><span class="p">{</span>
+    <span class="k">return</span> <span class="n">parturition_days</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setParturitionDays</span><span class="o">:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">parturition_day</span><span class="p">{</span>
+    <span class="n">parturition_days</span> <span class="o">=</span> <span class="n">parturition_day</span><span class="p">;</span>
+<span class="p">}</span>
+  
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//Panda.h
+</span><span class="cp">#import "Animal.h"
+</span>  
+<span class="k">@interface</span> <span class="nc">Panda</span> <span class="p">:</span> <span class="nc">Animal</span>
+ 
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//Panda.m
+</span><span class="cp">#import "Panda.h"
+</span> 
+<span class="k">@implementation</span> <span class="nc">Panda</span>
+ 
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//Tool.h
+</span><span class="cp">#import &lt;Foundation/Foundation.h&gt;
+#import "Animal.h"
+#import "Panda.h"
+</span> 
+<span class="k">@interface</span> <span class="nc">Tool</span> <span class="p">:</span> <span class="nc">NSObject</span>
+ 
+<span class="k">+</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">initWithAnimalDictionary</span><span class="p">:(</span><span class="n">Animal</span> <span class="o">*</span><span class="p">)</span><span class="nv">animal</span> <span class="nf">andDict</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">dict</span><span class="p">;</span>
+ 
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="c1">//Tool.m
+</span><span class="cp">#import "Tool.h"
+</span> 
+<span class="k">@implementation</span> <span class="nc">Tool</span>
+ 
+<span class="k">+</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">initWithAnimalDictionary</span><span class="p">:(</span><span class="n">Animal</span> <span class="o">*</span><span class="p">)</span><span class="nv">animal</span> <span class="nf">andDict</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">dict</span><span class="p">{</span>
+    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">animalDict</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">YES</span> <span class="o">==</span> <span class="p">[</span><span class="n">animal</span> <span class="nf">isKindOfClass</span><span class="p">:[</span><span class="n">Panda</span> <span class="nf">class</span><span class="p">]]){</span>
+        <span class="n">animalDict</span> <span class="o">=</span> <span class="p">[</span><span class="n">dict</span> <span class="nf">objectForKey</span><span class="p">:</span><span class="s">@"Panda"</span><span class="p">];</span>
+         
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"error class!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">[</span><span class="n">animal</span> <span class="nf">setCount</span><span class="p">:[[</span><span class="n">animalDict</span> <span class="nf">objectForKey</span><span class="p">:</span><span class="s">@"count"</span><span class="p">]</span> <span class="nf">intValue</span><span class="p">]];</span>
+    <span class="p">[</span><span class="n">animal</span> <span class="nf">setFoodConsumption</span><span class="p">:[[</span><span class="n">animalDict</span> <span class="nf">objectForKey</span><span class="p">:</span><span class="s">@"food_consumption"</span><span class="p">]</span> <span class="nf">intValue</span><span class="p">]];</span>
+    <span class="p">[</span><span class="n">animal</span> <span class="nf">setParturitionDays</span><span class="p">:[[</span><span class="n">animalDict</span> <span class="nf">objectForKey</span><span class="p">:</span><span class="s">@"parturition_days"</span><span class="p">]</span> <span class="nf">intValue</span><span class="p">]];</span>
+<span class="p">}</span>
+ 
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<p>data.plist文件</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>fodder<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;dict&gt;</span>
+        <span class="nt">&lt;key&gt;</span>count_num<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;string&gt;</span>1024<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Panda<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;dict&gt;</span>
+        <span class="nt">&lt;key&gt;</span>food_consumption<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;string&gt;</span>2<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;key&gt;</span>count<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;string&gt;</span>6<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;key&gt;</span>parturition_days<span class="nt">&lt;/key&gt;</span>
+        <span class="nt">&lt;string&gt;</span>76<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>//main.m
+#import &lt;Foundation/Foundation.h&gt;
+#import "Tool.h"
+ 
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // insert code here...
+        Panda *panda = [[Panda alloc] init];
+     
+        //读取plist
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+     
+        [Tool initWithAnimalDictionary:panda andDict:data];
+     
+        int fooder_num = 0;
+        int surplus = 0;
+        int day = 1;
+     
+        NSDictionary *fooderDict = [data objectForKey:@"fodder"];
+        fooder_num = [[fooderDict objectForKey:@"count_num"] intValue];
+        surplus = fooder_num;
+     
+        while(surplus &gt; 0){
+            if(0 == (day % [panda parturitionDays])){
+                [panda setCount:([panda count] + 1)];
+            }
+            surplus = fooder_num - ([panda count] * [panda foodConsumption]);
+            fooder_num = surplus;
+         
+            if(surplus){
+                NSLog(@"第 %d 天，熊猫:%d 只，饲料余量:%d 。\n", day, [panda count],  surplus);
+            }
+            day++;
+        }
+    }
+    return 0;
+}
+</code></pre>
+</div>
+
+<h1 id="继承">继承　　</h1>
+
+<p>继承是类中的一个重要的特性，它的出现使得我们没必要别写重复的代码，可重用性很高。当然Objective-C中的继承和Java中是一样的，没多大区别。不仅仅Java，C++也有继承特性，但C++支持多继承，而Objective-C不支持多继承。</p>
+
+<h2 id="概念">概念:</h2>
+
+<p>(1)超类(superclass)，是你所继承的类。例如，Panda的超类是Animal，Animal的超类是NSObject。</p>
+
+<p>(2)父类(parentclass)，是超类的另一种表达方式。例如，Animal是Panda的父类。</p>
+
+<p>(3)子类(subclass)，是实施继承的类。例如，Panda是Animal的子类。</p>
+
+<p>(4)孩子类(childclass)，是子类的另一种表达方式。例如，Panda是Animal的孩子类。</p>
+
+<h2 id="继承的工作机制">继承的工作机制:</h2>
+
+<p>(1)方法调度</p>
+
+<p>当代码发送消息时，Objective-C的方法调度程序将在当前类中搜索相应的方法。如果调度程序无法在接收消息的对象类中找到相应的方法，它就在该对象的超类中进行查找。</p>
+
+<p>(2)实例变量</p>
+
+<p>接下来我们看看Objective-C如何访问实例变量。创建一个新类时，其对象首先从自身的超类中继承实例变量，然后(可选)添加它们自己的实例变量。</p>
+
+<p>最后，说说重写方法，制作自己全新的子类时，通常需要添加自己的方法。有时，为了在类中引入某个独特的特性，需要添加新方法。还有些时候，可能需要替换或增强由这个新类的某个超类所定义的现有方法。当遇到我们子类特有的方法时，则只需要在子类中重写该方法即可。</p>
+
+<h1 id="多态">多态</h1>
+
+<p>在Objective-C中，多态就是指，父类指针可以指向子类。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>+(void) initWithAnimalDictionary:(Animal *)animal andDict:(NSDictionary *)dict;
+</code></pre>
+</div>
+
+<p>上例代码中的从字典中获取数据的类方法就很好地使用了多态。该方法主要是从字典中读取数据，示例中只有Panda一个子类，若是以后拥有更多的类，那么该功能的方法需要为每一个子类写一个方法，而使用多态特性，则只需根据传入的参数进行分别处理即可，减少代码冗余问题。</p>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/Objc-inherit-multimodal/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/Objc-inherit-multimodal/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

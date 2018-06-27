@@ -1,0 +1,378 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>State 模式</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">10 Jun 2016</span>
+      				<h1>State 模式</h1>
+      				<p></p>
+<p>State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.文章主要分享State模式相关内容.</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-1.png?imageView/2/w/460" alt="State模式图"></p>
+
+<h1 id="定义">定义</h1>
+<p>不同的状态,不同的行为;或者说,每个状态有着相应的行为.</p>
+
+<h1 id="何时使用">何时使用</h1>
+<p>State模式在实际使用中比较多,适合”状态的切换”.因为我们经常会使用 if else if else 进行状态切换, 如果针对状态的这样判断切换反复出现,我们就要联想到是否可以采取State模式了.</p>
+
+<p>不只是根据状态,也有根据属性.如果某个对象的属性不同,对象的行为就不一样,这点在数据库系统中出现频率比较高,我们经常会在一个数据表的尾部,加上property属性含义的字段,用以标识记录中一些特殊性质的记录,这种属性的改变(切换)又是随时可能发生的,就有可能要使用State.</p>
+
+<p>参考网址：
+http://www.jdon.com/designpatterns/designpattern_State.htm</p>
+
+<p>举例来说：一个人具有生气，高兴和抓狂等状态，在这些状态下做同一个事情可能会有不同的结果，一个人的心情可能在这三种状态中循环转变。使用一个moodState类表示一个人的心情，使用mad,Happy,Angry类代表不同的心情。使用UML图表示如下所示：</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-charsdavy-github-io-2016-06-10-state-pattern-2.png?imageView/2/w/460" alt="State模式UML图"></p>
+
+<p>适用性：在下面的两情况下均可以使用State模式：</p>
+
+<ul>
+  <li>
+    <p>一个对象的行为取决于它的状态，并且必须在运行时刻根据状态改变它的行为。</p>
+  </li>
+  <li>
+    <p>一个操作中含有庞大的多分支的条件豫剧，并且这些分支依赖于该对象的状态，这个状态通常用一个或多个枚举常量表示。通常，有多个操作包含这一相同的条件结构，State模式将每一个条件分支放入一个单独的类中。这使得你可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖于其他对象而独立变化。</p>
+  </li>
+</ul>
+
+<p>参与者：</p>
+
+<ul>
+  <li>
+    <p>Context(环境，Person)定义客户感兴趣的类。</p>
+  </li>
+  <li>
+    <p>State(Moodstate)：定义一个接口以封装与Context的一个特定状态相关的行为</p>
+  </li>
+  <li>
+    <p>ConcreteState Subclasses(具体状态子类，如Angry)每一个子类实现一个与Context的状态相关的行为。</p>
+  </li>
+</ul>
+
+<p>他们的协作关系是：</p>
+
+<ul>
+  <li>
+    <p>Context将于状态相关的请求委托给当前的ConcreteState对象处理。</p>
+  </li>
+  <li>
+    <p>Context可将自身作为一个参数传递给处理该请求的状态对象，这使得状态对象在必要的时候可访问Context。</p>
+  </li>
+  <li>
+    <p>Context是客户使用的主要接口，客户可用状态对象来配置一个Context，一旦一个Context配置完毕，他的客户不再需要直接与状态对象打交道。</p>
+  </li>
+  <li>
+    <p>Context或者ConcreteState子类都可以决定哪个状态是另外那个状态的后继者，以及是在何种条件下进行状态转换。</p>
+  </li>
+</ul>
+
+<h1 id="相应的代码">相应的代码：</h1>
+
+<p>MoodState代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>package state;
+public interface MoodState{
+	public void doSomething();
+	public void changeState();
+}
+</code></pre>
+</div>
+
+<p>Angry代码:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>package state;
+public class 
+implements MoodState{
+	Person p;
+	public Angry(Person p){
+		this.p = p;
+	}
+	public void doSomething(){
+		System.out.println("I'm angry!");
+	}
+	public void changeState(){
+		p.setState(new Happy(p));
+	}
+}
+</code></pre>
+</div>
+
+<p>Happy代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>package state;
+public class Happy implements MoodState{
+	Person p;
+	public Happy(Person p){
+		this.p = p;
+	}
+	public void doSomething(){
+		System.out.println("I'm happy!");
+	}
+	public void changeState(){
+		p.setState(new Mad(p));
+	}
+}
+</code></pre>
+</div>
+
+<p>Mad代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>package state;
+public class Mad implements MoodState{
+	Person p;
+	public Mad(Person p){
+		this.p=p;
+	}
+	public void doSomething(){
+		System.out.println("I'm Mad");
+	}
+	public void changeState(){
+		p.setState( new Angry(p));
+	}
+}
+</code></pre>
+</div>
+
+<p>Person代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>package state;
+public class Person{
+	private MoodState state;
+	public Person(){
+		state = new Mad(this);
+	}
+	public void setState(MoodState state){
+		this.state = state;
+	}
+	public void doSomething(){
+		state.doSomething();
+		state.changeState();
+	}
+}
+</code></pre>
+</div>
+
+<p>Client代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>package state;
+public class Client{
+	public static void main(String[] args){
+		Person p = new Person();
+		for(int i=0;i&lt;10;i++)
+			p.doSomething();
+	}
+}
+</code></pre>
+</div>
+
+<h1 id="总结">总结</h1>
+<p>状态模式将与特定状态相关的行为局部化，并且将不同状态的行为分割开来，使得状态转换显式化并且可以被共享。</p>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/state-pattern/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/state-pattern/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

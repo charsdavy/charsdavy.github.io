@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>聊聊「二叉搜索树」的那些事儿</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">10 Jun 2017</span>
+      				<h1>聊聊「二叉搜索树」的那些事儿</h1>
+      				<p></p>
+<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree.png" alt="binary search tree"></p>
+
+<h2 id="原理">原理</h2>
+
+<p>二叉排序树的查找过程和次优二叉树类似，通常采取二叉链表作为二叉排序树的存储结构。中序遍历二叉排序树可得到一个关键字的有序序列，一个无序序列可以通过构造一棵二叉排序树变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。每次插入的新的节点都是二叉排序树上新的叶子节点，在进行插入操作时，不必移动其它节点，只需改动某个节点的指针，由空变为非空即可。搜索，插入，删除的复杂度等于树高，O(log(n))。</p>
+
+<h2 id="实现">实现</h2>
+
+<h3 id="树节点">树节点</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#import &lt;Foundation/Foundation.h&gt;
+</span>
+<span class="cm">/** 二叉树节点 */</span>
+<span class="k">@interface</span> <span class="nc">DDBinaryTreeNode</span> <span class="p">:</span> <span class="nc">NSObject</span>
+
+<span class="cm">/** 值 */</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">value</span><span class="p">;</span>
+<span class="cm">/** 左节点 */</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="n">leftNode</span><span class="p">;</span>
+<span class="cm">/** 右节点 */</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="n">rightNode</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<h3 id="创建">创建</h3>
+<p>二叉排序树的创建无非就是不断查找和插入的过程，当我们查找某个值没有找到时，我们就会将该值插入到二叉排序树中。因为在查找的过程中可以确定该结点要插入的合适位置，所以插入就显得比较简单了。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="cp">#import &lt;Foundation/Foundation.h&gt;
+</span>
+<span class="k">@class</span> <span class="nc">DDBinaryTreeNode</span><span class="p">;</span>
+
+<span class="k">@interface</span> <span class="nc">DDBinarySearchTreeHandler</span> <span class="p">:</span> <span class="nc">NSObject</span>
+
+<span class="cm">/**
+ *  创建二叉排序树
+ *  二叉排序树：左节点值全部小于根节点值，右节点值全部大于根节点值
+ *
+ *  @param values 数组
+ *
+ *  @return 二叉树根节点
+ */</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="p">)</span><span class="nf">createTreeWithValues</span><span class="p">:(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">values</span><span class="p">;</span>
+
+<span class="cm">/**
+ *  向二叉排序树节点添加一个节点
+ *
+ *  @param treeNode 根节点
+ *  @param value	值
+ *
+ *  @return 根节点
+ */</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="p">)</span><span class="nf">addTreeNode</span><span class="p">:(</span><span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="p">)</span><span class="nv">treeNode</span> <span class="nf">value</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">value</span><span class="p">;</span>
+
+<span class="cm">/**
+ *  二叉搜索树中某个值的节点
+ *
+ *  @param value	值
+ *  @param rootNode 树根节点
+ *
+ *  @return 节点
+ */</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="p">)</span><span class="nf">searchTreeNodeWithValue</span><span class="p">:(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">value</span> <span class="nf">inTree</span><span class="p">:(</span><span class="n">DDBinaryTreeNode</span> <span class="o">*</span><span class="p">)</span><span class="nv">rootNode</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values
+{
+    DDBinaryTreeNode *root = nil;
+    for (NSInteger i = 0; i &lt; values.count; i++) {
+        NSInteger value = [(NSNumber *)[values objectAtIndex:i] integerValue];
+        root = [DDBinarySearchTreeHandler addTreeNode:root value:value];
+    }
+    return root;
+}
+</code></pre>
+</div>
+
+<h3 id="添加节点">添加节点</h3>
+
+<p>根据查找树的性质我们可以很简单的写出添加的代码，一个一个的比较，注意每插入的一个总是叶子节点。再进行调整。最终形成的效果图如下：</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-01.png" alt="添加节点"></p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value
+{
+    if (!treeNode) {
+        treeNode = [[DDBinaryTreeNode alloc] init];
+        treeNode.value = value;
+        NSLog(@"node:%td", value);
+    } else if (value &lt;= treeNode.value) {
+        NSLog(@"to left");
+        //值小于根节点，则插入到左子树
+        treeNode.leftNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.leftNode value:value];
+    } else {
+        NSLog(@"to right");
+        //值大于根节点，则插入到右子树
+        treeNode.rightNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.rightNode value:value];
+    }
+    return treeNode;
+}
+</code></pre>
+</div>
+
+<h3 id="查找节点">查找节点</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode
+{
+    if (!rootNode) {
+        return nil;
+    }
+    
+    if (rootNode.value == value) {
+        return rootNode;
+    }
+    
+    if (value &lt; rootNode.value) {
+        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.leftNode];
+    } else {
+        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.rightNode];
+    }
+}
+</code></pre>
+</div>
+
+<h3 id="删除节点">删除节点</h3>
+
+<p>对于树来说，删除是最复杂的，主要需要考虑4种情况：叶子节点，只有左子树，只有右子树和左右子树都有。</p>
+
+<h4 id="叶子节点">叶子节点</h4>
+
+<p>删除的节点没有左子树也没有右子树，也就是删除的节点为叶子节点。这种情况下我们有可以细分为两类，一种是该叶子节点就是二叉排序树的根节点，也就是二叉排序树中只有一个节点的情况。只需要将root指针置为空即可。再一种情况是删除的叶子节点有父节点，直接将父节点连接该删除节点的指针置空即可。</p>
+
+<h4 id="只有一个子节点">只有一个子节点</h4>
+
+<p>如果删除的节点有左子树那就把左子树顶上去，如果有右子树就把右子树顶上去即可。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-03.png?v=20170612" alt="左子树节点"></p>
+
+<h4 id="左右子树都有">左右子树都有</h4>
+
+<p>首先可以这么想象，如果我们要删除一个数组的元素，那么我们在删除后会将其后面的一个元素顶到被删除的位置。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-04.png?v=20170612" alt="双孩子节点1"></p>
+
+<p>那么二叉树操作同样也是一样，我们根据”中序遍历“找到要删除节点的后一个节点，然后顶上去就行了，原理跟”数组”一样一样的。</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/binary-search-tree-05.png?v=20170612.png" alt="双孩子节点2"></p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>+ (void)deleteTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode
+{
+    DDBinaryTreeNode *parent = rootNode;
+    DDBinaryTreeNode *current = rootNode;
+    // 记录被找到的节点是父节点的左子节点还是右子节点
+    BOOL isLeftChild = false;
+    // 循环直到找到目标节点的位置,否则返回
+    while (current.value != value) {
+        parent = current;
+        if (current.value &gt; value) {
+            isLeftChild = true;
+            current = current.leftNode;
+        } else {
+            isLeftChild = false;
+            current = current.rightNode;
+        }
+        if (current == nil) {
+            return;
+        }
+    }
+    // 如果待删除的节点没有任何子节点
+    // 直接将该节点的原本指向该节点的指针设置为nil
+    if (current.leftNode == nil &amp;&amp; current.rightNode == nil) {
+        if (current == rootNode) {
+            rootNode = nil;
+        }
+        if (isLeftChild == true) {
+            parent.leftNode = nil;
+        } else {
+            parent.rightNode = nil;
+        }
+    }
+    // 如果待删除的节点有一个子节点,且其为左子节点
+    else if (current.rightNode == nil) {
+        // 判断当前节点是否为根节点
+        if (current == rootNode) {
+            rootNode = current.leftNode;
+        } else if (isLeftChild) {
+            // 挂载到父节点的左子树
+            parent.leftNode = current.leftNode;
+        } else {
+            // 挂载到父节点的右子树
+            parent.rightNode = current.leftNode;
+        }
+    } else if (current.leftNode == nil) {
+        if (current == rootNode) {
+            rootNode = current.rightNode;
+        } else if (isLeftChild) {
+            parent.leftNode = current.rightNode;
+        } else {
+            parent.rightNode = current.rightNode;
+        }
+    }
+    // 如果待删除的节点有两个子节点
+    else if (current.leftNode != nil &amp;&amp; current.rightNode != nil) {
+        // 寻找右子树中的最小值
+        DDBinaryTreeNode *successor = [DDBinarySearchTreeHandler successor:current];
+        if (current == rootNode) {
+            rootNode = successor;
+        } else if (isLeftChild) {
+            parent.leftNode = successor;
+        } else {
+            parent.rightNode = successor;
+        }
+        successor.leftNode = current.leftNode;
+    }
+}
+
+/**
+ 在树中查找最合适的节点
+ */
++ (DDBinaryTreeNode *)successor:(DDBinaryTreeNode *)node {
+    DDBinaryTreeNode *successsor = nil;
+    DDBinaryTreeNode *successsorParent = nil;
+    DDBinaryTreeNode *current = node.rightNode;
+    while (current != nil) {
+        successsorParent = successsor;
+        successsor = current;
+        current = current.leftNode;
+    }
+    if (successsor != node.rightNode) {
+        successsorParent.leftNode = successsor.rightNode;
+        successsor.rightNode = node.rightNode;
+    }
+    return successsor;
+}
+</code></pre>
+</div>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/binary-search-tree/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/binary-search-tree/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

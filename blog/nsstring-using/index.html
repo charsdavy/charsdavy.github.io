@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>NSString 字符串使用（基础篇）</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">14 Sep 2015</span>
+      				<h1>NSString 字符串使用（基础篇）</h1>
+      				<p></p>
+<p>iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>iOS字符串主要分为两大类：NSString和NSMutableString。即不可变和可变字符串。在很多时候两者使用差异不大。文章分享字符串使用方法。</p>
+
+<!-- more -->
+
+<h1 id="一不可变字符">一、不可变字符</h1>
+<p>NSString是不可变字符串，它产生的其他字符串方法都是生成一个新的字符串，而不会改变原来字符串。</p>
+
+<h2 id="1创建方式">1.创建方式</h2>
+<p>1）字面量，它是常量字符串，存储常量区</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *str=@"hello";
+</code></pre>
+</div>
+<p>2）通过快捷构造法，存储堆区</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *str = [NSString stringWithFormat:@"hello %@", @"world"];
+</code></pre>
+</div>
+<p>3）初始化方法</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *str = [[NSString alloc] initWithFormat:@"%@",@"hello"];
+</code></pre>
+</div>
+
+<h2 id="2字符串的获取">2.字符串的获取</h2>
+<p>1）获取字符串长度</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *str=@"hello";
+long length = str.length;
+</code></pre>
+</div>
+
+<p>2）获取子串</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *str=@"hello";
+
+/*从索引字符串开始截取，直到字符串末尾，包含索引上的字符*/
+NSString *strSub = [str substringFormIndex:2];
+
+/*从字符串开头开始截取，直到索引位置，不包含索引上的字符*/
+NSString *strSubT = [str substringToIndex:2];
+
+/*从哪个位置开始，截取多长*/
+NSRange range = {2,4};
+NSString *strSubR = [str substringWithRange:range];
+
+/*获取某个子串所在的区域*/
+NSRange rangeS = [str rangeOfString"@"el"];
+
+/*单词首字母转大写*/
+[str capitalizedString];
+
+/*字符替换*/
+NSString *newStr = [str stringByReplacingOccurencesOfString:@"ll" withString:@"al"];
+
+/*使用某个字符串替换掉原来字符串中某个区间的字符串*/
+NSRange range = [str rangeOfString:@"ll"];
+NSString *newStr = [str stringByReplacingCharactersInRange:range withSring:@"hi"];
+
+/*删除原字符串中的所有指定字符串*/
+NSString *newStr = [str stringByReplacingOccurencesOfString:@"ll" withString:@""];
+
+/*去掉两头空格*/
+NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+/*在原来路径上拼接一个路径*/
+NSString *path = @"/Users/dengwei";
+path = [path stringByAppendingPathComponent:@"Desktop"];
+
+/*获取扩展名*/
+NSString *path = @"/Users/dengwei/Desktop/apple.txt";
+path = [path stringByDeletingPathExtension];
+path = [path stringByAppendingPathExtension:@"png"];
+
+/*把字符串写入文件*/
+NSString *str = @"today is cold!";
+NSString *path = @"/Users/dengwei/Desktop/apple.txt";
+NSError *error;
+BOOL isSuccess = [str writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&amp;error];
+
+/*读取文件*/
+NSString *string = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&amp;error];
+
+/*字符串与URL*/
+/*
+URL：Uniform Resource Locator 统一资源定位符
+URL：格式  协议头://主机名称/资源路径
+http://www.baidu.com/some/images/pic.png
+404：没有找到资源
+*/
+NSString *str = @"today is cold!";
+/*url路径中不支持中文，若是有中文则需将中文转码*/
+NSURL *url =  [NSURL URLWithString:@"file:///Users/dengwei/Desktop/apple.txt"];
+
+/*将中文转码*/
+NSString *url_cn =  @"file:///Users/dengwei/Desktop/中文.txt";
+/*编码，把UTF8编码的字符串编码成URL中可用的字符串*/
+url_cn = [url_cn stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+/*解码，把URL中可用的字符串编码的字符串解码成UTF8编码的字符串*/
+url_cn = [url_cn stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+url_cn = [NSURL URLWithString:url_cn];
+NSError *error;
+/*写入*/
+BOOL isSuccess = [str writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error];
+/*读取*/
+NSString *string = [str stringWithContentsOfURL:url atomically:YES encoding:NSUTF8StringEncoding error:&amp;error];
+</code></pre>
+</div>
+
+<h2 id="3字符串范围获取">3.字符串范围获取</h2>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>/*计算文本大小*/
+CGSize maxSize = CGSizeMake(MAXFLOAT, MAXFLOAT);/*width与height都不限制*/
+CGSize nameSize = [self.microBlogModel.name boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
+</code></pre>
+</div>
+
+<h1 id="二可变字符">二、可变字符</h1>
+<p>NSMutableString，可变字符，是NSString的子类。
+一个字符串需要经常修改其中的内容，则使用NSMutableString。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSMutableString *strM = [NSMutableString string];
+/*Capacity表示容量，可以容纳多少字符，如果超过这个存储空间，就会扩展它*/
+NSMutableString *strM = [NSMutableString stringWithCapacity:10];
+</code></pre>
+</div>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/nsstring-using/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/nsstring-using/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

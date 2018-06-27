@@ -1,724 +1,266 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <!-- JQuery (used for bootstrap and jekyll search) -->
-    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
-    
-    <!-- Main JS (navbar.js and katex_init.js)-->
-    <script defer=true src="/assets/js/main.min.js"></script>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <!--Favicon-->
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+<title>Chars's Tech Blog - Home Page</title>
+<meta name="description" content="Every great website starts with a great homepage. The homepage tells your viewers what your site is all about and gives your viewers a place to come back to.">
 
-    <!-- Canonical -->
-    <link rel="canonical" href="http://chars.tech/blog/page4/">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
 
-    <!-- RSS -->
-    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
-
-    <!-- Font Awesome -->
-    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
-
-    <!-- Google Fonts -->
-    
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
-    
-
-    <!-- KaTeX 0.8.3 -->
-    
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
-    <script src="/assets/js/katex.min.js">
-    </script>
-    
-
-    <!-- Google Analytics -->
-    
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-80507808-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-    
-    
-    <!-- seo tags -->
-    <!-- Begin Jekyll SEO tag v2.4.0 -->
-<meta name="generator" content="Jekyll v3.7.2" />
-<meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://chars.tech/blog/page4/" />
-<meta property="og:url" content="http://chars.tech/blog/page4/" />
-<link rel="prev" href="http://chars.tech/blog/page3" />
-<link rel="next" href="http://chars.tech/blog/page5" />
-<script type="application/ld+json">
-{"@type":"WebPage","url":"http://chars.tech/blog/page4/","@context":"http://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-    <!-- Manual seo tags -->
-    <!--
-    <title> Chars</title>
-    <meta name="description" content="Chars's Tech Blog">
-    -->
-</head>
-
-  <body>
-    <header class="site-header">
-    
-    <!-- Logo and title -->
-	<div class="branding">
-		<a href="/">
-			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
-		</a>
-
-		<h1 class="site-title">
-			<a href="/">Chars</a>
-		</h1>
-	</div>
-    
-    <!-- Toggle menu -->
-    <nav class="clear">
-    <a id="pull" class="toggle" href="#">
-    <i class="fa fa-bars fa-lg"></i>
-    </a>
-    
-    <!-- Menu -->
-    <ul>
-        
-        
-        
-        
-        <li>
-            <a class="clear" href="/about/">
-                About
-            </a>
-        </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-         
-        
-        
-        <li>
-            <a class="clear" href="http://chars.tech/hobby">
-                Hobby
-            </a>
-        </li>
-        
-        
-        <li>
-            <a class="clear" href="http://chars.tech/search">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-        
-        <li>
-            <a class="clear" href="http://chars.tech/tags">
-                <i class="fa fa-tags" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-        
-    </ul>
-        
-	</nav>
-</header>
-
-    <div class="content">
-      <div class="home">
-  
-  <div id="main" class="call-out"
-  style="background-image: url('/assets/img/pexels/look-out.jpeg')">
-    梦想还是要有的、万一被选中了呢 </br> <a href="/project/2018/02/02/personal-projects" target="_blank">个人作品集</a> 、<a href="https://xiaozhuanlan.com/u/5723541907" target="_blank">小专栏作者</a>
-
-  </div>
-  
-
-  <div class="posts">
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/project/2016/08/23/ImageHosting-use-introduction.html">
-                  ImageHosting 开源软件的使用说明
-                </a>
-              </h1>
-              <p class="meta">
-                August 23, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              博主在转战iOS开发以来，一直坚持撰写自己的技术博客。使用Github Pages + Hexo 搭建了属于自己的空间。具体搭建方法可以参考《手把手教 GitHub + Hexo 搭建博客》 。 然而，博客中有很多时候需要使用图片说明，俗话说“一图胜千言”，博主使用 七牛云 做图床，然每次编写博客时需要打开Web版上传图片，甚是繁琐。故此，博主自己编写了一个自己的图片上传软件。
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
 
 
 
-软件下载地址：ImageHosting for Mac
+	</head>
+	<body class="is-loading">
 
-源代码地址
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
 
-安装
+				<!-- Intro -->
+					<div id="intro">
+            <h1>Chars's Tech Blog</h1>
+						<h2>努力すれば、きっと报われる</h2>
+						<p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者、日语爱好者<br>目前正在学习人工智能中.</p>
+						<p>业余时间从事 <a href="https://xiaozhuanlan.com/u/5723541907">小专栏作者</a>、<a href="https://github.com/xitu/gold-miner">掘金翻译计划译者</a><br> 闲来无事也喜欢写写自己的小应用，主要有 <a href="http://itunes.apple.com/app/id1177823334">靓手艺</a>、<a href="https://itunes.apple.com/cn/app/id1188174656">Piclip</a>、<a href="https://itunes.apple.com/cn/app/id1176787145">今日账单</a> 等，<a href="http://chars.tech/project/2018/02/02/personal-projects">作品集合</a> .</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
 
-遇到提示“不能安装未知来源程序”时，处理方法为...
-              <!--<a class="button" href="/project/2016/08/23/ImageHosting-use-introduction.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
+				<!-- Header -->
+					<header id="header">
+						<a href="/" class="logo">Chars's Tech Blog</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<h2><a href="#">梦想就是坚持</a></h2>
+									<p>人最大的改变就是去做自己害怕的事情 <br>
+                    再牛逼的梦想也抵不过傻逼似的坚持 <br>
+                    不求与人相比，但求超越自己，要哭就哭出激动的泪水，要笑就笑出成长的性格！</p>
+								</header>
+								<a href="#" class="image main"><img src="/images/pic01.jpg" alt=""></a>
+								<p>“遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人；萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？”</p>
+                <p>“嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹欢。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空余报国之情；阮籍猖狂，岂效穷途之哭！”</p>
+                <p>“勃，三尺微命，一介书生。无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；钟期既遇，奏流水以何惭？”</p>
+							</article>
+
+						<!-- Posts -->
+							<section class="posts">
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">05 Feb 2018</span>
+  										<h2><a href="/blog/tensorflow-performance-benchmarks/">Tensorflow -- 基准</a></h2>
+  									</header>
+  									<a href="/blog/tensorflow-performance-benchmarks/" class="image fit"><img src="" alt=""></a>
+  									<p></p>
+<p>TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 <a href="#methodology">方法</a> 章节中会详细说明如何执行测试，并给出使用的脚本链接。</p>
+
+
+  									<ul class="actions">
+  										<li><a href="/blog/tensorflow-performance-benchmarks/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                    -->
+                
+                <!--  -->
+                        
+<!--                    -->
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">29 Jan 2018</span>
+  										<h2><a href="/blog/data-link-layer-lldp/">数据链路层之 LLDP</a></h2>
+  									</header>
+  									<a href="/blog/data-link-layer-lldp/" class="image fit"><img src="" alt=""></a>
+  									<p></p>
+<p>随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 </p>
+
+
+  									<ul class="actions">
+  										<li><a href="/blog/data-link-layer-lldp/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                    -->
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">30 Nov 2017</span>
+  										<h2><a href="/blog/tensorflow-wide-and-deep/">TensorFlow 广度和深度学习的教程</a></h2>
+  									</header>
+  									<a href="/blog/tensorflow-wide-and-deep/" class="image fit"><img src="" alt=""></a>
+  									<p></p>
+<p>在前文 <a href="https://www.tensorflow.org/tutorials/wide">《TensorFlow Liner Model Tutorial》</a> 中，我们使用 <a href="https://archive.ics.uci.edu/ml/datasets/Census+Income">人口收入普查数据集</a> 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？</p>
+
+
+  									<ul class="actions">
+  										<li><a href="/blog/tensorflow-wide-and-deep/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                   
+                  <article>
+  									<header>
+  										<h2><a href="#">Sponsored</a></h2>
+  									</header>
+
+  								</article>
+                   -->
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">31 Oct 2017</span>
+  										<h2><a href="/blog/welcome-to-massively-the-jekyll-theme/">Welcome to Massively: The Jekyll Theme!</a></h2>
+  									</header>
+  									<a href="/blog/welcome-to-massively-the-jekyll-theme/" class="image fit"><img src="/images/pic02.jpg" alt=""></a>
+  									<p>Huge thanks to HTML5 UP for making this awesome template! Let's see what it can do</p>
+  									<ul class="actions">
+  										<li><a href="/blog/welcome-to-massively-the-jekyll-theme/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                    -->
+                
+
+							</section>
+
+						<!-- Footer -->
+							<footer>
+                <ul class="actions">
+                  <li><a href="/blog/" class="button">All Blog</a></li>
+                </ul>
+							</footer>
+
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
       </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/08/14/memory-big-little-endian.html">
-                  简单聊聊大小端问题
-                </a>
-              </h1>
-              <p class="meta">
-                August 14, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit。但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器）。另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。
-
-先来看一段代码：
-
-#include&lt;stdio.h&gt;
-
-union{
-        unsigned long b...
-              <!--<a class="button" href="/pieces/2016/08/14/memory-big-little-endian.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
       </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/code/2016/08/12/mac-os-develop-prepare.html">
-                  Mac OS 开发 (一) 准备工作
-                </a>
-              </h1>
-              <p class="meta">
-                August 12, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              
-  程序猿，一个另类的物种。
-
-
-其实很多时候，懒懒的程序猿因为自己的需要，或者是因为使用别人的工具并不满意，而催发出自己解决问题的想法。这个 Mac OS 开发系列，就是因为博主自己写博客是需要上传图片，而目前的 App 并不满意的情况下，决心自己学习，自己开发出喜欢的 App 而诞生的。
-
-本文章为该系列开篇，循序渐进，从基础开始。
-
-Mac
-
-这是开发的基础，至于是 Mac Book Pro，还是iMac，或者Mac mini 就随个人喜欢和实际状况。总之，不建议使用黑苹果。
-
-Xcode
-
-这是毫无...
-              <!--<a class="button" href="/code/2016/08/12/mac-os-develop-prepare.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
       </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/08/06/design-harmonize-colours.html">
-                  配色和排版（基础篇）
-                </a>
-              </h1>
-              <p class="meta">
-                August 6, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              
-  在什么样的团队就能成为什么样的人
-
-
-来到公司已经有一段时间了，在这段时间里，自我感觉是快速成长的。今天，终于决定扯来公司这张虎皮来给自己镀镀金，这里主要分享一下公司设计团队的设计技巧，希望对大家有帮助。
-
-基本颜色
-
-
-  暖色
-
-
-
-
-
-  冷色
-
-
-
-
-
-  中性色
-
-
-
-
-以上色块示例只是日常使用中的基础颜色，各种颜色可以延伸出较多的相近色。这个需要根据内容主题来搭配颜色。
-所有的颜色搭配都是为了突出和强调主题。
-
-颜色搭配基础
-
-
-  暖色
-
-
-暖色系的搭配包括深色+浅色，也可以使用少量冷色衬...
-              <!--<a class="button" href="/pieces/2016/08/06/design-harmonize-colours.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/talk/2016/08/03/xcode-plugin-list.html">
-                  Xcode 常用插件
-                </a>
-              </h1>
-              <p class="meta">
-                August 3, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              
-  工欲善其事，必先利其器
-
-
-这里主要罗列一些常用的 Xcode 插件。
-
-
-  BBUncrustify
-
-
-代码格式化
-
-https://github.com/benoitsan/BBUncrustifyPlugin-Xcode
-
-
-  Backlight
-
-
-光标选中行高亮
-
-https://github.com/limejelly/Backlight-for-XCode
-
-
-  HighlightSelectedString
-
-
-代码变量选中高亮
-
-https://github.com/keepy...
-              <!--<a class="button" href="/talk/2016/08/03/xcode-plugin-list.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/07/22/ios-app-distribution.html">
-                  谈谈iOS App打包发布
-                </a>
-              </h1>
-              <p class="meta">
-                July 22, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              来到 ZAKER 工作已经有一段时间了，博主也开始了自己的 iOS 开发之旅，因为博主是自学的，难免有些知识点的遗漏，很巧的是，关于App打包发布就是其中之一。而在最近，机缘巧合之下，需要自己打包上传到公司自己服务器用来做demo演示。在此，博主分享一下有关iOS App打包的过程。
-
-1.安装发布证书
-
-
-  自己去Apple开发者中心配置
-  找其他已经有证书的小伙伴导出p12文件
-
-
-2.设置Scheme
-
-Xcode-&gt;Product-&gt;Scheme-&gt;Edit Scheme
-
-
-
-...
-              <!--<a class="button" href="/pieces/2016/07/22/ios-app-distribution.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/07/17/custom-myself-develop-tool.html">
-                  打造自己的 Mac 环境
-                </a>
-              </h1>
-              <p class="meta">
-                July 17, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。
-
-文章主要分享记录博主自己搭建环境的过程。
-
-清单
-
-罗列一下博主 Mac 上的盆友们，顺便来个简要介绍。
-
-1）开发类
-
-
-  Xcode：苹果官方开发工具
-  PaintCode：可视化设计转代码神器
-  GitX：git可视化工具，开源
-  SimPholders：直接打开模拟器App文件神器
-
-
-2）工具类
-
-
-  奇妙清单：云记事本
-...
-              <!--<a class="button" href="/pieces/2016/07/17/custom-myself-develop-tool.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/07/17/git-auto-completion-mac.html">
-                  Mac 中 Git 命令自动补全
-                </a>
-              </h1>
-              <p class="meta">
-                July 17, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              转战iOS开发已经有一段时间了，现在使用Mac，对于命令行的使用，真的是越来越喜欢，但是，在使用Git命令的时候，不能使用【Tab】来自动补全，为此，博主找寻方法，来完善Git命令补全功能。本文分享此功能实现。
-
-安装Homebrew
-
-使用Homebrew安装的git，如何安装Honebrew及其使用在此就跳过，烦请自行查看(http://brew.sh/index_zh-cn.html)。
-
-安装bash-completion
-
-$ brew list
-
-
-查看是否已经安装了”bash-completio...
-              <!--<a class="button" href="/pieces/2016/07/17/git-auto-completion-mac.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/07/13/finder-open-terminal.html">
-                  在Finder中打开终端
-                </a>
-              </h1>
-              <p class="meta">
-                July 13, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              在Mac中，如果要在终端中进入在Finder中打开的目录，常用的方法是在终端中先敲入一个”cd “，然后在Finer中选中文件夹拖入到终端中，再回车即可实现。不过这样做终究还是麻烦了点，下面介绍如何直接在Finder中直接操作。
-
-在终端里打开Finder很简单，使用open .即可
-
-系统设置
-在Finder打开terminal这个功能其实是有的，但是系统默认没有打开，我们可以通过如下方法将其打开
-
-进入系统偏好设置-&gt;键盘-&gt;快捷键-&gt;服务。
-
-在右边新建位于文件夹位置的终端窗口上打勾。...
-              <!--<a class="button" href="/pieces/2016/07/13/finder-open-terminal.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/07/13/git-diff-p4merge.html">
-                  Git可视化比较工具P4Merge
-                </a>
-              </h1>
-              <p class="meta">
-                July 13, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              在转战Mac之后，BeyondCompare 不再那么容易免费使用，今天终于让我找到了一个Git的GUI比较工具P4Merge，免费的，支持中文，还不错，推荐一下
-
-
-
-下载
-打开这个链接: perforce-visual-merge-and-diff-tools，点左上角的 FREE DOWNLOAD P4Merge , 找到 Perforce Clients 中的 P4Merge: Visual Merge Tool 项，在右边的第二行选择Mac OS 10.6+ (64bit） ，点下面橙色的 Acce...
-              <!--<a class="button" href="/pieces/2016/07/13/git-diff-p4merge.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-  </div>
-
-  
-  <div class="pagination">
-    
-    <a href="/blog/page3" class="button" >
-      <i class="fa fa-chevron-left"></i>
-      Prev
-    </a>
-    
-    
-    <a href="/blog/page5" class="button" >
-      Next
-      <i class="fa fa-chevron-right"></i>
-    </a>
-    
-  </div>
-  
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
 </div>
 
-    </div>
-    
-<footer class="site-footer">
-    <p class="text">努力すれば、きっと报われる
-</p>
-    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
-            <div class="footer-icons">
-                <ul>
-                <!-- Social icons from Font Awesome, if enabled -->
-                
-<li>
-	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
+
+			</div>
+
+		<!-- Scripts -->
+		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
 
 
-
-<li>
-	<a href="mailto:chars.davy@gmail.com" title="Email">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-
-
-
-
-
-
-<li>
-	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-
-
-<li>
-	<a href="https://github.com/charsdavy" title="Follow on GitHub">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li>
-	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
-        <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-<li>
-    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
-        <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-        </span>
-    </a>
-</li>
-
-
-
-
-
-
-
-
-                </ul>
-            </div>
-</footer>
-
-
-
-
-  </body>
+	</body>
 </html>

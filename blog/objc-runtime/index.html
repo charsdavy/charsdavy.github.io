@@ -1,0 +1,530 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>聊聊Objective-C的Runtime</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">09 May 2017</span>
+      				<h1>聊聊Objective-C的Runtime</h1>
+      				<p></p>
+<p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
+
+<p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
+
+<p>在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。</p>
+
+<p>找出方法的最终执行代码：当程序执行<code class="highlighter-rouge">[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。</p>
+
+<h1 id="1-消息机制">1 消息机制</h1>
+
+<p>与古老的C语言不同，Objective-C虽然源自C语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。</p>
+
+<p><strong>C语言和Objective-C编译时的区别：</strong></p>
+
+<p>C语言在编译的时候，已经知道调用哪一个函数。</p>
+
+<p>Objective-C不一样，只有在运行时才知道需要调用的方法和函数。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>OBJC_EXPORT void objc_msgSend(void /* id self, SEL op, ... */ )
+    OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0);
+</code></pre>
+</div>
+
+<p>使用这个方法要<code class="highlighter-rouge">#import &lt;objc/message.h&gt;</code>，另外，Apple在Xcode5开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode就会报错，那么，如何解决呢？</p>
+
+<p>解决方案如下：</p>
+
+<ul>
+  <li>1）打开Project的<code class="highlighter-rouge">Build Settings</code>，搜索“msg”。</li>
+  <li>2）将<code class="highlighter-rouge">Enable Strict Checking of objc_msgSend Calls</code>的值设置为NO。</li>
+</ul>
+
+<h2 id="发送无参消息">发送无参消息</h2>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">Sample</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">run</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">run</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">eatWithFood</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">food</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">Sample</span>
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">run</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"类方法 run"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">run</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"实例方法 run"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">eatWithFood</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">food</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"实例方法 eat：%@"</span><span class="p">,</span> <span class="n">food</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">test</span> <span class="p">{</span>
+	<span class="n">Sample</span> <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Sample</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+	<span class="n">objc_msgSend</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="k">@selector</span><span class="p">(</span><span class="n">run</span><span class="p">));</span>
+
+	<span class="n">objc_msgSend</span><span class="p">([</span><span class="n">Sample</span> <span class="nf">class</span><span class="p">],</span> <span class="k">@selector</span><span class="p">(</span><span class="n">run</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="发送带参消息">发送带参消息</h2>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>- (void)test {
+	Sample *t = [[Sample alloc] init];
+	objc_msgSend(t, @selector(eatWithFood:), @"apple");
+}
+</code></pre>
+</div>
+
+<p><strong>附加：将Objective-C转换出Runtime代码方法</strong></p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>clang -rewrite-objc xxxx.m
+</code></pre>
+</div>
+
+<h2 id="交换方法的实现">交换方法的实现</h2>
+
+<p><code class="highlighter-rouge">class_getInstanceMethod(__unsafe_unretained Class cls, SEL name)</code>获取对象方法。</p>
+
+<p><code class="highlighter-rouge">class_getClassMethod(__unsafe_unretained Class cls, SEL name)</code>获取类方法。</p>
+
+<p><code class="highlighter-rouge">method_exchangeImplementations(Method m1, Method m2)</code>交换方法的实现方式。</p>
+
+<p>常见示例代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSURL *url = [NSURL URLWithString:@"https://charsdavy.github.io"];
+[NSURLRequest requestWithURL:url];
+</code></pre>
+</div>
+
+<p>但<code class="highlighter-rouge">url</code>可能返回nil，而此段代码未能对返回值<code class="highlighter-rouge">url</code>进行合法判断。但每次使用以上类似代码都需要进行合法性判断，那么有什么更好的方法使<code class="highlighter-rouge">URLWithString:</code>能够做合法性判断呢？这个时候就需要使用Runtime的特有方法了。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">NSURL</span> <span class="p">(</span><span class="nl">DD</span><span class="p">)</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">dd_URLWithString</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">URLString</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">NSURL</span> <span class="p">(</span><span class="nl">DD</span><span class="p">)</span>
+<span class="c1">// 加载此分类时调用
+</span><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">load</span>
+<span class="p">{</span>
+    <span class="c1">//获取方法名称
+</span>    <span class="n">Method</span> <span class="n">urlMethod</span> <span class="o">=</span> <span class="n">class_getClassMethod</span><span class="p">([</span><span class="n">NSURL</span> <span class="nf">class</span><span class="p">],</span> <span class="k">@selector</span><span class="p">(</span><span class="n">URLWithString</span><span class="o">:</span><span class="p">));</span>
+    <span class="n">Method</span> <span class="n">ddUrlMethod</span> <span class="o">=</span> <span class="n">class_getClassMethod</span><span class="p">([</span><span class="n">NSURL</span> <span class="nf">class</span><span class="p">],</span> <span class="k">@selector</span><span class="p">(</span><span class="n">dd_URLWithString</span><span class="o">:</span><span class="p">));</span>
+    <span class="c1">//交换方法的实现
+</span>    <span class="n">method_exchangeImplementations</span><span class="p">(</span><span class="n">urlMethod</span><span class="p">,</span> <span class="n">ddUrlMethod</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//此方法与URLWithString:交换了实现方式
+</span><span class="o">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">dd_URLWithString</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">URLString</span>
+<span class="p">{</span>
+<span class="c1">//    NSURL *url = [NSURL URLWithString:URLString]; 此处不能再调用此方法，否则会死循环
+</span>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">dd_URLWithString</span><span class="p">:</span><span class="n">URLString</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">url</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"url is nil"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">url</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+</code></pre>
+</div>
+
+<h2 id="归档和解档">归档和解档</h2>
+
+<p>先来理解几个Objective-C中的概念：</p>
+
+<p>序列化：将自定义的Objective-C的对象转化成二进制文件数据。</p>
+
+<p>反序列化：将二进制文件数据转化成自定义的Objective-C的对象。</p>
+
+<p>归档：将自定义的Objective-C的对象存储到本地磁盘。</p>
+
+<p>解档：将存储在本地磁盘的数据转换成自定义的Objective-C的对象。</p>
+
+<p>Ivar类型：成员属性。</p>
+
+<p>Method类型：成员方法。</p>
+
+<p>通常我们使用归档和解档的方式如下：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">Sample</span> <span class="p">:</span> <span class="nc">NSObject</span><span class="o">&lt;</span><span class="n">NSCoding</span><span class="o">&gt;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">age</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">Sample</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">encodeWithCoder</span><span class="p">:(</span><span class="n">NSCoder</span> <span class="o">*</span><span class="p">)</span><span class="nv">aCoder</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">aCoder</span> <span class="nf">encodeObject</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="nf">forKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">aCoder</span> <span class="nf">encodeObject</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">age</span> <span class="nf">forKey</span><span class="p">:</span><span class="s">@"age"</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithCoder</span><span class="p">:(</span><span class="n">NSCoder</span> <span class="o">*</span><span class="p">)</span><span class="nv">aDecoder</span>
+<span class="p">{</span>
+    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">aDecoder</span> <span class="nf">decodeObjectForKey</span><span class="p">:</span><span class="s">@"name"</span><span class="p">];</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="p">[</span><span class="n">aDecoder</span> <span class="nf">decodeObjectForKey</span><span class="p">:</span><span class="s">@"age"</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">saveObject</span>
+<span class="p">{</span>
+    <span class="n">Sample</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Sample</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">@"Chars"</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="s">@"18"</span><span class="p">;</span>
+    
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTemporaryDirectory</span><span class="p">()</span> <span class="nf">stringByAppendingPathComponent</span><span class="p">:</span><span class="s">@"chars.dat"</span><span class="p">];</span>
+    
+    <span class="n">BOOL</span> <span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSKeyedArchiver</span> <span class="nf">archiveRootObject</span><span class="p">:</span><span class="n">p</span> <span class="nf">toFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"success"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"falied"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">readObject</span>
+<span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTemporaryDirectory</span><span class="p">()</span> <span class="nf">stringByAppendingPathComponent</span><span class="p">:</span><span class="s">@"chars.dat"</span><span class="p">];</span>
+    
+    <span class="n">Sample</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSKeyedUnarchiver</span> <span class="nf">unarchiveObjectWithFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"name:%@,age:%@"</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">age</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"falied"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"%@"</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>Objective-C中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。</p>
+
+<p>但是，当model中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用Runtime来简化工作。</p>
+
+<p><code class="highlighter-rouge">class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)</code>获取Class中成员变量的个数。</p>
+
+<p>以下就是使用Runtime消息机制编写的归档与解档方法：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>- (void)encodeWithCoder:(NSCoder *)aCoder
+{   
+    unsigned int count = 0;
+    Ivar *ivars = class_copyIvarList([Sample class], &amp;count);
+    for (int i = 0; i &lt; count; i++) {
+        Ivar ivar = ivars[i];
+        const char *name = ivar_getName(ivar);
+        NSString *key = [NSString stringWithUTF8String:name];
+        [aCoder encodeObject:[self valueForKey:key] forKey:key];
+    }
+    free(ivars);
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        unsigned int count = 0;
+        Ivar *ivars = class_copyIvarList([Sample class], &amp;count);
+        for (int i = 0; i &lt; count; i++) {
+            Ivar ivar = ivars[i];
+            const char *name = ivar_getName(ivar);
+            NSString *key = [NSString stringWithUTF8String:name];
+            id value = [aDecoder decodeObjectForKey:key];
+            [self setValue:value forKey:key];
+        }
+        free(ivars);
+    }
+    return self;
+}
+</code></pre>
+</div>
+
+<h1 id="2-kvo">2 KVO</h1>
+
+<p>利用Runtime，在运行时动态创建一个对象。</p>
+
+<p>实现原理：</p>
+
+<ol>
+  <li>创建<code class="highlighter-rouge">NSKVONotifying_XXX:XXX</code>类(XXX为被监听者)。</li>
+  <li>重写属性set方法，调用<code class="highlighter-rouge">willChangeValueForKey:</code>和<code class="highlighter-rouge">didChangeValueForKey:</code>方法，进而触发调用观察者的<code class="highlighter-rouge">observeValueForKeyPath:ofObject:change:context:</code>
+</li>
+</ol>
+
+<p>示例代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">Viewer</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">age</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@interface</span> <span class="nc">Observer</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">age</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">Observer</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">observeValueForKeyPath</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">ofObject</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">change</span><span class="p">:(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSKeyValueChangeKey</span><span class="p">,</span><span class="n">id</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span> <span class="nf">context</span><span class="p">:(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span>
+<span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"object:%@, keyPath:%@, change:%@"</span><span class="p">,</span> <span class="n">object</span><span class="p">,</span> <span class="n">keyPath</span><span class="p">,</span> <span class="n">change</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="n">Observer</span> <span class="o">*</span><span class="n">observer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Observer</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+<span class="n">Viewr</span> <span class="o">*</span><span class="n">viewer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Viewer</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+<span class="c1">//注册监听,viewer为被监听者，observer为观察者
+</span><span class="p">[</span><span class="n">viewr</span> <span class="nf">addObserver</span><span class="p">:</span><span class="n">observer</span> <span class="nf">forKeyPath</span><span class="p">:</span><span class="s">@"age"</span> <span class="n">options</span><span class="o">:</span><span class="n">NSKeyValueObservingOptionNew</span> <span class="n">context</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="c1">//触发KVO
+</span><span class="n">viewer</span><span class="p">.</span><span class="n">age</span> <span class="o">=</span> <span class="s">@"99"</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<h1 id="3-动态添加方法">3 动态添加方法</h1>
+
+<p>当方法被调用时，才被加载。</p>
+
+<p><code class="highlighter-rouge">+ (BOOL)resolveClassMethod:(SEL)sel;</code>当一个类被调用了一个没有实现的方法时，则会调用此方法。</p>
+
+<p><code class="highlighter-rouge">+ (BOOL)resolveInstanceMethod:(SEL)sel</code>当一个类被调用了一个没有实现的实例方法时，则会调用此方法。</p>
+
+<p><code class="highlighter-rouge">class_addMethod(__unsafe_unretained Class cls, SEL name, IMP imp, const char *types)</code>动态添加方法。</p>
+
+<p>参数<code class="highlighter-rouge">cls </code>：类类型。参数<code class="highlighter-rouge">name </code>：方法编号。参数<code class="highlighter-rouge">imp </code>：方法实现，就是一个函数的指针。参数<code class="highlighter-rouge">* types </code>：方法类型</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">Sample</span>
+<span class="c1">//一个类被调用了一个没有实现的实例方法时，则会调用此方法。
+</span><span class="k">+</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">resolveInstanceMethod</span><span class="p">:(</span><span class="n">SEL</span><span class="p">)</span><span class="nv">sel</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sel</span> <span class="o">==</span> <span class="k">@selector</span><span class="p">(</span><span class="n">eat</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">//添加一个实例方法
+</span>        <span class="n">class_addMethod</span><span class="p">([</span><span class="n">Sample</span> <span class="nf">class</span><span class="p">],</span> <span class="n">sel</span><span class="p">,</span> <span class="p">(</span><span class="n">IMP</span><span class="p">)</span><span class="n">eat</span><span class="p">,</span> <span class="s">"v@:"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nf">resolveInstanceMethod</span><span class="p">:</span><span class="n">sel</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">//隐式参数,self和_cmd是系统传过来的参数
+</span><span class="kt">void</span> <span class="nf">eat</span><span class="p">(</span><span class="n">id</span> <span class="n">self</span><span class="p">,</span> <span class="n">SEL</span> <span class="n">_cmd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"调用了%@的%@方法"</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">NSStringFromSelector</span><span class="p">(</span><span class="n">_cmd</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="p">[[[</span><span class="n">Sample</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">]</span> <span class="nf">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">eat</span><span class="p">)];</span>
+</code></pre>
+</div>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/objc-runtime/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/objc-runtime/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

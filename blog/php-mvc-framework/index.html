@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>PHP MVC模式简单实现</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">01 Dec 2015</span>
+      				<h1>PHP MVC模式简单实现</h1>
+      				<p></p>
+<p>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。</p>
+
+<p>代码结构</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/php-mvc-framework-1.png" alt="代码结构-1"></p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/php-mvc-framework-2.png" alt="代码结构-2"></p>
+
+<p>代码实现</p>
+
+<div class="language-php highlighter-rouge">
+<pre class="highlight"><code><span class="cp">&lt;?php</span>
+        <span class="c1">//function.php  
+</span>	<span class="c1">//控制器调用函数
+</span>	<span class="k">function</span> <span class="nf">C</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$method</span><span class="p">){</span>
+		<span class="k">require_once</span><span class="p">(</span><span class="s1">'libs/Controller/'</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Controller.class.php'</span><span class="p">);</span>
+		<span class="c1">//$testController = new testController();
+</span>		<span class="c1">//$testController-&gt;show();
+</span>		<span class="k">eval</span><span class="p">(</span><span class="s1">'$obj = new '</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Controller(); $obj-&gt;'</span><span class="o">.</span><span class="nv">$method</span><span class="o">.</span><span class="s1">'();'</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">//模型调用函数
+</span>	<span class="k">function</span> <span class="nf">M</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+		<span class="k">require_once</span><span class="p">(</span><span class="s1">'libs/Model/'</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Model.class.php'</span><span class="p">);</span>
+		<span class="k">eval</span><span class="p">(</span><span class="s1">'$obj = new '</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'Model();'</span><span class="p">);</span>
+		<span class="k">return</span> <span class="nv">$obj</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">//视图调用函数
+</span>	<span class="k">function</span> <span class="nf">V</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+		<span class="k">require_once</span><span class="p">(</span><span class="s1">'libs/View/'</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'View.class.php'</span><span class="p">);</span>
+		<span class="k">eval</span><span class="p">(</span><span class="s1">'$obj = new '</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">'View();'</span><span class="p">);</span>
+		<span class="k">return</span> <span class="nv">$obj</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">//过滤非法值
+</span>	<span class="k">function</span> <span class="nf">daddslashes</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+		<span class="k">return</span> <span class="p">(</span><span class="o">!</span><span class="nb">get_magic_quotes_gpc</span><span class="p">())</span><span class="o">?</span><span class="nb">addslashes</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span><span class="o">:</span><span class="nv">$str</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+ 
+
+<span class="cp">&lt;?php</span>
+<span class="c1">//test.php
+</span><span class="cm">/*
+第一步 浏览者 -&gt; 调用控制器,对它发出指令
+第二步 控制器 -&gt; 按指令选取一个合适的模型
+第三步 模型 -&gt; 按控制器指令取相应数据
+第四步 控制器 -&gt; 按指令选取相应视图
+第五步 视图 -&gt; 把第三步取到的数据按用户想要的样子显示出来
+*/</span>
+
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'View/testView.class.php'</span><span class="p">);</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'Model/testModel.class.php'</span><span class="p">);</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'Controller/testController.class.php'</span><span class="p">);</span>
+
+<span class="nv">$testController</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">testController</span><span class="p">();</span>
+<span class="nv">$testController</span><span class="o">-&gt;</span><span class="na">show</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+<span class="cp">&lt;?php</span>
+<span class="c1">//testController.class.php
+</span><span class="cm">/*
+控制器的作用是调用模型,并调用视图,将模型产生的数据传递给视图,并让相关视图去显示
+*/</span>
+	<span class="k">class</span> <span class="nc">testController</span><span class="p">{</span>
+		<span class="k">function</span> <span class="nf">show</span><span class="p">(){</span>
+			<span class="cm">/*$testModel = new testModel();
+			$data = $testModel-&gt;get();
+			$testView = new testView();
+			$testView-&gt;display($data);*/</span>
+			<span class="nv">$testModel</span> <span class="o">=</span> <span class="nx">M</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
+			<span class="nv">$data</span> <span class="o">=</span> <span class="nv">$testModel</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+			<span class="nv">$testView</span> <span class="o">=</span> <span class="nx">V</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
+			<span class="nv">$testView</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+ 
+
+<span class="cp">&lt;?php</span>
+<span class="c1">//testModel.class.php
+</span><span class="cm">/*
+模型的作用是获取数据并处理,返回数据
+*/</span>
+	<span class="k">class</span> <span class="nc">testModel</span><span class="p">{</span>
+		<span class="k">function</span> <span class="nf">get</span><span class="p">(){</span>
+			<span class="k">return</span> <span class="s2">"hello world"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+ 
+
+<span class="cp">&lt;?php</span>
+<span class="c1">//testView.class.php
+</span><span class="cm">/*
+视图的作用是将获得的数据进行组织,美化等,并最终向用户终端输出
+*/</span>
+	<span class="k">class</span> <span class="nc">testView</span><span class="p">{</span>
+		<span class="k">function</span> <span class="nf">display</span><span class="p">(</span><span class="nv">$data</span><span class="p">){</span>
+			<span class="k">echo</span> <span class="nv">$data</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+</div>
+
+<p>运行结果</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/php-mvc-framework-3.png" alt="运行结果"></p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/php-mvc-framework/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/php-mvc-framework/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

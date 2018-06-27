@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>Objective-C中的alloc和init问题</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">08 Mar 2016</span>
+      				<h1>Objective-C中的alloc和init问题</h1>
+      				<p></p>
+<p>这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。</p>
+
+<p>从开始学的<code class="highlighter-rouge">NSString *name=[[NSString alloc] init] </code>起，仅知道这句话是分配内存空间，一直在用，从来没考虑过它的内部是怎么实现的。今天无意中看到了这一句代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSString *name = [NSString alloc];
+NSLog(@"%p",name);
+name = [name init];
+NSLog(@"%p",name);
+</code></pre>
+</div>
+<p>试着打印了一下，发现两个的内存地址不一样：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-3b68beae6d8cc9fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+<p>alloc是开辟一个内存空间，init是初始化，为什么初始化不在原有的内存空间上初始化，而是重新开辟一个内存空间。于是开始查资料，这时又发现了一个新的迷惑：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSObject *obj = [NSObject alloc];
+NSLog(@"%p",obj);
+obj = [obj init];
+NSLog(@"%p",obj);
+</code></pre>
+</div>
+<p>打印结果：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-799b0c9493a36b0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+<p>怎么地址又变一样了？再打印NSArray的试一试：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>NSArray *person = [NSArray alloc];
+NSLog(@"%p",person);
+person = [person init];
+NSLog(@"%p",person);
+</code></pre>
+</div>
+<p>再次打印结果：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/1492739-7eacb95d56d56b8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+<p>仍然是不一样的。原因是什么呢？首先看看NSStrng的init方法吧：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(id)init{ 
+  if(self = [super init]) {
+    // 重新赋值 
+    //… 
+  }
+}
+</code></pre>
+</div>
+<p>从代码中可以分析，<code class="highlighter-rouge">self=[super init]</code>如果不为nil，就重新分配内存空间，这就解释了为什么 NSString，NSArray的调用alloc]init]方法后，内存地址会不一样，但是NSObject为什么会一样呢，我们知道NSObject是一切类的基类，当<code class="highlighter-rouge">[[NSString alloc]init]</code>执行时，调用的<code class="highlighter-rouge">[super init]</code>就是 NSObject中的init方法，既然NSObject身为基类，它也就无法调用super init，所以当NSObject执行<code class="highlighter-rouge">[[NSObject alloc]init]</code>时，也就没有了init重新分配空间这一环节。</p>
+
+<p>至于苹果公司为什么初始化一个实例要分两步，个人认为是方便构造后初始化不同的方法，如果用 new关键字，只能调用一个init，而不能调用initWithName等方法。</p>
+
+<p><strong>知识拓展：</strong></p>
+
+<p>NSString alloc之后，没有init，那么这部分alloc后的内存空间可不可以用？答案是显而易见的，如果可以用，苹果公司也就没必要提供一个init方法，那么alloc后的指针称为什么呢？ ——悬挂指针。</p>
+
+<p>如果一个地方指针既不为空，也没有被设置为指向一个已知的对象，则这样的指针称为<strong>悬挂指针</strong>。在程序里面是很危险的事。当程序运行使用该指针时，程序不能判断指针的合法性，将会产生很严重的错误。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/objc-alloc-init/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/objc-alloc-init/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

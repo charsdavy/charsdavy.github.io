@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>flappy bird 游戏实现</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">06 May 2016</span>
+      				<h1>flappy bird 游戏实现</h1>
+      				<p></p>
+<p>在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>在博主还是学生的时候，flappyBird这款游戏非常火爆，最后等到Android版的出来之后，也是很痴迷的玩了一把。可是，博主游戏天赋一直平平，几度玩得想摔手机。本文主要介绍如何开发iOS平台的flappyBird，游戏中使用了原本软件的图片资源，仅作学习交流使用。博主实现的flappyBird游戏包含游戏等级设定，排行榜，音效等功能。</p>
+
+<h1 id="技术点">技术点</h1>
+<p>flappyBird是单机游戏，主要涉及界面逻辑、图片资源、游戏动画、得分排行。</p>
+
+<p>为了实现这几个功能，需要使用以下几个技术框架：</p>
+
+<ul>
+  <li>AVFoundation</li>
+  <li>归档</li>
+  <li>模态视图</li>
+  <li>NSTimer</li>
+  <li>视图控件，包括UIImageView、UILabel、UITableView等</li>
+</ul>
+
+<h1 id="实现过程">实现过程</h1>
+<p>1、创建工程</p>
+
+<p>1）打开Xcode，点击新建工程，选择Single View Application模板</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:1.png?imageView/2/w/540" alt=""></p>
+
+<p> 2）填写工程信息</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:2.png?imageView/2/w/540" alt=""></p>
+
+<p>2、移除Main.storyboard文件</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:3.png?imageView/2/w/300" alt=""></p>
+
+<p>上图是flappyBird的文件目录，因为Xcode6使用模板创建工程时会自动生成Main.storyboard文件，而工程中本人使用代码布局，所以可以移除Main.storyboard文件。具体操作方法可以参看本人另一篇文章：
+<a href="http://www.cnblogs.com/chars/p/5150155.html">《iOS学习之移除Main.storyboard》</a></p>
+
+<p>3、游戏界面布局
+整体效果图如下</p>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/http-::charsdavy.github.io:2016:05:05:flappy-bird-game:4.gif?imageView/2/w/300" alt=""></p>
+
+<p>需要说明的是，Game Over这个界面，首先需要隐藏或者等到游戏结束才创建。本人是选择在游戏判定结束时才创建并显示。</p>
+
+<p>4、游戏运行
+这款游戏的两个关键点：</p>
+
+<ul>
+  <li>使用定时器驱动游戏界面运行，即游戏界面中的柱子高低变化与柱子的消失与产生。</li>
+  <li>游戏结束的判定，这里涉及两个问题，一是碰撞检测，二是计分统计。</li>
+</ul>
+
+<h1 id="具体实现部分代码">具体实现部分代码</h1>
+<p>1、计分统计</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(void)columnLabelClick {    
+    if (topPipeFrame.origin.x == (100 + 30 - 70)) {
+        columnNumber++;
+        columnLabel.text = [NSString stringWithFormat:@"%zi",columnNumber];
+    }
+}
+</code></pre>
+</div>
+
+<p>2、绘制柱子</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(void)pipe {
+    //通道高度
+    NSInteger tunnelHeight = 0;
+    //根据游戏难度设定通道高度
+    if([[DataTool stringForKey:kRateKey] isEqualToString:@"ordinary"]) {
+        tunnelHeight = 100;
+    }else if([[DataTool stringForKey:kRateKey] isEqualToString:@"general"]) {
+        tunnelHeight = 90;
+    }else if([[DataTool stringForKey:kRateKey] isEqualToString:@"difficult"]) {
+        tunnelHeight = 80;
+    }else if([[DataTool stringForKey:kRateKey] isEqualToString:@"hard"]) {
+        tunnelHeight = 75;
+    } else if([[DataTool stringForKey:kRateKey] isEqualToString:@"crazy"]) {
+        tunnelHeight = 70;
+    }    
+    //柱子图像
+    NSInteger tall = arc4random() % 200 + 40;
+    
+    topPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, -20, 70, tall)];
+    topPipe.image = [UIImage imageNamed:@"pipe"];
+    [self.view addSubview:topPipe];
+
+    bottomPipe = [[UIImageView alloc]initWithFrame:CGRectMake(320, tall + tunnelHeight, 70, 400)];
+    bottomPipe.image = [UIImage imageNamed:@"pipe"];
+    [self.view addSubview:bottomPipe];
+    //把底部图片视图放在柱子视图上面    
+    [self.view insertSubview:roadView aboveSubview:bottomPipe];
+}
+</code></pre>
+</div>
+
+<p>3、使用定时器，驱动游戏界面运行，并进行碰撞检测</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>//添加定时器
+timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+//定时器操作
+-(void)onTimer {
+    //底部动画移动
+    CGRect frame = roadView.frame;
+    if (frame.origin.x == -15) {
+        frame.origin.x = 0;
+    }
+    frame.origin.x--;
+    roadView.frame = frame;    
+    //上升
+    if (isTap == NO) {
+        CGRect frame = birdsView.frame;
+        frame.origin.y -= 3;
+        number += 3;
+        birdsView.frame = frame;
+        if (number &gt;= 60) {
+            isTap = YES;
+        }
+    }    
+    //下降
+    if(isTap == YES &amp;&amp; birdsView.frame.origin.y &lt; 370){
+        CGRect frame = birdsView.frame;
+        frame.origin.y++;
+        number -= 2;
+        birdsView.frame = frame;
+        number = 0;
+    }    
+    //柱子移动
+    topPipeFrame = topPipe.frame;
+    CGRect bottomPipeFrame = bottomPipe.frame;
+    topPipeFrame.origin.x--;
+    bottomPipeFrame.origin.x--;
+    topPipe.frame = topPipeFrame;
+    bottomPipe.frame = bottomPipeFrame;
+    if (topPipeFrame.origin.x &lt; -70) {
+        [self pipe];
+    }    
+    //碰撞检测（交集）
+    bool topRet = CGRectIntersectsRect(birdsView.frame, topPipe.frame);
+    bool bottomRet = CGRectIntersectsRect(birdsView.frame, bottomPipe.frame);
+    if (topRet == true || bottomRet == true) {
+        [self.soundTool playSoundByFileName:@"punch"];
+        [self onStop];
+    }
+    if (topPipeFrame.origin.x == (100 + 30 - 70)) {
+        [self.soundTool playSoundByFileName:@"pipe"];
+        [self columnLabelClick];
+    }
+}
+</code></pre>
+</div>
+
+<p>4、更新分数，更新最佳分数与排行榜分数，并使用归档将数据持久化</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(void)updateScore {
+    //更新最佳成绩
+    if (columnNumber &gt; [DataTool integerForKey:kBestScoreKey]) {
+        [DataTool setInteger:columnNumber forKey:kBestScoreKey];
+    }
+    //更新本局分数    
+    [DataTool setInteger:columnNumber forKey:kCurrentScoreKey];
+    //更新排行榜
+    NSArray *ranks = (NSArray *)[DataTool objectForKey:kRankKey];
+    NSMutableArray *newRanksM = [NSMutableArray array];
+    NSInteger count = ranks.count;
+    BOOL isUpdate = NO;
+    for (NSInteger i = 0; i &lt; count; i++) {
+        NSString *scoreStr = ranks[i];
+        NSInteger score = [scoreStr integerValue];
+        if (score &lt; columnNumber &amp;&amp; isUpdate == NO) {
+            scoreStr = [NSString stringWithFormat:@"%zi", columnNumber];
+            [newRanksM addObject:scoreStr];
+            isUpdate = YES;
+            i--;
+        } else {
+            scoreStr = [NSString stringWithFormat:@"%zi", score];
+            [newRanksM addObject:scoreStr];
+        }
+    }
+    if (newRanksM.count &gt; count) {
+        [newRanksM removeLastObject];
+    }
+    [DataTool setObject:newRanksM forKey:kRankKey];
+}
+</code></pre>
+</div>
+
+<p>5、绘制GameOver提示显示</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(void)pullGameOver {
+    //游戏结束操作界面
+    gameOver = [[GameOverView alloc] initWithFrame:CGRectMake(20, 160, 280, 300)];
+    gameOver.delegate = self;
+    [self.view addSubview:gameOver];
+}
+</code></pre>
+</div>
+
+<p>6、游戏停止操作</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(void)onStop {
+    //更新分数    
+    [self updateScore];
+    //停止定时器    
+    [timer setFireDate:[NSDate distantFuture]];
+    //弹出游戏结束操作界面    
+    [self pullGameOver];
+}
+</code></pre>
+</div>
+
+<h1 id="小结">小结</h1>
+<p>这款游戏的实现还是很简单的，主要使用UIImageView自带的动画实现方式，即可实现bird的动画效果。使用NSTimer即可实现游戏场景的柱子移动，至于柱子的高度，则可以使用随机数方式在一定范围内实现高低变化。最后可以使用CGRectIntersectsRect来实现边界碰撞检测来判定游戏是否结束。</p>
+
+<p>以上是博主开发iOS版flappyBird的简要过程介绍，其中只包含了关键点的代码实现，具体完整游戏源代码地址：<a href="https://github.com/CharsDavy/flappyBird">https://github.com/CharsDavy/flappyBird</a></p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/flappy-bird-game/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/flappy-bird-game/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

@@ -1,648 +1,266 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <!-- JQuery (used for bootstrap and jekyll search) -->
-    <script src="/assets/js/jquery-3.2.1.min.js" ></script>
-    
-    <!-- Main JS (navbar.js and katex_init.js)-->
-    <script defer=true src="/assets/js/main.min.js"></script>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <!--Favicon-->
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+<title>Chars's Tech Blog - Home Page</title>
+<meta name="description" content="Every great website starts with a great homepage. The homepage tells your viewers what your site is all about and gives your viewers a place to come back to.">
 
-    <!-- Canonical -->
-    <link rel="canonical" href="http://chars.tech/blog/page7/">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
 
-    <!-- RSS -->
-    <link rel="alternate" type="application/atom+xml" title="Chars" href="http://chars.tech///feed.xml"/>
-
-    <!-- Font Awesome -->
-    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
-
-    <!-- Google Fonts -->
-    
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css"> 
-    
-
-    <!-- KaTeX 0.8.3 -->
-    
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script> -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/katex.min.css">
-    <script src="/assets/js/katex.min.js">
-    </script>
-    
-
-    <!-- Google Analytics -->
-    
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-80507808-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-    
-    
-    <!-- seo tags -->
-    <!-- Begin Jekyll SEO tag v2.4.0 -->
-<meta name="generator" content="Jekyll v3.7.2" />
-<meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://chars.tech/blog/page7/" />
-<meta property="og:url" content="http://chars.tech/blog/page7/" />
-<link rel="prev" href="http://chars.tech/blog/page6" />
-<link rel="next" href="http://chars.tech/blog/page8" />
-<script type="application/ld+json">
-{"@type":"WebPage","url":"http://chars.tech/blog/page7/","@context":"http://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-    <!-- Manual seo tags -->
-    <!--
-    <title> Chars</title>
-    <meta name="description" content="Chars's Tech Blog">
-    -->
-</head>
-
-  <body>
-    <header class="site-header">
-    
-    <!-- Logo and title -->
-	<div class="branding">
-		<a href="/">
-			<img class="avatar" src="/assets/img/avatar.png" alt=""/>
-		</a>
-
-		<h1 class="site-title">
-			<a href="/">Chars</a>
-		</h1>
-	</div>
-    
-    <!-- Toggle menu -->
-    <nav class="clear">
-    <a id="pull" class="toggle" href="#">
-    <i class="fa fa-bars fa-lg"></i>
-    </a>
-    
-    <!-- Menu -->
-    <ul>
-        
-        
-        
-        
-        <li>
-            <a class="clear" href="/about/">
-                About
-            </a>
-        </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-         
-        
-        
-        <li>
-            <a class="clear" href="http://chars.tech/hobby">
-                Hobby
-            </a>
-        </li>
-        
-        
-        <li>
-            <a class="clear" href="http://chars.tech/search">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-        
-        <li>
-            <a class="clear" href="http://chars.tech/tags">
-                <i class="fa fa-tags" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-        
-    </ul>
-        
-	</nav>
-</header>
-
-    <div class="content">
-      <div class="home">
-  
-  <div id="main" class="call-out"
-  style="background-image: url('/assets/img/pexels/look-out.jpeg')">
-    梦想还是要有的、万一被选中了呢 </br> <a href="/project/2018/02/02/personal-projects" target="_blank">个人作品集</a> 、<a href="https://xiaozhuanlan.com/u/5723541907" target="_blank">小专栏作者</a>
-
-  </div>
-  
-
-  <div class="posts">
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/talk/2016/03/19/ios-test-in-writing.html">
-                  说说那些iOS笔试题
-                </a>
-              </h1>
-              <p class="meta">
-                March 19, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              博主之前从事嵌入式开发，本科专业软件工程。毕业后一直从事嵌入式C语言。之所以进入嵌入式行业，完全是个人兴趣。不过，在从业两年之后发现不是自己喜欢的菜。毅然决然的转型到iOS行业。然，博主并非参加培训学校出来，完全利用工作之余时间自学，现在已经在ZAKER工作，从事ZAKER客户端的iPhone版本开发。这里，博主分享一下之前找工作时，总结的笔试题。
-
-题目与答案
-
-答案仅供参考，如有异议或者错误，请指正。
-
-中文试题
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
 
 
-  #import 跟#include、@class有什么区别？#import&lt;&...
-              <!--<a class="button" href="/talk/2016/03/19/ios-test-in-writing.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+            <h1>Chars's Tech Blog</h1>
+						<h2>努力すれば、きっと报われる</h2>
+						<p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者、日语爱好者<br>目前正在学习人工智能中.</p>
+						<p>业余时间从事 <a href="https://xiaozhuanlan.com/u/5723541907">小专栏作者</a>、<a href="https://github.com/xitu/gold-miner">掘金翻译计划译者</a><br> 闲来无事也喜欢写写自己的小应用，主要有 <a href="http://itunes.apple.com/app/id1177823334">靓手艺</a>、<a href="https://itunes.apple.com/cn/app/id1188174656">Piclip</a>、<a href="https://itunes.apple.com/cn/app/id1176787145">今日账单</a> 等，<a href="http://chars.tech/project/2018/02/02/personal-projects">作品集合</a> .</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="/" class="logo">Chars's Tech Blog</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<h2><a href="#">梦想就是坚持</a></h2>
+									<p>人最大的改变就是去做自己害怕的事情 <br>
+                    再牛逼的梦想也抵不过傻逼似的坚持 <br>
+                    不求与人相比，但求超越自己，要哭就哭出激动的泪水，要笑就笑出成长的性格！</p>
+								</header>
+								<a href="#" class="image main"><img src="/images/pic01.jpg" alt=""></a>
+								<p>“遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人；萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？”</p>
+                <p>“嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹欢。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空余报国之情；阮籍猖狂，岂效穷途之哭！”</p>
+                <p>“勃，三尺微命，一介书生。无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；钟期既遇，奏流水以何惭？”</p>
+							</article>
+
+						<!-- Posts -->
+							<section class="posts">
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">05 Feb 2018</span>
+  										<h2><a href="/blog/tensorflow-performance-benchmarks/">Tensorflow -- 基准</a></h2>
+  									</header>
+  									<a href="/blog/tensorflow-performance-benchmarks/" class="image fit"><img src="" alt=""></a>
+  									<p></p>
+<p>TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 <a href="#methodology">方法</a> 章节中会详细说明如何执行测试，并给出使用的脚本链接。</p>
+
+
+  									<ul class="actions">
+  										<li><a href="/blog/tensorflow-performance-benchmarks/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                    -->
+                
+                <!--  -->
+                        
+<!--                    -->
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">29 Jan 2018</span>
+  										<h2><a href="/blog/data-link-layer-lldp/">数据链路层之 LLDP</a></h2>
+  									</header>
+  									<a href="/blog/data-link-layer-lldp/" class="image fit"><img src="" alt=""></a>
+  									<p></p>
+<p>随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 </p>
+
+
+  									<ul class="actions">
+  										<li><a href="/blog/data-link-layer-lldp/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                    -->
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">30 Nov 2017</span>
+  										<h2><a href="/blog/tensorflow-wide-and-deep/">TensorFlow 广度和深度学习的教程</a></h2>
+  									</header>
+  									<a href="/blog/tensorflow-wide-and-deep/" class="image fit"><img src="" alt=""></a>
+  									<p></p>
+<p>在前文 <a href="https://www.tensorflow.org/tutorials/wide">《TensorFlow Liner Model Tutorial》</a> 中，我们使用 <a href="https://archive.ics.uci.edu/ml/datasets/Census+Income">人口收入普查数据集</a> 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？</p>
+
+
+  									<ul class="actions">
+  										<li><a href="/blog/tensorflow-wide-and-deep/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                   
+                  <article>
+  									<header>
+  										<h2><a href="#">Sponsored</a></h2>
+  									</header>
+
+  								</article>
+                   -->
+                
+                <!--  -->
+                        
+  								<article>
+  									<header>
+  										<span class="date">31 Oct 2017</span>
+  										<h2><a href="/blog/welcome-to-massively-the-jekyll-theme/">Welcome to Massively: The Jekyll Theme!</a></h2>
+  									</header>
+  									<a href="/blog/welcome-to-massively-the-jekyll-theme/" class="image fit"><img src="/images/pic02.jpg" alt=""></a>
+  									<p>Huge thanks to HTML5 UP for making this awesome template! Let's see what it can do</p>
+  									<ul class="actions">
+  										<li><a href="/blog/welcome-to-massively-the-jekyll-theme/" class="button">Full Story</a></li>
+  									</ul>
+  								</article>
+  						
+<!--                    -->
+                
+
+							</section>
+
+						<!-- Footer -->
+							<footer>
+                <ul class="actions">
+                  <li><a href="/blog/" class="button">All Blog</a></li>
+                </ul>
+							</footer>
+
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
       </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/03/16/objc-quote-count.html">
-                  Objective-C中的引用计数
-                </a>
-              </h1>
-              <p class="meta">
-                March 16, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。
-
-导言
-Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于...
-              <!--<a class="button" href="/pieces/2016/03/16/objc-quote-count.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
       </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/03/09/socket-communicate-introduction.html">
-                  socket 通信简介
-                </a>
-              </h1>
-              <p class="meta">
-                March 9, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。
-
-1 网络中进程之间如何通信
-本地的进程间通信（IPC）有很多种方式，但可以总结为下面4类：
-
-
-  消息传递（管道、FIFO、消息队列）
-  同步（互斥量、条件变量、读写锁、文件和写记录锁、信号量）
- ...
-              <!--<a class="button" href="/pieces/2016/03/09/socket-communicate-introduction.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
       </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/code/2016/03/08/objc-alloc-init.html">
-                  Objective-C中的alloc和init问题
-                </a>
-              </h1>
-              <p class="meta">
-                March 8, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。
-
-从开始学的NSString *name=[[NSString alloc] init] 起，仅知道这句话是分配内存空间，一直在用，从来没考虑过它的内部是怎么实现的。今天无意中看到了这一句代码：
-
-NSString *name = [NSString alloc];
-NSLog(@"%p",name);
-name = [name init];
-NSLog(...
-              <!--<a class="button" href="/code/2016/03/08/objc-alloc-init.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/03/07/ios-application-plist-diff.html">
-                  iOS Project与OS X Project中plist使用区别
-                </a>
-              </h1>
-              <p class="meta">
-                March 7, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              这篇文章来源于开源中国的一道题目，因为答题，所以coding，所以发现了原来还有这样子的区别。因此，拿出来和大家分享。
-
-之前在开源中国看到一个求源代码的问题:
-
-模拟一个动物园系统MyZoo 
- 
-1、动物园里面有三种动物:Panda,Elephant,Kangaroo 
-2、三种动物都有一定的数量(不止一只) 
-3、动物有各自不同的食量(以天为单位的食量),并且每天都在消耗食物。 
-4、动物园里的食物有固定的储备,而且假设三种动物都吃这一种食物。 
-5、每个动物都有不同的生产周期,每当到了这种动物的生产周...
-              <!--<a class="button" href="/pieces/2016/03/07/ios-application-plist-diff.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/talk/2016/03/05/xcode-console-cli.html">
-                  Xcode 使用小记
-                </a>
-              </h1>
-              <p class="meta">
-                March 5, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。
-
-debug 命令表
-
-
-  
-    
-      命令
-      解释
-    
-  
-  
-    
-      break NUM
-      在指定的行上设置断点...
-              <!--<a class="button" href="/talk/2016/03/05/xcode-console-cli.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/03/02/oauth2-protocol.html">
-                  OAuth2.0 协议
-                </a>
-              </h1>
-              <p class="meta">
-                March 2, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              OAuth（Open Authorization），协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处是OAuth的授权不会使第三方触及到用户的帐号信息（如用户名和密码），即第三方无需使用用户的用户名与密码就可以申请获得该用户的授权，因此，OAuth是安全的。这些解释都是官方的，本文中博主会根据自己的学习所得，整理分享对OAuth协议的理解。
-
-简介
-OAuth（Open Authorization），协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不...
-              <!--<a class="button" href="/pieces/2016/03/02/oauth2-protocol.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/algorithm/2016/02/22/algorithm-idea.html">
-                  常用的算法思想总结
-                </a>
-              </h1>
-              <p class="meta">
-                February 22, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。
-
-一、穷举法思想
-
-穷举法，又称为强力法。它是一种最为直接，实现最为简单，同时又最为耗时的一种解决实际问题的算法思想。
-
-基本思想：在可能的解空间中穷举出每一种可能的解，并对每一个可能解进行判断，从中得到问题的答案。
-
-使用穷举法思想解决实际问题，最关键的步骤是划定问题的解空间，并在该解空间中一一枚举每一个可能的解。这里有两点需要注意，一是解空间的划定必须保...
-              <!--<a class="button" href="/algorithm/2016/02/22/algorithm-idea.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/pieces/2016/02/18/apk-decompile.html">
-                  Apk 反编译
-                </a>
-              </h1>
-              <p class="meta">
-                February 18, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              最近看见一些正版软件，便想到pc端软件的破解，便在网络上大肆搜索，终于找到了一个办公软件破解key的软件，对其实现非常感兴趣，想着反编译其apk，在网上也找了很多相关的实现方式，这里，本文介绍博主使用的简约方法与工具。
-
-步骤
-
-1、将apk文件解压，得到其中的classes.dex（java文件编译再通过dx工具打包而成的）。
-
-将classes.dex复制到d2j-dex2jar.bat所在目录dex2jar-0.0.9.13文件夹。
-
-在命令行下定位到d2j-dex2jar.bat所在目录，运行
-
-d2...
-              <!--<a class="button" href="/pieces/2016/02/18/apk-decompile.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-       
-      <div class="post-teaser">
-        
-        <span>
-            <header>
-              <h1>
-                <a class="post-link" href="/code/2016/02/17/objc-new-alloc-init.html">
-                  Objective-C 中 new、alloc和init的区别
-                </a>
-              </h1>
-              <p class="meta">
-                February 17, 2016
-              </p>
-            </header>
-            <div class="excerpt">
-              在实际开发中很少会用到new，一般创建对象我们看到的全是[[className alloc] init]，但是并不意味着你不会接触到new，在一些代码中还是会看到[className new]，还有去面试的时候，也很可能被问到这个问题。
-
-那么，它们两者之间到底有什么区别呢？我们先来看源码：
-
-+ + new { 
-    id newObject = (*_alloc)((Class)self, 0); 
-    Class metaClass = self-&gt;isa; 
-    if (class_...
-              <!--<a class="button" href="/code/2016/02/17/objc-new-alloc-init.html">
-                Continue reading
-              </a>-->
-            </div>
-        </span>
-      </div>
-      
-    
-  </div>
-
-  
-  <div class="pagination">
-    
-    <a href="/blog/page6" class="button" >
-      <i class="fa fa-chevron-left"></i>
-      Prev
-    </a>
-    
-    
-    <a href="/blog/page8" class="button" >
-      Next
-      <i class="fa fa-chevron-right"></i>
-    </a>
-    
-  </div>
-  
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
 </div>
 
-    </div>
-    
-<footer class="site-footer">
-    <p class="text">努力すれば、きっと报われる
-</p>
-    <p class="text">Powered by <a href="https://jekyllrb.com/">Jekyll</a>. Theme by <a href="https://github.com/charsdavy/Type-on-Strap">Type-on-Strap</a>. &copy; 2016 - 2018 </p>
-            <div class="footer-icons">
-                <ul>
-                <!-- Social icons from Font Awesome, if enabled -->
-                
-<li>
-	<a href="http://chars.tech////feed.xml" title="Follow RSS feed">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
+
+			</div>
+
+		<!-- Scripts -->
+		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
 
 
-
-<li>
-	<a href="mailto:chars.davy@gmail.com" title="Email">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-
-
-
-
-
-
-<li>
-	<a href="https://www.facebook.com/wei.deng.1460" title="Follow on Facebook">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-
-
-<li>
-	<a href="https://github.com/charsdavy" title="Follow on GitHub">
-		<span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li>
-	<a href="https://twitter.com/charsdavy" title="Follow on Twitter" class="type">
-        <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-        </span>
-	</a>
-</li>
-
-
-
-<li>
-    <a href="https://weibo.com/u/3875245858" title="Follow on Weibo" class="type">
-        <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-        </span>
-    </a>
-</li>
-
-
-
-
-
-
-
-
-                </ul>
-            </div>
-</footer>
-
-
-
-
-  </body>
+	</body>
 </html>

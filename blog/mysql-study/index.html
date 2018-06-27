@@ -1,0 +1,485 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>与 MySQL 的零距离接触</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">17 May 2017</span>
+      				<h1>与 MySQL 的零距离接触</h1>
+      				<p></p>
+<p><a href="https://www.mysql.com/">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p><a href="https://www.mysql.com/">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
+
+<p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
+
+<h1 id="1-安装">1 安装</h1>
+
+<p>直接前往官网 https://www.mysql.com/ ，进入download页面下载所需对应安装版本。默认配置安装即可。</p>
+
+<h1 id="2-配置">2 配置</h1>
+
+<p>安装成功之后，需要修改密码。详看<a href="/2017/03/22/mysql-install-config/">《MySQL 安装配置》</a></p>
+
+<p>修改编码方式：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>[mysql]
+default-character-set=utf8
+
+[mysql]
+character-set-server=utf8
+</code></pre>
+</div>
+
+<h1 id="3-目录结构">3 目录结构</h1>
+
+<p>bin目录，存储可执行文件。</p>
+
+<p>data目录，存储数据文件。</p>
+
+<p>docs，文档。</p>
+
+<p>include目录，存储包含的头文件。</p>
+
+<p>lib目录，存储库文件。</p>
+
+<p>share，错误消息和字符集文件。</p>
+
+<h1 id="4-命令参数说明">4 命令参数说明</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-D,–database=name</td>
+      <td>打开指定数据库</td>
+    </tr>
+    <tr>
+      <td>–delimiter=name</td>
+      <td>指定分隔符</td>
+    </tr>
+    <tr>
+      <td>-h,–host=name</td>
+      <td>服务器名称</td>
+    </tr>
+    <tr>
+      <td>-p,–password[=name]</td>
+      <td>密码</td>
+    </tr>
+    <tr>
+      <td>-P,–port=#</td>
+      <td>端口号</td>
+    </tr>
+    <tr>
+      <td>–prompt=name</td>
+      <td>设置提示符</td>
+    </tr>
+    <tr>
+      <td>-u,–user=name</td>
+      <td>用户名</td>
+    </tr>
+    <tr>
+      <td>-V,–version</td>
+      <td>输出版本信息并退出</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="mysql提示符">MySQL提示符</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\D</td>
+      <td>完整的日期</td>
+    </tr>
+    <tr>
+      <td>\d</td>
+      <td>当前数据库</td>
+    </tr>
+    <tr>
+      <td>\h</td>
+      <td>服务器名称</td>
+    </tr>
+    <tr>
+      <td>\u</td>
+      <td>当前用户</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="命令使用">命令使用</h2>
+
+<h3 id="修改mysql提示符">修改MySQL提示符</h3>
+
+<p>1.连接客户端时通过参数指定</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>mysql -uroot -proot --prompt 提示符
+</code></pre>
+</div>
+
+<p>2.连接上客户端后，通过prompt命令修改</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>mysql&gt;prompt 提示符
+</code></pre>
+</div>
+
+<h3 id="mysql常用命令">MySQL常用命令</h3>
+
+<p>1.显示当前服务器版本</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>SELECT VERSION();
+</code></pre>
+</div>
+
+<p>2.显示当前日期时间</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>SELECT NOW();
+</code></pre>
+</div>
+
+<p>3.显示当前用户</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>SELECT USER();
+</code></pre>
+</div>
+
+<h3 id="mysql语句规范">MySQL语句规范</h3>
+
+<p>1.关键字与函数名称全部大写。</p>
+
+<p>2.数据库名称、表名称、字段名称全部小写。</p>
+
+<p>3.SQL语句必须以”;”符号结尾。</p>
+
+<h1 id="5-sql">5 SQL</h1>
+
+<p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言。
+不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
+
+<p>具体参看文章
+<a href="/2017/05/19/mysql-sql-study/">《MySQL 中的SQL》</a></p>
+
+<h1 id="6-数据类型">6 数据类型</h1>
+
+<p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
+
+<h2 id="整型">整型</h2>
+
+<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-01.png" alt="整型表"></p>
+
+<h2 id="浮点型">浮点型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>数据类型</th>
+      <th>存储范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FLOAT[(M,D)]</td>
+      <td>-3.402823466E+38到-1.175494351E-38、0和1.175494351E-38到3.402823466E+38。M是数字总位数，D是小数点后面的位数。如果M和D被省略，根据硬件允许的限制来保存值。单精度浮点数精确到大约7位小数点。</td>
+    </tr>
+    <tr>
+      <td>DOUBLE[(M,D)]</td>
+      <td>-1.7976931348623157E+308到-2.2250738585072014E-308、0和2.2250738585072014E-308到1.7976931348623157E+308。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="日期和时间型">日期和时间型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>列类型</th>
+      <th>存储需求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>YEAR</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>TIME</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>DATE</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>DATETIME</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>TIMESTAMP</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="字符型">字符型</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>列类型</th>
+      <th>存储需求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CHAR(M)</td>
+      <td>M个字节，0&lt;=M&lt;=255</td>
+    </tr>
+    <tr>
+      <td>VARCHAR(M)</td>
+      <td>L+1个字节，其中L&lt;=M且0&lt;=M&lt;=65535</td>
+    </tr>
+    <tr>
+      <td>TINYTEXT</td>
+      <td>L+1个字节，其中L&lt;2^8</td>
+    </tr>
+    <tr>
+      <td>TEXT</td>
+      <td>L+2个字节，其中L&lt;2^16</td>
+    </tr>
+    <tr>
+      <td>MEDIUMTEXT</td>
+      <td>L+3个字节，其中L&lt;2^24</td>
+    </tr>
+    <tr>
+      <td>LONGTEXT</td>
+      <td>L+4个字节，其中L&lt;2^32</td>
+    </tr>
+    <tr>
+      <td>ENUM(‘VALUE1’,’VALUE2’,…)</td>
+      <td>1或2个字节，取决于枚举值的个数（最多65,535个值）</td>
+    </tr>
+    <tr>
+      <td>SET(‘VALUE1’,’VALUE2’,…)</td>
+      <td>1、2、3、4或者8个字节，取决于set成员的数目（最多64个成员）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>更多其他MySQL使用与知识可以参见<a href="/2017/05/29/mysql-advanced-study/">《拆解 MySQL 的高阶使用与概念》</a></p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/mysql-study/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/mysql-study/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

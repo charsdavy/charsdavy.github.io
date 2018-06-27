@@ -1,0 +1,518 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>sublime text 实用技巧</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">30 Mar 2017</span>
+      				<h1>sublime text 实用技巧</h1>
+      				<p></p>
+<p>Sublime Text 是一个代码编辑器（Sublime Text 2是收费软件，但可以无限期试用），也是HTML和散文先进的文本编辑器。Sublime Text是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的Vim。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>Sublime Text 是一个代码编辑器（Sublime Text 2是收费软件，但可以无限期试用），也是HTML和散文先进的文本编辑器。Sublime Text是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的Vim。</p>
+
+<p>笔者整理了一些使用快捷方式，以及一些常用插件，分享一下。</p>
+
+<h2 id="安装包控制package-control">安装包控制（Package Control）</h2>
+
+<p>打开Sublime Text 2，按快捷键 ctrl+` 或者点击 Tools → Command Palette 调出控制台Console；
+将以下代码复制粘贴进命令行后回车：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp)elseNone;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())
+</code></pre>
+</div>
+
+<p>重新启动Sublime Text 2，如果在Preferences → Package Settings 中看到 Package Control 这一项，就说明安装成功。</p>
+
+<h2 id="安装alignment插件">安装Alignment插件</h2>
+
+<p>对于喜欢整齐的码农来说，这不失为一个省事的插件。该插件可以通过上面安装好的 Package Control 来安装：</p>
+
+<p>按ctrl + shift + P调出命令面板；</p>
+
+<p>输入 install 调出 Package Control：Install Package 选项，并回车；</p>
+
+<p>输入Alignment，选中并按回车安装；</p>
+
+<p>重启Sublime Text 2，选中文本并按ctrl + alt + a 就可以进行对齐操作了。</p>
+
+<h2 id="安装-soda-主题">安装 Soda 主题</h2>
+
+<p>这里的主题不同于针对代码的 color scheme，而是针对Sublime Text 2该软件本身的主题，该主题也可以通过万能的 Package Control 来安装。</p>
+
+<p>按ctrl + shift + P调出命令面板；</p>
+
+<p>输入 install 调出 Package Control：Install Package 选项，并回车；</p>
+
+<p>输入 theme soda 选中后回车即可安装；</p>
+
+<p>安装完之后要激活主题，打开 Preferences → Global Settings – User，加上以下代码保存即可生效：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>"theme": "Soda Light.sublime-theme" 或者 "theme" : "Soda Dark.sublime-theme"
+</code></pre>
+</div>
+
+<h2 id="安装ctags插件">安装cTags插件</h2>
+
+<p>首先，从Ctags官网下载压缩包下来，解压到电脑的某个地方，比如“C:\Program Files\ctags”，然后把cTags添加到系统变量里去：
+在“我的电脑”右键属性 → 高级 → 环境变量 → 在“系统变量”里找到“Path”，点击“编辑” → 把“;C:\Program Files\ctags”（不包括双引号）复制到最后 → 最后一路“确定”保存。</p>
+
+<p>然后通过 Package Control 来安装 cTags 插件：</p>
+
+<p>按ctrl + shift + P调出命令面板；</p>
+
+<p>输入 install 调出 Package Control：Install Package 选项，并回车；</p>
+
+<p>输入 ctags 选中后回车即可安装。</p>
+
+<p>安装完之后，在项目的当前目录下按ctrl + t, ctrl + r，会生成.tags的文件。当光标停留在某个函数上时，按快捷键 ctrl+t, ctrl+t就可以打开函数所在的文件，并跳转到相应的位置了。</p>
+
+<p><strong>PS</strong> 安装这个插件折腾了我蛮久，主要是不知道还要从ctags官网下载压缩包，以及修改系统的变量，后来还是一博友给我发的国外的参考资料才知道要这样配置 的。刚开始知道这软件之所以没用是因为没有像eclipse可以追踪函数的功能，后来才知道可以通过安装cTags插件来实现。装上此功能后，就更喜欢用 Sublime Text 2了。</p>
+
+<h2 id="jsformat插件">jsFormat插件</h2>
+
+<p>格式化js：选中一段文本，control+alt+f。</p>
+
+<p>DocBlockr</p>
+
+<p>在JS函数上方输入/**，然后回车，doc就生成好了非常好用。</p>
+
+<p>sublime-jslint</p>
+
+<p>打开一个js文件，control+j，即可输出jsLint检查的结果。打开Packages目录，找到插件目录sublime-jslint，打开 sublime-jslint.sublime-settings文件，可以修改jsLint配置，还可以配置文件保存时自动检查等，如：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Path</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">jslint</span><span class="w"> </span><span class="err">jar.</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Leave</span><span class="w"> </span><span class="err">blank</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">bundled</span><span class="w"> </span><span class="err">jar.</span><span class="w"> </span><span class="nt">"jslint_jar"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">   </span><span class="err">//</span><span class="w"> </span><span class="err">Options</span><span class="w"> </span><span class="err">pass</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">jslint.</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Jerry</span><span class="w"> </span><span class="err">Qu注：全部可用配置参考这里，https</span><span class="p">:</span><span class="err">//github.com/fbzhong/sublime-jslint/wiki/Available-</span><span class="w"> </span><span class="err">jslint</span><span class="mi">4</span><span class="err">java-options</span><span class="w"> </span><span class="s2">"jslint_options"</span><span class="err">:</span><span class="w"> </span><span class="s2">"--encoding utf-8 --bitwise --browser --cap --css --devel --debug --evil --forin --fragment --on --sub --white --windows --sloppy"</span><span class="p">,</span><span class="w">   </span><span class="err">//</span><span class="w"> </span><span class="err">Ignore</span><span class="w"> </span><span class="err">errors,</span><span class="w"> </span><span class="err">regex.</span><span class="w"> </span><span class="nt">"ignore_errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="s2">"Expected an identifier and instead saw 'undefined' \(a reserved word\)"</span><span class="w"> </span><span class="p">],</span><span class="w">   </span><span class="err">//</span><span class="w"> </span><span class="err">run</span><span class="w"> </span><span class="err">jslint</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">save.</span><span class="w"> </span><span class="nt">"run_on_save"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">   </span><span class="err">//</span><span class="w"> </span><span class="err">debug</span><span class="w"> </span><span class="err">flag.</span><span class="w"> </span><span class="nt">"debug"</span><span class="p">:</span><span class="kc">false</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="sidebarenhancements">SideBarEnhancements</h2>
+
+<p>推荐通过 Package Control 安装 SideBarEnhancements 这个插件，可以大大加强在侧栏目录树中右键的选项</p>
+
+<h2 id="推荐插件">推荐插件：</h2>
+
+<p>1）Zen Coding</p>
+
+<p>2）jQuery Package for sublime Text</p>
+
+<p>3）Clipboard History</p>
+
+<p>4）Bracket Highlighter</p>
+
+<p>5）GBK to UTF8</p>
+
+<p>6）Git</p>
+
+<h2 id="常用快捷键">常用快捷键</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>按键组合</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Command+Shift+L</td>
+      <td>选中多行即可可以同时编辑这些行</td>
+    </tr>
+    <tr>
+      <td>control + Command +G</td>
+      <td>可以一次性选择全部相同的文件进行同时编辑</td>
+    </tr>
+    <tr>
+      <td>Ctrl+D</td>
+      <td>选词（反复按快捷键，即可继续向下同时选中下一个相同的文本进行同时编辑）</td>
+    </tr>
+    <tr>
+      <td>Ctrl+G</td>
+      <td>跳转到相应的行</td>
+    </tr>
+    <tr>
+      <td>Ctrl+J</td>
+      <td>合并行（已选择需要合并的多行时）</td>
+    </tr>
+    <tr>
+      <td>Ctrl+L</td>
+      <td>选择整行（按住-继续选择下行）</td>
+    </tr>
+    <tr>
+      <td>Ctrl+M</td>
+      <td>光标移动至括号内开始或结束的位置</td>
+    </tr>
+    <tr>
+      <td>Ctrl+T</td>
+      <td>词互换</td>
+    </tr>
+    <tr>
+      <td>Ctrl+U</td>
+      <td>软撤销</td>
+    </tr>
+    <tr>
+      <td>Ctrl+P</td>
+      <td>查找当前项目中的文件和快速搜索；输入@查找文件主标题/函数；或者输入:跳转到文件某行；</td>
+    </tr>
+    <tr>
+      <td>Ctrl+R</td>
+      <td>快速列出/跳转到某个函数</td>
+    </tr>
+    <tr>
+      <td>Ctrl+KBackspace</td>
+      <td>从光标处删除至行首</td>
+    </tr>
+    <tr>
+      <td>Ctrl+KB</td>
+      <td>开启/关闭侧边栏</td>
+    </tr>
+    <tr>
+      <td>Ctrl+KK</td>
+      <td>从光标处删除至行尾</td>
+    </tr>
+    <tr>
+      <td>Ctrl+KT</td>
+      <td>折叠属性</td>
+    </tr>
+    <tr>
+      <td>Ctrl+KU</td>
+      <td>改为大写</td>
+    </tr>
+    <tr>
+      <td>Ctrl+KL</td>
+      <td>改为小写</td>
+    </tr>
+    <tr>
+      <td>Ctrl+K0</td>
+      <td>展开所有</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Enter</td>
+      <td>插入行后（快速换行）</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Tab</td>
+      <td>当前窗口中的标签页切换</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+A</td>
+      <td>选择光标位置父标签对儿</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+D</td>
+      <td>复制光标所在整行，插入在该行之前</td>
+    </tr>
+    <tr>
+      <td>ctrl+shift+F</td>
+      <td>在文件夹内查找，与普通编辑器不同的地方是sublime允许添加多个文件夹进行查找</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+K</td>
+      <td>删除整行</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+L</td>
+      <td>鼠标选中多行（按下快捷键），即可同时编辑这些行</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+M</td>
+      <td>选择括号内的内容（按住-继续选择父括号）</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+P</td>
+      <td>打开命令面板</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+/</td>
+      <td>注释已选择内容</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+↑</td>
+      <td>可以移动此行代码，与上行互换</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+↓</td>
+      <td>可以移动此行代码，与下行互换</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+[</td>
+      <td>折叠代码</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+]</td>
+      <td>展开代码</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Shift+Enter</td>
+      <td>光标前插入行</td>
+    </tr>
+    <tr>
+      <td>Ctrl+PageDown、Ctrl+PageUp</td>
+      <td>文件按开启的前后顺序切换</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Z</td>
+      <td>撤销</td>
+    </tr>
+    <tr>
+      <td>Ctrl+Y</td>
+      <td>恢复撤销</td>
+    </tr>
+    <tr>
+      <td>Ctrl+F2</td>
+      <td>设置书签</td>
+    </tr>
+    <tr>
+      <td>Ctrl+/</td>
+      <td>注释整行（如已选择内容，同“Ctrl+Shift+/”效果）</td>
+    </tr>
+    <tr>
+      <td>Ctrl+鼠标左键</td>
+      <td>可以同时选择要编辑的多处文本</td>
+    </tr>
+    <tr>
+      <td>Shift+鼠标右键（或使用鼠标中键）</td>
+      <td>可以用鼠标进行竖向多行选择</td>
+    </tr>
+    <tr>
+      <td>Shift+F2</td>
+      <td>上一个书签</td>
+    </tr>
+    <tr>
+      <td>Shift+Tab</td>
+      <td>去除缩进</td>
+    </tr>
+    <tr>
+      <td>Alt+Shift+1~9（非小键盘）</td>
+      <td>屏幕显示相等数字的小窗口</td>
+    </tr>
+    <tr>
+      <td>Alt+.</td>
+      <td>闭合当前标签</td>
+    </tr>
+    <tr>
+      <td>Alt+F3</td>
+      <td>选中文本按下快捷键，即可一次性选择全部的相同文本进行同时编辑</td>
+    </tr>
+    <tr>
+      <td>Tab</td>
+      <td>缩进,自动完成</td>
+    </tr>
+    <tr>
+      <td>F2</td>
+      <td>下一个书签</td>
+    </tr>
+    <tr>
+      <td>F6</td>
+      <td>检测语法错误</td>
+    </tr>
+    <tr>
+      <td>F9</td>
+      <td>行排序(按a-z)</td>
+    </tr>
+    <tr>
+      <td>F11</td>
+      <td>全屏模式</td>
+    </tr>
+  </tbody>
+</table>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/sublime-text-tool/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/sublime-text-tool/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>iOS 二维码扫描</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">26 Dec 2015</span>
+      				<h1>iOS 二维码扫描</h1>
+      				<p></p>
+<p>二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>二维条码/二维码（2-dimensional bar code）是用某种特定的几何图形按一定规律在平面（二维方向上）分布的黑白相间的图形记录数据符号信息的；在代码编制上巧妙地利用构成计算机内部逻辑基础的“0”、“1”比特流的概念，使用若干个与二进制相对应的几何形体来表示文字数值信息，通过图象输入设备或光电扫描设备自动识读以实现信息自动处理：它具有条码技术的一些共性：每种码制有其特定的字符集；每个字符占有一定的宽度；具有一定的校验功能等。同时还具有对不同行的信息自动识别功能、及处理图形旋转变化点。</p>
+
+<p>在这么一个二维码泛滥的时代，一般的App都会支持二维码扫描，那么这个功能应该如何实现呢？</p>
+
+<p>这几天博主高仿新浪微博的项目进行一个阶段性的tag，在此也将这个项目在实现二维码扫描这个功能来做一个简要的记录。关于高仿新浪微博的源代码，已经将全部代码托管到<a href="https://github.com/CharsDavy/iWeibo">github</a>。</p>
+
+<p>关于二维码的扫描，网上说的最多的框架莫过于<a href="https://github.com/bmorton/ZBarSDK">ZBar</a>和ZXing框架，刚开始也是想使用第三方框架，但是，在iOS7之后苹果官方已经提供了二维码扫描方法，而且实现起来还是蛮简单的，故而选择原生态方法。不过，我们还是来看看，如何使用ZBar实现二维码扫描。</p>
+
+<p>首先在github上下载ZBar代码，然后将如下的相关类库添加进去：　</p>
+
+<ul>
+  <li>AVFoundation.framwork</li>
+  <li>CoreMedia.framework</li>
+  <li>CoreVideo.framework</li>
+  <li>libiconv.dylib</li>
+  <li>libzbar.a</li>
+</ul>
+
+<p>接下来在.h文件中#import “ZBarSDK.h”，同时添加代理ZBarReaderDelegate，然后在.m文件中添加如下代码：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>-(void)sysbutbuttonclick{
+      
+     ZBarReaderViewController *reader = [ZBarReaderViewController new];
+     reader.readerDelegate = self;
+     ZBarImageScanner *scanner = reader.scanner;
+      
+     [scanner setSymbology: ZBAR_I25
+                    config: ZBAR_CFG_ENABLE
+                        to: 0];
+     [self presentModalViewController: reader    animated: YES];
+ }
+  
+ - (void) imagePickerController: (UIImagePickerController*) reader
+  didFinishPickingMediaWithInfo: (NSDictionary*) info
+ {
+      
+     NSLog(@"info=%@",info);
+     // 得到条形码结果
+     id&lt;NSFastEnumeration&gt; results =[info objectForKey: ZBarReaderControllerResults];
+     ZBarSymbol *symbol = nil;
+     for(symbol in results)
+         // EXAMPLE: just grab the first barcode
+         break;
+      
+      
+     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"信息提示!" message:symbol.data delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+     [alert show];
+ }
+</code></pre>
+</div>
+
+<p>最后触发扫描事件的时候调用sysbutbuttonclick即可。</p>
+
+<p>博主在项目中使用的是苹果官方提供的，并将其实现单独封装，以方便使用。</p>
+
+<p>其实我们只需要三个步骤即可实现二维码扫描功能：</p>
+
+<p>1）导入AVFoundation框架，<code class="highlighter-rouge">import &lt;AVFoundation/AVFoundation.h&gt;</code>；</p>
+
+<p>2）设置一个用于显示扫描的view；</p>
+
+<p>3）实例化AVCaptureSession、AVCaptureVideoPreviewLayer。</p>
+
+<p>具体实现方式如下：</p>
+
+<p>1）添加开始扫描方法：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>- (void)startReading
+{
+    NSError *error;
+     
+    //1.初始化捕捉设备（AVCaptureDevice），类型为AVMediaTypeVideo
+    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+     
+    //2.用captureDevice创建输入流
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&amp;error];
+    if (!input) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+     
+    //3.创建媒体数据输出流
+    AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
+     
+    //4.实例化捕捉会话
+    _captureSession = [[AVCaptureSession alloc] init];
+    //4.1.将输入流添加到会话
+    [_captureSession addInput:input];
+    //4.2.将媒体输出流添加到会话中
+    [_captureSession addOutput:captureMetadataOutput];
+     
+    //5.创建串行队列，并加媒体输出流添加到队列当中
+    dispatch_queue_t dispatchQueue;
+    dispatchQueue = dispatch_queue_create("myScanQueue", NULL);
+    //5.1.设置代理
+    [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
+    //5.2.设置输出媒体数据类型为QRCode
+    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];
+     
+    //6.实例化预览图层
+    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+     
+    //7.设置预览图层填充方式
+    [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+     
+    //8.设置图层的frame
+    [_videoPreviewLayer setFrame:_viewPreview.layer.bounds];
+     
+    //9.将图层添加到预览view的图层上
+    [_viewPreview.layer addSublayer:_videoPreviewLayer];
+     
+    //10.设置扫描范围
+    captureMetadataOutput.rectOfInterest = CGRectMake(0.2f, 0.2f, 0.8f, 0.8f);
+    //10.1.扫描框
+    _boxView = [[UIView alloc] initWithFrame:CGRectMake(_viewPreview.bounds.size.width * 0.1f, _viewPreview.bounds.size.height * 0.2f, _viewPreview.bounds.size.width * 0.8f, _viewPreview.bounds.size.width * 0.8f)];
+    _boxView.layer.borderColor = kRangeColor;
+    _boxView.layer.borderWidth = 1.0f;
+    [_viewPreview addSubview:_boxView];
+    //10.2.扫描线
+    _scanLayer = [[CALayer alloc] init];
+    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, kLineBorad);
+    _scanLayer.backgroundColor = kLineColor;
+    [_boxView.layer addSublayer:_scanLayer];
+     
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];   
+    [timer fire];
+     
+    //11.开始扫描
+    [_captureSession startRunning];
+}
+</code></pre>
+</div>
+
+<p>2）实现代理方法：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>#pragma mark - AVCaptureMetadataOutputObjectsDelegate
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+{
+    NSString *urlStr;
+    //判断是否有数据
+    if (metadataObjects != nil &amp;&amp; [metadataObjects count] &gt; 0) {
+        AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex:0];
+        //判断回传的数据类型
+        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]) {
+            urlStr = metadataObj.stringValue;
+            [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];
+        }
+    }
+ 
+    _videoPreviewLayer.hidden = YES;
+    _webView.hidden = NO;
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
+    [self.webView loadRequest:request];   
+}
+</code></pre>
+</div>
+
+<p>3）设置好页面布局，用来显示扫描结果即可。</p>
+
+<p>以上就是两种二维码扫描实现简要过程。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/ios-qrcode-scaner/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/ios-qrcode-scaner/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

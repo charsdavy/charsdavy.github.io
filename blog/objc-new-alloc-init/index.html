@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>Objective-C 中 new、alloc和init的区别</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">17 Feb 2016</span>
+      				<h1>Objective-C 中 new、alloc和init的区别</h1>
+      				<p></p>
+<p>在实际开发中很少会用到new，一般创建对象我们看到的全是[[className alloc] init]，但是并不意味着你不会接触到new，在一些代码中还是会看到[className new]，还有去面试的时候，也很可能被问到这个问题。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>在实际开发中很少会用到new，一般创建对象我们看到的全是[[className alloc] init]，但是并不意味着你不会接触到new，在一些代码中还是会看到[className new]，还有去面试的时候，也很可能被问到这个问题。</p>
+
+<p>那么，它们两者之间到底有什么区别呢？我们先来看源码：</p>
+
+<div class="language-objc highlighter-rouge">
+<pre class="highlight"><code><span class="k">+</span> <span class="o">+</span> <span class="n">new</span> <span class="p">{</span> 
+    <span class="n">id</span> <span class="n">newObject</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">_alloc</span><span class="p">)((</span><span class="n">Class</span><span class="p">)</span><span class="n">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> 
+    <span class="n">Class</span> <span class="n">metaClass</span> <span class="o">=</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">isa</span><span class="p">;</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="n">class_getVersion</span><span class="p">(</span><span class="n">metaClass</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> 
+        <span class="k">return</span> <span class="p">[</span><span class="n">newObject</span> <span class="nf">init</span><span class="p">];</span> 
+    <span class="k">else</span> 
+        <span class="k">return</span> <span class="n">newObject</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>而 alloc/init 像这样</p>
+
+<div class="language-objc highlighter-rouge">
+<pre class="highlight"><code><span class="k">+</span> <span class="o">+</span> <span class="n">alloc</span> <span class="p">{</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">_zoneAlloc</span><span class="p">)((</span><span class="n">Class</span><span class="p">)</span><span class="n">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">malloc_default_zone</span><span class="p">());</span>  
+<span class="p">}</span> 
+
+<span class="o">-</span> <span class="n">init</span> <span class="p">{</span> 
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>通过源码中我们发现，[className new]基本等同于[[className alloc] init]，区别只在于alloc分配内存的时候使用了zone。</p>
+
+<p>那么，这个zone是个什么东西呢？</p>
+
+<p>它是给对象分配内存的时候，把关联的对象分配到一个相邻的内存区域内，以便于调用时消耗很少的代价，提升了程序处理速度。</p>
+
+<p>为什么不推荐使用new？</p>
+
+<p>不知大家发现了没有，如果使用new的话，初始化方法被固定死只能调用init。而你想调用initXXX怎么办？没门儿！据说最初的设计是完全借鉴Smalltalk语法来的。传说那个时候已经有allocFromZone:这个方法，但是这个方法需要传个参数id myCompanion = [[TheClass allocFromZone:[self zone]] init];</p>
+
+<p>这个方法像下面这样：</p>
+
+<div class="language-objc highlighter-rouge">
+<pre class="highlight"><code><span class="k">+</span> <span class="o">+</span> <span class="nf">allocFromZone</span><span class="p">:(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="n">z</span> <span class="p">{</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">_zoneAlloc</span><span class="p">)((</span><span class="n">Class</span><span class="p">)</span><span class="n">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>  
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>后来简化为下面这个：</p>
+
+<div class="language-objc highlighter-rouge">
+<pre class="highlight"><code><span class="k">+</span> <span class="o">+</span> <span class="n">alloc</span> <span class="p">{</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">_zoneAlloc</span><span class="p">)((</span><span class="n">Class</span><span class="p">)</span><span class="n">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">malloc_default_zone</span><span class="p">());</span>  
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>但是，出现个问题：这个方法只是给对象分配了内存，并没有初始化实例变量。</p>
+
+<p>是不是又回到new那样的处理方式：在方法内部隐式调用init方法呢？后来发现“显示调用总比隐式调用更好”，所以后来就把两个方法分开了。</p>
+
+<p>概括来说，new和alloc/init在功能上几乎是一致的，分配内存并完成初始化。差别在于，采用new的方式只能采用默认的init方法完成初始化，采用alloc的方式可以用其他定制的初始化方法。</p>
+
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/objc-new-alloc-init/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/objc-new-alloc-init/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

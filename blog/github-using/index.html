@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>GitHub 使用</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">21 May 2016</span>
+      				<h1>GitHub 使用</h1>
+      				<p></p>
+<p>GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>GitHub就是程序员的facebook，在这个开源、大神云集的地方，小菜是可以学到，找到很多很棒的资源的。那么，如何进入这个圈子呢？我们从使用开始。这篇文章主要讲解如何使用GitHub托管自己的代码，注意，托管是公开的喔，私有的要付费的。</p>
+
+<h1 id="下载github客户端软件">下载github客户端软件</h1>
+<ol>
+  <li>官网<a href="https://help.github.com/">下载</a>
+</li>
+  <li>Google搜索，一般用于windows7以前的系统</li>
+</ol>
+
+<h1 id="安装github软件">安装github软件</h1>
+<p>根据软件安装指导，按步骤安装即可。</p>
+
+<h1 id="使用git命令提交">使用git命令提交</h1>
+<h2 id="git-config">git config</h2>
+<p>安装Git后首先要做的事情是设置用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>	git config --global user.name "Chars Davy"
+	git config --global user.email chars_d@example.com
+
+</code></pre>
+</div>
+
+<p>重申一遍，只需要做一次这个设置。如果传递了 <code class="highlighter-rouge">--global</code> 选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或e-mail地址，你可以在该项目中运行该命令而不要<code class="highlighter-rouge">--global</code>选项。</p>
+
+<p><strong>注意：</strong></p>
+
+<p>默认git对大小写是不敏感的，可以通过命令关掉其配置：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git config core.ignorecase false
+</code></pre>
+</div>
+
+<h2 id="git-clone">git clone</h2>
+<p>这是一种较为简单的初始化方式，当你已经有一个远程的Git版本库，只需要在本地克隆一份:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git  clone  git://github.com/someone/some_project.git   some_project 
+</code></pre>
+</div>
+
+<p>上面的命令就是将<code class="highlighter-rouge">git://github.com/someone/some_project.git</code>这个URL地址的远程版本库，完全克隆到本地some_project目录下。</p>
+
+<h2 id="git-init-和-git-remote">git init 和 git remote</h2>
+<p>这种方式稍微复杂一些，当你本地创建了一个工作目录，你可以进入这个目录，使用<code class="highlighter-rouge">git init</code>命令进行初始化；Git以后就会对该目录下的文件进行版本控制，这时候如果你需要将它放到远程服务器上，可以在远程服务器上创建一个目录，并把可访问的URL记录下来，此时你就可以利用<code class="highlighter-rouge">git remote add</code>命令来增加一个远程服务器端，</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git  remote  add  origin  git://github.com/someone/another_project.git
+</code></pre>
+</div>
+
+<p>上面的命令就会增加URL地址为<code class="highlighter-rouge">git: //github.com/someone/another_project.git</code>，名称为origin的远程服务器，以后提交代码的时候只需要使用 origin别名即可。</p>
+
+<h2 id="git-add">git add</h2>
+<p>将当前更改或者新增的文件加入到Git的索引中，加入到Git的索引中就表示记入了版本历史中，这也是提交之前所需要执行的一步，</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git add app/model/user.rb
+</code></pre>
+</div>
+
+<p>就会增加<code class="highlighter-rouge">app/model/user.rb</code>文件到Git的索引中，该功能类似于SVN的add，</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git add .
+</code></pre>
+</div>
+
+<p>上面的命令会将所有改动过的文件及文件夹迭代全部添加进本地代码仓库。</p>
+
+<h2 id="git-commit">git commit</h2>
+<p>提交当前工作空间的修改内容，类似于SVN的commit命令，</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git commit -m story #3, add user model
+</code></pre>
+</div>
+
+<p>提交的时候必须用-m来输入一条提交信息，该功能类似于SVN的commit，</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git commit –m beta
+</code></pre>
+</div>
+
+<p>上面的命令会将beta作为log显示在代码提交记录中。</p>
+
+<h2 id="git-push">git push</h2>
+
+<p>将本地commit的代码更新到远程版本库中，</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git push origin
+</code></pre>
+</div>
+
+<p>上面的命令就会将本地的代码更新到名为orgin的远程版本库中。</p>
+
+<h1 id="git代码提交中可能遇到的问题">git代码提交中可能遇到的问题</h1>
+<p>问题1：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>You can't push to git://github.com/example/example_pro.git
+Use https://github.com/ example/example_pro.git
+</code></pre>
+</div>
+
+<p>解决办法：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>git remote remove origin
+git remote add origin git@github.com:user_name/user_repo.git
+git push origin
+</code></pre>
+</div>
+
+<p>原因：</p>
+
+<p>如果在<code class="highlighter-rouge">git clone</code>的时候用的是<code class="highlighter-rouge">git://github.com:xx/xxx.git</code> 的形式, 那么就会出现这个问题，因为这个protocol是不支持push的，而使用<code class="highlighter-rouge">git clone git@github.com:lujinjianst/myNCCL.git</code>就可以用git push。</p>
+
+<p>问题2：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Permission denied(publickey).
+fatal:Could not read from remote repository.
+</code></pre>
+</div>
+
+<p>解决办法：</p>
+
+<p>在终端输入:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>ssh-keygen -t rsa -C "chars"//注意,chars为用户名
+</code></pre>
+</div>
+
+<p>如果执行成功。返回:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Generating public/private rsa key pair. 
+Enter file in which to save the key (/home/forwhat.cn/.ssh/id_rsa): 
+</code></pre>
+</div>
+
+<p>在这里就是设置存储地址了.反正我是直接按的回车,然后还会返回:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Enter passphrase (empty for no passphrase):
+</code></pre>
+</div>
+
+<p>再次直接回车。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Enter same passphrase again:
+</code></pre>
+</div>
+
+<p>再次回车。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>Your identification has been saved in /home/forwhat.cn/.ssh/id_rsa. 
+Your public key has been saved in /home/forwhat.cn/.ssh/id_rsa.pub. 
+The key fingerprint is:
+</code></pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>The key's randomart image is: 
++--[ RSA 2048]----+ 
+|                 | 
+|                 | 
+|                 | 
+|    o            | 
+|   + .  S        | 
+|  . = .  o       | 
+|   o + +o.o      | 
+|E o . o.=+.      | 
+|.+   ==+ooo.     | 
++-----------------+ 
+</code></pre>
+</div>
+<p>这样SSH key就生成了。直接cat一下就好了。</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>:~/a$ cat /home/forwhat.cn/.ssh/id_rsa.pub 
+</code></pre>
+</div>
+
+<p>把显示出来的直接添加到github账户设置里边的SSH keys。
+回来再git pull就开始远程拷贝代码了。</p>
+
+<p>原因：</p>
+
+<p>没有在github账号添加SSH key。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/github-using/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/github-using/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>

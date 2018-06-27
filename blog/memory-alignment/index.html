@@ -1,0 +1,429 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>内存对齐详解</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+          <a href="/" class="logo">Chars's Tech Blog</a>
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/about/">About</a></li>
+<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
+</ul>
+
+
+						<ul class="icons">
+              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">11 Feb 2016</span>
+      				<h1>内存对齐详解</h1>
+      				<p></p>
+<p>现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。
+本文分享博主对内存对齐的一些理解。</p>
+
+
+      			</header>
+      			<div class="image main"><img src="" alt=""></div>
+      			<p></p>
+<p>现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。
+本文分享博主对内存对齐的一些理解。</p>
+
+<h1 id="一什么是内存对齐">一、什么是内存对齐</h1>
+<p>现代计算机中内存空间都是按照byte划分的，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问， 这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是内存对齐。</p>
+
+<h1 id="二内存对齐的原因">二、内存对齐的原因</h1>
+<p>1、平台原因（移植原因）：不是所有的硬件平台都能访问任意地址上的任意数据的；某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常。</p>
+
+<p>2、性能原因：数据结构（尤其是栈）应该尽可能地在自然边界上对齐。原因在于，为了访问未对齐的内存，处理器需要作两次内存访问；而对齐的内存访问仅需要一次访问。</p>
+
+<h1 id="三对齐规则">三、对齐规则</h1>
+<p>每个特定平台上的编译器都有自己的默认“对齐系数”（也叫对齐模数）。程序员可以通过预编译命令#pragma pack(n)，n=1,2,4,8,16 来改变这一系数，其中的n 就是你要指定的“对齐系数”。</p>
+<h2 id="规则1">规则1</h2>
+<p><strong>数据成员对齐规则：</strong>结构(struct)(或联合(union))的数据成员，第一个数据成员放在offset为0 的地方，以后每个数据成员的对齐按照#pragma pack 指定的数值和这个数据成员自身长度中，比较小的那个进行。</p>
+
+<h2 id="规则2">规则2</h2>
+<p><strong>结构（或联合）的整体对齐规则：</strong>在数据成员完成各自对齐之后，结构（或联合）本身也要进行对齐，对齐将按照#pragma pack 指定的数值和结构（或联合）最大数据成员长度中，比较小的那个进行。</p>
+
+<h2 id="规则3">规则3</h2>
+<p>结合1、2 可推断：当#pragma pack 的n 值等于或超过所有数据成员长度的时候，这个n值的大小将不产生任何效果。</p>
+
+<h1 id="四试验">四、试验</h1>
+<p>接下来我们通过实际例子来说明这些规则。</p>
+
+<p><strong>试验环境：</strong>编译器包括GCC 3.4.2 和VC6.0 的C 编译器。</p>
+
+<p><strong>平台：</strong>Windows XP SP2。</p>
+
+<p>我们将用典型的struct 对齐来说明。首先我们定义一个struct：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>#pragma pack(n) /* n = 1, 2, 4, 8, 16 */
+struct test_t{
+    int a;
+    char b;
+    short c;
+    char d;
+};
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">#pragma pack(n)</code></p>
+
+<p>首先我们首先确认在试验平台上的各个类型的size，经验证两个编译器的输出均为：</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>sizeof(char) = 1
+sizeof(short) = 2
+sizeof(int) = 4
+</code></pre>
+</div>
+
+<p>验证过程如下：通过#pragma pack(n)改变“对齐系数”，然后查看sizeof(struct test_t)的值。</p>
+
+<h2 id="字节对齐pragma-pack1">字节对齐(#pragma pack(1))</h2>
+<p>输出结果：sizeof(struct test_t) = 8 [两个编译器输出一致]</p>
+
+<p>分析过程：</p>
+<h3 id="成员数据对齐">成员数据对齐</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>#pragma pack(1)
+
+struct test_t {
+    /* 长度4 &lt; 1 按1 对齐；起始offset=0 0%1=0；存放位置区间[0,3] */   
+    int a;
+    /* 长度1 = 1 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */
+    char b;
+    /* 长度2 &gt; 1 按1 对齐；起始offset=5 5%1=0；存放位置区间[5,6] */
+    short c;
+    /* 长度1 = 1 按1 对齐；起始offset=7 7%1=0；存放位置区间[7] */
+    char d;
+};
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">#pragma pack()</code></p>
+
+<p>成员总大小=8</p>
+<h3 id="整体对齐">整体对齐</h3>
+<p>整体对齐系数= min((max(int,short,char), 1) = 1</p>
+
+<p>整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 8 /* 8%1=0 */ [注1]</p>
+
+<p><strong>[注1] 什么是圆整</strong></p>
+
+<p>举例说明：如上面的8 字节对齐中的“整体对齐”，整体大小=9 按4 圆整= 12</p>
+
+<p>圆整的过程：从9 开始每次加一，看是否能被4 整除，这里9，10，11 均不能被4 整除，到12 时可以，则圆整结束。</p>
+
+<h2 id="字节对齐pragma-pack2">字节对齐(#pragma pack(2))</h2>
+<p>输出结果：sizeof(struct test_t) = 10 [两个编译器输出一致]</p>
+
+<p>分析过程：</p>
+<h3 id="成员数据对齐-1">成员数据对齐</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>#pragma pack(2)
+
+struct test_t {
+    /* 长度4 &gt; 2 按2 对齐；起始offset=0 0%2=0；存放位置区间[0,3] */
+    int a;
+     /* 长度1 &lt; 2 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */
+    char b;
+    /* 长度2 = 2 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */
+    short c;
+    /* 长度1 &lt; 2 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */
+    char d;
+};
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">#pragma pack()</code></p>
+
+<p>成员总大小=9</p>
+
+<h3 id="整体对齐-1">整体对齐</h3>
+<p>整体对齐系数= min((max(int,short,char), 2) = 2</p>
+
+<p>整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 10 /* 10%2=0 */</p>
+
+<h2 id="字节对齐pragma-pack4">字节对齐(#pragma pack(4))</h2>
+<p>输出结果：sizeof(struct test_t) = 12 [两个编译器输出一致]</p>
+
+<p>分析过程：</p>
+<h3 id="成员数据对齐-2">成员数据对齐</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>#pragma pack(4)
+
+struct test_t {
+    /* 长度4 = 4 按4 对齐；起始offset=0 0%4=0；存放位置区间[0,3] */
+    int a;
+    /* 长度1 &lt; 4 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */
+    char b;
+    /* 长度2 &lt; 4 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */
+    short c;
+    /* 长度1 &lt; 4 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */
+    char d;
+};
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">#pragma pack()</code></p>
+
+<p>成员总大小=9</p>
+<h3 id="整体对齐-2">整体对齐</h3>
+<p>整体对齐系数= min((max(int,short,char), 4) = 4</p>
+
+<p>整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 12 /* 12%4=0 */</p>
+
+<h2 id="字节对齐pragma-pack8">字节对齐(#pragma pack(8))</h2>
+<p>输出结果：sizeof(struct test_t) = 12 [两个编译器输出一致]</p>
+
+<p>分析过程：</p>
+
+<h3 id="成员数据对齐-3">成员数据对齐</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>
+#pragma pack(8)
+
+struct test_t {
+    /* 长度4 &lt; 8 按4 对齐；起始offset=0 0%4=0；存放位置区间[0,3] */
+    int a;
+    /* 长度1 &lt; 8 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */
+    char b;
+    /* 长度2 &lt; 8 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */
+    short c; 
+    /* 长度1 &lt; 8 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */
+    char d;
+};
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">#pragma pack()</code></p>
+
+<p>成员总大小=9</p>
+
+<h3 id="整体对齐-3">整体对齐</h3>
+<p>整体对齐系数= min((max(int,short,char), 8) = 4</p>
+
+<p>整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 12 /* 12%4=0 */</p>
+
+<h2 id="字节对齐pragma-pack16">字节对齐(#pragma pack(16))</h2>
+<p>输出结果：sizeof(struct test_t) = 12 [两个编译器输出一致]</p>
+
+<p>分析过程：</p>
+
+<h3 id="成员数据对齐-4">成员数据对齐</h3>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>
+#pragma pack(16)
+
+struct test_t {
+    /* 长度4 &lt; 16 按4 对齐；起始offset=0 0%4=0；存放位置区间[0,3] */
+    int a;
+    /* 长度1 &lt; 16 按1 对齐；起始offset=4 4%1=0；存放位置区间[4] */
+    char b;
+    /* 长度2 &lt; 16 按2 对齐；起始offset=6 6%2=0；存放位置区间[6,7] */
+    short c;
+    /* 长度1 &lt; 16 按1 对齐；起始offset=8 8%1=0；存放位置区间[8] */
+    char d;
+};
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">#pragma pack()</code></p>
+
+<p>成员总大小=9</p>
+<h3 id="整体对齐-4">整体对齐</h3>
+<p>整体对齐系数= min((max(int,short,char), 16) = 4</p>
+
+<p>整体大小(size)=$(成员总大小) 按$(整体对齐系数) 圆整= 12 /* 12%4=0 */</p>
+
+<h1 id="五结论">五、结论</h1>
+<p>8 字节和16 字节对齐试验证明了“规则”的第3 点：“当#pragma pack 的n 值等于或超过所有数据成员长度的时候，这个n 值的大小将不产生任何效果”。</p>
+
+      		</section>
+
+          <div class="comments-wrapper">
+          <!--
+          <div id="disqus_thread"></div>
+          <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+               */
+
+              var disqus_config = function () {
+                  this.page.url = '/blog/memory-alignment/';  /*Replace PAGE_URL with your page's canonical URL variable*/
+                  this.page.identifier = '/blog/memory-alignment/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
+              };
+
+              (function() {  /* dont endit below this line */
+                  var d = document, s = d.createElement('script');
+
+                  s.src = 'https://.disqus.com/embed.js';
+
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+
+          <!-- 来必力City版安装代码 -->
+          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
+          <script type="text/javascript">
+             (function(d, s) {
+                 var j, e = d.getElementsByTagName(s)[0];
+
+                 if (typeof LivereTower === 'function') { return; }
+
+                 j = d.createElement(s);
+                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                 j.async = true;
+
+                 e.parentNode.insertBefore(j, e);
+             })(document, 'script');
+          </script>
+          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          </div>
+        </div>
+        <!-- /.comments-wrapper -->
+
+
+
+					<!-- Footer -->
+						<footer>
+              <ul class="actions">
+                <li><a href="/blog/" class="button">All Blog</a></li>
+              </ul>
+						</footer>
+					</div>
+
+				<!-- Footer -->
+        <footer id="footer">
+  <section>
+    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="3"></textarea>
+      </div>
+      <ul class="actions">
+        <li><input type="submit" value="Send Message"></li>
+      </ul>
+    </form>
+  </section>
+  <section class="split contact">
+    <section class="alt">
+      <h3>Location</h3>
+      <p>Guangzhou, China</p>
+    </section>
+    <section>
+      <h3>QQ</h3>
+      <p><a href="qq:124808738">124808738</a></p>
+    </section>
+    <section>
+      <h3>Email</h3>
+      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
+    </section>
+    <section>
+      <h3>Social</h3>
+      <ul class="icons alt">
+        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
+        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
+        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+      </ul>
+    </section>
+  </section>
+</footer>
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>2016 - 2018 © Chars</li>
+<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-80507808-1');
+</script>
+
+
+	</body>
+</html>
