@@ -774,7 +774,25 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
 
 <p>5）copy 此特性所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为NSString*时，经常用此特性来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变”的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的”，就应该在设置新属性值时拷贝一份。</p>
 
-      		</section>
+
+            
+            
+            
+            
+
+            <!-- Tag Buttons -->
+            <ul class="actions">
+              
+              
+              <li><a href="/tags/#ios" class="button small"># ios</a></li>
+              
+              
+              
+              <li><a href="/tags/#%E7%A2%8E%E7%A2%8E%E5%BF%B5" class="button small"># 碎碎念</a></li>
+              
+                  
+            </ul>
+          </section>
 
           <div class="comments-wrapper">
           <!--
