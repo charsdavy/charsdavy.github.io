@@ -43,6 +43,8 @@
             <ul class="links">
   <li class=""><a href="/">Home</a></li>
   <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/tags/">Tags</a></li>
+  <li class=""><a href="/categories/">Categories</a></li>
   <li class=""><a href="/about/">About</a></li>
 <!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
 </ul>
@@ -481,6 +483,27 @@
     </section>
   </section>
 </footer>
+<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
+  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+</div>
+<script type="text/javascript">
+  $("#back-top").hide();
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 800) {
+        $('#back-top').fadeIn();
+      } else {
+        $('#back-top').fadeOut();
+      }
+    });
+    $('#back-top a').click(function () {
+      $('body,html').animate({
+        scrollTop: 0
+      }, 1200);
+      return false;
+    });
+  });
+</script>
 <!-- Copyright -->
 <div id="copyright">
   <ul>

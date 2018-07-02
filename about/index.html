@@ -43,6 +43,8 @@
             <ul class="links">
   <li class=""><a href="/">Home</a></li>
   <li class=""><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/tags/">Tags</a></li>
+  <li class=""><a href="/categories/">Categories</a></li>
   <li class=" active "><a href="/about/">About</a></li>
 <!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
 </ul>
@@ -64,11 +66,15 @@
 						<p></p>
 <h2 id="about-us">About us</h2>
 
-<p><span class="image left"><img src="/images/pic04.jpg" alt=""></span></p>
+<p><span class="image right"><img src="/images/pic04.jpg" alt=""></span></p>
 
 <p>毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 <code class="highlighter-rouge">嵌入式 C 语言</code> 开发，没办法，大学时代选择了 <code class="highlighter-rouge">C</code> 体系的开发工作。主要工作内容就是实现设备支持各种 <code class="highlighter-rouge">IEEE</code> 的网络协议。每天对着交换机、路由器等硬件设备，不断联调，再编写。</p>
 
 <p>大概过了两年时间，发现自己并不是爱好这样的开发。那么，自己到底喜欢什么呢？不断的问自己，最后选择了 <code class="highlighter-rouge">iOS 开发</code>，就这样，开启了自己的自学和就业的道路。想起那时候真的很满足。每天白天上班，晚上下班回到住处。舍友开始打游戏，我就只好默默打开电脑，默默打开视频播放器，继续看视频教程。就这样，牺牲早睡和周末活动时间。终于，完成了转型，成功来到 <code class="highlighter-rouge">iOS 开发</code> 领域。</p>
+
+<p><span class="image left"><img src="/images/pic05.jpg" alt=""></span></p>
+
+<p>现在每天除了工作，更多时候在思考什么东西好用，什么东西可以更好用。希望可以在细微之中找到爆点，培养自己的产品眼光和思维。现在的我做着自己喜欢的事情，平时写写自己的小应用，看看自己感兴趣的技术，周末学学日语。偶尔和同学朋友们聊聊自己的想法，一起头脑风暴。最近更大的愿望就是长找到自己的归处。一个可以让自己安静下来、让自己沉淀下来的地方。或许想就这样扎根下去，静心营造自己的梦想世界。</p>
 
 <h3 id="重要信息">重要信息</h3>
 <div class="box">
@@ -88,12 +94,6 @@
 <div class="box">
   <p>若无特殊说明，本站所有文章均为原创文章，转载请注明文章地址及出处。</p>
 </div>
-
-<p><span class="image left"><img src="/images/pic05.jpg" alt=""></span></p>
-
-<p>现在每天除了工作，更多时候在思考什么东西好用，什么东西可以更好用。现在的我做着自己喜欢的事情，平时写写自己的小应用，看看自己感兴趣的技术，周末学学日语。偶尔和同学朋友们聊聊自己的想法，一起头脑风暴。最近更大的愿望就是长找到自己的归处。一个可以让自己安静下来、让自己沉淀下来的地方。或许想就这样扎根下去，静心营造自己的梦想世界。</p>
-
-<p>日语学习笔记有 <a href="http://chars.tech/blog/japanese-verb">《动词的变形和分类》</a>、<a href="http://chars.tech/blog/japanese-pronounce">《发音》</a>、<a href="http://chars.tech/blog/japanese-honorific-tongue">《敬体和简体》</a>、<a href="http://chars.tech/blog/japanese-auxiliary-word">《助词》</a>、<a href="http://chars.tech/blog/japanese-adjective">《形容词的分类和变形》</a>、<a href="http://chars.tech/blog/chopsticks-using">《你和日本的距离只差5mm》</a>。</p>
 
 					</section>
 
@@ -150,6 +150,27 @@
     </section>
   </section>
 </footer>
+<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
+  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+</div>
+<script type="text/javascript">
+  $("#back-top").hide();
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 800) {
+        $('#back-top').fadeIn();
+      } else {
+        $('#back-top').fadeOut();
+      }
+    });
+    $('#back-top a').click(function () {
+      $('body,html').animate({
+        scrollTop: 0
+      }, 1200);
+      return false;
+    });
+  });
+</script>
 <!-- Copyright -->
 <div id="copyright">
   <ul>
