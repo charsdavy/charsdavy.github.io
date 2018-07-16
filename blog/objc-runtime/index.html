@@ -64,29 +64,29 @@
     				<header class="major">
       				<span class="date">09 May 2017</span>
       				<h1>聊聊Objective-C的Runtime</h1>
-      				<!-- <p><p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
+      				<!-- <p><p>Objective-C 语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
 
 </p> -->
       			</header>
       			<div class="image main"><img src="" alt=""></div>
       			<p></p>
-<p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
+<p>Objective-C 语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。</p>
 
-<p>对于Objective-C来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime基本上是用C和汇编写的，这个库使得C语言有了面向对象的能力。</p>
+<p>对于 Objective-C 来说，这个运行时系统就像一个操作系统一样：它让所有的工作可以正常的运行。Runtime 基本上是用 C 和汇编写的，这个库使得C语言有了面向对象的能力。</p>
 
-<p>在Runtime中，对象可以用C语言中的结构体表示，而方法可以用C函数来实现，另外再加上了一些额外的特性。这些结构体和函数被runtime函数封装后，让Objective-C的面向对象编程变为可能。</p>
+<p>在 Runtime 中，对象可以用 C 语言中的结构体表示，而方法可以用 C 函数来实现，另外再加上了一些额外的特性。这些结构体和函数被 runtime 函数封装后，让 Objective-C 的面向对象编程变为可能。</p>
 
-<p>找出方法的最终执行代码：当程序执行<code class="highlighter-rouge">[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime会根据消息接收者是否能响应该消息而做出不同的反应。</p>
+<p>找出方法的最终执行代码：当程序执行<code class="highlighter-rouge">[object doSomething]</code>时，会向消息接收者(object)发送一条消息(doSomething)，runtime 会根据消息接收者是否能响应该消息而做出不同的反应。</p>
 
 <h1 id="1-消息机制">1 消息机制</h1>
 
-<p>与古老的C语言不同，Objective-C虽然源自C语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。</p>
+<p>与古老的 C 语言不同，Objective-C 虽然源自 C 语言，但是它却是面向对象的，在这之中，消息机制发挥着重大作用。</p>
 
 <p><strong>C语言和Objective-C编译时的区别：</strong></p>
 
-<p>C语言在编译的时候，已经知道调用哪一个函数。</p>
+<p>C 语言在编译的时候，已经知道调用哪一个函数。</p>
 
-<p>Objective-C不一样，只有在运行时才知道需要调用的方法和函数。</p>
+<p>Objective-C 不一样，只有在运行时才知道需要调用的方法和函数。</p>
 
 <div class="highlighter-rouge">
 <pre class="highlight"><code>OBJC_EXPORT void objc_msgSend(void /* id self, SEL op, ... */ )
@@ -94,13 +94,13 @@
 </code></pre>
 </div>
 
-<p>使用这个方法要<code class="highlighter-rouge">#import &lt;objc/message.h&gt;</code>，另外，Apple在Xcode5开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode就会报错，那么，如何解决呢？</p>
+<p>使用这个方法要<code class="highlighter-rouge">#import &lt;objc/message.h&gt;</code>，另外，Apple 在 Xcode5 开始，不建议使用底层方法，而恰巧以上方法就是底层方法。此时，Xcode 就会报错，那么，如何解决呢？</p>
 
 <p>解决方案如下：</p>
 
 <ul>
-  <li>1）打开Project的<code class="highlighter-rouge">Build Settings</code>，搜索“msg”。</li>
-  <li>2）将<code class="highlighter-rouge">Enable Strict Checking of objc_msgSend Calls</code>的值设置为NO。</li>
+  <li>1）打开 Project 的<code class="highlighter-rouge">Build Settings</code>，搜索“msg”。</li>
+  <li>2）将<code class="highlighter-rouge">Enable Strict Checking of objc_msgSend Calls</code>的值设置为 NO。</li>
 </ul>
 
 <h2 id="发送无参消息">发送无参消息</h2>
@@ -205,19 +205,19 @@
 
 <h2 id="归档和解档">归档和解档</h2>
 
-<p>先来理解几个Objective-C中的概念：</p>
+<p>先来理解几个 Objective-C 中的概念：</p>
 
-<p>序列化：将自定义的Objective-C的对象转化成二进制文件数据。</p>
+<p>序列化：将自定义的 Objective-C 的对象转化成二进制文件数据。</p>
 
-<p>反序列化：将二进制文件数据转化成自定义的Objective-C的对象。</p>
+<p>反序列化：将二进制文件数据转化成自定义的 Objective-C 的对象。</p>
 
-<p>归档：将自定义的Objective-C的对象存储到本地磁盘。</p>
+<p>归档：将自定义的 Objective-C 的对象存储到本地磁盘。</p>
 
-<p>解档：将存储在本地磁盘的数据转换成自定义的Objective-C的对象。</p>
+<p>解档：将存储在本地磁盘的数据转换成自定义的 Objective-C 的对象。</p>
 
-<p>Ivar类型：成员属性。</p>
+<p>Ivar 类型：成员属性。</p>
 
-<p>Method类型：成员方法。</p>
+<p>Method 类型：成员方法。</p>
 
 <p>通常我们使用归档和解档的方式如下：</p>
 
@@ -275,13 +275,13 @@
 <span class="p">}</span>
 </code></pre>
 </div>
-<p>Objective-C中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。</p>
+<p>Objective-C 中归档底层实现方式：将对象拆分为字典（键值对），然后变成二进制存入磁盘。</p>
 
-<p>但是，当model中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用Runtime来简化工作。</p>
+<p>但是，当 model 中成员属性数量很多的时候，就沦为了体力劳动。那么，此时我们又能使用 Runtime 来简化工作。</p>
 
-<p><code class="highlighter-rouge">class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)</code>获取Class中成员变量的个数。</p>
+<p><code class="highlighter-rouge">class_copyIvarList(__unsafe_unretained Class cls, unsigned int *outCount)</code>获取 Class 中成员变量的个数。</p>
 
-<p>以下就是使用Runtime消息机制编写的归档与解档方法：</p>
+<p>以下就是使用 Runtime 消息机制编写的归档与解档方法：</p>
 
 <div class="highlighter-rouge">
 <pre class="highlight"><code>- (void)encodeWithCoder:(NSCoder *)aCoder
@@ -319,13 +319,13 @@
 
 <h1 id="2-kvo">2 KVO</h1>
 
-<p>利用Runtime，在运行时动态创建一个对象。</p>
+<p>利用 Runtime，在运行时动态创建一个对象。</p>
 
 <p>实现原理：</p>
 
 <ol>
   <li>创建<code class="highlighter-rouge">NSKVONotifying_XXX:XXX</code>类(XXX为被监听者)。</li>
-  <li>重写属性set方法，调用<code class="highlighter-rouge">willChangeValueForKey:</code>和<code class="highlighter-rouge">didChangeValueForKey:</code>方法，进而触发调用观察者的<code class="highlighter-rouge">observeValueForKeyPath:ofObject:change:context:</code>
+  <li>重写属性 set 方法，调用<code class="highlighter-rouge">willChangeValueForKey:</code>和<code class="highlighter-rouge">didChangeValueForKey:</code>方法，进而触发调用观察者的<code class="highlighter-rouge">observeValueForKeyPath:ofObject:change:context:</code>
 </li>
 </ol>
 

@@ -1,4 +1,256 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-07-03T22:51:29+08:00</updated><id>/</id><title type="html">Chars’s Tech Blog</title><subtitle>梦想还是要有的、万一被选中了呢</subtitle><entry><title type="html">Tensorflow – 基准</title><link href="/blog/tensorflow-performance-benchmarks/" rel="alternate" type="text/html" title="Tensorflow -- 基准" /><published>2018-02-05T00:00:00+08:00</published><updated>2018-02-05T00:00:00+08:00</updated><id>/blog/tensorflow-performance-benchmarks</id><content type="html" xml:base="/blog/tensorflow-performance-benchmarks/">&lt;p&gt;TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 &lt;a href=&quot;#methodology&quot;&gt;方法&lt;/a&gt; 章节中会详细说明如何执行测试，并给出使用的脚本链接。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-07-16T20:38:27+08:00</updated><id>/</id><title type="html">Chars’s Tech Blog</title><subtitle>梦想还是要有的、万一被选中了呢</subtitle><entry><title type="html">CocoaPods 提交代码踩坑</title><link href="/blog/cocoapods-source-commit/" rel="alternate" type="text/html" title="CocoaPods 提交代码踩坑" /><published>2018-07-16T00:00:00+08:00</published><updated>2018-07-16T00:00:00+08:00</updated><id>/blog/cocoapods-source-commit</id><content type="html" xml:base="/blog/cocoapods-source-commit/">&lt;p&gt;如何提交代码至 CocoaPods？这个问题在 Google 一搜索可以有很多文章出来，不过，其中遇到的坑却无人提及。笔者现在将实际操作工程记录如下，并总结踩坑注意事项：操作顺序、文件配置、命令使用。&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id=&quot;准备工作&quot;&gt;准备工作&lt;/h2&gt;
+
+&lt;h3 id=&quot;提交代码&quot;&gt;提交代码&lt;/h3&gt;
+
+&lt;p&gt;将需要提交至 CocoaPods 的代码提交至代码托管服务器，例如：GitHub。&lt;/p&gt;
+
+&lt;p&gt;这里需要注意的是，提交的代码需要包含 &lt;code class=&quot;highlighter-rouge&quot;&gt;tag&lt;/code&gt; 标签。其实就是 git 里面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;git tag&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;安装或更新-cocoapods&quot;&gt;安装或更新 CocoaPods&lt;/h3&gt;
+
+&lt;h4 id=&quot;安装&quot;&gt;安装&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem install cocoapods
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;更新&quot;&gt;更新&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pod update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;注册-trunk&quot;&gt;注册 Trunk&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pod trunk register e_mail_address &lt;span class=&quot;s1&quot;&gt;'your_name'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;记得去注册邮箱激活&lt;/p&gt;
+
+&lt;h4 id=&quot;查看注册信息&quot;&gt;查看注册信息&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pod trunk me
+
+  - Name:     charsdavy
+  - Email:    chars.davy@gmail.com
+  - Since:    July 15th, 21:38
+  - Pods:
+    - JCCNavigationController
+  - Sessions:
+    - July 15th, 21:38 - November 21st, 01:45. IP: xx.xx.xx.xx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;创建-podspec-文件&quot;&gt;创建 .podspec 文件&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.podspec&lt;/code&gt; 文件的作用是为了让 CocoaPods 搜索引擎知道该代码的作者、版本号、概要、描述、源代码地址、部署版本、依赖的框架等描述信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.podspec&lt;/code&gt;文件可以自动生成：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pod spec create JCCNavigationController // 生成 JCCNavigationController.podspec 文件
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JCCNavigationController.podspec&lt;/code&gt; 文件内容：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#
+#  Be sure to run `pod spec lint JCCNavigationController.podspec' to ensure this is a
+#  valid spec and to remove all comments including this before submitting the spec.
+#
+#  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
+#  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
+#
+
+Pod::Spec.new do |s|
+
+  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  These will help people to find your library, and whilst it
+  #  can feel like a chore to fill in it's definitely to your advantage. The
+  #  summary should be tweet-length, and the description more in depth.
+  #
+
+  s.name         = &quot;JCCNavigationController&quot;
+  s.version      = &quot;1.0&quot;
+  s.summary      = &quot;A navigation bar integrated transition animation effect.&quot;
+
+  # This description is used to generate tags and improve search results.
+  #   * Think: What does it do? Why did you write it? What is the focus?
+  #   * Try to keep it short, snappy and to the point.
+  #   * Write the description between the DESC delimiters below.
+  #   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.description  = &amp;lt;&amp;lt;-DESC
+                  With zoom interactive animation, A navigation bar integrated transition animation effect.
+                  DESC
+
+  s.homepage     = &quot;https://github.com/charsdavy/JCCNavigationController&quot;
+  s.screenshots  = &quot;https://raw.githubusercontent.com/charsdavy/JCCNavigationController/master/Screenshot.gif&quot;
+  # s.screenshots  = &quot;www.example.com/screenshots_1.gif&quot;, &quot;www.example.com/screenshots_2.gif&quot;
+
+
+  # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Licensing your code is important. See http://choosealicense.com for more info.
+  #  CocoaPods will detect a license file if there is a named LICENSE*
+  #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
+  #
+
+  s.license      = { :type =&amp;gt; &quot;MIT&quot;, :file =&amp;gt; &quot;LICENSE&quot; }
+  # s.license      = { :type =&amp;gt; &quot;MIT&quot;, :file =&amp;gt; &quot;FILE_LICENSE&quot; }
+
+
+  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Specify the authors of the library, with email addresses. Email addresses
+  #  of the authors are extracted from the SCM log. E.g. $ git log. CocoaPods also
+  #  accepts just a name if you'd rather not provide an email address.
+  #
+  #  Specify a social_media_url where others can refer to, for example a twitter
+  #  profile URL.
+  #
+
+  s.author             = { &quot;charsdavy&quot; =&amp;gt; &quot;charsdavy@gamil.com&quot; }
+  s.social_media_url   = &quot;https://twitter.com/charsdavy&quot;
+
+  s.swift_version = &quot;4.0&quot;
+  # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  If this Pod runs only on iOS or OS X, then specify the platform and
+  #  the deployment target. You can optionally include the target after the platform.
+  #
+
+  s.platform     = :ios
+  s.platform     = :ios, &quot;8.0&quot;
+
+  #  When using multiple platforms
+  s.ios.deployment_target = &quot;8.0&quot;
+  # s.osx.deployment_target = &quot;10.7&quot;
+  # s.watchos.deployment_target = &quot;2.0&quot;
+  # s.tvos.deployment_target = &quot;9.0&quot;
+
+
+  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Specify the location from where the source should be retrieved.
+  #  Supports git, hg, bzr, svn and HTTP.
+  #
+
+  s.source       = { :git =&amp;gt; &quot;https://github.com/charsdavy/JCCNavigationController.git&quot;, :tag =&amp;gt; &quot;#{s.version}&quot; }
+
+
+  # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  CocoaPods is smart about how it includes source code. For source files
+  #  giving a folder will include any swift, h, m, mm, c &amp;amp; cpp files.
+  #  For header files it will include any header in the folder.
+  #  Not including the public_header_files will make all headers public.
+  #
+
+  s.source_files  = &quot;JCCNavigationController/*.swift&quot;
+  # s.exclude_files = &quot;Classes/Exclude&quot;
+
+  # s.public_header_files = &quot;Classes/**/*.h&quot;
+
+
+  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  A list of resources included with the Pod. These are copied into the
+  #  target bundle with a build phase script. Anything else will be cleaned.
+  #  You can preserve files from being cleaned, please don't preserve
+  #  non-essential files like tests, examples and documentation.
+  #
+
+  # s.resource  = &quot;icon.png&quot;
+  # s.resources = &quot;Resources/*.png&quot;
+
+  # s.preserve_paths = &quot;FilesToSave&quot;, &quot;MoreFilesToSave&quot;
+
+
+  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Link your library with frameworks, or libraries. Libraries do not include
+  #  the lib prefix of their name.
+  #
+
+  # s.framework  = &quot;SomeFramework&quot;
+  # s.frameworks = &quot;SomeFramework&quot;, &quot;AnotherFramework&quot;
+
+  # s.library   = &quot;iconv&quot;
+  # s.libraries = &quot;iconv&quot;, &quot;xml2&quot;
+
+
+  # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  If your library depends on compiler flags you can set them in the xcconfig hash
+  #  where they will only apply to your library. If you depend on other Podspecs
+  #  you can include multiple dependencies to ensure it works.
+
+  # s.requires_arc = true
+
+  # s.xcconfig = { &quot;HEADER_SEARCH_PATHS&quot; =&amp;gt; &quot;$(SDKROOT)/usr/include/libxml2&quot; }
+  # s.dependency &quot;JSONKit&quot;, &quot;~&amp;gt; 1.4&quot;
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以上文件，需要注意 &lt;code class=&quot;highlighter-rouge&quot;&gt;s.platform&lt;/code&gt; 这个字段，文本中的注释说的很明白，默认是全平台都支持的，如果只支持某一个平台，则需要细心配置完善。&lt;/p&gt;
+
+&lt;h2 id=&quot;验证-podspec-文件是否合法&quot;&gt;验证 &lt;code class=&quot;highlighter-rouge&quot;&gt;.podspec&lt;/code&gt; 文件是否合法&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pod spec lint JCCNavigationController.podspec
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果配置文件仍存在错误，则根据错误提示修复错误。&lt;/p&gt;
+
+&lt;p&gt;如果只有以下一个错误，则只需提交代码即可：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR | unknown: Encountered an unknown error &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;uninitialized constant REST::DisconnectedError&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; during validation.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;提交-podspec-文件&quot;&gt;提交 &lt;code class=&quot;highlighter-rouge&quot;&gt;.podspec&lt;/code&gt; 文件&lt;/h2&gt;
+
+&lt;p&gt;将 &lt;code class=&quot;highlighter-rouge&quot;&gt;.podspec&lt;/code&gt; 文件提交至代码托管服务器，例如，将 &lt;code class=&quot;highlighter-rouge&quot;&gt;JCCNavigationController.podspec&lt;/code&gt; 文件提交至 &lt;code class=&quot;highlighter-rouge&quot;&gt;JCCNavigationController&lt;/code&gt; 项目。&lt;/p&gt;
+
+&lt;h2 id=&quot;提交代码至-cocoapods&quot;&gt;提交代码至 CocoaPods&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pod trunk push JCCNavigationController.podspec --allow-warnings
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;返回以下信息则为成功：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--------------------------------------------------------------------------------
+ 🎉  Congrats
+
+ 🚀  JCCNavigationController &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; successfully published
+ 📅  July 16th, 00:58
+ 🌎  https://cocoapods.org/pods/JCCNavigationController
+ 👍  Tell your friends!
+--------------------------------------------------------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;附录&quot;&gt;附录&lt;/h2&gt;
+
+&lt;h3 id=&quot;jccnavigationcontroller&quot;&gt;&lt;a href=&quot;https://github.com/charsdavy/JCCNavigationController&quot;&gt;JCCNavigationController&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/JCCNavigationController&quot;&gt;JCCNavigationController&lt;/a&gt;，一种导航栏一体化转场动画效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/charsdavy/JCCNavigationController/master/Screenshot.gif&quot; alt=&quot;JCCNavigationController&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ddcornerradius&quot;&gt;&lt;a href=&quot;https://github.com/charsdavy/JCCNavigationController&quot;&gt;DDCornerRadius&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/charsdavy/DDCornerRadius&quot;&gt;DDCornerRadius&lt;/a&gt;，优化圆角实现方案，避免离屏渲染。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/charsdavy/DDCornerRadius/master/Screenshot.gif&quot; alt=&quot;DDCornerRadius&quot; /&gt;&lt;/p&gt;</content><category term="pieces" /><category term="cocoapods" /><category term="开源" /><summary type="html">如何提交代码至 CocoaPods？这个问题在 Google 一搜索可以有很多文章出来，不过，其中遇到的坑却无人提及。笔者现在将实际操作工程记录如下，并总结踩坑注意事项：操作顺序、文件配置、命令使用。</summary></entry><entry><title type="html">Tensorflow – 基准</title><link href="/blog/tensorflow-performance-benchmarks/" rel="alternate" type="text/html" title="Tensorflow -- 基准" /><published>2018-02-05T00:00:00+08:00</published><updated>2018-02-05T00:00:00+08:00</updated><id>/blog/tensorflow-performance-benchmarks</id><content type="html" xml:base="/blog/tensorflow-performance-benchmarks/">&lt;p&gt;TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 &lt;a href=&quot;#methodology&quot;&gt;方法&lt;/a&gt; 章节中会详细说明如何执行测试，并给出使用的脚本链接。&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -1083,7 +1335,7 @@ Boost&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/popularize_piclip.png&quot; alt=&quot;Piclip&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;靓手艺&quot;&gt;&lt;a href=&quot;http://itunes.apple.com/app/id1177823334&quot;&gt;靓手艺&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;靓手艺&quot;&gt;&lt;a href=&quot;http://itunes.apple.com/cn/app/id1177823334&quot;&gt;靓手艺&lt;/a&gt;&lt;/h2&gt;
 
 &lt;p&gt;———— 健康美食、快乐生活&lt;/p&gt;
 
@@ -1095,7 +1347,7 @@ Boost&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;我们也能将我们喜欢的菜谱“收藏”起来，也能推荐分享给他人。当然，我们也能边看边做，菜谱里的做法步骤提供能“朗读”功能，完美释放我们的双手，可以边听边做，真的不要太美好啦。&lt;/p&gt;
 
-&lt;p&gt;下载地址：&lt;a href=&quot;http://itunes.apple.com/app/id1177823334&quot;&gt;http://itunes.apple.com/app/id1177823334&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载地址：&lt;a href=&quot;http://itunes.apple.com/cn/app/id1177823334&quot;&gt;http://itunes.apple.com/cn/app/id1177823334&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/popularize_ihealth.png&quot; alt=&quot;靓手艺&quot; /&gt;&lt;/p&gt;</content><category term="project" /><category term="project" /><summary type="html">日本语社区</summary></entry><entry><title type="html">数据链路层之 LLDP</title><link href="/blog/data-link-layer-lldp/" rel="alternate" type="text/html" title="数据链路层之 LLDP" /><published>2018-01-29T00:00:00+08:00</published><updated>2018-01-29T00:00:00+08:00</updated><id>/blog/data-link-layer-lldp</id><content type="html" xml:base="/blog/data-link-layer-lldp/">&lt;p&gt;随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 &lt;/p&gt;
 
@@ -1451,7 +1703,7 @@ Boost&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;如果想要尝试本教程中的代码：&lt;/p&gt;
 
-&lt;p&gt;1.安装 TensorFlow ，&lt;a href=&quot;http://chars.tech/2017/09/26/tensorflow-pycharm-mac/&quot;&gt;请前往此处&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;1.安装 TensorFlow ，&lt;a href=&quot;/blog/tensorflow-pycharm-mac&quot;&gt;请前往此处&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;2.下载 &lt;a href=&quot;https://www.tensorflow.org/code/tensorflow/examples/learn/wide_n_deep_tutorial.py&quot;&gt;教程代码&lt;/a&gt;。&lt;/p&gt;
 
@@ -2819,170 +3071,4 @@ NSLog(@&quot;%@&quot;, rectangle);
 &lt;p&gt;深拷贝就是在拷贝对象自身时，将其底层数据也一并复制过去。
 浅拷贝就是在拷贝对象时，只拷贝容器对象本身，而不复制其中数据。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400&quot; alt=&quot;深拷贝和浅拷贝比较&quot; /&gt;&lt;/p&gt;</content><category term="pieces" /><category term="ios" /><category term="objc" /><category term="框架" /><summary type="html">为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。</summary></entry><entry><title type="html">从iOS的图片圆角想到渲染</title><link href="/blog/ios-corner-radius/" rel="alternate" type="text/html" title="从iOS的图片圆角想到渲染" /><published>2017-07-03T22:40:56+08:00</published><updated>2017-07-03T22:40:56+08:00</updated><id>/blog/ios-corner-radius</id><content type="html" xml:base="/blog/ios-corner-radius/">&lt;p&gt;圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。&lt;/p&gt;
-
-&lt;p&gt;大家常见的圆角代码&lt;code class=&quot;highlighter-rouge&quot;&gt;x.layer.cornerRadius = xx; x.clipsToBounds = YES;&lt;/code&gt;这两行确实实现了圆角视觉效果。其实使用&lt;code class=&quot;highlighter-rouge&quot;&gt;x.layer.cornerRadius = xx;&lt;/code&gt;已经实现了圆角，只不过在某些控件是不生效的，因为某些图层在被切割圆角图层之上而被显示出来了。而&lt;code class=&quot;highlighter-rouge&quot;&gt;x.clipsToBounds = YES;&lt;/code&gt;带来的后果就是产生&lt;code class=&quot;highlighter-rouge&quot;&gt;离屏渲染&lt;/code&gt;。可以使用instruments中的CoreAnimation工具，打开&lt;code class=&quot;highlighter-rouge&quot;&gt;Color Offscren-Rednered Yellow&lt;/code&gt;选项，可见黄色区域部分即是离屏渲染部分。&lt;/p&gt;
-
-&lt;p&gt;那么离屏渲染会带来什么？当然后资源损耗，可能产生卡顿。因为在iPhone设备的硬件资源有差异，当离屏渲染不多时，并不是很明显感觉到它的缺点。&lt;/p&gt;
-
-&lt;h2 id=&quot;什么是像素&quot;&gt;什么是像素&lt;/h2&gt;
-
-&lt;p&gt;像素，为视频显示的基本单位，译自英文“pixel”，pix是英语单词picture的常用简写，加上英语单词“元素”element，就得到pixel，故“像素”表示“画像元素”之意，有时亦被称为pel（picture element）。每个这样的消息元素不是一个点或者一个方块，而是一个抽象的取样。像素是由红，绿，蓝三种颜色组件构成的。因此，位图数据有时也被叫做 RGB 数据。&lt;/p&gt;
-
-&lt;h2 id=&quot;显示机制&quot;&gt;显示机制&lt;/h2&gt;
-
-&lt;p&gt;一个像素是如何绘制到屏幕上去的？有很多种方式将一些东西映射到显示屏上，他们需要调用不同的框架、许多功能和方法的结合体。这里我们大概看一下屏幕之后发生的事情。&lt;/p&gt;
-
-&lt;p&gt;图像想显示到屏幕上使人肉眼可见都需借助像素的力量。它们密集的排布在手机屏幕上，将任何图形通过不同的色值表现出来。计算机显示的流程大致可以描述为将图像转化为一系列像素点的排列然后打印在屏幕上，由图像转化为像素点的过程又可以称之为光栅化，就是从矢量的点线面的描述，变成像素的描述。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300&quot; alt=&quot;display screen&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;回溯历史，可以从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。&lt;/p&gt;
-
-&lt;h3 id=&quot;关于卡顿的简单原理解释&quot;&gt;关于卡顿的简单原理解释&lt;/h3&gt;
-
-&lt;p&gt;在 VSync 信号到来后，系统图形服务会通过 CADisplayLink 等机制通知 App，App 主线程开始在 CPU 中计算显示内容，比如视图的创建、布局计算、图片解码、文本绘制等。随后 CPU 会将计算好的内容提交到 GPU 去，由 GPU 进行变换、合成、渲染。随后 GPU 会把渲染结果提交到帧缓冲区去，等待下一次 VSync 信号到来时显示到屏幕上。由于垂直同步的机制，如果在一个 VSync 时间内，CPU 或者 GPU 没有完成内容提交，则那一帧就会被丢弃，等待下一次机会再显示，而这时显示屏会保留之前的内容不变。这就是界面卡顿的原因。&lt;/p&gt;
-
-&lt;p&gt;CPU 和 GPU 不论哪个阻碍了显示流程，都会造成掉帧现象。所以开发时，也需要分别对 CPU 和 GPU 压力进行评估和优化。&lt;/p&gt;
-
-&lt;h2 id=&quot;渲染机制&quot;&gt;渲染机制&lt;/h2&gt;
-
-&lt;p&gt;当像素映射到屏幕上的时候，后台发生了很多事情。但一旦它们显示到屏幕上，每一个像素均由三个颜色组件构成：红，绿，蓝。三个独立的颜色单元会根据给定的颜色显示到一个像素上。在 iPhoneSE 的显示器上有1,136×640=727,040个像素，因此有2,181,120个颜色单元。在一些Retina屏幕上，这一数字将达到百万以上。所有的图形堆栈一起工作以确保每次正确的显示。当你滚动整个屏幕的时候，数以百万计的颜色单元必须以每秒60次的速度刷新，这就是一个很大的工作量。&lt;/p&gt;
-
-&lt;p&gt;简单来说，iOS的显示机制大致如此：
-&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png&quot; alt=&quot;pixels software stack&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Display 的上一层便是图形处理单元 GPU，GPU 是一个专门为图形高并发计算而量身定做的处理单元。这也是为什么它能同时更新所有的像素，并呈现到显示器上。它的并发本性让它能高效的将不同纹理合成起来。所以，开发中我们应该尽量让CPU负责主线程的UI调动，把图形显示相关的工作交给GPU来处理。&lt;/p&gt;
-
-&lt;p&gt;GPU Driver 是直接和 GPU 交流的代码块。不同的GPU是不同的性能怪兽，但是驱动使它们在下一个层级上显示的更为统一，典型的下一层级有 OpenGL/OpenGL ES.&lt;/p&gt;
-
-&lt;p&gt;OpenGL(Open Graphics Library) 是一个提供了 2D 和 3D 图形渲染的 API。GPU 是一块非常特殊的硬件，OpenGL 和 GPU 密切的工作以提高GPU的能力，并实现硬件加速渲染。&lt;/p&gt;
-
-&lt;p&gt;OpenGL 之上扩展出很多东西。在 iOS 上，几乎所有的东西都是通过 Core Animation 绘制出来，然而在 OS X 上，绕过 Core Animation 直接使用 Core Graphics 绘制的情况并不少见。对于一些专门的应用，尤其是游戏，程序可能直接和 OpenGL/OpenGL ES 交流。&lt;/p&gt;
-
-&lt;p&gt;需要强调的是，GPU 是一个非常强大的图形硬件，并且在显示像素方面起着核心作用。它连接到 CPU。从硬件上讲两者之间存在某种类型的总线，并且有像 OpenGL，Core Animation 和 Core Graphics 这样的框架来在 GPU 和 CPU 之间精心安排数据的传输。为了将像素显示到屏幕上，一些处理将在 CPU 上进行。然后数据将会传送到 GPU，最终像素显示到屏幕上。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/pixels-hardware.png&quot; alt=&quot;pixels hardware&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;正如上图显示，GPU 需要将每一个 frame 的纹理(位图)合成在一起(一秒60次)。每一个纹理会占用 VRAM(video RAM)，所以需要给 GPU 同时保持纹理的数量做一个限制。GPU 在合成方面非常高效，但是某些合成任务却比其他更复杂，并且 GPU在 16.7ms(1/60s)内能做的工作也是有限的。&lt;/p&gt;
-
-&lt;p&gt;另外一个问题就是将数据传输到 GPU 上。为了让 GPU 访问数据，需要将数据从 RAM 移动到 VRAM 上。这就是提及到的上传数据到 GPU。这些看起来貌似微不足道，但是一些大型的纹理却会非常耗时。&lt;/p&gt;
-
-&lt;p&gt;最终，CPU 开始运行程序。你可能会让 CPU 从 bundle 加载一张 PNG 的图片并且解压它。这所有的事情都在 CPU 上进行。然后当你需要显示解压缩后的图片时，它需要以某种方式上传到 GPU。一些看似平凡的，比如显示文本，对 CPU 来说却是一件非常复杂的事情，这会促使 Core Text 和 Core Graphics 框架更紧密的集成来根据文本生成一个位图。一旦准备好，它将会被作为一个纹理上传到 GPU 并准备显示出来。当你滚动或者在屏幕上移动文本时，同样的纹理能够被复用，CPU 只需简单的告诉 GPU 新的位置就行了,所以 GPU 就可以重用存在的纹理了。CPU 并不需要重新渲染文本，并且位图也不需要重新上传到 GPU。&lt;/p&gt;
-
-&lt;p&gt;在图形世界中，合成是一个描述不同位图如何放到一起来创建你最终在屏幕上看到图像的过程。屏幕上一切事物皆纹理。一个纹理就是一个包含 RGBA 值的长方形，比如，每一个像素里面都包含红、绿、蓝和透明度的值。在 Core Animation 世界中这就相当于一个 CALayer。&lt;/p&gt;
-
-&lt;p&gt;每一个 layer 是一个纹理，所有的纹理都以某种方式堆叠在彼此的顶部。对于屏幕上的每一个像素，GPU 需要算出怎么混合这些纹理来得到像素 RGB 的值。这就是合成。&lt;/p&gt;
-
-&lt;p&gt;如果我们所拥有的是一个和屏幕大小一样并且和屏幕像素对齐的单一纹理，那么屏幕上每一个像素相当于纹理中的一个像素，纹理的最后一个像素也就是屏幕的最后一个像素。&lt;/p&gt;
-
-&lt;p&gt;如果我们有第二个纹理放在第一个纹理之上，然后GPU将会把第二个纹理合成到第一个纹理中。有很多种不同的合成方法，但是如果我们假定两个纹理的像素对齐，并且使用正常的混合模式，我们便可以用公式来计算每一个像素：&lt;code class=&quot;highlighter-rouge&quot;&gt;R = S + D * ( 1 – Sa )&lt;/code&gt;
-结果的颜色是源色彩(顶端纹理)+目标颜色(低一层的纹理)*(1-源颜色的透明度)。在这个公式中所有的颜色都假定已经预先乘以了它们的透明度。&lt;/p&gt;
-
-&lt;p&gt;接着我们进行第二个假定，两个纹理都完全不透明，比如 alpha=1。如果目标纹理(低一层的纹理)是蓝色(RGB=0,0,1)，并且源纹理(顶层的纹理)颜色是红色(RGB=1,0,0)，因为 Sa 为1，所以结果为：&lt;code class=&quot;highlighter-rouge&quot;&gt;R = S&lt;/code&gt;
-结果是源颜色的红色。这正是我们所期待的(红色覆盖了蓝色)。如果源颜色层为50%的透明，比如 alpha=0.5，既然 alpha 组成部分需要预先乘进 RGB 的值中，那么 S 的 RGB 值为(0.5, 0, 0)，公式看起来便会像这样:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                       0.5   0               0.5
-R = S + D * (1 - Sa) = 0   + 0 * (1 - 0.5) = 0
-                       0     1               0.5
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;我们最终得到RGB值为(0.5, 0, 0.5),是一个紫色。这正是我们所期望将透明红色合成到蓝色背景上所得到的。&lt;/p&gt;
-
-&lt;p&gt;记住我们刚刚只是将纹理中的一个像素合成到另一个纹理的像素上。当两个纹理覆盖在一起的时候，GPU需要为所有像素做这种操作。正如你所知道的一样，许多程序都有很多层，因此所有的纹理都需要合成到一起。尽管GPU是一块高度优化的硬件来做这种事情，但这还是会让它非常忙碌。&lt;/p&gt;
-
-&lt;h3 id=&quot;为何图片缩放会增加gpu工作量&quot;&gt;为何图片缩放会增加GPU工作量&lt;/h3&gt;
-
-&lt;p&gt;当所有的像素是对齐的时候我们得到相对简单的计算公式。每当 GPU 需要计算出屏幕上一个像素是什么颜色的时候，它只需要考虑在这个像素之上的所有 layer 中对应的单个像素，并把这些像素合并到一起。或者，如果最顶层的纹理是不透明的(即图层树的最底层)，这时候 GPU 就可以简单的拷贝它的像素到屏幕上。&lt;/p&gt;
-
-&lt;p&gt;当一个 layer 上所有的像素和屏幕上的像素完美的对应整齐，那这个 layer 就是像素对齐的。主要有两个原因可能会造成不对齐。第一个便是滚动，当一个纹理上下滚动的时候，纹理的像素便不会和屏幕的像素排列对齐。另一个原因便是当纹理的起点不在一个像素的边界上。&lt;/p&gt;
-
-&lt;p&gt;在这两种情况下，GPU 需要再做额外的计算。它需要将源纹理上多个像素混合起来，生成一个用来合成的值。当所有的像素都是对齐的时候，GPU 只剩下很少的工作要做。&lt;/p&gt;
-
-&lt;p&gt;Core Animation 工具和模拟器有一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Color Misaligned Images &lt;/code&gt;选项，当这些在你的 CALayer 实例中发生的时候，这个功能便可向你展示。&lt;/p&gt;
-
-&lt;p&gt;关于iOS设备的一些尺寸限制可以看这里：&lt;a href=&quot;http://iosres.com/&quot;&gt;iOSRes&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;离屏渲染&quot;&gt;离屏渲染&lt;/h2&gt;
-
-&lt;p&gt;On-Screen Rendering意为当前屏幕渲染，指的是GPU的渲染操作是在当前用于显示的屏幕缓冲区中进行。
-Off-Screen Rendering意为离屏渲染，指的是GPU在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作。&lt;/p&gt;
-
-&lt;p&gt;当图层属性的混合体被指定为在未预合成之前不能直接在屏幕中绘制时，屏幕外渲染就被唤起了。屏幕外渲染并不意味着软件绘制，但是它意味着图层必须在被显示之前在一个屏幕外上下文中被渲染（不论CPU还是GPU）。&lt;/p&gt;
-
-&lt;p&gt;离屏渲染可以被 Core Animation 自动触发，或者被应用程序强制触发。屏幕外的渲染会合并/渲染图层树的一部分到一个新的缓冲区，然后该缓冲区被渲染到屏幕上。&lt;/p&gt;
-
-&lt;h3 id=&quot;特殊的离屏渲染cpu渲染&quot;&gt;特殊的“离屏渲染”：CPU渲染&lt;/h3&gt;
-
-&lt;p&gt;如果我们重写了drawRect方法，并且使用任何Core Graphics的技术进行了绘制操作，就涉及到了CPU渲染。
-整个渲染过程由CPU在App内同步地完成，渲染得到的bitmap最后再交由GPU用于显示。&lt;/p&gt;
-
-&lt;h3 id=&quot;离屏渲染的体现&quot;&gt;离屏渲染的体现&lt;/h3&gt;
-
-&lt;p&gt;相比于当前屏幕渲染，离屏渲染的代价是很高的，主要体现在两个方面：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1 创建新缓冲区
-要想进行离屏渲染，首先要创建一个新的缓冲区。&lt;/li&gt;
-  &lt;li&gt;2 上下文切换
-离屏渲染的整个过程，需要多次切换上下文环境：先是从当前屏幕（On-Screen）切换到离屏（Off-Screen）；等到离屏渲染结束以后，将离屏缓冲区的渲染结果显示到屏幕上，又需要将上下文环境从离屏切换到当前屏幕。而上下文环境的切换是要付出很大代价的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;触发离屏渲染&quot;&gt;触发离屏渲染&lt;/h3&gt;
-
-&lt;p&gt;1、drawRect
-2、layer.shouldRasterize = true;
-3、有mask或者是阴影(layer.masksToBounds, layer.shadow*)；
- 3.1) shouldRasterize（光栅化）
- 3.2) masks（遮罩）
- 3.3) shadows（阴影）
- 3.4) edge antialiasing（抗锯齿）
- 3.5) group opacity（不透明）
-4、Text（UILabel, CATextLayer, Core Text, etc）…
-注：layer.cornerRadius，layer.borderWidth，layer.borderColor并不会Offscreen Render，因为这些不需要加入Mask。&lt;/p&gt;
-
-&lt;h2 id=&quot;圆角优化&quot;&gt;圆角优化&lt;/h2&gt;
-
-&lt;p&gt;前面说了那么多，这里就给上实际可行方案。圆角的优化目前考虑两方面：一是，从图片入手，将图片切割成指定圆角样式。二是，使用贝塞尔曲线，利用CALayer层绘制指定圆角样式的mask遮盖View。&lt;/p&gt;
-
-&lt;p&gt;UIImage切割：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
-CGContextRef context = UIGraphicsGetCurrentContext();
-CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
-CGContextScaleCTM(context, 1, -1);
-CGContextTranslateCTM(context, 0, -rect.size.height);
-
-CGFloat minSize = MIN(self.size.width, self.size.height);
-if (borderWidth &amp;lt; minSize / 2.0) {
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(rect, borderWidth, borderWidth) byRoundingCorners:corners cornerRadii:CGSizeMake(radius, borderWidth)];
-    CGContextSaveGState(context);
-    [path addClip];
-    CGContextDrawImage(context, rect, self.CGImage);
-    CGContextRestoreGState(context);
-}
-
-UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-image = [image dd_imageByCornerRadius:radius borderedColor:borderColor borderWidth:borderWidth corners:corners];
-UIGraphicsEndImageContext();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;图片绘制：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
-[self drawAtPoint:CGPointZero];
-CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
-CGFloat strokeInset = borderWidth / 2.0;
-CGRect strokeRect = CGRectInset(rect, strokeInset, strokeInset);
-UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, borderWidth)];
-path.lineWidth = borderWidth;
-[borderColor setStroke];
-[path stroke];
-UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-UIGraphicsEndImageContext();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;具体源码可以转至github进行star &lt;a href=&quot;https://github.com/charsdavy/DDCornerRadius&quot;&gt;DDCornerRadius&lt;/a&gt; 欢迎issue。&lt;/p&gt;</content><category term="pieces" /><category term="ios" /><category term="ui" /><category term="objc" /><category term="优化" /><category term="渲染" /><summary type="html">圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400&quot; alt=&quot;深拷贝和浅拷贝比较&quot; /&gt;&lt;/p&gt;</content><category term="pieces" /><category term="ios" /><category term="objc" /><category term="框架" /><summary type="html">为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。</summary></entry></feed>
