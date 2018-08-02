@@ -1,76 +1,433 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
---><html>
-	<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<title>从iOS的图片圆角想到渲染</title>
-<meta name="description" content="">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
-<link rel="manifest" href="/assets/icon/manifest.json">
-<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
-<link rel="shortcut icon" href="/assets/icon/favicon.ico">
-<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-
-<!-- CSS -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
-
-	</head>
-	<body class="is-loading">
-
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-
-				<!-- Header -->
-        <header id="header">
-          <a href="/" class="logo">Chars's Tech Blog</a>
-        </header>
-
-				<!-- Nav -->
-					<nav id="nav">
-
-            <ul class="links">
-  <li class=""><a href="/">Home</a></li>
-  <li class=" active "><a href="/blog/">Blog</a></li>
-  <li class=""><a href="/tags/">Tags</a></li>
-  <li class=""><a href="/categories/">Categories</a></li>
-  <li class=""><a href="/about/">About</a></li>
-<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
-</ul>
+<!doctype html>
 
 
-						<ul class="icons">
-              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
 
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">03 Jul 2017</span>
-      				<h1>从iOS的图片圆角想到渲染</h1>
-      				<!-- <p><p>圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。</p>
 
-</p> -->
-      			</header>
-      			<div class="image main"><img src="" alt=""></div>
-      			<p></p>
-<p>圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。</p>
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ios,ui,objc,优化,渲染," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。">
+<meta name="keywords" content="ios, ui, objc, 优化, 渲染">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从iOS的图片圆角想到渲染">
+<meta property="og:url" content="http://localhost:4000/blog/ios-corner-radius/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从iOS的图片圆角想到渲染">
+<meta name="twitter:description" content="圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>从iOS的图片圆角想到渲染 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/ios-corner-radius/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            从iOS的图片圆角想到渲染
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-03T22:40:56+08:00">
+                2017-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/pieces" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。</p>
 
 <p>大家常见的圆角代码<code class="highlighter-rouge">x.layer.cornerRadius = xx; x.clipsToBounds = YES;</code>这两行确实实现了圆角视觉效果。其实使用<code class="highlighter-rouge">x.layer.cornerRadius = xx;</code>已经实现了圆角，只不过在某些控件是不生效的，因为某些图层在被切割圆角图层之上而被显示出来了。而<code class="highlighter-rouge">x.clipsToBounds = YES;</code>带来的后果就是产生<code class="highlighter-rouge">离屏渲染</code>。可以使用instruments中的CoreAnimation工具，打开<code class="highlighter-rouge">Color Offscren-Rednered Yellow</code>选项，可见黄色区域部分即是离屏渲染部分。</p>
 
@@ -86,7 +443,7 @@
 
 <p>图像想显示到屏幕上使人肉眼可见都需借助像素的力量。它们密集的排布在手机屏幕上，将任何图形通过不同的色值表现出来。计算机显示的流程大致可以描述为将图像转化为一系列像素点的排列然后打印在屏幕上，由图像转化为像素点的过程又可以称之为光栅化，就是从矢量的点线面的描述，变成像素的描述。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300" alt="display screen"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300" alt="display screen" /></p>
 
 <p>回溯历史，可以从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。</p>
 
@@ -101,7 +458,7 @@
 <p>当像素映射到屏幕上的时候，后台发生了很多事情。但一旦它们显示到屏幕上，每一个像素均由三个颜色组件构成：红，绿，蓝。三个独立的颜色单元会根据给定的颜色显示到一个像素上。在 iPhoneSE 的显示器上有1,136×640=727,040个像素，因此有2,181,120个颜色单元。在一些Retina屏幕上，这一数字将达到百万以上。所有的图形堆栈一起工作以确保每次正确的显示。当你滚动整个屏幕的时候，数以百万计的颜色单元必须以每秒60次的速度刷新，这就是一个很大的工作量。</p>
 
 <p>简单来说，iOS的显示机制大致如此：
-<img src="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png" alt="pixels software stack"></p>
+<img src="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png" alt="pixels software stack" /></p>
 
 <p>Display 的上一层便是图形处理单元 GPU，GPU 是一个专门为图形高并发计算而量身定做的处理单元。这也是为什么它能同时更新所有的像素，并呈现到显示器上。它的并发本性让它能高效的将不同纹理合成起来。所以，开发中我们应该尽量让CPU负责主线程的UI调动，把图形显示相关的工作交给GPU来处理。</p>
 
@@ -113,7 +470,7 @@
 
 <p>需要强调的是，GPU 是一个非常强大的图形硬件，并且在显示像素方面起着核心作用。它连接到 CPU。从硬件上讲两者之间存在某种类型的总线，并且有像 OpenGL，Core Animation 和 Core Graphics 这样的框架来在 GPU 和 CPU 之间精心安排数据的传输。为了将像素显示到屏幕上，一些处理将在 CPU 上进行。然后数据将会传送到 GPU，最终像素显示到屏幕上。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png" alt="pixels hardware"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png" alt="pixels hardware" /></p>
 
 <p>正如上图显示，GPU 需要将每一个 frame 的纹理(位图)合成在一起(一秒60次)。每一个纹理会占用 VRAM(video RAM)，所以需要给 GPU 同时保持纹理的数量做一个限制。GPU 在合成方面非常高效，但是某些合成任务却比其他更复杂，并且 GPU在 16.7ms(1/60s)内能做的工作也是有限的。</p>
 
@@ -133,11 +490,10 @@
 <p>接着我们进行第二个假定，两个纹理都完全不透明，比如 alpha=1。如果目标纹理(低一层的纹理)是蓝色(RGB=0,0,1)，并且源纹理(顶层的纹理)颜色是红色(RGB=1,0,0)，因为 Sa 为1，所以结果为：<code class="highlighter-rouge">R = S</code>
 结果是源颜色的红色。这正是我们所期待的(红色覆盖了蓝色)。如果源颜色层为50%的透明，比如 alpha=0.5，既然 alpha 组成部分需要预先乘进 RGB 的值中，那么 S 的 RGB 值为(0.5, 0, 0)，公式看起来便会像这样:</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>                       0.5   0               0.5
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>                       0.5   0               0.5
 R = S + D * (1 - Sa) = 0   + 0 * (1 - 0.5) = 0
                        0     1               0.5
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>我们最终得到RGB值为(0.5, 0, 0.5),是一个紫色。这正是我们所期望将透明红色合成到蓝色背景上所得到的。</p>
@@ -200,8 +556,7 @@ Off-Screen Rendering意为离屏渲染，指的是GPU在当前屏幕缓冲区以
 
 <p>UIImage切割：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18</pre></td><td class="code"><pre class="highlight"><code>UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
 CGContextRef context = UIGraphicsGetCurrentContext();
 CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
 CGContextScaleCTM(context, 1, -1);
@@ -219,13 +574,12 @@ if (borderWidth &lt; minSize / 2.0) {
 UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 image = [image dd_imageByCornerRadius:radius borderedColor:borderColor borderWidth:borderWidth corners:corners];
 UIGraphicsEndImageContext();
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>图片绘制：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code>UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
 [self drawAtPoint:CGPointZero];
 CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
 CGFloat strokeInset = borderWidth / 2.0;
@@ -236,202 +590,508 @@ path.lineWidth = borderWidth;
 [path stroke];
 UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
 UIGraphicsEndImageContext();
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>具体源码可以转至github进行star <a href="https://github.com/charsdavy/DDCornerRadius">DDCornerRadius</a> 欢迎issue。</p>
 
 
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
             
+            <a href="/tag/#/ios" rel="tag"># ios</a>
+          
             
+            <a href="/tag/#/ui" rel="tag"># ui</a>
+          
             
+            <a href="/tag/#/objc" rel="tag"># objc</a>
+          
             
+            <a href="/tag/#/%E4%BC%98%E5%8C%96" rel="tag"># 优化</a>
+          
+            
+            <a href="/tag/#/%E6%B8%B2%E6%9F%93" rel="tag"># 渲染</a>
+          
+        </div>
+      
 
-            <!-- Tag Buttons -->
-            <ul class="actions">
-              
-              
-              <li><a href="/tags/#ios" class="button small"># ios</a></li>
-              
-              
-              
-              <li><a href="/tags/#objc" class="button small"># objc</a></li>
-              
-              
-              
-              <li><a href="/tags/#ui" class="button small"># ui</a></li>
-              
-              
-              
-              <li><a href="/tags/#%E4%BC%98%E5%8C%96" class="button small"># 优化</a></li>
-              
-              
-              
-              <li><a href="/tags/#%E6%B8%B2%E6%9F%93" class="button small"># 渲染</a></li>
-              
-                  
-            </ul>
-          </section>
+      
+      
+      
+      
+      
 
-          <div class="comments-wrapper">
-          <!--
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/ios-design-api-guide/" rel="next" title="那些设计iOS API需要知道的事">
+                <i class="fa fa-chevron-left"></i> 那些设计iOS API需要知道的事
+              </a>
+            
+          </div>
 
-              var disqus_config = function () {
-                  this.page.url = '/blog/ios-corner-radius/';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '/blog/ios-corner-radius/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
+          <span class="post-nav-divider"></span>
 
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
-
-                  s.src = 'https://.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
-
-          <!-- 来必力City版安装代码 -->
-          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
-          <script type="text/javascript">
-             (function(d, s) {
-                 var j, e = d.getElementsByTagName(s)[0];
-
-                 if (typeof LivereTower === 'function') { return; }
-
-                 j = d.createElement(s);
-                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                 j.async = true;
-
-                 e.parentNode.insertBefore(j, e);
-             })(document, 'script');
-          </script>
-          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/binary-tree-guide/" rel="prev" title="二叉树的那些使用">
+                二叉树的那些使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
-        <!-- /.comments-wrapper -->
+      
+      
 
+      
+    </footer>
+  </article>
 
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                
-                  <li><a href="/blog/binary-tree-guide/" class="button special icon fa-arrow-left"></a></li>
-                
-                <li><a href="/blog/" class="button">All Blog</a></li>
-                
-                  <li><a href="/blog/ios-design-api-guide/" class="button special icon fa-arrow-right"></a></li>
-                
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        <footer id="footer">
-  <section>
-    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea name="message" id="message" rows="3"></textarea>
-      </div>
-      <ul class="actions">
-        <li><input type="submit" value="Send Message"></li>
-      </ul>
-    </form>
-  </section>
-  <section class="split contact">
-    <section class="alt">
-      <h3>Location</h3>
-      <p>Guangzhou, China</p>
-    </section>
-    <section>
-      <h3>QQ</h3>
-      <p><a href="qq:124808738">124808738</a></p>
-    </section>
-    <section>
-      <h3>Email</h3>
-      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
-    </section>
-    <section>
-      <h3>Social</h3>
-      <ul class="icons alt">
-        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-      </ul>
-    </section>
-  </section>
-</footer>
-<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
-  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+  <div class="post-spread">
+    
+  </div>
 </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#什么是像素"> <span class="nav-number">1</span> <span class="nav-text">什么是像素</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#显示机制"> <span class="nav-number">2</span> <span class="nav-text">显示机制</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#关于卡顿的简单原理解释"> <span class="nav-number">2.1</span> <span class="nav-text">关于卡顿的简单原理解释</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#渲染机制"> <span class="nav-number">3</span> <span class="nav-text">渲染机制</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#为何图片缩放会增加gpu工作量"> <span class="nav-number">3.1</span> <span class="nav-text">为何图片缩放会增加GPU工作量</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#离屏渲染"> <span class="nav-number">4</span> <span class="nav-text">离屏渲染</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#特殊的离屏渲染cpu渲染"> <span class="nav-number">4.1</span> <span class="nav-text">特殊的“离屏渲染”：CPU渲染</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#离屏渲染的体现"> <span class="nav-number">4.2</span> <span class="nav-text">离屏渲染的体现</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#触发离屏渲染"> <span class="nav-number">4.3</span> <span class="nav-text">触发离屏渲染</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#圆角优化"> <span class="nav-number">5</span> <span class="nav-text">圆角优化</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
 <script type="text/javascript">
-  $("#back-top").hide();
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 800) {
-        $('#back-top').fadeIn();
-      } else {
-        $('#back-top').fadeOut();
-      }
-    });
-    $('#back-top a').click(function () {
-      $('body,html').animate({
-        scrollTop: 0
-      }, 1200);
-      return false;
-    });
-  });
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-<!-- Copyright -->
-<div id="copyright">
-  <ul>
-<li>2016 - 2018 © Chars</li>
-<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
-</li>
-<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
-</li>
-</ul>
-</div>
 
 
-			</div>
 
-      <!-- Scripts -->
-  		<!-- DYN -->
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/jquery.scrollex.min.js"></script>
-<script src="/assets/js/jquery.scrolly.min.js"></script>
-<script src="/assets/js/skel.min.js"></script>
-<script src="/assets/js/util.js"></script>
-<script src="/assets/js/main.js"></script>
 
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-
-  gtag('config', 'UA-80507808-1');
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-	</body>
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
 </html>
+

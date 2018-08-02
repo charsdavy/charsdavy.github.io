@@ -1,76 +1,436 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
---><html>
-	<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<title>拆拆 iOS 数据持久化</title>
-<meta name="description" content="">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
-<link rel="manifest" href="/assets/icon/manifest.json">
-<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
-<link rel="shortcut icon" href="/assets/icon/favicon.ico">
-<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-
-<!-- CSS -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
-
-	</head>
-	<body class="is-loading">
-
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-
-				<!-- Header -->
-        <header id="header">
-          <a href="/" class="logo">Chars's Tech Blog</a>
-        </header>
-
-				<!-- Nav -->
-					<nav id="nav">
-
-            <ul class="links">
-  <li class=""><a href="/">Home</a></li>
-  <li class=" active "><a href="/blog/">Blog</a></li>
-  <li class=""><a href="/tags/">Tags</a></li>
-  <li class=""><a href="/categories/">Categories</a></li>
-  <li class=""><a href="/about/">About</a></li>
-<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
-</ul>
+<!doctype html>
 
 
-						<ul class="icons">
-              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
 
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">19 Jan 2016</span>
-      				<h1>拆拆 iOS 数据持久化</h1>
-      				<!-- <p><p>持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：</p>
 
-</p> -->
-      			</header>
-      			<div class="image main"><img src="" alt=""></div>
-      			<p></p>
-<p>持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：</p>
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="存储,ios," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：">
+<meta name="keywords" content="存储, ios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拆拆 iOS 数据持久化">
+<meta property="og:url" content="http://localhost:4000/blog/ios-data-persistence/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="拆拆 iOS 数据持久化">
+<meta name="twitter:description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>拆拆 iOS 数据持久化 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/ios-data-persistence/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            拆拆 iOS 数据持久化
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-19T22:50:24+08:00">
+                2016-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/pieces" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：</p>
 
 <p>1）属性列表；</p>
 
@@ -101,36 +461,32 @@
 
 <h2 id="获取documents目录">获取Documents目录</h2>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 NSString *documentsDirectory = paths[0];
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>常量<code class="highlighter-rouge">NSDocumentDirectory</code>表明我们正在查找Documents目录的路径。第二个常量<code class="highlighter-rouge">NSUserDomainMask</code>表明我们希望将搜索限制在应用的沙盒内，在OS X中表明我们希望该函数查看用户的主目录。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSString *filename = [documentsDirectory stringByAppendingPathComponent:@”theFile.txt”];
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>NSString *filename = [documentsDirectory stringByAppendingPathComponent:@”theFile.txt”];
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>完成此调用之后，filename就包含了指向应用Documents目录中theFile.txt文件的完整路径。</p>
 
 <h2 id="获取library目录">获取Library目录</h2>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 NSString *libraryDirectory = paths[0];
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>常量<code class="highlighter-rouge">NSLibraryDirectory</code>表明我们正在查找Library目录的路径。第二个常量<code class="highlighter-rouge">NSUserDomainMask</code>表明我们希望将搜索限制在应用的沙盒内，在OS X中表明我们希望该函数查看用户的主目录。</p>
 
 <h2 id="获取tmp目录">获取tmp目录</h2>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSString *tempPath = NSTemporaryDirectory();
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>NSString *tempPath = NSTemporaryDirectory();
 NSString *filename = [tempPath stringByAppendingPathComponent:@”theFile.txt”];
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h1 id="二文件保存方案">二、文件保存方案</h1>
@@ -168,9 +524,8 @@ NSString *filename = [tempPath stringByAppendingPathComponent:@”theFile.txt”
 
 <p>如果只使用这些对象构建数据模型，就可以使用属性列表来方便地保护和加载数据。如果打算使用属性列表持久保存应用数据，则可以使用数组或字典。假设放到字典或数组中的所有对象都是前面列出的可序列化对象，则可以通过对字典或数组的实例调用writeToFile:atomically:方法来写入属性列表。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>[myArray writeToFile:@”/some/file/location/output.plist” atomically:YES];
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>[myArray writeToFile:@”/some/file/location/output.plist” atomically:YES];
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>说明：这里的atomically参数让该方法将数据写入辅助文件，而不是写入指定位置。成功写入该文件之后，辅助文件将被复制到第一个参数指定的位置。这是更安全的写入文件的方法，因为如果应用在保存期间崩溃，则现有文件（如果有）不会被破坏。尽管增加一点开销，但是多数情况下还是值得的。</p>
@@ -186,37 +541,33 @@ NSString *filename = [tempPath stringByAppendingPathComponent:@”theFile.txt”
 
 <p>这个类提供的封装/解封方法：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>+(id)dataWithBytes:(const void *)bytes length:(NSUInteger)length;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>+(id)dataWithBytes:(const void *)bytes length:(NSUInteger)length;
 -(NSUInteger)length;
 -(const void *)bytes NS_RETURNS_INNER_POINTER;
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>从这几个方法可以看出，NSData根本不管传递的内容到底是什么，仅仅是传递一块内存——仅需内存的起始地址和长度。</p>
 
 <h2 id="解析plist">解析plist</h2>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>idresult = [NSPropertyListSerialization propertyListWithData:data options:0format:NULL error:NULL];
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>idresult = [NSPropertyListSerialization propertyListWithData:data options:0format:NULL error:NULL];
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h2 id="读写plist">读写plist</h2>
 
 <p>1）写入文件</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSArray*phrase;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>NSArray*phrase;
 phrase =[NSArray arrayWithObjects:@"I", @"seem", @"to",@"be" ,@"a", @"verb", nil];
 [phrasewriteToFile:@"/tmp/verbiage.txt" atomically:YES];
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>现在看一下文件/tmp/verbiage.txt，</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>&lt;?xmlversion="1.0" encoding="UTF-8"?&gt;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code>&lt;?xmlversion="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPEplist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
 &lt;plistversion="1.0"&gt;
@@ -229,7 +580,7 @@ phrase =[NSArray arrayWithObjects:@"I", @"seem", @"to",@"be" ,@"a", @"verb", nil
   &lt;string&gt;verb&lt;/string&gt;
 &lt;/array&gt;
 &lt;/plist&gt;
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>这些属性列表文件可以为任意复杂的形式，可以是包含字符串、数字和日期数组的字典数组。Xcode还包含一个属性列表编辑器，所以可以查看plist文件并进行编辑。</p>
@@ -240,10 +591,9 @@ phrase =[NSArray arrayWithObjects:@"I", @"seem", @"to",@"be" ,@"a", @"verb", nil
 
 <p>之前已经将verbiage.txt文件存放在磁盘上，可以使用<code class="highlighter-rouge">+arrayWithContentsOfFile:</code>方法读取该文件。代码如下：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSArray*pharse = [NSArray arrayWithContentsOfFile:@"/tmp/ verbiage.txt "];
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>NSArray*pharse = [NSArray arrayWithContentsOfFile:@"/tmp/ verbiage.txt "];
 NSLog(@"%@",phrase);
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p><strong>说明：</strong>注意到<code class="highlighter-rouge">writeToFile:</code>方法中的单词<code class="highlighter-rouge">atomically</code>了吗？这种调用有什么负面作用吗？没有。<code class="highlighter-rouge">atomically:</code>参数的值为BOOL类型，用于通知Cocoa是否应该首先将文件内容保存在临时文件中，当文件成功保存后，再将该临时文件和原始文件交换。这是一种安全机制：如果在保存过程中出现意外，不会破坏原始文件。但这种安全机制需要付出一定的代价：在保存过程中，由于原始文件仍然保存在磁盘中，所以需要使用双倍的磁盘空间。除非保存的文件非常大，将会占用用户硬盘空间，否则应该自动保存文件。</p>
@@ -255,21 +605,19 @@ NSLog(@"%@",phrase);
 <h2 id="创建工程">创建工程</h2>
 <p>在Xcode中，使用Single View Application模板创建一个项目，命名Persistence，点击Main.storyboard，布局如下图</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200" alt="布局"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200" alt="布局" /></p>
 
 <p>连线，添加处理函数：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">PlistViewController</span> <span class="p">()</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">PlistViewController</span> <span class="p">()</span>
 <span class="o">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="n">saveClicked</span><span class="o">:</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">sender</span><span class="p">;</span>
 <span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutletCollection</span><span class="p">(</span><span class="n">UITextField</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">lineFields</span><span class="p">;</span>
 
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>- (void)viewDidLoad {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25</pre></td><td class="code"><pre class="highlight"><code>- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -294,7 +642,7 @@ NSLog(@"%@",phrase);
     NSArray *array = [self.lineFields valueForKey:@"text"];
     [array writeToFile:filePath atomically:YES];
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h1 id="四归档">四、归档</h1>
@@ -307,12 +655,11 @@ NSLog(@"%@",phrase);
 <h2 id="遵循nscoding协议">遵循NSCoding协议</h2>
 <p>NSCoding协议声明了两个必须实现的方法，一个方法将对象编码到归档中，另一个方法对归档解码来创建一个新对象。这两个方法都传递一个NSCoder实例，使用方式与NSUserDefaults非常相似。也可以使用KVC对对象和原生数据类型进行编码和解码。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="err">@protocolNSCoding</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="err">@protocolNSCoding</span>
 <span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">encodeWithCoder</span><span class="o">:</span><span class="p">(</span><span class="n">NSCoder</span><span class="o">*</span><span class="p">)</span><span class="n">aCoder</span><span class="p">;</span>
 <span class="k">-</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">initWithCoder</span><span class="p">:(</span><span class="n">NSCoder</span><span class="o">*</span><span class="p">)</span><span class="nv">aDecoder</span><span class="p">;</span>
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>当对象需要保存自身时，<code class="highlighter-rouge">encodeWithCoder:</code>方法将被调用；当对象需要加载自身时，<code class="highlighter-rouge">initWithCoder:</code>方法将被调用。</p>
@@ -325,10 +672,9 @@ NSLog(@"%@",phrase);
 
 <p>如果愿意，可以使用<code class="highlighter-rouge">-writeToFile:atomically:</code>方法将这个NSData类保存到磁盘中。在此，我们先处理thing对象，然后通过freezeDried表示法重新创建它，并将它输出：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>thing =[NSKeyedUnarchiveObjectWithData: freezeDried];
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>thing =[NSKeyedUnarchiveObjectWithData: freezeDried];
 NSLog(@"reconstitutedthing:%@",thing);
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>如果被编码的数据中含有循环将会怎么样？例如，如果thing包含在自身的subThingies数组中会怎样？thing会对数组进行编码吗？哪个对象对thing进行编码，哪个对象对数组进行编码，哪个对象再次对thing进行编码，依此类推？幸运的是，Cocoa在归档程序和解压程序实现上非常灵活，能够保存并恢复对象周期。</p>
@@ -342,8 +688,7 @@ NSLog(@"reconstitutedthing:%@",thing);
 
 <p>按照上文创建工程，设计界面（与上文界面相同），连线，添加响应方法：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#import "ArchiverViewController.h"
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="cp">#import "ArchiverViewController.h"
 #import "Lines.h"
 </span>
 <span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">kRootKey</span> <span class="o">=</span> <span class="s">@"kRootKey"</span><span class="p">;</span>
@@ -353,11 +698,10 @@ NSLog(@"reconstitutedthing:%@",thing);
 <span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutletCollection</span><span class="p">(</span><span class="n">UITextField</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">lineFields</span><span class="p">;</span>
 
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>- (void)viewDidLoad {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34</pre></td><td class="code"><pre class="highlight"><code>- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -391,7 +735,7 @@ NSLog(@"reconstitutedthing:%@",thing);
     [archiver finishEncoding];
     [data writeToFile:filePath atomically:YES];
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>与属性列表序列化实现多几行代码，那么是否就是使用归档比使用序列化属性列表更有优势呢？答案是否定的。如果我们拥有一个包含可归档对象的数组，则可以对数组实例本身进行归档来归档整个数组。对集合类（如数组）进行归档时，也会归档其包含的所有对象。只要放入数组或字典中的对象遵循NSCoding，就可以归档数组或字典并还原它。这样，对其进行归档时，其中所有对象都将位于已还原的数组和字典中。这一点并不适用于属性链接的持久化，它只支持一小部分的Foundation对象类型。如果没有编写额外的代码，来将这些自定义类的实例与字典通过每个对象属性的键进行互相转化，就不能对其进行持久化。</p>
@@ -416,8 +760,7 @@ NSLog(@"reconstitutedthing:%@",thing);
 
 <p>要使用绑定变量插入值，只需要按正常方式创建SQL语句即可，不过要在SQL字符串中添加一个问号。每个问号都表示一个需要在语句执行之前进行绑定的变量。然后，准备好SQL语句，将值绑定到各个变量并执行命令。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>/*将整型数据绑定到第一个变量，将字符串绑定到第二个变量，然后执行并结束语句*/
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14</pre></td><td class="code"><pre class="highlight"><code>/*将整型数据绑定到第一个变量，将字符串绑定到第二个变量，然后执行并结束语句*/
 char *sql = “insert into foo values (?, ?);”;
 sqlite3_stmt *stmt;
 
@@ -431,7 +774,7 @@ if(sqlite3_step(stmt) != SQLITE_DONE){
 }
 
 sqlite3_finalize(stmt);
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>根据希望使用的数据类型，可以选择不同的绑定语句。大部分绑定函数都只有3个参数。</p>
@@ -451,8 +794,7 @@ sqlite3_finalize(stmt);
 <h2 id="创建工程-2">创建工程</h2>
 <p>创建工程，设计布局，与前文工程相同操作，连线，添加响应方法：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#import "SqliteViewController.h"
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="cp">#import "SqliteViewController.h"
 #import &lt;sqlite3.h&gt;
 </span>
 <span class="k">@interface</span> <span class="nc">SqliteViewController</span> <span class="p">()</span>
@@ -460,13 +802,12 @@ sqlite3_finalize(stmt);
 <span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutletCollection</span><span class="p">(</span><span class="n">UITextField</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">lineFields</span><span class="p">;</span>
 
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>导入sqlite库</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>- (void)viewDidLoad {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66<br/>67<br/>68<br/>69<br/>70<br/>71<br/>72<br/>73<br/>74<br/>75<br/>76</pre></td><td class="code"><pre class="highlight"><code>- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -542,7 +883,7 @@ sqlite3_finalize(stmt);
     }
     sqlite3_close(database);
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>其实，以上者三种方式没有什么差异，只不过是三种不同的持久化机制而已。</p>
@@ -570,22 +911,21 @@ sqlite3_finalize(stmt);
 
 <p>1）创建Model文件</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png" alt="创建Model文件"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png" alt="创建Model文件" /></p>
 
 <p>2）编辑Model文件，点击“Add Entity”添加实体，点击“Add Attribute”添加特性</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png" alt="编辑Model文件"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png" alt="编辑Model文件" /></p>
 
 <p>3）创建NSManagedObject文件，关联数据模型</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png" alt="创建NSManagedObject文件-1"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png" alt="创建NSManagedObject文件-1" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png" alt="创建NSManagedObject文件-2"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png" alt="创建NSManagedObject文件-2" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png" alt="创建NSManagedObject文件-3"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png" alt="创建NSManagedObject文件-3" /></p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="cp">#import "CoreDataViewController.h"
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code><span class="cp">#import "CoreDataViewController.h"
 #import &lt;CoreData/CoreData.h&gt;
 </span>
 <span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">kLineEntityName</span> <span class="o">=</span> <span class="s">@"Line"</span><span class="p">;</span>
@@ -597,11 +937,10 @@ sqlite3_finalize(stmt);
 <span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutletCollection</span><span class="p">(</span><span class="n">UITextField</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">lineFields</span><span class="p">;</span>
 
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>- (void)viewDidLoad {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66</pre></td><td class="code"><pre class="highlight"><code>- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -667,7 +1006,7 @@ sqlite3_finalize(stmt);
     [context save:nil];
     
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>Core Data版本与之前的版本功能完全相同。Core Data需要的工作量很大。对于这种简单的应用，它并没有提供明显的优势。但是在比较复杂的应用中，Core Data可以显著减少设计和编写数据模型所需的时间。</p>
@@ -676,184 +1015,493 @@ sqlite3_finalize(stmt);
 <p>四种数据持久化机制，各有优势，根据使用情况选择对应机制进行数据持久化。</p>
 
 
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
             
+            <a href="/tag/#/%E5%AD%98%E5%82%A8" rel="tag"># 存储</a>
+          
             
+            <a href="/tag/#/ios" rel="tag"># ios</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/blog/memory-alignment/" rel="next" title="内存对齐详解">
+                <i class="fa fa-chevron-left"></i> 内存对齐详解
+              </a>
             
+          </div>
 
-            <!-- Tag Buttons -->
-            <ul class="actions">
-              
-              
-              <li><a href="/tags/#ios" class="button small"># ios</a></li>
-              
-              
-              
-              <li><a href="/tags/#%E5%AD%98%E5%82%A8" class="button small"># 存储</a></li>
-              
-                  
-            </ul>
-          </section>
+          <span class="post-nav-divider"></span>
 
-          <div class="comments-wrapper">
-          <!--
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
-
-              var disqus_config = function () {
-                  this.page.url = '/blog/ios-data-persistence/';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '/blog/ios-data-persistence/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
-
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
-
-                  s.src = 'https://.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
-
-          <!-- 来必力City版安装代码 -->
-          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
-          <script type="text/javascript">
-             (function(d, s) {
-                 var j, e = d.getElementsByTagName(s)[0];
-
-                 if (typeof LivereTower === 'function') { return; }
-
-                 j = d.createElement(s);
-                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                 j.async = true;
-
-                 e.parentNode.insertBefore(j, e);
-             })(document, 'script');
-          </script>
-          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/ios-preference-setting/" rel="prev" title="iOS App 偏好设置">
+                iOS App 偏好设置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
-        <!-- /.comments-wrapper -->
+      
+      
 
+      
+    </footer>
+  </article>
 
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                
-                  <li><a href="/blog/ios-preference-setting/" class="button special icon fa-arrow-left"></a></li>
-                
-                <li><a href="/blog/" class="button">All Blog</a></li>
-                
-                  <li><a href="/blog/memory-alignment/" class="button special icon fa-arrow-right"></a></li>
-                
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        <footer id="footer">
-  <section>
-    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea name="message" id="message" rows="3"></textarea>
-      </div>
-      <ul class="actions">
-        <li><input type="submit" value="Send Message"></li>
-      </ul>
-    </form>
-  </section>
-  <section class="split contact">
-    <section class="alt">
-      <h3>Location</h3>
-      <p>Guangzhou, China</p>
-    </section>
-    <section>
-      <h3>QQ</h3>
-      <p><a href="qq:124808738">124808738</a></p>
-    </section>
-    <section>
-      <h3>Email</h3>
-      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
-    </section>
-    <section>
-      <h3>Social</h3>
-      <ul class="icons alt">
-        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-      </ul>
-    </section>
-  </section>
-</footer>
-<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
-  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+  <div class="post-spread">
+    
+  </div>
 </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#一应用的沙盒"> <span class="nav-number">1</span> <span class="nav-text">一、应用的沙盒</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#获取documents目录"> <span class="nav-number">1.1</span> <span class="nav-text">获取Documents目录</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#获取library目录"> <span class="nav-number">1.2</span> <span class="nav-text">获取Library目录</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#获取tmp目录"> <span class="nav-number">1.3</span> <span class="nav-text">获取tmp目录</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#二文件保存方案"> <span class="nav-number">2</span> <span class="nav-text">二、文件保存方案</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#单文件持久化"> <span class="nav-number">2.1</span> <span class="nav-text">单文件持久化</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#多文件持久化"> <span class="nav-number">2.2</span> <span class="nav-text">多文件持久化</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#三属性列表"> <span class="nav-number">3</span> <span class="nav-text">三、属性列表</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#属性列表序列化"> <span class="nav-number">3.1</span> <span class="nav-text">属性列表序列化</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#nsdata"> <span class="nav-number">3.2</span> <span class="nav-text">NSData</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#解析plist"> <span class="nav-number">3.3</span> <span class="nav-text">解析plist</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#读写plist"> <span class="nav-number">3.4</span> <span class="nav-text">读写plist</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#创建工程"> <span class="nav-number">3.5</span> <span class="nav-text">创建工程</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#四归档"> <span class="nav-number">4</span> <span class="nav-text">四、归档</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#遵循nscoding协议"> <span class="nav-number">4.1</span> <span class="nav-text">遵循NSCoding协议</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#实现nscopying协议"> <span class="nav-number">4.2</span> <span class="nav-text">实现NSCopying协议</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#创建工程-1"> <span class="nav-number">4.3</span> <span class="nav-text">创建工程</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#五sqlite3"> <span class="nav-number">5</span> <span class="nav-text">五、SQLite3</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#绑定变量"> <span class="nav-number">5.1</span> <span class="nav-text">绑定变量</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#创建工程-2"> <span class="nav-number">5.2</span> <span class="nav-text">创建工程</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#六core-data"> <span class="nav-number">6</span> <span class="nav-text">六、Core Data</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#术语"> <span class="nav-number">6.1</span> <span class="nav-text">术语</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#创建工程-3"> <span class="nav-number">6.2</span> <span class="nav-text">创建工程</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#七总结"> <span class="nav-number">7</span> <span class="nav-text">七、总结</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
 <script type="text/javascript">
-  $("#back-top").hide();
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 800) {
-        $('#back-top').fadeIn();
-      } else {
-        $('#back-top').fadeOut();
-      }
-    });
-    $('#back-top a').click(function () {
-      $('body,html').animate({
-        scrollTop: 0
-      }, 1200);
-      return false;
-    });
-  });
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-<!-- Copyright -->
-<div id="copyright">
-  <ul>
-<li>2016 - 2018 © Chars</li>
-<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
-</li>
-<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
-</li>
-</ul>
-</div>
 
 
-			</div>
 
-      <!-- Scripts -->
-  		<!-- DYN -->
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/jquery.scrollex.min.js"></script>
-<script src="/assets/js/jquery.scrolly.min.js"></script>
-<script src="/assets/js/skel.min.js"></script>
-<script src="/assets/js/util.js"></script>
-<script src="/assets/js/main.js"></script>
 
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-
-  gtag('config', 'UA-80507808-1');
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-	</body>
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
 </html>
+

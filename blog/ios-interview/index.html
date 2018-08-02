@@ -1,76 +1,429 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
---><html>
-	<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<title>iOS的那些面试</title>
-<meta name="description" content="">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
-<link rel="manifest" href="/assets/icon/manifest.json">
-<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
-<link rel="shortcut icon" href="/assets/icon/favicon.ico">
-<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-
-<!-- CSS -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
-
-	</head>
-	<body class="is-loading">
-
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-
-				<!-- Header -->
-        <header id="header">
-          <a href="/" class="logo">Chars's Tech Blog</a>
-        </header>
-
-				<!-- Nav -->
-					<nav id="nav">
-
-            <ul class="links">
-  <li class=""><a href="/">Home</a></li>
-  <li class=" active "><a href="/blog/">Blog</a></li>
-  <li class=""><a href="/tags/">Tags</a></li>
-  <li class=""><a href="/categories/">Categories</a></li>
-  <li class=""><a href="/about/">About</a></li>
-<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
-</ul>
+<!doctype html>
 
 
-						<ul class="icons">
-              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
 
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">28 Mar 2017</span>
-      				<h1>iOS的那些面试</h1>
-      				<!-- <p><p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
 
-</p> -->
-      			</header>
-      			<div class="image main"><img src="" alt=""></div>
-      			<p></p>
-<p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="碎碎念,ios," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。">
+<meta name="keywords" content="碎碎念, ios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS的那些面试">
+<meta property="og:url" content="http://localhost:4000/blog/ios-interview/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS的那些面试">
+<meta name="twitter:description" content="笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>iOS的那些面试 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/ios-interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            iOS的那些面试
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-28T16:01:18+08:00">
+                2017-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/talk" itemprop="url" rel="index">
+                    <span itemprop="name">talk</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>笔试面试是程序员应聘绕不过的坎，想进大厂就一定要有知识储备量，而这个却是最佳的考察方式。笔者分享一些收集的iOS面试题，答案仅供参考，如有错误，还请指正。</p>
 
 <h2 id="第一部分">第一部分</h2>
 
@@ -78,11 +431,11 @@
 
 <p>Objective-C语言是C语言的一个超集，只是在C的基础之上添加了面向对象（OO）的特性；Objective-C与Java语言相同都是单继承，这一点与C++语言不同（多重继承），这一点可以参看之前有关讲解继承的文章；Objective-C不支持命名空间，取而代之的是在类名之前添加前缀，以此来区分。</p>
 
-<p>2.#include与#import的区别，#import与<a href="http://chars.tech/class" class="user-mention">@class</a>的区别？</p>
+<p>2.#include与#import的区别，#import与@class的区别？</p>
 
 <p>1）#include和#import效果相同，只是后者不会引起交叉编译，确保头文件只会被导入一次。</p>
 
-<p>2）#import会包含这个类的所有信息，包括实体变量和方法，而<a href="http://chars.tech/class" class="user-mention">@class</a>只是告诉编译器，其后面声明的名称是类的名称，至于这些类是如何定义的，暂时不用考虑，后面会再告诉你。使用#import编译效率高，防止相互包含的编译错误。</p>
+<p>2）#import会包含这个类的所有信息，包括实体变量和方法，而@class只是告诉编译器，其后面声明的名称是类的名称，至于这些类是如何定义的，暂时不用考虑，后面会再告诉你。使用#import编译效率高，防止相互包含的编译错误。</p>
 
 <p>3.简述类目优缺点，如果覆盖本类或者父类的方法会出现什么问题？</p>
 
@@ -118,15 +471,14 @@
 
 <p>必须实现copying和mutableCopying协议，表示返回一个不可变和可变的对象。否则，程序将会出现异常。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>-(id)copyWithZone:(NSZone *)zone {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code>-(id)copyWithZone:(NSZone *)zone {
 	Person *person = [[self Class] allocWithZone:zone];
 	person-&gt;age = self.age;
 	person-&gt;name = self.name;
 	return person;
 }
 -(id)mutableCopyWithZone:(NSZone *)zone;
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>10.定义属性时，什么时候用assign、retain、copy和nonatomic？</p>
@@ -214,11 +566,11 @@ Notification主要用于一对多情况下通信，而且，通信对象之间�
 <p>viewDidUnload：iOS6.0之前，当内存警告时，先卸载视图，再调用
 viewDidUnload来释放内存。</p>
 
-<p>9.<a href="http://chars.tech/synthesize" class="user-mention">@synthesize</a>和<a href="http://chars.tech/dynamic" class="user-mention">@dynamic</a>的区别？</p>
+<p>9.@synthesize和@dynamic的区别？</p>
 
-<p><a href="http://chars.tech/synthesize" class="user-mention">@synthesize</a>：系统自动生成getter和setter属性声明。</p>
+<p>@synthesize：系统自动生成getter和setter属性声明。</p>
 
-<p><a href="http://chars.tech/dynamic" class="user-mention">@dynamic</a>：告诉编译器，属性的获取与赋值方法由用户自己实现，不自动生成。</p>
+<p>@dynamic：告诉编译器，属性的获取与赋值方法由用户自己实现，不自动生成。</p>
 
 <p>10.事件响应者链的概念？</p>
 
@@ -232,8 +584,7 @@ viewDidUnload来释放内存。</p>
 
 <p>12.指针题</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>1）int a; //一个数值。
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code>1）int a; //一个数值。
 2）int *a; //一个指向数值的指针。
 3）int **a; //一个指向指针的指针。
 4）int a[10]; //一个有10个指针的数组，该指针是指向一个整型数的。
@@ -241,19 +592,18 @@ viewDidUnload来释放内存。</p>
 6）int (*a)[10]; //一个指向有10个整型数数组的指针。
 7）int (*a)(int); //一个指向函数的指针，该函数有一个整型参数并返回一个整型数。
 8）int (*a[10])(int); //一个有10个指针的数组，该指针指向一个函数，该函数有一个整型参数并返回一个整型数。
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>13.写一个NSString类的实现？</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>+(id)initWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code>+(id)initWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding {
 	NSString *obj;
 	obj = [self allocWithZone:NSDefaultMallocZone()];
 	obj = [obj initWithCString:nullTerminatedCString encoding:encoding];
 	return autorelease(obj);
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>14.Objective-C与C如何混用？Objective-C与C++如何混用？</p>
@@ -270,12 +620,11 @@ viewDidUnload来释放内存。</p>
 
 <p>1.下面关键字const有什么含义？</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>const int a;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code>const int a;
 int const a;
 const int *a;
 int * const a;
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>前两个的作用是一样的，a是一个常整型数。</p>
 
@@ -309,8 +658,7 @@ int * const a;
 
 <p>7.为什么标准头文件都有类似以下的结构？</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>#ifndef __INCvxWorksh
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code>#ifndef __INCvxWorksh
 #define __INCvxWorksh
 #ifdef __cplusplus
 extern "C" {
@@ -320,7 +668,7 @@ extern "C" {
 }
 #endif
 #endif /*__INCvxWorksh*/
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>显然，头文件中的编译宏“#ifndef __INCvxWorksh、#define __INCvxWorksh、#endif”的作用是防止该头文件被重复引用。</p>
@@ -385,8 +733,7 @@ extern "C" {
 
 <p>15.单例设计模式的实现？为什么使用单例设计？</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">static</span> <span class="n">File</span> <span class="o">*</span><span class="n">instance</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code><span class="k">static</span> <span class="n">File</span> <span class="o">*</span><span class="n">instance</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
 <span class="k">@implementation</span> <span class="nc">File</span>
 <span class="c1">//获取单例的方法
 </span><span class="k">+</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">shareInstance</span> <span class="p">{</span>
@@ -398,7 +745,7 @@ extern "C" {
 	<span class="k">return</span> <span class="n">instance</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="c1">//覆写allocWithZone、copyWithZone、retain、release和autorelease方法，目的是限制这个类只创建一个对象
-</span></code></pre>
+</span></code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>为什么使用单例设计？</p>
@@ -628,10 +975,10 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
 
 <p>block一般使用copy关键之进行修饰，block使用copy是从MRC遗留下来的“传统”，在MRC中，方法内容的block是在栈区的，使用copy可以把它放到堆区。但在ARC中写不写都行：编译器自动对block进行了copy操作。</p>
 
-<p>3.用<a href="http://chars.tech/property" class="user-mention">@property</a>声明的NSString（或NSArray，NSDictionary）经常</p>
+<p>3.用@property声明的NSString（或NSArray，NSDictionary）经常</p>
 
 <p>使用copy关键字，为什么？如果改用strong关键字，可能造成什么问题？
-用<a href="http://chars.tech/property" class="user-mention">@property</a>声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。</p>
+用@property声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。</p>
 
 <p>如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性。</p>
 
@@ -641,29 +988,27 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
 
 <p>每个线程(包含主线程)都有一个Runloop。对于每一个Runloop，系统会隐式创建一个Autorelease pool，这样所有的release pool会构成一个像callstack一样的一个栈式结构，在每一个Runloop结束时，当前栈顶的Autorelease pool会被销毁，这样这个pool里的每个Object会被release。</p>
 
-<p>5.<a href="http://chars.tech/property" class="user-mention">@property</a> 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</p>
+<p>5.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</p>
 
-<p>“属性”(property)有两大概念：ivar(实例变量)、存取方法(access method=getter)，即<a href="http://chars.tech/property" class="user-mention">@property</a> = ivar + getter + setter。
+<p>“属性”(property)有两大概念：ivar(实例变量)、存取方法(access method=getter)，即@property = ivar + getter + setter。
 例如下面的这个类：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">WBTextView</span> <span class="p">:</span><span class="nc">UITextView</span>  
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">WBTextView</span> <span class="p">:</span><span class="nc">UITextView</span>  
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span><span class="n">NSString</span> <span class="o">*</span><span class="n">placehold</span><span class="p">;</span>  
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span><span class="n">UIColor</span> <span class="o">*</span><span class="n">placeholdColor</span><span class="p">;</span>  
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>类完成属性的定以后，编译器会自动编写访问这些属性的方法(自动合成autosynthesis)，上述代码写出来的类等效与下面的代码：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">WBTextView</span> <span class="p">:</span><span class="nc">UITextView</span>  
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">WBTextView</span> <span class="p">:</span><span class="nc">UITextView</span>  
 <span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">placehold</span><span class="p">;</span>  
 <span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setPlacehold</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">placehold</span><span class="p">;</span>  
 <span class="k">-</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="n">placeholdColor</span><span class="p">;</span>  
 <span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setPlaceholdColor</span><span class="p">:(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nv">placeholdColor</span><span class="p">;</span>  
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>详细介绍见：http://blog.csdn.net/jasonjwl/article/details/49427377</p>
@@ -672,8 +1017,7 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
 
 <p>retain属性的setter方法是保留新值并释放旧值，然后更新实例变量，令其指向新值。顺序很重要。假如还未保留新值就先把旧值释放了，而且两个值又指向同一个对象，先执行的release操作就可能导致系统将此对象永久回收。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>-(void)setName:(NSString *)name{
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code>-(void)setName:(NSString *)name{
     [name retain];
     [_name release];
     _name = name;
@@ -682,7 +1026,7 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
     [_name release];
     _name = [name copy];
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>7.说说assign和weak，_block和 _weak的区别？</p>
@@ -699,22 +1043,20 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
 
 <p>8.请说出下面代码是否有问题，如果有问题请修改？</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@autoreleasepool {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code>@autoreleasepool {
         for (int i=0; i&lt;largeNumber; i++) {
             Person *per = [[Person alloc] init];
             [per autorelease];
         }
     }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>内存管理的原则：如果对一个对象使用了alloc、copy、retain，那么你必须使用相应的release或者autorelease。咋一看，这道题目有alloc，也有autorelease，两者对应起来，应该没问题。但autorelease虽然会使引用计数减一，但是它并不是立即减一，它的本质功能只是把对象放到离他最近的自动释放池里。当自动释放池销毁了，才会向自动释放池中的每一个对象发送release消息。这道题的问题就在autorelease。因为largeNumber是一个很大的数，autorelease又不能使引用计数立即减一，所以在循环结束前会造成内存溢出的问题。</p>
 
 <p>解决方案如下：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@autoreleasepool {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code>@autoreleasepool {
         for (int i=0; i&lt;100000; i++) { 
             @autoreleasepool {
             Person *per = [[Person alloc] init];
@@ -722,14 +1064,13 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
         }
       }
     }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>在循环内部再加一个自动释放池，这样就能保证每创建一个对象就能及时释放。</p>
 
 <p>9.请问下面代码是否有问题，如有问题请修改？</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@autoreleasepool {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code>@autoreleasepool {
         NSString *str = [[NSString alloc] init];
         [str retain];
         [str retain];
@@ -738,7 +1079,7 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
         [str release];
         [str release];
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>这道题跟第8题一样存在内存泄露问题，</p>
@@ -774,184 +1115,493 @@ drawRect方法用于绘图，layoutSubView方法用于布局子视图。</p>
 <p>5）copy 此特性所表达的所属关系与strong类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为NSString*时，经常用此特性来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可以修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变”的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的”，就应该在设置新属性值时拷贝一份。</p>
 
 
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
             
+            <a href="/tag/#/%E7%A2%8E%E7%A2%8E%E5%BF%B5" rel="tag"># 碎碎念</a>
+          
             
+            <a href="/tag/#/ios" rel="tag"># ios</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/blog/article-copyright/" rel="next" title="想说说文章版权">
+                <i class="fa fa-chevron-left"></i> 想说说文章版权
+              </a>
             
+          </div>
 
-            <!-- Tag Buttons -->
-            <ul class="actions">
-              
-              
-              <li><a href="/tags/#ios" class="button small"># ios</a></li>
-              
-              
-              
-              <li><a href="/tags/#%E7%A2%8E%E7%A2%8E%E5%BF%B5" class="button small"># 碎碎念</a></li>
-              
-                  
-            </ul>
-          </section>
+          <span class="post-nav-divider"></span>
 
-          <div class="comments-wrapper">
-          <!--
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
-
-              var disqus_config = function () {
-                  this.page.url = '/blog/ios-interview/';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '/blog/ios-interview/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
-
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
-
-                  s.src = 'https://.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
-
-          <!-- 来必力City版安装代码 -->
-          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
-          <script type="text/javascript">
-             (function(d, s) {
-                 var j, e = d.getElementsByTagName(s)[0];
-
-                 if (typeof LivereTower === 'function') { return; }
-
-                 j = d.createElement(s);
-                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                 j.async = true;
-
-                 e.parentNode.insertBefore(j, e);
-             })(document, 'script');
-          </script>
-          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/objective-c-NSPredicate/" rel="prev" title="Objective-C中的NSPredicate">
+                Objective-C中的NSPredicate <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
-        <!-- /.comments-wrapper -->
+      
+      
 
+      
+    </footer>
+  </article>
 
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                
-                  <li><a href="/blog/objective-c-NSPredicate/" class="button special icon fa-arrow-left"></a></li>
-                
-                <li><a href="/blog/" class="button">All Blog</a></li>
-                
-                  <li><a href="/blog/article-copyright/" class="button special icon fa-arrow-right"></a></li>
-                
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        <footer id="footer">
-  <section>
-    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea name="message" id="message" rows="3"></textarea>
-      </div>
-      <ul class="actions">
-        <li><input type="submit" value="Send Message"></li>
-      </ul>
-    </form>
-  </section>
-  <section class="split contact">
-    <section class="alt">
-      <h3>Location</h3>
-      <p>Guangzhou, China</p>
-    </section>
-    <section>
-      <h3>QQ</h3>
-      <p><a href="qq:124808738">124808738</a></p>
-    </section>
-    <section>
-      <h3>Email</h3>
-      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
-    </section>
-    <section>
-      <h3>Social</h3>
-      <ul class="icons alt">
-        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-      </ul>
-    </section>
-  </section>
-</footer>
-<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
-  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+  <div class="post-spread">
+    
+  </div>
 </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#第一部分"> <span class="nav-number">1</span> <span class="nav-text">第一部分</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#第二部分"> <span class="nav-number">2</span> <span class="nav-text">第二部分</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#第三部分"> <span class="nav-number">3</span> <span class="nav-text">第三部分</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#第四部分"> <span class="nav-number">4</span> <span class="nav-text">第四部分</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#第五部分"> <span class="nav-number">5</span> <span class="nav-text">第五部分</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#第六部分"> <span class="nav-number">6</span> <span class="nav-text">第六部分</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
 <script type="text/javascript">
-  $("#back-top").hide();
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 800) {
-        $('#back-top').fadeIn();
-      } else {
-        $('#back-top').fadeOut();
-      }
-    });
-    $('#back-top a').click(function () {
-      $('body,html').animate({
-        scrollTop: 0
-      }, 1200);
-      return false;
-    });
-  });
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-<!-- Copyright -->
-<div id="copyright">
-  <ul>
-<li>2016 - 2018 © Chars</li>
-<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
-</li>
-<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
-</li>
-</ul>
-</div>
 
 
-			</div>
 
-      <!-- Scripts -->
-  		<!-- DYN -->
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/jquery.scrollex.min.js"></script>
-<script src="/assets/js/jquery.scrolly.min.js"></script>
-<script src="/assets/js/skel.min.js"></script>
-<script src="/assets/js/util.js"></script>
-<script src="/assets/js/main.js"></script>
 
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-
-  gtag('config', 'UA-80507808-1');
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-	</body>
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
 </html>
+

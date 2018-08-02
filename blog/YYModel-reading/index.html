@@ -1,76 +1,429 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
---><html>
-	<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<title>YYModel源代码阅读 - 基础知识</title>
-<meta name="description" content="">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
-<link rel="manifest" href="/assets/icon/manifest.json">
-<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
-<link rel="shortcut icon" href="/assets/icon/favicon.ico">
-<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-
-<!-- CSS -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
-
-	</head>
-	<body class="is-loading">
-
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-
-				<!-- Header -->
-        <header id="header">
-          <a href="/" class="logo">Chars's Tech Blog</a>
-        </header>
-
-				<!-- Nav -->
-					<nav id="nav">
-
-            <ul class="links">
-  <li class=""><a href="/">Home</a></li>
-  <li class=" active "><a href="/blog/">Blog</a></li>
-  <li class=""><a href="/tags/">Tags</a></li>
-  <li class=""><a href="/categories/">Categories</a></li>
-  <li class=""><a href="/about/">About</a></li>
-<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
-</ul>
+<!doctype html>
 
 
-						<ul class="icons">
-              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
 
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">17 Feb 2016</span>
-      				<h1>YYModel源代码阅读 - 基础知识</h1>
-      				<!-- <p><p>YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。</p>
 
-</p> -->
-      			</header>
-      			<div class="image main"><img src="" alt=""></div>
-      			<p></p>
-<p>YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。</p>
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="框架,ios," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。">
+<meta name="keywords" content="框架, ios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YYModel源代码阅读 - 基础知识">
+<meta property="og:url" content="http://localhost:4000/blog/YYModel-reading/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YYModel源代码阅读 - 基础知识">
+<meta name="twitter:description" content="YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>YYModel源代码阅读 - 基础知识 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/YYModel-reading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            YYModel源代码阅读 - 基础知识
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-17T04:51:21+08:00">
+                2016-02-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/code" itemprop="url" rel="index">
+                    <span itemprop="name">code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>YYModel堪称神级大作，虽然不免一些小bug，但是完全不影响膝盖碎一地。文章主要分享在阅读YYModel源代码时，所引发的知识点的补充与思考。</p>
 
 <!-- more -->
 
@@ -107,8 +460,7 @@
 
 <p>我们来看看以下的实例，</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">TestNullabilityClass</span> <span class="p">()</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">TestNullabilityClass</span> <span class="p">()</span>
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span> <span class="n">items</span><span class="p">;</span>
 <span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">itemWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span> <span class="n">__nonnull</span><span class="p">)</span><span class="nv">name</span><span class="p">;</span>
 <span class="k">@end</span>
@@ -121,15 +473,14 @@
     <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>不过这只是一个警告，程序还是能编译通过并运行。</p>
 
 <p>事实上，在任何可以使用const关键字的地方都可以使用<code class="highlighter-rouge">__nullable</code>和<code class="highlighter-rouge">__nonnull</code>，不过这两个关键字仅限于使用在指针类型上。而在方法的声明中，我们还可以使用不带下划线的<code class="highlighter-rouge">nullable</code>和<code class="highlighter-rouge">nonnull</code>，如下所示：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">itemWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span> <span class="n">nonnull</span><span class="p">)</span><span class="nv">name</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nf">itemWithName</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span> <span class="n">nonnull</span><span class="p">)</span><span class="nv">name</span>
 <span class="err">在属性声明中，也增加了两个相应的特性，因此上例中的</span><span class="n">items</span><span class="err">属性可以如下声明：</span>
 
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonnull</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span> <span class="n">items</span><span class="p">;</span>
@@ -137,21 +488,20 @@
 
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span> <span class="n">__nonnull</span> <span class="n">items</span><span class="p">;</span>
 <span class="err">推荐使用</span><span class="n">nonnull</span><span class="err">这种方式，这样可以让属性声明看起来更清晰。</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h3 id="nonnull区域设置audited-regions">Nonnull区域设置(Audited Regions)</h3>
 
 <p>如果需要每个属性或每个方法都去指定<code class="highlighter-rouge">nonnull</code>和<code class="highlighter-rouge">nullable</code>，是一件非常繁琐的事。苹果为了减轻我们的工作量，专门提供了两个宏：<strong>NS_ASSUME_NONNULL_BEGIN</strong>和<strong>NS_ASSUME_NONNULL_END</strong>。在这两个宏之间的代码，所有简单指针对象都被假定为 <code class="highlighter-rouge">nonnull</code>，因此我们只需要去指定那些<code class="highlighter-rouge">nullable</code>的指针。如下代码所示：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="n">NS_ASSUME_NONNULL_BEGIN</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="n">NS_ASSUME_NONNULL_BEGIN</span>
 <span class="k">@interface</span> <span class="nc">TestNullabilityClass</span> <span class="p">()</span>
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span> <span class="n">items</span><span class="p">;</span>
 <span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">itemWithName</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">name</span><span class="p">;</span>
 <span class="k">@end</span>
 <span class="n">NS_ASSUME_NONNULL_END</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>在上面的代码中，items属性默认是nonnull的，itemWithName:方法的返回值也是nonnull，而参数是指定为nullable的。</p>
@@ -196,10 +546,9 @@
 
 <p>这无疑是本次最重大的改进，有了泛型后终于可以指定容器类中对象的类型了：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>NSArray&lt;NSString *&gt; *strings = @[@"sun", @"yuan"];
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>NSArray&lt;NSString *&gt; *strings = @[@"sun", @"yuan"];
 NSDictionary&lt;NSString *, NSNumber *&gt; *mapping = @{@"a": @1, @"b": @2};
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>返回值的 id 被替换成具体的类型后，令人感动的代码提示也出来了。</p>
 
@@ -207,10 +556,9 @@ NSDictionary&lt;NSString *, NSNumber *&gt; *mapping = @{@"a": @1, @"b": @2};
 
 <p>系统中常用的一系列容器类型都增加了泛型支持，甚至连 <code class="highlighter-rouge">NSEnumerator</code> 都支持了，这是非常 Nice 的改进。和 <code class="highlighter-rouge">Nullability</code> 一样，我认为最大的意义还是丰富了接口描述信息，对比下面两种写法：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">imageURLs</span><span class="p">;</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">imageURLs</span><span class="p">;</span>
 <span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSURL</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">imageURLs</span><span class="p">;</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>不用多想就清楚下面的数组中存的是什么，避免了 <code class="highlighter-rouge">NSString</code> 和 <code class="highlighter-rouge">NSURL</code> 的混乱。</p>
 
@@ -218,22 +566,20 @@ NSDictionary&lt;NSString *, NSNumber *&gt; *mapping = @{@"a": @1, @"b": @2};
 
 <p>比起使用系统的泛型容器，更好玩的是自定义一个泛型类，目前这里还没什么文档，但拦不住我们写测试代码，假设我们要自定义一个 Stack 容器类：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@interface</span> <span class="nc">Stack</span><span class="o">&lt;</span><span class="n">ObjectType</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">NSObject</span>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">Stack</span><span class="o">&lt;</span><span class="n">ObjectType</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">NSObject</span>
 <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">pushObject</span><span class="o">:</span><span class="p">(</span><span class="n">ObjectType</span><span class="p">)</span><span class="n">object</span><span class="p">;</span>
 <span class="k">-</span> <span class="p">(</span><span class="n">ObjectType</span><span class="p">)</span><span class="n">popObject</span><span class="p">;</span>
 <span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">ObjectType</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">allObjects</span><span class="p">;</span>
 <span class="k">@end</span>
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>这个 <code class="highlighter-rouge">ObjectType</code> 是传入类型的 <code class="highlighter-rouge">placeholder</code>，它只能在 <code class="highlighter-rouge">@interface</code> 上定义（类声明、类扩展、Category），如果你喜欢用 T 表示也 OK，这个类型在 <code class="highlighter-rouge">@interface</code> 和 <code class="highlighter-rouge"><span class="k">@end</span></code> 区间的作用域有效，可以把它作为入参、出参、甚至内部 NSArray 属性的泛型类型，应该说一切都是符合预期的。我们还可以给 ObjectType 增加类型限制，比如：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>// 只接受 NSNumber * 的泛型
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code>// 只接受 NSNumber * 的泛型
 @interface Stack&lt;ObjectType: NSNumber *&gt; : NSObject
 // 只接受满足 NSCopying 协议的泛型
 @interface Stack&lt;ObjectType: id&lt;NSCopying&gt;&gt; : NSObject
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>若什么都不加，表示接受任意类型 ( id )；当类型不满足时编译器将产生 error。
 实例化一个 Stack，一切工作正常：</p>
@@ -244,16 +590,14 @@ NSDictionary&lt;NSString *, NSNumber *&gt; *mapping = @{@"a": @1, @"b": @2};
 
 <p>当类支持泛型后，它们的 Type 发生了变化，比如下面三个对象看上去都是 Stack，但实际上属于三个 Type：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>Stack *stack; // Stack *
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>Stack *stack; // Stack *
 Stack&lt;NSString *&gt; *stringStack; // Stack&lt;NSString *&gt;
 Stack&lt;NSMutableString *&gt; *mutableStringStack; // Stack&lt;NSMutableString *&gt;
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>当其中两种类型做类型转化时，编译器需要知道哪些转化是允许的，哪些是禁止的，比如，默认情况下：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>Stack *stack;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code>Stack *stack;
 Stack&lt;NSString *&gt; *stringStack;
 Stack&lt;NSMutableString *&gt; *mutableStringStack; 
 
@@ -263,26 +607,23 @@ stringStack = stack;
 stringStack = mutableStringStack;
 mutableStringStack = stack;
 mutableStringStack = stringStack
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>在Xcode中我们可以看到，不指定泛型类型的 Stack 可以和任意泛型类型转化，但指定了泛型类型后，两个不同类型间是不可以强转的，假如你希望主动控制转化关系，就需要使用泛型的协变性和逆变性修饰符了：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>__covariant - 协变性，子类型可以强转到父类型（里氏替换原则）
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>__covariant - 协变性，子类型可以强转到父类型（里氏替换原则）
 __contravariant - 逆变性，父类型可以强转到子类型（WTF）
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h4 id="协变">协变</h4>
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@interface Stack&lt;__covariant ObjectType&gt; : NSObject
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>@interface Stack&lt;__covariant ObjectType&gt; : NSObject
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h4 id="逆变">逆变</h4>
-<div class="highlighter-rouge">
-<pre class="highlight"><code>@interface Stack&lt;__contravariant ObjectType&gt; : NSObject
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>@interface Stack&lt;__contravariant ObjectType&gt; : NSObject
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>协变是非常好理解的，像 <code class="highlighter-rouge">NSArray</code> 的泛型就用了协变的修饰符。</p>
@@ -290,29 +631,25 @@ __contravariant - 逆变性，父类型可以强转到子类型（WTF）
 <h2 id="__kindof">__kindof</h2>
 
 <p><code class="highlighter-rouge">__kindof</code> 这修饰符还是很实用的，解决了一个长期以来的小痛点，拿原来的 <code class="highlighter-rouge">UITableView</code> 的这个方法来说：</p>
-<div class="highlighter-rouge">
-<pre class="highlight"><code>- (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>- (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>使用时前面基本会使用 <code class="highlighter-rouge">UITableViewCell</code> 子类型的指针来接收返回值，所以这个 API 为了让开发者不必每次都蛋疼的写显式强转，把返回值定义成了 id 类型，而这个 API 实际上的意思是返回一个 <code class="highlighter-rouge">UITableViewCell</code> 或 <code class="highlighter-rouge">UITableViewCell</code> 子类的实例，于是新的 <code class="highlighter-rouge">__kindof</code> 关键字解决了这个问题：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>- (__kindof UITableViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>- (__kindof UITableViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>既明确表明了返回值，又让使用者不必写强转。再举个带泛型的例子，UIView 的 subviews 属性被修改成了：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">__kindof</span> <span class="n">UIView</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">subviews</span><span class="p">;</span>
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n">__kindof</span> <span class="n">UIView</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">subviews</span><span class="p">;</span>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>这样，写下面的代码时就没有任何警告了：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>UIButton *button = view.subviews.lastObject;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>UIButton *button = view.subviews.lastObject;
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h1 id="ns_enum--ns_options">NS_ENUM &amp; NS_OPTIONS</h1>
@@ -323,8 +660,7 @@ __contravariant - 逆变性，父类型可以强转到子类型（WTF）
 
 <p>一般我们声明枚举：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code>#import &lt;Foundation/Foundation.h&gt;
 
 // 声明枚举类型
 enum Direction {up, down, left = 10, right};
@@ -333,7 +669,7 @@ int main(int argc, const char * argv[]){
   ...
 }
 其中up = 0, down = 1, left = 10, right = 11。
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>我们会发现枚举中一些不可自定义的部分，例如，枚举名。</p>
@@ -344,48 +680,43 @@ int main(int argc, const char * argv[]){
 
 <p>如果要在早期的iOS或OS X系统中使用这两个宏，简单定义一下就好</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>#ifndef NS_ENUM
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>#ifndef NS_ENUM
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>在OS X 10.4 中的原始定义如下：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>#define NS_ENUM(_type, _name) CF_ENUM(_type, _name)
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>#define NS_ENUM(_type, _name) CF_ENUM(_type, _name)
 #define NS_OPTIONS(_type, _name) CF_OPTIONS(_type, _name)
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 <p>在之前枚举可以这么定义：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>typedef enum {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code>typedef enum {
     UITableViewCellStyleDefault,
     UITableViewCellStyleValue1,
     UITableViewCellStyleValue2,
     UITableViewCellStyleSubtitle
 };
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>或者</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>typedef NSInteger UITableViewCellStyle;
-</code></pre>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>typedef NSInteger UITableViewCellStyle;
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>现在，有了统一的风格</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>typedef NS_ENUM(NSInteger, UITableViewCellSelectionStyle) {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code>typedef NS_ENUM(NSInteger, UITableViewCellSelectionStyle) {
     UITableViewCellSelectionStyleNone,
     UITableViewCellSelectionStyleBlue,
     UITableViewCellSelectionStyleGray,
     UITableViewCellSelectionStyleDefault
 };
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p><code class="highlighter-rouge">NS_ENUM</code> 的第一个参数是用于存储的新类型的类型。在64位环境下，<code class="highlighter-rouge">UITableViewCellStyle</code> 和 <code class="highlighter-rouge">NSInteger</code> 一样有8 bytes长。你要保证你给出的所有值能被该类型容纳，否则就会产生错误。第二个参数是新类型的名字。大括号里面和以前一样，是你要定义的各种值。</p>
@@ -401,18 +732,16 @@ int main(int argc, const char * argv[]){
   </tbody>
 </table>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>typedef NS_OPTIONS(NSUInteger, AMGResizing) {
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code>typedef NS_OPTIONS(NSUInteger, AMGResizing) {
     AMGResizingNone            = 0,
     AMGResizingFlexibleWidth   = 1 &lt;&lt; 0,
     AMGResizingFlexibleHeight  = 1 &lt;&lt; 1,
     AMGResizingFlexibleUnicorn = 1 &lt;&lt; 2
 };
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
-<h1 id="attributealways_inline">
-<strong>attribute</strong>((always_inline))</h1>
+<h1 id="attributealways_inline"><strong>attribute</strong>((always_inline))</h1>
 
 <p>我们知道一般的函数调用都会通过call的方式来调用，这样让攻击很容易对一个函数做手脚，如果是以<code class="highlighter-rouge">inline</code>的方式编译的会，会把该函数的code拷贝到每次调用该函数的地方。而<code class="highlighter-rouge">static</code>会让生成的二进制文件中没有清晰的符号表，让逆向的人很难弄清楚逻辑。</p>
 
@@ -420,11 +749,10 @@ int main(int argc, const char * argv[]){
 <code class="highlighter-rouge">__attribute__((always_inline)) void a()</code>
 和</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>void b()｛  
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>void b()｛  
     a();
 ｝
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <p>b 调用 a 函数的汇编代码不会是跳转到a执行，而是 a 函数的代码直接在 b 内成为 b 的一部分。
@@ -436,8 +764,7 @@ int main(int argc, const char * argv[]){
 
 <p>这是预编译指令，和<code class="highlighter-rouge">#define</code>搭配使用，意思是取消之前的宏定义。</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>#define PROC_ADD 
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code>#define PROC_ADD 
 void main(void) 
 {
 #ifdef PROC_ADD 
@@ -449,7 +776,7 @@ void main(void)
 // processing work 
 #endif 
 }
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 <h1 id="__unsafe_unretained">__unsafe_unretained</h1>
@@ -458,23 +785,22 @@ void main(void)
 
 <p>在iOS引入了Automatic Reference Count（ARC）之后，编译器可以在编译时对obj-c对象进行内存管理。大致规则如下：</p>
 
-<div class="highlighter-rouge">
-<pre class="highlight"><code>alloc的要release;
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code>alloc的要release;
 retain/copy的要release;
 NSAutoreleasePool在ARC中被禁止使用,替换成@autoreleasepool 函数体;
 使用@ autoreleasepool,在函数入口的时候,autorelease pool入栈,正常退出时,autorelease pool出栈,从而释放变量.
 注意:@ autoreleasepool在非ARC模式下,也能使用,并据说使用@autoreleasepool比使用NSAutoreleasePool速度能快6倍, 明显提升程序性能.
-</code></pre>
+</code></pre></td></tr></tbody></table></div>
 </div>
 
-<h1 id="package"><a href="http://chars.tech/package" class="user-mention">@package</a></h1>
+<h1 id="package">@package</h1>
 
 <p>为了强制一个对象隐藏其数据，编译器限制实例变量范围以限制其在程序中的可见性，但是为了提供灵活性，苹果也让开发者显式设置范围。</p>
 
 <p>以下是这些关键字的使用范围：</p>
 
 <ul>
-  <li><a href="http://chars.tech/private" class="user-mention">@private</a></li>
+  <li>@private</li>
 </ul>
 
 <p>The instance variable is accessible only within the class that declares it.</p>
@@ -482,15 +808,15 @@ NSAutoreleasePool在ARC中被禁止使用,替换成@autoreleasepool 函数体;
 <p>实例变量只能被声明它的类访问.</p>
 
 <ul>
-  <li><a href="http://chars.tech/protected" class="user-mention">@protected</a></li>
+  <li>@protected</li>
 </ul>
 
-<p>The instance variable is accessible within the class that declares it and within classes that inherit it. All instance variables without an explicit scope directive have <a href="http://chars.tech/protected" class="user-mention">@protected</a> scope.</p>
+<p>The instance variable is accessible within the class that declares it and within classes that inherit it. All instance variables without an explicit scope directive have @protected scope.</p>
 
 <p>实例变量能被声明它的类和子类访问，所有没有显式制定范围的实例变量都是.</p>
 
 <ul>
-  <li><a href="http://chars.tech/public" class="user-mention">@public</a></li>
+  <li>@public</li>
 </ul>
 
 <p>The instance variable is accessible everywhere.</p>
@@ -498,7 +824,7 @@ NSAutoreleasePool在ARC中被禁止使用,替换成@autoreleasepool 函数体;
 <p>实例变量可以被在任何地方访问.</p>
 
 <ul>
-  <li><a href="http://chars.tech/package" class="user-mention">@package</a></li>
+  <li>@package</li>
 </ul>
 
 <p>Using the modern runtime, an <code class="highlighter-rouge">@package</code> instance variable has <code class="highlighter-rouge">@public</code> scope inside the executable image that implements the class, but acts like <code class="highlighter-rouge">@private</code> outside.使用modern运行时，一个<code class="highlighter-rouge">@package</code>实例变量在实现这个类的可执行文件镜像中实际上是<code class="highlighter-rouge">@public</code>的，但是在外面就是<code class="highlighter-rouge">@private</code>【runtime需要再看一下苹果文档Runtime Programming Guide】</p>
@@ -519,184 +845,493 @@ NSAutoreleasePool在ARC中被禁止使用,替换成@autoreleasepool 函数体;
 
 
 
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
             
+            <a href="/tag/#/%E6%A1%86%E6%9E%B6" rel="tag"># 框架</a>
+          
             
+            <a href="/tag/#/ios" rel="tag"># ios</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/blog/objc-new-alloc-init/" rel="next" title="Objective-C 中 new、alloc和init的区别">
+                <i class="fa fa-chevron-left"></i> Objective-C 中 new、alloc和init的区别
+              </a>
             
+          </div>
 
-            <!-- Tag Buttons -->
-            <ul class="actions">
-              
-              
-              <li><a href="/tags/#ios" class="button small"># ios</a></li>
-              
-              
-              
-              <li><a href="/tags/#%E6%A1%86%E6%9E%B6" class="button small"># 框架</a></li>
-              
-                  
-            </ul>
-          </section>
+          <span class="post-nav-divider"></span>
 
-          <div class="comments-wrapper">
-          <!--
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
-
-              var disqus_config = function () {
-                  this.page.url = '/blog/YYModel-reading/';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '/blog/YYModel-reading/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
-
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
-
-                  s.src = 'https://.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
-
-          <!-- 来必力City版安装代码 -->
-          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
-          <script type="text/javascript">
-             (function(d, s) {
-                 var j, e = d.getElementsByTagName(s)[0];
-
-                 if (typeof LivereTower === 'function') { return; }
-
-                 j = d.createElement(s);
-                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                 j.async = true;
-
-                 e.parentNode.insertBefore(j, e);
-             })(document, 'script');
-          </script>
-          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/memory-alignment/" rel="prev" title="内存对齐详解">
+                内存对齐详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
-        <!-- /.comments-wrapper -->
+      
+      
 
+      
+    </footer>
+  </article>
 
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                
-                  <li><a href="/blog/memory-alignment/" class="button special icon fa-arrow-left"></a></li>
-                
-                <li><a href="/blog/" class="button">All Blog</a></li>
-                
-                  <li><a href="/blog/objc-new-alloc-init/" class="button special icon fa-arrow-right"></a></li>
-                
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        <footer id="footer">
-  <section>
-    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea name="message" id="message" rows="3"></textarea>
-      </div>
-      <ul class="actions">
-        <li><input type="submit" value="Send Message"></li>
-      </ul>
-    </form>
-  </section>
-  <section class="split contact">
-    <section class="alt">
-      <h3>Location</h3>
-      <p>Guangzhou, China</p>
-    </section>
-    <section>
-      <h3>QQ</h3>
-      <p><a href="qq:124808738">124808738</a></p>
-    </section>
-    <section>
-      <h3>Email</h3>
-      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
-    </section>
-    <section>
-      <h3>Social</h3>
-      <ul class="icons alt">
-        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-      </ul>
-    </section>
-  </section>
-</footer>
-<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
-  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+  <div class="post-spread">
+    
+  </div>
 </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#前言"> <span class="nav-number">1</span> <span class="nav-text">前言</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#ns_assume_nonnull_begin--ns_assume_nonnull_end"> <span class="nav-number">2</span> <span class="nav-text">NS_ASSUME_NONNULL_BEGIN &amp; NS_ASSUME_NONNULL_END</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#nullability-annotations"> <span class="nav-number">2.1</span> <span class="nav-text">Nullability Annotations</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#nonnull区域设置audited-regions"> <span class="nav-number">2.1.1</span> <span class="nav-text">Nonnull区域设置(Audited Regions)</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#兼容性"> <span class="nav-number">2.1.2</span> <span class="nav-text">兼容性</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#lightweight-generics"> <span class="nav-number">2.2</span> <span class="nav-text">Lightweight Generics</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#带泛型的容器"> <span class="nav-number">2.2.1</span> <span class="nav-text">带泛型的容器</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#自定义泛型类"> <span class="nav-number">2.2.2</span> <span class="nav-text">自定义泛型类</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#协变性和逆变性"> <span class="nav-number">2.2.3</span> <span class="nav-text">协变性和逆变性</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#协变"> <span class="nav-number">2.2.3.1</span> <span class="nav-text">协变</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#逆变"> <span class="nav-number">2.2.3.2</span> <span class="nav-text">逆变</span> </a> </li> </ol> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#__kindof"> <span class="nav-number">2.3</span> <span class="nav-text">__kindof</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#ns_enum--ns_options"> <span class="nav-number">3</span> <span class="nav-text">NS_ENUM &amp; NS_OPTIONS</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#ns_enum"> <span class="nav-number">3.1</span> <span class="nav-text">NS_ENUM</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#ns_options"> <span class="nav-number">3.2</span> <span class="nav-text">NS_OPTIONS</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#attributealways_inline"> <span class="nav-number">4</span> <span class="nav-text">attribute((always_inline))</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#undef"> <span class="nav-number">5</span> <span class="nav-text">undef</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#__unsafe_unretained"> <span class="nav-number">6</span> <span class="nav-text">__unsafe_unretained</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#package"> <span class="nav-number">7</span> <span class="nav-text">@package</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
 <script type="text/javascript">
-  $("#back-top").hide();
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 800) {
-        $('#back-top').fadeIn();
-      } else {
-        $('#back-top').fadeOut();
-      }
-    });
-    $('#back-top a').click(function () {
-      $('body,html').animate({
-        scrollTop: 0
-      }, 1200);
-      return false;
-    });
-  });
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-<!-- Copyright -->
-<div id="copyright">
-  <ul>
-<li>2016 - 2018 © Chars</li>
-<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
-</li>
-<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
-</li>
-</ul>
-</div>
 
 
-			</div>
 
-      <!-- Scripts -->
-  		<!-- DYN -->
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/jquery.scrollex.min.js"></script>
-<script src="/assets/js/jquery.scrolly.min.js"></script>
-<script src="/assets/js/skel.min.js"></script>
-<script src="/assets/js/util.js"></script>
-<script src="/assets/js/main.js"></script>
 
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-
-  gtag('config', 'UA-80507808-1');
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-	</body>
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
 </html>
+

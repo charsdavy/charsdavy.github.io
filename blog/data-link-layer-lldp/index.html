@@ -1,76 +1,453 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-  Jekyll integration by somiibo.com
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
---><html>
-	<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-<title>数据链路层之 LLDP</title>
-<meta name="description" content="">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
-<link rel="manifest" href="/assets/icon/manifest.json">
-<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
-<link rel="shortcut icon" href="/assets/icon/favicon.ico">
-<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
-<meta name="theme-color" content="#ffffff">
-
-<!-- CSS -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
-
-	</head>
-	<body class="is-loading">
-
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-
-				<!-- Header -->
-        <header id="header">
-          <a href="/" class="logo">Chars's Tech Blog</a>
-        </header>
-
-				<!-- Nav -->
-					<nav id="nav">
-
-            <ul class="links">
-  <li class=""><a href="/">Home</a></li>
-  <li class=" active "><a href="/blog/">Blog</a></li>
-  <li class=""><a href="/tags/">Tags</a></li>
-  <li class=""><a href="/categories/">Categories</a></li>
-  <li class=""><a href="/about/">About</a></li>
-<!--   <li class=""><a href="/elements/">Elements Reference</a></li> -->
-</ul>
+<!doctype html>
 
 
-						<ul class="icons">
-              <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-              <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-              <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-              <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
 
-				<!-- Main -->
-				<div id="main">
-          <section class="post">
-    				<header class="major">
-      				<span class="date">29 Jan 2018</span>
-      				<h1>数据链路层之 LLDP</h1>
-      				<!-- <p><p>随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 </p>
 
-</p> -->
-      			</header>
-      			<div class="image main"><img src="" alt=""></div>
-      			<p></p>
-<p>随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 </p>
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LLDP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 ">
+<meta name="keywords" content="LLDP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据链路层之 LLDP">
+<meta property="og:url" content="http://localhost:4000/blog/data-link-layer-lldp/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 ">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-struct.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-ethernet-ii-frame.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-snap-frame.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-mac-addr.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-group-mac-addr.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-diff-os-mac-addr.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-port-based-pbn.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-port-based-pbn-struct.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-du.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-format.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-list.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-frame.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-end.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-chassis.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-chassis-list.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-port.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-port-list.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-ttl.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-send-state-machine.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-send-timer-state-machine.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-receive-state-machine.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-mib-block.png">
+<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-state-machine-symbol.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据链路层之 LLDP">
+<meta name="twitter:description" content="随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 ">
+<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-struct.png">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>数据链路层之 LLDP | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/data-link-layer-lldp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            数据链路层之 LLDP
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-29T00:00:00+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/web" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 </p>
 
 <p>LLDP（Link Layer Discovery Protocol，链路层发现协议）就是用于这个目的的协议。LLDP 定义在 802.1ab 中，它是一个二层协议，它提供了一种标准的链路层发现方式。LLDP 协议使得接入网络的一台设备可以将其主要的<strong>能力，管理地址，设备标识，接口标识</strong>等信息发送给接入同一个局域网络的其它设备。当一个设备从网络中接收到其它设备的这些信息时，它就将这些信息以MIB的形式存储起来。</p>
 
@@ -80,7 +457,7 @@
 
 <p>LLDP 的框架结构如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-struct.png" alt="LLDP 结构图"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-struct.png" alt="LLDP 结构图" /></p>
 
 <p>此图也表明 LLDP 就是一个信息发现与通告协议，LLDP 的实体主要维护了两个 MIB 库，一个 local system MIB，一个 remote system MIB。从其名字也可以看出，一个用于维护本地相关的设备 MIB 信息，一个用于维护远端设备 MIB 信息。</p>
 
@@ -94,7 +471,7 @@
 
 <h4 id="ethernet-ii-格式封装的-lldp-帧">Ethernet II 格式封装的 LLDP 帧</h4>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-ethernet-ii-frame.png" alt="Ethernet II 格式封装的 LLDP 帧"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-ethernet-ii-frame.png" alt="Ethernet II 格式封装的 LLDP 帧" /></p>
 
 <p>上图是以 Ethernet II 格式封装的 LLDP 帧，其中各字段的含义如下： </p>
 
@@ -108,7 +485,7 @@
 
 <h4 id="snap-格式封装的-lldp-帧">SNAP 格式封装的 LLDP 帧</h4>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-snap-frame.png" alt="SNAP 格式封装的 LLDP 帧"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-snap-frame.png" alt="SNAP 格式封装的 LLDP 帧" /></p>
 
 <p>上图是以 SNAP 格式封装的 LLDP 帧，其中各字段的含义如下：</p>
 
@@ -134,11 +511,11 @@
 
 <p>TPMR 以及 S-VLAN，C-VLAN 都是 802.1Q 中的概念，包括这三者的网络以及各个地址的作用范围如下图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-mac-addr.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-mac-addr.png" alt="" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-group-mac-addr.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-group-mac-addr.png" alt="" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-diff-os-mac-addr.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-diff-os-mac-addr.png" alt="" /></p>
 
 <ul>
   <li>C-VLAN：Customer VLAN，是用户网络内部使用的 VLAN；</li>
@@ -157,11 +534,11 @@
 
 <p>所谓 Port Based Service，就是说某个 Service 是基于 Port 的，从该 Port 进来的所有报文，都被认为是属于某一个特定的 Customer 的，不管它是否带 C-Tag，带了什么样的 C-Tag，这些信息统统被忽视。所有从这个 Port 进来的报文被赋予一个 S-VLAN，该 S-VLAN 被用来标识该 Customer，或说该 Service。提供这种 Service 的 Port 就是CN Port。CN Port 的实质就是运营商为一个 Customer 提供一个专门的 Port，不跟别的 Customer 共享。注意，从这个 Port 上进来的报文不能带 S-Tag，否则会被丢弃。也就是说，对于 S-Tag 而言，这个 Port 是 Access Port，而不是 Trunk Port。这是跟后面的 S-Tag Based service 本质的不同。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-port-based-pbn.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-port-based-pbn.png" alt="" /></p>
 
 <p>所谓的 S-Tag Based Service，就是说从一个 Port 上进来的报文，根据 S-VLAN 来把它们划分到不同的 Customer，换句话说，是用 S-VLAN 来标记 Customer。提供这种 Service 的 Port 也是 CN Port，只不过这个时候的 CN Port，必须配置成 Trunk Port，只识别 S-VLAN，根据 S-VLAN 来标识 Customer，转发报文。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-port-based-pbn-struct.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-port-based-pbn-struct.png" alt="" /></p>
 
 <p>所谓的 C-Tag Based Service，就是指报文携带 C-Tag 进入 Port，在该 Port 上基于 C-VLAN 来标识 Customer，一个 Port 上可以支持多个 Customer。用来支持 C-Tag Based Service 的 Port 就是 CE Port，CE Port 是 C-VLAN Component 的一部分，对于 C-VLAN 而言，CE Port 是 Trunk Port。它不识别 S-Tag。</p>
 
@@ -195,7 +572,7 @@
 
 <p>LLDPDU 是 LLDP 的有效负载，用于承载要发送的消息。LLDPDU 的格式如下图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-du.png" alt="LLDPDU"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-du.png" alt="LLDPDU" /></p>
 
 <p>LLDPDU 采用了 TLV 的格式，即 <code class="highlighter-rouge">type+length+value</code> 的格式，type 表示 TLV 的类型，length 是以字节为单位的 TLV 的长度，value 是该 TLV 的值。其中 Chassis ID TLV，Port ID TLV Time To Live TLV 以及 End Of LLDPDU TLV 是强制的，必须包含的部分，除此之外在 TLV Time To Live TLV 和 End Of LLDPDU TLV 之间可以包含 0 个到多个可选的其它 TLV。</p>
 
@@ -210,15 +587,15 @@
 
 <p>TLV 的基本格式如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-format.png" alt="TLV基本格式图"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-format.png" alt="TLV基本格式图" /></p>
 
 <p>TLV的类型域的定义及分配如下图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-list.png" alt="TLV类型域"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-list.png" alt="TLV类型域" /></p>
 
 <p>其中 <code class="highlighter-rouge">type0-8</code> 属于基本的 TLV 集合。对于其中的 Mandatory 的 TLV，它是必须包含在 LLDP 中的。 组织定义 TLV 集合的格式如下图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-frame.png" alt="TLV集合格式"></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-frame.png" alt="TLV集合格式" /></p>
 
 <p>其中</p>
 
@@ -236,7 +613,7 @@
 
 <p>该 TLV 用于标识 LLDPDU 的结束。其格式如下</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-end.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-end.png" alt="" /></p>
 
 <p>由于 length=0，因此它不包含 value 域。</p>
 
@@ -244,27 +621,27 @@
 
 <p>该 TLV 用于通告该 LLDPDU 发送者的 Chassis ID。由于有很多方式可用来标识一个 Chassis，因此在该类 TLV 中包含一个子类型域用于告诉接收者，发送者的 Chassis ID 采用的是哪一种标识方式。其格式如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-chassis.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-chassis.png" alt="" /></p>
 
 <p>每个 LLDPDU 必须包含且仅包含一个该类型的 TLV。由于 Chassis ID 实际上是用于标识设备的，因此在连接可用时它应该保持不变。 Chassis 子类型所可能的取值如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-chassis-list.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-chassis-list.png" alt="" /></p>
 
 <h3 id="port-id-tlv">Port ID TLV</h3>
 
 <p>它用于标识发送该 LLDPDU 的设备的端口。类似于 Chassis ID，有很多方式可以标识一个 Port，因此该 TLV 也包含一个子类型域。其格式如下图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-port.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-port.png" alt="" /></p>
 
 <p>每个 LLDPDU 必须包含一个且只能包含一个该类型的 TLV。同时，当端口可用时，从该端口发送出去的 LLDPDU 的该 TLV 应该保持不变。 其子类型的可能取值如下图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-port-list.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-port-list.png" alt="" /></p>
 
 <h3 id="time-to-live-tlv">Time To Live TLV</h3>
 
 <p>该 TLV 用于告诉接收端，它接收到的这些信息的有效期有多长。其格式如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-ttl.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-tlv-ttl.png" alt="" /></p>
 
 <p>TTL 的时间单位是秒，由于只有 2 个字节长，因而最大有效时间是 65536 秒。如果在这个时间到期了还没有新的 LLDPDU 被收到，则该 TLV 所属的那个 LLDPDU 携带的信息会被从 MIB 中删除。如果收到了新的 LLDPDU，则</p>
 
@@ -309,7 +686,7 @@
 
 <p>LLDPDU 的发送状态机如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-send-state-machine.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-send-state-machine.png" alt="" /></p>
 
 <p>对于该状态机：</p>
 
@@ -323,7 +700,7 @@
 
 <p>LLDP 发送定时器状态机如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-send-timer-state-machine.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-send-timer-state-machine.png" alt="" /></p>
 
 <p>localChange 表示本地信息是否发生改变；txTTR 表示下一次定时器到期的时间；newNeighbor 表示是否发现了新的邻居，并由接收状态设置，由该状态机清除；txTick 表示基于系统时间的1秒定时器是否到期。</p>
 
@@ -385,7 +762,7 @@
 
 <p>LLDPDU 的接收状态机如图所示</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-receive-state-machine.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-receive-state-machine.png" alt="" /></p>
 
 <h3 id="lldp-工作模式">LLDP 工作模式</h3>
 
@@ -400,187 +777,497 @@
 
 <p>由于 LLDP 可以单独工作在发送或接收模式下，因此 LLDP 协议的实现需要支持单独初始化发送或者接收功能。当工作模式发生变化时，需要根据老的/新的工作模式来关闭/打开发送或者接收的功能。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-mib-block.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-mib-block.png" alt="" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-state-machine-symbol.png" alt=""></p>
+<p><img src="http://o88e8any8.bkt.clouddn.com/data-link-layer-lldp-state-machine-symbol.png" alt="" /></p>
 
 <p>至此，LLDP 相关知识点已经介绍完，希望对大家有所帮助。</p>
 
 
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
             
+            <a href="/tag/#/LLDP" rel="tag"># LLDP</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/blog/personal-projects/" rel="next" title="个人作品">
+                <i class="fa fa-chevron-left"></i> 个人作品
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            <!-- Tag Buttons -->
-            <ul class="actions">
-              
-              
-              <li><a href="/tags/#LLDP" class="button small"># LLDP</a></li>
-              
-                  
-            </ul>
-          </section>
-
-          <div class="comments-wrapper">
-          <!--
-          <div id="disqus_thread"></div>
-          <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
-
-              var disqus_config = function () {
-                  this.page.url = '/blog/data-link-layer-lldp/';  /*Replace PAGE_URL with your page's canonical URL variable*/
-                  this.page.identifier = '/blog/data-link-layer-lldp/'; /*Replace PAGE_IDENTIFIER with your page's unique identifier variable*/
-              };
-
-              (function() {  /* dont endit below this line */
-                  var d = document, s = d.createElement('script');
-
-                  s.src = 'https://.disqus.com/embed.js';
-
-                  s.setAttribute('data-timestamp', +new Date());
-                  (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
-
-          <!-- 来必力City版安装代码 -->
-          <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA==">
-          <script type="text/javascript">
-             (function(d, s) {
-                 var j, e = d.getElementsByTagName(s)[0];
-
-                 if (typeof LivereTower === 'function') { return; }
-
-                 j = d.createElement(s);
-                 j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                 j.async = true;
-
-                 e.parentNode.insertBefore(j, e);
-             })(document, 'script');
-          </script>
-          <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+              <a href="/blog/tensorflow-wide-and-deep/" rel="prev" title="TensorFlow 广度和深度学习的教程">
+                TensorFlow 广度和深度学习的教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
-        <!-- /.comments-wrapper -->
+      
+      
 
+      
+    </footer>
+  </article>
 
-
-					<!-- Footer -->
-						<footer>
-              <ul class="actions">
-                
-                  <li><a href="/blog/tensorflow-wide-and-deep/" class="button special icon fa-arrow-left"></a></li>
-                
-                <li><a href="/blog/" class="button">All Blog</a></li>
-                
-                  <li><a href="/blog/personal-projects/" class="button special icon fa-arrow-right"></a></li>
-                
-              </ul>
-						</footer>
-					</div>
-
-				<!-- Footer -->
-        <footer id="footer">
-  <section>
-    <form method="POST" action="https://formspree.io/chars.davy@gmail.com">
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea name="message" id="message" rows="3"></textarea>
-      </div>
-      <ul class="actions">
-        <li><input type="submit" value="Send Message"></li>
-      </ul>
-    </form>
-  </section>
-  <section class="split contact">
-    <section class="alt">
-      <h3>Location</h3>
-      <p>Guangzhou, China</p>
-    </section>
-    <section>
-      <h3>QQ</h3>
-      <p><a href="qq:124808738">124808738</a></p>
-    </section>
-    <section>
-      <h3>Email</h3>
-      <p><a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
-    </section>
-    <section>
-      <h3>Social</h3>
-      <ul class="icons alt">
-        <li><a href="https://twitter.com/charsdavy" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-        <li><a href="https://facebook.com/wei.deng.1460" class="icon fa-facebook" rel="nofollow"><span class="label">Facebook</span></a></li>
-        <li><a href="https://instagram.com/chars.davy" class="icon fa-instagram" rel="nofollow"><span class="label">Instagram</span></a></li>
-        <li><a href="https://github.com/charsdavy" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
-      </ul>
-    </section>
-  </section>
-</footer>
-<div id="back-top" style="position:fixed;bottom:40px;right:30px;cursor: pointer;">
-  <a href="#top" title="返回顶部"><img src="/images/arrow-up.png"></a>
+  <div class="post-spread">
+    
+  </div>
 </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#结构"> <span class="nav-number">1</span> <span class="nav-text">结构</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#基本概念"> <span class="nav-number">2</span> <span class="nav-text">基本概念</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#帧格式"> <span class="nav-number">2.1</span> <span class="nav-text">帧格式</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#ethernet-ii-格式封装的-lldp-帧"> <span class="nav-number">2.1.1</span> <span class="nav-text">Ethernet II 格式封装的 LLDP 帧</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#snap-格式封装的-lldp-帧"> <span class="nav-number">2.1.2</span> <span class="nav-text">SNAP 格式封装的 LLDP 帧</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#目的地址"> <span class="nav-number">2.1.3</span> <span class="nav-text">目的地址</span> </a> </li> </ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#tpmr-介绍"> <span class="nav-number">2.2</span> <span class="nav-text">TPMR 介绍</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#qinq-介绍"> <span class="nav-number">2.3</span> <span class="nav-text">QinQ 介绍</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#一种独创的-qinq-模式"> <span class="nav-number">2.3.1</span> <span class="nav-text">一种独创的 QinQ 模式</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#qinq-的不足"> <span class="nav-number">2.3.2</span> <span class="nav-text">QinQ 的不足</span> </a> </li> </ol> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#lldpdu"> <span class="nav-number">3</span> <span class="nav-text">LLDPDU</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#tlv"> <span class="nav-number">4</span> <span class="nav-text">TLV</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#基础-tlv-集合"> <span class="nav-number">5</span> <span class="nav-text">基础 TLV 集合</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#end-of-lldpdu-tlv"> <span class="nav-number">5.1</span> <span class="nav-text">End Of LLDPDU TLV</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#chassis-id-tlv"> <span class="nav-number">5.2</span> <span class="nav-text">Chassis ID TLV</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#port-id-tlv"> <span class="nav-number">5.3</span> <span class="nav-text">Port ID TLV</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#time-to-live-tlv"> <span class="nav-number">5.4</span> <span class="nav-text">Time To Live TLV</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#工作机制"> <span class="nav-number">6</span> <span class="nav-text">工作机制</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#lldpdu-发送"> <span class="nav-number">6.1</span> <span class="nav-text">LLDPDU 发送</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#发送机制"> <span class="nav-number">6.1.1</span> <span class="nav-text">发送机制</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#发送状态机"> <span class="nav-number">6.1.2</span> <span class="nav-text">发送状态机</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#发送定时器状态机"> <span class="nav-number">6.1.3</span> <span class="nav-text">发送定时器状态机</span> </a> </li> </ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#lldpdu-接收"> <span class="nav-number">6.2</span> <span class="nav-text">LLDPDU 接收</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#接收机制"> <span class="nav-number">6.2.1</span> <span class="nav-text">接收机制</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-5"> <a class="nav-link" href="#帧的识别"> <span class="nav-number">6.2.1.1</span> <span class="nav-text">帧的识别</span> </a> </li> <li class="nav-item nav-level-5"> <a class="nav-link" href="#帧的验证"> <span class="nav-number">6.2.1.2</span> <span class="nav-text">帧的验证</span> </a> </li> <li class="nav-item nav-level-5"> <a class="nav-link" href="#远端-mib-信息库更新"> <span class="nav-number">6.2.1.3</span> <span class="nav-text">远端 MIB 信息库更新</span> </a> </li> </ol> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#接收状态机"> <span class="nav-number">6.2.2</span> <span class="nav-text">接收状态机</span> </a> </li> </ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#lldp-工作模式"> <span class="nav-number">6.3</span> <span class="nav-text">LLDP 工作模式</span> </a> </li> </ol> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-leaf"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
 <script type="text/javascript">
-  $("#back-top").hide();
-  $(document).ready(function () {
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 800) {
-        $('#back-top').fadeIn();
-      } else {
-        $('#back-top').fadeOut();
-      }
-    });
-    $('#back-top a').click(function () {
-      $('body,html').animate({
-        scrollTop: 0
-      }, 1200);
-      return false;
-    });
-  });
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-<!-- Copyright -->
-<div id="copyright">
-  <ul>
-<li>2016 - 2018 © Chars</li>
-<li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a>
-</li>
-<li>Jekyll Integration by <a href="https://soundgrail.com">SoundGrail</a>
-</li>
-</ul>
-</div>
 
 
-			</div>
 
-      <!-- Scripts -->
-  		<!-- DYN -->
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/jquery.scrollex.min.js"></script>
-<script src="/assets/js/jquery.scrolly.min.js"></script>
-<script src="/assets/js/skel.min.js"></script>
-<script src="/assets/js/util.js"></script>
-<script src="/assets/js/main.js"></script>
 
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80507808-1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)};
-  gtag('js', new Date());
-
-  gtag('config', 'UA-80507808-1');
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
-	</body>
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
 </html>
+
