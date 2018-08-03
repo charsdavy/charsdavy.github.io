@@ -427,6 +427,8 @@
 
   <p>单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
 
+<!-- more -->
+
 <h1 id="问题的提出">问题的提出　</h1>
 <p>在一个iOS 应用的生命周期中，有时候我们只需要某个类的一个实例。例如，iOS 设备都有一个重力加速计硬件设备，要访问设备在x轴、y轴和z轴上的重力加速度，就必然要有一个类能够与硬件设备沟通来实时获得这些数据，这个类就是UIAccelerometer 。除了实时地获得数据，该类还能够保持x 轴、y轴和z 轴的状态。但是这个类只需要一个实例就够了，如果有多个实例，就会占用过多的内存。 再有，当应用程序启动时，应用的状态由UIApplication 类的一个实例维护，这个实例代表了整个“应用程序对象”，它只能是一个实例，其作用是实现应用程序中一些共享资源的访问和状态的保持等。</p>
 <h1 id="实现原理">实现原理</h1>
@@ -761,6 +763,17 @@ NSString* urlString = [NSString stringWithFormat: @"http://maps.google.com/maps?
                     <i class="fa fa-fw fa-weibo"></i>
                   
                   Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
                 </a>
               </span>
             

@@ -432,6 +432,8 @@
 
   <p>文件系统中的文件、keychain中的项，都是加密存储的。当用户解锁设备后，系统通过UDID密钥和用户设定的密码生成一个用于解密的密码密钥，存放在内存中，直到设备再次被锁，开发者可以通过Data Protection API 来设定文件系统中的文件、keychain中的项应该何时被解密。这个就是数据保护的内容。</p>
 
+<!-- more -->
+
 <h2 id="钥匙串keychain">钥匙串（keychain）</h2>
 
 <p>keychain服务提供了一种安全的保存私密信息（密码，序列号，私钥，证书等）的方式，每个iOS程序都有一个独立的keychain存储。相对于NSUserDefaults、文件保存等一般方式，keychain保存更为安全，而且keychain里保存的信息不会因APP被删除而丢失。</p>
@@ -1034,6 +1036,17 @@ if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics e
                     <i class="fa fa-fw fa-weibo"></i>
                   
                   Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
                 </a>
               </span>
             

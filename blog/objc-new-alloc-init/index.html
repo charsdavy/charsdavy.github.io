@@ -425,6 +425,8 @@
 
   <p>在实际开发中很少会用到new，一般创建对象我们看到的全是[[className alloc] init]，但是并不意味着你不会接触到new，在一些代码中还是会看到[className new]，还有去面试的时候，也很可能被问到这个问题。</p>
 
+<!-- more -->
+
 <p>那么，它们两者之间到底有什么区别呢？我们先来看源码：</p>
 
 <div class="language-objc highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="k">+</span> <span class="o">+</span> <span class="n">new</span> <span class="p">{</span> 
@@ -692,6 +694,17 @@
                     <i class="fa fa-fw fa-weibo"></i>
                   
                   Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
                 </a>
               </span>
             
