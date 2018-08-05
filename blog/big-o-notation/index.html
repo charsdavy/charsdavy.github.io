@@ -85,7 +85,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ios,工具," />
+  <meta name="keywords" content="概念," />
 
 
 
@@ -113,17 +113,19 @@
 
 
 
-<meta name="description" content="Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
-<meta name="keywords" content="ios, 工具">
+<meta name="description" content="“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？">
+<meta name="keywords" content="概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode 使用小记">
-<meta property="og:url" content="http://localhost:4000/blog/xcode-console-cli/">
+<meta property="og:title" content="什么是大 O 表示法">
+<meta property="og:url" content="http://localhost:4000/blog/big-o-notation/">
 <meta property="og:site_name" content="Chars's Blog">
-<meta property="og:description" content="Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+<meta property="og:description" content="“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="/assets/images/Q855454453.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode 使用小记">
-<meta name="twitter:description" content="Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+<meta name="twitter:title" content="什么是大 O 表示法">
+<meta name="twitter:description" content="“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？">
+<meta name="twitter:image" content="/assets/images/Q855454453.jpg">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -156,7 +158,7 @@
 
 
 
-  <title>Xcode 使用小记 | Chars's Blog</title>
+  <title>什么是大 O 表示法 | Chars's Blog</title>
   
 
 
@@ -312,7 +314,7 @@
   
 
   <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/xcode-console-cli/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/big-o-notation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chars">
@@ -332,7 +334,7 @@
           <h2 class="post-title" itemprop="name headline">
           
           
-            Xcode 使用小记
+            什么是大 O 表示法
           
         </h2>
         
@@ -346,8 +348,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-05T21:41:06+08:00">
-                2016-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T00:00:00+08:00">
+                2018-08-05
               </time>
             
 
@@ -370,8 +372,8 @@
               
                 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/talk" itemprop="url" rel="index">
-                    <span itemprop="name">talk</span>
+                  <a href="/category/#/algorithm" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
                   </a>
                 </span>
 
@@ -425,445 +427,96 @@
 
 
 
-  <p>Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。</p>
+  <p>“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？</p>
 
 <!-- more -->
 
-<h1 id="debug-命令表">debug 命令表</h1>
+<h2 id="算法的运行时间以不同的速度增加">算法的运行时间以不同的速度增加</h2>
+
+<p>“算法的运行时间以不同的速度增加”这句话应该如何理解呢？下面我们通过🌰来看看这句话到底想表达什么。</p>
+
+<p>小明现在需要编写一个查找算法，这个算法服务于学校图书馆，目的是帮助童鞋们能够快速的找到自己需要的书籍所在位置。</p>
+
+<p>假设小明现在只会“二分查找”和“简单查找”。一方面，二分查找的速度很快，小明必须在 10 秒钟内找到书籍所在位置，否则童鞋们没有更多耐心等待。另一方面，简单查找算法编写起来更容易，因此出现 bug 的可能性更小。</p>
+
+<p>为了检验这两种算法的耗时，小明决定计算两种算法在列表包含 100 个元素的情况下需要的时间。</p>
+
+<p>假设检查一个元素需要 1 毫秒。使用简单查找时，小明必须检查 100 个元素，因此需要 100 毫秒才能查找完毕。而使用二分查找时，只需检查 7 个元素（log2 100大约为7），因此需要 7 毫秒就能查找完毕。然而，实际要查找的列表可能包含 10 亿个元素，在这种情况下，简单查找需要多长时间呢？二分查找又需要多长时间呢？</p>
+
+<p>小明使用包含 10 亿个元素的列表运行二分查找，运行时间为 30 毫秒（log2 1 000 000 000大约为30）。他心里想，二分查找的速度大约为简单查找的 15 倍，因为列表包含 100 个元素时，简单查找需要 100 毫秒，而二分查找需要 7 毫秒。因此，列表包含 10 亿个元素时，简单查找需要 30 × 15 = 450 毫秒，完全符合在 10 秒内查找完毕的要求。小明决定使用简单查找。这是正确的选择吗？</p>
+
+<p>不是。实际上，小明错了，而且错得离谱。列表包含 10 亿个元素时，简单查找需要 10 亿毫秒，相当于 11 天！为什么会这样呢？因为二分查找和简单查找的运行时间的增速不同。</p>
 
 <table>
   <thead>
     <tr>
-      <th>命令</th>
-      <th>解释</th>
+      <th>简单查找</th>
+      <th>二分查找</th>
+      <th>元素个数</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>break NUM</td>
-      <td>在指定的行上设置断点</td>
+      <td>100 毫秒</td>
+      <td>7 毫秒</td>
+      <td>100</td>
     </tr>
     <tr>
-      <td>bt</td>
-      <td>显示所有的调用栈帧，该命令可用来显示函数的调用顺序</td>
+      <td>10 秒</td>
+      <td>14 毫秒</td>
+      <td>10 000</td>
     </tr>
     <tr>
-      <td>clear</td>
-      <td>删除设置在特定源文件、特定行上的断点，其用法为：clear FILENAME:NUM</td>
-    </tr>
-    <tr>
-      <td>continue</td>
-      <td>继续执行正在调试的程序，该命令用在程序由于处理信号或断点而导致停止运行时</td>
-    </tr>
-    <tr>
-      <td>display EXPR</td>
-      <td>每次程序停止后显示表达式的值。表达式由程序定义的变量组成</td>
-    </tr>
-    <tr>
-      <td>file FILE</td>
-      <td>装载指定的可执行文件进行调试</td>
-    </tr>
-    <tr>
-      <td>help NAME</td>
-      <td>显示指定命令的帮助信息</td>
-    </tr>
-    <tr>
-      <td>info break</td>
-      <td>显示当前断电清单，包括到达断点处的次数等</td>
-    </tr>
-    <tr>
-      <td>info files</td>
-      <td>显示被调试文件的详细信息</td>
-    </tr>
-    <tr>
-      <td>info func</td>
-      <td>显示所有的函数名称</td>
-    </tr>
-    <tr>
-      <td>info local</td>
-      <td>显示当前函数中的局部变量信息</td>
-    </tr>
-    <tr>
-      <td>info prog</td>
-      <td>显示被调试程序的执行状态</td>
-    </tr>
-    <tr>
-      <td>info var</td>
-      <td>显示所有的全局和静态变量名称</td>
-    </tr>
-    <tr>
-      <td>kill</td>
-      <td>终止正被调试的程序</td>
-    </tr>
-    <tr>
-      <td>list</td>
-      <td>显示源代码段</td>
-    </tr>
-    <tr>
-      <td>make</td>
-      <td>在不退出gdb的情况下运行make工具</td>
-    </tr>
-    <tr>
-      <td>next</td>
-      <td>在不单步执行进入其他函数的情况下，向前执行一行源代码</td>
-    </tr>
-    <tr>
-      <td>print EXPR</td>
-      <td>显示表达式EXPR的值</td>
-    </tr>
-    <tr>
-      <td>print-object</td>
-      <td>打印一个对象</td>
-    </tr>
-    <tr>
-      <td>print (int) name</td>
-      <td>打印一个类型</td>
-    </tr>
-    <tr>
-      <td>print-object [artist description]</td>
-      <td>调用一个函数</td>
-    </tr>
-    <tr>
-      <td>set artist - @”test”</td>
-      <td>设置变量值</td>
-    </tr>
-    <tr>
-      <td>help</td>
-      <td>查看帮助</td>
+      <td>11 天</td>
+      <td>30 毫秒</td>
+      <td>1 000 000 000</td>
     </tr>
   </tbody>
 </table>
 
-<h1 id="快捷键">快捷键</h1>
+<p>随着元素数量的增加，二分查找需要的额外时间并不多，而简单查找需要的额外时间却很多。因此，随着列表的增长，二分查找的速度比简单查找快得多。小明以为二分查找速度为简单查找的 15 倍，这不对：列表包含 10 亿个元素时，为 3300 万倍。有鉴于此，仅知道算法需要多长时间才能运行完毕还不够，还需知道运行时间如何随列表增长而增加。这正是大O表示法的用武之地。</p>
+
+<p>大O表示法指出了算法有多快。例如，假设列表包含 n 个元素。简单查找需要检查每个元素，因此需要执行 n 次操作。使用大O表示法，这个运行时间为 O(n)。单位秒呢？没有！大O表示法指的并非以秒为单位的速度。大O表示法让你能够比较操作数，它指出了算法运行时间的增速。</p>
+
+<h2 id="最糟糕情况下的运行时间">最糟糕情况下的运行时间</h2>
+
+<p>假设你使用简单查找在电话簿中找人。你知道，简单查找的运行时间为 O(n)，这意味着在最糟情况下，必须查看电话簿中的每个条目。如果要查找的是 Chars ——电话簿中的第一个人，一次就能找到，无需查看每个条目。考虑到一次就找到了 Chars，请问这种算法的运行时间是 O(n)还是 O(1) 呢？</p>
+
+<p>简单查找的运行时间总是为 O(n)。查找 Chars 时，一次就找到了，这是最佳的情形，但大O表示法说的是最糟的情形。因此，你可以说，在最糟情况下，必须查看电话簿中的每个条目，对应的运行时间为 O(n)。这是一个保证——你知道简单查找的运行时间不可能超过 O(n)。</p>
+
+<blockquote>
+  <p>说明</p>
+
+  <p>除最糟情况下的运行时间外，还应考虑平均情况的运行时间，这很重要。最糟情况和平均情况将在第4章讨论。</p>
+</blockquote>
+
+<h2 id="一些常见的大o运行时间">一些常见的大O运行时间</h2>
+
+<p>下面按从快到慢的顺序列出了你经常会遇到的5种大O运行时间。</p>
 
 <ul>
-  <li>文件</li>
+  <li>O (log n )，也叫对数时间 ，这样的算法包括二分查找。</li>
+  <li>O (n )，也叫线性时间 ，这样的算法包括简单查找。</li>
+  <li>O (n * log n )，这样的算法包括第4章将介绍的快速排序——一种速度较快的排序算法。</li>
+  <li>O (n 2 )，这样的算法包括第2章将介绍的选择排序——一种速度较慢的排序算法。</li>
+  <li>O (n !)，这样的算法包括接下来将介绍的旅行商问题的解决方案——一种非常慢的算法。</li>
 </ul>
 
-<table>
-  <thead>
-    <tr>
-      <th>按键</th>
-      <th>作用</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>CMD + N</td>
-      <td>新文件</td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + N</td>
-      <td>新项目</td>
-    </tr>
-    <tr>
-      <td>CMD + O</td>
-      <td>打开</td>
-    </tr>
-    <tr>
-      <td>CMD + S</td>
-      <td>保存</td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + S</td>
-      <td>另存为</td>
-    </tr>
-    <tr>
-      <td>CMD + W</td>
-      <td>关闭窗口</td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + W</td>
-      <td>关闭文件</td>
-    </tr>
-  </tbody>
-</table>
+<h2 id="总结">总结</h2>
 
-<ul>
-  <li>编辑</li>
-</ul>
+<p>1、算法的速度指的并非时间，而是操作数的增速。</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>按键</th>
-      <th>作用</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>CMD + [</td>
-      <td>左缩进</td>
-    </tr>
-    <tr>
-      <td>CMD + ]</td>
-      <td>右缩进</td>
-    </tr>
-    <tr>
-      <td>CMD + CTRL + LEFT</td>
-      <td>折叠</td>
-    </tr>
-    <tr>
-      <td>CMD + CTRL + RIGHT</td>
-      <td>取消折叠</td>
-    </tr>
-    <tr>
-      <td>CMD + CTRL + TOP</td>
-      <td>折叠全部函数</td>
-    </tr>
-    <tr>
-      <td>CMD + CTRL + BOTTOM</td>
-      <td>取消全部函数折叠</td>
-    </tr>
-    <tr>
-      <td>CTRL + U</td>
-      <td>取消全部折叠</td>
-    </tr>
-    <tr>
-      <td>CMD + D</td>
-      <td>添加书签</td>
-    </tr>
-    <tr>
-      <td>CMD + /</td>
-      <td>注释或取消注释</td>
-    </tr>
-    <tr>
-      <td>CTRL + .</td>
-      <td>参数提示</td>
-    </tr>
-    <tr>
-      <td>ESC</td>
-      <td>自动提示列表</td>
-    </tr>
-  </tbody>
-</table>
+<p>2、谈论算法的速度时，说的是随着输入的增加，其运行时间将以什么样的速度增加。</p>
 
-<ul>
-  <li>调试</li>
-</ul>
+<p>3、算法的运行时间用大O表示法表示。</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>按键</th>
-      <th>作用</th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>CMD + | 设置或取消断点</td>
-      <td> </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>CMD + OPT + | 允许或禁用当前断点</td>
-      <td> </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>CMD + OPT + B</td>
-      <td>查看全部断点</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>CMD + RETURN</td>
-      <td>编译并运行（根据设置决定是否启用断点）</td>
-    </tr>
-    <tr>
-      <td>CMD + R</td>
-      <td>编译并运行（不触发断点）</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>CMD + Y</td>
-      <td>编译并调试（触发断点）</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + RETURN</td>
-      <td>终止运行或调试</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>CMD + B</td>
-      <td>编译</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + K</td>
-      <td>清理</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
+<p>4、O(log n) 比 O(n)快，当需要搜索的元素越多时，前者比后者快得越多。</p>
 
-<ul>
-  <li>窗体</li>
-</ul>
+<h2 id="写在最后">写在最后</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>按键</th>
-      <th>作用</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>CMD + SHIFT + B</td>
-      <td>编译窗口</td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + Y</td>
-      <td>调试代码窗口</td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + R</td>
-      <td>调试控制台</td>
-    </tr>
-    <tr>
-      <td>CMD + SHIFT + E</td>
-      <td>主编辑窗口调整</td>
-    </tr>
-  </tbody>
-</table>
+<p>欢迎大家加入算法交流Q群交流讨论，Q群号：855454453</p>
 
-<ul>
-  <li>帮助</li>
-</ul>
-
-<table>
-  <thead>
-    <tr>
-      <th>按键</th>
-      <th>作用</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>CMD + OPT + ?</td>
-      <td>开发手册</td>
-    </tr>
-    <tr>
-      <td>CMD + CTRL + ?</td>
-      <td>快速帮助</td>
-    </tr>
-    <tr>
-      <td>Command + Shift + E</td>
-      <td>扩展编辑器</td>
-    </tr>
-    <tr>
-      <td>Command + [</td>
-      <td>左移代码块</td>
-    </tr>
-    <tr>
-      <td>Command + ]</td>
-      <td>右移代码块</td>
-    </tr>
-    <tr>
-      <td>Tab</td>
-      <td>接受代码提示</td>
-    </tr>
-    <tr>
-      <td>Esc</td>
-      <td>显示代码提示菜单</td>
-    </tr>
-    <tr>
-      <td>Ctrl + . （句点）</td>
-      <td>循环浏览代码提示</td>
-    </tr>
-    <tr>
-      <td>Shift + Ctrl + . （句点）</td>
-      <td>反向循环浏览代码提示</td>
-    </tr>
-    <tr>
-      <td>Ctrl + /</td>
-      <td>移动到代码提示中的下一个占位符</td>
-    </tr>
-    <tr>
-      <td>Command + Ctrl + S</td>
-      <td>创建快照</td>
-    </tr>
-    <tr>
-      <td>Ctrl + F</td>
-      <td>前移光标</td>
-    </tr>
-    <tr>
-      <td>Ctrl + B</td>
-      <td>后移光标</td>
-    </tr>
-    <tr>
-      <td>Ctrl + P</td>
-      <td>移动光标到上一行</td>
-    </tr>
-    <tr>
-      <td>Ctrl + N</td>
-      <td>移动光标到下一行</td>
-    </tr>
-    <tr>
-      <td>Ctrl + A</td>
-      <td>移动光标到本行行首</td>
-    </tr>
-    <tr>
-      <td>Ctrl + E</td>
-      <td>移动光标到本行行尾</td>
-    </tr>
-    <tr>
-      <td>Ctrl + T</td>
-      <td>交换光标左右两边的字符</td>
-    </tr>
-    <tr>
-      <td>Ctrl + D</td>
-      <td>删除光标右边的字符</td>
-    </tr>
-    <tr>
-      <td>Ctrl + K</td>
-      <td>删除本行</td>
-    </tr>
-    <tr>
-      <td>Ctrl + L</td>
-      <td>将插入点置于窗口正中</td>
-    </tr>
-    <tr>
-      <td>Command + Alt + D</td>
-      <td>显示open quickly 窗口</td>
-    </tr>
-    <tr>
-      <td>Command + Alt + 上方向键</td>
-      <td>打开配套文件</td>
-    </tr>
-    <tr>
-      <td>Command + D</td>
-      <td>添加书签</td>
-    </tr>
-    <tr>
-      <td>Option + 双击</td>
-      <td>在文档中搜索</td>
-    </tr>
-    <tr>
-      <td>Command + Y</td>
-      <td>以调试方式运行程序</td>
-    </tr>
-    <tr>
-      <td>Command + Alt + P</td>
-      <td>继续（在调试中）</td>
-    </tr>
-    <tr>
-      <td>Command + Alt + 0</td>
-      <td>跳过</td>
-    </tr>
-    <tr>
-      <td>Command + Alt + I</td>
-      <td>跳入</td>
-    </tr>
-    <tr>
-      <td>Command + Alt + T</td>
-      <td>跳出</td>
-    </tr>
-  </tbody>
-</table>
+<p><img src="/assets/images/Q855454453.jpg" alt="Q855454453" /></p>
 
 
       
@@ -895,10 +548,7 @@
         <div class="post-tags">
           
             
-            <a href="/tag/#/ios" rel="tag"># ios</a>
-          
-            
-            <a href="/tag/#/%E5%B7%A5%E5%85%B7" rel="tag"># 工具</a>
+            <a href="/tag/#/%E6%A6%82%E5%BF%B5" rel="tag"># 概念</a>
           
         </div>
       
@@ -914,18 +564,14 @@
         <div class="post-nav" id="post-nav-id">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/ios-application-plist-diff/" rel="next" title="iOS Project与OS X Project中plist使用区别">
-                <i class="fa fa-chevron-left"></i> iOS Project与OS X Project中plist使用区别
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/oauth2-protocol/" rel="prev" title="OAuth2.0 协议">
-                OAuth2.0 协议 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/restful-api-go/" rel="prev" title="实现一个 RESTful API 服务器">
+                实现一个 RESTful API 服务器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1142,7 +788,7 @@
             
               <div class="post-toc-content">
     <ol class=nav>
-      <li class="nav-item nav-level-1"> <a class="nav-link" href="#debug-命令表"> <span class="nav-number">1</span> <span class="nav-text">debug 命令表</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#快捷键"> <span class="nav-number">2</span> <span class="nav-text">快捷键</span> </a> </li>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#算法的运行时间以不同的速度增加"> <span class="nav-number">1</span> <span class="nav-text">算法的运行时间以不同的速度增加</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#最糟糕情况下的运行时间"> <span class="nav-number">2</span> <span class="nav-text">最糟糕情况下的运行时间</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#一些常见的大o运行时间"> <span class="nav-number">3</span> <span class="nav-text">一些常见的大O运行时间</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#总结"> <span class="nav-number">4</span> <span class="nav-text">总结</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#写在最后"> <span class="nav-number">5</span> <span class="nav-text">写在最后</span> </a> </li>
     </ol>
   </div>
             

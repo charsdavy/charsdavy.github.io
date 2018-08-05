@@ -1,4 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-04T14:42:05+08:00</updated><id>http://localhost:4000/</id><title type="html">Chars’s Blog</title><subtitle>&lt;p&gt;哈喽，我是 &lt;a href=&quot;https://twitter.com/charsdavy&quot;&gt;@Chars&lt;/a&gt;，是一名来自中国的 iOS 开发者。&lt;/p&gt; &lt;p&gt;业余时间参加 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;，撰写知乎专栏&lt;a href=&quot;https://zhuanlan.zhihu.com/easy-to-understand-algorithm&quot;&gt;《通俗易懂的算法》&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/health-go&quot;&gt;《如何独立开发一个完整应用》&lt;/a&gt;</subtitle><author><name>Chars</name></author><entry><title type="html">实现一个 RESTful API 服务器</title><link href="http://localhost:4000/blog/restful-api-go/" rel="alternate" type="text/html" title="实现一个 RESTful API 服务器" /><published>2018-07-31T00:00:00+08:00</published><updated>2018-07-31T00:00:00+08:00</updated><id>http://localhost:4000/blog/restful-api-go</id><content type="html" xml:base="http://localhost:4000/blog/restful-api-go/">&lt;p&gt;RESTful 是目前最为流行的一种互联网软件结构。因为它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-05T20:09:49+08:00</updated><id>http://localhost:4000/</id><title type="html">Chars’s Blog</title><subtitle>&lt;p&gt;哈喽，我是 &lt;a href=&quot;https://twitter.com/charsdavy&quot;&gt;@Chars&lt;/a&gt;，是一名来自中国的 iOS 开发者。&lt;/p&gt; &lt;p&gt;业余时间参加 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;，撰写知乎专栏&lt;a href=&quot;https://zhuanlan.zhihu.com/easy-to-understand-algorithm&quot;&gt;《通俗易懂的算法》&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/health-go&quot;&gt;《如何独立开发一个完整应用》&lt;/a&gt;</subtitle><author><name>Chars</name></author><entry><title type="html">什么是大 O 表示法</title><link href="http://localhost:4000/blog/big-o-notation/" rel="alternate" type="text/html" title="什么是大 O 表示法" /><published>2018-08-05T00:00:00+08:00</published><updated>2018-08-05T00:00:00+08:00</updated><id>http://localhost:4000/blog/big-o-notation</id><content type="html" xml:base="http://localhost:4000/blog/big-o-notation/">&lt;p&gt;“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id=&quot;算法的运行时间以不同的速度增加&quot;&gt;算法的运行时间以不同的速度增加&lt;/h2&gt;
+
+&lt;p&gt;“算法的运行时间以不同的速度增加”这句话应该如何理解呢？下面我们通过🌰来看看这句话到底想表达什么。&lt;/p&gt;
+
+&lt;p&gt;小明现在需要编写一个查找算法，这个算法服务于学校图书馆，目的是帮助童鞋们能够快速的找到自己需要的书籍所在位置。&lt;/p&gt;
+
+&lt;p&gt;假设小明现在只会“二分查找”和“简单查找”。一方面，二分查找的速度很快，小明必须在 10 秒钟内找到书籍所在位置，否则童鞋们没有更多耐心等待。另一方面，简单查找算法编写起来更容易，因此出现 bug 的可能性更小。&lt;/p&gt;
+
+&lt;p&gt;为了检验这两种算法的耗时，小明决定计算两种算法在列表包含 100 个元素的情况下需要的时间。&lt;/p&gt;
+
+&lt;p&gt;假设检查一个元素需要 1 毫秒。使用简单查找时，小明必须检查 100 个元素，因此需要 100 毫秒才能查找完毕。而使用二分查找时，只需检查 7 个元素（log2 100大约为7），因此需要 7 毫秒就能查找完毕。然而，实际要查找的列表可能包含 10 亿个元素，在这种情况下，简单查找需要多长时间呢？二分查找又需要多长时间呢？&lt;/p&gt;
+
+&lt;p&gt;小明使用包含 10 亿个元素的列表运行二分查找，运行时间为 30 毫秒（log2 1 000 000 000大约为30）。他心里想，二分查找的速度大约为简单查找的 15 倍，因为列表包含 100 个元素时，简单查找需要 100 毫秒，而二分查找需要 7 毫秒。因此，列表包含 10 亿个元素时，简单查找需要 30 × 15 = 450 毫秒，完全符合在 10 秒内查找完毕的要求。小明决定使用简单查找。这是正确的选择吗？&lt;/p&gt;
+
+&lt;p&gt;不是。实际上，小明错了，而且错得离谱。列表包含 10 亿个元素时，简单查找需要 10 亿毫秒，相当于 11 天！为什么会这样呢？因为二分查找和简单查找的运行时间的增速不同。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;简单查找&lt;/th&gt;
+      &lt;th&gt;二分查找&lt;/th&gt;
+      &lt;th&gt;元素个数&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;100 毫秒&lt;/td&gt;
+      &lt;td&gt;7 毫秒&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;10 秒&lt;/td&gt;
+      &lt;td&gt;14 毫秒&lt;/td&gt;
+      &lt;td&gt;10 000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;11 天&lt;/td&gt;
+      &lt;td&gt;30 毫秒&lt;/td&gt;
+      &lt;td&gt;1 000 000 000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;随着元素数量的增加，二分查找需要的额外时间并不多，而简单查找需要的额外时间却很多。因此，随着列表的增长，二分查找的速度比简单查找快得多。小明以为二分查找速度为简单查找的 15 倍，这不对：列表包含 10 亿个元素时，为 3300 万倍。有鉴于此，仅知道算法需要多长时间才能运行完毕还不够，还需知道运行时间如何随列表增长而增加。这正是大O表示法的用武之地。&lt;/p&gt;
+
+&lt;p&gt;大O表示法指出了算法有多快。例如，假设列表包含 n 个元素。简单查找需要检查每个元素，因此需要执行 n 次操作。使用大O表示法，这个运行时间为 O(n)。单位秒呢？没有！大O表示法指的并非以秒为单位的速度。大O表示法让你能够比较操作数，它指出了算法运行时间的增速。&lt;/p&gt;
+
+&lt;h2 id=&quot;最糟糕情况下的运行时间&quot;&gt;最糟糕情况下的运行时间&lt;/h2&gt;
+
+&lt;p&gt;假设你使用简单查找在电话簿中找人。你知道，简单查找的运行时间为 O(n)，这意味着在最糟情况下，必须查看电话簿中的每个条目。如果要查找的是 Chars ——电话簿中的第一个人，一次就能找到，无需查看每个条目。考虑到一次就找到了 Chars，请问这种算法的运行时间是 O(n)还是 O(1) 呢？&lt;/p&gt;
+
+&lt;p&gt;简单查找的运行时间总是为 O(n)。查找 Chars 时，一次就找到了，这是最佳的情形，但大O表示法说的是最糟的情形。因此，你可以说，在最糟情况下，必须查看电话簿中的每个条目，对应的运行时间为 O(n)。这是一个保证——你知道简单查找的运行时间不可能超过 O(n)。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;说明&lt;/p&gt;
+
+  &lt;p&gt;除最糟情况下的运行时间外，还应考虑平均情况的运行时间，这很重要。最糟情况和平均情况将在第4章讨论。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;一些常见的大o运行时间&quot;&gt;一些常见的大O运行时间&lt;/h2&gt;
+
+&lt;p&gt;下面按从快到慢的顺序列出了你经常会遇到的5种大O运行时间。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;O (log n )，也叫对数时间 ，这样的算法包括二分查找。&lt;/li&gt;
+  &lt;li&gt;O (n )，也叫线性时间 ，这样的算法包括简单查找。&lt;/li&gt;
+  &lt;li&gt;O (n * log n )，这样的算法包括第4章将介绍的快速排序——一种速度较快的排序算法。&lt;/li&gt;
+  &lt;li&gt;O (n 2 )，这样的算法包括第2章将介绍的选择排序——一种速度较慢的排序算法。&lt;/li&gt;
+  &lt;li&gt;O (n !)，这样的算法包括接下来将介绍的旅行商问题的解决方案——一种非常慢的算法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;1、算法的速度指的并非时间，而是操作数的增速。&lt;/p&gt;
+
+&lt;p&gt;2、谈论算法的速度时，说的是随着输入的增加，其运行时间将以什么样的速度增加。&lt;/p&gt;
+
+&lt;p&gt;3、算法的运行时间用大O表示法表示。&lt;/p&gt;
+
+&lt;p&gt;4、O(log n) 比 O(n)快，当需要搜索的元素越多时，前者比后者快得越多。&lt;/p&gt;
+
+&lt;h2 id=&quot;写在最后&quot;&gt;写在最后&lt;/h2&gt;
+
+&lt;p&gt;欢迎大家加入算法交流Q群交流讨论，Q群号：855454453&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/Q855454453.jpg&quot; alt=&quot;Q855454453&quot; /&gt;&lt;/p&gt;</content><author><name>Chars</name></author><category term="algorithm" /><category term="概念" /><summary type="html">“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？</summary></entry><entry><title type="html">实现一个 RESTful API 服务器</title><link href="http://localhost:4000/blog/restful-api-go/" rel="alternate" type="text/html" title="实现一个 RESTful API 服务器" /><published>2018-07-31T00:00:00+08:00</published><updated>2018-07-31T00:00:00+08:00</updated><id>http://localhost:4000/blog/restful-api-go</id><content type="html" xml:base="http://localhost:4000/blog/restful-api-go/">&lt;p&gt;RESTful 是目前最为流行的一种互联网软件结构。因为它结构清晰、符合标准、易于理解、扩展方便，所以正得到越来越多网站的采用。&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -1504,55 +1593,7 @@ Boost&lt;/a&gt;。&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt; 是一个翻译优质互联网技术文章的社区，文章来源为 &lt;a href=&quot;https://juejin.im&quot;&gt;掘金&lt;/a&gt; 上的英文分享文章。内容覆盖 &lt;a href=&quot;https://github.com/xitu/gold-miner#android&quot;&gt;Android&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#ios&quot;&gt;iOS&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#前端&quot;&gt;前端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#后端&quot;&gt;后端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#区块链&quot;&gt;区块链&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#产品&quot;&gt;产品&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#设计&quot;&gt;设计&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#人工智能&quot;&gt;人工智能&lt;/a&gt;等领域，想要查看更多优质译文请持续关注 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;、&lt;a href=&quot;http://weibo.com/juejinfanyi&quot;&gt;官方微博&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/juejinfanyi&quot;&gt;知乎专栏&lt;/a&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Chars</name></author><category term="ml" /><category term="tensorflow" /><category term="性能" /><category term="机器学习" /><summary type="html">TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 方法 章节中会详细说明如何执行测试，并给出使用的脚本链接。</summary></entry><entry><title type="html">个人作品</title><link href="http://localhost:4000/blog/personal-projects/" rel="alternate" type="text/html" title="个人作品" /><published>2018-02-02T00:00:00+08:00</published><updated>2018-02-02T00:00:00+08:00</updated><id>http://localhost:4000/blog/personal-projects</id><content type="html" xml:base="http://localhost:4000/blog/personal-projects/">&lt;p&gt;偶尔写写自己的小应用，主要有 &lt;a href=&quot;http://itunes.apple.com/cn/app/id1177823334&quot;&gt;靓手艺&lt;/a&gt;、&lt;a href=&quot;https://itunes.apple.com/cn/app/id1188174656&quot;&gt;Piclip&lt;/a&gt;、&lt;a href=&quot;https://itunes.apple.com/cn/app/id1176787145&quot;&gt;今日账单&lt;/a&gt; 等。&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2 id=&quot;日本语社区&quot;&gt;&lt;a href=&quot;https://itunes.apple.com/cn/app/id1184113889&quot;&gt;日本语社区&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;———— 语言是生产力晋升的阶梯&lt;/p&gt;
-
-&lt;p&gt;这款软件主要收集日语学习资源，整合各种文本、音频和视频学习资料。&lt;/p&gt;
-
-&lt;p&gt;下载地址：&lt;a href=&quot;https://itunes.apple.com/cn/app/id1184113889&quot;&gt;https://itunes.apple.com/cn/app/id1184113889&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/popularize_japanese.png&quot; alt=&quot;日本语社区&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;今日账单&quot;&gt;&lt;a href=&quot;https://itunes.apple.com/cn/app/id1176787145&quot;&gt;今日账单&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;———— 清晰简洁、记录每一单&lt;/p&gt;
-
-&lt;p&gt;帐单记录与数据分析，内含云备份功能，界面简洁清爽。&lt;/p&gt;
-
-&lt;p&gt;下载地址：&lt;a href=&quot;https://itunes.apple.com/cn/app/id1176787145&quot;&gt;https://itunes.apple.com/cn/app/id1176787145&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/popularize_ibill.png&quot; alt=&quot;今日账单&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;piclip&quot;&gt;&lt;a href=&quot;https://itunes.apple.com/cn/app/id1188174656&quot;&gt;Piclip&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;———— 切图分享、不一样的风格&lt;/p&gt;
-
-&lt;p&gt;即兴想起的一款九宫格切图软件，当然还有六、四等宫格布局。&lt;/p&gt;
-
-&lt;p&gt;下载地址：&lt;a href=&quot;https://itunes.apple.com/cn/app/id1188174656&quot;&gt;https://itunes.apple.com/cn/app/id1188174656&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/popularize_piclip.png&quot; alt=&quot;Piclip&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;靓手艺&quot;&gt;&lt;a href=&quot;http://itunes.apple.com/cn/app/id1177823334&quot;&gt;靓手艺&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;———— 健康美食、快乐生活&lt;/p&gt;
-
-&lt;p&gt;【靓手艺】里面有美容健身、疾病调理、节气习俗、适宜人群、小吃、外国美食等二十二大分类，总共六十多万条菜谱配方，全方位满足我们的吃货需求。面对这么多的菜谱数据，我们可以很便捷的查找我们需要的菜谱，只需要我们简单的搜索我们想要的菜谱或者食材，就能找到满意的答案。&lt;/p&gt;
-
-&lt;p&gt;另外，根据我们的喜好口味，推荐热门爆款菜谱、热点兴趣菜谱，帮助我们发现不一样的美食世界，挖掘我们内心潜在的吃货属性。不仅如此，我们还能看到每天最受欢迎的菜谱分类，可以清楚掌握在美食的世界里，我们的小伙伴都喜欢吃些什么，如果愿意，我们也能和大家靠近，尝试不一样的口味菜系。&lt;/p&gt;
-
-&lt;p&gt;作为一个真正的吃货，是一定能够自己满足自己的。&lt;/p&gt;
-
-&lt;p&gt;我们也能将我们喜欢的菜谱“收藏”起来，也能推荐分享给他人。当然，我们也能边看边做，菜谱里的做法步骤提供能“朗读”功能，完美释放我们的双手，可以边听边做，真的不要太美好啦。&lt;/p&gt;
-
-&lt;p&gt;下载地址：&lt;a href=&quot;http://itunes.apple.com/cn/app/id1177823334&quot;&gt;http://itunes.apple.com/cn/app/id1177823334&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://o88e8any8.bkt.clouddn.com/popularize_ihealth.png&quot; alt=&quot;靓手艺&quot; /&gt;&lt;/p&gt;</content><author><name>Chars</name></author><category term="project" /><category term="project" /><summary type="html">偶尔写写自己的小应用，主要有 靓手艺、Piclip、今日账单 等。</summary></entry><entry><title type="html">数据链路层之 LLDP</title><link href="http://localhost:4000/blog/data-link-layer-lldp/" rel="alternate" type="text/html" title="数据链路层之 LLDP" /><published>2018-01-29T00:00:00+08:00</published><updated>2018-01-29T00:00:00+08:00</updated><id>http://localhost:4000/blog/data-link-layer-lldp</id><content type="html" xml:base="http://localhost:4000/blog/data-link-layer-lldp/">&lt;p&gt;随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 &lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Chars</name></author><category term="ml" /><category term="tensorflow" /><category term="性能" /><category term="机器学习" /><summary type="html">TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 方法 章节中会详细说明如何执行测试，并给出使用的脚本链接。</summary></entry><entry><title type="html">数据链路层之 LLDP</title><link href="http://localhost:4000/blog/data-link-layer-lldp/" rel="alternate" type="text/html" title="数据链路层之 LLDP" /><published>2018-01-29T00:00:00+08:00</published><updated>2018-01-29T00:00:00+08:00</updated><id>http://localhost:4000/blog/data-link-layer-lldp</id><content type="html" xml:base="http://localhost:4000/blog/data-link-layer-lldp/">&lt;p&gt;随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 &lt;/p&gt;
 
 &lt;p&gt;LLDP（Link Layer Discovery Protocol，链路层发现协议）就是用于这个目的的协议。LLDP 定义在 802.1ab 中，它是一个二层协议，它提供了一种标准的链路层发现方式。LLDP 协议使得接入网络的一台设备可以将其主要的&lt;strong&gt;能力，管理地址，设备标识，接口标识&lt;/strong&gt;等信息发送给接入同一个局域网络的其它设备。当一个设备从网络中接收到其它设备的这些信息时，它就将这些信息以MIB的形式存储起来。&lt;/p&gt;
 
