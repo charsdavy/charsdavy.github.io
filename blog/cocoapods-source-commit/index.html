@@ -1,0 +1,1197 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="UA-80507808-1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cocoapods,开源," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何提交代码至 CocoaPods？这个问题在 Google 一搜索可以有很多文章出来，不过，其中遇到的坑却无人提及。笔者现在将实际操作工程记录如下，并总结踩坑注意事项：操作顺序、文件配置、命令使用。">
+<meta name="keywords" content="cocoapods, 开源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CocoaPods 提交代码踩坑">
+<meta property="og:url" content="http://localhost:4000/blog/cocoapods-source-commit/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="如何提交代码至 CocoaPods？这个问题在 Google 一搜索可以有很多文章出来，不过，其中遇到的坑却无人提及。笔者现在将实际操作工程记录如下，并总结踩坑注意事项：操作顺序、文件配置、命令使用。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/charsdavy/JCCNavigationController/master/Screenshot.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/charsdavy/DDCornerRadius/master/Screenshot.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CocoaPods 提交代码踩坑">
+<meta name="twitter:description" content="如何提交代码至 CocoaPods？这个问题在 Google 一搜索可以有很多文章出来，不过，其中遇到的坑却无人提及。笔者现在将实际操作工程记录如下，并总结踩坑注意事项：操作顺序、文件配置、命令使用。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/charsdavy/JCCNavigationController/master/Screenshot.gif">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>CocoaPods 提交代码踩坑 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/cocoapods-source-commit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            CocoaPods 提交代码踩坑
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-16T00:00:00+09:00">
+                2018-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/pieces" itemprop="url" rel="index">
+                    <span itemprop="name">pieces</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>如何提交代码至 CocoaPods？这个问题在 Google 一搜索可以有很多文章出来，不过，其中遇到的坑却无人提及。笔者现在将实际操作工程记录如下，并总结踩坑注意事项：操作顺序、文件配置、命令使用。</p>
+
+<!-- more -->
+
+<h2 id="准备工作">准备工作</h2>
+
+<h3 id="提交代码">提交代码</h3>
+
+<p>将需要提交至 CocoaPods 的代码提交至代码托管服务器，例如：GitHub。</p>
+
+<p>这里需要注意的是，提交的代码需要包含 <code class="highlighter-rouge">tag</code> 标签。其实就是 git 里面的 <code class="highlighter-rouge">git tag</code>。</p>
+
+<h3 id="安装或更新-cocoapods">安装或更新 CocoaPods</h3>
+
+<h4 id="安装">安装</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>gem install cocoapods
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h4 id="更新">更新</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>pod update
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="注册-trunk">注册 Trunk</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>pod trunk register e_mail_address <span class="s1">'your_name'</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p><strong>注意：</strong>记得去注册邮箱激活</p>
+
+<h4 id="查看注册信息">查看注册信息</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>pod trunk me
+
+  - Name:     charsdavy
+  - Email:    chars.davy@gmail.com
+  - Since:    July 15th, 21:38
+  - Pods:
+    - JCCNavigationController
+  - Sessions:
+    - July 15th, 21:38 - November 21st, 01:45. IP: xx.xx.xx.xx
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="创建-podspec-文件">创建 .podspec 文件</h2>
+
+<p><code class="highlighter-rouge">.podspec</code> 文件的作用是为了让 CocoaPods 搜索引擎知道该代码的作者、版本号、概要、描述、源代码地址、部署版本、依赖的框架等描述信息。</p>
+
+<p><code class="highlighter-rouge">.podspec</code>文件可以自动生成：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>pod spec create JCCNavigationController // 生成 JCCNavigationController.podspec 文件
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p><code class="highlighter-rouge">JCCNavigationController.podspec</code> 文件内容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66<br/>67<br/>68<br/>69<br/>70<br/>71<br/>72<br/>73<br/>74<br/>75<br/>76<br/>77<br/>78<br/>79<br/>80<br/>81<br/>82<br/>83<br/>84<br/>85<br/>86<br/>87<br/>88<br/>89<br/>90<br/>91<br/>92<br/>93<br/>94<br/>95<br/>96<br/>97<br/>98<br/>99<br/>100<br/>101<br/>102<br/>103<br/>104<br/>105<br/>106<br/>107<br/>108<br/>109<br/>110<br/>111<br/>112<br/>113<br/>114<br/>115<br/>116<br/>117<br/>118<br/>119<br/>120<br/>121<br/>122<br/>123<br/>124<br/>125<br/>126<br/>127<br/>128<br/>129<br/>130<br/>131<br/>132<br/>133<br/>134<br/>135<br/>136<br/>137<br/>138</pre></td><td class="code"><pre class="highlight"><code>#
+#  Be sure to run `pod spec lint JCCNavigationController.podspec' to ensure this is a
+#  valid spec and to remove all comments including this before submitting the spec.
+#
+#  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
+#  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
+#
+
+Pod::Spec.new do |s|
+
+  # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  These will help people to find your library, and whilst it
+  #  can feel like a chore to fill in it's definitely to your advantage. The
+  #  summary should be tweet-length, and the description more in depth.
+  #
+
+  s.name         = "JCCNavigationController"
+  s.version      = "1.0"
+  s.summary      = "A navigation bar integrated transition animation effect."
+
+  # This description is used to generate tags and improve search results.
+  #   * Think: What does it do? Why did you write it? What is the focus?
+  #   * Try to keep it short, snappy and to the point.
+  #   * Write the description between the DESC delimiters below.
+  #   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.description  = &lt;&lt;-DESC
+                  With zoom interactive animation, A navigation bar integrated transition animation effect.
+                  DESC
+
+  s.homepage     = "https://github.com/charsdavy/JCCNavigationController"
+  s.screenshots  = "https://raw.githubusercontent.com/charsdavy/JCCNavigationController/master/Screenshot.gif"
+  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+
+
+  # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Licensing your code is important. See http://choosealicense.com for more info.
+  #  CocoaPods will detect a license file if there is a named LICENSE*
+  #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
+  #
+
+  s.license      = { :type =&gt; "MIT", :file =&gt; "LICENSE" }
+  # s.license      = { :type =&gt; "MIT", :file =&gt; "FILE_LICENSE" }
+
+
+  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Specify the authors of the library, with email addresses. Email addresses
+  #  of the authors are extracted from the SCM log. E.g. $ git log. CocoaPods also
+  #  accepts just a name if you'd rather not provide an email address.
+  #
+  #  Specify a social_media_url where others can refer to, for example a twitter
+  #  profile URL.
+  #
+
+  s.author             = { "charsdavy" =&gt; "charsdavy@gamil.com" }
+  s.social_media_url   = "https://twitter.com/charsdavy"
+
+  s.swift_version = "4.0"
+  # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  If this Pod runs only on iOS or OS X, then specify the platform and
+  #  the deployment target. You can optionally include the target after the platform.
+  #
+
+  s.platform     = :ios
+  s.platform     = :ios, "8.0"
+
+  #  When using multiple platforms
+  s.ios.deployment_target = "8.0"
+  # s.osx.deployment_target = "10.7"
+  # s.watchos.deployment_target = "2.0"
+  # s.tvos.deployment_target = "9.0"
+
+
+  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Specify the location from where the source should be retrieved.
+  #  Supports git, hg, bzr, svn and HTTP.
+  #
+
+  s.source       = { :git =&gt; "https://github.com/charsdavy/JCCNavigationController.git", :tag =&gt; "#{s.version}" }
+
+
+  # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  CocoaPods is smart about how it includes source code. For source files
+  #  giving a folder will include any swift, h, m, mm, c &amp; cpp files.
+  #  For header files it will include any header in the folder.
+  #  Not including the public_header_files will make all headers public.
+  #
+
+  s.source_files  = "JCCNavigationController/*.swift"
+  # s.exclude_files = "Classes/Exclude"
+
+  # s.public_header_files = "Classes/**/*.h"
+
+
+  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  A list of resources included with the Pod. These are copied into the
+  #  target bundle with a build phase script. Anything else will be cleaned.
+  #  You can preserve files from being cleaned, please don't preserve
+  #  non-essential files like tests, examples and documentation.
+  #
+
+  # s.resource  = "icon.png"
+  # s.resources = "Resources/*.png"
+
+  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
+
+
+  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  Link your library with frameworks, or libraries. Libraries do not include
+  #  the lib prefix of their name.
+  #
+
+  # s.framework  = "SomeFramework"
+  # s.frameworks = "SomeFramework", "AnotherFramework"
+
+  # s.library   = "iconv"
+  # s.libraries = "iconv", "xml2"
+
+
+  # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  If your library depends on compiler flags you can set them in the xcconfig hash
+  #  where they will only apply to your library. If you depend on other Podspecs
+  #  you can include multiple dependencies to ensure it works.
+
+  # s.requires_arc = true
+
+  # s.xcconfig = { "HEADER_SEARCH_PATHS" =&gt; "$(SDKROOT)/usr/include/libxml2" }
+  # s.dependency "JSONKit", "~&gt; 1.4"
+
+end
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>以上文件，需要注意 <code class="highlighter-rouge">s.platform</code> 这个字段，文本中的注释说的很明白，默认是全平台都支持的，如果只支持某一个平台，则需要细心配置完善。</p>
+
+<h2 id="验证-podspec-文件是否合法">验证 <code class="highlighter-rouge">.podspec</code> 文件是否合法</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>pod spec lint JCCNavigationController.podspec
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>如果配置文件仍存在错误，则根据错误提示修复错误。</p>
+
+<p>如果只有以下一个错误，则只需提交代码即可：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>ERROR | unknown: Encountered an unknown error <span class="o">(</span>uninitialized constant REST::DisconnectedError<span class="o">)</span> during validation.
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="提交-podspec-文件">提交 <code class="highlighter-rouge">.podspec</code> 文件</h2>
+
+<p>将 <code class="highlighter-rouge">.podspec</code> 文件提交至代码托管服务器，例如，将 <code class="highlighter-rouge">JCCNavigationController.podspec</code> 文件提交至 <code class="highlighter-rouge">JCCNavigationController</code> 项目。</p>
+
+<h2 id="提交代码至-cocoapods">提交代码至 CocoaPods</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>pod trunk push JCCNavigationController.podspec --allow-warnings
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>返回以下信息则为成功：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code>--------------------------------------------------------------------------------
+ 🎉  Congrats
+
+ 🚀  JCCNavigationController <span class="o">(</span>1.0<span class="o">)</span> successfully published
+ 📅  July 16th, 00:58
+ 🌎  https://cocoapods.org/pods/JCCNavigationController
+ 👍  Tell your friends!
+--------------------------------------------------------------------------------
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="附录">附录</h2>
+
+<h3 id="jccnavigationcontroller"><a href="https://github.com/charsdavy/JCCNavigationController">JCCNavigationController</a></h3>
+
+<p><a href="https://github.com/charsdavy/JCCNavigationController">JCCNavigationController</a>，一种导航栏一体化转场动画效果。</p>
+
+<p><img src="https://raw.githubusercontent.com/charsdavy/JCCNavigationController/master/Screenshot.gif" alt="JCCNavigationController" /></p>
+
+<h3 id="ddcornerradius"><a href="https://github.com/charsdavy/JCCNavigationController">DDCornerRadius</a></h3>
+
+<p><a href="https://github.com/charsdavy/DDCornerRadius">DDCornerRadius</a>，优化圆角实现方案，避免离屏渲染。</p>
+
+<p><img src="https://raw.githubusercontent.com/charsdavy/DDCornerRadius/master/Screenshot.gif" alt="DDCornerRadius" /></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/cocoapods" rel="tag"># cocoapods</a>
+          
+            
+            <a href="/tag/#/%E5%BC%80%E6%BA%90" rel="tag"># 开源</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/restful-api-go/" rel="next" title="实现一个 RESTful API 服务器">
+                <i class="fa fa-chevron-left"></i> 实现一个 RESTful API 服务器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/tensorflow-performance-benchmarks/" rel="prev" title="Tensorflow -- 基准">
+                Tensorflow -- 基准 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#准备工作"> <span class="nav-number">1</span> <span class="nav-text">准备工作</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#提交代码"> <span class="nav-number">1.1</span> <span class="nav-text">提交代码</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#安装或更新-cocoapods"> <span class="nav-number">1.2</span> <span class="nav-text">安装或更新 CocoaPods</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#安装"> <span class="nav-number">1.2.1</span> <span class="nav-text">安装</span> </a> </li> <li class="nav-item nav-level-4"> <a class="nav-link" href="#更新"> <span class="nav-number">1.2.2</span> <span class="nav-text">更新</span> </a> </li> </ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#注册-trunk"> <span class="nav-number">1.3</span> <span class="nav-text">注册 Trunk</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-4"> <a class="nav-link" href="#查看注册信息"> <span class="nav-number">1.3.1</span> <span class="nav-text">查看注册信息</span> </a> </li> </ol> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#创建-podspec-文件"> <span class="nav-number">2</span> <span class="nav-text">创建 .podspec 文件</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#验证-podspec-文件是否合法"> <span class="nav-number">3</span> <span class="nav-text">验证 .podspec 文件是否合法</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#提交-podspec-文件"> <span class="nav-number">4</span> <span class="nav-text">提交 .podspec 文件</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#提交代码至-cocoapods"> <span class="nav-number">5</span> <span class="nav-text">提交代码至 CocoaPods</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#附录"> <span class="nav-number">6</span> <span class="nav-text">附录</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#jccnavigationcontroller"> <span class="nav-number">6.1</span> <span class="nav-text">JCCNavigationController</a</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#ddcornerradius"> <span class="nav-number">6.2</span> <span class="nav-text">DDCornerRadius</a</span> </a> </li> </ol> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-fire"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

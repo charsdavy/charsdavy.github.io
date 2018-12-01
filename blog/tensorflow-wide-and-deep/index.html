@@ -1,0 +1,1213 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="UA-80507808-1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="掘金翻译计划,tensorflow,python,机器学习," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在前文 《TensorFlow Liner Model Tutorial》 中，我们使用 人口收入普查数据集 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？">
+<meta name="keywords" content="掘金翻译计划, tensorflow, python, 机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 广度和深度学习的教程">
+<meta property="og:url" content="http://localhost:4000/blog/tensorflow-wide-and-deep/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="在前文 《TensorFlow Liner Model Tutorial》 中，我们使用 人口收入普查数据集 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.tensorflow.org/images/wide_n_deep.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow 广度和深度学习的教程">
+<meta name="twitter:description" content="在前文 《TensorFlow Liner Model Tutorial》 中，我们使用 人口收入普查数据集 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？">
+<meta name="twitter:image" content="https://www.tensorflow.org/images/wide_n_deep.svg">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>TensorFlow 广度和深度学习的教程 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/tensorflow-wide-and-deep/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            TensorFlow 广度和深度学习的教程
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-30T23:00:10+09:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/ml" itemprop="url" rel="index">
+                    <span itemprop="name">ml</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>在前文 <a href="https://www.tensorflow.org/tutorials/wide">《TensorFlow Liner Model Tutorial》</a> 中，我们使用 <a href="https://archive.ics.uci.edu/ml/datasets/Census+Income">人口收入普查数据集</a> 训练了一个 logistic 线性回归模型去预测个人年收入超过 5 万美元的概率。TensorFlow 在训练深度神经网络方面效果也很好，那么你可能会考虑该如何取舍它的功能了 – 可是，为什么不选择两者兼得呢？那么，是否可以将两者的优势结合在一个模型中呢？</p>
+
+<p>在这篇文章中，我们将会介绍如何使用 TF.Learn API 同时训练一个广度线性模型和一个深度前馈神经网络。这种方法结合了记忆和泛化的优势。它在一般的大规模回归和具有稀疏输入特性的分类问题（例如，分类特征存在一个很大的可能值域）上很有效。如果你有兴趣学习更多关于广度和深度学习如何工作的问题，请参考 <a href="http://arxiv.org/abs/1606.07792">研究论文</a></p>
+
+<p><img src="https://www.tensorflow.org/images/wide_n_deep.svg" alt="Wide &amp; Deep Spectrum of Models" title="Wide &amp; Deep" /></p>
+
+<!-- more -->
+
+<p>现在，我们来看一个简单的例子。</p>
+
+<p>上图展示了广度模型（具有稀疏特征和转换性质的 logistic 回归模型），深度模型（具有一个嵌入层和多个隐藏层的前馈神经网络），广度和深度模型（两者的联合训练）的区别比较。在高层级里，只需要通过以下三个步骤就能使用 TF.Learn API 配置广度，深度或广度和深度模型。</p>
+
+<p>1.选择广度部分的特征：选择要使用的稀疏基本列和交叉列。</p>
+
+<p>2.选择深度部分的特征：选择连续列，每个分类列的嵌入维度和隐藏层大小。</p>
+
+<p>3.将它们一起放入广度和深度模型（<code class="highlighter-rouge">DNNLinearCombinedClassifier</code>）。</p>
+
+<h2 id="安装">安装</h2>
+
+<p>如果想要尝试本教程中的代码：</p>
+
+<p>1.安装 TensorFlow ，<a href="/blog/tensorflow-pycharm-mac">请前往此处</a>。</p>
+
+<p>2.下载 <a href="https://www.tensorflow.org/code/tensorflow/examples/learn/wide_n_deep_tutorial.py">教程代码</a>。</p>
+
+<p>3.安装 pandas 数据分析库。因为本教程中需要使用 pandas 数据。虽然 tf.learn 不要求 pandas，但是它支持 pandas。安装 pandas：</p>
+
+<p>a. 获取 pip：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code># Ubuntu/Linux 64-bit
+$ sudo apt-get install python-pip python-dev
+
+# Mac OS X
+$ sudo easy_install pip
+$ sudo easy_install --upgrade six
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>b. 使用 pip 安装 pandas</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>$ sudo pip install pandas
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>如果你在安装过程中遇到问题，请前往 pandas 网站上的 <a href="http://pandas.pydata.org/pandas-docs/stable/install.html">说明</a> 。</p>
+
+<p>4.执行以下命令来训练教程中描述的线性模型：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>$ python wide_n_deep_tutorial.py --model_type=wide_n_deep
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>请继续阅读，了解此代码如何构建其线性模型。</p>
+
+<h2 id="定义基本特征列">定义基本特征列</h2>
+
+<p>首先，定义我们使用的基本分类和连续特征的列。这些列将被作为模型的广度部分和深度部分的构件块。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+
+<span class="n">gender</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s">"gender"</span><span class="p">,</span> <span class="p">[</span><span class="s">"Female"</span><span class="p">,</span> <span class="s">"Male"</span><span class="p">])</span>
+<span class="n">education</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s">"education"</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">"Bachelors"</span><span class="p">,</span> <span class="s">"HS-grad"</span><span class="p">,</span> <span class="s">"11th"</span><span class="p">,</span> <span class="s">"Masters"</span><span class="p">,</span> <span class="s">"9th"</span><span class="p">,</span>
+        <span class="s">"Some-college"</span><span class="p">,</span> <span class="s">"Assoc-acdm"</span><span class="p">,</span> <span class="s">"Assoc-voc"</span><span class="p">,</span> <span class="s">"7th-8th"</span><span class="p">,</span>
+        <span class="s">"Doctorate"</span><span class="p">,</span> <span class="s">"Prof-school"</span><span class="p">,</span> <span class="s">"5th-6th"</span><span class="p">,</span> <span class="s">"10th"</span><span class="p">,</span> <span class="s">"1st-4th"</span><span class="p">,</span>
+        <span class="s">"Preschool"</span><span class="p">,</span> <span class="s">"12th"</span>
+    <span class="p">])</span>
+<span class="n">marital_status</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s">"marital_status"</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">"Married-civ-spouse"</span><span class="p">,</span> <span class="s">"Divorced"</span><span class="p">,</span> <span class="s">"Married-spouse-absent"</span><span class="p">,</span>
+        <span class="s">"Never-married"</span><span class="p">,</span> <span class="s">"Separated"</span><span class="p">,</span> <span class="s">"Married-AF-spouse"</span><span class="p">,</span> <span class="s">"Widowed"</span>
+    <span class="p">])</span>
+<span class="n">relationship</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s">"relationship"</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">"Husband"</span><span class="p">,</span> <span class="s">"Not-in-family"</span><span class="p">,</span> <span class="s">"Wife"</span><span class="p">,</span> <span class="s">"Own-child"</span><span class="p">,</span> <span class="s">"Unmarried"</span><span class="p">,</span>
+        <span class="s">"Other-relative"</span>
+    <span class="p">])</span>
+<span class="n">workclass</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s">"workclass"</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">"Self-emp-not-inc"</span><span class="p">,</span> <span class="s">"Private"</span><span class="p">,</span> <span class="s">"State-gov"</span><span class="p">,</span> <span class="s">"Federal-gov"</span><span class="p">,</span>
+        <span class="s">"Local-gov"</span><span class="p">,</span> <span class="s">"?"</span><span class="p">,</span> <span class="s">"Self-emp-inc"</span><span class="p">,</span> <span class="s">"Without-pay"</span><span class="p">,</span> <span class="s">"Never-worked"</span>
+    <span class="p">])</span>
+
+<span class="c"># 展示一个哈希的例子：</span>
+<span class="n">occupation</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_hash_bucket</span><span class="p">(</span>
+    <span class="s">"occupation"</span><span class="p">,</span> <span class="n">hash_bucket_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">native_country</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_hash_bucket</span><span class="p">(</span>
+    <span class="s">"native_country"</span><span class="p">,</span> <span class="n">hash_bucket_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c"># 连续基列</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"age"</span><span class="p">)</span>
+<span class="n">education_num</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"education_num"</span><span class="p">)</span>
+<span class="n">capital_gain</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"capital_gain"</span><span class="p">)</span>
+<span class="n">capital_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"capital_loss"</span><span class="p">)</span>
+<span class="n">hours_per_week</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="s">"hours_per_week"</span><span class="p">)</span>
+
+<span class="c"># 转换</span>
+<span class="n">age_buckets</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">bucketized_column</span><span class="p">(</span>
+    <span class="n">age</span><span class="p">,</span> <span class="n">boundaries</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">65</span><span class="p">])</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="广度模型具有交叉特征列的线性模型">广度模型：具有交叉特征列的线性模型</h2>
+
+<p>广度模型是一个具有稀疏和交叉特征列的线性模型：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="n">base_columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">gender</span><span class="p">,</span> <span class="n">native_country</span><span class="p">,</span> <span class="n">education</span><span class="p">,</span> <span class="n">occupation</span><span class="p">,</span> <span class="n">workclass</span><span class="p">,</span> <span class="n">relationship</span><span class="p">,</span>
+    <span class="n">age_buckets</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">crossed_columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">crossed_column</span><span class="p">(</span>
+        <span class="p">[</span><span class="s">"education"</span><span class="p">,</span> <span class="s">"occupation"</span><span class="p">],</span> <span class="n">hash_bucket_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">crossed_column</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">age_buckets</span><span class="p">,</span> <span class="s">"education"</span><span class="p">,</span> <span class="s">"occupation"</span><span class="p">],</span> <span class="n">hash_bucket_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">crossed_column</span><span class="p">(</span>
+        <span class="p">[</span><span class="s">"native_country"</span><span class="p">,</span> <span class="s">"occupation"</span><span class="p">],</span> <span class="n">hash_bucket_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>具有交叉特征列的广度模型可以有效地记忆特征之间的稀疏交互。也就是说，交叉特征列不能概括没有在训练数据中出现的特征组合。让我们采用嵌入方式来添加一个深度模型来修复这个问题。</p>
+
+<h2 id="深度模型嵌入式神经网络">深度模型：嵌入式神经网络</h2>
+
+<p>深度模型是一个前馈神经网络，如前图所示。每一个稀疏，高维度分类特征首先都会被转换成一个低维度密集的实值矢量，通常被称为嵌入式矢量。这些低维度密集的嵌入式矢量与连续特征相连，然后在正向传递中馈入神经网络的隐藏层。嵌入值随机初始化，并与其他模型参数一起训练，以最大化减少训练损失。如果你有兴趣了解更多关于嵌入的知识，请在查阅教程 <a href="https://www.tensorflow.org/versions/r0.9/tutorials/word2vec/index.html">Vector Representations of Words</a> 或在 Wikipedia 上查阅 <a href="https://en.wikipedia.org/wiki/Word_embedding">Word Embedding</a>。</p>
+
+<p>我们将使用 <code class="highlighter-rouge">embedding_column</code> 配置分类嵌入列，并将它们与连续列连接：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14</pre></td><td class="code"><pre class="highlight"><code><span class="n">deep_columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">workclass</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">education</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">gender</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">relationship</span><span class="p">),</span>
+    <span class="c"># 展示一个嵌入例子</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">embedding_column</span><span class="p">(</span><span class="n">native_country</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">embedding_column</span><span class="p">(</span><span class="n">occupation</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+    <span class="n">age</span><span class="p">,</span>
+    <span class="n">education_num</span><span class="p">,</span>
+    <span class="n">capital_gain</span><span class="p">,</span>
+    <span class="n">capital_loss</span><span class="p">,</span>
+    <span class="n">hours_per_week</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>嵌入的 <code class="highlighter-rouge">dimension</code> 越高，自由度就越高，模型将不得不学习这些特性的表示。为了简单起见，我们设置所有特征列的维度为 8。从经验上看，关于维度的设定最好是从 \log_{2}(n) 或 k\sqrt[4]{n} 值开始，这里的 n 代表特征列中唯一特征的数量，k 是一个很小的常量（通常小于10）。</p>
+
+<p>通过密集嵌入，深度模型可以更好的概括，并更好对之前没有在训练数据中遇见的特征进行预测。然而，当两个特征列之间的底层交互矩阵是稀疏和高等级时，很难学习特征列的有效低维度表示。在这种情况下，大多数特征对之间的交互应该为零，除了少数几个，但密集的嵌入将导致所有特征对的非零预测，从而可能过度泛化。另一方面，具有交叉特征的线性模型可以用更少的模型参数有效地记住这些“异常规则”。</p>
+
+<p>现在，我们来看看如何联合训练广度和深度模型，让它们优势和劣势互补。</p>
+
+<h2 id="将广度和深度模型结合为一体">将广度和深度模型结合为一体</h2>
+
+<p>通过将其最终输出的对数几率作为预测结合起来，然后将预测提供给 logistic 损失函数，将广度模型和深度模型相结合。所有的图形定义和变量分配都已经被处理，所以你只需要创建一个 <code class="highlighter-rouge">DNNLinearCombinedClassifier</code>：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">learn</span><span class="o">.</span><span class="n">DNNLinearCombinedClassifier</span><span class="p">(</span>
+    <span class="n">model_dir</span><span class="o">=</span><span class="n">model_dir</span><span class="p">,</span>
+    <span class="n">linear_feature_columns</span><span class="o">=</span><span class="n">wide_columns</span><span class="p">,</span>
+    <span class="n">dnn_feature_columns</span><span class="o">=</span><span class="n">deep_columns</span><span class="p">,</span>
+    <span class="n">dnn_hidden_units</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="训练和评估模型">训练和评估模型</h2>
+
+<p>在训练模型之前，请先阅读人口普查数据集，就像在 <a href="https://www.tensorflow.org/tutorials/wide">《TensorFlow Liner Model Tutorial》</a> 中所做的一样。 输入数据处理的代码再次为你提供方便：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="c"># 为数据集定义列名</span>
+<span class="n">CSV_COLUMNS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"age"</span><span class="p">,</span> <span class="s">"workclass"</span><span class="p">,</span> <span class="s">"fnlwgt"</span><span class="p">,</span> <span class="s">"education"</span><span class="p">,</span> <span class="s">"education_num"</span><span class="p">,</span>
+    <span class="s">"marital_status"</span><span class="p">,</span> <span class="s">"occupation"</span><span class="p">,</span> <span class="s">"relationship"</span><span class="p">,</span> <span class="s">"race"</span><span class="p">,</span> <span class="s">"gender"</span><span class="p">,</span>
+    <span class="s">"capital_gain"</span><span class="p">,</span> <span class="s">"capital_loss"</span><span class="p">,</span> <span class="s">"hours_per_week"</span><span class="p">,</span> <span class="s">"native_country"</span><span class="p">,</span>
+    <span class="s">"income_bracket"</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">maybe_download</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+  <span class="s">"""Maybe downloads training data and returns train and test file names."""</span>
+  <span class="k">if</span> <span class="n">train_data</span><span class="p">:</span>
+    <span class="n">train_file_name</span> <span class="o">=</span> <span class="n">train_data</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">train_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span>
+        <span class="s">"https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"</span><span class="p">,</span>
+        <span class="n">train_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c"># pylint: disable=line-too-long</span>
+    <span class="n">train_file_name</span> <span class="o">=</span> <span class="n">train_file</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">train_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Training data is downloaded to </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">train_file_name</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">test_data</span><span class="p">:</span>
+    <span class="n">test_file_name</span> <span class="o">=</span> <span class="n">test_data</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">test_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span>
+        <span class="s">"https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test"</span><span class="p">,</span>
+        <span class="n">test_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c"># pylint: disable=line-too-long</span>
+    <span class="n">test_file_name</span> <span class="o">=</span> <span class="n">test_file</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">test_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Test data is downloaded to </span><span class="si">%</span><span class="s">s"</span><span class="o">%</span> <span class="n">test_file_name</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">train_file_name</span><span class="p">,</span> <span class="n">test_file_name</span>
+
+<span class="k">def</span> <span class="nf">input_fn</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">):</span>
+  <span class="s">"""Input builder function."""</span>
+  <span class="n">df_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+      <span class="n">tf</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="n">data_file</span><span class="p">),</span>
+      <span class="n">names</span><span class="o">=</span><span class="n">CSV_COLUMNS</span><span class="p">,</span>
+      <span class="n">skipinitialspace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+      <span class="n">engine</span><span class="o">=</span><span class="s">"python"</span><span class="p">,</span>
+      <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="c"># 移除 NaN 元素</span>
+  <span class="n">df_data</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">"any"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+  <span class="n">labels</span> <span class="o">=</span> <span class="n">df_data</span><span class="p">[</span><span class="s">"income_bracket"</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">"&gt;50K"</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pandas_input_fn</span><span class="p">(</span>
+      <span class="n">x</span><span class="o">=</span><span class="n">df_data</span><span class="p">,</span>
+      <span class="n">y</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+      <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+      <span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span>
+      <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span>
+      <span class="n">num_threads</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>阅读数据之后，你可以训练并评估模型：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="c"># 将 num_epochs 设置为 None，以获得无限的数据流</span>
+<span class="n">m</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
+    <span class="n">input_fn</span><span class="o">=</span><span class="n">input_fn</span><span class="p">(</span><span class="n">train_file_name</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">steps</span><span class="o">=</span><span class="n">train_steps</span><span class="p">)</span>
+<span class="c"># 在所有数据被消耗之前，为了运行评估，设置 steps 为 None</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+    <span class="n">input_fn</span><span class="o">=</span><span class="n">input_fn</span><span class="p">(</span><span class="n">test_file_name</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="n">steps</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"model directory = </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">model_dir</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">s: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>输出的第一行应该类似 <code class="highlighter-rouge">accuracy: 0.84429705</code>。我们可以看到使用广度和深度模型将广度线性模型精度约 83.6% 提高到了约 84.4%。如果你想看端对端的工作示例，你可以下载我们的 <a href="https://www.tensorflow.org/code/tensorflow/examples/learn/wide_n_deep_tutorial.py">示例代码</a>。</p>
+
+<p>请注意，本教程只是一个小型数据基的简单示例，为了让你快速熟悉 API。如果你有大量具有稀疏特征列和大量可能特征值的数据集，广度和深度学习将会更加强大。此外，请随时关注我们的 <a href="http://arxiv.org/abs/1606.07792">研究论文</a>，以了解更多关于在实际中广度和深度学习在大型机器学习方面如何应用的思考。</p>
+
+<blockquote>
+  <ul>
+    <li>原文地址：<a href="https://www.tensorflow.org/tutorials/wide_and_deep">https://www.tensorflow.org/tutorials/wide_and_deep</a></li>
+    <li>译文出自：<a href="https://github.com/xitu/gold-miner">掘金翻译计划</a></li>
+    <li>译者：<a href="https://github.com/charsdavy">charsdavy</a></li>
+    <li>校对者：<a href="https://github.com/MRNIU">MRNIU</a></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><a href="https://github.com/xitu/gold-miner">掘金翻译计划</a> 是一个翻译优质互联网技术文章的社区，文章来源为 <a href="https://juejin.im">掘金</a> 上的英文分享文章。内容覆盖 <a href="https://github.com/xitu/gold-miner#android">Android</a>、<a href="https://github.com/xitu/gold-miner#ios">iOS</a>、<a href="https://github.com/xitu/gold-miner#前端">前端</a>、<a href="https://github.com/xitu/gold-miner#后端">后端</a>、<a href="https://github.com/xitu/gold-miner#区块链">区块链</a>、<a href="https://github.com/xitu/gold-miner#产品">产品</a>、<a href="https://github.com/xitu/gold-miner#设计">设计</a>、<a href="https://github.com/xitu/gold-miner#人工智能">人工智能</a>等领域，想要查看更多优质译文请持续关注 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>、<a href="http://weibo.com/juejinfanyi">官方微博</a>、<a href="https://zhuanlan.zhihu.com/juejinfanyi">知乎专栏</a>。</p>
+</blockquote>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92" rel="tag"># 掘金翻译计划</a>
+          
+            
+            <a href="/tag/#/tensorflow" rel="tag"># tensorflow</a>
+          
+            
+            <a href="/tag/#/python" rel="tag"># python</a>
+          
+            
+            <a href="/tag/#/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/data-link-layer-lldp/" rel="next" title="数据链路层之 LLDP">
+                <i class="fa fa-chevron-left"></i> 数据链路层之 LLDP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/ios-data-protection/" rel="prev" title="聊聊 iOS 数据保护">
+                聊聊 iOS 数据保护 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#安装"> <span class="nav-number">1</span> <span class="nav-text">安装</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#定义基本特征列"> <span class="nav-number">2</span> <span class="nav-text">定义基本特征列</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#广度模型具有交叉特征列的线性模型"> <span class="nav-number">3</span> <span class="nav-text">广度模型：具有交叉特征列的线性模型</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#深度模型嵌入式神经网络"> <span class="nav-number">4</span> <span class="nav-text">深度模型：嵌入式神经网络</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#将广度和深度模型结合为一体"> <span class="nav-number">5</span> <span class="nav-text">将广度和深度模型结合为一体</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#训练和评估模型"> <span class="nav-number">6</span> <span class="nav-text">训练和评估模型</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-fire"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

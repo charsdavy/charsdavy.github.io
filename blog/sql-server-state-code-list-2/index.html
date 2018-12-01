@@ -1,0 +1,5441 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="UA-80507808-1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="database,debug," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="承接《上篇》继续罗列分享SQL Server状态码。">
+<meta name="keywords" content="database, debug">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL Server 错误代码和解释 (中篇)">
+<meta property="og:url" content="http://localhost:4000/blog/sql-server-state-code-list-2/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="承接《上篇》继续罗列分享SQL Server状态码。">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQL Server 错误代码和解释 (中篇)">
+<meta name="twitter:description" content="承接《上篇》继续罗列分享SQL Server状态码。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>SQL Server 错误代码和解释 (中篇) | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/sql-server-state-code-list-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            SQL Server 错误代码和解释 (中篇)
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-21T18:37:18+09:00">
+                2013-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/code" itemprop="url" rel="index">
+                    <span itemprop="name">code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>承接<a href="/blog/sql-server-state-code-list-1">《上篇》</a>继续罗列分享SQL Server状态码。</p>
+
+<!-- more -->
+
+<table>
+  <thead>
+    <tr>
+      <th>错误码</th>
+      <th>错误原因说明</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2001</td>
+      <td>指定的驱动程序无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2002</td>
+      <td>窗口样式或类别属性对此操作无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2003</td>
+      <td>不支持请求的图元操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2004</td>
+      <td>不支持请求的变换操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2005</td>
+      <td>不支持请求的剪切操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2010</td>
+      <td>指定的颜色管理模块无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2011</td>
+      <td>制定的颜色文件配置无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2012</td>
+      <td>找不到指定的标识。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2013</td>
+      <td>找不到所需的标识。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2014</td>
+      <td>指定的标识已经存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2015</td>
+      <td>指定的颜色文件配置与任何设备都不相关。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2016</td>
+      <td>找不到该指定的颜色文件配置</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2017</td>
+      <td>指定的颜色空间无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2018</td>
+      <td>图像颜色管理没有启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2019</td>
+      <td>在删除该颜色传输时有一个错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>该指定的颜色传输无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>该指定的变换与位图的颜色空间不匹配。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>该指定的命名颜色索引在配置文件中不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2102</td>
+      <td>没有安装工作站驱动程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2103</td>
+      <td>无法定位服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2104</td>
+      <td>发生内部错误，网络无法访问共享内存段。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2105</td>
+      <td>网络资源不足。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2106</td>
+      <td>工作站不支持这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2107</td>
+      <td>设备没有连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2108</td>
+      <td>网络连接已成功，但需要提示用户输入一个不同于原始指定的密码。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2114</td>
+      <td>没有启动服务器服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2115</td>
+      <td>队列空。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2116</td>
+      <td>设备或目录不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2117</td>
+      <td>无法在重定向的资源上执行这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2118</td>
+      <td>名称已经共享。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2119</td>
+      <td>服务器当前无法提供所需的资源。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2121</td>
+      <td>额外要求的项目超过允许的上限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2122</td>
+      <td>对等服务只支持两个同时操作的用户 。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2123</td>
+      <td>API 返回缓冲区太小。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2127</td>
+      <td>远程 API 错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2131</td>
+      <td>打开或读取配置文件时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2136</td>
+      <td>发生一般网络错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2137</td>
+      <td>工作站服务的状态不一致。重新启动工作站服务之前，请先重新启动计算机。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2138</td>
+      <td>工作站服务没有启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2139</td>
+      <td>所需信息不可用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2140</td>
+      <td>发生 Windows 2000 内部错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2141</td>
+      <td>服务器没有设置事务处理。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2142</td>
+      <td>远程服务器不支持请求的 API。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2143</td>
+      <td>事件名无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2144</td>
+      <td>网络上已经有此计算机名。请更名后重新启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2146</td>
+      <td>配置信息中找不到指定的组件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2147</td>
+      <td>配置信息中找不到指定的参数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2149</td>
+      <td>配置文件中有一个命令行太长。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2150</td>
+      <td>打印机不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2151</td>
+      <td>打印作业不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2152</td>
+      <td>打印机目标找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2153</td>
+      <td>打印机目标已经存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2154</td>
+      <td>打印机队列已经存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2155</td>
+      <td>无法添加其它的打印机。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2156</td>
+      <td>无法添加其它的打印作业。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2157</td>
+      <td>无法添加其它的打印机目标。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2158</td>
+      <td>此打印机目标处于空闲中，不接受控制操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2159</td>
+      <td>此“打印机目标请求”包含无效的控制函数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2160</td>
+      <td>打印处理程序没有响应。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2161</td>
+      <td>后台处理程序没有运行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2162</td>
+      <td>打印目标当前的状况，无法执行这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2163</td>
+      <td>打印机队列当前的状况，无法执行这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2164</td>
+      <td>打印作业当前的状况，无法执行这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2165</td>
+      <td>无法为后台处理程序分配内存。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2166</td>
+      <td>设备驱动程序不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2167</td>
+      <td>打印处理程序不支持这种数据类型。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2168</td>
+      <td>没有安装打印处理程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2180</td>
+      <td>锁定服务数据库。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2181</td>
+      <td>服务表已满。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2182</td>
+      <td>请求的服务已经启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2183</td>
+      <td>这项服务没有响应控制操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2184</td>
+      <td>服务仍未启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2185</td>
+      <td>服务名无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2186</td>
+      <td>服务没有响应控制功能。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2187</td>
+      <td>服务控制处于忙碌状态。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2188</td>
+      <td>配置文件包含无效的服务程序名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2189</td>
+      <td>在当前的状况下无法控制服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2190</td>
+      <td>服务异常终止。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2191</td>
+      <td>这项服务无法接受请求的 “暂停” 或 “停止” 操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2192</td>
+      <td>服务控制“计划程序”在“计划表”中找不到服务名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2193</td>
+      <td>无法读取服务控制计划程序管道。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2194</td>
+      <td>无法创建新服务的线程。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2200</td>
+      <td>此工作站已经登录到局域网。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2201</td>
+      <td>工作站没有登录到局域网。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2202</td>
+      <td>指定的用户名无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2203</td>
+      <td>密码参数无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2204</td>
+      <td>登录处理器没有添加消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2205</td>
+      <td>登录处理器没有添加消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2206</td>
+      <td>注销处理器没有删除消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2207</td>
+      <td>注销处理器没有删除消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2209</td>
+      <td>暂停网络登录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2210</td>
+      <td>中心登录服务器发生冲突。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2211</td>
+      <td>服务器没有设置正确的用户路径。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2212</td>
+      <td>加载或运行登录脚本时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2214</td>
+      <td>没有指定登录服务器，计算机的登录状态是单机操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2215</td>
+      <td>登录服务器找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2216</td>
+      <td>此计算机已经有一个登录域。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2217</td>
+      <td>登录服务器无法验证登录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2219</td>
+      <td>安全数据库找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2220</td>
+      <td>组名找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2221</td>
+      <td>用户名找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2222</td>
+      <td>资源名找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2223</td>
+      <td>组已经存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2224</td>
+      <td>帐户已经存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2225</td>
+      <td>资源使用权限清单已经存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2226</td>
+      <td>此操作只能在该域的主域控制器上执行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2227</td>
+      <td>安全数据库没有启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2228</td>
+      <td>用户帐户数据库中的名称太多。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2229</td>
+      <td>磁盘 I/O 失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2230</td>
+      <td>已经超过每个资源 64 个项目的限制。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2231</td>
+      <td>不得删除带会话的用户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2232</td>
+      <td>上层目录找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2233</td>
+      <td>无法添加到安全数据库会话高速缓存段。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2234</td>
+      <td>这项操作不能在此特殊的组上执行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2235</td>
+      <td>用户帐户数据库会话高速缓存没有记录此用户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2236</td>
+      <td>用户已经属于此组。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2237</td>
+      <td>用户不属于此组。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2238</td>
+      <td>此用户帐户尚未定义。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2239</td>
+      <td>此用户帐户已过期。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2240</td>
+      <td>此用户不得从此工作站登录网络。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2241</td>
+      <td>这时候不允许用户登录网络。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2242</td>
+      <td>此用户的密码已经过期。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2243</td>
+      <td>此用户的密码无法更改。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2244</td>
+      <td>现在无法使用此密码。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2245</td>
+      <td>密码不满足密码策略的需要。检查最小密码长度、密码复杂性和密码历史的需求。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2246</td>
+      <td>此用户的密码最近才启用，现在不能更改。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2247</td>
+      <td>安全数据库已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2248</td>
+      <td>不需要更新此副本复制的网络/本地安全数据库。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2249</td>
+      <td>此副本复制的数据库已过时；请同步处理其中的数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2250</td>
+      <td>此网络连接不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2251</td>
+      <td>此 asg_type 无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2252</td>
+      <td>此设备当前正在共享中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2270</td>
+      <td>计算机名无法作为消息别名添加。网络上可能已经有此名称。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2271</td>
+      <td>信使服务已经启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2272</td>
+      <td>信使服务启动失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2273</td>
+      <td>网络上找不到此消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2274</td>
+      <td>此消息别名已经转发出去。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2275</td>
+      <td>已经添加了此消息别名，但是仍被转发。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2276</td>
+      <td>此消息别名已在本地存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2277</td>
+      <td>添加的消息别名已经超过数目上限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2278</td>
+      <td>无法删除计算机名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2279</td>
+      <td>消息无法转发回到同一个工作站。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2280</td>
+      <td>域消息处理器出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2281</td>
+      <td>消息已经发送出去，但是收件者已经暂停信使服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2282</td>
+      <td>消息已经发送出去，但尚未收到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2283</td>
+      <td>消息别名当前正在使用中。请稍候片刻再试。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2284</td>
+      <td>信使服务尚未启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2285</td>
+      <td>该名称不在本地计算机上。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2286</td>
+      <td>网络上找不到转发的消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2287</td>
+      <td>远程通讯站的消息别名表已经满了。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2288</td>
+      <td>此别名的消息当前没有在转发中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2289</td>
+      <td>广播的消息被截断。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2294</td>
+      <td>设备名无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2295</td>
+      <td>写入出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2297</td>
+      <td>网络上的消息别名重复。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2298</td>
+      <td>此消息别名会在稍后删除。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2299</td>
+      <td>没有从所有的网络删除消息别名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2300</td>
+      <td>这项操作无法在使用多种网络的计算机上执行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2310</td>
+      <td>此共享的资源不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2311</td>
+      <td>设备没有共享。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2312</td>
+      <td>带此计算机名的会话不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2314</td>
+      <td>没有用此识别号打开的文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2315</td>
+      <td>执行远程管理命令失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2316</td>
+      <td>打开远程临时文件失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2317</td>
+      <td>从远程管理命令返回的数据已经被截断成 64K。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2318</td>
+      <td>此设备无法同时共享为后台处理资源和非后台处理资源。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2319</td>
+      <td>服务器清单中的信息可能不正确</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2320</td>
+      <td>计算机在此域未处于活动状态</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2321</td>
+      <td>在删除共享之前，需要将该共享从分布式文件系统中删除。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2331</td>
+      <td>无法在此设备执行这项操作</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2332</td>
+      <td>此设备无法共享。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2333</td>
+      <td>此设备未打开。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2334</td>
+      <td>此设备名清单无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2335</td>
+      <td>队列优先级无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2337</td>
+      <td>没有任何共享的通讯设备。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2338</td>
+      <td>指定的队列不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2340</td>
+      <td>此设备清单无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2341</td>
+      <td>请求的设备无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2342</td>
+      <td>后台处理程序正在使用此设备。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2343</td>
+      <td>此设备已经被当成通讯设备来使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2351</td>
+      <td>此计算机名无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2354</td>
+      <td>指定的字符串及前缀太长。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2356</td>
+      <td>此路径组成部分无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2357</td>
+      <td>无法判断输入类型。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2362</td>
+      <td>类型缓冲区不够大。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2370</td>
+      <td>配置文件不得超过 64K。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2371</td>
+      <td>初始偏移量越界。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2372</td>
+      <td>系统无法删除当前到网络资源的连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2373</td>
+      <td>系统无法分析此文件中的命令行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2374</td>
+      <td>加载配置文件时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2375</td>
+      <td>保存配置文件时出错，只部份地保存了配置文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2378</td>
+      <td>此日志文件在前后两次读取之间已经发生变化。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2380</td>
+      <td>资源路径不可以是目录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2381</td>
+      <td>资源路径无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2382</td>
+      <td>目标路径无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2383</td>
+      <td>源路径及目标路径分属不同的服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2385</td>
+      <td>请求的 Run 服务器现在暂停。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2389</td>
+      <td>与 Run 服务器通讯时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2391</td>
+      <td>启动后台处理时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2392</td>
+      <td>找不到您连接的共享资源。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2400</td>
+      <td>LAN 适配器号码无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2401</td>
+      <td>此网络连接有文件打开或请求挂起。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2402</td>
+      <td>使用中的连接仍存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2403</td>
+      <td>此共享名或密码无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2404</td>
+      <td>设备正由活动进程使用，无法断开。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2405</td>
+      <td>此驱动器号已在本地使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2430</td>
+      <td>指定的客户已经在指定的事件注册。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2431</td>
+      <td>警报表已满。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2432</td>
+      <td>发出的警报名称无效或不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2433</td>
+      <td>警报接收者无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2434</td>
+      <td>用户的登录时间长短不再合法。 所以已经删除用户与该服务器的会话。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2440</td>
+      <td>日志文件中没有请求的记录号。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2450</td>
+      <td>用户帐户数据库没有正确配置。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2451</td>
+      <td>当 Netlogon 服务正在运行时，不允许执行这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2452</td>
+      <td>这项操作无法在最后的管理帐户上执行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2453</td>
+      <td>找不到此域的域控制器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2454</td>
+      <td>无法设置此用户的登录信息。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2455</td>
+      <td>Netlogon 服务尚未启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2456</td>
+      <td>无法添加到用户帐户数据库。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2457</td>
+      <td>此服务器的时钟与主域控制器的时钟不一致。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2458</td>
+      <td>检测到密码不匹配。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2460</td>
+      <td>服务器识别码没有指定有效的服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2461</td>
+      <td>会话标识没有指定有效的会话。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2462</td>
+      <td>连接识别码没有指定有效的连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2463</td>
+      <td>可用服务器表中无法再加上其它项。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2464</td>
+      <td>服务器已经到了支持的会话数目上限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2465</td>
+      <td>服务器已经到了支持的连接数目上限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2466</td>
+      <td>服务器打开的文件到了上限，无法打开更多文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2467</td>
+      <td>这台服务器没有登记替换的服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2470</td>
+      <td>请用低级的 API (远程管理协议)。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2480</td>
+      <td>UPS 服务无法访问 UPS 驱动程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2481</td>
+      <td>UPS 服务设置错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2482</td>
+      <td>UPS 服务无法访问指定通讯端口 (Comm Port)。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2483</td>
+      <td>UPS 显示线路中断或电池不足，服务没有启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2484</td>
+      <td>UPS 服务无法执行系统关机的操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2500</td>
+      <td>下面的程序返回一个 MS-DOS 错误码。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2501</td>
+      <td>下面的程序需要更多的内存。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2502</td>
+      <td>下面程序调用了不支持的 MS-DOS 函数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2503</td>
+      <td>工作站无法启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2504</td>
+      <td>下面的文件已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2505</td>
+      <td>启动块定义文件中没有指定引导程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2506</td>
+      <td>NetBIOS 返回错误: NCB 及 SMB 数据转储。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2507</td>
+      <td>磁盘 I/O 错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2508</td>
+      <td>无法替换映像参数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2509</td>
+      <td>跨越磁盘扇区范围的映像参数太多。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2510</td>
+      <td>不是从用 /S 格式化的 MS-DOS软盘产生的映像。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2511</td>
+      <td>稍后会从远程重新启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2512</td>
+      <td>无法调用远程启动服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2513</td>
+      <td>无法连接到远程启动服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2514</td>
+      <td>无法打开远程启动服务器上的映像文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2515</td>
+      <td>正在连接到远程启动服务器…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2516</td>
+      <td>正在连接到远程启动服务器…</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2517</td>
+      <td>远程启动服务已经停止，请检测错误记录文件，查明出错的原因。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2518</td>
+      <td>远程启动失败，请检查错误日志文件，查明出错的原因。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2519</td>
+      <td>不允许第二个远程启动 (Remoteboot) 资源连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2550</td>
+      <td>浏览服务设置成 MaintainServerList=No。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2610</td>
+      <td>因为没有网卡与这项服务一起启动，所以无法启动服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2611</td>
+      <td>因为注册表中的启动信息不正确，所以无法启动服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2612</td>
+      <td>无法启动服务，原因是它的数据库找不到或损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2613</td>
+      <td>因为找不到 RPLFILES 共享的资源，所以无法启动服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2614</td>
+      <td>因为找不到 RPLUSER 组，所以无法启动服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2615</td>
+      <td>无法枚举服务记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2616</td>
+      <td>工作站记录信息已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2617</td>
+      <td>工作站记录找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2618</td>
+      <td>其它的工作站正在使用此工作站名。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2619</td>
+      <td>配置文件记录已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2620</td>
+      <td>配置文件记录找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2621</td>
+      <td>其它的配置文件正在使用此名称。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2622</td>
+      <td>有很多工作站正在使用此配置文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2623</td>
+      <td>配置记录已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2624</td>
+      <td>配置记录找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2625</td>
+      <td>适配器识别记录已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2626</td>
+      <td>内部服务出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2627</td>
+      <td>供应商识别记录已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2628</td>
+      <td>启动块记录已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2629</td>
+      <td>找不到此工作站的用户帐户记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2630</td>
+      <td>RPLUSER 本地组找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2631</td>
+      <td>找不到启动块记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2632</td>
+      <td>所选的配置文件与此工作站不兼容。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2633</td>
+      <td>其它的工作站正在使用所选的网卡。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2634</td>
+      <td>有些配置文件正在使用此配置。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2635</td>
+      <td>有数个工作站、配置文件或配置正在使用此启动块。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2636</td>
+      <td>服务无法制作远程启动数据库的备份。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2637</td>
+      <td>找不到适配器记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2638</td>
+      <td>找不到供应商记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2639</td>
+      <td>其它供应商记录正在使用此供应商名称。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2640</td>
+      <td>其它的启动区记录正在使用启动名称或供应商识别记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2641</td>
+      <td>其它的配置正在使用此配置名称。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2660</td>
+      <td>由 Dfs 服务所维护的内部数据库已损坏</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2661</td>
+      <td>内部数据库中的一条记录已 损坏</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2662</td>
+      <td>输入项路径与卷路径不匹配</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2663</td>
+      <td>给定卷名已存在</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2664</td>
+      <td>指定的服务器共享已在 Dfs 中共享</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2665</td>
+      <td>所显示的服务器共享不支持所显示的 Dfs 卷</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2666</td>
+      <td>此操作在非叶卷上无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2667</td>
+      <td>此操作在叶卷上无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2668</td>
+      <td>此操作不明确，因为该卷存在多服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2669</td>
+      <td>无法创建连接点</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2670</td>
+      <td>该服务器不是 Dfs 可识别的</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2671</td>
+      <td>指定的重命名目标路径无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2672</td>
+      <td>指定 Dfs 卷脱线</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2673</td>
+      <td>指定的服务器不为此卷服务</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2674</td>
+      <td>检测到 Dfs 名中的环路</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2675</td>
+      <td>在基于服务器的 Dfs 上不支持该操作</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2676</td>
+      <td>这个卷已经受该指定服务器共享支持</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2677</td>
+      <td>无法删除这个卷的上一个服务器共享支持</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2678</td>
+      <td>Inter-Dfs 卷不支持该操作</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2679</td>
+      <td>Dfs 服务的内部状态已经变得不一致</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2680</td>
+      <td>Dfs 服务已经安装在指定的服务器上</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2681</td>
+      <td>被协调的 Dfs 数据是一样的</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2682</td>
+      <td>无法删除 Dfs 根目录卷 - 如需要请卸载 Dfs</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2683</td>
+      <td>该共享的子目录或父目录已经存在在一个 Dfs 中</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2690</td>
+      <td>Dfs 内部错误</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2691</td>
+      <td>这台机器已经加入域 。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2692</td>
+      <td>这个机器目前未加入域。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2693</td>
+      <td>这台机器是域控制器，而且无法从域中退出。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2694</td>
+      <td>目标域控制器不支持在 OU 中创建的机器帐户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2695</td>
+      <td>指定的工作组名无效</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2696</td>
+      <td>指定的计算机名与域控制器上使用的默认语言不兼容。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2697</td>
+      <td>找不到指定的计算机帐户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>2999</td>
+      <td>这是 NERR 范围内的最后一个错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3000</td>
+      <td>指定了未知的打印监视器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3001</td>
+      <td>指定的打印机驱动程序当前正在使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3002</td>
+      <td>找不到缓冲文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3003</td>
+      <td>未发送 StartDocPrinter 调用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3004</td>
+      <td>未发送 AddJob 调用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3005</td>
+      <td>指定的打印处理器已经安装。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3006</td>
+      <td>指定的打印监视器已经安装。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3007</td>
+      <td>该指定的打印监视器不具备所要求的功能。　</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3008</td>
+      <td>该指定的打印监视器正在使用中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3009</td>
+      <td>当打印机有作业排成队列时此操作请求是不允许的。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3010</td>
+      <td>请求的操作成功。直到重新启动系统前更改将不会生效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3011</td>
+      <td>请求的操作成功。直到重新启动服务前更改将不会生效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3012</td>
+      <td>找不到打印机。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3023</td>
+      <td>用户指定的关机命令文件，它的配置有问题。 不过 UPS 服务已经启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3029</td>
+      <td>因为用户帐户数据库 (NET.ACC) 找不到或损坏， 而且也没有可用的备份数据库， 所以不能启动本地安全机制。 系统不安全！</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3037</td>
+      <td>@I *登录小时数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3039</td>
+      <td>已经超过一个目录中文件的副本复制的限制。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3040</td>
+      <td>已经超过副本复制的目录树深度限制。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3046</td>
+      <td>无法登录。用户当前已经登录，同时参数 TRYUSER 设置为 NO。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3052</td>
+      <td>命令行或配置文件中 没有提供必要的参数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3054</td>
+      <td>无法满足资源的请求。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3055</td>
+      <td>系统配置有问题。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3056</td>
+      <td>系统出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3057</td>
+      <td>发生内部一致性的错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3058</td>
+      <td>配置文件或命令行的选项不明确。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3059</td>
+      <td>配置文件或命令行的参数重复。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3060</td>
+      <td>服务没有响应控制， DosKillProc 函数已经停止服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3061</td>
+      <td>运行服务程序时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3062</td>
+      <td>无法启动次级服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3064</td>
+      <td>文件有问题。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3070</td>
+      <td>内存</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3071</td>
+      <td>磁盘空间</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3072</td>
+      <td>线程</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3073</td>
+      <td>过程</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3074</td>
+      <td>安全性失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3075</td>
+      <td>LAN Manager 根目录不正确或找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3076</td>
+      <td>未安装网络软件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3077</td>
+      <td>服务器未启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3078</td>
+      <td>服务器无法访问用户帐户数据库 (NET.ACC)。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3079</td>
+      <td>LANMAN 树中安装的文件不兼容。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3080</td>
+      <td>LANMAN\LOGS 目录无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3081</td>
+      <td>指定的域无法使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3082</td>
+      <td>另一计算机正将此计算机名当作消息别名使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3083</td>
+      <td>宣布服务器名失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3084</td>
+      <td>用户帐户数据库没有正确配置。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3085</td>
+      <td>服务器没有运行用户级安全功能。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3087</td>
+      <td>工作站设置不正确。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3088</td>
+      <td>查看您的错误日志文件以了解详细信息。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3089</td>
+      <td>无法写入此文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3090</td>
+      <td>ADDPAK 文件损坏。请删除 LANMAN\NETPROG\ADDPAK.SER 后重新应用所有的 ADDPAK。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3091</td>
+      <td>因为没有运行 CACHE.EXE，所以无法启动 LM386 服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3092</td>
+      <td>安全数据库中找不到这台计算机的帐户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3093</td>
+      <td>这台计算机不是 SERVERS 组的成员。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3094</td>
+      <td>SERVERS 组没有在本地安全数据库中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3095</td>
+      <td>此 Windows NT 计算机被设置为某个组的成员， 并不是域的成员。 此种配置下不需要运行 Netlogon 服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3096</td>
+      <td>找不到此域的 Windows NT 域控制器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3098</td>
+      <td>服务无法与主域控制器进行验证。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3099</td>
+      <td>安全数据库文件创建日期或序号有问题。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3100</td>
+      <td>因为网络软件出错，所以无法执行操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3102</td>
+      <td>这项服务无法长期锁定网络控制块 (NCB) 的段。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3103</td>
+      <td>这项服务无法解除网络控制块 (NCB) 段的长期锁定。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3106</td>
+      <td>收到意外的网络控制块 (NCB)。NCB 就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3107</td>
+      <td>网络没有启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3108</td>
+      <td>NETWKSTA.SYS 的 DosDevIoctl 或 DosFsCtl 调用失败。 显示的数据为以下格式: DWORD 值代表调用 Ioctl 或 FsCtl 的 CS:IP WORD 错误代码 WORD Ioctl 或 FsCtl 号</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3111</td>
+      <td>发生意外的 NetBIOS 错误。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3112</td>
+      <td>收到的服务器消息块 (SMB) 无效。 SMB 就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3114</td>
+      <td>因为缓冲区溢出， 所以错误日志文件中部份的项目丢失。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3120</td>
+      <td>控制网络缓冲区以外资源用量的初始化参数被设置大小， 因此需要的内存太多。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3121</td>
+      <td>服务器无法增加内存段的大小。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3124</td>
+      <td>服务器启动失败。三个 chdev 参数必须同时为零或者同时不为零。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3129</td>
+      <td>服务器无法更新 AT 计划文件。 文件损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3130</td>
+      <td>服务器调用 NetMakeLMFileName 时出错。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3132</td>
+      <td>无法长期锁定服务器缓冲区。 请检查交换磁盘的可用空间，然后重新启动系统以启动服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3140</td>
+      <td>因为多次连续出现网络控制块 (NCB) 错误，所以停止服务。 最后一个坏的 NCB 以原始数据形式出现。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3141</td>
+      <td>因为消息服务器共享的数据段被锁住， 所以消息服务器已经停止运行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3151</td>
+      <td>因为 VIO 调用出错，所以无法弹出显示消息。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3152</td>
+      <td>收到的服务器消息块 (SMB) 无效。SMB 就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3160</td>
+      <td>工作站信息段大于 64K。 大小如下(以 DWORD 值的格式):</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3161</td>
+      <td>工作站无法取得计算机的名称号码。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3162</td>
+      <td>工作站无法初始化 Async NetBIOS 线程。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3163</td>
+      <td>工作站无法打开最前面的共享段。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3164</td>
+      <td>工作站主机表已满。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3165</td>
+      <td>收到的邮筒服务器消息块 (SMB) 有问题，SMB 就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3166</td>
+      <td>工作站启动用户帐户数据库时出错。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3167</td>
+      <td>工作站响应 SSI 重新验证请求时出错。 函数码及错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3174</td>
+      <td>服务器无法读取 AT 计划文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3175</td>
+      <td>服务器发现错误的 AT 计划记录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3176</td>
+      <td>服务器找不到 AT 计划文件，所以创建一个计划文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3185</td>
+      <td>因为用户帐户数据库 (NET.ACC) 找不到或损坏， 而且也没有可用的备份数据库， 所以不能启动本地安全机制。 系统不安全！</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3204</td>
+      <td>服务器无法创建线程。 CONFIG.SYS 中的 THREADS 参数必须加大。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3213</td>
+      <td>已经超过一个目录中文件的副本复制的限制。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3214</td>
+      <td>已经超过副本复制的目录树深度限制。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3215</td>
+      <td>邮筒中收到的消息无法识别。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3217</td>
+      <td>无法登录。用户当前已经登录，同时参数 TRYUSER 设置为 NO。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3230</td>
+      <td>检测到服务器的电源中断。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3231</td>
+      <td>UPS 服务已经关掉服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3232</td>
+      <td>UPS 服务没有完成执行用户指定的 关机命令文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3233</td>
+      <td>无法打开 UPS 驱动程序。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3234</td>
+      <td>电源已经恢复。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3235</td>
+      <td>用户指定的关机命令文件 有问题。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3256</td>
+      <td>该项服务的动态链接库 发生无法修复的错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3257</td>
+      <td>系统返回意外的错误码。 错误码就是相关数据。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3258</td>
+      <td>容错错误日志文件 - LANROOT\LOGS\FT.LOG 超过 64K。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3259</td>
+      <td>容错错误日志文件 - LANROOT\LOGS\FT.LOG，在被打开时就已设置 更新进度位，这表示上次使用错误日志时， 系统死机。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3301</td>
+      <td>Remote IPC</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3302</td>
+      <td>Remote Admin</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3303</td>
+      <td>Logon server share</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3304</td>
+      <td>网络出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3400</td>
+      <td>内存不足，无法启动工作站服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3401</td>
+      <td>读取 LAMAN.INI 文件的 NETWORKS 项目出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3404</td>
+      <td>LAMAN.INI 文件中的 NETWORKS 项目太多。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3408</td>
+      <td>程序无法用在此操作系统。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3409</td>
+      <td>已经安装转发程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3411</td>
+      <td>安装 NETWKSTA.SYS 时出错。 请按 ENTER 继续。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3412</td>
+      <td>求解程序链接问题。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3419</td>
+      <td>您已经打开文件或设备， 强制断开会造成数据丢失。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3420</td>
+      <td>内部用的默认共享</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3421</td>
+      <td>信使服务</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3500</td>
+      <td>命令成功完成。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3501</td>
+      <td>使用的选项无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3503</td>
+      <td>命令包含无效的参数个数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3504</td>
+      <td>命令运行完毕，但发生一个或多个错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3505</td>
+      <td>使用的选项数值不正确。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3510</td>
+      <td>命令使用了冲突的选项。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3512</td>
+      <td>软件需要新版的 操作系统。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3513</td>
+      <td>数据多于 Windows 2000 所能够返回的。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3515</td>
+      <td>此命令只能用在 Windows 2000 域控制器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3516</td>
+      <td>这个指令不能用于一个 Windows 2000 域控制器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3520</td>
+      <td>已经启动以下 Windows 2000 服务:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3525</td>
+      <td>停止工作站服务也会同时停止服务器服务 。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3526</td>
+      <td>工作站有打开的文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3533</td>
+      <td>服务正在启动或停止中，请稍候片刻后再试一次。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3534</td>
+      <td>服务没有报告任何错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3535</td>
+      <td>正在控制设备时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3660</td>
+      <td>这些工作站在这台服务器上有会话:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3661</td>
+      <td>这些工作站有会话打开了此台服务器上的文件:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3666</td>
+      <td>消息别名已经转发出去。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3670</td>
+      <td>您有以下的远程连接:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3671</td>
+      <td>继续运行会取消连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3676</td>
+      <td>会记录新的网络连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3677</td>
+      <td>不记录新的网络连接。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3678</td>
+      <td>保存配置文件时出错，原先记录的网络连接状态没有更改。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3679</td>
+      <td>读取配置文件时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3682</td>
+      <td>没有启动任何网络服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3683</td>
+      <td>清单是空的。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3689</td>
+      <td>工作站服务已经在运行中，Windows 2000 会忽略工作站的命令选项。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3694</td>
+      <td>在打印作业正在后台处理到队列时，无法删除共享的队列。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3710</td>
+      <td>打开帮助文件时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3711</td>
+      <td>帮助文件是空的。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3712</td>
+      <td>帮助文件已经损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3714</td>
+      <td>这是专为那些安装旧版软件的系统 提供的操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3716</td>
+      <td>设备类型未知。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3717</td>
+      <td>日志文件已经损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3718</td>
+      <td>程序文件名后必须以 .EXE 结束。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3719</td>
+      <td>找不到匹配的共享，因此没有删除。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3720</td>
+      <td>用户记录中的 “单位/星期” 的值不正确。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3725</td>
+      <td>删除共享时出错。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3726</td>
+      <td>用户名无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3727</td>
+      <td>密码无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3728</td>
+      <td>密码不匹配。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3729</td>
+      <td>永久连接没有完全还原。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3730</td>
+      <td>计算机名或域名错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3732</td>
+      <td>无法设置该资源的默认权限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3734</td>
+      <td>没有输入正确的密码。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3735</td>
+      <td>没有输入正确的名称。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3736</td>
+      <td>该资源无法共享。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3737</td>
+      <td>权限字符串包含无效的权限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3738</td>
+      <td>您只能在打印机或通讯设备上执行这项操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3743</td>
+      <td>服务器没有设置远程管理的功能。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3752</td>
+      <td>这台服务器上没有用户的会话。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3756</td>
+      <td>响应无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3757</td>
+      <td>没有提供有效的响应。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3758</td>
+      <td>提供的目标清单与打印机队列目标清单不匹配。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3761</td>
+      <td>指定的时间范围中结束的时间比开始的时间早。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3764</td>
+      <td>提供的时间不是整点。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3765</td>
+      <td>12 与 24 小时格式不能混用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3767</td>
+      <td>提供的日期格式无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3768</td>
+      <td>提供的日期范围无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3769</td>
+      <td>提供的时间范围无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3770</td>
+      <td>NET USER 的参数无效。请检查最短的密码长度 和/或提供参数。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3771</td>
+      <td>ENABLESCRIPT 的值必须是 YES。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3773</td>
+      <td>提供的国家(地区)代码无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3774</td>
+      <td>用户已经创建成功，但是无法添加到 USERS 本地组中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3775</td>
+      <td>提供的用户上下文无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3777</td>
+      <td>文件发送功能已不再支持。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3778</td>
+      <td>您可能没有指定 ADMIN$ 及 IPC$ 共享的路径。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3784</td>
+      <td>只有磁盘共享可以标记为可以缓存。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3802</td>
+      <td>此计划日期无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3803</td>
+      <td>LANMAN 根目录无法使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3804</td>
+      <td>SCHED.LOG 文件无法打开。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3805</td>
+      <td>服务器服务尚未启动。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3806</td>
+      <td>AT 作业标识不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3807</td>
+      <td>AT 计划文件已损坏。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3808</td>
+      <td>因为 AT 计划文件发生问题，所以无法运行删除操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3809</td>
+      <td>命令行不得超过 259 个字符。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3810</td>
+      <td>因为磁盘已满，所以 AT 计划文件无法更新。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3812</td>
+      <td>AT 计划文件无效。请删除此文件并创建新的文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3813</td>
+      <td>AT 计划文件已经删除。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3814</td>
+      <td>此命令的语法是: AT [id] [/Delete] AT 时间 [/EVERY:日期</td>
+      <td>/NEXT:日期] 命令 AT 命令会在以后的 指定日期及时间，安排程序在服务器上运行。 它也会显示安排运行的程序及命令的清单。 您可以将日期指定为M、T、W、Th、F、Sa、Su 或 1-31 的格式。 您可以将时间指定为HH:3814</td>
+    </tr>
+    <tr>
+      <td>3815</td>
+      <td>AT 命令已经超时。 请稍后再试一次。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3816</td>
+      <td>用户帐户的密码使用最短期限不得 大于密码最长使用期限。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3817</td>
+      <td>指定的数值与安装下层软件的服务器不兼容。 请指定较小的值。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3902</td>
+      <td>意外到达消息的结尾</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3905</td>
+      <td>请按 ESC 退出</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3912</td>
+      <td>找不到时间服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3915</td>
+      <td>无法判断用户的主目录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3916</td>
+      <td>没有指定用户的主目录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3920</td>
+      <td>已经没有可用的驱动器号。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3936</td>
+      <td>这台计算机目前没有配置成使用一个指定的 SNTP 服务器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3953</td>
+      <td>语法错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3960</td>
+      <td>指定的文件号码无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3961</td>
+      <td>指定的打印作业号码无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3963</td>
+      <td>指定的用户或组帐户找不到。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3965</td>
+      <td>已添加用户，但 NetWare 的文件和打印服务无法启用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3966</td>
+      <td>没有安装 NetWare 的文件和打印服务。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3967</td>
+      <td>无法为 NetWare 的文件和打印服务设置用户属性。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>3969</td>
+      <td>NetWare 兼容登录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4000</td>
+      <td>WINS 在处理命令时遇到错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4001</td>
+      <td>本地的 WINS 不能删除。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4002</td>
+      <td>文件导入操作失败。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4003</td>
+      <td>备份操作失败。是否先前已作过完整备份?</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4004</td>
+      <td>备份操作失败。请检查您备份数据库的目录。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4005</td>
+      <td>WINS 数据库中没有这个名称。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4006</td>
+      <td>不允许复制一个尚未配置的伙伴。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4100</td>
+      <td>DHCP 客户获得一个在网上已被使用的 IP 地址。 直到 DHCP 客户可以获得新的地址前，本地接口将被禁用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4200</td>
+      <td>无法识别传来的 GUID 是否为有效的 WMI 数据提供程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4201</td>
+      <td>无法识别传来的实例名是否为有效的 WMI 数据提供程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4202</td>
+      <td>无法识别传来的数据项目标识符是否为有效的 WMI 数据提供程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4203</td>
+      <td>无法完成 WMI 请求，应该重试一次。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4204</td>
+      <td>找不到 WMI 数据提供程序。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4205</td>
+      <td>WMI 数据提供程序引用到一个未注册的实例组。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4206</td>
+      <td>WMI 数据块或事件通知已启用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4207</td>
+      <td>WMI 数据块不再可用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4208</td>
+      <td>WMI 数据服务无法使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4209</td>
+      <td>WMI 数据提供程序无法完成要求。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4210</td>
+      <td>WMI MOF 信息无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4211</td>
+      <td>WMI 注册信息无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4212</td>
+      <td>WMI 数据块或事件通知已禁用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4213</td>
+      <td>WMI 数据项目或数据块为只读。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4214</td>
+      <td>WMI 数据项目或数据块不能更改。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4300</td>
+      <td>媒体标识符没有表示一个有效的媒体。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4301</td>
+      <td>库标识符没有表示一个有效的库。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4302</td>
+      <td>媒体缓冲池标识符没有表示一个有效的媒体缓冲池。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4303</td>
+      <td>驱动器和媒体不兼容或位于不同的库中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4304</td>
+      <td>媒体目前在脱机库中，您必须联机才能运行这个操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4305</td>
+      <td>操作无法在脱机库中运行。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4306</td>
+      <td>库、驱动器或媒体缓冲池是空的。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4307</td>
+      <td>库、磁盘或媒体缓冲池必须是空的，才能运行这个操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4308</td>
+      <td>在这个媒体缓冲池或库中目前没有可用的媒体。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4309</td>
+      <td>这个操作所需的资源已禁用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4310</td>
+      <td>媒体标识符没有表示一个有效的清洗器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4311</td>
+      <td>无法清洗驱动器或不支持清洗。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4312</td>
+      <td>对象标识符没有表示一个有效的对象。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4313</td>
+      <td>无法读取或写入数据库。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4314</td>
+      <td>数据库已满。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4315</td>
+      <td>媒体与设备或媒体缓冲池不兼容。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4316</td>
+      <td>这个操作所需的资源不存在。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4317</td>
+      <td>操作标识符不正确。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4318</td>
+      <td>媒体未被安装，或未就绪。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4319</td>
+      <td>设备未就绪。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4320</td>
+      <td>操作员或系统管理员拒绝了请求。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4321</td>
+      <td>驱动器标识符不代表一个有效的驱动器。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4322</td>
+      <td>程序库已满。没有可使用的插槽。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4323</td>
+      <td>传输程序不能访问媒体。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4324</td>
+      <td>无法将媒体加载到驱动器中。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4325</td>
+      <td>无法检索有关驱动器的状态。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4326</td>
+      <td>无法检索有关插槽的状态。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4327</td>
+      <td>无法检索传输的状态。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4328</td>
+      <td>因为传输已在使用中，所以无法使用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4329</td>
+      <td>无法打开或关闭弹入/弹出端口。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4330</td>
+      <td>因为媒体在驱动器中，无法将其弹出。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4331</td>
+      <td>清洗器插槽已被保留。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4332</td>
+      <td>没有保留清洗器插槽。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4333</td>
+      <td>清洗器墨盒已进行了最大次数的驱动器清洗。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4334</td>
+      <td>意外媒体标识号。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4335</td>
+      <td>在这个组或源中最后剩下的项目不能被删除。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4336</td>
+      <td>提供的消息超过了这个参数所允许的最大尺寸。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4337</td>
+      <td>该卷含有系统和页面文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4338</td>
+      <td>由于库中至少有一个驱动器可以支持该媒体类型，不能从库中删除媒体类型。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4339</td>
+      <td>由于没有可以使用的已被启动的驱动器，无法将该脱机媒体装入这个系统。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4350</td>
+      <td>远程存储服务无法撤回文件。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4351</td>
+      <td>远程存储服务此时不可操作。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4352</td>
+      <td>远程存储服务遇到一个媒体错误。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4354</td>
+      <td>请键入密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4358</td>
+      <td>请键入用户的密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4359</td>
+      <td>请键入共享资源的密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4360</td>
+      <td>请键入您的密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4361</td>
+      <td>请再键入一次密码以便确认</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4362</td>
+      <td>请键入用户的旧密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4363</td>
+      <td>请键入用户的新密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4364</td>
+      <td>请键入您的新密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4365</td>
+      <td>请键入复制器服务密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4368</td>
+      <td>请键入您的用户名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4372</td>
+      <td>打印作业详细信息</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4378</td>
+      <td>控制下列正在运行的服务</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4379</td>
+      <td>统计数据可用于正在运行的下列服务</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4381</td>
+      <td>此命令的语法是</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4382</td>
+      <td>此命令的选项是</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4383</td>
+      <td>请键入主域控制器的名称</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4385</td>
+      <td>Sunday</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4386</td>
+      <td>Monday</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4387</td>
+      <td>Tuesday</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4388</td>
+      <td>Wednesday</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4389</td>
+      <td>Thursday</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4390</td>
+      <td>此文件或目录不是一个重解析点。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4391</td>
+      <td>重解析点的属性不能被设置，因为它与已有的属性冲突。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4392</td>
+      <td>在重解析点缓冲区中的数据无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4393</td>
+      <td>在重解析点缓冲区中的标签无效。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4394</td>
+      <td>请求中指定的标签和重解析点中的不匹配。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4395</td>
+      <td>W</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4396</td>
+      <td>Th</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4397</td>
+      <td>F</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4398</td>
+      <td>S</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4399</td>
+      <td>Sa</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4401</td>
+      <td>组名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4402</td>
+      <td>注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4403</td>
+      <td>成员</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4406</td>
+      <td>别名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4407</td>
+      <td>注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4408</td>
+      <td>成员</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4411</td>
+      <td>用户名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4412</td>
+      <td>全名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4413</td>
+      <td>注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4414</td>
+      <td>用户的注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4415</td>
+      <td>参数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4416</td>
+      <td>国家(地区)代码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4417</td>
+      <td>权限等级</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4418</td>
+      <td>操作员权限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4419</td>
+      <td>帐户启用</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4420</td>
+      <td>帐户到期</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4421</td>
+      <td>上次设置密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4422</td>
+      <td>密码到期</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4423</td>
+      <td>密码可更改</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4424</td>
+      <td>允许的工作站</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4425</td>
+      <td>磁盘空间上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4426</td>
+      <td>无限制</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4427</td>
+      <td>本地组会员</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4428</td>
+      <td>域控制器</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4429</td>
+      <td>登录脚本</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4430</td>
+      <td>上次登录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4431</td>
+      <td>全局组成员</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4432</td>
+      <td>可允许的登录小时数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4433</td>
+      <td>全部</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4434</td>
+      <td>无</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4436</td>
+      <td>主目录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4437</td>
+      <td>需要密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4438</td>
+      <td>用户可以更改密码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4439</td>
+      <td>用户配置文件</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4440</td>
+      <td>已锁定</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4450</td>
+      <td>计算机名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4451</td>
+      <td>用户名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4452</td>
+      <td>软件版本</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4453</td>
+      <td>工作站活动在</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4454</td>
+      <td>Windows NT 根目录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4455</td>
+      <td>工作站域</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4456</td>
+      <td>登录域</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4457</td>
+      <td>其它域</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4458</td>
+      <td>COM 打开超时 (秒)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4459</td>
+      <td>COM 发送计数 (字节)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4460</td>
+      <td>COM 发送超时 (毫秒)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4461</td>
+      <td>DOS 会话打印超时 (秒)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4462</td>
+      <td>错误日志文件大小上限 (K)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4463</td>
+      <td>高速缓存上限 (K)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4464</td>
+      <td>网络缓冲区数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4465</td>
+      <td>字符缓冲区数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4466</td>
+      <td>域缓冲区大小</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4467</td>
+      <td>字符缓冲区大小</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4468</td>
+      <td>计算机全名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4469</td>
+      <td>工作站域 DNS 名称</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4470</td>
+      <td>Windows 2000</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4481</td>
+      <td>服务器名称</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4482</td>
+      <td>服务器注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4483</td>
+      <td>发送管理警报到</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4484</td>
+      <td>软件版本</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4485</td>
+      <td>对等服务器</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4486</td>
+      <td>Windows NT</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4487</td>
+      <td>服务器等级</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4488</td>
+      <td>Windows NT Server</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4489</td>
+      <td>服务器正运行于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4492</td>
+      <td>服务器已隐藏</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4500</td>
+      <td>零备份存储在这个卷上不可用。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4506</td>
+      <td>登录的用户数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4507</td>
+      <td>同时可并存的管理员数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4508</td>
+      <td>资源共享数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4509</td>
+      <td>资源连接数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4510</td>
+      <td>服务器打开的文件数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4511</td>
+      <td>每个会话打开的文件数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4512</td>
+      <td>文件锁定数量上限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4520</td>
+      <td>空闲的会话时间 (分)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4526</td>
+      <td>共享等级</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4527</td>
+      <td>用户等级</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4530</td>
+      <td>未限制的服务器</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4570</td>
+      <td>强制用户在时间到期之后多久必须注销?:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4571</td>
+      <td>多少次密码不正确后锁住帐户?:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4572</td>
+      <td>密码最短使用期限 (天):</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4573</td>
+      <td>密码最长使用期限 (天):</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4574</td>
+      <td>密码长度下限:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4575</td>
+      <td>保持的密码历史记录长度:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4576</td>
+      <td>计算机角色:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4577</td>
+      <td>工作站域的主域控制器:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4578</td>
+      <td>锁定阈值:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4579</td>
+      <td>锁定持续时间(分):</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4580</td>
+      <td>锁定观测窗口(分):</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4600</td>
+      <td>统计开始于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4601</td>
+      <td>接受的会话</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4602</td>
+      <td>会话超时</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4603</td>
+      <td>会话出错</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4604</td>
+      <td>发送的 KB</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4605</td>
+      <td>接收的 KB</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4606</td>
+      <td>平均响应时间 (毫秒)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4607</td>
+      <td>网络错误</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4608</td>
+      <td>访问的文件</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4609</td>
+      <td>后台处理的打印作业</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4610</td>
+      <td>系统出错</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4611</td>
+      <td>密码违规</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4612</td>
+      <td>权限违规</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4613</td>
+      <td>访问的通讯设备</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4614</td>
+      <td>会话已启动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4615</td>
+      <td>重新连接的会话</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4616</td>
+      <td>会话启动失败</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4617</td>
+      <td>断开的会话</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4618</td>
+      <td>网络 I/O 执行</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4619</td>
+      <td>文件及管道被访问</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4620</td>
+      <td>时间缓冲区耗尽</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4621</td>
+      <td>大缓冲区</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4622</td>
+      <td>请求缓冲区</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4626</td>
+      <td>已做连接</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4627</td>
+      <td>连接失败</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4630</td>
+      <td>接收的字节数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4631</td>
+      <td>接收的服务器消息块 (SMB)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4632</td>
+      <td>传输的字节数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4633</td>
+      <td>传输的服务器消息块 (SMB)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4634</td>
+      <td>读取操作</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4635</td>
+      <td>写入操作</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4636</td>
+      <td>拒绝原始读取</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4637</td>
+      <td>拒绝原始写入</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4638</td>
+      <td>网络错误</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4639</td>
+      <td>已做连接</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4640</td>
+      <td>重新连接</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4641</td>
+      <td>服务器断开</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4642</td>
+      <td>会话已启动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4643</td>
+      <td>会话挂起</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4644</td>
+      <td>失败的会话</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4645</td>
+      <td>操作失败</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4646</td>
+      <td>使用计数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4647</td>
+      <td>使用计数失败</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4655</td>
+      <td>消息名称转发已经取消。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4661</td>
+      <td>密码已经更改成功。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4664</td>
+      <td>消息已经发给网络上所有的用户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4666</td>
+      <td>消息已经送到此服务器上的所有用户。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4696</td>
+      <td>Windows NT Server</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4697</td>
+      <td>Windows NT Workstation</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4698</td>
+      <td>MS-DOS 增强型工作站</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4700</td>
+      <td>服务器名称 注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4701</td>
+      <td>资源共享名 类型 用途 注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4706</td>
+      <td>其它可用的网络</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4710</td>
+      <td>Disk</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4711</td>
+      <td>Print</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4712</td>
+      <td>Comm</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4713</td>
+      <td>IPC</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4714</td>
+      <td>状态 本地 远程 网络</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4715</td>
+      <td>OK</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4716</td>
+      <td>休止</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4717</td>
+      <td>已暂停</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4718</td>
+      <td>断开</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4719</td>
+      <td>错误</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4720</td>
+      <td>正在连接</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4721</td>
+      <td>正在重新连接</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4722</td>
+      <td>状态</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4723</td>
+      <td>本地名称</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4724</td>
+      <td>远程名称</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4725</td>
+      <td>资源类型</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4726</td>
+      <td>打开</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4727</td>
+      <td>连接</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4728</td>
+      <td>不可用</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4730</td>
+      <td>共享名 资源 注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4731</td>
+      <td>共享名</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4732</td>
+      <td>资源</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4733</td>
+      <td>后台处理</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4734</td>
+      <td>权限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4735</td>
+      <td>最多用户</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4736</td>
+      <td>无限制</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4737</td>
+      <td>用户</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4740</td>
+      <td>识别码 路径 用户名 # 锁定</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4741</td>
+      <td>文件识别码</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4742</td>
+      <td>锁定</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4743</td>
+      <td>权限</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4750</td>
+      <td>计算机 用户名 客户类型 打开空闲时间</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4751</td>
+      <td>计算机</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4752</td>
+      <td>会话时间</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4753</td>
+      <td>空闲时间</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4754</td>
+      <td>资源共享名 类型 # 打开</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4755</td>
+      <td>客户类型</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4756</td>
+      <td>来宾登录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4770</td>
+      <td>脱机缓存被启用:手动恢复</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4771</td>
+      <td>脱机缓存被启用:自动恢复</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4772</td>
+      <td>脱机缓存被启用:用户之间没有共享</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4773</td>
+      <td>脱机缓存被停用</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4774</td>
+      <td>自动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4775</td>
+      <td>手动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4800</td>
+      <td>名称</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4801</td>
+      <td>转发到</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4802</td>
+      <td>已经从下列位置转发给您</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4803</td>
+      <td>这台服务器的用户</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4804</td>
+      <td>用户已经按 Ctrl+Break 中断网络发送。</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4810</td>
+      <td>名称 作业编号 大小 状态</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4811</td>
+      <td>作业</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4812</td>
+      <td>打印</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4815</td>
+      <td>大小</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4816</td>
+      <td>状态</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4817</td>
+      <td>分隔文件</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4818</td>
+      <td>注释</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4819</td>
+      <td>优先级</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4820</td>
+      <td>打印后于</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4821</td>
+      <td>打印直到</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4822</td>
+      <td>打印处理程序</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4823</td>
+      <td>附加信息</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4824</td>
+      <td>参数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4825</td>
+      <td>打印设备</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4826</td>
+      <td>打印机活动中</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4827</td>
+      <td>打印机搁置</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4828</td>
+      <td>打印机出错</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4829</td>
+      <td>正在删除打印机</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4830</td>
+      <td>打印机状态未知</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4842</td>
+      <td>正在提交用户</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4843</td>
+      <td>通知</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4844</td>
+      <td>作业数据类型</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4845</td>
+      <td>作业参数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4846</td>
+      <td>正在等候</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4847</td>
+      <td>搁置于队列</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4848</td>
+      <td>正在后台处理</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4849</td>
+      <td>已暂停</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4850</td>
+      <td>脱机</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4851</td>
+      <td>错误</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4852</td>
+      <td>缺纸</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4853</td>
+      <td>需要干预</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4854</td>
+      <td>正在打印</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4855</td>
+      <td>on</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4862</td>
+      <td>驱动程序</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4930</td>
+      <td>用户名 类型 日期</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4931</td>
+      <td>锁定</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4932</td>
+      <td>服务</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4933</td>
+      <td>服务器</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4934</td>
+      <td>服务器已启动</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4935</td>
+      <td>服务器已暂停</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4936</td>
+      <td>服务器已继续操作</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4937</td>
+      <td>服务器已停止</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4938</td>
+      <td>会话</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4939</td>
+      <td>登录来宾</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4940</td>
+      <td>登录用户</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4941</td>
+      <td>登录管理员</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4942</td>
+      <td>正常注销</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4943</td>
+      <td>登录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4944</td>
+      <td>注销错误</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4945</td>
+      <td>注销自动断开</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4946</td>
+      <td>注销管理员断开</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4947</td>
+      <td>注销受登录限制</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4948</td>
+      <td>服务</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4957</td>
+      <td>帐户</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4964</td>
+      <td>已修改帐户系统设置</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4965</td>
+      <td>登录限制</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4966</td>
+      <td>超过限制: 未知</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4967</td>
+      <td>超过限制: 登录时间</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4968</td>
+      <td>超过限制: 帐户过期</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4969</td>
+      <td>超过限制: 工作站识别码无效</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4970</td>
+      <td>超过限制: 帐户停用</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4971</td>
+      <td>超过限制: 帐户已删除</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4972</td>
+      <td>资源</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4978</td>
+      <td>密码不正确</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4979</td>
+      <td>需要管理员特权</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4980</td>
+      <td>访问</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4984</td>
+      <td>拒绝访问</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4985</td>
+      <td>未知</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4986</td>
+      <td>其它</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4987</td>
+      <td>持续时间:</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4988</td>
+      <td>持续时间: 无效</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4989</td>
+      <td>持续时间: 1 秒以下</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4994</td>
+      <td>访问结束</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4995</td>
+      <td>登录到网络</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4996</td>
+      <td>拒绝登录</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4997</td>
+      <td>程序 消息 时间</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4999</td>
+      <td>管理员已解除帐户的锁定状态</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>5000</td>
+      <td>注销网络</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>更多错误编码请参看 <a href="/blog/sql-server-state-code-list-3">《下篇》</a>。</p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/database" rel="tag"># database</a>
+          
+            
+            <a href="/tag/#/debug" rel="tag"># debug</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/sql-server-state-code-list-3/" rel="next" title="SQL Server 错误代码和解释 (下篇)">
+                <i class="fa fa-chevron-left"></i> SQL Server 错误代码和解释 (下篇)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/sql-server-state-code-list-1/" rel="prev" title="SQL Server 错误代码和解释 (上篇)">
+                SQL Server 错误代码和解释 (上篇) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-fire"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

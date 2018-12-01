@@ -1,0 +1,3728 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="UA-80507808-1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="database,debug," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="承接《中篇》继续罗列分享SQL Server状态码。">
+<meta name="keywords" content="database, debug">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL Server 错误代码和解释 (下篇)">
+<meta property="og:url" content="http://localhost:4000/blog/sql-server-state-code-list-3/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="承接《中篇》继续罗列分享SQL Server状态码。">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQL Server 错误代码和解释 (下篇)">
+<meta name="twitter:description" content="承接《中篇》继续罗列分享SQL Server状态码。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>SQL Server 错误代码和解释 (下篇) | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/sql-server-state-code-list-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            SQL Server 错误代码和解释 (下篇)
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-22T17:24:48+09:00">
+                2013-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/code" itemprop="url" rel="index">
+                    <span itemprop="name">code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>承接<a href="/blog/sql-server-state-code-list-2">《中篇》</a>继续罗列分享SQL Server状态码。</p>
+
+<!-- more -->
+
+<table>
+  <thead>
+    <tr>
+      <th>错误码</th>
+      <th>错误原因说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5001</td>
+      <td>因为其它资源需要它，不能将群集资源移到另一个组。</td>
+    </tr>
+    <tr>
+      <td>5002</td>
+      <td>找不到此群集资源的依存。</td>
+    </tr>
+    <tr>
+      <td>5003</td>
+      <td>因为已经处于依存状态，此群集资源不能依存于指定的资源。</td>
+    </tr>
+    <tr>
+      <td>5004</td>
+      <td>此群集资源未联机。</td>
+    </tr>
+    <tr>
+      <td>5005</td>
+      <td>此操作没有可用的群集节点。</td>
+    </tr>
+    <tr>
+      <td>5006</td>
+      <td>没有群集资源。</td>
+    </tr>
+    <tr>
+      <td>5007</td>
+      <td>找不到群集资源。</td>
+    </tr>
+    <tr>
+      <td>5008</td>
+      <td>正在关闭群集。</td>
+    </tr>
+    <tr>
+      <td>5009</td>
+      <td>因为联机，群集节点无法从群集中脱离。</td>
+    </tr>
+    <tr>
+      <td>5010</td>
+      <td>对象已存在。</td>
+    </tr>
+    <tr>
+      <td>5011</td>
+      <td>此对象已在列表中。</td>
+    </tr>
+    <tr>
+      <td>5012</td>
+      <td>新请求没有可用的群集组。</td>
+    </tr>
+    <tr>
+      <td>5013</td>
+      <td>找不到群集组。</td>
+    </tr>
+    <tr>
+      <td>5014</td>
+      <td>因为群集组未联机，此操作不能完成。</td>
+    </tr>
+    <tr>
+      <td>5015</td>
+      <td>群集节点不是此资源的所有者。</td>
+    </tr>
+    <tr>
+      <td>5016</td>
+      <td>群集节点不是此资源的所有者。</td>
+    </tr>
+    <tr>
+      <td>5017</td>
+      <td>群集资源不能在指定的资源监视器中创建。</td>
+    </tr>
+    <tr>
+      <td>5018</td>
+      <td>群集资源不能通过资源监视器来联机。</td>
+    </tr>
+    <tr>
+      <td>5019</td>
+      <td>因为群集资源联机，此操作不能完成。</td>
+    </tr>
+    <tr>
+      <td>5020</td>
+      <td>由于是仲裁资源，群集资源不能被删除或脱机。</td>
+    </tr>
+    <tr>
+      <td>5021</td>
+      <td>由于没有能力成为仲裁资源，此群集不能使指定资源成为仲裁资源。</td>
+    </tr>
+    <tr>
+      <td>5022</td>
+      <td>群集软件正关闭。</td>
+    </tr>
+    <tr>
+      <td>5023</td>
+      <td>组或资源的状态不是执行请求操作的正确状态。</td>
+    </tr>
+    <tr>
+      <td>5024</td>
+      <td>属性已被存储，但在下次资源联机前，不是所有的修改将生效。</td>
+    </tr>
+    <tr>
+      <td>5025</td>
+      <td>由于不属于共享存储类别，群集不能使指定资源成为仲裁资源。</td>
+    </tr>
+    <tr>
+      <td>5026</td>
+      <td>由于是内核资源，无法删除群集资源。</td>
+    </tr>
+    <tr>
+      <td>5027</td>
+      <td>仲裁资源联机失败。</td>
+    </tr>
+    <tr>
+      <td>5028</td>
+      <td>无法成功创建或装入仲裁日志。</td>
+    </tr>
+    <tr>
+      <td>5029</td>
+      <td>群集日志损坏。</td>
+    </tr>
+    <tr>
+      <td>5030</td>
+      <td>由于该日志已超出最大限量，无法将记录写入群集日志。</td>
+    </tr>
+    <tr>
+      <td>5031</td>
+      <td>群集日志已超出最大限量。</td>
+    </tr>
+    <tr>
+      <td>5032</td>
+      <td>群集日志没有发现检查点记录。</td>
+    </tr>
+    <tr>
+      <td>5033</td>
+      <td>不满足日志所需的最小磁盘空间。</td>
+    </tr>
+    <tr>
+      <td>5034</td>
+      <td>群集节点未能控制仲裁资源，因为它被另一个活动节点拥有。</td>
+    </tr>
+    <tr>
+      <td>5035</td>
+      <td>这个操作的群集网络无效。</td>
+    </tr>
+    <tr>
+      <td>5036</td>
+      <td>此操作没有可用的群集节点。</td>
+    </tr>
+    <tr>
+      <td>5037</td>
+      <td>所有群集节点都必须运行才能执行这个操作。</td>
+    </tr>
+    <tr>
+      <td>5038</td>
+      <td>群集资源失败。</td>
+    </tr>
+    <tr>
+      <td>5039</td>
+      <td>该群集节点无效。</td>
+    </tr>
+    <tr>
+      <td>5040</td>
+      <td>该群集节点已经存在。</td>
+    </tr>
+    <tr>
+      <td>5041</td>
+      <td>一个节点正在加入该群集。</td>
+    </tr>
+    <tr>
+      <td>5042</td>
+      <td>找不到群集节点。</td>
+    </tr>
+    <tr>
+      <td>5043</td>
+      <td>找不到群集本地节点信息。</td>
+    </tr>
+    <tr>
+      <td>5044</td>
+      <td>群集网络已经存在。</td>
+    </tr>
+    <tr>
+      <td>5045</td>
+      <td>找不到群集网络。</td>
+    </tr>
+    <tr>
+      <td>5046</td>
+      <td>群集网络界面已经存在。</td>
+    </tr>
+    <tr>
+      <td>5047</td>
+      <td>找不到群集网络界面。</td>
+    </tr>
+    <tr>
+      <td>5048</td>
+      <td>群集请求在这个对象中无效。</td>
+    </tr>
+    <tr>
+      <td>5049</td>
+      <td>群集网络提供程序无效。</td>
+    </tr>
+    <tr>
+      <td>5050</td>
+      <td>群集节点坏了。</td>
+    </tr>
+    <tr>
+      <td>5051</td>
+      <td>无法连接到群集节点。</td>
+    </tr>
+    <tr>
+      <td>5052</td>
+      <td>该群集节点不是群集的一个成员。</td>
+    </tr>
+    <tr>
+      <td>5053</td>
+      <td>群集加入操作正在进行中。</td>
+    </tr>
+    <tr>
+      <td>5054</td>
+      <td>该群集网络无效。</td>
+    </tr>
+    <tr>
+      <td>5055</td>
+      <td>Mar</td>
+    </tr>
+    <tr>
+      <td>5056</td>
+      <td>该群集节点可以使用。</td>
+    </tr>
+    <tr>
+      <td>5057</td>
+      <td>该群集 IP 地址已在使用中。</td>
+    </tr>
+    <tr>
+      <td>5058</td>
+      <td>该群集节点没有中止。</td>
+    </tr>
+    <tr>
+      <td>5059</td>
+      <td>没有有效的群集安全上下文。</td>
+    </tr>
+    <tr>
+      <td>5060</td>
+      <td>该群集网络不是为内部群集通讯配置的。</td>
+    </tr>
+    <tr>
+      <td>5061</td>
+      <td>群集节点已经开始。</td>
+    </tr>
+    <tr>
+      <td>5062</td>
+      <td>群集节点已经坏了。</td>
+    </tr>
+    <tr>
+      <td>5063</td>
+      <td>群集网络已经联机。</td>
+    </tr>
+    <tr>
+      <td>5064</td>
+      <td>群集网络已经脱机。</td>
+    </tr>
+    <tr>
+      <td>5065</td>
+      <td>群集节点已经是该群集的成员。</td>
+    </tr>
+    <tr>
+      <td>5066</td>
+      <td>该群集网络是唯一个为两个或更多活动群集节点进行内部群集通讯的配置。不能从网络上删除内部通讯能力。</td>
+    </tr>
+    <tr>
+      <td>5067</td>
+      <td>一个或更多的群集资源依靠网络来向客户提供服务。不能从网络上删除客户访问能力。</td>
+    </tr>
+    <tr>
+      <td>5068</td>
+      <td>该操作不能在群集资源上作为仲裁资源执行。您不能将仲裁资源脱机或修改它的所有者名单。</td>
+    </tr>
+    <tr>
+      <td>5069</td>
+      <td>该群集仲裁资源不允许有任何依存关系。</td>
+    </tr>
+    <tr>
+      <td>5070</td>
+      <td>该群集节点暂停。</td>
+    </tr>
+    <tr>
+      <td>5071</td>
+      <td>群集资源不能联机。所有者节点不能在这个资源上运行。</td>
+    </tr>
+    <tr>
+      <td>5072</td>
+      <td>群集节点没有准备好，不能执行所请求的操作。</td>
+    </tr>
+    <tr>
+      <td>5073</td>
+      <td>群集节点正在关闭。</td>
+    </tr>
+    <tr>
+      <td>5074</td>
+      <td>放弃群集节点加入操作。</td>
+    </tr>
+    <tr>
+      <td>5075</td>
+      <td>由于加入节点和支持者之间的软件版本不兼容，该群集加入操作失败。</td>
+    </tr>
+    <tr>
+      <td>5076</td>
+      <td>由于该群集已经到达其所能监督的资源限制，不能创建这个资源。</td>
+    </tr>
+    <tr>
+      <td>5077</td>
+      <td>系统配置在群集加入或形成操作时已更改。放弃加入或形成操作。</td>
+    </tr>
+    <tr>
+      <td>5078</td>
+      <td>找不到指定的资源种类。</td>
+    </tr>
+    <tr>
+      <td>5079</td>
+      <td>指定的节点不支持这种资源，这也许是由于版本不一致或是由于在这个节点上没有资源 DLL。</td>
+    </tr>
+    <tr>
+      <td>5080</td>
+      <td>该资源 DLL 不支持指定的资源名称。这可能是由于一个提供给源 DLL 名称是错误的(或经过更改的)。</td>
+    </tr>
+    <tr>
+      <td>5081</td>
+      <td>不能在 RPC 服务器上注册任何身份验证包。</td>
+    </tr>
+    <tr>
+      <td>5082</td>
+      <td>由于组的所有者不在组的首选列表中，不能将组联机。要改变组的所有者节点，请移动组。</td>
+    </tr>
+    <tr>
+      <td>5083</td>
+      <td>群集数据库的系列号已改变，或者与锁定程序节点不相容，因此加入操作没有成功。如果在加入操作期间群集数据库有任何改动，这都可能发生。</td>
+    </tr>
+    <tr>
+      <td>5084</td>
+      <td>资源在其当前状态下，资源监视器不允许执行失败操作。资源处于挂起状态时，这都可能发生。</td>
+    </tr>
+    <tr>
+      <td>5085</td>
+      <td>非锁定程序代码收到一个为全局更新保留锁定的请求。</td>
+    </tr>
+    <tr>
+      <td>5086</td>
+      <td>群集服务找不到仲裁磁盘。</td>
+    </tr>
+    <tr>
+      <td>5087</td>
+      <td>已备份的群集数据库可能已损坏。</td>
+    </tr>
+    <tr>
+      <td>5088</td>
+      <td>DFS 根目录已在这个群集节点中。</td>
+    </tr>
+    <tr>
+      <td>5089</td>
+      <td>由于与另一个现有属性冲突，未能修改资源属性。</td>
+    </tr>
+    <tr>
+      <td>5090</td>
+      <td>西班牙</td>
+    </tr>
+    <tr>
+      <td>5091</td>
+      <td>丹麦</td>
+    </tr>
+    <tr>
+      <td>5092</td>
+      <td>瑞典</td>
+    </tr>
+    <tr>
+      <td>5093</td>
+      <td>挪威</td>
+    </tr>
+    <tr>
+      <td>5094</td>
+      <td>德国</td>
+    </tr>
+    <tr>
+      <td>5095</td>
+      <td>澳大利亚</td>
+    </tr>
+    <tr>
+      <td>5096</td>
+      <td>日本</td>
+    </tr>
+    <tr>
+      <td>5097</td>
+      <td>韩国</td>
+    </tr>
+    <tr>
+      <td>5098</td>
+      <td>中国</td>
+    </tr>
+    <tr>
+      <td>5099</td>
+      <td>台湾</td>
+    </tr>
+    <tr>
+      <td>5100</td>
+      <td>亚洲</td>
+    </tr>
+    <tr>
+      <td>5101</td>
+      <td>葡萄牙</td>
+    </tr>
+    <tr>
+      <td>5102</td>
+      <td>芬兰</td>
+    </tr>
+    <tr>
+      <td>5103</td>
+      <td>阿拉伯</td>
+    </tr>
+    <tr>
+      <td>5104</td>
+      <td>希伯莱</td>
+    </tr>
+    <tr>
+      <td>5153</td>
+      <td>UPS 服务即将执行最后的关机操作。</td>
+    </tr>
+    <tr>
+      <td>5170</td>
+      <td>工作站必须用 NET START 才能启动。</td>
+    </tr>
+    <tr>
+      <td>5175</td>
+      <td>远程 IPC</td>
+    </tr>
+    <tr>
+      <td>5176</td>
+      <td>远程管理</td>
+    </tr>
+    <tr>
+      <td>5177</td>
+      <td>默认共享</td>
+    </tr>
+    <tr>
+      <td>5291</td>
+      <td>永不</td>
+    </tr>
+    <tr>
+      <td>5292</td>
+      <td>永不</td>
+    </tr>
+    <tr>
+      <td>5293</td>
+      <td>永不</td>
+    </tr>
+    <tr>
+      <td>5295</td>
+      <td>NETUS.HLP</td>
+    </tr>
+    <tr>
+      <td>5296</td>
+      <td>NET.HLP</td>
+    </tr>
+    <tr>
+      <td>5300</td>
+      <td>网络控制块 (NCB) 请求运行成功。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5301</td>
+      <td>SEND DATAGRAM、SEND BROADCAST、ADAPTER STATUS 或 SESSION STATUS 的网络控制块 (NCB) 缓冲区长度无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5302</td>
+      <td>网络控制块 (NCB) 指定的数据描述数组无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5303</td>
+      <td>网络控制块 (NCB) 指定的命令无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5304</td>
+      <td>网络控制块 (NCB) 指定的消息交换码无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5305</td>
+      <td>网络控制块 (NCB) 命令超时。会话可能异常终止。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5306</td>
+      <td>接收的网络控制块 (NCB) 消息不完整。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5307</td>
+      <td>网络控制块 (NCB) 指定的缓冲区无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5308</td>
+      <td>网络控制块 (NCB) 指定的会话号码没有作用。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5309</td>
+      <td>网卡没有任何资源可用。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5310</td>
+      <td>网络控制块 (NCB) 指定的会话已经关闭。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5311</td>
+      <td>网络控制块 (NCB) 命令已经取消。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5312</td>
+      <td>网络控制块 (NCB) 指定的消息块不合逻辑。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5313</td>
+      <td>该名称已经存在于本地适配器名称表中。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5314</td>
+      <td>网卡名称表已满。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5315</td>
+      <td>网络名称已经有活动的会话，现在取消注册。 网络控制块 (NCB) 命令运行完毕。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5316</td>
+      <td>先前发出的 Receive Lookahead 命令对此会话仍起作用。 网络控制块 (NCB) 命令被拒绝。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5317</td>
+      <td>本地会话表已满。网络控制块 (NCB) 请求被拒绝。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5318</td>
+      <td>拒绝打开网络控制块 (NCB) 会话，远程计算机上没有侦听命令在执行。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5319</td>
+      <td>网络控制块 (NCB) 指定的名称号码无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5320</td>
+      <td>网络控制块 (NCB) 中指定的调用名称找不到， 或者没有应答。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5321</td>
+      <td>网络控制块 (NCB) 中指定的名称找不到。无法将“*”或 00h 填入 NCB 名称。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5322</td>
+      <td>网络控制块 (NCB) 中指定的名称正用于远程适配器。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5323</td>
+      <td>网络控制块 (NCB) 中指定的名称已经删除。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5324</td>
+      <td>网络控制块 (NCB) 中指定的会话异常终止。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5325</td>
+      <td>网络协议在网络上检测两个或数个 相同的名称。 网络控制块 (NCB) 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5326</td>
+      <td>收到意外的协议数据包。 远程设备可能不兼容。网络控制块 (NCB) 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5333</td>
+      <td>NetBIOS 界面正忙。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5334</td>
+      <td>未完成的网络控制块 (NCB) 命令太多。 NCB 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5335</td>
+      <td>网络控制块 (NCB) 中指定的适配器号无效。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5336</td>
+      <td>网络控制块 (NCB) 命令在取消的同时运行完毕。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5337</td>
+      <td>网络控制块 (NCB) 指定的名称已经保留。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5338</td>
+      <td>网络控制块 (NCB) 命令无法取消。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5351</td>
+      <td>同一个会话有多个网络控制块 (NCB)。 NCB 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5352</td>
+      <td>网卡出错。 唯一可能发出的 NetBIOS 命令是 NCB RESET。 网络控制块 (NCB) 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5354</td>
+      <td>超过应用程序数目上限。 网络控制区 (NCB) 请求被拒绝，NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5356</td>
+      <td>请求的资源无法使用。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5364</td>
+      <td>系统出错。 网络控制块 (NCB) 请求被拒绝。NCB 即为数据。</td>
+    </tr>
+    <tr>
+      <td>5365</td>
+      <td>“ROM 校验和”失败。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5366</td>
+      <td>RAM 测试失败。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5367</td>
+      <td>数字式环回失败。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5368</td>
+      <td>模拟式环回失败。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5369</td>
+      <td>界面失败。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5370</td>
+      <td>收到的网络控制块 (NCB) 返回码无法识别。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5380</td>
+      <td>网卡故障。 网络控制块 (NCB) 请求被拒绝。NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5381</td>
+      <td>网络控制块 (NCB) 命令仍然处于搁置状态。 NCB 是相关数据。</td>
+    </tr>
+    <tr>
+      <td>5509</td>
+      <td>Windows 2000 无法按指定的配置启动， 将换用先前可工作的配置。</td>
+    </tr>
+    <tr>
+      <td>5600</td>
+      <td>无法共享用户或脚本路径。</td>
+    </tr>
+    <tr>
+      <td>5601</td>
+      <td>计算机的密码在本地安全 数据库中找不到。</td>
+    </tr>
+    <tr>
+      <td>5602</td>
+      <td>访问计算机的本地或网络安全数据库时， 发生内部错误。</td>
+    </tr>
+    <tr>
+      <td>5705</td>
+      <td>Netlogon 服务用于记录数据库更改数据的 日志高速缓存已损坏。 Netlogon 服务正在复位更改日志文件。</td>
+    </tr>
+    <tr>
+      <td>5728</td>
+      <td>无法加载任何传输。</td>
+    </tr>
+    <tr>
+      <td>5739</td>
+      <td>此域的全局组数目超过可以复制到 LanMan BDC 的限制。 请删除部分的全局组或删除域中的 LanMan BDC。</td>
+    </tr>
+    <tr>
+      <td>5742</td>
+      <td>服务无法检索必要的消息，所以无法运行远程启动客户。</td>
+    </tr>
+    <tr>
+      <td>5743</td>
+      <td>服务发生严重的错误，无法从远程启动 3Com 3Start 远程启动客户。</td>
+    </tr>
+    <tr>
+      <td>5744</td>
+      <td>服务发生严重的系统错误，即将关机。</td>
+    </tr>
+    <tr>
+      <td>5760</td>
+      <td>服务在分析 RPL 配置时出错。</td>
+    </tr>
+    <tr>
+      <td>5761</td>
+      <td>服务在创建所有配置的 RPL 配置文件时出错。</td>
+    </tr>
+    <tr>
+      <td>5762</td>
+      <td>服务在访问注册表时出错。</td>
+    </tr>
+    <tr>
+      <td>5763</td>
+      <td>服务在替换可能过期的 RPLDISK.SYS 时出错。</td>
+    </tr>
+    <tr>
+      <td>5764</td>
+      <td>服务在添加安全帐户或设置文件权限时出错。 这些帐户是独立 RPL 工作站的 RPLUSER 本地组 以及用户帐户。.</td>
+    </tr>
+    <tr>
+      <td>5765</td>
+      <td>服务无法备份它的数据库。</td>
+    </tr>
+    <tr>
+      <td>5766</td>
+      <td>服务无法从它的数据库初始化。 数据库可能找不到或损坏。 服务会试图从备份数据库恢复该数据库。</td>
+    </tr>
+    <tr>
+      <td>5767</td>
+      <td>服务无法从备份数据库还原它的数据库。服务 将不启动。</td>
+    </tr>
+    <tr>
+      <td>5768</td>
+      <td>服务无法从备份数据库还原它的数据库。</td>
+    </tr>
+    <tr>
+      <td>5769</td>
+      <td>服务无法从它还原的数据库初始化。服务 将不启动。</td>
+    </tr>
+    <tr>
+      <td>5771</td>
+      <td>远程启动数据库采用 NT 3.5 / NT 3.51 格式。NT 正在转换其为 NT 4.0 格式。完成转换后，JETCONV 转换器将写出应用事件日志。</td>
+    </tr>
+    <tr>
+      <td>5773</td>
+      <td>该 DC 的 DNS 服务器不支持动态 DNS。 将文件 ‘SystemRoot\System32\Config\netlogon.dns’ 中的 DNS 记录添加到伺服那个文件中引用的域的 DNS 服务器。</td>
+    </tr>
+    <tr>
+      <td>5781</td>
+      <td>由于没有可以使用的 DNS 服务器，一个或更多 DNS 记录的动态注册和注销未成功。</td>
+    </tr>
+    <tr>
+      <td>6000</td>
+      <td>无法加密指定的文件。</td>
+    </tr>
+    <tr>
+      <td>6001</td>
+      <td>指定的文件无法解密。</td>
+    </tr>
+    <tr>
+      <td>6002</td>
+      <td>指定的文件已加密，而且用户没有能力解密。</td>
+    </tr>
+    <tr>
+      <td>6003</td>
+      <td>这个系统没有有效的加密恢复策略配置。</td>
+    </tr>
+    <tr>
+      <td>6004</td>
+      <td>所需的加密驱动程序并未加载到系统中。</td>
+    </tr>
+    <tr>
+      <td>6005</td>
+      <td>文件加密所使用的加密驱动程序与目前加载的加密驱动程序不同。</td>
+    </tr>
+    <tr>
+      <td>6006</td>
+      <td>没有为用户定义的 EFS 关键字。</td>
+    </tr>
+    <tr>
+      <td>6007</td>
+      <td>指定的文件并未加密。</td>
+    </tr>
+    <tr>
+      <td>6008</td>
+      <td>指定的文件不是定义的 EFS 导出格式。</td>
+    </tr>
+    <tr>
+      <td>6009</td>
+      <td>指定的文件是只读文件。</td>
+    </tr>
+    <tr>
+      <td>6010</td>
+      <td>已为加密而停用目录。</td>
+    </tr>
+    <tr>
+      <td>6011</td>
+      <td>不信任服务器来进行远程加密操作。</td>
+    </tr>
+    <tr>
+      <td>6118</td>
+      <td>此工作组的服务器列表当前无法使用</td>
+    </tr>
+    <tr>
+      <td>6200</td>
+      <td>要正常运行，任务计划程序服务的配置必须在系统帐户中运行。单独的任务可以被配置成在其他帐户中运行。</td>
+    </tr>
+    <tr>
+      <td>7001</td>
+      <td>指定的会话名称无效。</td>
+    </tr>
+    <tr>
+      <td>7002</td>
+      <td>指定的协议驱动程序无效。</td>
+    </tr>
+    <tr>
+      <td>7003</td>
+      <td>在系统路径上找不到指定的协议驱动程序。</td>
+    </tr>
+    <tr>
+      <td>7004</td>
+      <td>在系统路径上找不到指定的终端连接。</td>
+    </tr>
+    <tr>
+      <td>7005</td>
+      <td>不能为这个会话创建一个事件日志的注册键。</td>
+    </tr>
+    <tr>
+      <td>7006</td>
+      <td>同名的一个服务已经在系统中存在。</td>
+    </tr>
+    <tr>
+      <td>7007</td>
+      <td>在会话上一个关闭操作挂起。</td>
+    </tr>
+    <tr>
+      <td>7008</td>
+      <td>没有可用的输出缓冲器。</td>
+    </tr>
+    <tr>
+      <td>7009</td>
+      <td>找不到 MODEM.INF 文件。</td>
+    </tr>
+    <tr>
+      <td>7010</td>
+      <td>在 MODEM.INF 中没有找到调制解调器名称。</td>
+    </tr>
+    <tr>
+      <td>7011</td>
+      <td>调制解调器没有接受发送给它的指令。验证配置的调制解调器与连接的调制解调器是否匹配。</td>
+    </tr>
+    <tr>
+      <td>7012</td>
+      <td>调制解调器没有接受发送给它的指令。验证该调制解调器是否接线正确并且打开了电源开关。</td>
+    </tr>
+    <tr>
+      <td>7013</td>
+      <td>运载工具检测失败或者由于断开连接，运载工具已被丢弃。</td>
+    </tr>
+    <tr>
+      <td>7014</td>
+      <td>在要求的时间内没有发现拨号音。 确定电话线连接正确并可使用。</td>
+    </tr>
+    <tr>
+      <td>7015</td>
+      <td>在远程站点回叫时检测到了占线信号。</td>
+    </tr>
+    <tr>
+      <td>7016</td>
+      <td>在回叫时远程站点上检测到了声音。</td>
+    </tr>
+    <tr>
+      <td>7017</td>
+      <td>传输驱动程序错误</td>
+    </tr>
+    <tr>
+      <td>7022</td>
+      <td>找不到指定的会话。</td>
+    </tr>
+    <tr>
+      <td>7023</td>
+      <td>指定的会话名称已处于使用中。</td>
+    </tr>
+    <tr>
+      <td>7024</td>
+      <td>由于终端连接目前正在忙于处理一个连接、断开连接、复位或删除操作，无法完成该请求的操作。</td>
+    </tr>
+    <tr>
+      <td>7025</td>
+      <td>试图连接到其视频模式不受当前客户支持的会话。</td>
+    </tr>
+    <tr>
+      <td>7035</td>
+      <td>应用程序尝试启动 DOS 图形模式。 不支持 DOS 图形模式。</td>
+    </tr>
+    <tr>
+      <td>7037</td>
+      <td>您的交互式登录权限已被禁用。 请与您的管理员联系。</td>
+    </tr>
+    <tr>
+      <td>7038</td>
+      <td>该请求的操作只能在系统控制台上执行。 这通常是一个驱动程序或系统 DLL 要求直接控制台访问的结果。</td>
+    </tr>
+    <tr>
+      <td>7040</td>
+      <td>客户未能对服务器连接消息作出响应。</td>
+    </tr>
+    <tr>
+      <td>7041</td>
+      <td>不支持断开控制台会话。</td>
+    </tr>
+    <tr>
+      <td>7042</td>
+      <td>不支持重新将一个断开的会话连接到控制台。</td>
+    </tr>
+    <tr>
+      <td>7044</td>
+      <td>远程控制另一个会话的请求被拒绝。</td>
+    </tr>
+    <tr>
+      <td>7045</td>
+      <td>拒绝请求的会话访问。</td>
+    </tr>
+    <tr>
+      <td>7049</td>
+      <td>指定的终端连接驱动程序无效。</td>
+    </tr>
+    <tr>
+      <td>7050</td>
+      <td>不能远程控制该请求的会话。 这也许是由于该会话被中断或目前没有一个用户登录。而且，您不能从该系统控制台远程控制一个会话或远程控制系统控制台。并且，您不能远程控制您自己的当前会话。</td>
+    </tr>
+    <tr>
+      <td>7051</td>
+      <td>该请求的会话没有配置成允许远程控制。</td>
+    </tr>
+    <tr>
+      <td>7052</td>
+      <td>拒绝连接到这个终端服务器。终端服务器客户许可证目前正在被另一个用户使用。 请与系统管理员联系，获取一份新的终端服务器客户，其许可证号码必须是有效的、唯一的。</td>
+    </tr>
+    <tr>
+      <td>7053</td>
+      <td>拒绝连接到这个终端服务器。还没有为这份终端服务器客户输入您的终端服务器客户许可证号码。 请与系统管理员联系，为该终端服务器客户输入一个有效的、唯一的许可证号码。</td>
+    </tr>
+    <tr>
+      <td>7054</td>
+      <td>系统已达到其授权的登录限制。 请以后再试一次。</td>
+    </tr>
+    <tr>
+      <td>7055</td>
+      <td>您正在使用的客户没有使用该系统的授权。您的登录请求被拒绝。</td>
+    </tr>
+    <tr>
+      <td>7056</td>
+      <td>系统许可证已过期。您的登录请求被拒绝。</td>
+    </tr>
+    <tr>
+      <td>8001</td>
+      <td>文件复制服务 API 被错误调用。</td>
+    </tr>
+    <tr>
+      <td>8002</td>
+      <td>无法启动文件复制服务。</td>
+    </tr>
+    <tr>
+      <td>8003</td>
+      <td>无法停止文件复制服务。</td>
+    </tr>
+    <tr>
+      <td>8004</td>
+      <td>文件复制服务 API 终止了请求。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8005</td>
+      <td>该文件复制服务中断了该请求。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8006</td>
+      <td>无法联系文件复制服务。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8007</td>
+      <td>由于该用户没有足够特权，文件复制服务不能满足该请求。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8008</td>
+      <td>由于验证的 RPC 无效，文件复制服务不能满足该请求。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8009</td>
+      <td>由于该用户在域控制器上没有足够特权，文件复制服务不能满足该请求。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8010</td>
+      <td>由于在域控制器上的验证的 RPC 无效，文件复制服务不能满足该请求。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8011</td>
+      <td>该文件复制服务无法与在域控制器上的文件复制服务通讯。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8012</td>
+      <td>在域控制器上的文件复制服务无法与这台计算机上的文件复制服务通讯。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8013</td>
+      <td>由于内部错误，该文件复制服务不能进入该系统卷中。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8014</td>
+      <td>由于内部超时，该文件复制服务不能进入该系统卷中。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8015</td>
+      <td>该文件复制服务无法处理此请求。该系统卷仍在忙于前一个请求。</td>
+    </tr>
+    <tr>
+      <td>8016</td>
+      <td>由于内部错误，该文件复制服务无法停止复制该系统卷。 事件日志可能有详细信息。</td>
+    </tr>
+    <tr>
+      <td>8017</td>
+      <td>该文件复制服务检测到一个无效参数。</td>
+    </tr>
+    <tr>
+      <td>8200</td>
+      <td>在安装目录服务时出现一个错误。有关详细信息，请查看事件日志。</td>
+    </tr>
+    <tr>
+      <td>8201</td>
+      <td>目录服务在本地评估组成员身份。</td>
+    </tr>
+    <tr>
+      <td>8202</td>
+      <td>指定的目录服务属性或值不存在。</td>
+    </tr>
+    <tr>
+      <td>8203</td>
+      <td>指定给目录服务的属性语法无效。</td>
+    </tr>
+    <tr>
+      <td>8204</td>
+      <td>指定给目录服务的属性类型未定义。</td>
+    </tr>
+    <tr>
+      <td>8205</td>
+      <td>指定的目录服务属性或值已经存在。</td>
+    </tr>
+    <tr>
+      <td>8206</td>
+      <td>目录服务忙。</td>
+    </tr>
+    <tr>
+      <td>8207</td>
+      <td>该目录服务无效。</td>
+    </tr>
+    <tr>
+      <td>8208</td>
+      <td>目录服务无法分配相对标识号。</td>
+    </tr>
+    <tr>
+      <td>8209</td>
+      <td>目录服务已经用完了相对标识号池。</td>
+    </tr>
+    <tr>
+      <td>8210</td>
+      <td>由于目录服务不是该类操作的主控，未能执行操作。</td>
+    </tr>
+    <tr>
+      <td>8211</td>
+      <td>目录服务无法初始化分配相对标识号的子系统。</td>
+    </tr>
+    <tr>
+      <td>8212</td>
+      <td>该请求的操作没有满足一个或多个与该对象的类别相关的约束。</td>
+    </tr>
+    <tr>
+      <td>8213</td>
+      <td>目录服务只可以在一个页状对象上运行要求的操作。</td>
+    </tr>
+    <tr>
+      <td>8214</td>
+      <td>目录服务不能在一个对象的 RDN 属性上执行该请求的操作。</td>
+    </tr>
+    <tr>
+      <td>8215</td>
+      <td>目录服务检测出修改对象类别的尝试。</td>
+    </tr>
+    <tr>
+      <td>8216</td>
+      <td>不能执行请求的通过域的移动操作。</td>
+    </tr>
+    <tr>
+      <td>8217</td>
+      <td>无法联系全局编录服务器。</td>
+    </tr>
+    <tr>
+      <td>8218</td>
+      <td>策略对象是共享的并只可在根目录上修改。</td>
+    </tr>
+    <tr>
+      <td>8219</td>
+      <td>策略对象不存在。</td>
+    </tr>
+    <tr>
+      <td>8220</td>
+      <td>请求的策略信息只在目录服务中。</td>
+    </tr>
+    <tr>
+      <td>8221</td>
+      <td>域控制器升级目前正在使用中。</td>
+    </tr>
+    <tr>
+      <td>8222</td>
+      <td>域控制器升级目前不在使用中</td>
+    </tr>
+    <tr>
+      <td>8224</td>
+      <td>出现一个操作错误。</td>
+    </tr>
+    <tr>
+      <td>8225</td>
+      <td>出现一个协议错误。</td>
+    </tr>
+    <tr>
+      <td>8226</td>
+      <td>已经超过这个请求的时间限制。</td>
+    </tr>
+    <tr>
+      <td>8227</td>
+      <td>已经超过这个请求的大小限制。</td>
+    </tr>
+    <tr>
+      <td>8228</td>
+      <td>已经超过这个请求的管理限制。</td>
+    </tr>
+    <tr>
+      <td>8229</td>
+      <td>比较的响应为假。</td>
+    </tr>
+    <tr>
+      <td>8230</td>
+      <td>比较的响应为真。</td>
+    </tr>
+    <tr>
+      <td>8231</td>
+      <td>这个服务器不支持请求的身份验证方式。</td>
+    </tr>
+    <tr>
+      <td>8232</td>
+      <td>这台服务器需要一个更安全的身份验证方式。</td>
+    </tr>
+    <tr>
+      <td>8233</td>
+      <td>不适当的身份验证。</td>
+    </tr>
+    <tr>
+      <td>8234</td>
+      <td>未知的身份验证机制。</td>
+    </tr>
+    <tr>
+      <td>8235</td>
+      <td>从服务器返回了一个建议。</td>
+    </tr>
+    <tr>
+      <td>8236</td>
+      <td>该服务器不支持该请求的关键扩展。</td>
+    </tr>
+    <tr>
+      <td>8237</td>
+      <td>这个请求需要一个安全的连接。</td>
+    </tr>
+    <tr>
+      <td>8238</td>
+      <td>不恰当的匹配。</td>
+    </tr>
+    <tr>
+      <td>8239</td>
+      <td>出现一个约束冲突。</td>
+    </tr>
+    <tr>
+      <td>8240</td>
+      <td>在服务器上没有这样一个对象。</td>
+    </tr>
+    <tr>
+      <td>8241</td>
+      <td>有一个别名问题。</td>
+    </tr>
+    <tr>
+      <td>8242</td>
+      <td>指定了一个无效的 dn 语法。</td>
+    </tr>
+    <tr>
+      <td>8243</td>
+      <td>该对象为叶对象。</td>
+    </tr>
+    <tr>
+      <td>8244</td>
+      <td>有一个别名废弃问题。</td>
+    </tr>
+    <tr>
+      <td>8245</td>
+      <td>该服务器不愿意处理该请求。</td>
+    </tr>
+    <tr>
+      <td>8246</td>
+      <td>检查到一个循环。</td>
+    </tr>
+    <tr>
+      <td>8247</td>
+      <td>有一个命名冲突。</td>
+    </tr>
+    <tr>
+      <td>8248</td>
+      <td>结果设置太大。</td>
+    </tr>
+    <tr>
+      <td>8249</td>
+      <td>该操作会影响到多个 DSA。</td>
+    </tr>
+    <tr>
+      <td>8250</td>
+      <td>该服务器不可操作。</td>
+    </tr>
+    <tr>
+      <td>8251</td>
+      <td>出现一个本地错误。</td>
+    </tr>
+    <tr>
+      <td>8252</td>
+      <td>出现一个编码错误。</td>
+    </tr>
+    <tr>
+      <td>8253</td>
+      <td>出现一个解码错误。</td>
+    </tr>
+    <tr>
+      <td>8254</td>
+      <td>无法识别寻找筛选器。</td>
+    </tr>
+    <tr>
+      <td>8255</td>
+      <td>一个或多个参数非法。</td>
+    </tr>
+    <tr>
+      <td>8256</td>
+      <td>不支持指定的方式。</td>
+    </tr>
+    <tr>
+      <td>8257</td>
+      <td>没有返回结果。</td>
+    </tr>
+    <tr>
+      <td>8258</td>
+      <td>该服务器不支持该指定的控制。</td>
+    </tr>
+    <tr>
+      <td>8259</td>
+      <td>客户检测到一个参考循环。</td>
+    </tr>
+    <tr>
+      <td>8260</td>
+      <td>超过当前的参考限制。</td>
+    </tr>
+    <tr>
+      <td>8301</td>
+      <td>根目录对象必须是一个命名上下文的头。该根目录对象不能有实例父类。</td>
+    </tr>
+    <tr>
+      <td>8302</td>
+      <td>不能执行添加副本操作。名称上下文必须可写才能创建副本。</td>
+    </tr>
+    <tr>
+      <td>8303</td>
+      <td>出现一个对架构中未定义的一个属性的参考。</td>
+    </tr>
+    <tr>
+      <td>8304</td>
+      <td>超过了一个对象的最大尺寸。</td>
+    </tr>
+    <tr>
+      <td>8305</td>
+      <td>尝试向目录中添加一个已在使用中的名称的对象。</td>
+    </tr>
+    <tr>
+      <td>8306</td>
+      <td>尝试添加一个对象，该对象属于那类在架构中没有一个 RDN 定义的类别。</td>
+    </tr>
+    <tr>
+      <td>8307</td>
+      <td>尝试添加一个使用 RDN 的对象，但该 RDN 不是一个在架构中定义的 RDN 。</td>
+    </tr>
+    <tr>
+      <td>8308</td>
+      <td>在对象中找不到任何请求的属性。</td>
+    </tr>
+    <tr>
+      <td>8309</td>
+      <td>用户缓冲区太小。</td>
+    </tr>
+    <tr>
+      <td>8310</td>
+      <td>在操作中指定的属性不出现在对象上。</td>
+    </tr>
+    <tr>
+      <td>8311</td>
+      <td>修改操作非法。不允许该修改的某个方面。</td>
+    </tr>
+    <tr>
+      <td>8312</td>
+      <td>指定的对象太大。</td>
+    </tr>
+    <tr>
+      <td>8313</td>
+      <td>指定的实例类别无效。</td>
+    </tr>
+    <tr>
+      <td>8314</td>
+      <td>操作必须在主控 DSA 执行。</td>
+    </tr>
+    <tr>
+      <td>8315</td>
+      <td>必须指定对象类别属性。</td>
+    </tr>
+    <tr>
+      <td>8316</td>
+      <td>一个所需的属性丢失。</td>
+    </tr>
+    <tr>
+      <td>8317</td>
+      <td>尝试修改一个对象，将一个对该类别来讲是非法的属性包括进来。</td>
+    </tr>
+    <tr>
+      <td>8318</td>
+      <td>在对象上指定的属性已经存在。</td>
+    </tr>
+    <tr>
+      <td>8320</td>
+      <td>指定的属性不存在或没有值。</td>
+    </tr>
+    <tr>
+      <td>8321</td>
+      <td>为只有一个值的属性指定了多个值。</td>
+    </tr>
+    <tr>
+      <td>8322</td>
+      <td>属性值不在接受范围内。</td>
+    </tr>
+    <tr>
+      <td>8323</td>
+      <td>指定的值已存在。</td>
+    </tr>
+    <tr>
+      <td>8324</td>
+      <td>由于不存在于对象上，不能删除该属性。</td>
+    </tr>
+    <tr>
+      <td>8325</td>
+      <td>由于不存在于对象上，不能删除该属性值。</td>
+    </tr>
+    <tr>
+      <td>8326</td>
+      <td>指定的根对象不能是子参考。</td>
+    </tr>
+    <tr>
+      <td>8327</td>
+      <td>不允许链接。</td>
+    </tr>
+    <tr>
+      <td>8328</td>
+      <td>不允许链接的评估。</td>
+    </tr>
+    <tr>
+      <td>8329</td>
+      <td>由于对象的父类不是未实例化就是被删除了，所以不能执行操作。</td>
+    </tr>
+    <tr>
+      <td>8330</td>
+      <td>不允许有一个用别名的父类。别名是叶对象。</td>
+    </tr>
+    <tr>
+      <td>8331</td>
+      <td>对象和父类必须是同一种类，不是都是原件就是 都是副本。</td>
+    </tr>
+    <tr>
+      <td>8332</td>
+      <td>由于子对象存在，操作不能执行。这个操作只能在叶对象上执行。</td>
+    </tr>
+    <tr>
+      <td>8333</td>
+      <td>没有找到目录对象。</td>
+    </tr>
+    <tr>
+      <td>8334</td>
+      <td>别名对象丢失。</td>
+    </tr>
+    <tr>
+      <td>8335</td>
+      <td>对象名语法不对。</td>
+    </tr>
+    <tr>
+      <td>8336</td>
+      <td>不允许一个别名参考另一个别名。</td>
+    </tr>
+    <tr>
+      <td>8337</td>
+      <td>别名不能解除参考。</td>
+    </tr>
+    <tr>
+      <td>8338</td>
+      <td>操作超出范围。</td>
+    </tr>
+    <tr>
+      <td>8340</td>
+      <td>不能删除 DSA 对象。</td>
+    </tr>
+    <tr>
+      <td>8341</td>
+      <td>出现一个目录服务错误。</td>
+    </tr>
+    <tr>
+      <td>8342</td>
+      <td>操作只能在内部主控 DSA 对象上执行。</td>
+    </tr>
+    <tr>
+      <td>8343</td>
+      <td>对象必须为 DSA 类别。</td>
+    </tr>
+    <tr>
+      <td>8344</td>
+      <td>访问权不够不能执行该操作。</td>
+    </tr>
+    <tr>
+      <td>8345</td>
+      <td>由于父类不在可能的上级列表上，不能添加该对象。</td>
+    </tr>
+    <tr>
+      <td>8346</td>
+      <td>由于该属性处于“安全帐户管理器” (SAM)，不允许访问该属性。</td>
+    </tr>
+    <tr>
+      <td>8347</td>
+      <td>名称有太多部分。</td>
+    </tr>
+    <tr>
+      <td>8348</td>
+      <td>名称太长。</td>
+    </tr>
+    <tr>
+      <td>8349</td>
+      <td>名称值太长。</td>
+    </tr>
+    <tr>
+      <td>8350</td>
+      <td>目录服务遇到了一个错误分列名称。</td>
+    </tr>
+    <tr>
+      <td>8351</td>
+      <td>目录服务找不到一个名称的属性种类。</td>
+    </tr>
+    <tr>
+      <td>8352</td>
+      <td>该名称不能识别一个对象; 该名称识别一个幻象。</td>
+    </tr>
+    <tr>
+      <td>8353</td>
+      <td>安全描述符太短。</td>
+    </tr>
+    <tr>
+      <td>8354</td>
+      <td>安全描述符无效。</td>
+    </tr>
+    <tr>
+      <td>8355</td>
+      <td>为删除的对象创建名称失败。</td>
+    </tr>
+    <tr>
+      <td>8356</td>
+      <td>一个新子参考的父类必须存在。</td>
+    </tr>
+    <tr>
+      <td>8357</td>
+      <td>该对象必须是一个命名上下文。</td>
+    </tr>
+    <tr>
+      <td>8358</td>
+      <td>不允许添加一个不属于系统的属性。</td>
+    </tr>
+    <tr>
+      <td>8359</td>
+      <td>对象的类别必须是有结构的; 您不能实例化一个抽象的类别。</td>
+    </tr>
+    <tr>
+      <td>8360</td>
+      <td>找不到架构的对象。</td>
+    </tr>
+    <tr>
+      <td>8361</td>
+      <td>有这个 GUID (非活动的的或活动的)的本地对象已经存在。</td>
+    </tr>
+    <tr>
+      <td>8362</td>
+      <td>操作不能在一个后部链接上执行。</td>
+    </tr>
+    <tr>
+      <td>8363</td>
+      <td>找不到指定的命名上下文的互交参考。</td>
+    </tr>
+    <tr>
+      <td>8364</td>
+      <td>由于目录服务关闭，操作不能执行。</td>
+    </tr>
+    <tr>
+      <td>8365</td>
+      <td>目录服务请求无效。</td>
+    </tr>
+    <tr>
+      <td>8366</td>
+      <td>无法读取角色所有者属性。</td>
+    </tr>
+    <tr>
+      <td>8367</td>
+      <td>请求的 FSMO 操作失败。不能连接当前的 FSMO 盒。</td>
+    </tr>
+    <tr>
+      <td>8368</td>
+      <td>不允许跨过一个命名上下文修改 DN。</td>
+    </tr>
+    <tr>
+      <td>8369</td>
+      <td>由于属于系统，不能修改该属性。</td>
+    </tr>
+    <tr>
+      <td>8370</td>
+      <td>只有复制器可以执行这个功能。</td>
+    </tr>
+    <tr>
+      <td>8371</td>
+      <td>指定的类别没有定义。</td>
+    </tr>
+    <tr>
+      <td>8372</td>
+      <td>指定的类别不是一个子类别。</td>
+    </tr>
+    <tr>
+      <td>8373</td>
+      <td>名称参考无效。</td>
+    </tr>
+    <tr>
+      <td>8374</td>
+      <td>交叉参考已经存在。</td>
+    </tr>
+    <tr>
+      <td>8375</td>
+      <td>不允许删除一个主控交叉参考。</td>
+    </tr>
+    <tr>
+      <td>8376</td>
+      <td>只在 NC 头上支持子目录树通知。</td>
+    </tr>
+    <tr>
+      <td>8377</td>
+      <td>通知筛选器太复杂。</td>
+    </tr>
+    <tr>
+      <td>8378</td>
+      <td>架构更新失败: 重复的 RDN。</td>
+    </tr>
+    <tr>
+      <td>8379</td>
+      <td>架构更新失败: 重复的 OID。</td>
+    </tr>
+    <tr>
+      <td>8380</td>
+      <td>架构更新失败: 重复的 MAPI 识别符。</td>
+    </tr>
+    <tr>
+      <td>8381</td>
+      <td>架构更新失败: 复制架构 id GUID。</td>
+    </tr>
+    <tr>
+      <td>8382</td>
+      <td>架构更新失败: 重复的 LDAP 显示名称。</td>
+    </tr>
+    <tr>
+      <td>8383</td>
+      <td>架构更新失败: 范围下部少于范围上部。</td>
+    </tr>
+    <tr>
+      <td>8384</td>
+      <td>架构更新失败: 语法不匹配。</td>
+    </tr>
+    <tr>
+      <td>8385</td>
+      <td>架构更新失败: 属性在必须包含中使用。</td>
+    </tr>
+    <tr>
+      <td>8386</td>
+      <td>架构更新失败: 属性在可能包含中使用。</td>
+    </tr>
+    <tr>
+      <td>8387</td>
+      <td>架构更新失败: 可能包含中的属性不存在。</td>
+    </tr>
+    <tr>
+      <td>8388</td>
+      <td>架构更新失败:必须包含中的属性不存在。</td>
+    </tr>
+    <tr>
+      <td>8389</td>
+      <td>架构更新失败: 在辅助类别列表中的类别不存在或不是一个辅助类别。</td>
+    </tr>
+    <tr>
+      <td>8390</td>
+      <td>架构更新失败: poss-superior 中的类别不存在。</td>
+    </tr>
+    <tr>
+      <td>8391</td>
+      <td>架构更新失败: 在 subclassof 列表中的类别不存在或不能满足等级规则。</td>
+    </tr>
+    <tr>
+      <td>8392</td>
+      <td>架构更新失败: Rdn-Att-Id 语法不对。</td>
+    </tr>
+    <tr>
+      <td>8393</td>
+      <td>架构更新失败: 类别作为辅助类别使用。</td>
+    </tr>
+    <tr>
+      <td>8394</td>
+      <td>架构更新失败: 类别作为子类别使用。</td>
+    </tr>
+    <tr>
+      <td>8395</td>
+      <td>架构更新失败: 类别作为 poss superior 使用。</td>
+    </tr>
+    <tr>
+      <td>8396</td>
+      <td>架构更新在重新计算验证缓存时失败。</td>
+    </tr>
+    <tr>
+      <td>8397</td>
+      <td>目录树删除没有完成。要继续删除目录树，必须再次发出请求。</td>
+    </tr>
+    <tr>
+      <td>8398</td>
+      <td>不能执行请求的删除操作。</td>
+    </tr>
+    <tr>
+      <td>8399</td>
+      <td>不能读取架构记录管理类别识别符。</td>
+    </tr>
+    <tr>
+      <td>8400</td>
+      <td>属性架构语法不对。</td>
+    </tr>
+    <tr>
+      <td>8401</td>
+      <td>不能缓存属性。</td>
+    </tr>
+    <tr>
+      <td>8402</td>
+      <td>不能缓存类别。</td>
+    </tr>
+    <tr>
+      <td>8403</td>
+      <td>不能从缓存删除属性。</td>
+    </tr>
+    <tr>
+      <td>8404</td>
+      <td>无法从缓存中删除类别。</td>
+    </tr>
+    <tr>
+      <td>8405</td>
+      <td>无法读取特殊名称的属性。</td>
+    </tr>
+    <tr>
+      <td>8406</td>
+      <td>丢失一个所需的子参考。</td>
+    </tr>
+    <tr>
+      <td>8407</td>
+      <td>不能检索范例种类属性。</td>
+    </tr>
+    <tr>
+      <td>8408</td>
+      <td>出现一个内部错误。</td>
+    </tr>
+    <tr>
+      <td>8409</td>
+      <td>出现一个数据错误。</td>
+    </tr>
+    <tr>
+      <td>8410</td>
+      <td>丢失一个属性 GOVERNSID。</td>
+    </tr>
+    <tr>
+      <td>8411</td>
+      <td>丢失一个所需要的属性。</td>
+    </tr>
+    <tr>
+      <td>8412</td>
+      <td>指定的命名上下文丢失了一个交叉参考。</td>
+    </tr>
+    <tr>
+      <td>8413</td>
+      <td>出现一个安全检查错误。</td>
+    </tr>
+    <tr>
+      <td>8414</td>
+      <td>没有加载架构。</td>
+    </tr>
+    <tr>
+      <td>8415</td>
+      <td>架构分配失败。请检查机器内存是否不足。</td>
+    </tr>
+    <tr>
+      <td>8416</td>
+      <td>为属性架构获得所需语法失败。</td>
+    </tr>
+    <tr>
+      <td>8417</td>
+      <td>全局编录验证失败。全局编录无效或不支持操作。目录的某些部分目前无效。</td>
+    </tr>
+    <tr>
+      <td>8418</td>
+      <td>由于有关服务器之间的架构不匹配，复制操作失败。</td>
+    </tr>
+    <tr>
+      <td>8419</td>
+      <td>找不到 DSA 对象。</td>
+    </tr>
+    <tr>
+      <td>8420</td>
+      <td>找不到命名上下文。</td>
+    </tr>
+    <tr>
+      <td>8421</td>
+      <td>在缓存中找不到命名上下文。</td>
+    </tr>
+    <tr>
+      <td>8422</td>
+      <td>无法检索子对象。</td>
+    </tr>
+    <tr>
+      <td>8423</td>
+      <td>由于安全原因不允许修改。</td>
+    </tr>
+    <tr>
+      <td>8424</td>
+      <td>操作不能替换该隐藏的记录。</td>
+    </tr>
+    <tr>
+      <td>8425</td>
+      <td>等级无效。</td>
+    </tr>
+    <tr>
+      <td>8426</td>
+      <td>尝试建立等级表失败。</td>
+    </tr>
+    <tr>
+      <td>8427</td>
+      <td>目录配置参数在注册中丢失。</td>
+    </tr>
+    <tr>
+      <td>8428</td>
+      <td>尝试计算地址簿索引失败。</td>
+    </tr>
+    <tr>
+      <td>8429</td>
+      <td>等级表的分配失败。</td>
+    </tr>
+    <tr>
+      <td>8430</td>
+      <td>目录服务遇到一个内部失败。</td>
+    </tr>
+    <tr>
+      <td>8431</td>
+      <td>目录服务遇到一个未知失败。</td>
+    </tr>
+    <tr>
+      <td>8432</td>
+      <td>根对象需要一个 ‘top’ 类别。</td>
+    </tr>
+    <tr>
+      <td>8433</td>
+      <td>这个目录服务器已关闭，并且不能接受新上浮单一主机操作角色的所有权。</td>
+    </tr>
+    <tr>
+      <td>8434</td>
+      <td>目录服务没有必需的配置信息，并且不能决定新上浮单一主机操作角色的所有权。</td>
+    </tr>
+    <tr>
+      <td>8435</td>
+      <td>该目录服务无法将一个或多个上浮单一主机操作角色传送给其它服务器。</td>
+    </tr>
+    <tr>
+      <td>8436</td>
+      <td>复制操作失败。</td>
+    </tr>
+    <tr>
+      <td>8437</td>
+      <td>为这个复制操作指定了一个无效的参数。</td>
+    </tr>
+    <tr>
+      <td>8438</td>
+      <td>目录服务太忙，现在无法完成这个复制操作。</td>
+    </tr>
+    <tr>
+      <td>8439</td>
+      <td>为这个复制操作指定的单一名称无效。</td>
+    </tr>
+    <tr>
+      <td>8440</td>
+      <td>为这一个复制操作所指定的命名上下文无效。</td>
+    </tr>
+    <tr>
+      <td>8441</td>
+      <td>为这个复制操作指定的单一名称已经存在。</td>
+    </tr>
+    <tr>
+      <td>8442</td>
+      <td>复制系统遇到一个内部错误。</td>
+    </tr>
+    <tr>
+      <td>8443</td>
+      <td>复制操作遇到数据库不一致问题。</td>
+    </tr>
+    <tr>
+      <td>8444</td>
+      <td>不能连接到为这个复制操作指定的服务器上。</td>
+    </tr>
+    <tr>
+      <td>8445</td>
+      <td>复制操作遇到一个有无效范例类型的对象。</td>
+    </tr>
+    <tr>
+      <td>8446</td>
+      <td>复制操作无法分配内存。</td>
+    </tr>
+    <tr>
+      <td>8447</td>
+      <td>复制操作遇到一个邮件系统错误。</td>
+    </tr>
+    <tr>
+      <td>8448</td>
+      <td>目标服务器的复制参考信息已经存在。</td>
+    </tr>
+    <tr>
+      <td>8449</td>
+      <td>目标服务器的复制参考信息不存在。</td>
+    </tr>
+    <tr>
+      <td>8450</td>
+      <td>由于是由另一台服务器上复制的，因此不能删除命名上下文。</td>
+    </tr>
+    <tr>
+      <td>8451</td>
+      <td>复制操作遇到一个数据库错误。</td>
+    </tr>
+    <tr>
+      <td>8452</td>
+      <td>命名上下文要被删除或没有从指定的服务器上复制。</td>
+    </tr>
+    <tr>
+      <td>8453</td>
+      <td>复制访问被拒绝。</td>
+    </tr>
+    <tr>
+      <td>8454</td>
+      <td>这个版本的目录服务不支持请求的操作。</td>
+    </tr>
+    <tr>
+      <td>8455</td>
+      <td>取消复制远程过程呼叫。</td>
+    </tr>
+    <tr>
+      <td>8456</td>
+      <td>源服务器目前拒绝复制请求。</td>
+    </tr>
+    <tr>
+      <td>8457</td>
+      <td>目标服务器当前拒绝复制请求。</td>
+    </tr>
+    <tr>
+      <td>8458</td>
+      <td>由于对象名称冲突，复制操作失败。</td>
+    </tr>
+    <tr>
+      <td>8459</td>
+      <td>复制源已被重新安装。</td>
+    </tr>
+    <tr>
+      <td>8460</td>
+      <td>由于一个所需父对象丢失，复制操作失败。</td>
+    </tr>
+    <tr>
+      <td>8461</td>
+      <td>复制操作被抢先。</td>
+    </tr>
+    <tr>
+      <td>8462</td>
+      <td>由于缺乏更新，放弃复制同步尝试。</td>
+    </tr>
+    <tr>
+      <td>8463</td>
+      <td>由于系统正在关闭，复制操作被中断了。</td>
+    </tr>
+    <tr>
+      <td>8464</td>
+      <td>由于目标部分属性设置不是一个源部分属性设置的子设置，复制同步尝试失败。</td>
+    </tr>
+    <tr>
+      <td>8465</td>
+      <td>由于主复制尝试从部分复制同步，复制同步尝试失败。</td>
+    </tr>
+    <tr>
+      <td>8466</td>
+      <td>已经与为这个复制操作的指定的服务器联系，但是该服务器无法与完成这个操作所需的另外一个服务器联系。</td>
+    </tr>
+    <tr>
+      <td>8467</td>
+      <td>在副本安装时，检测到一个使用的源和内部版本之间的架构不匹配，不能安装该副本。</td>
+    </tr>
+    <tr>
+      <td>8468</td>
+      <td>架构更新失败: 有同一连接标识符的属性已经存在。</td>
+    </tr>
+    <tr>
+      <td>8469</td>
+      <td>名称翻译: 常见处理错误。</td>
+    </tr>
+    <tr>
+      <td>8470</td>
+      <td>名称翻译: 不能找到该名称或权限不够，不能看到名称。</td>
+    </tr>
+    <tr>
+      <td>8471</td>
+      <td>名称翻译: 输入名称映射到多个输出名称。</td>
+    </tr>
+    <tr>
+      <td>8472</td>
+      <td>名称翻译: 找到输出名称，但是找不到相应的输出格式。</td>
+    </tr>
+    <tr>
+      <td>8473</td>
+      <td>名称翻译: 不能完全解析，只找到了域。</td>
+    </tr>
+    <tr>
+      <td>8474</td>
+      <td>名称翻译: 不接到线上，无法在客户机上执行纯粹的语法映射。</td>
+    </tr>
+    <tr>
+      <td>8475</td>
+      <td>不允许一个构造 att 修改。</td>
+    </tr>
+    <tr>
+      <td>8476</td>
+      <td>指定的 OM-Object 类别对指定语法的一个属性是不正确的。</td>
+    </tr>
+    <tr>
+      <td>8477</td>
+      <td>复制请求已暂停; 等待回答。</td>
+    </tr>
+    <tr>
+      <td>8478</td>
+      <td>要求的操作需要一个目录服务，但没有可用的。</td>
+    </tr>
+    <tr>
+      <td>8479</td>
+      <td>类别或属性的 LDAP 显示名称含有非 ASCII 字符。</td>
+    </tr>
+    <tr>
+      <td>8480</td>
+      <td>请求的查找操作只支持基本查找。</td>
+    </tr>
+    <tr>
+      <td>8481</td>
+      <td>查找未能从数据库检索属性。</td>
+    </tr>
+    <tr>
+      <td>8482</td>
+      <td>架构更新操作试图添加一个反向链接，但该反向链接没有相应的正向链接。</td>
+    </tr>
+    <tr>
+      <td>8483</td>
+      <td>跨域移动的来源和目标在对象日期上不一致。或者是来源，或者是目标没有对象的最后一个版本。</td>
+    </tr>
+    <tr>
+      <td>8484</td>
+      <td>跨域移动的来源和目标在对象当前的名称上不一致。或者是来源，或者是目标没有对象的最后一个版本。</td>
+    </tr>
+    <tr>
+      <td>8485</td>
+      <td>域间移动的来源和目标是一样的。调用程序应该使用本地移动操作，而不是域间移动操作。</td>
+    </tr>
+    <tr>
+      <td>8486</td>
+      <td>域间移动的来源和目标与目录林中的命名上下文不一致。来源或目标没有分区容器的最近版本。</td>
+    </tr>
+    <tr>
+      <td>8487</td>
+      <td>跨域移动的目标不是目标命名上下文的权威。</td>
+    </tr>
+    <tr>
+      <td>8488</td>
+      <td>跨域移动的来源和目标提供的来源对象的身份不一样。 来源或目标没有来源对象的最近版本。</td>
+    </tr>
+    <tr>
+      <td>8489</td>
+      <td>跨域移动的对象应该已经被目标服务器删除。来源服务器没有来源对象的最近版本。</td>
+    </tr>
+    <tr>
+      <td>8490</td>
+      <td>要求对 PDC FSMO 的专门访问权的另一个操作正在进行中。</td>
+    </tr>
+    <tr>
+      <td>8491</td>
+      <td>跨域移动没有成功，导致被移动对象有两个版本 - 一个在来源域，一个在目标域。需要删除目标对象，将系统还原到一致状态。</td>
+    </tr>
+    <tr>
+      <td>8492</td>
+      <td>因为不允许这个类别的跨域移动，或者对象有一些特点，如: 信任帐户或防止移动的受限制的 RID；所以不能将该对象跨域移动。</td>
+    </tr>
+    <tr>
+      <td>8493</td>
+      <td>一旦移动，不能将带有成员身份的对象跨域移动，这会侵犯帐户组的成员身份条件。从帐户组成员身份删除对象，再试一次。</td>
+    </tr>
+    <tr>
+      <td>8494</td>
+      <td>命名上下文标题必须是另一个命名上下文标题的直接子标题，而不是一个内节点的子标题。</td>
+    </tr>
+    <tr>
+      <td>8495</td>
+      <td>因为目录没有提议的命名上下文上面的命名上下文的副本，所以无法验证所提议的命名上下文的名称。请保证充当域命名主机的服务器已配置成全局编录服务器，并且服务器及其复制伙伴是最新的。</td>
+    </tr>
+    <tr>
+      <td>8496</td>
+      <td>目标域必须在本机模式中。</td>
+    </tr>
+    <tr>
+      <td>8497</td>
+      <td>因为服务器在指定域中没有基础结构容器，所以无法执行操作。</td>
+    </tr>
+    <tr>
+      <td>8498</td>
+      <td>不允许跨域移动帐户组。</td>
+    </tr>
+    <tr>
+      <td>8499</td>
+      <td>不允许跨域移动资源组。</td>
+    </tr>
+    <tr>
+      <td>8500</td>
+      <td>属性的搜索标志无效。ANR 位只在 Unicode 或 Teletex 字符串的属性上有效。</td>
+    </tr>
+    <tr>
+      <td>8501</td>
+      <td>不允许在将 NC 头作为子体的对象开始删除目录树。</td>
+    </tr>
+    <tr>
+      <td>8502</td>
+      <td>因为目录树在使用中，目录服务未能为删除目录树而将其锁定。</td>
+    </tr>
+    <tr>
+      <td>8503</td>
+      <td>删除目录树时，目录服务未能识别要删除的对象列表。</td>
+    </tr>
+    <tr>
+      <td>8505</td>
+      <td>只有管理员才能修改管理组的成员列表。</td>
+    </tr>
+    <tr>
+      <td>8506</td>
+      <td>不能改变域控制器帐户的主要组 ID。</td>
+    </tr>
+    <tr>
+      <td>8507</td>
+      <td>试图修改基础架构。</td>
+    </tr>
+    <tr>
+      <td>8508</td>
+      <td>不允许进行下列操作: 为现有类别添加新的强制属性；从现有类别删除强制属性；为没有向回链接属性的特殊类别 “Top” 添加可选属性，向回链接属性指的是直接或通过继承。例如: 添加或删除附属类别。</td>
+    </tr>
+    <tr>
+      <td>8509</td>
+      <td>该域控制器上不允许架构更新。没有设置注册表项，或者 DC 不是架构 FSMO 角色所有者。</td>
+    </tr>
+    <tr>
+      <td>8510</td>
+      <td>无法在架构容器下创建这个类别的对象。在架构容器下，您只能创建属性架构和类别架构对象。</td>
+    </tr>
+    <tr>
+      <td>8511</td>
+      <td>副本/子项安装未能获取源 DC 上的架构容器的 objectVersion 属性。架构容器上的属性不存在，或者提供的凭据没有读取属性的权限。</td>
+    </tr>
+    <tr>
+      <td>8512</td>
+      <td>副本/子项安装未能读取 system32 目录中的文件 schema.ini 的 SCHEMA 段中的 objectVersion 属性。</td>
+    </tr>
+    <tr>
+      <td>8513</td>
+      <td>指定的组类型无效。</td>
+    </tr>
+    <tr>
+      <td>8514</td>
+      <td>如果域是安全启用的，在混合型域中不能嵌套全局组。</td>
+    </tr>
+    <tr>
+      <td>8515</td>
+      <td>如果域是安全启用的，在混合型域中不能嵌套本地组。</td>
+    </tr>
+    <tr>
+      <td>8516</td>
+      <td>全局组不能将本地组作为成员。</td>
+    </tr>
+    <tr>
+      <td>8517</td>
+      <td>全局组不能将通用组作为成员。</td>
+    </tr>
+    <tr>
+      <td>8518</td>
+      <td>通用组不能将本地组作为成员。</td>
+    </tr>
+    <tr>
+      <td>8519</td>
+      <td>全局组不能有跨域成员。</td>
+    </tr>
+    <tr>
+      <td>8520</td>
+      <td>本地组不能将另一个跨域本地组作为成员。</td>
+    </tr>
+    <tr>
+      <td>8521</td>
+      <td>包含主要成员的组不能改变为安全停用的组。</td>
+    </tr>
+    <tr>
+      <td>8522</td>
+      <td>架构缓冲加载未能转换类架构对象上的字符串默认值 SD。</td>
+    </tr>
+    <tr>
+      <td>8523</td>
+      <td>只有配置成全局编录服务器的 DSAs 才能充当域命名主机 FSMO 的角色。</td>
+    </tr>
+    <tr>
+      <td>8524</td>
+      <td>由于 DNS 查找故障，DSA 操作无法进行。</td>
+    </tr>
+    <tr>
+      <td>8525</td>
+      <td>处理一个对象的 DNS 主机名改动时，服务主要名称数值无法保持同步。</td>
+    </tr>
+    <tr>
+      <td>8526</td>
+      <td>未能读取安全描述符属性。</td>
+    </tr>
+    <tr>
+      <td>8527</td>
+      <td>没有找到请求的对象，但找到了具有那个密钥的对象。</td>
+    </tr>
+    <tr>
+      <td>8528</td>
+      <td>正在添加的链接属性的语法不正确。正向链接只能有语法 2.5.5.1、2.5.5.7 和 2.5.5.14，而反向链接只能有语法 2.5.5.1</td>
+    </tr>
+    <tr>
+      <td>8529</td>
+      <td>安全帐户管理员需要获得启动密码。</td>
+    </tr>
+    <tr>
+      <td>8530</td>
+      <td>安全帐户管理员需要从软盘获得启动密钥。</td>
+    </tr>
+    <tr>
+      <td>8531</td>
+      <td>目录服务无法启动。</td>
+    </tr>
+    <tr>
+      <td>8532</td>
+      <td>未能启动目录服务。</td>
+    </tr>
+    <tr>
+      <td>8533</td>
+      <td>客户和服务器之间的连接要求数据包保密性。</td>
+    </tr>
+    <tr>
+      <td>8534</td>
+      <td>来源域跟目标域不在同一个目录林中。</td>
+    </tr>
+    <tr>
+      <td>8535</td>
+      <td>目标域必须在目录林中。</td>
+    </tr>
+    <tr>
+      <td>8536</td>
+      <td>该操作要求启用目标域审核。</td>
+    </tr>
+    <tr>
+      <td>8537</td>
+      <td>该操作无法为来源域找到 DC。</td>
+    </tr>
+    <tr>
+      <td>8538</td>
+      <td>来源对象必须是一个组或用户。</td>
+    </tr>
+    <tr>
+      <td>8539</td>
+      <td>来源对象的 SID 已经在目标目录林中。</td>
+    </tr>
+    <tr>
+      <td>8540</td>
+      <td>来源对象和目标对象必须属于同一类型。</td>
+    </tr>
+    <tr>
+      <td>8542</td>
+      <td>在复制请求中不能包括架构信息。</td>
+    </tr>
+    <tr>
+      <td>8543</td>
+      <td>由于架构不兼容性，无法完成 复制操作。</td>
+    </tr>
+    <tr>
+      <td>8544</td>
+      <td>由于前一个架构的不兼容性，无法完成复制操作。</td>
+    </tr>
+    <tr>
+      <td>8545</td>
+      <td>因为源和目标都没有收到有关最近跨域启动操作的信息，所以无法应用复制更新。</td>
+    </tr>
+    <tr>
+      <td>8546</td>
+      <td>因为还有主控这个域的域控制器，所以无法删除请求的域。</td>
+    </tr>
+    <tr>
+      <td>8547</td>
+      <td>只能在全局编录服务器上执行请求的操作。</td>
+    </tr>
+    <tr>
+      <td>8548</td>
+      <td>本地组只能是同一个域中其他本地组的成员。</td>
+    </tr>
+    <tr>
+      <td>8549</td>
+      <td>外部安全主要成员不能是通用组的成员。</td>
+    </tr>
+    <tr>
+      <td>8550</td>
+      <td>出于安全，无法将属性复制到 GC。</td>
+    </tr>
+    <tr>
+      <td>8551</td>
+      <td>由于目前正在处理的修改太多，无法采取 PDC 的检查点。</td>
+    </tr>
+    <tr>
+      <td>8552</td>
+      <td>操作需要启用那个源域审核。</td>
+    </tr>
+    <tr>
+      <td>8553</td>
+      <td>安全主要对象仅能在域命名环境菜单中创建。</td>
+    </tr>
+    <tr>
+      <td>8554</td>
+      <td>服务主要名称(SPN) 无法建造，因为提供的主机名格式不适合。</td>
+    </tr>
+    <tr>
+      <td>8555</td>
+      <td>筛选器已传递建造的属性。</td>
+    </tr>
+    <tr>
+      <td>8556</td>
+      <td>unicodePwd 属性值必须括在双引号中。</td>
+    </tr>
+    <tr>
+      <td>8557</td>
+      <td>您的计算机无法加入域。已超出此域上允许创建的计算机帐户的最大值。请同系统管理员联系，复位或增加此限定值。</td>
+    </tr>
+    <tr>
+      <td>8558</td>
+      <td>由于安全原因，操作必须在目标 DC 上运行。</td>
+    </tr>
+    <tr>
+      <td>8559</td>
+      <td>由于安全原因，源 DC 必须是 Service Pack 4 或更新版本。</td>
+    </tr>
+    <tr>
+      <td>8560</td>
+      <td>在树目录删除的操作中不能删除“关键目录服务系统”对象。数目录删除操作可能只进行了一部分。</td>
+    </tr>
+    <tr>
+      <td>9001</td>
+      <td>DNS 服务器无法解释格式。</td>
+    </tr>
+    <tr>
+      <td>9002</td>
+      <td>DNS 服务器失败。</td>
+    </tr>
+    <tr>
+      <td>9003</td>
+      <td>DNS 名称不存在。</td>
+    </tr>
+    <tr>
+      <td>9004</td>
+      <td>名称服务器不支持 DNS 请求。</td>
+    </tr>
+    <tr>
+      <td>9005</td>
+      <td>拒绝 DNS 操作。</td>
+    </tr>
+    <tr>
+      <td>9006</td>
+      <td>不应该存在的 DNS 名称仍然存在。</td>
+    </tr>
+    <tr>
+      <td>9007</td>
+      <td>不应该存在的 DNS RR 集仍然存在。</td>
+    </tr>
+    <tr>
+      <td>9008</td>
+      <td>应该存在的 DNS RR 集不存在。</td>
+    </tr>
+    <tr>
+      <td>9009</td>
+      <td>DNS 服务器对区域没有权威。</td>
+    </tr>
+    <tr>
+      <td>9010</td>
+      <td>在更新或 prereq 中的 DNS 名称不在区域中。</td>
+    </tr>
+    <tr>
+      <td>9016</td>
+      <td>DNS 签名验证失败。</td>
+    </tr>
+    <tr>
+      <td>9017</td>
+      <td>DNS 不正确密钥。</td>
+    </tr>
+    <tr>
+      <td>9018</td>
+      <td>DNS 签名验证过期。</td>
+    </tr>
+    <tr>
+      <td>9501</td>
+      <td>为 DNS 查询找不到记录。</td>
+    </tr>
+    <tr>
+      <td>9502</td>
+      <td>无效 DNS 包。</td>
+    </tr>
+    <tr>
+      <td>9503</td>
+      <td>没有 DNS 包。</td>
+    </tr>
+    <tr>
+      <td>9504</td>
+      <td>DNS 错误，请检查 rcode。</td>
+    </tr>
+    <tr>
+      <td>9505</td>
+      <td>为保险的 DNS 包。</td>
+    </tr>
+    <tr>
+      <td>9551</td>
+      <td>无效的 DNS 种类。</td>
+    </tr>
+    <tr>
+      <td>9552</td>
+      <td>无效的 IP 地址。</td>
+    </tr>
+    <tr>
+      <td>9553</td>
+      <td>无效的属性。</td>
+    </tr>
+    <tr>
+      <td>9554</td>
+      <td>稍后再试一次 DNS 操作。</td>
+    </tr>
+    <tr>
+      <td>9555</td>
+      <td>给出的记录名称和种类不是单一的。</td>
+    </tr>
+    <tr>
+      <td>9556</td>
+      <td>DNS 名称不符合 RFC 说明。</td>
+    </tr>
+    <tr>
+      <td>9557</td>
+      <td>DNS 名称是一个完全合格的 DNS 名称。</td>
+    </tr>
+    <tr>
+      <td>9558</td>
+      <td>DNS 名称以“.”分隔(多标签)。</td>
+    </tr>
+    <tr>
+      <td>9559</td>
+      <td>DNS 名称是单一部分名称。</td>
+    </tr>
+    <tr>
+      <td>9560</td>
+      <td>DNS 名称含有无效字符。</td>
+    </tr>
+    <tr>
+      <td>9561</td>
+      <td>DNS 名称完全是数字的。</td>
+    </tr>
+    <tr>
+      <td>9601</td>
+      <td>DNS 区域不存在。</td>
+    </tr>
+    <tr>
+      <td>9602</td>
+      <td>DNS 区域信息无效。</td>
+    </tr>
+    <tr>
+      <td>9603</td>
+      <td>DNS 区域无效操作。</td>
+    </tr>
+    <tr>
+      <td>9604</td>
+      <td>无效 DNS 区域配置。</td>
+    </tr>
+    <tr>
+      <td>9605</td>
+      <td>DNS 区域没有颁发机构记录的开始(SOA)。</td>
+    </tr>
+    <tr>
+      <td>9606</td>
+      <td>DNS 区域没有“名称服务器” (NS)的记录。</td>
+    </tr>
+    <tr>
+      <td>9607</td>
+      <td>DNS 区域已锁定。</td>
+    </tr>
+    <tr>
+      <td>9608</td>
+      <td>DNS 区域创建失败。</td>
+    </tr>
+    <tr>
+      <td>9609</td>
+      <td>DNS 区域已经存在。</td>
+    </tr>
+    <tr>
+      <td>9610</td>
+      <td>DNS 自动区域已经存在。</td>
+    </tr>
+    <tr>
+      <td>9611</td>
+      <td>无效的 DNS 区域种类。</td>
+    </tr>
+    <tr>
+      <td>9612</td>
+      <td>次要 DNS 区域需要主 IP 地址。</td>
+    </tr>
+    <tr>
+      <td>9613</td>
+      <td>DNS 区域不是次要的。</td>
+    </tr>
+    <tr>
+      <td>9614</td>
+      <td>需要一个次要 IP 地址</td>
+    </tr>
+    <tr>
+      <td>9615</td>
+      <td>WINS 初始化失败。</td>
+    </tr>
+    <tr>
+      <td>9616</td>
+      <td>需要 WINS 服务器。</td>
+    </tr>
+    <tr>
+      <td>9617</td>
+      <td>NBTSTAT 初始化呼叫失败。</td>
+    </tr>
+    <tr>
+      <td>9618</td>
+      <td>颁发机构起始(SOA)删除无效</td>
+    </tr>
+    <tr>
+      <td>9651</td>
+      <td>主要 DNS 区域需要数据文件。</td>
+    </tr>
+    <tr>
+      <td>9652</td>
+      <td>DNS 区域的无效数据文件名称。</td>
+    </tr>
+    <tr>
+      <td>9653</td>
+      <td>为 DNS 区域打开数据文件失败。</td>
+    </tr>
+    <tr>
+      <td>9654</td>
+      <td>为 DNS 区域写数据文件失败。</td>
+    </tr>
+    <tr>
+      <td>9655</td>
+      <td>为 DNS 区域读取数据文件时失败。</td>
+    </tr>
+    <tr>
+      <td>9701</td>
+      <td>DNS 记录不存在。</td>
+    </tr>
+    <tr>
+      <td>9702</td>
+      <td>DNS 记录格式错误。</td>
+    </tr>
+    <tr>
+      <td>9703</td>
+      <td>DNS 中节点创建失败。</td>
+    </tr>
+    <tr>
+      <td>9704</td>
+      <td>未知 DNS 记录类型。</td>
+    </tr>
+    <tr>
+      <td>9705</td>
+      <td>DNS 记录超时。</td>
+    </tr>
+    <tr>
+      <td>9706</td>
+      <td>名称不在 DNS 区域。</td>
+    </tr>
+    <tr>
+      <td>9707</td>
+      <td>检测到 CNAME 循环。</td>
+    </tr>
+    <tr>
+      <td>9708</td>
+      <td>节点为一个 CNAME DNS 记录。</td>
+    </tr>
+    <tr>
+      <td>9709</td>
+      <td>指定名称的 CNAME 记录已经存在。</td>
+    </tr>
+    <tr>
+      <td>9710</td>
+      <td>记录不在 DNS 区域根目录。</td>
+    </tr>
+    <tr>
+      <td>9711</td>
+      <td>DNS 记录已经存在。</td>
+    </tr>
+    <tr>
+      <td>9712</td>
+      <td>次要 DNS 区域数据错误。</td>
+    </tr>
+    <tr>
+      <td>9713</td>
+      <td>不能创建 DNS 缓存数据。</td>
+    </tr>
+    <tr>
+      <td>9714</td>
+      <td>DNS 名称不存在。</td>
+    </tr>
+    <tr>
+      <td>9715</td>
+      <td>不能创建指针(PTR)记录。</td>
+    </tr>
+    <tr>
+      <td>9716</td>
+      <td>DNS 域没有被删除。</td>
+    </tr>
+    <tr>
+      <td>9717</td>
+      <td>该目录服务无效。</td>
+    </tr>
+    <tr>
+      <td>9718</td>
+      <td>DNS 区域已经在目录服务中存在。</td>
+    </tr>
+    <tr>
+      <td>9719</td>
+      <td>DNS 服务器没有为目录服务集合 DNS 区域创建或读取启动文件。</td>
+    </tr>
+    <tr>
+      <td>9751</td>
+      <td>完成 DNS AXFR (区域复制)。</td>
+    </tr>
+    <tr>
+      <td>9752</td>
+      <td>DNS 区域复制失败。</td>
+    </tr>
+    <tr>
+      <td>9753</td>
+      <td>添加了本地 WINS 服务器。</td>
+    </tr>
+    <tr>
+      <td>9801</td>
+      <td>安全更新呼叫需要继续更新请求。</td>
+    </tr>
+    <tr>
+      <td>9851</td>
+      <td>TCP/IP 没有安装网络协议。</td>
+    </tr>
+    <tr>
+      <td>9852</td>
+      <td>没有为本地系统配置 DNS 服务器。</td>
+    </tr>
+    <tr>
+      <td>10004</td>
+      <td>一个封锁操作被对 WSACancelBlockingCall 的调用中断。</td>
+    </tr>
+    <tr>
+      <td>10009</td>
+      <td>提供的文件句柄无效。</td>
+    </tr>
+    <tr>
+      <td>10013</td>
+      <td>以一种访问权限不允许的方式做了一个访问套接字的尝试。</td>
+    </tr>
+    <tr>
+      <td>10014</td>
+      <td>系统检测到在一个调用中尝试使用指针参数时的无效指针地址。</td>
+    </tr>
+    <tr>
+      <td>10022</td>
+      <td>提供了一个无效的参数。</td>
+    </tr>
+    <tr>
+      <td>10024</td>
+      <td>打开的套接字太多。</td>
+    </tr>
+    <tr>
+      <td>10035</td>
+      <td>无法立即完成一个非阻挡性套接字操作。</td>
+    </tr>
+    <tr>
+      <td>10036</td>
+      <td>目前正在执行一个阻挡性操作。</td>
+    </tr>
+    <tr>
+      <td>10037</td>
+      <td>在一个非阻挡套接字上尝试了一个已经在进行的操作。</td>
+    </tr>
+    <tr>
+      <td>10038</td>
+      <td>在一个非套接字上尝试了一个操作。</td>
+    </tr>
+    <tr>
+      <td>10039</td>
+      <td>请求的地址在一个套接字中从操作中忽略。</td>
+    </tr>
+    <tr>
+      <td>10040</td>
+      <td>一个在数据报套接字上发送的消息大于内部消息缓冲器或其它一些网络限制，或该用户用于接收数据报的缓冲器比数据报小。</td>
+    </tr>
+    <tr>
+      <td>10041</td>
+      <td>在套接字函数调用中指定的一个协议不支持请求的套接字类别的语法。</td>
+    </tr>
+    <tr>
+      <td>10042</td>
+      <td>在 getsockopt 或 setsockopt 调用中指定的一个未知的、无效的或不受支持的选项或层次。</td>
+    </tr>
+    <tr>
+      <td>10043</td>
+      <td>请求的协议还没有在系统中配置，或者没有它存在的迹象。</td>
+    </tr>
+    <tr>
+      <td>10044</td>
+      <td>在这个地址家族中不存在对指定的插槽种类的支持。</td>
+    </tr>
+    <tr>
+      <td>10045</td>
+      <td>参考的对象种类不支持尝试的操作。</td>
+    </tr>
+    <tr>
+      <td>10046</td>
+      <td>协议家族尚未配置到系统中或没有它的存在迹象。</td>
+    </tr>
+    <tr>
+      <td>10047</td>
+      <td>使用了与请求的协议不兼容的地址。</td>
+    </tr>
+    <tr>
+      <td>10048</td>
+      <td>通常每个套接字地址 (协议/网络地址/端口) 只允许使用一次。</td>
+    </tr>
+    <tr>
+      <td>10049</td>
+      <td>在其上下文中，该请求的地址无效。</td>
+    </tr>
+    <tr>
+      <td>10050</td>
+      <td>套接字操作遇到了一个已死的网络。</td>
+    </tr>
+    <tr>
+      <td>10051</td>
+      <td>向一个无法连接的网络尝试了一个套接字操作。</td>
+    </tr>
+    <tr>
+      <td>10052</td>
+      <td>当该操作在进行中，由于保持活动的操作检测到一个故障，该连接中断。</td>
+    </tr>
+    <tr>
+      <td>10053</td>
+      <td>您的主机中的软件放弃了一个已建立的连接。</td>
+    </tr>
+    <tr>
+      <td>10054</td>
+      <td>远程主机强迫关闭了一个现有的连接。</td>
+    </tr>
+    <tr>
+      <td>10055</td>
+      <td>由于系统缓冲区空间不足或列队已满，不能执行套接字上的操作。</td>
+    </tr>
+    <tr>
+      <td>10056</td>
+      <td>在一个已经连接的套接字上做了一个连接请求。</td>
+    </tr>
+    <tr>
+      <td>10057</td>
+      <td>由于套接字没有连接并且 (当使用一个 sendto 调用发送数据报套接字时) 没有提供地址，发送或接收数据的请求没有被接受。</td>
+    </tr>
+    <tr>
+      <td>10058</td>
+      <td>由于以前的关闭调用，套接字在那个方向已经关闭，发送或接收数据的请求没有被接受。</td>
+    </tr>
+    <tr>
+      <td>10059</td>
+      <td>对某个内核对象的引用过多。</td>
+    </tr>
+    <tr>
+      <td>10060</td>
+      <td>由于连接方在一段时间后没有正确的答复或连接的主机没有反应，连接尝试失败。</td>
+    </tr>
+    <tr>
+      <td>10061</td>
+      <td>不能做任何连接，因为目标机器积极地拒绝它。</td>
+    </tr>
+    <tr>
+      <td>10062</td>
+      <td>无法翻译名称。</td>
+    </tr>
+    <tr>
+      <td>10063</td>
+      <td>名称组件或名称太长。</td>
+    </tr>
+    <tr>
+      <td>10064</td>
+      <td>由于目标主机坏了，套接字操作失败。</td>
+    </tr>
+    <tr>
+      <td>10065</td>
+      <td>套接字操作尝试一个无法连接的主机。</td>
+    </tr>
+    <tr>
+      <td>10066</td>
+      <td>不能删除目录，除非它是空的。</td>
+    </tr>
+    <tr>
+      <td>10067</td>
+      <td>一个 Windows 套接字操作可能在可以同时使用的应用程序数目上有限制。</td>
+    </tr>
+    <tr>
+      <td>10068</td>
+      <td>超过限额。</td>
+    </tr>
+    <tr>
+      <td>10069</td>
+      <td>超过磁盘限额。</td>
+    </tr>
+    <tr>
+      <td>10070</td>
+      <td>文件句柄引用不再有效。</td>
+    </tr>
+    <tr>
+      <td>10071</td>
+      <td>项目在本地不可用。</td>
+    </tr>
+    <tr>
+      <td>10091</td>
+      <td>因为它使用提供网络服务的系统目前无效，WSAStartup 目前不能正常工作。</td>
+    </tr>
+    <tr>
+      <td>10092</td>
+      <td>不支持请求的 Windows 套接字版本</td>
+    </tr>
+    <tr>
+      <td>10093</td>
+      <td>应用程序没有调用 WSAStartup，或者 WSAStartup 失败。</td>
+    </tr>
+    <tr>
+      <td>10101</td>
+      <td>由 WSARecv 或 WSARecvFrom 返回表示远程方面已经开始了关闭步骤。</td>
+    </tr>
+    <tr>
+      <td>10102</td>
+      <td>WSALookupServiceNext 不能返回更多的结果。</td>
+    </tr>
+    <tr>
+      <td>10103</td>
+      <td>在处理这个调用时，就开始调用 WSALookupServiceEnd。该调用被删除。</td>
+    </tr>
+    <tr>
+      <td>10104</td>
+      <td>过程调用无效。</td>
+    </tr>
+    <tr>
+      <td>10105</td>
+      <td>请求的服务提供程序无效。</td>
+    </tr>
+    <tr>
+      <td>10106</td>
+      <td>没有加载或初始化请求的服务提供程序。</td>
+    </tr>
+    <tr>
+      <td>10107</td>
+      <td>从来不应失败的系统调用失败了。</td>
+    </tr>
+    <tr>
+      <td>10108</td>
+      <td>没有已知的此服务。在指定的名称空间中找不这个服务。</td>
+    </tr>
+    <tr>
+      <td>10109</td>
+      <td>找不到指定的类别。</td>
+    </tr>
+    <tr>
+      <td>10110</td>
+      <td>WSALookupServiceNext 不能返回更多的结果。</td>
+    </tr>
+    <tr>
+      <td>10111</td>
+      <td>在处理这个调用时，就开始调用 WSALookupServiceEnd。该调用被删除。</td>
+    </tr>
+    <tr>
+      <td>10112</td>
+      <td>由于被拒绝，数据查询失败。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>更多错误编码请参看 <a href="/blog/sql-server-state-code-list-1">《上篇》</a>。</p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/database" rel="tag"># database</a>
+          
+            
+            <a href="/tag/#/debug" rel="tag"># debug</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/factory-prototype-diff/" rel="next" title="Factory模式与Prototype模式的异同">
+                <i class="fa fa-chevron-left"></i> Factory模式与Prototype模式的异同
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/sql-server-state-code-list-2/" rel="prev" title="SQL Server 错误代码和解释 (中篇)">
+                SQL Server 错误代码和解释 (中篇) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-fire"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

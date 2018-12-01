@@ -1,0 +1,1196 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="UA-80507808-1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ios,线程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。">
+<meta name="keywords" content="ios, 线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCD（Grand Central Dispatch）">
+<meta property="og:url" content="http://localhost:4000/blog/grand-central-dispatch/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GCD（Grand Central Dispatch）">
+<meta name="twitter:description" content="GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>GCD（Grand Central Dispatch） | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/grand-central-dispatch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            GCD（Grand Central Dispatch）
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-14T17:24:46+09:00">
+                2016-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/code" itemprop="url" rel="index">
+                    <span itemprop="name">code</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。文章分享关于GCD的种种概念以及使用。</p>
+
+<!-- more -->
+
+<h1 id="前言">前言</h1>
+<p>GCD（Grand Central Dispatch），是 Apple 开发的一个多核编程的解决方法。该方法在 Mac OS X 10.6 雪豹中首次推出，并随后被引入到了 iOS4.0 中。GCD 是一个替代诸如NSThread,NSOperationQueue, NSInvocationOperation 等技术的很高效和强大的技术。</p>
+
+<p>GCD 和 block 的配合使用，可以方便地进行多线程编程。</p>
+
+<h1 id="优势">优势</h1>
+<p>1）  苹果官方为多核的并行运算提出的解决方案。</p>
+
+<p>2）  会自动利用更多的CPU内核。</p>
+
+<p>3）  会自动管理线程的生命周期（创建线程、调度任务、销毁线程）。
+ </p>
+<h1 id="核心概念">核心概念</h1>
+<p>1）  任务：执行什么操作。block</p>
+
+<p>2）  队列：用来存放任务。</p>
+
+<p>串行队列：顺序，一个一个执行。一个任务执行完毕后才执行下一个任务。</p>
+
+<p>并发队列：同时，同时执行很多个任务。自动开启多个线程同时执行任务。并发功能只有在异步函数下才生效。
+ </p>
+<h1 id="使用步骤">使用步骤：</h1>
+<p>1）  定制任务</p>
+
+<p>确定想要做的事情。</p>
+
+<p>2）  将任务添加到队列中</p>
+
+<p>GCD会自动将队列中的任务取出，放到对应的线程中执行。</p>
+
+<p>任务的取出原则遵循队列的原则：先进先出，后进后出。
+ </p>
+<h1 id="执行任务的函数">执行任务的函数</h1>
+<p>1）同步方式　　</p>
+
+<p>dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</p>
+
+<p>queue:队列</p>
+
+<p>block:任务</p>
+
+<p>2）异步方式</p>
+
+<p>dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</p>
+
+<p>queue:队列</p>
+
+<p>block:任务</p>
+
+<p><strong>同步和异步的区别：</strong></p>
+
+<p>同步：在当前线程中执行。</p>
+
+<p>异步：在另一条线程中执行。</p>
+
+<p><strong>同步任务的作用：</strong></p>
+
+<p>1）  用户登录</p>
+
+<p>2）  下载任务1</p>
+
+<p>3）  下载任务2
+ </p>
+<h1 id="术语">术语</h1>
+<p>1）  同步和异步决定了是否要开辟新线程。</p>
+
+<p>同步：在当前线程中执行任务，不具备开启新线程的能力。</p>
+
+<p>异步：在新的线程中执行任务，具备开启新线程的能力。</p>
+
+<p>2）  并发和串行决定了任务执行的方式。</p>
+
+<p>并发：多个任务同时执行。</p>
+
+<p>串行：一个任务执行完毕后，再执行下一个任务。
+ </p>
+<h1 id="代码使用">代码使用　</h1>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66<br/>67<br/>68<br/>69<br/>70<br/>71<br/>72<br/>73<br/>74<br/>75<br/>76<br/>77<br/>78<br/>79<br/>80<br/>81<br/>82</pre></td><td class="code"><pre class="highlight"><code>/*串行队列*/
+/*创建队列
+参数：1.队列标签。 2.队列属性。
+*/
+dispatch_queue_t queue = dispatch_queue_create(”dengw”,DISPATCH_QUEUE_SERIAL);
+/*同步执行任务，不会开辟新线程，在当前线程中顺序执行。
+一般只要使用“同步”执行，串行队列对添加的同步任务，立马执行*/
+dispatch_sync(queue, ^{
+    NSLog(@”%@”, [NSThread currentThread]);
+});
+/*异步执行任务，开辟新线程，在新线程中执行。开辟新线程的数量与队列模式有关。串行队列中异步执行只会开启一个新线程。*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+　　
+/*并发队列：需要程序员释放。*/
+/*创建队列
+参数：1.队列标签。 2.队列属性。
+*/
+dispatch_queue_t queue = dispatch_queue_create(”dengw”,DISPATCH_QUEUE_CONCURRENT);
+/*异步执行任务，开辟新线程，在新线程中执行。开辟新线程的数量程序员无法控制。*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+/*同步执行任务，不开辟新线程，顺序执行*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_sync(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+
+/*主队列，专门负责在主线程上调度任务。程序启动以后至少有一个主线程，则会创建主队列。*/
+/*主队列不允许开辟新线程。不会在子线程调度任务。*/
+/*获得主队列*/
+dispatch_queue_t queue = dispatch_get_main_queue();
+/*异步执行任务，在主队列中，只能顺序执行。*/
+for(int I = 0; I &lt; 10; I++){
+/*异步：把任务放到主队列中，但不需要马上执行。*/
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+/*同步执行任务*/
+for(int I = 0; I &lt; 10; I++){
+/*同步：把任务放到主队列中，需要马上执行。*/
+/*阻塞*/
+    dispatch_sync(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+
+/*全局队列：本质是并发队列。
+与并发队列的区别：
+1）全局队列没有名字，而并发队列有名字。
+2）全局队列，是供所有的应用程序使用。
+3）在MRC中，全局队列不需要释放，并发队列需要释放。*/
+/*获得全局队列
+参数：
+参数1
+iOS7中
+DISPATCH_QUEUE_PRIORITY_HEGH    2 高优先级
+DISPATCH_QUEUE_PRIORITY_DEFAULT  0 默认优先级
+DISPATCH_QUEUE_PRIORITY_LOW   (-2) 低优先级
+DISPATCH_QUEUE_PRIORITY_BACKGROUND    INT16_MIN 后台优先级（最低）
+iOS8中
+DISPATCH_QUEUE_PRIORITY_HEGH:QOS_CLASS_USER_INITIATED
+DISPATCH_QUEUE_PRIORITY_DEFAULT:QOS_CLASS_USER_DEFAULT
+DISPATCH_QUEUE_PRIORITY_LOW:QOS_CLASS_USER_UTILITY
+DISPATCH_QUEUE_PRIORITY_BACKGROUND: QOS_CLASS_USER_BACKGROUND
+参数2
+保留参数。*/
+dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_DEFAULT,0);
+/*异步执行任务*/
+for(int I = 0; I &lt; 10; I++){
+    dispatch_async(queue, ^{
+        NSLog(@”%@”, [NSThread currentThread]);
+    });
+}
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h1 id="各队列的执行效果">各队列的执行效果</h1>
+<p> 
+| | 全局并行队列 | 手动创建串行队列 | 主队列 |
+| — | — | — |
+| 同步（sync） | 没有开启新线程。串行执行任务。| 没有开启新线程。串行执行任务。 | 会死锁 |
+| 异步（async）| 有开启新线程。并行执行任务。| 有开启新线程。串行执行任务。| 没有开启新线程。串行执行任务。|
+ </p>
+<h1 id="队列的选择">队列的选择</h1>
+<p>1）串行队列异步执行</p>
+
+<p>开一条线程，顺序执行。</p>
+
+<p>效率不高，执行比较慢，资源占用小，省电。</p>
+
+<p>应用场景：一般3G网络，对性能要求不高。</p>
+
+<p>2）并发队列异步执行</p>
+
+<p>开启多条线程，并发执行。</p>
+
+<p>效率高，执行快，资源消耗大，费电。</p>
+
+<p>应用场景：WIFI网络，或需要快速响应，用户体验要求高，对任务执行顺序没有要求。</p>
+
+<p>3）  同步任务</p>
+
+<p>一般只会在并发队列，需要阻塞后续任务，必须等待同步任务执行完毕，再去执行其他任务。“依赖关系” 
+ </p>
+<h1 id="线程间通信">线程间通信</h1>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code>/*从子线程回到主线程*/
+dispatch_async(
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //执行耗时的异步操作…
+    dispatch_async(dispatch_get_main_queue(), ^{
+    //回到主线程，执行UI刷新操作
+    });
+});
+</code></pre></td></tr></tbody></table></div>
+</div>
+<p> </p>
+<h1 id="延时操作">延时操作</h1>
+<p>1）方式一，调用NSObject的方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>//2秒后再调用run方法
+[self performSelector:@selector(run) withObject:nil afterDelay:2.0];
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>2）方式二，使用GCD函数</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),dispatch_get_main_queue(), ^{    
+    //2秒后再异步执行这里的代码
+});
+</code></pre></td></tr></tbody></table></div>
+</div>
+<p> </p>
+<h1 id="调度组分组">调度组（分组）</h1>
+<p>应用场景：开发的时候，有的时候出现多个网络请求（每一个网络请求时间长短不一），都完成以后统一更新UI或通知用户。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17</pre></td><td class="code"><pre class="highlight"><code>/*实例化一个调度组*/
+dispatch_group_t group = dispatch_group_create();
+//队列
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//将任务添加到队列
+dispatch_group_async(group, queue, ^{
+    NSLog(@”A %@”, [NSThread currentThread]);
+});
+dispatch_group_async(group, queue, ^{
+    NSLog(@”B %@”, [NSThread currentThread]);
+});
+//获得所有调度组里面的异步任务完成的通知
+/*在调度组完成通知里，可以跨队列通信*/
+dispatch_group_notifity(group, queue, ^{
+    //异步的
+    NSLog(@”finished”);
+});
+</code></pre></td></tr></tbody></table></div>
+</div>
+<p> </p>
+<h1 id="一次性执行">一次性执行</h1>
+<p>常见于单例模型中代码使用。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code>static dispatch_once_t onceToken;
+dispatch_once(&amp;onceToken, ^{
+    //只执行一次
+    NSLog(@”hi”);
+});
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/ios" rel="tag"># ios</a>
+          
+            
+            <a href="/tag/#/%E7%BA%BF%E7%A8%8B" rel="tag"># 线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/VFL-introduction/" rel="next" title="VFL 语言简介">
+                <i class="fa fa-chevron-left"></i> VFL 语言简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/ruby-regular-expression/" rel="prev" title="Ruby 正则表达式">
+                Ruby 正则表达式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#前言"> <span class="nav-number">1</span> <span class="nav-text">前言</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#优势"> <span class="nav-number">2</span> <span class="nav-text">优势</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#核心概念"> <span class="nav-number">3</span> <span class="nav-text">核心概念</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#使用步骤"> <span class="nav-number">4</span> <span class="nav-text">使用步骤：</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#执行任务的函数"> <span class="nav-number">5</span> <span class="nav-text">执行任务的函数</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#术语"> <span class="nav-number">6</span> <span class="nav-text">术语</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#代码使用"> <span class="nav-number">7</span> <span class="nav-text">代码使用　</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#各队列的执行效果"> <span class="nav-number">8</span> <span class="nav-text">各队列的执行效果</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#队列的选择"> <span class="nav-number">9</span> <span class="nav-text">队列的选择</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#线程间通信"> <span class="nav-number">10</span> <span class="nav-text">线程间通信</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#延时操作"> <span class="nav-number">11</span> <span class="nav-text">延时操作</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#调度组分组"> <span class="nav-number">12</span> <span class="nav-text">调度组（分组）</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#一次性执行"> <span class="nav-number">13</span> <span class="nav-text">一次性执行</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-fire"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

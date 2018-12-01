@@ -1,0 +1,1252 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="UA-80507808-1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。">
+<meta name="keywords" content="c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的算法思想总结">
+<meta property="og:url" content="http://localhost:4000/blog/algorithm-idea/">
+<meta property="og:site_name" content="Chars's Blog">
+<meta property="og:description" content="对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="/assets/images/Q855454453.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的算法思想总结">
+<meta name="twitter:description" content="对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。">
+<meta name="twitter:image" content="/assets/images/Q855454453.jpg">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>常用的算法思想总结 | Chars's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80507808-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65957271";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chars's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/blog/algorithm-idea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+          
+          
+            常用的算法思想总结
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-22T00:00:00+09:00">
+                2016-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/algorithm" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>对于计算机科学而言，算法是一个非常重要的概念。它是程序设计的灵魂，是将实际问题同解决该问题的计算机程序建立起联系的桥梁。文章主要介绍一些常用的算法思想。</p>
+
+<!-- more -->
+
+<h1 id="一穷举法思想">一、穷举法思想</h1>
+
+<p>穷举法，又称为强力法。它是一种最为直接，实现最为简单，同时又最为耗时的一种解决实际问题的算法思想。</p>
+
+<p>基本思想：在可能的解空间中穷举出每一种可能的解，并对每一个可能解进行判断，从中得到问题的答案。</p>
+
+<p>使用穷举法思想解决实际问题，最关键的步骤是划定问题的解空间，并在该解空间中一一枚举每一个可能的解。这里有两点需要注意，一是解空间的划定必须保证覆盖问题的全部解，二是解空间集合及问题的解集一定是离散的集合，也就是说集合中的元素是可列的、有限的。</p>
+
+<p>穷举法用时间上的牺牲换来了解的全面性保证，因此穷举法的优势在于确保得到问题的全部解，而瓶颈在于运算效率十分低下。但是穷举法算法思想简单，易于实现，在解决一些规模不是很大的问题，使用穷举法不失为一种很好地选择。</p>
+
+<p>现在我们通过具体的实例来理解穷举法思想。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47</pre></td><td class="code"><pre class="highlight"><code>/**
+ *  实例：寻找[1,100]之间的素数
+ *
+ */
+#include &lt;stdio.h&gt;
+ 
+/**
+ *  判断n是否是素数，是则返回1，不是则返回0
+ */
+int isPrime(int n)
+{
+    int i = 0;
+    for (i = 2; i &lt; n; i++) {
+        if (0 == n % i) {
+            return 0;
+        }
+    }
+    return 1;
+}
+ 
+/**
+ *  寻找[low,high]之间的素数
+ */
+void getPrime(int low, int high)
+{
+    int i = 0;
+    for (i = low; i &lt;= high; i++) {
+        if (isPrime(i)) {
+            printf("%d ", i);
+        }
+    }
+}
+ 
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    int low = 0, high = 0;
+    printf("Please input the domain for searching prime\n");
+    printf("low limitation:");
+    scanf("%d", &amp;low);
+    printf("high limitation:");
+    scanf("%d", &amp;high);
+    printf("The whole primes in this domain are\n");
+    getPrime(low, high);
+    getchar();
+     
+    return 0;
+}
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>程序运行结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code>Please input the domain for searching prime
+low limitation:1
+high limitation:100
+The whole primes in this domain are
+1 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h1 id="二递归与分治思想">二、递归与分治思想</h1>
+<p>递归与分治的算法思想往往是相伴而生的，它们在各类算法中使用非常频繁，应用递归和分治的算法思想有时可以设计出代码简洁且比较高效的算法来。</p>
+
+<p>在解决一些比较复杂的问题，特别是解决一些规模较大得问题时，常常将问题进行分解。具体来说，就是将一个规模较大的问题分割成规模较小的同类问题，然后将这些小问题的子问题逐个加以解决，最终也就将整个大问题解决了。这种思想称之为分治。在解决一些问题比较复杂、计算量庞大的问题时经常被用到。</p>
+
+<p>最为经典的使用分治思想设计的算法就是“折半查找算法”。折半查找算法利用了元素之间的顺序关系（有序序列），采用分而治之的策略，不断缩小问题的规模，每次都将问题的规模减小至上一次的一半。</p>
+
+<p>而递归思想也是一种常见的算法设计思想，所谓递归算法，就是一种直接或间接地调用原算法本身的一种算法。</p>
+
+<p>接下来我们通过实例代码来理解递归、分治思想。</p>
+
+<p>分治思想：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47</pre></td><td class="code"><pre class="highlight"><code>/**
+ *  有一个数组A[10]，里面存放了10个整数，顺序递增
+ *  A[10] = {2, 3, 5, 7, 8, 10, 12, 15, 19, 21}
+ *
+ */
+ 
+#include &lt;stdio.h&gt;
+ 
+int bin_search(int A[], int n, int key)
+{
+    int low = 0, high = 0, mid = 0;
+    high = n - 1;
+    while (low &lt;= high) {
+        mid = (low + high) / 2;
+        if (A[mid] == key) { //查找成功，返回mid
+            return mid;
+        }
+        if (A[mid] &lt; key) { //在后半序列中查找
+            low = mid + 1;
+        }
+        if (A[mid] &gt; key) { //在前半序列中查找
+            high = mid - 1;
+        }
+    }
+    return -1; //查找失败
+}
+ 
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    int A[10] = {2, 3, 5, 7, 8, 10, 12, 15, 19, 21};
+    int i = 0, n = 0, addr = 0;
+    printf("The contents of the Array A[10] are\n");
+    for (i = 0; i &lt; 10; i++) {
+        printf("%d ",A[i]); //显示数组A中的内容
+    }
+    printf("\nPlease input a interger for search\n");
+    scanf("%d", &amp;n); //输入待查找得元素
+    addr = bin_search(A, 10, n); //折半查找，返回该元素在数组中的下标
+    if (-1 != addr) {
+        printf("%d is at the %dth unit is array A\n", n, addr);
+    }else{
+        printf("There is no %d in array A\n", n); //查找失败
+    }
+    getchar();
+     
+    return 0;
+}
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>运行结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code>The contents of the Array A[10] are
+2 3 5 7 8 10 12 15 19 21
+Please input a interger for search
+12
+12 is at the 6th unit is array A
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>递归思想：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27</pre></td><td class="code"><pre class="highlight"><code>/**
+ *  计算n的阶乘n!
+ *
+ */
+ 
+#include &lt;stdio.h&gt;
+ 
+int factorial(int n)
+{
+    if (0 == n) {
+        return 1;
+    }else{
+        return n * factorial(n - 1);
+    }
+}
+ 
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    int n = 0, result = 0;
+    printf("Please input factorial number\n");
+    scanf("%d", &amp;n);
+    result = factorial(n);
+    printf("result is %d", result);
+    getchar();
+     
+    return 0;
+}
+</code></pre></td></tr></tbody></table></div>
+</div>
+<p>运行结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>Please input factorial number
+6
+result is 720
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h1 id="三贪心算法思想">三、贪心算法思想</h1>
+<p>贪心算法的思想非常简单且算法效率很高，在一些问题的解决上有着明显的优势。</p>
+
+<p>先来看一个生活中的例子。假设有3种硬币，面值分别为1元、5角、1角。这3种硬币各自的数量不限，现在要找给顾客3元6角钱，请问怎样找才能使得找给顾客的硬币数量最少呢？你也许会不假思索的说出答案：找给顾客3枚1元硬币，1枚5角硬币，1枚1角硬币。其实也可以找给顾客7枚5角硬币，1枚1角硬币。可是在这里不符合题意。在这里，我们下意识地应用了所谓贪心算法解决这个问题。</p>
+
+<p>所谓贪心算法，就是总是做出在当前看来是最好的选择的一种方法。以上述的题目为例，为了找给顾客的硬币数量最少，在选择硬币的面值时，当然是尽可能地选择面值大的硬币。因此，下意识地遵循了以下方案：</p>
+
+<p>（1）首先找出一个面值不超过3元6角的最大硬币，即1元硬币。</p>
+
+<p>（2）然后从3元6角中减去1元，得到2元6角，再找出一个面值不超过2元6角的最大硬币，即1元硬币。</p>
+
+<p>（3）然后从2元6角中减去1元，得到1元6角，再找出一个面值不超过1元6角的最大硬币，即1元硬币。</p>
+
+<p>（4）然后从1元6角中减去1元，得到6角，再找出一个面值不超过6角的最大硬币，即5角硬币。</p>
+
+<p>（5）然后从6角中减去5角，得到1角，再找出一个面值不超过1角的最大硬币，即1角硬币。</p>
+
+<p>（6）找零钱的过程结束。</p>
+
+<p>这个过程就是一个典型的贪心算法思想。</p>
+
+<p>因此，不难看出应用贪心算法求解问题，并不从问题的整体最优上加以考虑，它所作出的每一步选择只是在某种意义上得局部最优选择。因此，严格意义上讲，要使用贪心算法求解问题，该问题应当具备以下性质。</p>
+
+<p>（1）贪心选择性质</p>
+
+<p>所谓贪心选择性质，就是指所求解的问题的整体最优解可以通过一系列的局部最优解得到。所谓局部最优解，就是指在当前的状态下做出的最好选择。</p>
+
+<p>（2）最优子结构性质</p>
+
+<p>当一个问题的最优解包含着它的子问题的最优解时，就称此问题具有最优子结构性质。</p>
+
+<p>我们经常使用的哈夫曼（Huffman Tree）编码算法，求解最小生成树的克鲁斯卡尔（Kruskal）算法和普利姆（Prim）算法，求解图的单源最短路径的迪克斯特拉（Dijkstra）算法都是基于贪心算法的思想设计的。</p>
+
+<p>下面，我们来通过实例代码来理解贪心算法思想。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60<br/>61<br/>62<br/>63<br/>64<br/>65<br/>66<br/>67<br/>68</pre></td><td class="code"><pre class="highlight"><code>/**
+ *  最优装船问题
+ *  有一批集装箱要装入一个载质量为C的货船中，每个集装箱的质量由用户自己输入指定，在货船的装载体积不限的前提下，如何装载集装箱才能尽可能多地将集装箱装入货船中。
+ */
+#include &lt;stdio.h&gt;
+ 
+void sort(int w[], int t[], int n)
+{
+    int i = 0, j = 0, tmp = 0;
+    //存放w[]中的内容，用于排序
+    int *w_tmp = (int *)malloc(sizeof(int) * n);
+     
+    for (i = 0; i &lt; n; i++) {
+        t[i] = i;  //初始化数组t
+    }
+    for (i = 0; i &lt; n; i++) {
+        w_tmp[i] = w[i];
+    }
+    for (i = 0; i &lt; n - 1; i++) { //冒泡排序
+        for (j = 0; j &lt; n - i - 1; j++) {
+            if (w_tmp[j] &gt; w_tmp[j+1]) {
+                tmp = w_tmp[j];
+                w_tmp[j] = w_tmp[j+1];
+                w_tmp[j+1] = tmp;
+                tmp = t[j];
+                t[j] = t[j+1];
+                t[j+1] = tmp;
+            }
+        }
+    }
+}
+ 
+void Loading(int x[], int w[], int c, int n)
+{
+    int i = 0;
+    //存放w[]的下标，如果t[i]、t[j]、i&lt;j，则w[i]&lt;=w[j]
+    int *t = (int *)malloc(sizeof(int) * n);
+    //排序，用数组t[[]存放w[]的下标
+    sort(w, t, n);
+    for (i = 0; i &lt; n; i++) {
+        x[i] = 0;  //初始化数组x[]
+    }
+    for (i = 0; i &lt; n &amp;&amp; w[t[i]] &lt;= c; i++) {
+        x[t[i]] = 1; //将第t[i]个集装箱装入货船中
+        c = c - w[t[i]]; //变量c中存放货船的剩余载质量
+    }
+}
+ 
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    int x[5], w[5], c = 0, i = 0;
+    printf("Please input the maximum loading of the sheep\n");
+    scanf("%d", &amp;c); //
+    printf("Please input the weight of FIVE box\n");
+    for (i = 0; i &lt; 5; i++) { //
+        scanf("%d", &amp;w[i]);
+    }
+    Loading(x, w, c, 5); //
+    printf("The following boxes will be loaded\n");
+    for (i = 0; i &lt; 5; i++) { //
+        if (1 == x[i]) {
+            printf("BOX:%d ", i);
+        }
+    }
+    getchar();
+     
+    return 0;
+}
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>运行结果：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code>Please input the maximum loading of the sheep
+13
+Please input the weight of FIVE box
+5 7 6 3 2
+The following boxes will be loaded
+BOX:0 BOX:3 BOX:4
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>以上，就是对算法设计中几个常见的思想的总结。</p>
+
+<h1 id="写在最后">写在最后</h1>
+
+<p>欢迎大家加入算法交流Q群交流讨论，Q群号：855454453</p>
+
+<p><img src="/assets/images/Q855454453.jpg" alt="Q855454453" /></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/c" rel="tag"># c</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/oauth2-protocol/" rel="next" title="OAuth2.0 协议">
+                <i class="fa fa-chevron-left"></i> OAuth2.0 协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/apk-decompile/" rel="prev" title="Apk 反编译">
+                Apk 反编译 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.jpg"
+               alt="Chars" />
+          <p class="site-author-name" itemprop="name">Chars</p>
+           
+              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#一穷举法思想"> <span class="nav-number">1</span> <span class="nav-text">一、穷举法思想</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#二递归与分治思想"> <span class="nav-number">2</span> <span class="nav-text">二、递归与分治思想</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#三贪心算法思想"> <span class="nav-number">3</span> <span class="nav-text">三、贪心算法思想</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#写在最后"> <span class="nav-number">4</span> <span class="nav-text">写在最后</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-fire"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+      </script>
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
