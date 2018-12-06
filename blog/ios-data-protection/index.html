@@ -121,16 +121,16 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="文件系统中的文件、keychain中的项，都是加密存储的。当用户解锁设备后，系统通过UDID密钥和用户设定的密码生成一个用于解密的密码密钥，存放在内存中，直到设备再次被锁，开发者可以通过Data Protection API 来设定文件系统中的文件、keychain中的项应该何时被解密。这个就是数据保护的内容。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_2.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_1.png?imageView2/2/w/800">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_3.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_4.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_5.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_6.png">
+<meta property="og:image" content="/assets/images/tech/ios_data_protection_2.png">
+<meta property="og:image" content="/assets/images/tech/ios_data_protection_1.png">
+<meta property="og:image" content="/assets/images/tech/ios_data_protection_3.png">
+<meta property="og:image" content="/assets/images/tech/ios_data_protection_4.png">
+<meta property="og:image" content="/assets/images/tech/ios_data_protection_5.png">
+<meta property="og:image" content="/assets/images/tech/ios_data_protection_6.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊 iOS 数据保护">
 <meta name="twitter:description" content="文件系统中的文件、keychain中的项，都是加密存储的。当用户解锁设备后，系统通过UDID密钥和用户设定的密码生成一个用于解密的密码密钥，存放在内存中，直到设备再次被锁，开发者可以通过Data Protection API 来设定文件系统中的文件、keychain中的项应该何时被解密。这个就是数据保护的内容。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios_data_protection_2.png">
+<meta name="twitter:image" content="/assets/images/tech/ios_data_protection_2.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -653,7 +653,7 @@ if (error == errSecSuccess) {
 
 <h3 id="文件保护过程">文件保护过程</h3>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_2.png" alt="文件保护过程" /></p>
+<p><img src="/assets/images/tech/ios_data_protection_2.png" alt="文件保护过程" /></p>
 
 <p>1.文件生成一个<code class="highlighter-rouge">文件密钥</code>来加密文件的内容。</p>
 
@@ -681,7 +681,7 @@ if (error == errSecSuccess) {
 
 <p>开启方式如下图：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_1.png?imageView2/2/w/800" alt="开启DataProtectionClass权限" /></p>
+<p><img src="/assets/images/tech/ios_data_protection_1.png" alt="开启DataProtectionClass权限" /></p>
 
 <h3 id="使用范例-1">使用范例</h3>
 
@@ -793,13 +793,13 @@ if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics e
 
 <p>在如此快速的识别过程中，Home 按钮上的一圈金属环起到了感应手指的功能，通知 Touch ID 来读取指纹。Touch ID 置于该按钮中，传感器的厚度只有 170 微米，拥有 500 ppi 高分辨率，可读取极小的指纹细节。传感器可从皮肤皮下层指纹的一些小部分拍摄高分辨率图像，然后会分析该信息，根据三种基本指纹类型（弧形纹、箕形纹或斗形纹）将指纹分类，它会绘制比人眼不可见的纹路细节，确保指纹读取准确无误。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_3.png" alt="touch id sensor" /></p>
+<p><img src="/assets/images/tech/ios_data_protection_3.png" alt="touch id sensor" /></p>
 
 <p>Touch ID 可从 360 度方向读取指纹，随后创建指纹的某种数学表达式，并将其与已注册的数据进行比较，以确定是否匹配。如果匹配，便可替代密码来解锁设备或通过某个令牌。</p>
 
 <p>此外，根据苹果官方的描述，Touch ID 会向以注册的指纹数据里持续的添加新的特征数据，随着时间的推移，这能不断提高匹配准确度，也能进一步的提高安全性。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_4.png" alt="touch id ontouch" /></p>
+<p><img src="/assets/images/tech/ios_data_protection_4.png" alt="touch id ontouch" /></p>
 
 <p>除了上述的内容，苹果还加入可以一些有效的手段来进一步确保安全，例如设备再重新启动或者保持锁定 48 小时后，就只能通过密码而不是指纹来解锁设备。</p>
 
@@ -807,11 +807,11 @@ if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics e
 
 <p>Apple声明指纹的图案不会被保存，存储于设备中的是指纹特征的数学表达式，而且从这些表达式不可能直接反推出指纹图像。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_5.png" alt="touch-id-structure" /></p>
+<p><img src="/assets/images/tech/ios_data_protection_5.png" alt="touch-id-structure" /></p>
 
 <p>指纹的验证运算独立于主要处理器芯片（例如 A7、A8），芯片内有称为 “Secure Enclave” 的高级安全架构，专用于密码指纹数据，并使用 Secure Enclave 的专用密钥加密，以及每次启动以随机的 UID 进行管理。指纹数据仅能被 Secure Enclave 处理和使用，正因为此架构独立于其它设备部件，仅有 Touch ID 使用它，且不能将它用于匹配其他指纹数据库，所以存储的指纹数据不会由 iOS 或其他应用访问，也不会被存储到 Apple 服务器或备份到 iCloud 等地方。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios_data_protection_6.png" alt="A7-Secure-Enclave" /></p>
+<p><img src="/assets/images/tech/ios_data_protection_6.png" alt="A7-Secure-Enclave" /></p>
 
 <p>从硬件上来看指纹特征数据尚不能被 “Secure Enclave” 和 Touch ID 以外的部件访问到，并且两者芯片互相隔离开来，所有软件都没有权利获得指纹数据，仅能得到指纹是否错误的回馈。因为架构的核心秘密仅仅只有苹果公司知道，所以目前几乎没有第三方软件可以访问到这部分敏感信息。</p>
 

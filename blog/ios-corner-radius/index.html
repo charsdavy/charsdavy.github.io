@@ -121,13 +121,13 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png">
+<meta property="og:image" content="/assets/images/tech/ios-corner-radius-display-screen.png">
+<meta property="og:image" content="/assets/images/tech/ios-corner-radius-pixels-software-stack.png">
+<meta property="og:image" content="/assets/images/tech/ios-corner-radius-pixels-hardware.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从iOS的图片圆角想到渲染">
 <meta name="twitter:description" content="圆角是一种很常见的视图效果，相比于直角，它更加柔和优美，易于接受。设置圆角会带来一定的性能损耗，如何提高性能是一个需要重点讨论的话题。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300">
+<meta name="twitter:image" content="/assets/images/tech/ios-corner-radius-display-screen.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -447,7 +447,7 @@
 
 <p>图像想显示到屏幕上使人肉眼可见都需借助像素的力量。它们密集的排布在手机屏幕上，将任何图形通过不同的色值表现出来。计算机显示的流程大致可以描述为将图像转化为一系列像素点的排列然后打印在屏幕上，由图像转化为像素点的过程又可以称之为光栅化，就是从矢量的点线面的描述，变成像素的描述。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/display-screen.png?imageView/2/w/300" alt="display screen" /></p>
+<p><img src="/assets/images/tech/ios-corner-radius-display-screen.png" alt="display screen" /></p>
 
 <p>回溯历史，可以从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。</p>
 
@@ -462,7 +462,7 @@
 <p>当像素映射到屏幕上的时候，后台发生了很多事情。但一旦它们显示到屏幕上，每一个像素均由三个颜色组件构成：红，绿，蓝。三个独立的颜色单元会根据给定的颜色显示到一个像素上。在 iPhoneSE 的显示器上有1,136×640=727,040个像素，因此有2,181,120个颜色单元。在一些Retina屏幕上，这一数字将达到百万以上。所有的图形堆栈一起工作以确保每次正确的显示。当你滚动整个屏幕的时候，数以百万计的颜色单元必须以每秒60次的速度刷新，这就是一个很大的工作量。</p>
 
 <p>简单来说，iOS的显示机制大致如此：
-<img src="http://o88e8any8.bkt.clouddn.com/pixels-software-stack.png" alt="pixels software stack" /></p>
+<img src="/assets/images/tech/ios-corner-radius-pixels-software-stack.png" alt="pixels software stack" /></p>
 
 <p>Display 的上一层便是图形处理单元 GPU，GPU 是一个专门为图形高并发计算而量身定做的处理单元。这也是为什么它能同时更新所有的像素，并呈现到显示器上。它的并发本性让它能高效的将不同纹理合成起来。所以，开发中我们应该尽量让CPU负责主线程的UI调动，把图形显示相关的工作交给GPU来处理。</p>
 
@@ -474,7 +474,7 @@
 
 <p>需要强调的是，GPU 是一个非常强大的图形硬件，并且在显示像素方面起着核心作用。它连接到 CPU。从硬件上讲两者之间存在某种类型的总线，并且有像 OpenGL，Core Animation 和 Core Graphics 这样的框架来在 GPU 和 CPU 之间精心安排数据的传输。为了将像素显示到屏幕上，一些处理将在 CPU 上进行。然后数据将会传送到 GPU，最终像素显示到屏幕上。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/pixels-hardware.png" alt="pixels hardware" /></p>
+<p><img src="/assets/images/tech/ios-corner-radius-pixels-hardware.png" alt="pixels hardware" /></p>
 
 <p>正如上图显示，GPU 需要将每一个 frame 的纹理(位图)合成在一起(一秒60次)。每一个纹理会占用 VRAM(video RAM)，所以需要给 GPU 同时保持纹理的数量做一个限制。GPU 在合成方面非常高效，但是某些合成任务却比其他更复杂，并且 GPU在 16.7ms(1/60s)内能做的工作也是有限的。</p>
 

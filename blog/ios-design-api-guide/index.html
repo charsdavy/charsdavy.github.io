@@ -121,13 +121,13 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-2.png?imageView/2/w/500">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400">
+<meta property="og:image" content="/assets/images/tech/ios-design-api-guide-1.png">
+<meta property="og:image" content="/assets/images/tech/ios-design-api-guide-2.png">
+<meta property="og:image" content="/assets/images/tech/ios-design-api-guide-3.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那些设计iOS API需要知道的事">
 <meta name="twitter:description" content="为了能够将我们项目中的代码能够在后续开发者使用（重用代码），通常使用的方法是将代码按照功能模块编写成API。那么我们就很有必要了解Objective-C语言中常见的编程范式（paradigm），同时还需了解各种可能碰到的陷阱。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400">
+<meta name="twitter:image" content="/assets/images/tech/ios-design-api-guide-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -445,7 +445,7 @@
 
 <p>如果使用了第三方库编写自己的代码，并准备将其发布为程序库供他人开发应用程序所用，则尤其要注意重复符号问题。这种情况下为了避免使用者使用了与你相同的第三方库，应该为第三方库都加上你自己的前缀。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-1.png?imageView/2/w/400" alt="第三方库引入使用前缀" /></p>
+<p><img src="/assets/images/tech/ios-design-api-guide-1.png" alt="第三方库引入使用前缀" /></p>
 
 <h3 id="命名方式">命名方式</h3>
 
@@ -801,12 +801,12 @@ NSLog(@"%@", rectangle);
 
 <p>说到copy方法，除了NSString这样的不可变类型的copy，与之类似的还有NSMutableString类的<code class="highlighter-rouge">mutableCopy</code>方法。与<code class="highlighter-rouge">copyWithZone:</code>方法相对应的可变内容的copy方法<code class="highlighter-rouge">mutableCopyWithZone:</code>方法来自于<code class="highlighter-rouge">NSMutableCopying</code>协议。如果你的类分为可变版本(mutable)与不可变版本(immutable)，那么就应该实现NSMutableCopying协议。若采用此模式，则在可变类中覆写<code class="highlighter-rouge">copyWithZone:</code>方法时，不要返回可变的拷贝，而应该返回一份不可变的版本。无论当前实例是否可变，需要获取其可变版本的拷贝，均应调用mutableCopy方法；获取不可变版本的拷贝，则总应该通过copy方法。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-2.png?imageView/2/w/500" alt="mutableCopy和copy类" /></p>
+<p><img src="/assets/images/tech/ios-design-api-guide-2.png" alt="mutableCopy和copy类" /></p>
 
 <p>深拷贝就是在拷贝对象自身时，将其底层数据也一并复制过去。
 浅拷贝就是在拷贝对象时，只拷贝容器对象本身，而不复制其中数据。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-design-api-guide-3.png?imageView/2/w/400" alt="深拷贝和浅拷贝比较" /></p>
+<p><img src="/assets/images/tech/ios-design-api-guide-3.png" alt="深拷贝和浅拷贝比较" /></p>
 
 
       

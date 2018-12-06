@@ -121,18 +121,18 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png?imageView/2/w/500">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study1.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study2.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study3.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study4.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study5.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study6.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study7.png">
+<meta property="og:image" content="/assets/images/tech/mysql-sql-study8.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 中的SQL">
 <meta name="twitter:description" content="结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言，IBM公司最早使用在其开发的数据库系统中。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png">
+<meta name="twitter:image" content="/assets/images/tech/mysql-sql-study1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -494,13 +494,13 @@
 </code></pre></td></tr></tbody></table></div>
 </div>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-05.png" alt="t6表结构" /></p>
+<p><img src="/assets/images/tech/mysql-sql-study1.png" alt="t6表结构" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>INSERT t6 (username) VALUES ('Chars');
 </code></pre></td></tr></tbody></table></div>
 </div>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-06.png" alt="t6表插入值" /></p>
+<p><img src="/assets/images/tech/mysql-sql-study2.png" alt="t6表插入值" /></p>
 
 <h3 id="空值与非空值">空值与非空值</h3>
 
@@ -599,9 +599,9 @@ create table users(id smallint unsigned primary key auto_increment, username var
 </code></pre></td></tr></tbody></table></div>
 </div>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-07.png" alt="provinces表索引结构" /></p>
+<p><img src="/assets/images/tech/mysql-sql-study3.png" alt="provinces表索引结构" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-08.png" alt="users表索引结构" /></p>
+<p><img src="/assets/images/tech/mysql-sql-study4.png" alt="users表索引结构" /></p>
 
 <h3 id="表级约束和列级约束">表级约束和列级约束</h3>
 
@@ -932,7 +932,7 @@ INSERT tdb_goods (goods_name,goods_cate,brand_name,goods_price,is_show,is_saleof
 
 <p>ANY、SOME、ALL关键字</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/mysql-study-10.png?imageView/2/w/500" alt="" /></p>
+<p><img src="/assets/images/tech/mysql-sql-study5.png" alt="" /></p>
 
 <p>示例：</p>
 
@@ -1000,8 +1000,9 @@ RIGHT [OUTER] JOIN，右外连接。</p>
 
 <h3 id="内连接">内连接</h3>
 
-<p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。
-<img src="http://o88e8any8.bkt.clouddn.com/mysql-study-11.png?imageView/2/w/150" alt="内连接" /></p>
+<p>显示左表及右表符合连接条件的记录。即仅显示符合连接条件的内容。</p>
+
+<p><img src="/assets/images/tech/mysql-sql-study6.png" alt="内连接" /></p>
 
 <h3 id="外连接">外连接</h3>
 
@@ -1014,12 +1015,16 @@ RIGHT [OUTER] JOIN，右外连接。</p>
 
 <ul>
   <li>左外连接
-显示左表的全部记录及右表符合连接条件的记录。
-<img src="http://o88e8any8.bkt.clouddn.com/mysql-study-12.png?imageView/2/w/150" alt="左外连接" /></li>
-  <li>右外连接
-显示右表的全部记录及左表符合连接条件的记录。
-<img src="http://o88e8any8.bkt.clouddn.com/mysql-study-13.png?imageView/2/w/150" alt="右外连接" /></li>
+显示左表的全部记录及右表符合连接条件的记录。</li>
 </ul>
+
+<p><img src="/assets/images/tech/mysql-sql-study7.png" alt="左外连接" /></p>
+<ul>
+  <li>右外连接
+显示右表的全部记录及左表符合连接条件的记录。</li>
+</ul>
+
+<p><img src="/assets/images/tech/mysql-sql-study8.png" alt="右外连接" /></p>
 
 <h3 id="连接条件">连接条件</h3>
 

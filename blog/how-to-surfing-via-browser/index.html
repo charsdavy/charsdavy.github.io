@@ -121,16 +121,16 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="当我们在网页浏览器（Web browser）的地址栏中输入 URL 时，Web 页面是如何呈现的吗？">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://ochup9l4t.bkt.clouddn.com/TCP:IP%20%E5%8D%8F%E8%AE%AE%E6%97%8F.png">
-<meta property="og:image" content="http://ochup9l4t.bkt.clouddn.com/%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9.png">
-<meta property="og:image" content="http://ochup9l4t.bkt.clouddn.com/TCP:IP%20%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%B5%81.png">
-<meta property="og:image" content="http://ochup9l4t.bkt.clouddn.com/HTTP%E9%80%9A%E4%BF%A1.png">
-<meta property="og:image" content="http://ochup9l4t.bkt.clouddn.com/DNS%E6%9C%8D%E5%8A%A1.png">
-<meta property="og:image" content="http://ochup9l4t.bkt.clouddn.com/HTTP%E6%B5%8F%E8%A7%88%E7%BD%91%E9%A1%B5.png">
+<meta property="og:image" content="/assets/images/tech/how-to-surfing-via-browser-TCP-IP-Protocol.png">
+<meta property="og:image" content="/assets/images/tech/how-to-surfing-via-browser-routing.png">
+<meta property="og:image" content="/assets/images/tech/how-to-surfing-via-browser-stram.png">
+<meta property="og:image" content="/assets/images/tech/how-to-surfing-via-browser-HTTP-transport.png">
+<meta property="og:image" content="/assets/images/tech/how-to-surfing-via-browser-DNS.jpg">
+<meta property="og:image" content="/assets/images/tech/how-to-surfing-via-browser-Step.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何通过浏览器上网">
 <meta name="twitter:description" content="当我们在网页浏览器（Web browser）的地址栏中输入 URL 时，Web 页面是如何呈现的吗？">
-<meta name="twitter:image" content="http://ochup9l4t.bkt.clouddn.com/TCP:IP%20%E5%8D%8F%E8%AE%AE%E6%97%8F.png">
+<meta name="twitter:image" content="/assets/images/tech/how-to-surfing-via-browser-TCP-IP-Protocol.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -478,7 +478,7 @@
 
 <p>计算机与网络设备要相互通信，双方就必须基于相同的方法。比如，如何探测到通信目标、由哪一边先发起通信、使用哪种语言进行通信、怎样结束通信等规则都需要事先确定。不同的硬件、操作系统之间的通信，所有的这一切都需要一种规则。而我们就把这种规则称为协议（protocol）。</p>
 
-<p><img src="http://ochup9l4t.bkt.clouddn.com/TCP:IP%20%E5%8D%8F%E8%AE%AE%E6%97%8F.png" alt="TCP/IP 协议族" /></p>
+<p><img src="/assets/images/tech/how-to-surfing-via-browser-TCP-IP-Protocol.png" alt="TCP/IP 协议族" /></p>
 
 <h3 id="分层管理">分层管理</h3>
 
@@ -518,7 +518,7 @@
 
 <p>在到达通信目标前的中转过程中，那些计算机和路由器等网络设备只能获悉很粗略的传输路线。这种机制称为路由选择（routing）。</p>
 
-<p><img src="http://ochup9l4t.bkt.clouddn.com/%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9.png" alt="路由选择" /></p>
+<p><img src="/assets/images/tech/how-to-surfing-via-browser-routing.png" alt="路由选择" /></p>
 
 <h4 id="数据链路层">数据链路层</h4>
 
@@ -530,11 +530,11 @@
 
 <h3 id="通信传输流">通信传输流</h3>
 
-<p><img src="http://ochup9l4t.bkt.clouddn.com/TCP:IP%20%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%B5%81.png" alt="TCP/IP 通信传输流" /></p>
+<p><img src="/assets/images/tech/how-to-surfing-via-browser-stram.png" alt="TCP/IP 通信传输流" /></p>
 
 <p>为了更好的理解上图，我们使用 HTTP 🌰 说明。</p>
 
-<p><img src="http://ochup9l4t.bkt.clouddn.com/HTTP%E9%80%9A%E4%BF%A1.png" alt="HTTP 通信" /></p>
+<p><img src="/assets/images/tech/how-to-surfing-via-browser-HTTP-transport.png" alt="HTTP 通信" /></p>
 
 <ol>
   <li>
@@ -563,13 +563,13 @@
 
 <p>但要让计算机去理解名称，相对而言就变得困难了。因为计算机更擅长处理一长串数字。为了解决上述的问题，DNS 服务应运而生。DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域名的服务。</p>
 
-<p><img src="http://ochup9l4t.bkt.clouddn.com/DNS%E6%9C%8D%E5%8A%A1.png" alt="DNS 服务" /></p>
+<p><img src="/assets/images/tech/how-to-surfing-via-browser-DNS.jpg" alt="DNS 服务" /></p>
 
 <h2 id="访问网站">访问网站</h2>
 
 <p>至此，大致可以回答开篇的问题了，我们在浏览器输入框中输入想浏览的网页地址之后，发生了哪些事情呢？</p>
 
-<p><img src="http://ochup9l4t.bkt.clouddn.com/HTTP%E6%B5%8F%E8%A7%88%E7%BD%91%E9%A1%B5.png" alt="HTTP 浏览网页" /></p>
+<p><img src="/assets/images/tech/how-to-surfing-via-browser-Step.jpg" alt="HTTP 浏览网页" /></p>
 
 <ol>
   <li>客户端发起页面网址请求给 DNS。</li>

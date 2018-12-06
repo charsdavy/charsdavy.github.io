@@ -121,14 +121,14 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="应用启动时间，直接影响用户对一款应用的判断和使用体验。ZAKER新闻本身就包含非常多并且复杂度高的业务模块（如新闻、视频等），也接入了很多第三方的插件，这势必会拖慢应用的启动时间，本着精益求精的态度和对用户体验的追求，我们希望在业务扩张的同时最大程度的优化启动时间。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-1.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-4.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-2.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-3.png">
+<meta property="og:image" content="/assets/images/tech/ios-app-launch-time-optimize-1.png">
+<meta property="og:image" content="/assets/images/tech/ios-app-launch-time-optimize-4.png">
+<meta property="og:image" content="/assets/images/tech/ios-app-launch-time-optimize-2.png">
+<meta property="og:image" content="/assets/images/tech/ios-app-launch-time-optimize-3.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS App 启动性能优化">
 <meta name="twitter:description" content="应用启动时间，直接影响用户对一款应用的判断和使用体验。ZAKER新闻本身就包含非常多并且复杂度高的业务模块（如新闻、视频等），也接入了很多第三方的插件，这势必会拖慢应用的启动时间，本着精益求精的态度和对用户体验的追求，我们希望在业务扩张的同时最大程度的优化启动时间。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-1.png">
+<meta name="twitter:image" content="/assets/images/tech/ios-app-launch-time-optimize-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -448,7 +448,7 @@
 
 <h2 id="app启动过程">App启动过程</h2>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-1.png" alt="App启动过程" /></p>
+<p><img src="/assets/images/tech/ios-app-launch-time-optimize-1.png" alt="App启动过程" /></p>
 
 <p>1）解析<code class="highlighter-rouge">Info.plist</code></p>
 
@@ -480,7 +480,7 @@
 
 <p>Mach-O 是针对不同运行时可执行文件的文件类型。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-4.png" alt="Mach-O" /></p>
+<p><img src="/assets/images/tech/ios-app-launch-time-optimize-4.png" alt="Mach-O" /></p>
 
 <h4 id="文件类型">文件类型：</h4>
 
@@ -554,9 +554,9 @@
 
 <p>在Xcode的菜单中选择<code class="highlighter-rouge">Project</code>→<code class="highlighter-rouge">Scheme</code>→<code class="highlighter-rouge">Edit Scheme...</code>，然后找到<code class="highlighter-rouge"> Run</code> → <code class="highlighter-rouge">Environment Variables</code> →<code class="highlighter-rouge">+</code>，添加<code class="highlighter-rouge">name</code>为<code class="highlighter-rouge">DYLD_PRINT_STATISTICSvalue</code>为<code class="highlighter-rouge">1</code>的环境变量。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-2.png" alt="开启时间分析功能" /></p>
+<p><img src="/assets/images/tech/ios-app-launch-time-optimize-2.png" alt="开启时间分析功能" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-launch-time-optimize-3.png" alt="启动时间" /></p>
+<p><img src="/assets/images/tech/ios-app-launch-time-optimize-3.png" alt="启动时间" /></p>
 
 <h3 id="load-dylibs-image">load dylibs image</h3>
 
