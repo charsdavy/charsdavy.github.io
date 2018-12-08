@@ -121,15 +121,15 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="OAuth（Open Authorization），协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处是OAuth的授权不会使第三方触及到用户的帐号信息（如用户名和密码），即第三方无需使用用户的用户名与密码就可以申请获得该用户的授权，因此，OAuth是安全的。这些解释都是官方的，本文中博主会根据自己的学习所得，整理分享对OAuth协议的理解。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-adc5a1896e5a25de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-de6fb7a75e7f0747.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-9dbd24f1660920de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-5b606dd15634e536.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-6a77469e418720f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/oauth2-protocol-1.png">
+<meta property="og:image" content="/assets/images/tech/oauth2-protocol-2.png">
+<meta property="og:image" content="/assets/images/tech/oauth2-protocol-3.png">
+<meta property="og:image" content="/assets/images/tech/oauth2-protocol-4.png">
+<meta property="og:image" content="/assets/images/tech/oauth2-protocol-5.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OAuth2.0 协议">
 <meta name="twitter:description" content="OAuth（Open Authorization），协议为用户资源的授权提供了一个安全的、开放而又简易的标准。与以往的授权方式不同之处是OAuth的授权不会使第三方触及到用户的帐号信息（如用户名和密码），即第三方无需使用用户的用户名与密码就可以申请获得该用户的授权，因此，OAuth是安全的。这些解释都是官方的，本文中博主会根据自己的学习所得，整理分享对OAuth协议的理解。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-adc5a1896e5a25de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/oauth2-protocol-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -440,7 +440,7 @@
 
 <p>这些解释其实都是可以在网上搜索到的。为了解释的更加清楚，接下来博主结合实例绘图解释：</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-adc5a1896e5a25de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/oauth2-protocol-1.png" alt="1" /></p>
 
 <p>整个OAuth授权过程中，三者都获得了自己的便利。
 用户可以不用注册帐号，可以直接使用关联帐号就可登录新的网站使用资源，且不用担心帐号失窃，因为这个授权过程是安全的。
@@ -464,7 +464,7 @@
  </p>
 <h1 id="实现过程三个步骤">实现过程（三个步骤）</h1>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-de6fb7a75e7f0747.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/oauth2-protocol-2.png" alt="2" /></p>
 
 <h2 id="步骤一请求oauth登录页面">步骤一：请求OAuth登录页面</h2>
 
@@ -527,15 +527,15 @@
 <h2 id="accesstoken与refreshtoken">AccessToken与RefreshToken</h2>
 <p>RefreshToken也是有生命周期的，不过比AccessToken生命周期要长，各大平台不一样。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-9dbd24f1660920de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/oauth2-protocol-3.png" alt="3" /></p>
 
 <p>使用实例类比AccessToken</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-5b606dd15634e536.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/oauth2-protocol-4.png" alt="4" /></p>
 
 <p>将返回的XML或JSON解析成我们想要的数据</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-6a77469e418720f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/oauth2-protocol-5.png" alt="5" /></p>
 
 <p>希望对大家有所帮助。</p>
 

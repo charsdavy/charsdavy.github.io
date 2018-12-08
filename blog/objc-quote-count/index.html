@@ -121,13 +121,13 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-35a7f8d0ee1e1aff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-07e7f19a2e82136a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-e06923cd5ad96117.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/objc-quote-count-1.jpg">
+<meta property="og:image" content="/assets/images/tech/objc-quote-count-2.jpg">
+<meta property="og:image" content="/assets/images/tech/objc-quote-count-3.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C中的引用计数">
 <meta name="twitter:description" content="Objective-C语言使用引用计数来管理内存，也就是说，每个对象都有个可以递增或递减的计数器。如果想使某个对象继续存活，那就递增其引用计数；用完了之后，就递减其计数。计数为0，就表示没人关注此对象了，于是，就可以把它销毁。在Objective-C中称之为引用计数，本文主要分享引用计数相关知识。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-35a7f8d0ee1e1aff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/objc-quote-count-1.jpg">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -449,11 +449,11 @@
 
 <p>3）autorelease 待稍后清理“自动释放池”（autorelease pool）时，再递减保留计数。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-35a7f8d0ee1e1aff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/objc-quote-count-1.jpg" alt="1" /></p>
 
 <p>上图是对象创建及保留计数操作的效果图。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-07e7f19a2e82136a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/objc-quote-count-2.jpg" alt="2" /></p>
 
 <p>上图对象图中，ObjectB与ObjectC都引用了ObjectA。若ObjectB与ObjectC都不再使用ObjectA，则其保留计数降为0，于是便可摧毁了。还有其他对象想令ObjectB与ObjectC继续存活，而应用程序里又有另外一些对象想令那些对象继续存活。如果按“引用树”回溯，那么最终会发现一个“根对象”（root object）。在Mac OS X应用程序中，此对象是NSApplication对象；而在iOS应用程序中，则是UIApplication对象。两者都是应用程序启动时创建的单例。</p>
 
@@ -541,7 +541,7 @@ NSLog(@"The string is: %@", str);
 <h1 id="保留环">保留环</h1>
 <p>使用引用计数机制时，经常要注意的一个问题就是“保留环”（retain cycle），也就是呈环状相互引用的多个对象。这将导致内存泄露，因为循环中的对象其保留计数不会降为0。对于循环中的每个对象来说，至少还有另外一个对象引用着它。</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-e06923cd5ad96117.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/objc-quote-count-3.jpg" alt="3" /></p>
 
 <p>如上图，在这个循环里，所以对象的保留计数都是1。在垃圾收集环境中，通常将这种情况认定为“孤岛”（island of isolation）。此时，垃圾收集器会把三个对象全部回收。而在Objective-C的引用计数架构中，则享受不到这一便利。通常采用“弱引用”（weak reference）来解决此问题，或是从外界命令循环中的某个对象不再保留另外一个对象。这两种办法都能打破保留环，从而避免内存泄露。 </p>
 <h1 id="小结">小结</h1>

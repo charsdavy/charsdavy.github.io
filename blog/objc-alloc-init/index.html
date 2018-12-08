@@ -121,13 +121,13 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-3b68beae6d8cc9fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-799b0c9493a36b0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-7eacb95d56d56b8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/objc-alloc-init-1.png">
+<meta property="og:image" content="/assets/images/tech/objc-alloc-init-2.png">
+<meta property="og:image" content="/assets/images/tech/objc-alloc-init-3.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C中的alloc和init问题">
 <meta name="twitter:description" content="这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-3b68beae6d8cc9fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/objc-alloc-init-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -444,7 +444,7 @@ NSLog(@"%p",name);
 
 <p>试着打印了一下，发现两个的内存地址不一样：</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-3b68beae6d8cc9fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/objc-alloc-init-1.png" alt="1" /></p>
 
 <p>alloc是开辟一个内存空间，init是初始化，为什么初始化不在原有的内存空间上初始化，而是重新开辟一个内存空间。于是开始查资料，这时又发现了一个新的迷惑：</p>
 
@@ -456,7 +456,7 @@ NSLog(@"%p",obj);
 </div>
 <p>打印结果：</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-799b0c9493a36b0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/objc-alloc-init-2.png" alt="2" /></p>
 
 <p>怎么地址又变一样了？再打印NSArray的试一试：</p>
 
@@ -468,7 +468,7 @@ NSLog(@"%p",person);
 </div>
 <p>再次打印结果：</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-7eacb95d56d56b8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/objc-alloc-init-3.png" alt="3" /></p>
 
 <p>仍然是不一样的。原因是什么呢？首先看看NSStrng的init方法吧：</p>
 

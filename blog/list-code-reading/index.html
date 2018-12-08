@@ -121,15 +121,15 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="structlist_head { struct list_head *next, *prev; };">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-1.jpeg">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-2.jpeg?imageView/2/w/500">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-3.jpeg?imageView/2/w/500">
+<meta property="og:image" content="/assets/images/tech/list-code-reading-1.jpeg">
+<meta property="og:image" content="/assets/images/tech/list-code-reading-2.jpeg">
+<meta property="og:image" content="/assets/images/tech/list-code-reading-3.jpeg">
 <meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-4.jpeg?imageView/2/w/500">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-5.jpeg?imageView/2/w/500">
+<meta property="og:image" content="/assets/images/tech/list-code-reading-5.jpeg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="list.h文件分析">
 <meta name="twitter:description" content="structlist_head { struct list_head *next, *prev; };">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/list-code-reading-1.jpeg">
+<meta name="twitter:image" content="/assets/images/tech/list-code-reading-1.jpeg">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -470,7 +470,7 @@
 
 <p><strong>注意</strong>：这里面对标准的C进行了拓展叫：GNU C，这个意思呢就是说，对headnode的两个成员赋值。这赋值之后成了什么样子了呢？看下图：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-1.jpeg" alt="图一" /></p>
+<p><img src="/assets/images/tech/list-code-reading-1.jpeg" alt="图一" /></p>
 
 <p>是不是自己指向了自己？至于为什么可以这么赋值，不是本文讨论的重点，详细的可以Google.</p>
 
@@ -583,7 +583,7 @@ http://blog.sina.com.cn/s/blog_6e9342530100yaef.html</p>
 
 <p>下面在给出图例：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-2.jpeg?imageView/2/w/500" alt="图二" /></p>
+<p><img src="/assets/images/tech/list-code-reading-2.jpeg" alt="图二" /></p>
 
 <p>大家可以根据图例来理解。</p>
 
@@ -613,7 +613,7 @@ static inline int list_empty(const struct list_head *head)
 
 <p>详细情况如下图：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-3.jpeg?imageView/2/w/500" alt="图三" /></p>
+<p><img src="/assets/images/tech/list-code-reading-3.jpeg" alt="图三" /></p>
 
 <p>然而实际上，我们用这种方式来判断链表是否为空是不太精确的。它同时判断头指针的next和prev，仅当两者都指向自己时才返回真。这主要是为了应付另一个cpu正在处理同一个链表而造成next、prev不一致的情况。但代码注释也承认，这一安全保障能力有限：除非其他cpu的链表操作只有<code class="highlighter-rouge">list_del_init()</code>，否则仍然不能保证安全，也就是说，还是需要加锁保护。</p>
 
@@ -720,7 +720,7 @@ r = p-&gt;next;
 <p>还有一个重要的问题？就是为什么要转化成<code class="highlighter-rouge">char*</code>，而不是其他的<code class="highlighter-rouge">*</code>？char类型的数据不论在什么类型的机器上，存储方式应该只是占了一个字节？因为它的实质是ascii码。这样的话，就好理解了，对<code class="highlighter-rouge">char*</code>减一 那就是实实在在的减一个字节；但是你要是对<code class="highlighter-rouge">int*</code>减一会实实在在的减多少？是不是4？（32位机器下）。这样一来，你怎么知道他的真实地址？
 可以根据下图来理解：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/list-code-reading-5.jpeg?imageView/2/w/500" alt="图五" /></p>
+<p><img src="/assets/images/tech/list-code-reading-5.jpeg" alt="图五" /></p>
 
 <p>下面再来看看和这个宏很类似的宏</p>
 

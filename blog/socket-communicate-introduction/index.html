@@ -121,12 +121,12 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-1203abd310c1ba03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-f5185c0b6597ad00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/socket-communicate-introduction-1.png">
+<meta property="og:image" content="/assets/images/tech/socket-communicate-introduction-2.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket 通信简介">
 <meta name="twitter:description" content="我们深谙信息交流的价值，那网络中进程之间如何通信，如我们每天打开浏览器浏览网页时，浏览器的进程怎么与web服务器通信的？当你用QQ聊天时，QQ进程怎么与服务器或你好友所在的QQ进程通信？这些都得靠socket？那什么是socket？socket的类型有哪些？还有socket的基本函数，这些都是本文想介绍的。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-1203abd310c1ba03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/socket-communicate-introduction-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -613,7 +613,7 @@ ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);
 
 <p>这样就完成了三次握手，但是这个三次握手发生在socket的哪几个函数中呢？请看下图：</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-1203abd310c1ba03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/socket-communicate-introduction-1.png" alt="1" /></p>
 
 <p>从图中可以看出，当客户端调用connect时，触发了连接请求，向服务器发送了SYN J包，这时connect进入阻塞状态；服务器监听到连接请求，即收到SYN J包，调用accept函数接收请求向客户端发送SYN K，ACK J+1，这时accept进入阻塞状态；客户端收到服务器的SYN K，ACK J+1之后，这时connect返回，并对SYN K进行确认；服务器收到ACK K+1时，accept返回，至此三次握手完毕，连接建立。</p>
 
@@ -622,7 +622,7 @@ ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);
 <h1 id="5-socket中tcp的四次挥手释放连接详解">5 socket中TCP的四次挥手释放连接详解</h1>
 <p>上面介绍了socket中TCP的三次握手建立过程，与涉及的socket函数。现在我们介绍socket中的四次挥手释放连接的过程，请看下图：</p>
 
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-f5185c0b6597ad00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+<p><img src="/assets/images/tech/socket-communicate-introduction-2.png" alt="2" /></p>
 
 <p>图示过程如下：</p>
 

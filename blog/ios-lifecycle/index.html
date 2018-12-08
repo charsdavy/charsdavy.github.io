@@ -121,21 +121,21 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="iOS应用程序的生命周期，还有程序是运行在前台还是后台，应用程序各个状态的变换，这些对于开发者来说都是很重要的。iOS系统的资源是有限的，应用程序在前台和在后台的状态是不一样的。在后台时，程序会受到系统的很多限制，这样可以提高电池的使用和用户体验。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-1.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-2.jpeg">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-3.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-4.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-5.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-6.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-7.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-ui-lifecycle-1.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-1.jpeg">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-2.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-3.jpeg">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-1.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-2.jpeg">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-3.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-4.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-5.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-6.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-7.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-ui-lifecycle-1.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-remove-storyboard-1.jpeg">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-remove-storyboard-2.png">
+<meta property="og:image" content="/assets/images/tech/ios-lifecycle-ios-remove-storyboard-3.jpeg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊一聊iOS的那些生命周期">
 <meta name="twitter:description" content="iOS应用程序的生命周期，还有程序是运行在前台还是后台，应用程序各个状态的变换，这些对于开发者来说都是很重要的。iOS系统的资源是有限的，应用程序在前台和在后台的状态是不一样的。在后台时，程序会受到系统的很多限制，这样可以提高电池的使用和用户体验。">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-1.png">
+<meta name="twitter:image" content="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -477,13 +477,13 @@
 
 <p>处于挂起的应用进入一种“冷冻”状态,不能执行代码。如果系统内存不够,系统就把挂起的程序清除掉，为前台程序提供更多的内存，应用会被终止。</p>
 
-<p>作为应用程序的委托对象，AppDelegate类在应用生命周期的不同阶段会回调不同的方法。首先，让我们先了解一下iOS 应用的不同状态及它们彼此间的关系，如下图所示 ：</p>
+<p>作为应用程序的委托对象，AppDelegate 类在应用生命周期的不同阶段会回调不同的方法。首先，让我们先了解一下 iOS 应用的不同状态及它们彼此间的关系，如下图所示 ：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-1.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-1.png" alt="状态" /></p>
 
 <p>在应用状态跃迁的过程中，iOS 系统会回调AppDelegate中的一些方法，并且发送一些通知。实际上，在应用的生命周期中用到的方法和通知很多，我们选取了几个主要的方法和通知进行详细介绍，具体如下表所述：</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-2.jpeg" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-2.jpeg" alt="说明" /></p>
 
 <p>为了便于观察应用程序的运行状态，为AppDelegate.m中的方法添加一些日志输出，具体代码如下：</p>
 
@@ -532,7 +532,7 @@
 
 <p>调用 <code class="highlighter-rouge">applicationDidBecomeActive: </code>方法，发出<code class="highlighter-rouge">UIApplicationDidBecomeActiveNotification</code> 通知。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-3.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-3.png" alt="非运行态" /></p>
 
 <h3 id="二点击home键应用退出场景">（二）点击Home键——应用退出场景</h3>
 
@@ -558,7 +558,7 @@
 
 <p>调用<code class="highlighter-rouge">applicationDidEnterBackground:</code>方法，发出<code class="highlighter-rouge">UIApplicationDidEnterBackgroundNotification</code> 通知。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-4.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-4.png" alt="切换" /></p>
 
 <p>状态跃迁的第二种情况：应用不可以在后台运行或者挂起，其状态跃迁情况见下图 ，共经历4个阶段5 个状态：Active  → Inactive  → Background→Suspended→Not running 。</p>
 
@@ -586,7 +586,7 @@
 
 <p>调用<code class="highlighter-rouge">applicationWillTerminate:</code>方法，发出<code class="highlighter-rouge">UIApplicationWillTerminateNotification</code>通知。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-5.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-5.png" alt="运行状态" /></p>
 
 <p>iOS 在iOS 4之前不支持多任务，点击Home键时，应用会退出并中断；而在iOS 4之后（包括iOS 4），操作系统能够支持多任务处理，点击Home键应用会进入后台但不会中断（内存不够的情况除外）。</p>
 
@@ -596,7 +596,7 @@
 
 <p>场景描述：挂起状态的应用重新运行。该场景的状态跃迁过程如下图所示，共经历3 个阶段4 个状态：Suspended  → Background  → Inactive  → Active 。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-6.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-6.png" alt="挂起" /></p>
 
 <ul>
   <li>1)Suspended→Background阶段。</li>
@@ -620,7 +620,7 @@
 
 <p>场景描述：应用在后台处理完成时进入挂起状态（这是一种休眠状态），如果这时发出低内存警告，为了满足其他应用对内存的需要，该应用就会被清除内存从而终止运行，该场景的状态跃迁见下图 。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-app-lifecycle-7.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-app-lifecycle-7.png" alt="终止" /></p>
 
 <p>内存清除的时候应用终止运行。内存清除有两种情况，可能是系统强制清除内存，也可能是由使用者从任务栏中手动清除（即删掉应用）。内存清除后如果应用再次运行，上一次的运行状态不会被保存，相当于应用第一次运行。</p>
 
@@ -634,7 +634,7 @@
 
 <p>以视图的4 种状态为基础，我们来系统了解一下视图控制器的生命周期。在视图不同的生命周期中，视图控制器会回调不同的方法，具体如下图所示。</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-ui-lifecycle-1.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-ui-lifecycle-1.png" alt="视图" /></p>
 
 <p>在视图控制器已被实例化，视图被加载到内存中时调用viewDidLoad方法，这个时候视图并未出现。在该方法中，通常进行的是对所控制的视图进行初始化处理。</p>
 
@@ -737,19 +737,19 @@
 
 <h3 id="在工程配置中移除关联">在工程配置中移除关联</h3>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-1.jpeg" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-remove-storyboard-1.jpeg" alt="配置" /></p>
 
 <p>在TARGETS中，将Main InInterface选项中的值清空并保存设置。</p>
 
 <h3 id="移除mainstoryboard中的关联文件">移除Main.storyboard中的关联文件</h3>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-2.png" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-remove-storyboard-2.png" alt="移除" /></p>
 
 <p>选择storyboard文件。将类关联文件项清空并保存设置。</p>
 
 <h3 id="移除mainstoryboard文件">移除Main.storyboard文件</h3>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-remove-storyboard-3.jpeg" alt="" /></p>
+<p><img src="/assets/images/tech/ios-lifecycle-ios-remove-storyboard-3.jpeg" alt="文件" /></p>
 
 <p>从工程中移除文件。</p>
 

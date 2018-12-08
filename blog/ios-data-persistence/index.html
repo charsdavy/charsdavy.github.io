@@ -121,16 +121,16 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png">
-<meta property="og:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png">
+<meta property="og:image" content="/assets/images/tech/ios-data-persistence-1.png">
+<meta property="og:image" content="/assets/images/tech/ios-data-persistence-2.png">
+<meta property="og:image" content="/assets/images/tech/ios-data-persistence-3.png">
+<meta property="og:image" content="/assets/images/tech/ios-data-persistence-4.png">
+<meta property="og:image" content="/assets/images/tech/ios-data-persistence-5.png">
+<meta property="og:image" content="/assets/images/tech/ios-data-persistence-6.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拆拆 iOS 数据持久化">
 <meta name="twitter:description" content="持久存储是一种非易失性存储，在重启设备时也不会丢失数据。Cocoa框架提供了几种数据持久化机制：">
-<meta name="twitter:image" content="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200">
+<meta name="twitter:image" content="/assets/images/tech/ios-data-persistence-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -609,7 +609,7 @@ NSLog(@"%@",phrase);
 <h2 id="创建工程">创建工程</h2>
 <p>在Xcode中，使用Single View Application模板创建一个项目，命名Persistence，点击Main.storyboard，布局如下图</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-1.png?imageView/2/w/200" alt="布局" /></p>
+<p><img src="/assets/images/tech/ios-data-persistence-1.png" alt="布局" /></p>
 
 <p>连线，添加处理函数：</p>
 
@@ -915,19 +915,19 @@ sqlite3_finalize(stmt);
 
 <p>1）创建Model文件</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-2.png" alt="创建Model文件" /></p>
+<p><img src="/assets/images/tech/ios-data-persistence-2.png" alt="创建Model文件" /></p>
 
 <p>2）编辑Model文件，点击“Add Entity”添加实体，点击“Add Attribute”添加特性</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-3.png" alt="编辑Model文件" /></p>
+<p><img src="/assets/images/tech/ios-data-persistence-3.png" alt="编辑Model文件" /></p>
 
 <p>3）创建NSManagedObject文件，关联数据模型</p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-4.png" alt="创建NSManagedObject文件-1" /></p>
+<p><img src="/assets/images/tech/ios-data-persistence-4.png" alt="创建NSManagedObject文件-1" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-5.png" alt="创建NSManagedObject文件-2" /></p>
+<p><img src="/assets/images/tech/ios-data-persistence-5.png" alt="创建NSManagedObject文件-2" /></p>
 
-<p><img src="http://o88e8any8.bkt.clouddn.com/ios-data-persistence-6.png" alt="创建NSManagedObject文件-3" /></p>
+<p><img src="/assets/images/tech/ios-data-persistence-6.png" alt="创建NSManagedObject文件-3" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code><span class="cp">#import "CoreDataViewController.h"
 #import &lt;CoreData/CoreData.h&gt;

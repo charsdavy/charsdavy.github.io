@@ -121,15 +121,15 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-b2f082073e33ca94.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-1c06b87e7e219e93.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-4b288fe958b3e962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-af95ccbacb9b3231.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/uniform-random-1.jpg">
+<meta property="og:image" content="/assets/images/tech/uniform-random-2.jpg">
+<meta property="og:image" content="/assets/images/tech/uniform-random-3.jpg">
+<meta property="og:image" content="/assets/images/tech/uniform-random-4.jpg">
 <meta property="og:image" content="/assets/images/Q855454453.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="均匀分布随机函数的实现">
 <meta name="twitter:description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-b2f082073e33ca94.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/uniform-random-1.jpg">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -460,12 +460,16 @@ srand()会设置供rand()使用的随机数种子。如果在第一次使用rand
  </p>
 <h1 id="均匀分布随机函数实现">均匀分布随机函数实现</h1>
 <h2 id="开发环境">开发环境</h2>
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-b2f082073e33ca94.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开发环境" /></p>
+
+<p><img src="/assets/images/tech/uniform-random-1.jpg" alt="开发环境" /></p>
+
 <h2 id="实现步骤">实现步骤</h2>
-<p>1）打开Qt Creater，创建GUI工程
-<img src="http://upload-images.jianshu.io/upload_images/1492739-1c06b87e7e219e93.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建GUI工程" />
- 
-<img src="http://upload-images.jianshu.io/upload_images/1492739-4b288fe958b3e962.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目文件结构" /></p>
+
+<p>1）打开Qt Creater，创建GUI工程</p>
+
+<p><img src="/assets/images/tech/uniform-random-2.jpg" alt="创建GUI工程" /></p>
+
+<p><img src="/assets/images/tech/uniform-random-3.jpg" alt="项目文件结构" /></p>
 
 <p>2）在mainwindow.h中添加函数声明</p>
 
@@ -562,7 +566,8 @@ double AverageRandom(double min, double max) {
 
 <p> </p>
 <h1 id="实现效果">实现效果</h1>
-<p><img src="http://upload-images.jianshu.io/upload_images/1492739-af95ccbacb9b3231.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="实现效果" />
+
+<p><img src="/assets/images/tech/uniform-random-4.jpg" alt="实现效果" />
  </p>
 <h1 id="小结">小结</h1>
 <p>从图中可以看出，使用上述函数生成的随机数符合均匀分布。

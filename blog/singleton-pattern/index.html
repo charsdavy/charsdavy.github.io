@@ -121,11 +121,11 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/singleton-pattern-1.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单例模式">
 <meta name="twitter:description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/singleton-pattern-1.jpg">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -434,8 +434,9 @@
 <h1 id="问题的提出">问题的提出　</h1>
 <p>在一个iOS 应用的生命周期中，有时候我们只需要某个类的一个实例。例如，iOS 设备都有一个重力加速计硬件设备，要访问设备在x轴、y轴和z轴上的重力加速度，就必然要有一个类能够与硬件设备沟通来实时获得这些数据，这个类就是UIAccelerometer 。除了实时地获得数据，该类还能够保持x 轴、y轴和z 轴的状态。但是这个类只需要一个实例就够了，如果有多个实例，就会占用过多的内存。 再有，当应用程序启动时，应用的状态由UIApplication 类的一个实例维护，这个实例代表了整个“应用程序对象”，它只能是一个实例，其作用是实现应用程序中一些共享资源的访问和状态的保持等。</p>
 <h1 id="实现原理">实现原理</h1>
-<p>单例模式一般会封装一个静态属性，并提供静态实例的创建方法，其UML类图如图所示。
-<img src="http://upload-images.jianshu.io/upload_images/1492739-9459606ff1303fea.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单例设计模式类图" /></p>
+<p>单例模式一般会封装一个静态属性，并提供静态实例的创建方法，其UML类图如图所示:</p>
+
+<p><img src="/assets/images/tech/singleton-pattern-1.jpg" alt="单例设计模式类图" /></p>
 <h1 id="示例代码">示例代码：</h1>
 <div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22</pre></td><td class="code"><pre class="highlight"><code><span class="c1">//Singleton.h
 //

@@ -121,20 +121,20 @@
 <meta property="og:site_name" content="Chars's Blog">
 <meta property="og:description" content="对于Xcode而言，我们苹果开发者并不陌生，对于Xcode的插件，我们也不陌生。但是，有几个人做过Xcode插件呢？！Who care？显然，博主是关心的，这里分享一下博主自己开发插件的过程。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-8badd5c1eaccb38b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-fd793ba30c7f7fca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-44a2d20adddc97ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-2dd7603d97b0b42f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-9c41ca195b3ba670.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-12e203138789f666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-255646a7f96b5d6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-f71208a60c0568c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-c5cd468f1b7f4332.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1492739-1a1146bc89c01d63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-1.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-2.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-3.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-4.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-5.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-6.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-7.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-8.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-9.png">
+<meta property="og:image" content="/assets/images/tech/xcode-plugin-develop-10.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode插件开发教程指南">
 <meta name="twitter:description" content="对于Xcode而言，我们苹果开发者并不陌生，对于Xcode的插件，我们也不陌生。但是，有几个人做过Xcode插件呢？！Who care？显然，博主是关心的，这里分享一下博主自己开发插件的过程。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1492739-8badd5c1eaccb38b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="/assets/images/tech/xcode-plugin-develop-1.png">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -448,7 +448,7 @@
 <h2 id="方式一通过bundle实现">方式一：通过Bundle实现</h2>
 <p>1.创建Bundle工程</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330144728207-192574452.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-8badd5c1eaccb38b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-1.png" alt="1" /></p>
 
 <p>2.工程设置</p>
 
@@ -456,7 +456,7 @@
 
 <p>1）工程的plist文件</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330144905629-871612988.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-fd793ba30c7f7fca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-2.png" alt="2" /></p>
 
 <p>添加三项：</p>
 
@@ -478,9 +478,9 @@
 
 <p>2）Build Setting</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145158129-342161810.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-44a2d20adddc97ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-3.png" alt="3" /></p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145210144-303815379.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-2dd7603d97b0b42f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-4.png" alt="4" /></p>
 
 <p>Installation Build Products Location 设置为 ${HOME} [显示的时候,显示的是你的用户目录]，这个是products的根目录。</p>
 
@@ -492,7 +492,7 @@
 
 <p>Deployment Location 设置为 YES，这个是指示该工程不使用设置里的build location，而是用Installation Directory来确定build后放置的位置。</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330145434019-1733725866.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-9c41ca195b3ba670.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-5.png" alt="5" /></p>
 
 <p>默认工程生成的相关文件位置都是 Build Locations指定的，通过Deployment Location 设置为 YES告诉工程，我们不使用这个默认的设置，而是我们自定义的。</p>
 
@@ -507,7 +507,7 @@
 
 <p>3）重启Xcode，当你新建一个工程的时候就可以在OS X中看到一个Application Plug-in的选项，里面有一个Xcode Plug-in模板。</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201603/490781-20160330150045894-1159966575.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-12e203138789f666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-6.png" alt="6" /></p>
 
 <h1 id="实现">实现</h1>
 <p>通过以上的两种准备方式，我们已可以创建Xcode插件工程，接下来就是如何实现插件功能。</p>
@@ -558,7 +558,7 @@
 
 <p>效果图如下：</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135707035-2105407027.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-255646a7f96b5d6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-7.png" alt="7" /></p>
 
 <p>2）显示操作面板</p>
 
@@ -581,7 +581,7 @@
 </div>
 <p>效果图如下：</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401135950379-1172628646.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-f71208a60c0568c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-8.png" alt="8" /></p>
 
 <p>3）查找替换代码风格</p>
 
@@ -589,7 +589,7 @@
 
 <p>4）最终效果图</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401140322598-323202767.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-c5cd468f1b7f4332.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-9.png" alt="9" /></p>
 
 <h1 id="提交插件至alcatraz">提交插件至Alcatraz</h1>
 <p>1.打开Alcatraz的插件包仓库，地址：<a href="https://github.com/supermarin/alcatraz-packages">https://github.com/supermarin/alcatraz-packages</a></p>
@@ -612,7 +612,7 @@
 
 <p>6.merged成功之后，即可看见以下效果图</p>
 
-<p><a href="http://images2015.cnblogs.com/blog/490781/201604/490781-20160401092906176-1572332699.png"><img src="http://upload-images.jianshu.io/upload_images/1492739-1a1146bc89c01d63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></a></p>
+<p><img src="/assets/images/tech/xcode-plugin-develop-10.png" alt="10" /></p>
 
 <p>希望对大家有所帮助。</p>
 
