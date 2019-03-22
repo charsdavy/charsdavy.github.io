@@ -2,6 +2,29 @@
 <search>
   
     <entry>
+      <title><![CDATA[Core Data 是什么样子的]]></title>
+      <url>/blog/core-data-junior-learn/</url>
+      <content type="text"><![CDATA[Core Data 是 iOS3.0 时引入的一个数据持久化的框架。与 sqlite 对比最大的优点莫过于支持对象的存储，苹果的官方文档说其简化了数据库的操作，使用 Core Data 确实可以大量减少代码中的 SQL 语句。可是现状，大家对于持久化的选择方案仍多数是 FMDB。笔者猜测，最大的原因可能就是性能。Core Data 是什么Core Data 是一个模型层的技术，帮助开发者建立代表程序状态的模型层。同时也是一种持久化技术，它能将模型对象的状态持久化到磁盘。它是完全独立于 UI 层级的框架，是作为模型层框架被设计出来的。Core Data 不是一个 O/RM，但它比 O/RM 能做的更多。它也不是一个 SQL wrapper。它默认使用 SQL，但它是一种更高级的抽象概念。堆栈Core Data 有相当多可用的组件。当所有的组件都捆绑到一起的时候，我们把它称作 Core Data 堆栈，这个堆栈有两个主要部分。一部分是关于对象图管理，这正是你需要很好掌握的那一部分，并且知道怎么使用。另一部分是关于持久化，比如，保存你模型对象的状态，然后再恢复模型对象的状态。堆栈结构如下NSPersistentStoreCoordinator 是一个位于本地存储文件与缓存层（NSManagedObjectContext）之间的一个持久化层，它是真实操作数据库本地文件。NSManagedObjectContext 是一个被管理数据的上下文，它实际上是对所有数据库操作的一个缓存层，把所有的操作都先缓存起来避免大量磁盘 IO 造成不流畅，在操作完数据库后调用其 save 方法，就可以把数据库操作提交给持久化层（NSPersistentStoreCoordinator），由持久化层一次性写入数据库文件。NSManagedObject 是被管理的数据记录，对应数据库的一个表。另外，Core Data 可以将多个 stores 附属于同一个持久化存储协调器，并且除了存储 SQL 格式外，还有很多存储类型可供选择。最常见的方案如下实际使用下面是笔者定义的一个 Event 表的元素组成定义数据模型class MXWEventModel: NSObject {    var id: Int64    var time: Date    var title: String    var detail: String    var addr: String        init(id: Int64, title: String, detail: String, addr: String, time: Date){}}新增数据let context = persistentContainer.viewContextpublic func add(model: AnyObject) {	let eventModel: MXWEventModel = model as! MXWEventModel	let entity = NSEntityDescription.entity(forEntityName: @"MXWEvent", in: context!)	let obj = NSManagedObject(entity: entity!, insertInto: context)	obj.setValue(eventModel.id, forKey: "id")	obj.setValue(eventModel.title, forKey: "title")	obj.setValue(eventModel.detail, forKey: "detail")	obj.setValue(eventModel.time, forKey: "time")	obj.setValue(eventModel.addr, forKey: "addr")	do {		try context?.save()	} catch {		print(error)	}}删除数据public func delete(id: Int64) {	let request = NSFetchRequest&lt;NSFetchRequestResult&gt;(entityName: @"MXWEvent")	request.predicate = NSPredicate(format: "id==\(id)")	let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)	do {		try context?.execute(deleteRequest)	} catch {		print(error)	}}修改数据public func update(id: Int64, model: AnyObject) {	let eventModel: MXWEventModel = model as! MXWEventModel	let request = NSFetchRequest&lt;NSFetchRequestResult&gt;(entityName: @"MXWEvent")	request.predicate = NSPredicate(format: "id==\(id)")	do {		let eventObj = try context?.fetch(request)		let updateObj = eventObj?.first as! NSManagedObject		updateObj.setValue(eventModel.title, forKey: "title")		updateObj.setValue(eventModel.detail, forKey: "detail")		updateObj.setValue(eventModel.time, forKey: "time")		updateObj.setValue(eventModel.addr, forKey: "addr")		do {			try context?.save()		} catch {			print(error)		}	} catch {		print(error)	}}查找数据public func fetch(id: Int64) -&gt; AnyObject? {	let request = NSFetchRequest&lt;NSFetchRequestResult&gt;(entityName: @"MXWEvent")	request.predicate = NSPredicate(format: "id==\(id)")	do {		let r = try context?.fetch(request)		for data in r as! [NSManagedObject] {			let m = MXWEventModel(id: data.value(forKey: "id") as! Int64, title: data.value(forKey: "title") as! String, detail: data.value(forKey: "detail") as! String, addr: data.value(forKey: "addr") as! String, time: data.value(forKey: "time") as! Date)			return m		}	} catch {		print(error)	}}高级功能以上只是对 Core Data 的基本使用，在这个持久化方案中，还有 Relationship、多线程等功能。这些，笔者将在以后再进行介绍。思考对于 Core Data，Apple 官方很久之前就已经推出，但是并不受开发者青睐。笔者在这段时间的学习过程中也在思考这个问题。下面是笔者学习中遇到的注意点：  Core Data 中没有自增数据类型。因为 Core Data 不能使用数据库思维去使用，所以也就很好解释了。  设置 context 的 merge 策略，减少数据迁移的麻烦。  最好使用多线程，可以进一步提升性能。最后，文章开头给出了性能比较。但是，笔者认为，在客户端并没有很大量的数据写入，只要开发者在使用过程中稍作注意，性能应该不是否决 Core Data 技术方案的理由。反倒，Core Data 对 iCloud 很好的支持，以及数据迁移备份，这些都可以很容易实现。笔者认为，完全可以考虑使用它做客户端的数据持久化方案。参考文档《Core Data Programming Guide》]]></content>
+      <categories>
+        
+          <category> pieces </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> swift </tag>
+        
+          <tag> persistence </tag>
+        
+          <tag> core data </tag>
+        
+          <tag> ios </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[日本，我眼中的样子]]></title>
       <url>/blog/japan-life-experience/</url>
       <content type="text"><![CDATA[来到日本已经有一段时间了，为什么直到现在才开始想起来写一点感想呢。一是，时间不多。二是，之前体验不多。这次来日本，抱着学习、求证的心态。身边的人问起，笔者的回答一向都是，过来“浪”了。因为不是有很具体的目的过来的。在大学毕业时，就因为一些原因，对这边有兴趣。而现在，有机会过来了。那么，就能好好验证之前自己的困惑了。目前为止，最大的体会就是，日本绝对是个生活的好地方。环境很不错，在大马路上走，都基本闻不到尾气。晨跑笔者是直接在马路边、公园里、居住区进行。周末出去逛逛街，看看各种地方。除了这些安静，空寂的街道。在人气比较旺的旅游区，也是大同小异。这个红色的邮筒，超级有个性，很难得见到在发达国家还保持着一些比较原始的习惯，还包括看报纸。久负盛名的团地。至于吃的嘛，那就很随意了。当然，具有标志性的建筑，东京塔，也要来看看的。最后，附上一些生活杂类拍照。看了这么多，应该很多人都会想过来体验一把。客观来说，这边除了工作，其他都很好。为什么这么说呢？工作就涉及到了日本文化问题了，或许有很多人喜欢，但是对于我们这些受欧美影响较多的人来说，或许，当真的亲身体验时，可能又是另一番感受了吧。]]></content>
