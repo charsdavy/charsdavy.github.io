@@ -37,7 +37,7 @@ $(document).ready(function () {
       hitsPerPage: algoliaSettings.hits.per_page || 10,
       templates: {
         item: function (data) {
-          var link = data.permalink ? data.permalink : (CONFIG.root + data.path);
+          var link = data.permalink ? data.permalink : (CONFIG.root + data.url);
           return (
             '<a href="' + link + '" class="algolia-hit-item-link">' +
               data._highlightResult.title.value +
@@ -67,7 +67,7 @@ $(document).ready(function () {
           return (
             stats +
             '<span class="algolia-powered">' +
-            '  <img src="' + CONFIG.root + 'images/algolia_logo.svg" alt="Algolia" />' +
+            '  <img src="' + CONFIG.root + 'assets/images/algolia_logo.svg" alt="Algolia" />' +
             '</span>' +
             '<hr />'
           );
