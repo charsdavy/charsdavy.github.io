@@ -594,9 +594,30 @@
 
 <h2 id="高级功能">高级功能</h2>
 
-<p>以上只是对 Core Data 的基本使用，在这个持久化方案中，还有 Relationship、多线程等功能。</p>
+<h3 id="数据迁移">数据迁移</h3>
 
-<p>这些，笔者将在以后再进行介绍。</p>
+<p>在功能迭代过程中，难免会遇到要修改 <code class="highlighter-rouge">.xcdatamodeld</code> 文件。例如，新增或删除一个实体、增加或删除一个原有实体的属性等。如果开发者没有设置数据迁移，那更新后原有的数据将会被清空，所以此时需要进行数据的迁移操作。</p>
+
+<p>Core Data 可以设置轻量级的数据迁移，系统会自动分析差异，进行映射，这种方式只适用于简单的增删实体或是增删属性等操作。除此之外还有一种相当复杂的自定义数据迁移。</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// MARK: - Core Data stack</span>
+
+<span class="kd">lazy</span> <span class="k">var</span> <span class="nv">persistentContainer</span><span class="p">:</span> <span class="kt">NSPersistentContainer</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">container</span> <span class="o">=</span> <span class="kt">NSPersistentContainer</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Demo"</span><span class="p">)</span>
+    <span class="n">container</span><span class="o">.</span><span class="nf">loadPersistentStores</span><span class="p">(</span><span class="nv">completionHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">storeDescription</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="k">as</span> <span class="kt">NSError</span><span class="p">?</span> <span class="p">{</span>
+            <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Unresolved error </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">, </span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">userInfo</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="c1">// 设置数据迁移（shouldMigrateStoreAutomatically 默认值为 true）</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">sDescription</span><span class="p">:</span> <span class="kt">NSPersistentStoreDescription</span> <span class="o">=</span> <span class="n">storeDescription</span> <span class="k">as</span> <span class="kt">NSPersistentStoreDescription</span> <span class="p">{</span>
+            <span class="n">sDescription</span><span class="o">.</span><span class="n">shouldMigrateStoreAutomatically</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">sDescription</span><span class="o">.</span><span class="n">shouldInferMappingModelAutomatically</span> <span class="o">=</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">container</span>
+<span class="p">}()</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
 
 <h2 id="思考">思考</h2>
 
@@ -670,6 +691,10 @@
       
         <div class="post-nav" id="post-nav-id">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/ios-unit-test/" rel="next" title="iOS 单元测试">
+                <i class="fa fa-chevron-left"></i> iOS 单元测试
+              </a>
             
           </div>
 
@@ -762,7 +787,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">103</span>
+                <span class="site-state-item-count">104</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -784,7 +809,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -895,7 +920,7 @@
             
               <div class="post-toc-content">
     <ol class=nav>
-      <li class="nav-item nav-level-2"> <a class="nav-link" href="#core-data-是什么"> <span class="nav-number">1</span> <span class="nav-text">Core Data 是什么</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#堆栈"> <span class="nav-number">2</span> <span class="nav-text">堆栈</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#实际使用"> <span class="nav-number">3</span> <span class="nav-text">实际使用</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#新增数据"> <span class="nav-number">3.1</span> <span class="nav-text">新增数据</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#删除数据"> <span class="nav-number">3.2</span> <span class="nav-text">删除数据</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#修改数据"> <span class="nav-number">3.3</span> <span class="nav-text">修改数据</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#查找数据"> <span class="nav-number">3.4</span> <span class="nav-text">查找数据</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#高级功能"> <span class="nav-number">4</span> <span class="nav-text">高级功能</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#思考"> <span class="nav-number">5</span> <span class="nav-text">思考</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#参考文档"> <span class="nav-number">6</span> <span class="nav-text">参考文档</span> </a> </li>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#core-data-是什么"> <span class="nav-number">1</span> <span class="nav-text">Core Data 是什么</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#堆栈"> <span class="nav-number">2</span> <span class="nav-text">堆栈</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#实际使用"> <span class="nav-number">3</span> <span class="nav-text">实际使用</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#新增数据"> <span class="nav-number">3.1</span> <span class="nav-text">新增数据</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#删除数据"> <span class="nav-number">3.2</span> <span class="nav-text">删除数据</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#修改数据"> <span class="nav-number">3.3</span> <span class="nav-text">修改数据</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#查找数据"> <span class="nav-number">3.4</span> <span class="nav-text">查找数据</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#高级功能"> <span class="nav-number">4</span> <span class="nav-text">高级功能</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#数据迁移"> <span class="nav-number">4.1</span> <span class="nav-text">数据迁移</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#思考"> <span class="nav-number">5</span> <span class="nav-text">思考</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#参考文档"> <span class="nav-number">6</span> <span class="nav-text">参考文档</span> </a> </li>
     </ol>
   </div>
             

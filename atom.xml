@@ -1,4 +1,322 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-03-29T14:16:04+08:00</updated><id>http://localhost:4000/</id><title type="html">Chars’s Blog</title><subtitle>&lt;p&gt;哈喽，我是 &lt;a href=&quot;https://twitter.com/charsdavy&quot;&gt;@Chars&lt;/a&gt;，是一名来自中国的 iOS 开发者。&lt;/p&gt; &lt;p&gt;业余时间参加 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;，撰写知乎专栏&lt;a href=&quot;https://zhuanlan.zhihu.com/easy-to-understand-algorithm&quot;&gt;《通俗易懂的算法》&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/health-go&quot;&gt;《如何独立开发一个完整应用》&lt;/a&gt;</subtitle><author><name>Chars</name></author><entry><title type="html">Core Data 是什么样子的</title><link href="http://localhost:4000/blog/core-data-junior-learn/" rel="alternate" type="text/html" title="Core Data 是什么样子的" /><published>2019-03-22T00:00:00+08:00</published><updated>2019-03-22T00:00:00+08:00</updated><id>http://localhost:4000/blog/core-data-junior-learn</id><content type="html" xml:base="http://localhost:4000/blog/core-data-junior-learn/">&lt;p&gt;Core Data 是 iOS3.0 时引入的一个数据持久化的框架。与 sqlite 对比最大的优点莫过于支持对象的存储，苹果的官方文档说其简化了数据库的操作，使用 Core Data 确实可以大量减少代码中的 SQL 语句。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-06-24T19:41:01+08:00</updated><id>http://localhost:4000/</id><title type="html">Chars’s Blog</title><subtitle>&lt;p&gt;哈喽，我是 &lt;a href=&quot;https://twitter.com/charsdavy&quot;&gt;@Chars&lt;/a&gt;，是一名来自中国的 iOS 开发者。&lt;/p&gt; &lt;p&gt;业余时间参加 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;，撰写知乎专栏&lt;a href=&quot;https://zhuanlan.zhihu.com/easy-to-understand-algorithm&quot;&gt;《通俗易懂的算法》&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/health-go&quot;&gt;《如何独立开发一个完整应用》&lt;/a&gt;</subtitle><author><name>Chars</name></author><entry><title type="html">iOS 单元测试</title><link href="http://localhost:4000/blog/ios-unit-test/" rel="alternate" type="text/html" title="iOS 单元测试" /><published>2019-06-24T00:00:00+08:00</published><updated>2019-06-24T00:00:00+08:00</updated><id>http://localhost:4000/blog/ios-unit-test</id><content type="html" xml:base="http://localhost:4000/blog/ios-unit-test/">&lt;p&gt;单元测试（unit testing），是指对软件中的最小可测试单元进行检查和验证。对于单元测试中单元的含义，一般来说，要根据实际情况去判定其具体含义，如 C 语言中单元指一个函数，Java 里单元指一个类，图形化的软件中可以指一个窗口或一个菜单等。总的来说，单元就是人为规定的最小的被测功能模块。&lt;/p&gt;
+
+&lt;p&gt;单元测试是在软件开发过程中要进行的最低级别的测试活动，软件的独立单元将在与程序的其他部分相隔离的情况下进行测试。&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id=&quot;为什么要做单元测试&quot;&gt;为什么要做单元测试&lt;/h2&gt;
+
+&lt;p&gt;1）在一个复杂的项目中添加某功能模块时，可以快捷的进行针对性测试，而不用将整个项目 Run 起来。&lt;/p&gt;
+
+&lt;p&gt;2）可以便捷的对某个具体方法进行测试。&lt;/p&gt;
+
+&lt;h2 id=&quot;单元测试有哪些&quot;&gt;单元测试有哪些&lt;/h2&gt;
+
+&lt;p&gt;iOS 开发（或者 MacOS、tvOS、watchOS 等）中，单元测试有多种方式，主要分为 Xcode 提供的以及第三方测试框架这两类：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Xcode自带
+XCTest：XCTest 是 Xcode自带的单元测试工具，其前身是 OCUnit，随着 Xcode 的发展，XCTest 已经越来越完善，功能也越强大。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;第三方框架
+GHUnit：GHUnit  是 GitHub 上著名的开源测试框架，可视化、开源、扩展等功能，让其相比 XCTest 更加强大（现在的 XCTest 也很完善了，不过 GHUnit 比较老，现在已经停止维护，不建议使用）
+OCMock：OCMock 也是 Github 上的著名开源测试框架，用于 Mock、Stub，为测试提供数据作假功能。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以上三种就是比较主流的测试 Xcode 单元测试途径，还有一些 BDD 行为测试框架：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;什么是 BDD
+BDD（Behavior Driven Development），即行为驱动开发，是敏捷开发技术之一，通过自然语言定义系统行为，以功能使用者的角度，编写需求场景，且这些行为描述可以直接形成需求文档，同时也是测试标准。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Specta：GitHub 上轻量级的 BDD 测试框架。&lt;/li&gt;
+  &lt;li&gt;Expecta：与 Specta 同个作者，是一个功能强大的匹配框架。&lt;/li&gt;
+  &lt;li&gt;Kiwi：Kiwi 是重量级的，集 OCMock、Specta、Expecta 所拥有的功能与一身的 BDD DSL 测试框架。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其他的，还有一些其他测试工具、测试方式，如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nocilla：强大的 HTTP 模拟测试工具。&lt;/li&gt;
+  &lt;li&gt;OHHTTPStubs：也是 HTTP 模拟测试工具。&lt;/li&gt;
+  &lt;li&gt;TUDelorean：基于 Objective-C 的时间模拟测试工具。&lt;/li&gt;
+  &lt;li&gt;KIF：集成／界面测试工具，其它的还有 Frank、Calabash 等。&lt;/li&gt;
+  &lt;li&gt;GitHub + Jenkins + TestFlight：自动化测试。&lt;/li&gt;
+  &lt;li&gt;Monkey Test：随机测试。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;xctest-测试&quot;&gt;XCTest 测试&lt;/h2&gt;
+
+&lt;p&gt;1、创建测试类&lt;/p&gt;
+
+&lt;p&gt;注意，所有测试类都继承自 XCTestCase。&lt;/p&gt;
+
+&lt;p&gt;2、测试类的结构&lt;/p&gt;
+
+&lt;p&gt;默认创建的单元测试类为一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;.m&lt;/code&gt; 文件，里面包含了以下四个方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;- (void)setUp&lt;/code&gt;：在每个测试用例开始前调用，可以做一些测试准备工作，为可选方法。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;- (void)tearDown&lt;/code&gt;：在每个测试用例结束后调用，可以做一些测试收尾工作，为可选方法。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;- (void)testExample&lt;/code&gt;：默认创建的测试用例。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;- (void)testPerformanceExample&lt;/code&gt;：性能测试方法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;3、测试流程&lt;/p&gt;
+
+&lt;p&gt;当我们默认执行测试时，系统找到所有的测试类，并执行每个测试方法；我们也可以选择性地执行某些测试而已，比如，在 scheme 中 disable 某个用例，或者直接在测试导航栏中每个测试用例后面的运行按钮，单独执行某个测试。&lt;/p&gt;
+
+&lt;p&gt;默认流程如下：&lt;/p&gt;
+
+&lt;p&gt;上一个测试类 -&amp;gt; 当前类&lt;code class=&quot;highlighter-rouge&quot;&gt;+ (void)setUp&lt;/code&gt; -&amp;gt; [ &lt;code class=&quot;highlighter-rouge&quot;&gt;- (void)setUp&lt;/code&gt; -&amp;gt; 测试方法 -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;- (void)tearDown&lt;/code&gt; ] (循环直至当前类测试方法全部执行完) -&amp;gt; 当前类 &lt;code class=&quot;highlighter-rouge&quot;&gt;+ (void)tearDown&lt;/code&gt; -&amp;gt; 下一个测试类&lt;/p&gt;
+
+&lt;p&gt;4、测试方法&lt;/p&gt;
+
+&lt;p&gt;测试方法以 test 为前缀，没有参数，返回值为 void，方法中用断言来判断测试的正确性：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- (void)testColorIsRed {
+   // Set up, call test subject API. (Code could be shared in setUp method.)
+   // Test logic and values, assertions report pass/fail to testing framework.
+   // Tear down. (Code could be shared in tearDown method.
+}
+
+- (void)testThatItDoesURLEncoding {
+    // given
+    NSString *searchQuery = @&quot;$content$amp;?@&quot;;
+    HTTPRequest *request = [HTTPRequest requestWithURL:@&quot;/search?q=%@&quot;, searchQuery];
+
+    // when
+    NSString *encodedURL = request.URL;
+
+    // then
+    XCTAssertEqualObjects(encodedURL, @&quot;/search?q=%24%26%3F%40&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;5、测试断言&lt;/p&gt;
+
+&lt;p&gt;断言一般由判断条件、字符串 format、字符串参数组成，参数可选，在 XCTest 中，断言有以下分类：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Unconditional Fail：XCTFail，失败时候抛出。&lt;/li&gt;
+  &lt;li&gt;Equality Tests：用于断言两个表达式相等或不相等，如：XCTAssertEqual、XCTAssertEqualWithAccuracy、XCTAssertNotEqual、 XCTAssertGreaterThan。&lt;/li&gt;
+  &lt;li&gt;Boolean Tests：断言布尔表达式真假，如：XCTAssertTrue、XCTAssertFalse。&lt;/li&gt;
+  &lt;li&gt;Nil Tests：空断言，如：XCTAssertNil、XCTAssertNotNil。&lt;/li&gt;
+  &lt;li&gt;Exception Tests：断言表达式抛出或不抛出异常，如：XCTAssertThrows、XCTAssertThrowsSpecific、XCTAssertNoThrow。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;spectaexpecta-测试&quot;&gt;Specta、Expecta 测试&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/specta/specta&quot;&gt;Specta&lt;/a&gt; 和 &lt;a href=&quot;https://github.com/specta/expecta&quot;&gt;Expecta&lt;/a&gt; 都是出自 Github 作者 &lt;a href=&quot;https://github.com/orta&quot;&gt;Orta&lt;/a&gt; 之手，他最出名的开源框架莫过于 &lt;a href=&quot;https://github.com/CocoaPods/CocoaPods&quot;&gt;Cocoapods&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;specta&quot;&gt;Specta&lt;/h3&gt;
+
+&lt;p&gt;Specta 是一个轻量级 BBD 测试框架，其为 &lt;a href=&quot;https://en.wikipedia.org/wiki/Domain-specific_language&quot;&gt;DSL (Domain-Specific Language)&lt;/a&gt; 模式，让测试更加接近于自然语言描述，更加易懂。&lt;/p&gt;
+
+&lt;p&gt;1、主要有以下特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;容易集成到项目中。&lt;/li&gt;
+  &lt;li&gt;基于XCTest编写，可以很好地与XCTest配合使用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2、语法介绍&lt;/p&gt;
+
+&lt;p&gt;1) SpecBegin 声明了一个测试类，SpecEnd 结束类声明&lt;/p&gt;
+
+&lt;p&gt;2) describe (context) 块声明了一组实例&lt;/p&gt;
+
+&lt;p&gt;3) it (example/specify) 是一个单一的样例&lt;/p&gt;
+
+&lt;p&gt;4) beforeAll 是一个执行于全部同级块之前的块，仅仅执行一次。afterAll 与beforeAll相反，是在全部同级块之后执行的块。仅仅执行一次。&lt;/p&gt;
+
+&lt;p&gt;5) beforeEach/afterEach，在每一个同级块执行的时候，都会执行一次，而beforeAll/afterAll仅仅会执行一次&lt;/p&gt;
+
+&lt;p&gt;6) it/waitUntil/done()。异步调用，注意完毕异步操作之后。必须调用done()函数。例如以下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;it(@&quot;should do some stuff asynchronously&quot;, ^{
+	waitUntil(^(DoneCallback done) {
+	  // Async example blocks need to invoke done() callback.
+	  done();
+	});
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;7) sharedExamplesFor 和 itShouldBehaveLike结合在一起。能够实如今不同的spec之间共享同一套test case
+sharedExamplesFor 设置多个spec之间共享的test case，第一个參数作为标识符。通过itShouldBehaveLike来执行spec中test case。第一个參数传入sharedExamplesFor设置时使用的标识符。&lt;/p&gt;
+
+&lt;p&gt;注意：在describe局部使用sharedExamplesFor定义shared examples。能够在它作用域内覆盖全局的shared examples。&lt;/p&gt;
+
+&lt;p&gt;8) pending，仅仅打印一条log信息。不做测试。这个语句会给出一条警告，能够作为一开始集中书写行为描写叙述时还未实现的测试的提示。&lt;/p&gt;
+
+&lt;p&gt;3、一般使用：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SpecBegin(Car)
+    describe(@&quot;Car&quot;, ^{
+        __block Car *car;
+
+        // Will be run before each enclosed it
+        beforeEach(^{
+            car = [Car new];
+        });
+
+        // Will be run after each enclosed it
+        afterEach(^{
+            car = nil;
+        });
+
+        // An actual test
+        it(@&quot;should be red&quot;, ^{
+            expect(car.color).to.equal([UIColor redColor]);
+        });
+
+        describe(@&quot;when it is started&quot;, ^{
+            beforeEach(^{
+                [car start];
+            });
+
+            it(@&quot;should have engine running&quot;, ^{
+                expect(car.engine.running).to.beTruthy();
+            });
+        });
+
+        describe(@&quot;move to&quot;, ^{
+            context(@&quot;when the engine is running&quot;, ^{
+                beforeEach(^{
+                    car.engine.running = YES;
+                    [car moveTo:CGPointMake(42,0)];
+                });
+
+                it(@&quot;should move to given position&quot;, ^{
+                    expect(car.position).to.equal(CGPointMake(42, 0));
+                });
+            });
+
+            context(@&quot;when the engine is not running&quot;, ^{
+                beforeEach(^{
+                    car.engine.running = NO;
+                    [car moveTo:CGPointMake(42,0)];
+                });
+
+                it(@&quot;should not move to given position&quot;, ^{
+                    expect(car.engine.running).to.beTruthy();
+                });
+            });
+        });
+    });
+SpecEnd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上面例子对 Car 这个类做测试，通过多个上下文嵌套（describe/context），结合不同的条件（beforeEach)，来作出不同的断言（it)；当我们某个测试失败时，我们会收到一段很明确的错误信息，比如：汽车启动后应该移动到指定位置这个用例测试失败，那么我们会收到 Car move to when the engine is running should move to given position 这么一段话。这样非常接近自然语言的描述会让我们很快知道错误出在哪里。&lt;/p&gt;
+
+&lt;p&gt;4、注意：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果想用 SPEC_BEGIN 和 SPEC_END 替代 SpecBegin and SpecEnd，应该在引入头文件之前写上 #define SPT_CEDAR_SYNTAX&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果要使用 XCTest Resporter，那么在 Test Scheme 中，把 SPTXCTestReporter 字段值改为 SPECTA_REPORTER_CLASS&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;把环境变量 SPECTA_SHUFFLE 设置为 1 启用测试拖拽（test shuffling)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;expecta&quot;&gt;Expecta&lt;/h3&gt;
+
+&lt;p&gt;Expecta 是基于 Objective-C／Cocoa 的断言框架，XCTest 自带的断言 XCAssert 有好几个基础操作，不过基础的断言不太丰富，和 Specta 也没有很适配。 Expecta 不一样，将匹配过程从断言中剥离开，可以很好地适配 Specta 的 DSL 断言块。&lt;/p&gt;
+
+&lt;p&gt;1、Expecta 有以下几个特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;没有类型限制，比如数值 1，并不用关心它是整形还是浮点数&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;链式编程，可读性高，如：expect(foo).notTo.equal(1)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;反向匹配，断言不匹配只需加上 .notTo 或者 .toNot，如：expect(x).notTo.equal(y)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;延时匹配，可以在链式表达式中加入 .will、.willNot、.after(interval) 等操作来延时匹配&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;可扩展，支持增加自定义匹配&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2、基础匹配 API：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;expect(x).to.equal(y); // x 与 y 相等
+expect(x).to.beIdenticalTo(y); // x 与 y 相等且内存地址相同
+expect(x).to.beNil(); // x 为 nil
+expect(x).to.beTruthy(); // x 为 true（非 0）
+expect(x).to.beFalsy(); // x 为 false（0 值）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3、异步匹配&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;describe(@&quot;WebImage&quot;, ^{
+	beforeAll(^{
+	    // 设置默认延时匹配时间
+	    [Expecta setAsynchronousTestTimeout:2];
+	});
+
+	it(@&quot;will not be nil&quot;, ^{
+	    //	使用默认延时匹配
+	    expect(webImage).willNot.beNil();
+	});
+
+	it(@&quot;should equal 42 after 3 seconds&quot;, ^{
+	    // 不使用默认延时匹配，手动设置为3秒
+	    expect(webImage).after(3).to.equal(42);
+	});
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;4、自定义使用&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#import &amp;lt;Specta/Specta.h&amp;gt;
+#import &amp;lt;Expecta/Expecta.h&amp;gt;
+#import &quot;ImageModel.h&quot;
+
+SpecBegin(ImageModel);
+
+__block ImageModel *model;
+
+beforeEach(^{
+    model = [[ImageModel alloc] initWithUrl:@&quot;http://pic37.nipic.com/20140113/8800276_184927469000_2.png&quot; title:@&quot;天空独角马&quot; described:@&quot;在黄色的沙漠里，特别突兀&quot;];
+});
+
+it(@&quot;should not nil&quot;, ^{
+    expect(model).toNot.beNil();
+});
+
+it(@&quot;equal&quot;, ^{
+    expect(model.url).to.equal(@&quot;http://pic37.nipic.com/20140113/8800276_184927469000_2.png&quot;);
+    expect(model.title).to.equal(@&quot;天空独角马&quot;);
+    expect(model.described).to.equal(@&quot;在黄色的沙漠里，特别突兀&quot;);
+});
+
+SpecEnd;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;Expecta 和 Specta 需要配合使用，与 XCTest 一样都是基于 XCTestCase 实现。在断言的使用上，XCTest 太过死板，Expecta 和 Specta 则很灵活，可以满足大部分场景需求。&lt;/p&gt;</content><author><name>Chars</name></author><category term="pieces" /><category term="objc" /><category term="test" /><category term="ios" /><summary type="html">单元测试（unit testing），是指对软件中的最小可测试单元进行检查和验证。对于单元测试中单元的含义，一般来说，要根据实际情况去判定其具体含义，如 C 语言中单元指一个函数，Java 里单元指一个类，图形化的软件中可以指一个窗口或一个菜单等。总的来说，单元就是人为规定的最小的被测功能模块。</summary></entry><entry><title type="html">Core Data 是什么样子的</title><link href="http://localhost:4000/blog/core-data-junior-learn/" rel="alternate" type="text/html" title="Core Data 是什么样子的" /><published>2019-03-22T00:00:00+08:00</published><updated>2019-03-22T00:00:00+08:00</updated><id>http://localhost:4000/blog/core-data-junior-learn</id><content type="html" xml:base="http://localhost:4000/blog/core-data-junior-learn/">&lt;p&gt;Core Data 是 iOS3.0 时引入的一个数据持久化的框架。与 sqlite 对比最大的优点莫过于支持对象的存储，苹果的官方文档说其简化了数据库的操作，使用 Core Data 确实可以大量减少代码中的 SQL 语句。&lt;/p&gt;
 
 &lt;p&gt;可是现状，大家对于持久化的选择方案仍多数是 FMDB。笔者猜测，最大的原因可能就是性能。&lt;/p&gt;
 
@@ -136,9 +454,30 @@
 
 &lt;h2 id=&quot;高级功能&quot;&gt;高级功能&lt;/h2&gt;
 
-&lt;p&gt;以上只是对 Core Data 的基本使用，在这个持久化方案中，还有 Relationship、多线程等功能。&lt;/p&gt;
+&lt;h3 id=&quot;数据迁移&quot;&gt;数据迁移&lt;/h3&gt;
 
-&lt;p&gt;这些，笔者将在以后再进行介绍。&lt;/p&gt;
+&lt;p&gt;在功能迭代过程中，难免会遇到要修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;.xcdatamodeld&lt;/code&gt; 文件。例如，新增或删除一个实体、增加或删除一个原有实体的属性等。如果开发者没有设置数据迁移，那更新后原有的数据将会被清空，所以此时需要进行数据的迁移操作。&lt;/p&gt;
+
+&lt;p&gt;Core Data 可以设置轻量级的数据迁移，系统会自动分析差异，进行映射，这种方式只适用于简单的增删实体或是增删属性等操作。除此之外还有一种相当复杂的自定义数据迁移。&lt;/p&gt;
+
+&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// MARK: - Core Data stack&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;lazy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;persistentContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSPersistentContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;container&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSPersistentContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Demo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;loadPersistentStores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;completionHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;storeDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nf&quot;&gt;fatalError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Unresolved error &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;userInfo&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 设置数据迁移（shouldMigrateStoreAutomatically 默认值为 true）&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSPersistentStoreDescription&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;storeDescription&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;NSPersistentStoreDescription&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;sDescription&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shouldMigrateStoreAutomatically&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;sDescription&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shouldInferMappingModelAutomatically&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;container&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&quot;思考&quot;&gt;思考&lt;/h2&gt;
 
@@ -2142,340 +2481,4 @@ Boost&lt;/a&gt;。&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt; 是一个翻译优质互联网技术文章的社区，文章来源为 &lt;a href=&quot;https://juejin.im&quot;&gt;掘金&lt;/a&gt; 上的英文分享文章。内容覆盖 &lt;a href=&quot;https://github.com/xitu/gold-miner#android&quot;&gt;Android&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#ios&quot;&gt;iOS&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#前端&quot;&gt;前端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#后端&quot;&gt;后端&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#区块链&quot;&gt;区块链&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#产品&quot;&gt;产品&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#设计&quot;&gt;设计&lt;/a&gt;、&lt;a href=&quot;https://github.com/xitu/gold-miner#人工智能&quot;&gt;人工智能&lt;/a&gt;等领域，想要查看更多优质译文请持续关注 &lt;a href=&quot;https://github.com/xitu/gold-miner&quot;&gt;掘金翻译计划&lt;/a&gt;、&lt;a href=&quot;http://weibo.com/juejinfanyi&quot;&gt;官方微博&lt;/a&gt;、&lt;a href=&quot;https://zhuanlan.zhihu.com/juejinfanyi&quot;&gt;知乎专栏&lt;/a&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Chars</name></author><category term="ml" /><category term="掘金翻译计划" /><category term="tensorflow" /><category term="性能" /><category term="机器学习" /><summary type="html">TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 方法 章节中会详细说明如何执行测试，并给出使用的脚本链接。</summary></entry><entry><title type="html">数据链路层之 LLDP</title><link href="http://localhost:4000/blog/data-link-layer-lldp/" rel="alternate" type="text/html" title="数据链路层之 LLDP" /><published>2018-01-29T00:00:00+08:00</published><updated>2018-01-29T00:00:00+08:00</updated><id>http://localhost:4000/blog/data-link-layer-lldp</id><content type="html" xml:base="http://localhost:4000/blog/data-link-layer-lldp/">&lt;p&gt;随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 &lt;/p&gt;
-
-&lt;p&gt;LLDP（Link Layer Discovery Protocol，链路层发现协议）就是用于这个目的的协议。LLDP 定义在 802.1ab 中，它是一个二层协议，它提供了一种标准的链路层发现方式。LLDP 协议使得接入网络的一台设备可以将其主要的&lt;strong&gt;能力，管理地址，设备标识，接口标识&lt;/strong&gt;等信息发送给接入同一个局域网络的其它设备。当一个设备从网络中接收到其它设备的这些信息时，它就将这些信息以MIB的形式存储起来。&lt;/p&gt;
-
-&lt;p&gt;这些 MIB 信息可用于发现设备的物理拓扑结构以及管理配置信息。需要注意的是 LLDP 仅仅被设计用于进行信息通告，它被用于通告一个设备的信息并可以获得其它设备的信息，进而得到相关的 MIB 信息。它不是一个配置、控制协议，无法通过该协议对远端设备进行配置，&lt;strong&gt;它只是提供了关于网络拓扑以及管理配置的信息，这些信息可以被用于管理、配置的目的，如何用取决于信息的使用者。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2 id=&quot;结构&quot;&gt;结构&lt;/h2&gt;
-
-&lt;p&gt;LLDP 的框架结构如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-struct.png&quot; alt=&quot;LLDP 结构图&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;此图也表明 LLDP 就是一个信息发现与通告协议，LLDP 的实体主要维护了两个 MIB 库，一个 local system MIB，一个 remote system MIB。从其名字也可以看出，一个用于维护本地相关的设备 MIB 信息，一个用于维护远端设备 MIB 信息。&lt;/p&gt;
-
-&lt;p&gt;LLDP 通过与上图中右侧的几个 MIB 库交互来初始化并维护 local system MIB，并将本地的相关信息通告出去；同时当接收到来自其它设备的信息时就将其更新到remote system MIB 中。通过这种工作方式，一个设备就可以将自己的信息通告出去并获得网络中其它设备的相关信息，最终获得反应网络拓扑以及其它配置信息的两个 MIB 库。这两个库可以被其用户用来完成各种功能。需要说明的是&lt;strong&gt;LLDP 信息的通告以及接收处理不受端口的STP状态的影响。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;基本概念&quot;&gt;基本概念&lt;/h2&gt;
-
-&lt;h3 id=&quot;帧格式&quot;&gt;帧格式&lt;/h3&gt;
-
-&lt;p&gt;封装有 LLDPDU 的报文称为 LLDP 帧，其封装格式有两种：Ethernet II 和 SNAP（Subnetwork Access Protocol，子网访问协议）。&lt;/p&gt;
-
-&lt;h4 id=&quot;ethernet-ii-格式封装的-lldp-帧&quot;&gt;Ethernet II 格式封装的 LLDP 帧&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-ethernet-ii-frame.png&quot; alt=&quot;Ethernet II 格式封装的 LLDP 帧&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上图是以 Ethernet II 格式封装的 LLDP 帧，其中各字段的含义如下： &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;DA：目的 MAC 地址，为固定的组播 MAC 地址 0x0180-C200-000E。 &lt;/li&gt;
-  &lt;li&gt;SA：源 MAC 地址，为端口 MAC 地址或设备 MAC 地址（如有端口地址则用端口 MAC 地址，否则用设备 MAC 地址）。 指与设备相邻连接设备的桥 MAC。&lt;/li&gt;
-  &lt;li&gt;LLDP Ethertype：帧类型，为 0x88CC。 &lt;/li&gt;
-  &lt;li&gt;LLDPDU：LLDP Data Unit，LLDP 数据单元，它是 LLDP 信息交换的主体。&lt;/li&gt;
-  &lt;li&gt;FCS：帧检验序列。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;snap-格式封装的-lldp-帧&quot;&gt;SNAP 格式封装的 LLDP 帧&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-snap-frame.png&quot; alt=&quot;SNAP 格式封装的 LLDP 帧&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上图是以 SNAP 格式封装的 LLDP 帧，其中各字段的含义如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;DA：目的 MAC 地址，为固定的组播 MAC 地址 01-80-C2-00-00-0E。 &lt;/li&gt;
-  &lt;li&gt;SA：源 MAC 地址，为端口 MAC 地址或设备 MAC 地址（如有端口地址则用端口 MAC 地址，否则用设备 MAC 地址）。 &lt;/li&gt;
-  &lt;li&gt;Type：帧类型，为 0xAAAA-0300-0000-88CC。 &lt;/li&gt;
-  &lt;li&gt;Data：数据，为 LLDPDU。 &lt;/li&gt;
-  &lt;li&gt;FCS：帧检验序列。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;目的地址&quot;&gt;目的地址&lt;/h4&gt;
-
-&lt;p&gt;目的地址实际上包括三个，分别为 01-80-C2-00-00-0E，01-80-C2-00-00-03，01-80-C2-00-00-00。这三个地址分别用于不同的目的，它们可以跨越不同的网络。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;01-80-C2-00-00-0E，也被称为 Nearest Bridge 组地址：无论是 Two-Port MAC Relay (TPMR)组件、S-VLAN 组件、C-VLAN 组件，还是 802.1D 网桥都不能转发目的为该地址的帧。简单的说任何类型的网桥都不能转发目的为该地址的帧，目的为该地址的帧被限制在连接两个网桥接口的连接上传输。&lt;/li&gt;
-  &lt;li&gt;01-80-C2-00-00-03，也被称为 Nearest non-TPMR Bridge 组地址：对于目的地址为该地址的帧，Two-Port MAC Relay (TPMR)组件将成为一个中继器，即不接收它。而 S-VLAN（Service Provider VLAN）组件，C-VLAN（Customer VLAN）组件，以及 802.1D 网桥都不能转发它，而是需要进行接收并处理。因此目的地址为该地址的帧将跨越 TPMR。&lt;/li&gt;
-  &lt;li&gt;01-80-C2-00-00-00，也被称为 Nearest Customer Bridge 组地址：对于目的地址为该地址的帧，Two-Port MAC Relay (TPMR)组件以及 S-VLAN 组件将成为中继器，即不接收它。而 C-VLAN 组件，以及 802.1D 网桥都不能转发它，而是需要进行接收并处理。因此目的地址为该地址的帧将跨越 TPMR 以及 S-VLAN。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;tpmr-介绍&quot;&gt;TPMR 介绍&lt;/h3&gt;
-
-&lt;p&gt;TPMR 以及 S-VLAN，C-VLAN 都是 802.1Q 中的概念，包括这三者的网络以及各个地址的作用范围如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-mac-addr.png&quot; alt=&quot;MAC Addr&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-group-mac-addr.png&quot; alt=&quot;Group MAC Addr&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-diff-os-mac-addr.png&quot; alt=&quot;OS MAC Addr&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;C-VLAN：Customer VLAN，是用户网络内部使用的 VLAN；&lt;/li&gt;
-  &lt;li&gt;S-VLAN：Service VLAN，服务提供商网络中使用的 VLAN，该 VLAN 标识 VPN 用户或者是用户的业务；&lt;/li&gt;
-  &lt;li&gt;Customer Bridge: Customer 网络中的 Bridge，只能识别 C-VLAN；&lt;/li&gt;
-  &lt;li&gt;Provider Bridge：服务提供商网络中的 Bridge，根据处理内容的不同又分为S-VLAN Bridge 和 Provider Edge Bridge。其中 S-VLAN Bridge 只能识别 S-VLAN； Provider Edge Bridge 可以同时识别 C-VLAN 和 S-VLAN；&lt;/li&gt;
-  &lt;li&gt;C-VLAN Component：在 Bridge 内可识别、插入、删除 C-VLAN 的实体，每个端口一个，对 C-VLAN 的操作互相独立（两个端口上接收到相同的 C-VLAN，但由于属于不同的客户最后的处理结果会不同）；&lt;/li&gt;
-  &lt;li&gt;S-VLAN Component：在 Bridge 内可识别、插入、删除 S-VLAN 的实体，由于在一个 Bridge 内不存在相同的 S-VLAN 属于不同服务提供商的情况，因此在一个桥内只有一个 S-VLAN 的实体。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;qinq-介绍&quot;&gt;QinQ 介绍&lt;/h3&gt;
-
-&lt;p&gt;QinQ 的理论基础，是 IEEE 定义的 802.1ad。在这个规范里面，IEEE 提出了一个概念，它认为汇聚和接入层那里有这么两种设备：S-VLAN Bridge 和 Provider Edge Bridge，再往下就是 Customer System 了（注意，这里说 System 而不是 Bridge，是因为 Customer 接进来的未必是二层设备，可能也是三层设备）。VLAN 空间也被分成两个 VLAN 空间，即 S-VLAN 和 C-VLAN，S 即 Service Provider，C 即 Customer。在 S-VLAN Bridge 上，只有 S-VLAN 空间，而在 Provider Edge Bridge 上，则既有 S-VLAN 空间，又有 C-VLAN 空间。相应的，这个 Bridge 就被从逻辑上划分为两部分，支持 S-VLAN 功能的部分称之为 S-VLAN Component，支持 C-VLAN 功能的部分称之为 C-VLAN Component。S-VLAN Bridge 只包含 S-VLAN Component。&lt;/p&gt;
-
-&lt;p&gt;除了两种 Bridge 的概念，802.1ad 还提出了三种 Service 类型和四种 Port 类型，其中一种 Port 是内部 Port，对用户不可见，其它三种 Port 分别对应了三种不同的 Service，即运营商可以通过在交换机上配置三种不同的 Port 类型，来相应的为用户提供三种不同类型的 Service。三种 Service 分别是 Port Based Service，C-Tag Based Service 和 S-Tag Based Service。四种Port 分别是 Customer Network Port （CN）， Customer Edge Port（CE），Provider Network Port（PN），Provider Edge Port（内部 Port）。&lt;/p&gt;
-
-&lt;p&gt;所谓 Port Based Service，就是说某个 Service 是基于 Port 的，从该 Port 进来的所有报文，都被认为是属于某一个特定的 Customer 的，不管它是否带 C-Tag，带了什么样的 C-Tag，这些信息统统被忽视。所有从这个 Port 进来的报文被赋予一个 S-VLAN，该 S-VLAN 被用来标识该 Customer，或说该 Service。提供这种 Service 的 Port 就是CN Port。CN Port 的实质就是运营商为一个 Customer 提供一个专门的 Port，不跟别的 Customer 共享。注意，从这个 Port 上进来的报文不能带 S-Tag，否则会被丢弃。也就是说，对于 S-Tag 而言，这个 Port 是 Access Port，而不是 Trunk Port。这是跟后面的 S-Tag Based service 本质的不同。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-port-based-pbn.png&quot; alt=&quot;Port Base PBN&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所谓的 S-Tag Based Service，就是说从一个 Port 上进来的报文，根据 S-VLAN 来把它们划分到不同的 Customer，换句话说，是用 S-VLAN 来标记 Customer。提供这种 Service 的 Port 也是 CN Port，只不过这个时候的 CN Port，必须配置成 Trunk Port，只识别 S-VLAN，根据 S-VLAN 来标识 Customer，转发报文。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-port-based-pbn-struct.png&quot; alt=&quot;PBN Struct&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所谓的 C-Tag Based Service，就是指报文携带 C-Tag 进入 Port，在该 Port 上基于 C-VLAN 来标识 Customer，一个 Port 上可以支持多个 Customer。用来支持 C-Tag Based Service 的 Port 就是 CE Port，CE Port 是 C-VLAN Component 的一部分，对于 C-VLAN 而言，CE Port 是 Trunk Port。它不识别 S-Tag。&lt;/p&gt;
-
-&lt;p&gt;PN Port 是 S-VLAN Component 的一部分，它跟 CN Port 唯一的不同是 CN Port 面向 Customer Network，而它面向 Provider Network，在实际的交换机中通常被配置成 Uplink Port，而且通常都是 VLAN Trunk Mode（相对于 Access Mode）。&lt;/p&gt;
-
-&lt;p&gt;对于一个拥有 S-VLAN Component 和 C-VLAN Component 的 Provider Edge Bridge 而言，在做 Mac Forwarding/Learning 的时候，有两种模式，一种是用 &lt;code class=&quot;highlighter-rouge&quot;&gt;S-VLAN+MAC&lt;/code&gt;，另外一种则是 &lt;code class=&quot;highlighter-rouge&quot;&gt;S-VLAN+C-VLAN+MAC&lt;/code&gt;，前者即所谓的 C-VLAN Unaware Mode，而后者则是 C-VLAN Aware Mode。&lt;/p&gt;
-
-&lt;p&gt;C-VLAN Aware Mode 带来的好处是显而易见的，因为它将 VLAN 空间从 4K 扩展到了 16M，但是它的问题在于，当前绝大多数芯片都不支持，就算支持了，也不太可能支持到理论上的 16M。&lt;/p&gt;
-
-&lt;h4 id=&quot;一种独创的-qinq-模式&quot;&gt;一种独创的 QinQ 模式&lt;/h4&gt;
-
-&lt;p&gt;现实世界中用户的需求是千奇百怪，有一种需求，是市场上现存的交换机所解决不了的。在讨论这种需求之前，先看一下当前交换机的做法。无论各个厂家的实现差别有多大，但是有一点大家都是一样的，就是在接入交换机上，通过 Port 或者 C-VLAN 来识别用户，然后为每个用户分配一个 S-VLAN，然后用 S-VLAN 来做后续处理，如 ACL/QoS/Mac Learning/Mac Forwarding 等。&lt;/p&gt;
-
-&lt;p&gt;但是运营商，特别是欧美的一些运营商可能有这样的需求，为了描述的方便，我们假设有个运营商 A，它在为它的客户提供服务的时候，有的时候需要租用别的运营商，假设是运营商 B 的网络，在租用网络的时候，A 这些 B 的客户，运营商 B 需要给 A 分配 S-VLAN，而且往往是一个 S-VLAN 多少钱，因为 VLAN 是稀缺资源，特别是网络比较大的时候。这个时候，如果运营商 A 为它自己的客户每个都分配一个 S-VLAN，那么相应的它就需要向 B 也申请很多个 S-VLAN，不划算，这个时候它就想在自己的接入设备上，不用 S-VLAN 来标识 Customer，给所有的 Customer 分配同一个 S-VLAN，用该 S-VLAN 来穿越 B 的网络，这个时候，S-VLAN 的意义不是代表 Customer，而是代表一个 Tunnel。&lt;/p&gt;
-
-&lt;p&gt;问题关键在于，如果不用 S-VLAN 来代表 Customer，在 A 的接入设备上，如何来对不同的 Customer 来做区分处理呢？用 C-VLAN 肯定是不行的，因为不同 Port 上的 C-VLAN 代表的 Customer 可能是不同的。Centec 的交换机，在芯片内部用一个不同于 C-VLAN 和 S-VLAN 的 CustomerID 来标识 Customer，用这个值来做后续的一系列 Customer 的处理，非常强大。&lt;/p&gt;
-
-&lt;h4 id=&quot;qinq-的不足&quot;&gt;QinQ 的不足&lt;/h4&gt;
-
-&lt;p&gt;尽管 QinQ 貌似很好很强大，并且受到热烈追捧，但是这不能掩盖它的先天不足。&lt;/p&gt;
-
-&lt;p&gt;QinQ 的最大不足就是它无法对运营商网络完全隐藏 Customer 信息，因为它可以让运营商 Core Network 的设备看不到 Customer VLAN，但是无法让它们看不到 Customer MAC。而这一点有两个不利的影响，一个是 Scalability 非常差，如果中间的设备都是二层设备，会导致 MAC 表非常大；第二个不利的影响则是，一旦 Customer 网络出现了环路，会导致 Provider Network 里面的设备不断进行 MAC Learning，万一有 ARP 之类报文，还可能冲击 CPU。&lt;/p&gt;
-
-&lt;p&gt;如果 Customer VLAN 对运营商网络不可见，那么就起不到扩展 VLAN 空间的作用，运营商的 VLAN 空间就仍然只有 4K。&lt;/p&gt;
-
-&lt;p&gt;而 PBB，即所谓的 MAC-in-MAC 则能很好的解决 QinQ 的这个不足，因为 PBB 不仅在原来的报文上新增一个 VLAN，还新增 MACSa/MACDa 以及 24 个 bit 的 Isid（用来标识 Service），它可以完全对运营商的 Core Network 设备隐藏 Customer 信息，且能利用 Isid 来支持 16M Customer/Service。&lt;/p&gt;
-
-&lt;p&gt;当然PBB也有PBB的问题，目前看不到它有成为主流技术的趋势。&lt;/p&gt;
-
-&lt;h2 id=&quot;lldpdu&quot;&gt;LLDPDU&lt;/h2&gt;
-
-&lt;p&gt;LLDPDU 是 LLDP 的有效负载，用于承载要发送的消息。LLDPDU 的格式如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-du.png&quot; alt=&quot;LLDPDU&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;LLDPDU 采用了 TLV 的格式，即 &lt;code class=&quot;highlighter-rouge&quot;&gt;type+length+value&lt;/code&gt; 的格式，type 表示 TLV 的类型，length 是以字节为单位的 TLV 的长度，value 是该 TLV 的值。其中 Chassis ID TLV，Port ID TLV Time To Live TLV 以及 End Of LLDPDU TLV 是强制的，必须包含的部分，除此之外在 TLV Time To Live TLV 和 End Of LLDPDU TLV 之间可以包含 0 个到多个可选的其它 TLV。&lt;/p&gt;
-
-&lt;h2 id=&quot;tlv&quot;&gt;TLV&lt;/h2&gt;
-
-&lt;p&gt;TLV 是组成 LLDPDU 的单元，每个 TLV 都代表一个信息。LLDPDU 的 TLV 可以分为两大类&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;被认为是网络管理的基础的 TLV 集合，所有的 LLDP 实现都需要支持。&lt;/li&gt;
-  &lt;li&gt;组织定义的 TLV 扩展集合，包括 &lt;code class=&quot;highlighter-rouge&quot;&gt;802.1&lt;/code&gt; 组织定义 TLV、&lt;code class=&quot;highlighter-rouge&quot;&gt;802.3&lt;/code&gt; 组织定义 TLV 以及其他组织定义的 TLV。这些 TLV 用于增强对网络设备的管理，可根据实际需要选择是否在 LLDPDU 中发送。 &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;TLV 的基本格式如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-format.png&quot; alt=&quot;TLV基本格式图&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;TLV的类型域的定义及分配如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-list.png&quot; alt=&quot;TLV类型域&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中 &lt;code class=&quot;highlighter-rouge&quot;&gt;type0-8&lt;/code&gt; 属于基本的 TLV 集合。对于其中的 Mandatory 的 TLV，它是必须包含在 LLDP 中的。 组织定义 TLV 集合的格式如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-frame.png&quot; alt=&quot;TLV集合格式&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;OUI：组织机构的 ID。&lt;/li&gt;
-  &lt;li&gt;organizationally defined subtype：组织自定义的类型。&lt;/li&gt;
-  &lt;li&gt;organizationally defined information string：传输的信息。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;基础-tlv-集合&quot;&gt;基础 TLV 集合&lt;/h2&gt;
-
-&lt;p&gt;几个强制的必须包含的 TLV 的定义如下。非强制的可以参考 IEEE802.1AB。&lt;/p&gt;
-
-&lt;h3 id=&quot;end-of-lldpdu-tlv&quot;&gt;End Of LLDPDU TLV&lt;/h3&gt;
-
-&lt;p&gt;该 TLV 用于标识 LLDPDU 的结束。其格式如下&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-end.png&quot; alt=&quot;TLV End&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;由于 length=0，因此它不包含 value 域。&lt;/p&gt;
-
-&lt;h3 id=&quot;chassis-id-tlv&quot;&gt;Chassis ID TLV&lt;/h3&gt;
-
-&lt;p&gt;该 TLV 用于通告该 LLDPDU 发送者的 Chassis ID。由于有很多方式可用来标识一个 Chassis，因此在该类 TLV 中包含一个子类型域用于告诉接收者，发送者的 Chassis ID 采用的是哪一种标识方式。其格式如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-chassis.png&quot; alt=&quot;TLV Chassis&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;每个 LLDPDU 必须包含且仅包含一个该类型的 TLV。由于 Chassis ID 实际上是用于标识设备的，因此在连接可用时它应该保持不变。 Chassis 子类型所可能的取值如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-chassis-list.png&quot; alt=&quot;TLV Chassis List&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;port-id-tlv&quot;&gt;Port ID TLV&lt;/h3&gt;
-
-&lt;p&gt;它用于标识发送该 LLDPDU 的设备的端口。类似于 Chassis ID，有很多方式可以标识一个 Port，因此该 TLV 也包含一个子类型域。其格式如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-port.png&quot; alt=&quot;TLV Port&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;每个 LLDPDU 必须包含一个且只能包含一个该类型的 TLV。同时，当端口可用时，从该端口发送出去的 LLDPDU 的该 TLV 应该保持不变。 其子类型的可能取值如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-port-list.png&quot; alt=&quot;TLV Port List&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;time-to-live-tlv&quot;&gt;Time To Live TLV&lt;/h3&gt;
-
-&lt;p&gt;该 TLV 用于告诉接收端，它接收到的这些信息的有效期有多长。其格式如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-tlv-ttl.png&quot; alt=&quot;TLV TTL&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;TTL 的时间单位是秒，由于只有 2 个字节长，因而最大有效时间是 65536 秒。如果在这个时间到期了还没有新的 LLDPDU 被收到，则该 TLV 所属的那个 LLDPDU 携带的信息会被从 MIB 中删除。如果收到了新的 LLDPDU，则&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果 TTL 不为 0，则会用新收到的 LLDPDU 的信息替换 MIB 库中的相应的信息（即与该 LLDPDU 的发送者相关的 MIB 信息，LLDP 使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Chassis ID+Port ID&lt;/code&gt; 来判断是否来自于同一个源，这也是要求这两者保持不变的原因）。&lt;/li&gt;
-  &lt;li&gt;如果 TTL 为 0，则删除相应的 MIB 库中的信息（即与该 LLDPDU 的发送者相关的 MIB 信息）。因此 TTL 为 0 的 LLDPDU 又被称为SHUTDOWN LLDPDU。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;每一个 LLDPDU 必须包含且只能包含一个该类型的 TLV。&lt;/p&gt;
-
-&lt;h2 id=&quot;工作机制&quot;&gt;工作机制&lt;/h2&gt;
-
-&lt;p&gt;LLDP 是一个用于信息通告和获取的协议，但是需要注意的一点是，LLDP 发送的信息通告不需要确认，不能发送一个请求来请求获取某些信息，也就是说 LLDP 是一个单向的协议，只有主动通告一种工作方式，无需确认，不能查询、请求（比如像 ARP 协议那样请求某个 IP 的 MAC 地址）。&lt;/p&gt;
-
-&lt;p&gt;LLDP 主要完成如下工作：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;初始化并维护本地 MIB 库中的信息。&lt;/li&gt;
-  &lt;li&gt;从本地 MIB 库中提取信息，并将信息封装到 LLDP 帧中。LLDP 帧的发送有两种触发方式，一是定时器到期触发，一是设备状态发生了变化触发。&lt;/li&gt;
-  &lt;li&gt;识别并处理接收到的 LLDPDU 帧。&lt;/li&gt;
-  &lt;li&gt;维护远端设备 LLDP MIB 信息库。&lt;/li&gt;
-  &lt;li&gt;当本地或远端设备 MIB 信息库中有信息发生变化时，发出通告事件。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;lldpdu-发送&quot;&gt;LLDPDU 发送&lt;/h3&gt;
-
-&lt;h4 id=&quot;发送机制&quot;&gt;发送机制&lt;/h4&gt;
-
-&lt;p&gt;LLDPDU 的发送可以被如下事件触发：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;与本地 MIB 信息库相关联的定时器 txTTR 到期时，这将确保远端接收系统中的相关信息不会因为 TTL 到期而过期。&lt;/li&gt;
-  &lt;li&gt;本地 MIB 信息库中的信息发生了改变时，会立即发送 LLDPDU，这将保证改变能及时被更新。&lt;/li&gt;
-  &lt;li&gt;如果一个“新邻居”被识别，将会启用快速发送机制，在很短的时间内连续发送指定数量（txFastInit，默认值为 4）的 LLDPDU，以确保“新邻居”能被快速更新。如果远端系统 MIB 信息库因为过载（tooManyNeighbors）而不能容纳新的邻居信息，则会为了避免过多的LLDPDU 传输而抑制快速发送行为。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;LLDP 的常规发送时间是建立在系统的 Tick 之上的，间隔为 1 秒一个，为了防止在共享介质的 LAN（shared media LAN）中同时出现大量的 LLDPDU（因为接入同一个LAN的多个系统的时间是同步的，因而多个系统上的基于 Tick 的1秒定时器可能同时到期），发送定时器引入了一个随机的抖动，这就使得常规的 LLDP 帧的发送间隔时间的平均值仍是 1 秒，但是具体到某一次到期时间可能并不是准确的 1 秒。&lt;/p&gt;
-
-&lt;p&gt;同时为了防止在有多个端口需要发送 LLDPDU 的系统中，所有的端口的定时器都在同一时间到期，因而标准建议将采用某种机制将多个发送实例的定时器到期时间给错开，以避免一个系统在同一时刻发送大量的 LLDPDU。&lt;/p&gt;
-
-&lt;h4 id=&quot;发送状态机&quot;&gt;发送状态机&lt;/h4&gt;
-
-&lt;p&gt;LLDPDU 的发送状态机如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-send-state-machine.png&quot; alt=&quot;Send SM&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;对于该状态机：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;为了防止过于频繁的重新初始化发送状态机，在 LLDP 的发送状态机中引入了一个延时，该延时限制了在关闭发送状态机后，必须至少等待多长时间才能重新初始化发送状态机。&lt;/li&gt;
-  &lt;li&gt;是否发送 SHUTDOWN LLDPDU 由本地的 LLDP 工作状态决定。&lt;/li&gt;
-  &lt;li&gt;是否发送正常的 LLDPDU 由 txNow 和 txCredit 决定。这两个变量都由发送定时器状态机更新。txNow 决定是否发送，而 txCredit 则是一个信用量，决定了可以发送的量，如果是 0 则不允许发送，只有大于 0 的值才允许发送，每发送一个该值就减 1。更重要的是在本地信息快速改变时，txCredit 既允许连续发送多个 LLDPDU，但是又对可以连续发送的 LLDPDU 帧数做了限制，这使得本地状态的快速改变可以及时被通告出去，但是又不能无限发送导致网络出现大量 LLDPDU 帧。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;发送定时器状态机&quot;&gt;发送定时器状态机&lt;/h4&gt;
-
-&lt;p&gt;LLDP 发送定时器状态机如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-send-timer-state-machine.png&quot; alt=&quot;Send Timer SM&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;localChange 表示本地信息是否发生改变；txTTR 表示下一次定时器到期的时间；newNeighbor 表示是否发现了新的邻居，并由接收状态设置，由该状态机清除；txTick 表示基于系统时间的1秒定时器是否到期。&lt;/p&gt;
-
-&lt;p&gt;对于该状态机：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SIGNAL_TX 用于触发发送，它会将 txNow 设置为允许发送，并设置本地信息发生改变为 FALSE，如果当前不是在快速发送状态（txFast = 0）就设置发送定时器下次到期时间为 msgTxInterval（msgTxInterval默认为30秒，取值范围1-3600秒），否则设置发送定时器下次到期时间为 msgFastTx（msgFastTx默认值为1秒，取值范围1-3600秒）。&lt;/li&gt;
-  &lt;li&gt;如果本地信息发生了改变，就立即进入 SIGNAL_TX。&lt;/li&gt;
-  &lt;li&gt;如果定时器到期，则如果 txFast 大于 0，则将其减 1 并进入 SIGNAL_TX，否则直接进入 SIGNAL_TX。&lt;/li&gt;
-  &lt;li&gt;如果发现了新邻居，则首先将发现新邻居的标识更新为没有发现新邻居，然后如果当前已经处于快速发送状态就直接进入发送定时器到期状态（以触发一次立即发送），否则设置 txFast 的值为 txFastInit 的值（txFastInit 默认值为 4，取值范围 1-8）。&lt;/li&gt;
-  &lt;li&gt;如果基于系统时间的 1 秒定时器到期，则给 txCredit 增加信用量，其最大值为 txCreditMax，txCreditMax 是一个取值在 1 到 10 之间的值，默认值为 5。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;这里有取值范围的几个变量都是可配置的变量。&lt;/p&gt;
-
-&lt;p&gt;从上述两个状态机的工作状态可以看出，发送定时器状态机用于维护信用量以及是否允许发送 LLDPDU 帧，而发送状态机根据这两个信息来决定是否发送。另外需要注意的是 LLDP 所使用的所有定时器操作都是“基于系统时间的 1 秒定时器的”，每当这个定时器到期时它除了会将 txTick 设置为 TRUE 外，还会处理其它的定时功能。&lt;/p&gt;
-
-&lt;h3 id=&quot;lldpdu-接收&quot;&gt;LLDPDU 接收&lt;/h3&gt;
-
-&lt;h4 id=&quot;接收机制&quot;&gt;接收机制&lt;/h4&gt;
-
-&lt;p&gt;LLDP 帧的接收由 3 个阶段组成：帧的识别、帧的校验、LLDP 远端 MIB 信息库更新。&lt;/p&gt;
-
-&lt;h5 id=&quot;帧的识别&quot;&gt;帧的识别&lt;/h5&gt;
-
-&lt;p&gt;由在 LLDP/LSAP（链路服务访问点）进行，检查的内容是帧的目的地是否是 LLDP 的组播 MAC 地址，帧的类型是否是 LLDP。&lt;/p&gt;
-
-&lt;h5 id=&quot;帧的验证&quot;&gt;帧的验证&lt;/h5&gt;
-
-&lt;p&gt;该过程会首先根据 TLV 的格式定义依次校验 Chassis ID TLV，Port ID TLV， Time To Live TLV，如果这三个 TLV 都存在且有效，才会进一步的解码可选的 TLV 直到遇到 End Of LLDPDU TLV，然后根据获得的信息更新远端 MIB 信息库。&lt;/p&gt;
-
-&lt;h5 id=&quot;远端-mib-信息库更新&quot;&gt;远端 MIB 信息库更新&lt;/h5&gt;
-
-&lt;p&gt;在前两步都通过之后，LLDPDU 的接收者就需要根据解析出来的信息更新远端 MIB 信息库。在 MIB 信息库中，LLDP 使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Chassis ID+Port ID&lt;/code&gt; 来标识、存储来自不同源的信息。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果远端MIB库中已经有对应于该 &lt;code class=&quot;highlighter-rouge&quot;&gt;Chassis ID+Port ID&lt;/code&gt; 的信息，则使用收到的帧中的新的 TTL 来更新 TTL。并用对于收到的新的 LLDPPDU 中的每一种 type，如果有变化就进行更新，如果某种 type 原来不存在，则需要将其添加到 MIB 库中。&lt;/li&gt;
-  &lt;li&gt;如果实现不支持某种类型的 type，则
-    &lt;ol&gt;
-      &lt;li&gt;如果 type 不是 127，则按照基本 TLV 的格式将其存储到远端 MIB 库，存储格式为 type，length，value。&lt;/li&gt;
-      &lt;li&gt;如果 type 是 127，则按照组织定义 TLV 的格式将其存储到远端 MIB 库，存储格式为 type，length，value，OUI，组织自定义子类型，以及信息域。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;更新时，如果需要添加新的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Chassis ID+Port ID&lt;/code&gt; 的表项，或者为某个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Chassis ID+Port ID&lt;/code&gt; 添加新的 TLV，则可能遇到没有内存的问题，标准没有规定必须如何处理，只是给出了一些建议：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;忽略新的 LLDPDU 的信息&lt;/li&gt;
-  &lt;li&gt;删除最旧的信息以释放空间给新的信息&lt;/li&gt;
-  &lt;li&gt;随机删除一些旧的信息以释放空间给新的信息&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;LLDPDU 携带的 TTL（Time To Live）值会影响接收端的处理方式，如果它不为 0，则更新相应信息的老化时间，如果接收到的 LLDPDU 中的 TTL 等于 0，则将立刻老化掉相应的信息（即与该 LLDPDU 的发送者相关的MIB信息）。&lt;/p&gt;
-
-&lt;p&gt;如果一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Chassis ID+Port ID&lt;/code&gt; 标识的信息的 TTL 超时，则相应的 MIB 信息会被删除。&lt;/p&gt;
-
-&lt;h4 id=&quot;接收状态机&quot;&gt;接收状态机&lt;/h4&gt;
-
-&lt;p&gt;LLDPDU 的接收状态机如图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-receive-state-machine.png&quot; alt=&quot;Receive SM&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;lldp-工作模式&quot;&gt;LLDP 工作模式&lt;/h3&gt;
-
-&lt;p&gt;LLDP 可以工作在多种模式下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;TxRx：既发送也接收 LLDP 帧。&lt;/li&gt;
-  &lt;li&gt;Tx：只发送不接收 LLDP 帧。&lt;/li&gt;
-  &lt;li&gt;Rx：只接收不发送 LLDP 帧。&lt;/li&gt;
-  &lt;li&gt;Disable：既不发送也不接收 LLDP 帧（准确的说，这并不是一个 LLDP 的状态，这可能是 LLDP 功能被关闭了，也可能是设备就不支持）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;由于 LLDP 可以单独工作在发送或接收模式下，因此 LLDP 协议的实现需要支持单独初始化发送或者接收功能。当工作模式发生变化时，需要根据老的/新的工作模式来关闭/打开发送或者接收的功能。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-mib-block.png&quot; alt=&quot;MIB Block&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/tech/data-link-layer-lldp-state-machine-symbol.png&quot; alt=&quot;SM Symbol&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;至此，LLDP 相关知识点已经介绍完，希望对大家有所帮助。&lt;/p&gt;</content><author><name>Chars</name></author><category term="web" /><category term="LLDP" /><summary type="html">随着网络技术的发展，接入网络的设备的种类越来越多，配置越来越复杂，来自不同设备厂商的设备也往往会增加自己特有的功能，这就导致在一个网络中往往会有很多具有不同特性的、来自不同厂商的设备，为了方便对这样的网络进行管理，就需要使得不同厂商的设备能够在网络中相互发现并交互各自的系统及配置信息。 </summary></entry></feed>
+&lt;/blockquote&gt;</content><author><name>Chars</name></author><category term="ml" /><category term="掘金翻译计划" /><category term="tensorflow" /><category term="性能" /><category term="机器学习" /><summary type="html">TensorFlow 社区创建了一系列用于多平台测试的图像分类模型参考点。在 方法 章节中会详细说明如何执行测试，并给出使用的脚本链接。</summary></entry></feed>
