@@ -21,7 +21,7 @@
     <entry>
       <title><![CDATA[X-Callback-URL 在‘今日账单’中的使用]]></title>
       <url>/blog/x-callback-url-cn/</url>
-      <content type="text"><![CDATA[Niffler 实现了 x-callback-url 协议，这是一种通用的 URL Scheme 协议。它能让你在不通的 App 之间通信，Workflow、Launch Center Pro 等 App 都支持了 x-callback-url，因此 Niffler 也支持与他们协作。Niffler 的 x-callback-url 格式为：niffler://x-callback-url/[动作]?[动作参数]&amp;[x-callback 参数]动作/account使用指定的名字创建账本/bill使用指定的名称和数字创建账单动作参数name（必选）账本或账单项目名称value，当动作为bill时，为必选参数。账单开销数字。type，当动作为bill时，为必选参数。账单开销类型，0 支出，1 收入，2 已报销。remark（可选），备注信息例子1.创建一个名为“装修”，备注信息为“店铺”的账本。niffler://x-callback-url/account?name=装修&amp;remark=店铺2.创建一条类别为“饮食”的“午餐”支出 12 元的账单。niffler://x-callback-url/bill?name=饮食&amp;type=0&amp;remark=午餐&amp;value=12后记本文档对应 App 版本为 3.7.6 及以上]]></content>
+      <content type="text"><![CDATA[今日账单 实现了 x-callback-url 协议，这是一种通用的 URL Scheme 协议。它能让你在不通的 App 之间通信，Workflow、Launch Center Pro 等 App 都支持了 x-callback-url，因此 今日账单 也支持与他们协作。今日账单 的 x-callback-url 格式为：niffler://x-callback-url/[动作]?[动作参数]&amp;[x-callback 参数]动作/account使用指定的名字创建账本/bill使用指定的名称和数字创建账单动作参数name（必选）账本或账单项目名称value，当动作为bill时，为必选参数。账单开销数值。type，当动作为bill时，为必选参数。账单开销类型，0 支出，1 收入，2 已报销。remark（可选），备注信息例子1.创建一个名为“装修”，备注信息为“店铺”的账本。niffler://x-callback-url/account?name=装修&amp;remark=店铺2.创建一条类别为“饮食”的“午餐”支出 12 元的账单。niffler://x-callback-url/bill?name=饮食&amp;type=0&amp;remark=午餐&amp;value=12后记本文档对应 App 版本为 3.7.6 及以上]]></content>
       <categories>
         
           <category> project </category>
