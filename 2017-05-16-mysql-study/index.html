@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。 MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="与 MySQL 的零距离接触">
+<meta property="og:url" content="https://chars.tech/2017-05-16-mysql-study/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="MySQL是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。 MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/mysql-study-01.png">
+<meta property="article:published_time" content="2017-05-16T15:05:12.000Z">
+<meta property="article:modified_time" content="2018-12-06T15:07:44.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="读书笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/mysql-study-01.png">
+
+
+<link rel="canonical" href="https://chars.tech/2017-05-16-mysql-study/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2017-05-16-mysql-study/","path":"2017-05-16-mysql-study/","title":"与 MySQL 的零距离接触"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>与 MySQL 的零距离接触 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">2 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">3 目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">4 命令参数说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%8F%90%E7%A4%BA%E7%AC%A6"><span class="nav-number">4.1.</span> <span class="nav-text">MySQL提示符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">命令使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9MySQL%E6%8F%90%E7%A4%BA%E7%AC%A6"><span class="nav-number">4.2.1.</span> <span class="nav-text">修改MySQL提示符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">4.2.2.</span> <span class="nav-text">MySQL常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E8%AF%AD%E5%8F%A5%E8%A7%84%E8%8C%83"><span class="nav-number">4.2.3.</span> <span class="nav-text">MySQL语句规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-SQL"><span class="nav-number">5.</span> <span class="nav-text">5 SQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">6 数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">6.1.</span> <span class="nav-text">整型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">6.2.</span> <span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E5%9E%8B"><span class="nav-number">6.3.</span> <span class="nav-text">日期和时间型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B"><span class="nav-number">6.4.</span> <span class="nav-text">字符型</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2017-05-16-mysql-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="与 MySQL 的零距离接触 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          与 MySQL 的零距离接触
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-05-16 23:05:12" itemprop="dateCreated datePublished" datetime="2017-05-16T23:05:12+08:00">2017-05-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL</a>是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件。</p>
+<p>MySQL是一个开源的关系型数据库管理系统，分为社区版和企业版。</p>
+<span id="more"></span>
+
+<h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h1><p>直接前往官网 <a target="_blank" rel="noopener" href="https://www.mysql.com/">https://www.mysql.com/</a> ，进入download页面下载所需对应安装版本。默认配置安装即可。</p>
+<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2 配置"></a>2 配置</h1><p>安装成功之后，需要修改密码。详看<a href="/blog/mysql-install-config">《MySQL 安装配置》</a></p>
+<p>修改编码方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">character-set-server=utf8</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-目录结构"><a href="#3-目录结构" class="headerlink" title="3 目录结构"></a>3 目录结构</h1><p>bin目录，存储可执行文件。</p>
+<p>data目录，存储数据文件。</p>
+<p>docs，文档。</p>
+<p>include目录，存储包含的头文件。</p>
+<p>lib目录，存储库文件。</p>
+<p>share，错误消息和字符集文件。</p>
+<h1 id="4-命令参数说明"><a href="#4-命令参数说明" class="headerlink" title="4 命令参数说明"></a>4 命令参数说明</h1><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-D,–database&#x3D;name</td>
+<td>打开指定数据库</td>
+</tr>
+<tr>
+<td>–delimiter&#x3D;name</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-h,–host&#x3D;name</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>-p,–password[&#x3D;name]</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>-P,–port&#x3D;#</td>
+<td>端口号</td>
+</tr>
+<tr>
+<td>–prompt&#x3D;name</td>
+<td>设置提示符</td>
+</tr>
+<tr>
+<td>-u,–user&#x3D;name</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>-V,–version</td>
+<td>输出版本信息并退出</td>
+</tr>
+</tbody></table>
+<h2 id="MySQL提示符"><a href="#MySQL提示符" class="headerlink" title="MySQL提示符"></a>MySQL提示符</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\D</td>
+<td>完整的日期</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>当前数据库</td>
+</tr>
+<tr>
+<td>\h</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>\u</td>
+<td>当前用户</td>
+</tr>
+</tbody></table>
+<h2 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h2><h3 id="修改MySQL提示符"><a href="#修改MySQL提示符" class="headerlink" title="修改MySQL提示符"></a>修改MySQL提示符</h3><p>1.连接客户端时通过参数指定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot --prompt 提示符</span><br></pre></td></tr></table></figure>
+
+<p>2.连接上客户端后，通过prompt命令修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;prompt 提示符</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL常用命令"><a href="#MySQL常用命令" class="headerlink" title="MySQL常用命令"></a>MySQL常用命令</h3><p>1.显示当前服务器版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT VERSION();</span><br></pre></td></tr></table></figure>
+
+<p>2.显示当前日期时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT NOW();</span><br></pre></td></tr></table></figure>
+
+<p>3.显示当前用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT USER();</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL语句规范"><a href="#MySQL语句规范" class="headerlink" title="MySQL语句规范"></a>MySQL语句规范</h3><p>1.关键字与函数名称全部大写。</p>
+<p>2.数据库名称、表名称、字段名称全部小写。</p>
+<p>3.SQL语句必须以”;”符号结尾。</p>
+<h1 id="5-SQL"><a href="#5-SQL" class="headerlink" title="5 SQL"></a>5 SQL</h1><p>结构化查询语言（英语：Structured Query Language，缩写：SQL），是一种特殊目的之编程语言，用于数据库中的标准数据查询语言。<br>不过各种通行的数据库系统在其实践过程中都对SQL规范作了某些编改和扩充。所以，实际上不同数据库系统之间的SQL不能完全相互通用。</p>
+<p>具体参看文章<br><a href="/blog/mysql-sql-study">《MySQL 中的SQL》</a></p>
+<h1 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6 数据类型"></a>6 数据类型</h1><p>数据类型是指列、存储过程参数、表达式和局部变量的数据特征，它决定了数据的存储格式，代表了不同信息的类型。</p>
+<h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><img src="/assets/images/tech/mysql-study-01.png" alt="整型表"></p>
+<h2 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>存储范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FLOAT[(M,D)]</td>
+<td>-3.402823466E+38到-1.175494351E-38、0和1.175494351E-38到3.402823466E+38。M是数字总位数，D是小数点后面的位数。如果M和D被省略，根据硬件允许的限制来保存值。单精度浮点数精确到大约7位小数点。</td>
+</tr>
+<tr>
+<td>DOUBLE[(M,D)]</td>
+<td>-1.7976931348623157E+308到-2.2250738585072014E-308、0和2.2250738585072014E-308到1.7976931348623157E+308。</td>
+</tr>
+</tbody></table>
+<h2 id="日期和时间型"><a href="#日期和时间型" class="headerlink" title="日期和时间型"></a>日期和时间型</h2><table>
+<thead>
+<tr>
+<th>列类型</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>YEAR</td>
+<td>1</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>3</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>8</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><table>
+<thead>
+<tr>
+<th>列类型</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CHAR(M)</td>
+<td>M个字节，0&lt;&#x3D;M&lt;&#x3D;255</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>L+1个字节，其中L&lt;&#x3D;M且0&lt;&#x3D;M&lt;&#x3D;65535</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>L+1个字节，其中L&lt;2^8</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>L+2个字节，其中L&lt;2^16</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>L+3个字节，其中L&lt;2^24</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>L+4个字节，其中L&lt;2^32</td>
+</tr>
+<tr>
+<td>ENUM(‘VALUE1’,’VALUE2’,…)</td>
+<td>1或2个字节，取决于枚举值的个数（最多65,535个值）</td>
+</tr>
+<tr>
+<td>SET(‘VALUE1’,’VALUE2’,…)</td>
+<td>1、2、3、4或者8个字节，取决于set成员的数目（最多64个成员）</td>
+</tr>
+</tbody></table>
+<p>更多其他MySQL使用与知识可以参见<a href="/2017/05/29/mysql-advanced-study/">《拆解 MySQL 的高阶使用与概念》</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/database/" rel="tag"># database</a>
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag"># 读书笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017-05-19-mysql-sql-study/" rel="prev" title="MySQL 中的SQL">
+                  <i class="fa fa-chevron-left"></i> MySQL 中的SQL
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017-05-09-objc-runtime/" rel="next" title="聊聊Objective-C的Runtime">
+                  聊聊Objective-C的Runtime <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

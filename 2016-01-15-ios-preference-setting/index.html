@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="如今，即便是最简单的计算机程序也会包含一个偏好设置窗口，用户可以在其中设置应用专属的选项。在MAC OS X中，Preferences…菜单通常位于应用菜单中。选择该菜单项会弹出一个窗口，用户可以在其中输入和更改各种选项。iPhone和其他iOS设备有一个专门的“设置”应用程序来进行各种设置，你肯定用过很多次了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS App 偏好设置">
+<meta property="og:url" content="https://chars.tech/2016-01-15-ios-preference-setting/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="如今，即便是最简单的计算机程序也会包含一个偏好设置窗口，用户可以在其中设置应用专属的选项。在MAC OS X中，Preferences…菜单通常位于应用菜单中。选择该菜单项会弹出一个窗口，用户可以在其中输入和更改各种选项。iPhone和其他iOS设备有一个专门的“设置”应用程序来进行各种设置，你肯定用过很多次了。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-1.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-2.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-3.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-4.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-5.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-6.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-7.png">
+<meta property="article:published_time" content="2016-01-15T07:17:17.000Z">
+<meta property="article:modified_time" content="2018-12-08T03:22:33.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="application">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/ios-preference-setting-1.png">
+
+
+<link rel="canonical" href="https://chars.tech/2016-01-15-ios-preference-setting/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-01-15-ios-preference-setting/","path":"2016-01-15-ios-preference-setting/","title":"iOS App 偏好设置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS App 偏好设置 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%8D%86%E7%BB%91%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">设置捆绑包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">创建应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AE%BE%E7%BD%AE%E6%8D%86%E7%BB%91%E5%8C%85"><span class="nav-number">2.2.</span> <span class="nav-text">使用设置捆绑包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%AE%BE%E7%BD%AE%E6%8D%86%E7%BB%91%E5%8C%85"><span class="nav-number">2.2.1.</span> <span class="nav-text">在项目中添加设置捆绑包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.2.</span> <span class="nav-text">编辑属性列表文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%B1%95%E7%A4%BA%E7%95%8C%E9%9D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">设计展示界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%BA%94%E7%94%A8%E4%B8%AD%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.4.</span> <span class="nav-text">读取应用中的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">2.4.1.</span> <span class="nav-text">键宏定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%B8%BB%E8%A7%86%E5%9B%BE%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.4.2.</span> <span class="nav-text">更新主视图控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%8E%A7%E4%BB%B6%E5%93%8D%E5%BA%94%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.4.3.</span> <span class="nav-text">添加控件响应事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">2.4.4.</span> <span class="nav-text">注册默认值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81%E8%AE%BE%E7%BD%AE%E6%9C%89%E6%95%88"><span class="nav-number">2.5.</span> <span class="nav-text">保证设置有效</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-01-15-ios-preference-setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS App 偏好设置 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS App 偏好设置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-01-15 15:17:17" itemprop="dateCreated datePublished" datetime="2016-01-15T15:17:17+08:00">2016-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pieces/" itemprop="url" rel="index"><span itemprop="name">pieces</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>如今，即便是最简单的计算机程序也会包含一个偏好设置窗口，用户可以在其中设置应用专属的选项。在MAC OS X中，Preferences…菜单通常位于应用菜单中。选择该菜单项会弹出一个窗口，用户可以在其中输入和更改各种选项。iPhone和其他iOS设备有一个专门的“设置”应用程序来进行各种设置，你肯定用过很多次了。</p>
+<span id="more"></span>
+
+<h1 id="设置捆绑包"><a href="#设置捆绑包" class="headerlink" title="设置捆绑包"></a>设置捆绑包</h1><p>通过应用设置，用户可以输入和更改任何带有设置捆绑包（settings bundle）的应用中的偏好设置。设置捆绑包是应用自带的一组文件，用于告诉设置该应用期望得到用户的哪些偏好设置。下图是实例效果图：</p>
+<p><img src="/assets/images/tech/ios-preference-setting-1.png" alt="效果图"></p>
+<p>对于iOS用户默认设置（User Defaults）机制，设置应用充当着通用用户界面的角色。用户默认设置是保存和获取偏好设置的系统的一部分。</p>
+<p>在iOS应用中，用户默认设置由NSUserDefaults类实现。应用通过NSUserDefaults用键值对的方式来读取和保存偏好设置数据，与通过键从NSDictionary对象中获取数据一样。不同之处在于NSUserDefaults数据会被持久保存在文件系统中，而不是存储在内存的对象实例中。</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>接下来的部分，通过创建一个简单的应用，来实现应用设置控制应用程序。</p>
+<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p>在Xcode中，创建Tabbed Application工程。</p>
+<h2 id="使用设置捆绑包"><a href="#使用设置捆绑包" class="headerlink" title="使用设置捆绑包"></a>使用设置捆绑包</h2><p>设置应用使用每个应用中设置捆绑包的内容构建出一个应用的设置视图。如果应用没有设置捆绑包，则设置应用不会显示出应用程序的任何信息。每个设置捆绑包必须包含一个名为Root.plist的属性列表，它定义了根级偏好设置视图。此属性列表必须遵循一种非常严格的格式。</p>
+<p>当设置应用启动时，它会检查每个应用程序的设置捆绑包并为包含设置捆绑包的每个应用添加设置组。</p>
+<h3 id="在项目中添加设置捆绑包"><a href="#在项目中添加设置捆绑包" class="headerlink" title="在项目中添加设置捆绑包"></a>在项目中添加设置捆绑包</h3><p>新建设置捆绑包，操作如下图</p>
+<p><img src="/assets/images/tech/ios-preference-setting-2.png" alt="新建"></p>
+<p>在iOS－－&gt;Resource－－&gt;Settings Bundle点击Next，名字保留默认，最后点击Create即可。</p>
+<h3 id="编辑属性列表文件"><a href="#编辑属性列表文件" class="headerlink" title="编辑属性列表文件"></a>编辑属性列表文件</h3><p>接下来需要编辑Root.plist文件，具体内容如下图</p>
+<p><img src="/assets/images/tech/ios-preference-setting-3.png" alt="Root.plist文件 1"></p>
+<p><img src="/assets/images/tech/ios-preference-setting-4.png" alt="Root.plist文件 2"></p>
+<p><img src="/assets/images/tech/ios-preference-setting-5.png" alt="Root.plist文件 3"></p>
+<p>在Item8中，引用的More.plist文件，具体内容如下图</p>
+<p><img src="/assets/images/tech/ios-preference-setting-6.png" alt="More.plist文件"></p>
+<p>这里需要补充说明一点：</p>
+<p>iOS上的应用不能从其他应用的沙盒中读取文件。设置捆绑包并不是我们应用沙盒的一部分，而是设置应用沙盒的一部分。</p>
+<h2 id="设计展示界面"><a href="#设计展示界面" class="headerlink" title="设计展示界面"></a>设计展示界面</h2><p>数据准备好之后，添加图标资源，设计数据展示界面。效果图如下</p>
+<p><img src="/assets/images/tech/ios-preference-setting-7.png" alt="界面展示图"></p>
+<p>界面是通过代码实现的，主要使用了如下几个控件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@interface FirstViewController ()</span><br><span class="line"></span><br><span class="line">@property (nonatomic, strong) UILabel *officerLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *authorizationCodeLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *rankLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *warpDriveLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *warpFactorLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *favoriteTeaLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *favoriteCaptainLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *favoriteGadgetLabel;</span><br><span class="line">@property (nonatomic, strong) UILabel *favoriteAlienLabel;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@interface SecondViewController ()</span><br><span class="line"></span><br><span class="line">@property (nonatomic, strong) UISwitch *engineSwitch;</span><br><span class="line">@property (nonatomic, strong) UISlider *warpFactorSlider;</span><br><span class="line">@property (nonatomic, strong) UIButton *settingInfo;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<h2 id="读取应用中的设置"><a href="#读取应用中的设置" class="headerlink" title="读取应用中的设置"></a>读取应用中的设置</h2><p>我们将使用NSUserDefaults类访问用户设置。NSUserDefaults作为单例类，意味着应用中只能有一个NSUserDefaults实例在运行。为了访问这个实例，需要调用standardUserDefaults。</p>
+<h3 id="键宏定义"><a href="#键宏定义" class="headerlink" title="键宏定义"></a>键宏定义</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#ifndef BridgeControl_Constants_h</span><br><span class="line">#define BridgeControl_Constants_h</span><br><span class="line"></span><br><span class="line">#define kOfficerKey @&quot;officer&quot;</span><br><span class="line">#define kAuthorizationCodeKey @&quot;authorizationCode&quot;</span><br><span class="line">#define kRankKey @&quot;rank&quot;</span><br><span class="line">#define kWarpDriveKey @&quot;warp&quot;</span><br><span class="line">#define kWarpFactorKey @&quot;warpFactor&quot;</span><br><span class="line">#define kFavoriteTeaKey @&quot;favoriteTea&quot;</span><br><span class="line">#define kFavoriteCaptionKey @&quot;favoriteCaptain&quot;</span><br><span class="line">#define kFavoriteGadgetKey @&quot;favoriteGadget&quot;</span><br><span class="line">#define kFavoriteAlienKey @&quot;favoriteAlien&quot;</span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新主视图控制器"><a href="#更新主视图控制器" class="headerlink" title="更新主视图控制器"></a>更新主视图控制器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//FirstViewController.m</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view, typically from a nib.</span><br><span class="line">    [self refreshFields];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(void)refreshFields&#123;</span><br><span class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">    self.officerLabel.text = [defaults objectForKey:kOfficerKey];</span><br><span class="line">    self.authorizationCodeLabel.text = [defaults objectForKey:kAuthorizationCodeKey];</span><br><span class="line">    self.rankLabel.text = [defaults objectForKey:kRankKey];</span><br><span class="line">    self.warpDriveLabel.text = [defaults boolForKey:kWarpDriveKey] ? @&quot;engaged&quot; : @&quot;Disabled&quot;;</span><br><span class="line">    self.warpFactorLabel.text = [[defaults objectForKey:kWarpFactorKey] stringValue];</span><br><span class="line">    self.favoriteTeaLabel.text = [defaults objectForKey:kFavoriteTeaKey];</span><br><span class="line">    self.favoriteCaptainLabel.text = [defaults objectForKey:kFavoriteCaptionKey];</span><br><span class="line">    self.favoriteGadgetLabel.text = [defaults objectForKey:kFavoriteGadgetKey];</span><br><span class="line">    self.favoriteAlienLabel.text = [defaults objectForKey:kFavoriteAlienKey];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//SecondViewController.m</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    // Do any additional setup after loading the view, typically from a nib.</span><br><span class="line">    [self refreshFields];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(void)refreshFields&#123;</span><br><span class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">    self.engineSwitch.on = [defaults boolForKey:kWarpDriveKey];</span><br><span class="line">    self.warpFactorSlider.value = [defaults floatForKey:kWarpFactorKey];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加控件响应事件"><a href="#添加控件响应事件" class="headerlink" title="添加控件响应事件"></a>添加控件响应事件</h3><p>为SecondViewController中的UIButton，UISwitch和UISlider控件添加监听事件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (void)engineSwitchTapped &#123;</span><br><span class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">    [defaults setBool:self.engineSwitch.on forKey:kWarpDriveKey];</span><br><span class="line">    [defaults synchronize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)warpSliderTouched &#123;</span><br><span class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">    [defaults setFloat:self.warpFactorSlider.value forKey:kWarpFactorKey];</span><br><span class="line">    [defaults synchronize];</span><br><span class="line">&#125;</span><br><span class="line">//切换到“设置”应用程序</span><br><span class="line">-(void)settingInfoClicked&#123;</span><br><span class="line">    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注册默认值"><a href="#注册默认值" class="headerlink" title="注册默认值"></a>注册默认值</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//AppDelegate.m</span><br><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</span><br><span class="line">    // Override point for customization after application launch.</span><br><span class="line">    </span><br><span class="line">    //程序启动后的一些自定义设置</span><br><span class="line">    NSDictionary *defaults = @&#123;kWarpDriveKey:@YES,</span><br><span class="line">                               kWarpFactorKey:@2,</span><br><span class="line">                               kFavoriteAlienKey:@&quot;Vulcan&quot;</span><br><span class="line">                               &#125;;</span><br><span class="line">    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];</span><br><span class="line">    </span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="保证设置有效"><a href="#保证设置有效" class="headerlink" title="保证设置有效"></a>保证设置有效</h2><p>如果现在将应用运行，查看设置信息并按下主屏幕按钮来修改一些值。然后再按Home键，再重新打开应用，结果发现设置并没有生效。</p>
+<p>原因在于：在iOS中，当应用正在运行时按Home键并不会退出该应用，而是由操作系统在后台将其暂停，这样它就能随时快速启动。</p>
+<p>在这个例子中，我们需要添加一点工作，以实现应用被唤醒时，能重新加载用户偏好设置并重新显示它们。</p>
+<p>通知，时对象之间进行通信的轻量级机制。任何对象都能定义一个或多个发送到应用通知中心的通知。通知中心是一个单例对象，作用在于对象之间传送通知。</p>
+<p>UIApplication类会发送大量的通知，大多数通知的用途从命名就能看出来，这个例子中我们就使用到了通知。</p>
+<p>将下列代码添加到两个控制器的viewDidLoad方法中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIApplication *app = [UIApplication sharedApplication];</span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:app];</span><br></pre></td></tr></table></figure>
+
+<p>然后添加相应的响应方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-(void)applicationWillEnterForeground:(NSNotification *)notification&#123;</span><br><span class="line">    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];</span><br><span class="line">    [defaults synchronize];</span><br><span class="line">    [self refreshFields];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>本文主要讲解了如何使用应用设置，如何使用NSUserDefaults读取偏好设置，以及如何让用户在应用内修改偏好设置。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ios/" rel="tag"># ios</a>
+              <a href="/tags/application/" rel="tag"># application</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-01-19-ios-data-persistence/" rel="prev" title="拆拆 iOS 数据持久化">
+                  <i class="fa fa-chevron-left"></i> 拆拆 iOS 数据持久化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-01-11-http-state-code-list/" rel="next" title="HTTP 状态码清单">
+                  HTTP 状态码清单 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。 从开始学的NSString *name&#x3D;[[NSString alloc] init] 起，仅知道这句话是分配内存空间，一直在用，从来没考虑过它的内部是怎么实现的。今天无意中看到了这一句代码： 1234NSString *name &#x3D; [NSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C中的alloc和init问题">
+<meta property="og:url" content="https://chars.tech/2016-03-07-objc-alloc-init/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。 从开始学的NSString *name&#x3D;[[NSString alloc] init] 起，仅知道这句话是分配内存空间，一直在用，从来没考虑过它的内部是怎么实现的。今天无意中看到了这一句代码： 1234NSString *name &#x3D; [NSS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/objc-alloc-init-1.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/objc-alloc-init-2.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/objc-alloc-init-3.png">
+<meta property="article:published_time" content="2016-03-07T13:47:01.000Z">
+<meta property="article:modified_time" content="2018-12-08T03:01:07.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="objc">
+<meta property="article:tag" content="ios">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/objc-alloc-init-1.png">
+
+
+<link rel="canonical" href="https://chars.tech/2016-03-07-objc-alloc-init/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-03-07-objc-alloc-init/","path":"2016-03-07-objc-alloc-init/","title":"Objective-C中的alloc和init问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Objective-C中的alloc和init问题 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-03-07-objc-alloc-init/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Objective-C中的alloc和init问题 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Objective-C中的alloc和init问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-07 21:47:01" itemprop="dateCreated datePublished" datetime="2016-03-07T21:47:01+08:00">2016-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/code/" itemprop="url" rel="index"><span itemprop="name">code</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这些都是小知识点，没有办法，博主自学过来的，关于一些知识并没有形成系统，这里也是博主自己的学习笔记。发现这个问题，拿出来和大家分享，有什么不足，还请指正。</p>
+<p>从开始学的<code>NSString *name=[[NSString alloc] init] </code>起，仅知道这句话是分配内存空间，一直在用，从来没考虑过它的内部是怎么实现的。今天无意中看到了这一句代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString *name = [NSString alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,name);</span><br><span class="line">name = [name init];</span><br><span class="line">NSLog(@&quot;%p&quot;,name);</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>试着打印了一下，发现两个的内存地址不一样：</p>
+<p><img src="/assets/images/tech/objc-alloc-init-1.png" alt="1"></p>
+<p>alloc是开辟一个内存空间，init是初始化，为什么初始化不在原有的内存空间上初始化，而是重新开辟一个内存空间。于是开始查资料，这时又发现了一个新的迷惑：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSObject *obj = [NSObject alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,obj);</span><br><span class="line">obj = [obj init];</span><br><span class="line">NSLog(@&quot;%p&quot;,obj);</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<p><img src="/assets/images/tech/objc-alloc-init-2.png" alt="2"></p>
+<p>怎么地址又变一样了？再打印NSArray的试一试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *person = [NSArray alloc];</span><br><span class="line">NSLog(@&quot;%p&quot;,person);</span><br><span class="line">person = [person init];</span><br><span class="line">NSLog(@&quot;%p&quot;,person);</span><br></pre></td></tr></table></figure>
+<p>再次打印结果：</p>
+<p><img src="/assets/images/tech/objc-alloc-init-3.png" alt="3"></p>
+<p>仍然是不一样的。原因是什么呢？首先看看NSStrng的init方法吧：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-(id)init&#123; </span><br><span class="line">  if(self = [super init]) &#123;</span><br><span class="line">    // 重新赋值 </span><br><span class="line">    //… </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从代码中可以分析，<code>self=[super init]</code>如果不为nil，就重新分配内存空间，这就解释了为什么 NSString，NSArray的调用alloc]init]方法后，内存地址会不一样，但是NSObject为什么会一样呢，我们知道NSObject是一切类的基类，当<code>[[NSString alloc]init]</code>执行时，调用的<code>[super init]</code>就是 NSObject中的init方法，既然NSObject身为基类，它也就无法调用super init，所以当NSObject执行<code>[[NSObject alloc]init]</code>时，也就没有了init重新分配空间这一环节。</p>
+<p>至于苹果公司为什么初始化一个实例要分两步，个人认为是方便构造后初始化不同的方法，如果用 new关键字，只能调用一个init，而不能调用initWithName等方法。</p>
+<p><strong>知识拓展：</strong></p>
+<p>NSString alloc之后，没有init，那么这部分alloc后的内存空间可不可以用？答案是显而易见的，如果可以用，苹果公司也就没必要提供一个init方法，那么alloc后的指针称为什么呢？ ——悬挂指针。</p>
+<p>如果一个地方指针既不为空，也没有被设置为指向一个已知的对象，则这样的指针称为<strong>悬挂指针</strong>。在程序里面是很危险的事。当程序运行使用该指针时，程序不能判断指针的合法性，将会产生很严重的错误。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/objc/" rel="tag"># objc</a>
+              <a href="/tags/ios/" rel="tag"># ios</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-03-09-socket-communicate-introduction/" rel="prev" title="socket 通信简介">
+                  <i class="fa fa-chevron-left"></i> socket 通信简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-03-06-ios-application-plist-diff/" rel="next" title="iOS Project与OS X Project中plist使用区别">
+                  iOS Project与OS X Project中plist使用区别 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

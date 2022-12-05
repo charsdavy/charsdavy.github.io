@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聊聊「二叉搜索树」的那些事儿">
+<meta property="og:url" content="https://chars.tech/2017-06-10-binary-search-tree/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/binary-search-tree.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/binary-search-tree-01.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/binary-search-tree-03.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/binary-search-tree-04.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/binary-search-tree-05.png">
+<meta property="og:image" content="https://chars.tech/assets/images/Q811237468.jpg">
+<meta property="article:published_time" content="2017-06-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-10-08T16:22:52.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="objc">
+<meta property="article:tag" content="tree">
+<meta property="article:tag" content="二叉搜索树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/binary-search-tree.png">
+
+
+<link rel="canonical" href="https://chars.tech/2017-06-10-binary-search-tree/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2017-06-10-binary-search-tree/","path":"2017-06-10-binary-search-tree/","title":"聊聊「二叉搜索树」的那些事儿"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>聊聊「二叉搜索树」的那些事儿 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E8%8A%82%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">树节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">2.2.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">添加节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E8%8A%82%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">查找节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="nav-number">2.5.</span> <span class="nav-text">删除节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">2.5.1.</span> <span class="nav-text">叶子节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">2.5.2.</span> <span class="nav-text">只有一个子节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A6%E5%8F%B3%E5%AD%90%E6%A0%91%E9%83%BD%E6%9C%89"><span class="nav-number">2.5.3.</span> <span class="nav-text">左右子树都有</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2017-06-10-binary-search-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="聊聊「二叉搜索树」的那些事儿 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          聊聊「二叉搜索树」的那些事儿
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-06-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-10T00:00:00+08:00">2017-06-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值； 若它的右子树不空，则右子树上所有节点的值均大于它的根节点的值； 它的左、右子树也分别为二叉排序树。“中序遍历”可以让节点有序。</p>
+<p><img src="/assets/images/tech/binary-search-tree.png" alt="binary search tree"></p>
+<span id="more"></span>
+
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>二叉排序树的查找过程和次优二叉树类似，通常采取二叉链表作为二叉排序树的存储结构。中序遍历二叉排序树可得到一个关键字的有序序列，一个无序序列可以通过构造一棵二叉排序树变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。每次插入的新的节点都是二叉排序树上新的叶子节点，在进行插入操作时，不必移动其它节点，只需改动某个节点的指针，由空变为非空即可。搜索，插入，删除的复杂度等于树高，O(log(n))。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="树节点"><a href="#树节点" class="headerlink" title="树节点"></a>树节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">/** 二叉树节点 */</span><br><span class="line">@interface DDBinaryTreeNode : NSObject</span><br><span class="line"></span><br><span class="line">/** 值 */</span><br><span class="line">@property (nonatomic, assign) NSInteger value;</span><br><span class="line">/** 左节点 */</span><br><span class="line">@property (nonatomic, strong) DDBinaryTreeNode *leftNode;</span><br><span class="line">/** 右节点 */</span><br><span class="line">@property (nonatomic, strong) DDBinaryTreeNode *rightNode;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>二叉排序树的创建无非就是不断查找和插入的过程，当我们查找某个值没有找到时，我们就会将该值插入到二叉排序树中。因为在查找的过程中可以确定该结点要插入的合适位置，所以插入就显得比较简单了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@class DDBinaryTreeNode;</span><br><span class="line"></span><br><span class="line">@interface DDBinarySearchTreeHandler : NSObject</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  创建二叉排序树</span><br><span class="line"> *  二叉排序树：左节点值全部小于根节点值，右节点值全部大于根节点值</span><br><span class="line"> *</span><br><span class="line"> *  @param values 数组</span><br><span class="line"> *</span><br><span class="line"> *  @return 二叉树根节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  向二叉排序树节点添加一个节点</span><br><span class="line"> *</span><br><span class="line"> *  @param treeNode 根节点</span><br><span class="line"> *  @param value	值</span><br><span class="line"> *</span><br><span class="line"> *  @return 根节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  二叉搜索树中某个值的节点</span><br><span class="line"> *</span><br><span class="line"> *  @param value	值</span><br><span class="line"> *  @param rootNode 树根节点</span><br><span class="line"> *</span><br><span class="line"> *  @return 节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)createTreeWithValues:(NSArray *)values</span><br><span class="line">&#123;</span><br><span class="line">    DDBinaryTreeNode *root = nil;</span><br><span class="line">    for (NSInteger i = 0; i &lt; values.count; i++) &#123;</span><br><span class="line">        NSInteger value = [(NSNumber *)[values objectAtIndex:i] integerValue];</span><br><span class="line">        root = [DDBinarySearchTreeHandler addTreeNode:root value:value];</span><br><span class="line">    &#125;</span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h3><p>根据查找树的性质我们可以很简单的写出添加的代码，一个一个的比较，注意每插入的一个总是叶子节点。再进行调整。最终形成的效果图如下：</p>
+<p><img src="/assets/images/tech/binary-search-tree-01.png" alt="添加节点"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)addTreeNode:(DDBinaryTreeNode *)treeNode value:(NSInteger)value</span><br><span class="line">&#123;</span><br><span class="line">    if (!treeNode) &#123;</span><br><span class="line">        treeNode = [[DDBinaryTreeNode alloc] init];</span><br><span class="line">        treeNode.value = value;</span><br><span class="line">        NSLog(@&quot;node:%td&quot;, value);</span><br><span class="line">    &#125; else if (value &lt;= treeNode.value) &#123;</span><br><span class="line">        NSLog(@&quot;to left&quot;);</span><br><span class="line">        //值小于根节点，则插入到左子树</span><br><span class="line">        treeNode.leftNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.leftNode value:value];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;to right&quot;);</span><br><span class="line">        //值大于根节点，则插入到右子树</span><br><span class="line">        treeNode.rightNode = [DDBinarySearchTreeHandler addTreeNode:treeNode.rightNode value:value];</span><br><span class="line">    &#125;</span><br><span class="line">    return treeNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找节点"><a href="#查找节点" class="headerlink" title="查找节点"></a>查找节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+ (DDBinaryTreeNode *)searchTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode</span><br><span class="line">&#123;</span><br><span class="line">    if (!rootNode) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (rootNode.value == value) &#123;</span><br><span class="line">        return rootNode;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (value &lt; rootNode.value) &#123;</span><br><span class="line">        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.leftNode];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return [DDBinarySearchTreeHandler searchTreeNodeWithValue:value inTree:rootNode.rightNode];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><p>对于树来说，删除是最复杂的，主要需要考虑4种情况：叶子节点，只有左子树，只有右子树和左右子树都有。</p>
+<h4 id="叶子节点"><a href="#叶子节点" class="headerlink" title="叶子节点"></a>叶子节点</h4><p>删除的节点没有左子树也没有右子树，也就是删除的节点为叶子节点。这种情况下我们有可以细分为两类，一种是该叶子节点就是二叉排序树的根节点，也就是二叉排序树中只有一个节点的情况。只需要将root指针置为空即可。再一种情况是删除的叶子节点有父节点，直接将父节点连接该删除节点的指针置空即可。</p>
+<h4 id="只有一个子节点"><a href="#只有一个子节点" class="headerlink" title="只有一个子节点"></a>只有一个子节点</h4><p>如果删除的节点有左子树那就把左子树顶上去，如果有右子树就把右子树顶上去即可。</p>
+<p><img src="/assets/images/tech/binary-search-tree-03.png" alt="左子树节点"></p>
+<h4 id="左右子树都有"><a href="#左右子树都有" class="headerlink" title="左右子树都有"></a>左右子树都有</h4><p>首先可以这么想象，如果我们要删除一个数组的元素，那么我们在删除后会将其后面的一个元素顶到被删除的位置。</p>
+<p><img src="/assets/images/tech/binary-search-tree-04.png" alt="双孩子节点1"></p>
+<p>那么二叉树操作同样也是一样，我们根据”中序遍历“找到要删除节点的后一个节点，然后顶上去就行了，原理跟”数组”一样一样的。</p>
+<p><img src="/assets/images/tech/binary-search-tree-05.png" alt="双孩子节点2"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">+ (void)deleteTreeNodeWithValue:(NSInteger)value inTree:(DDBinaryTreeNode *)rootNode</span><br><span class="line">&#123;</span><br><span class="line">    DDBinaryTreeNode *parent = rootNode;</span><br><span class="line">    DDBinaryTreeNode *current = rootNode;</span><br><span class="line">    // 记录被找到的节点是父节点的左子节点还是右子节点</span><br><span class="line">    BOOL isLeftChild = false;</span><br><span class="line">    // 循环直到找到目标节点的位置,否则返回</span><br><span class="line">    while (current.value != value) &#123;</span><br><span class="line">        parent = current;</span><br><span class="line">        if (current.value &gt; value) &#123;</span><br><span class="line">            isLeftChild = true;</span><br><span class="line">            current = current.leftNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            isLeftChild = false;</span><br><span class="line">            current = current.rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">        if (current == nil) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点没有任何子节点</span><br><span class="line">    // 直接将该节点的原本指向该节点的指针设置为nil</span><br><span class="line">    if (current.leftNode == nil &amp;&amp; current.rightNode == nil) &#123;</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = nil;</span><br><span class="line">        &#125;</span><br><span class="line">        if (isLeftChild == true) &#123;</span><br><span class="line">            parent.leftNode = nil;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点有一个子节点,且其为左子节点</span><br><span class="line">    else if (current.rightNode == nil) &#123;</span><br><span class="line">        // 判断当前节点是否为根节点</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = current.leftNode;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            // 挂载到父节点的左子树</span><br><span class="line">            parent.leftNode = current.leftNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 挂载到父节点的右子树</span><br><span class="line">            parent.rightNode = current.leftNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (current.leftNode == nil) &#123;</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = current.rightNode;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            parent.leftNode = current.rightNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = current.rightNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果待删除的节点有两个子节点</span><br><span class="line">    else if (current.leftNode != nil &amp;&amp; current.rightNode != nil) &#123;</span><br><span class="line">        // 寻找右子树中的最小值</span><br><span class="line">        DDBinaryTreeNode *successor = [DDBinarySearchTreeHandler successor:current];</span><br><span class="line">        if (current == rootNode) &#123;</span><br><span class="line">            rootNode = successor;</span><br><span class="line">        &#125; else if (isLeftChild) &#123;</span><br><span class="line">            parent.leftNode = successor;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            parent.rightNode = successor;</span><br><span class="line">        &#125;</span><br><span class="line">        successor.leftNode = current.leftNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> 在树中查找最合适的节点</span><br><span class="line"> */</span><br><span class="line">+ (DDBinaryTreeNode *)successor:(DDBinaryTreeNode *)node &#123;</span><br><span class="line">    DDBinaryTreeNode *successsor = nil;</span><br><span class="line">    DDBinaryTreeNode *successsorParent = nil;</span><br><span class="line">    DDBinaryTreeNode *current = node.rightNode;</span><br><span class="line">    while (current != nil) &#123;</span><br><span class="line">        successsorParent = successsor;</span><br><span class="line">        successsor = current;</span><br><span class="line">        current = current.leftNode;</span><br><span class="line">    &#125;</span><br><span class="line">    if (successsor != node.rightNode) &#123;</span><br><span class="line">        successsorParent.leftNode = successsor.rightNode;</span><br><span class="line">        successsor.rightNode = node.rightNode;</span><br><span class="line">    &#125;</span><br><span class="line">    return successsor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>欢迎大家加入移动开发交流Q群交流讨论，Q群号：811237468</p>
+<p><img src="/assets/images/Q811237468.jpg" alt="Q811237468"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/objc/" rel="tag"># objc</a>
+              <a href="/tags/tree/" rel="tag"># tree</a>
+              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="tag"># 二叉搜索树</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017-06-13-binary-tree-guide/" rel="prev" title="二叉树的那些使用">
+                  <i class="fa fa-chevron-left"></i> 二叉树的那些使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017-06-07-tensorflow-primer-guide/" rel="next" title="初探 TensorFlow">
+                  初探 TensorFlow <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

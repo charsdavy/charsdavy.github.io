@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xcode 使用小记">
+<meta property="og:url" content="https://chars.tech/2016-03-05-xcode-console-cli/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-03-05T05:41:06.000Z">
+<meta property="article:modified_time" content="2018-08-03T05:05:27.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chars.tech/2016-03-05-xcode-console-cli/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-03-05-xcode-console-cli/","path":"2016-03-05-xcode-console-cli/","title":"Xcode 使用小记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Xcode 使用小记 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#debug-%E5%91%BD%E4%BB%A4%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">debug 命令表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">2.</span> <span class="nav-text">快捷键</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-03-05-xcode-console-cli/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Xcode 使用小记 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Xcode 使用小记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-05 13:41:06" itemprop="dateCreated datePublished" datetime="2016-03-05T13:41:06+08:00">2016-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/talk/" itemprop="url" rel="index"><span itemprop="name">talk</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Xcode 是iOS开发者的福利，不得不说乔帮主给爱疯开发者提供了从业便利。我们这些后继者都发自内心的膜拜。也正是乔帮主的偏执，成就了苹果的伟大。Xcode 的可视化操作便捷，可是为了更灵活地debug，我们还是需要掌握一些提供效率的debug命令，文章分享迄今为止博主所知晓的debug命令，也会保持本文的持续更新。希望对大家有所帮助。</p>
+<span id="more"></span>
+
+<h1 id="debug-命令表"><a href="#debug-命令表" class="headerlink" title="debug 命令表"></a>debug 命令表</h1><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>break NUM</td>
+<td>在指定的行上设置断点</td>
+</tr>
+<tr>
+<td>bt</td>
+<td>显示所有的调用栈帧，该命令可用来显示函数的调用顺序</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>删除设置在特定源文件、特定行上的断点，其用法为：clear FILENAME:NUM</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>继续执行正在调试的程序，该命令用在程序由于处理信号或断点而导致停止运行时</td>
+</tr>
+<tr>
+<td>display EXPR</td>
+<td>每次程序停止后显示表达式的值。表达式由程序定义的变量组成</td>
+</tr>
+<tr>
+<td>file FILE</td>
+<td>装载指定的可执行文件进行调试</td>
+</tr>
+<tr>
+<td>help NAME</td>
+<td>显示指定命令的帮助信息</td>
+</tr>
+<tr>
+<td>info break</td>
+<td>显示当前断电清单，包括到达断点处的次数等</td>
+</tr>
+<tr>
+<td>info files</td>
+<td>显示被调试文件的详细信息</td>
+</tr>
+<tr>
+<td>info func</td>
+<td>显示所有的函数名称</td>
+</tr>
+<tr>
+<td>info local</td>
+<td>显示当前函数中的局部变量信息</td>
+</tr>
+<tr>
+<td>info prog</td>
+<td>显示被调试程序的执行状态</td>
+</tr>
+<tr>
+<td>info var</td>
+<td>显示所有的全局和静态变量名称</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>终止正被调试的程序</td>
+</tr>
+<tr>
+<td>list</td>
+<td>显示源代码段</td>
+</tr>
+<tr>
+<td>make</td>
+<td>在不退出gdb的情况下运行make工具</td>
+</tr>
+<tr>
+<td>next</td>
+<td>在不单步执行进入其他函数的情况下，向前执行一行源代码</td>
+</tr>
+<tr>
+<td>print EXPR</td>
+<td>显示表达式EXPR的值</td>
+</tr>
+<tr>
+<td>print-object</td>
+<td>打印一个对象</td>
+</tr>
+<tr>
+<td>print (int) name</td>
+<td>打印一个类型</td>
+</tr>
+<tr>
+<td>print-object [artist description]</td>
+<td>调用一个函数</td>
+</tr>
+<tr>
+<td>set artist - @”test”</td>
+<td>设置变量值</td>
+</tr>
+<tr>
+<td>help</td>
+<td>查看帮助</td>
+</tr>
+</tbody></table>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><ul>
+<li>文件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMD + N</td>
+<td>新文件</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + N</td>
+<td>新项目</td>
+</tr>
+<tr>
+<td>CMD + O</td>
+<td>打开</td>
+</tr>
+<tr>
+<td>CMD + S</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + S</td>
+<td>另存为</td>
+</tr>
+<tr>
+<td>CMD + W</td>
+<td>关闭窗口</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + W</td>
+<td>关闭文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li>编辑</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMD + [</td>
+<td>左缩进</td>
+</tr>
+<tr>
+<td>CMD + ]</td>
+<td>右缩进</td>
+</tr>
+<tr>
+<td>CMD + CTRL + LEFT</td>
+<td>折叠</td>
+</tr>
+<tr>
+<td>CMD + CTRL + RIGHT</td>
+<td>取消折叠</td>
+</tr>
+<tr>
+<td>CMD + CTRL + TOP</td>
+<td>折叠全部函数</td>
+</tr>
+<tr>
+<td>CMD + CTRL + BOTTOM</td>
+<td>取消全部函数折叠</td>
+</tr>
+<tr>
+<td>CTRL + U</td>
+<td>取消全部折叠</td>
+</tr>
+<tr>
+<td>CMD + D</td>
+<td>添加书签</td>
+</tr>
+<tr>
+<td>CMD + &#x2F;</td>
+<td>注释或取消注释</td>
+</tr>
+<tr>
+<td>CTRL + .</td>
+<td>参数提示</td>
+</tr>
+<tr>
+<td>ESC</td>
+<td>自动提示列表</td>
+</tr>
+</tbody></table>
+<ul>
+<li>调试</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMD + | 设置或取消断点</td>
+<td></td>
+</tr>
+<tr>
+<td>CMD + OPT + | 允许或禁用当前断点</td>
+<td></td>
+</tr>
+<tr>
+<td>CMD + OPT + B</td>
+<td>查看全部断点</td>
+</tr>
+<tr>
+<td></td>
+<td>CMD + RETURN</td>
+</tr>
+<tr>
+<td>CMD + R</td>
+<td>编译并运行（不触发断点）</td>
+</tr>
+<tr>
+<td>CMD + Y</td>
+<td>编译并调试（触发断点）</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + RETURN</td>
+<td>终止运行或调试</td>
+</tr>
+<tr>
+<td>CMD + B</td>
+<td>编译</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + K</td>
+<td>清理</td>
+</tr>
+</tbody></table>
+<ul>
+<li>窗体</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMD + SHIFT + B</td>
+<td>编译窗口</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + Y</td>
+<td>调试代码窗口</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + R</td>
+<td>调试控制台</td>
+</tr>
+<tr>
+<td>CMD + SHIFT + E</td>
+<td>主编辑窗口调整</td>
+</tr>
+</tbody></table>
+<ul>
+<li>帮助</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMD + OPT + ?</td>
+<td>开发手册</td>
+</tr>
+<tr>
+<td>CMD + CTRL + ?</td>
+<td>快速帮助</td>
+</tr>
+<tr>
+<td>Command + Shift + E</td>
+<td>扩展编辑器</td>
+</tr>
+<tr>
+<td>Command + [</td>
+<td>左移代码块</td>
+</tr>
+<tr>
+<td>Command + ]</td>
+<td>右移代码块</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>接受代码提示</td>
+</tr>
+<tr>
+<td>Esc</td>
+<td>显示代码提示菜单</td>
+</tr>
+<tr>
+<td>Ctrl + . （句点）</td>
+<td>循环浏览代码提示</td>
+</tr>
+<tr>
+<td>Shift + Ctrl + . （句点）</td>
+<td>反向循环浏览代码提示</td>
+</tr>
+<tr>
+<td>Ctrl + &#x2F;</td>
+<td>移动到代码提示中的下一个占位符</td>
+</tr>
+<tr>
+<td>Command + Ctrl + S</td>
+<td>创建快照</td>
+</tr>
+<tr>
+<td>Ctrl + F</td>
+<td>前移光标</td>
+</tr>
+<tr>
+<td>Ctrl + B</td>
+<td>后移光标</td>
+</tr>
+<tr>
+<td>Ctrl + P</td>
+<td>移动光标到上一行</td>
+</tr>
+<tr>
+<td>Ctrl + N</td>
+<td>移动光标到下一行</td>
+</tr>
+<tr>
+<td>Ctrl + A</td>
+<td>移动光标到本行行首</td>
+</tr>
+<tr>
+<td>Ctrl + E</td>
+<td>移动光标到本行行尾</td>
+</tr>
+<tr>
+<td>Ctrl + T</td>
+<td>交换光标左右两边的字符</td>
+</tr>
+<tr>
+<td>Ctrl + D</td>
+<td>删除光标右边的字符</td>
+</tr>
+<tr>
+<td>Ctrl + K</td>
+<td>删除本行</td>
+</tr>
+<tr>
+<td>Ctrl + L</td>
+<td>将插入点置于窗口正中</td>
+</tr>
+<tr>
+<td>Command + Alt + D</td>
+<td>显示open quickly 窗口</td>
+</tr>
+<tr>
+<td>Command + Alt + 上方向键</td>
+<td>打开配套文件</td>
+</tr>
+<tr>
+<td>Command + D</td>
+<td>添加书签</td>
+</tr>
+<tr>
+<td>Option + 双击</td>
+<td>在文档中搜索</td>
+</tr>
+<tr>
+<td>Command + Y</td>
+<td>以调试方式运行程序</td>
+</tr>
+<tr>
+<td>Command + Alt + P</td>
+<td>继续（在调试中）</td>
+</tr>
+<tr>
+<td>Command + Alt + 0</td>
+<td>跳过</td>
+</tr>
+<tr>
+<td>Command + Alt + I</td>
+<td>跳入</td>
+</tr>
+<tr>
+<td>Command + Alt + T</td>
+<td>跳出</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ios/" rel="tag"># ios</a>
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-03-06-ios-application-plist-diff/" rel="prev" title="iOS Project与OS X Project中plist使用区别">
+                  <i class="fa fa-chevron-left"></i> iOS Project与OS X Project中plist使用区别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-03-02-oauth2-protocol/" rel="next" title="OAuth2.0 协议">
+                  OAuth2.0 协议 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 并发概念浅析">
+<meta property="og:url" content="https://chars.tech/2016-05-26-ios-simultaneously/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-05-26T00:32:15.000Z">
+<meta property="article:modified_time" content="2018-08-03T05:05:27.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="线程">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chars.tech/2016-05-26-ios-simultaneously/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-05-26-ios-simultaneously/","path":"2016-05-26-ios-simultaneously/","title":"iOS 并发概念浅析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS 并发概念浅析 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">一、线程和任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%EF%BC%89%E4%BB%BB%E5%8A%A1%EF%BC%88task%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1）任务（task）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%EF%BC%89%E7%BA%BF%E7%A8%8B%EF%BC%88thread%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2）线程（thread）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A6%82%E5%BF%B5%E9%87%8A%E7%96%91"><span class="nav-number">3.</span> <span class="nav-text">二、概念释疑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%EF%BC%89%E5%B9%B6%E8%A1%8C%EF%BC%88parallelism%EF%BC%89%E5%92%8C%E5%B9%B6%E5%8F%91%EF%BC%88concurrency%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">1）并行（parallelism）和并发（concurrency）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%EF%BC%89%E4%B8%B2%E5%B9%B6%E8%A1%8C%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.2.</span> <span class="nav-text">2）串并行与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%EF%BC%88serial%EF%BC%89%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="nav-number">3.2.1.</span> <span class="nav-text">串行（serial）和并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B2%E5%B9%B6%E8%A1%8C%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.2.2.</span> <span class="nav-text">串并行与线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%EF%BC%89%E5%90%8C%E6%AD%A5%EF%BC%88synchronize%EF%BC%89%E3%80%81%E5%BC%82%E6%AD%A5%EF%BC%88asynchronous%EF%BC%89%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.3.</span> <span class="nav-text">3）同步（synchronize）、异步（asynchronous）与线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%EF%BC%89%E5%90%8C%E5%BC%82%E6%AD%A5%E4%B8%8E%E4%B8%B2%E5%B9%B6%E8%A1%8C"><span class="nav-number">3.4.</span> <span class="nav-text">4）同异步与串并行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81GCD%E4%B8%8ENSOperationQueue"><span class="nav-number">4.</span> <span class="nav-text">三、GCD与NSOperationQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%EF%BC%89GCD"><span class="nav-number">4.1.</span> <span class="nav-text">1）GCD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%EF%BC%89NSOperationQueue"><span class="nav-number">4.2.</span> <span class="nav-text">2）NSOperationQueue</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F"><span class="nav-number">5.</span> <span class="nav-text">四、总结与感悟</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-05-26-ios-simultaneously/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS 并发概念浅析 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS 并发概念浅析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-05-26 08:32:15" itemprop="dateCreated datePublished" datetime="2016-05-26T08:32:15+08:00">2016-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pieces/" itemprop="url" rel="index"><span itemprop="name">pieces</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>并发（concurrency）是一个常用且较好的解决APP的流畅度方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。本文主要分享对一些易混淆概念的理解。</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在进行iOS开发过程中，我们常会遇到网络请求、复杂计算、数据存取等比较耗时的操作，如果处理不合理，将对APP的流畅度产生较大影响。除了优化APP架构，并发（concurrency）是一个常用且较好的解决方法，但并发涉及串行、并发、并行、同步、异步、多线程、GCD、NSOperation和NSOperationQueue等诸多容易混淆的概念。接下来，主要分享对一些易混淆概念的理解。</p>
+<h1 id="一、线程和任务"><a href="#一、线程和任务" class="headerlink" title="一、线程和任务"></a>一、线程和任务</h1><p>线程（thread） 和任务（task）是其他并发概念的基础，因此也是首要需理清的概念，以下是其要点，详细可参考<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Thread_%28computing%29">Thread (computing)</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Task_%28computing">Task (computing)</a>。</p>
+<h2 id="1）任务（task）"><a href="#1）任务（task）" class="headerlink" title="1）任务（task）"></a>1）任务（task）</h2><p>a）任务（task）是从程序中划分出来，可以独立执行的代码片段；</p>
+<p>b）任务间可以添加依赖关系，如B任务依赖A任务，taskB.addDependency(taskA)，这意味着B任务的执行以A任务完成为前提。</p>
+<p>需要注意的是一个任务是否可以添加依赖，完全取决于任务封装类和其相关管理类的具体实现，GCD不支持任务依赖，NSOperationQueue就支持任务依赖。</p>
+<p>下面的代码是对一个任务的简单封装，并支持任务间的依赖。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//Task是一个任务的简单封装类</span><br><span class="line">class Task &#123;</span><br><span class="line">    let taskBlock: () -&gt; ()</span><br><span class="line">    var dependencies = [Task]() </span><br><span class="line">    init(block: () -&gt; ()) &#123;</span><br><span class="line">        taskBlock = block</span><br><span class="line">    &#125; </span><br><span class="line">    func addDependency(task: Task) &#123;</span><br><span class="line">        dependencies.append(task)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//初始化两个自定义任务</span><br><span class="line">var taskA = Task()&#123;</span><br><span class="line">    //自定义任务A，自定义需要执行的代码</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br><span class="line">var taskB = Task()&#123;</span><br><span class="line">    //自定义任务B，自定义需要执行的代码</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br><span class="line">//添加依赖关系</span><br><span class="line">taskB.addDependency(taskA)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2）线程（thread）"><a href="#2）线程（thread）" class="headerlink" title="2）线程（thread）"></a>2）线程（thread）</h2><p>a）线程（thread）是代码执行的独立路径，一条线程只能同时执行一行代码（一行代码，其实就是一条处理器命令）。</p>
+<p>b）线程中代码管理是以任务（task）为单位，一条线程逐行执行一个任务中的代码（任务可以取消），完成后再逐行执行下一个任务中的代码。</p>
+<p>c）一条线程跳出一个任务的执行，即意味着这个任务的完成。因此，一条线程不能执行taskA一段时间后，还未完成就开始执行taskB，然后又返回执行taskA（这其实是单线程内的并发，与单核处理器的并发概念相同，具体实践中不存在线程内并发）。</p>
+<h1 id="二、概念释疑"><a href="#二、概念释疑" class="headerlink" title="二、概念释疑"></a>二、概念释疑</h1><h2 id="1）并行（parallelism）和并发（concurrency）"><a href="#1）并行（parallelism）和并发（concurrency）" class="headerlink" title="1）并行（parallelism）和并发（concurrency）"></a>1）并行（parallelism）和并发（concurrency）</h2><p>并发和并行都是指多个任务可以同时执行，都属于多线程编程概念，因此二者必然十分相近，容易混淆。二者区别只有一点，即是否多任务执行于严格的同一时刻。并发不是，而并行是。</p>
+<p>单核处理器时代（一个处理器同一时刻只能执行一条命令），为了实现多任务的同时执行，系统利用时间分片（time-slicing）技术，将处理器的执行时间切分为多个小片段，一会执行threadA，一会执行threadB，一会再执行threadA，即在多个线程（任务是在线程上执行的）之间来回跳动执行。虽不是真的多线程多任务同时执行，但由于处理器的处理速度非常快，在用户看来，仍然是同时执行的。这种伪多线程就是并发。</p>
+<p>多核处理器时代（不同处理器相互独立，可以同时执行各自的命令），多条线程完全可以严格同一时刻执行，这种真多线程就是并行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//三个线程的并发</span><br><span class="line">thread1 -&gt; |---A---|             -&gt;|---A---|</span><br><span class="line">thread2 ------&gt;    -&gt;|------B----|</span><br><span class="line">thread3 ------------------------------------&gt; |------C------|</span><br></pre></td></tr></table></figure>
+<p>上述代码是三个线程的并发执行，可以看出thread1、thread2和thread3不可能严格同一时刻执行，但也都获得了处理器的一小段执行时间。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//三个线程的并行</span><br><span class="line">thread1 -&gt; |-----A-----|</span><br><span class="line">thread2 -&gt;       |------B----|</span><br><span class="line">thread3 -&gt;     |------C------|</span><br></pre></td></tr></table></figure>
+<p>上述代码是三个线程的并行执行，可以看出thread1、thread2和thread3有一段时间同时执行。</p>
+<p>现在的终端设备无论是手机还是PC的处理器，大多都已是多核处理器，可以实现并行计算，但为了最大化的利用处理器的性能，现代处理器还是融合了time-slicing技术和多核技术，因此实际运行中，有时并发，有时并行。但相对来说，并发是个更广泛的概念，因此Apple的多线程编程叫做concurrency programming并发编程。汉语中，并发和并行的区别其实没那么清晰，可以互用，而且有时用并行更加明确，如串并行比串行、并发针对性更强。（为概念清晰起见，下文中有时会用并行，其实即是并发。）</p>
+<h2 id="2）串并行与线程"><a href="#2）串并行与线程" class="headerlink" title="2）串并行与线程"></a>2）串并行与线程</h2><h3 id="串行（serial）和并行"><a href="#串行（serial）和并行" class="headerlink" title="串行（serial）和并行"></a>串行（serial）和并行</h3><p>串行和并行主要区别在于一个任务的执行是否以上一个任务的完成为前提。串行中，一个任务的执行必须以上一个任务执行结束为前提；并行中，一个任务的执行与上一个任务的执行状态无关。以排队买票为例，串行像单个买票队伍，单个卖票窗口，必须一个一个来；串行像单个买票队伍，多个卖票窗口，多个人可以同时买票。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//三个串行任务</span><br><span class="line">|-----A-----||------B--------||----C--|</span><br></pre></td></tr></table></figure>
+<p>上文为三个串行任务，任务A完成后，才执行任务B，B结束后，才最后执行任务C。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//三个并发任务</span><br><span class="line">|-----A-----|</span><br><span class="line">      |------B----|</span><br><span class="line">   |--C---|</span><br></pre></td></tr></table></figure>
+<p>上文为三个并行任务，任务A早于任务C开始，却晚于任务C结束。</p>
+<h3 id="串并行与线程"><a href="#串并行与线程" class="headerlink" title="串并行与线程"></a>串并行与线程</h3><p>串并行主要关注多个任务之间的相互依赖关系，与线程无关。但实际中，任务是在线程中执行的，是否串行一定在单线程上执行，并行一定在多个线程中执行呢？并非如此。</p>
+<p>单线程既可以实现串行，也可以实现并行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//单线程串行</span><br><span class="line">1 thread -&gt;   |----A-----||-----B-----------||-------C------|</span><br><span class="line">//单线程并行（理论上，实际中不可行）</span><br><span class="line">         A-Start ---------------------------------------- A-End  </span><br><span class="line">           | B-Start ----------------------------------------|--- B-End  </span><br><span class="line">           |   |     C-Start -------------------- C-End      |     |  </span><br><span class="line">           V   V       V                           V         V     V      </span><br><span class="line">1 thread-&gt; |-A-|---B---|-C-|-A-|-C-|--A--|-B-|--C--|---A-----|--B--|</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>需要指出的是单线程内的并行已经类似单核处理器，并不是本文提及的常规线程，现实中也不常见。</p>
+<p>多线程既可以实现串行，也可以实现并行，实际上，多线程串行和并行都很常见。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//多线程串行</span><br><span class="line">thread1 -&gt; |----A-----|  </span><br><span class="line">                       \  </span><br><span class="line">thread2 ---------------&gt;|-----B-----------|  </span><br><span class="line">                                           \  </span><br><span class="line">thread3 -----------------------------------&gt;|-------C------|</span><br><span class="line">//多线程并发</span><br><span class="line">thread1 -&gt;     |----A-----|</span><br><span class="line">thread2 -----&gt;     |-----B-----------|</span><br><span class="line">thread3 ---------&gt;     |-------C----------|</span><br></pre></td></tr></table></figure>
+
+<h2 id="3）同步（synchronize）、异步（asynchronous）与线程"><a href="#3）同步（synchronize）、异步（asynchronous）与线程" class="headerlink" title="3）同步（synchronize）、异步（asynchronous）与线程"></a>3）同步（synchronize）、异步（asynchronous）与线程</h2><p>同步和异步是站在当前线程的角度，考察添加任务到新线程后，何时返回到当前线程执行下面的代码的问题，也即新添加的线程阻不阻塞当前线程。</p>
+<ul>
+<li>同步</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">override viewDidLoad() &#123;</span><br><span class="line">    super.viewDidLoad()</span><br><span class="line">    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)</span><br><span class="line">    dispatch_sync(queue) &#123;</span><br><span class="line">        //block1</span><br><span class="line">        print(&quot;-----1-----&quot;) //1</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    print(&quot;-----2-----&quot;) //2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>block1是添加到系统全局队列中的新任务，由于是同步的，因此block1执行返回后，才会回到当前主线程，执行&#x2F;&#x2F;2及以后的代码。输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-----1-----</span><br><span class="line">-----2-----</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>异步</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//viewDidLoad()在主线程中执行，因此当前线程为主线程</span><br><span class="line">override viewDidLoad() &#123;</span><br><span class="line">    super.viewDidLoad()</span><br><span class="line">    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)</span><br><span class="line">    dispatch_async(queue) &#123;</span><br><span class="line">        //block1</span><br><span class="line">        print(&quot;-----1-----&quot;) //1</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    print(&quot;-----2-----&quot;) //2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>block1是添加到系统全局队列中的新任务，由于是异步的，因此block1添加全局队列后（会在另外一个线程上执行），不等到执行完成，就会返回到当前主线程，执行&#x2F;&#x2F;2及以后的代码，所以输出结果可能为 21 12。但由于block1和主线程中的任务都是不耗时的简单任务，而创建新的线程是要消耗一定时间的（主线程一直存在，不用新创建），因此很可能的输出结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-----2-----</span><br><span class="line">-----1-----</span><br></pre></td></tr></table></figure>
+<ul>
+<li>同异步结合的情形</li>
+</ul>
+<p>如果同异步结合:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//viewDidLoad()在主线程中执行，因此当前线程为主线程</span><br><span class="line">override viewDidLoad() &#123;</span><br><span class="line">    super.viewDidLoad()</span><br><span class="line">    let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)</span><br><span class="line">    dispatch_async(queue) &#123;</span><br><span class="line">        //block1</span><br><span class="line">        print(&quot;-----A-----&quot;) //1</span><br><span class="line">        dispatch_async(dispatch_get_main_queue()) &#123;</span><br><span class="line">            //block2</span><br><span class="line">            print(&quot;-----B-----&quot;) //2</span><br><span class="line">        &#125;</span><br><span class="line">        print(&quot;-----C-----&quot;) //3</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    print(&quot;-----D-----&quot;) //4</span><br><span class="line">    while(true) &#123; &#125; //5</span><br><span class="line">    print(&quot;-----E-----&quot;) //6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>block1是添加到系统全局队列中的新任务，由于是异步的，因此block1添加全局队列后（会在另外一个线程上执行），不等到执行完成，就返回到当前主线程，执行&#x2F;&#x2F;4及以后的代码，结果是block1所在的线程与主线程同时执行，因此理论上，D和A谁先输出不一定。但由于block1和主线程中的任务都是不耗时的简单任务，而创建新的线程是要消耗一定时间的（主线程一直存在，不用新创建），因此一般输出结果为DA。</p>
+<p>block1所在线程输出完A后，将block2添加到主调度队列中，由于是异步的，因此block2添加主调度队列后（会在主线程上执行），不等到执行完成，就返回到block2所在的线程，继续执行，因此A和C一定会输出，且C一定在A之后输出。但block2却不一定能执行，因为block1在执行时，主线程也在执行（主线程是串行单线程，任务按顺序一个一个执行），如果此时主线程执行到&#x2F;&#x2F;5对应的死循环，则block2一定不能被执行，B一定不能被输出，如果此时主线程尚未执行到&#x2F;&#x2F;5对应的死循环，block2已经添加到主线程中，则block2会被执行，B能被输出。但由于主线程无需另外创建，block1（所对应的线程需另外创建）执行到添加block2到主调度队列时，主线程很可能已经执行到&#x2F;&#x2F;5对应的死循环，因此block2很可能不被执行。</p>
+<p>&#x2F;&#x2F;6前有个死循环，因此E一定不会被输出。</p>
+<p>因此可能的输出结果是；DAC ADC ADCB DACB ACDB ACBD ABDC ABCD</p>
+<p>但很可能的输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-----D-----</span><br><span class="line">-----A-----</span><br><span class="line">-----C-----</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="4）同异步与串并行"><a href="#4）同异步与串并行" class="headerlink" title="4）同异步与串并行"></a>4）同异步与串并行</h2><p>串行和同步，并行和异步似是完全不同的概念，一个关注任务的独立关系，一个看中的是返回的时机。但事实上，串行和同步近似，并发和异步相同，他们指代的事情几乎完全相同。<br>就同步和串行而言，需要任务执行结束后才能返回，其实就是一个任务执行完成后，才能执行其他的任务，反应的就是串行依赖关系。</p>
+<p>而异步和并行就更相同了，不等任务执行完成，就直接返回，反应的就是并发任务之间的独立性。</p>
+<p>当然，同异步所暗含的串行和并行是当前线程的任务与新线程的任务之间的相互关系。</p>
+<h1 id="三、GCD与NSOperationQueue"><a href="#三、GCD与NSOperationQueue" class="headerlink" title="三、GCD与NSOperationQueue"></a>三、GCD与NSOperationQueue</h1><p>GCD(grand central dispatch)和NSOperationQueue二者均是系统级的多线程封装，在使用时，我们只需创建任务队列即可，其他的如线程创立、任务分配等，均由系统自动处理。不得不说，这让多线程编程变得更高效，更简单，当然并不是没有坑。<br>需要强调的是，GCD和NSOperationQueue的使用核心是任务（task）和任务队列（task queue），暂时可以忘了线程（thread）这烦人的概念。</p>
+<p>关于GCD和NSOperationQueue网上已经有不少高质量的文章对其详细介绍，推荐<a target="_blank" rel="noopener" href="http://www.cocoachina.com/ios/20160201/15179.html">《iOS并行开发：从NSOperation和调度队列开始》</a>，其对基本概念、使用方法等的介绍非常清晰详尽，这里就不再赘述，只写一些个人认为容易忽略却影响认知深度的小知识点。当然如果你英语过硬，去直接看官方文档<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html">《ConcurrencyProgrammingGuide》</a>是最好的。</p>
+<h2 id="1）GCD"><a href="#1）GCD" class="headerlink" title="1）GCD"></a>1）GCD</h2><p>GCD是基于C的API，因此比较底层。</p>
+<p>GCD所管理的调度队列（dispatch queue）主要有三类：串行队列（private dispatch queue）、并发队列 （global dispatch queue，又称全局调度队列）和主队列（main dispatch queue）。</p>
+<p>我们常用的 dispatch_get_global_queue(_: _:)所获得的dispatch queue就是全局调度队列(global dispatch queue)，并发，而且全局调度队列是全局共用的，每一个优先级的全局调度队列只有一个实体。四种不同优先级的全局调度队列对应的四种优先级的线程，同一个优先级的全局调度队列可以同时拥有多条相应优先级的线程。</p>
+<p>dispatch_get_main_queue()所获得的dispatch queue是主调度队列，主调度队列是串行队列。</p>
+<h2 id="2）NSOperationQueue"><a href="#2）NSOperationQueue" class="headerlink" title="2）NSOperationQueue"></a>2）NSOperationQueue</h2><p>NSOperationQueue是对GCD的Objective-C封装，相对于GCD具有更多先进的特性，如可以添加NSOperation依赖，取消NSOperation等。</p>
+<p>NSOperationQueue是并发队列，且不遵循先进先出（FIFO）排序原则。</p>
+<h1 id="四、总结与感悟"><a href="#四、总结与感悟" class="headerlink" title="四、总结与感悟"></a>四、总结与感悟</h1><p>1）串并行、同异步与线程无关，单线程、多线程都可以实现串并行和同异步。</p>
+<p>2）串行和同步相同，异步和并行相同，他们只是看待同一件事物的角度不同。</p>
+<p>3）GCD和NSOperationQueue的使用核心是任务（task）和任务队列（task queue）。</p>
+<p>4）全局调度队列(global dispatch queue)是全局共用的，系统有时也会向这些调度队列添加系统任务。</p>
+<ol start="5">
+<li>App的主调度队列是串行单线程队列。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ios/" rel="tag"># ios</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-05-31-build-blog-by-hexo/" rel="prev" title="手把手教 GitHub + Hexo 搭建博客">
+                  <i class="fa fa-chevron-left"></i> 手把手教 GitHub + Hexo 搭建博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-05-20-github-using/" rel="next" title="GitHub 使用">
+                  GitHub 使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

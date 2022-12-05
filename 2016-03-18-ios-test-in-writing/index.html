@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="博主之前从事嵌入式开发，本科专业软件工程。毕业后一直从事嵌入式C语言。之所以进入嵌入式行业，完全是个人兴趣。不过，在从业两年之后发现不是自己喜欢的菜。毅然决然的转型到iOS行业。然，博主并非参加培训学校出来，完全利用工作之余时间自学，现在已经在ZAKER工作，从事ZAKER客户端的iPhone版本开发。这里，博主分享一下之前找工作时，总结的笔试题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="说说那些iOS笔试题">
+<meta property="og:url" content="https://chars.tech/2016-03-18-ios-test-in-writing/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="博主之前从事嵌入式开发，本科专业软件工程。毕业后一直从事嵌入式C语言。之所以进入嵌入式行业，完全是个人兴趣。不过，在从业两年之后发现不是自己喜欢的菜。毅然决然的转型到iOS行业。然，博主并非参加培训学校出来，完全利用工作之余时间自学，现在已经在ZAKER工作，从事ZAKER客户端的iPhone版本开发。这里，博主分享一下之前找工作时，总结的笔试题。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-test-in-writing-1.png">
+<meta property="article:published_time" content="2016-03-18T13:54:56.000Z">
+<meta property="article:modified_time" content="2019-04-08T14:36:39.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="碎碎念">
+<meta property="article:tag" content="ios">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/ios-test-in-writing-1.png">
+
+
+<link rel="canonical" href="https://chars.tech/2016-03-18-ios-test-in-writing/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-03-18-ios-test-in-writing/","path":"2016-03-18-ios-test-in-writing/","title":"说说那些iOS笔试题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>说说那些iOS笔试题 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%8E%E7%AD%94%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">题目与答案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%87%E8%AF%95%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">中文试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8B%B1%E6%96%87%E8%AF%95%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">英文试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E7%AD%94%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">简答题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.4.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="nav-number">1.5.</span> <span class="nav-text">编程题</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-03-18-ios-test-in-writing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="说说那些iOS笔试题 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          说说那些iOS笔试题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-18 21:54:56" itemprop="dateCreated datePublished" datetime="2016-03-18T21:54:56+08:00">2016-03-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/talk/" itemprop="url" rel="index"><span itemprop="name">talk</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>博主之前从事嵌入式开发，本科专业软件工程。毕业后一直从事嵌入式C语言。之所以进入嵌入式行业，完全是个人兴趣。不过，在从业两年之后发现不是自己喜欢的菜。毅然决然的转型到iOS行业。然，博主并非参加培训学校出来，完全利用工作之余时间自学，现在已经在ZAKER工作，从事ZAKER客户端的iPhone版本开发。这里，博主分享一下之前找工作时，总结的笔试题。</p>
+<span id="more"></span>
+
+<h1 id="题目与答案"><a href="#题目与答案" class="headerlink" title="题目与答案"></a>题目与答案</h1><p>答案仅供参考，如有异议或者错误，请指正。</p>
+<h2 id="中文试题"><a href="#中文试题" class="headerlink" title="中文试题"></a>中文试题</h2><ul>
+<li><code>#import 跟#include、@class有什么区别？#import&lt;&gt;跟 #import&quot;&quot;又什么区别？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1) #import和#include都能完整地包含某个文件的内容，#import能防止同一个文件被包含多次</span><br><span class="line">2) @class仅仅是声明一个类名，并不会包含类的完整声明;@class还能解决循环包含的问题</span><br><span class="line">3) #import &lt;&gt;用来包含系统自带的文件，#import “”用来包含自定义的文件</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>属性readwrite，readonly，assign，retain，copy，nonatomic各是什么作用，在那种情况下用？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">readwrite：同时生成get方法和set方法的声明和实现</span><br><span class="line">readonly：只生成get方法的声明和实现</span><br><span class="line">assign：set方法的实现是直接赋值，用于基本数据类型</span><br><span class="line">retain：set方法的实现是release旧值，retain新值，用于OC对象类型</span><br><span class="line">copy：set方法的实现是release旧值，copy新值，用于NSString、block等类型</span><br><span class="line">nonatomic：非原子性，set方法的实现不加锁（比atomic性能高）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>写一个setter方法用于完成@property （nonatomic,retain）NSString *name,写一个setter方法用于完成@property（nonatomic，copy）NSString *name.</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, retain) NSString *name;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">	if (_name != name) &#123;</span><br><span class="line">		[_name release];</span><br><span class="line">		_name = [name retain];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic, copy) NSString *name;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">	if (_name != name) &#123;</span><br><span class="line">		[_name release];</span><br><span class="line">		_name = [name copy];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>对于语句NSString*obj = [[NSData alloc] init]; ，编译时和运行时obj分别是什么类型？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">编译时是NSString类型</span><br><span class="line">运行时是NSData类型</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>常见的object-c的数据类型有那些，和C的基本数据类型有什么区别？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">常用OC类型：NSString、NSArray、NSDictionary、NSData、NSNumber等</span><br><span class="line">OC对象需要手动管理内存，C的基本数据类型不需要管理内存</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>id 声明的变量有什么特性？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id声明的变量能指向任何OC对象</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Objective-C如何对内存管理的,说说你的看法和解决方法?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">每个对象都有一个引用计数器，每个新对象的计数器是1，当对象的计数器减为0时，就会被销毁</span><br><span class="line">通过retain可以让对象的计数器+1、release可以让对象的计数器-1</span><br><span class="line">还可以通过autorelease pool管理内存</span><br><span class="line">如果用ARC，编译器会自动生成管理内存的代码</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>内存管理的几条原则时什么？按照默认法则.哪些方法生成的对象需要手动释放？在和property结合的时候怎样有效的避免内存泄露？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">只要调用了alloc、copy、new方法产生了一个新对象，都必须在最后调用一次release或者autorelease</span><br><span class="line">只要调用了retain，都必须在最后调用一次release或者autorelease</span><br><span class="line">@property如果用了copy或者retian，就需要对不再使用的属性做一次release操作</span><br><span class="line">如果用了ARC，另外讨论.</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>看下面的程序,三次NSLog会输出什么？为什么？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray* ary = [[NSMutableArray array] retain];  </span><br><span class="line">NSString *str = [NSString stringWithFormat:@&quot;test&quot;];  // 1 </span><br><span class="line">[strretain];   // 2</span><br><span class="line">[aryaddObject:str]; // 3  </span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);  </span><br><span class="line">[strretain];  // 4</span><br><span class="line">[strrelease];   // 3</span><br><span class="line">[strrelease];   // 2</span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);  </span><br><span class="line">[aryremoveAllObjects]; // 1  </span><br><span class="line">NSLog(@&quot;%d&quot;,[str retainCount]);</span><br></pre></td></tr></table></figure>
+<p>  <br>结果：3、2、1</p>
+<ul>
+<li><code>OC中创建线程的方法是什么？如果指定在主线程中执行代码？如何延时执行代码？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">创建线程的方法</span><br><span class="line">NSThread</span><br><span class="line">NSOperationQueue和NSOperation</span><br><span class="line">GCD</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">主线程中执行代码</span><br><span class="line">[self performSelectorOnMainThread: withObject: waitUntilDone:];</span><br><span class="line">[self performSelector: onThread:[NSThreadmainThread] withObject: waitUntilDone:];</span><br><span class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">延时执行</span><br><span class="line">double delayInSeconds = 2.0;</span><br><span class="line">dispatch_time_tpopTime = dispatch_time(DISPATCH_TIME_NOW, </span><br><span class="line">(int64_t)(delayInSeconds * NSEC_PER_SEC));</span><br><span class="line">dispatch_after(popTime, dispatch_get_main_queue(), ^(void)&#123;        </span><br><span class="line">&#125;);</span><br><span class="line">[self performSelector: withObject: afterDelay:];</span><br><span class="line">[NSTimer scheduledTimerWithTimeInterval: target: selector: userInfo: repeats:];</span><br></pre></td></tr></table></figure>
+
+<h2 id="英文试题"><a href="#英文试题" class="headerlink" title="英文试题"></a>英文试题</h2><p><strong>提示：</strong> 一定要把英文题目过一遍，有些公司的题目故意弄成英文的。</p>
+<ul>
+<li><code>Difference between shallow copy and deep copy?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">浅拷贝：指针（地址）拷贝，不会产生新对象</span><br><span class="line">深拷贝：内容拷贝，会产生新对象</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is advantage of categories? What is difference between implementing a category and inheritance?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分类可以在不修改原来类模型的基础上拓充方法</span><br><span class="line">分类只能扩充方法、不能扩充成员变量；继承可以扩充方法和成员变量</span><br><span class="line">继承会产生新的类</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Difference between categories and extensions?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分类是有名称的，类扩展没有名称</span><br><span class="line">分类只能扩充方法、不能扩充成员变量；类扩展可以扩充方法和成员变量</span><br><span class="line">类扩展一般就写在.m文件中，用来扩充私有的方法和成员变量（属性）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Difference between protocol in objective c and interfaces in java?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Java的接口中声明的方法必须都实现</span><br><span class="line">Oc的protocol中声明的方法并不一定要实现</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What are KVO and KVC?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">KVC是键值编码，可以通过一个字符串的key（属性名）修改对象的属性值</span><br><span class="line">KVO是键值监听，可以监听一个对象属性值的改变</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is purpose of delegates?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">两个对象之间传递数据和消息</span><br><span class="line">解耦，拆分业务逻辑</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What are mutable and immutable types in Objective C?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mutable是可变类型，比如NSMutableArray，可以动态往里面添加元素</span><br><span class="line">immutable是不可变类型，比如NSArray，固定的存储空间，不能添加元素</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>When we call objective c is runtime language what does it mean?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">动态绑定：对象类型在运行时才真正确定</span><br><span class="line">多态性</span><br><span class="line">消息机制</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>what is difference between NSNotification and protocol?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过NSNotification可以给多个对象传递数据和消息</span><br><span class="line">通过protocol（代理模式）只能给一个对象传递数据和消息</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is push notification?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">本地推送：程序内部弹出通知到用户设备</span><br><span class="line">远程推送：由推送服务器推送通知到用户设备</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is Polymorphism？</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多态：父类指针指向子类对象</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is Singleton?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单例：保证程序运行过程中，永远只有一个对象实例</span><br><span class="line">目的是：全局共享一份资源、节省不必要的内存开销</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is responder chain?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">响应者链：</span><br><span class="line">UIResponder有一个nextResponder属性，通过该属性可以组成一个响应者链，事件或消息在其路径上进行传递</span><br><span class="line">如果UIResponder没有处理传给它的事件，会将未处理的消息转发给自己的nextResponder</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/images/tech/ios-test-in-writing-1.png" alt="响应链"></p>
+<ul>
+<li><code>Difference between frame and bounds?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame以父控件的左上角为坐标原点</span><br><span class="line">bounds以控件本身的左上角为坐标原点</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Difference between method and selector?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过一个selector可以找到方法地址，进而调用一个方法</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Is there any garbage collection mechanism in Objective C.?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OC 1.0没有垃圾回收</span><br><span class="line">OC 2.0有垃圾回收，只能用在Mac上</span><br><span class="line">iOS中有ARC机制，是编译器特性，垃圾回收是运行时特性</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is NSOperation queue?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用来存放NSOperation对象的队列，可以用来异步执行一些操作</span><br><span class="line">一般可以用在网络请求等耗时操作</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Can we use one tableview with two different datasources? How you will achieve this?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从对象属性上分析，tableView只有一个dataSource属性。当然，真要使用两个不同的数据源，还是有其他办法解决的</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Can we use two tableview controllers on one viewcontroller?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从技术角度上分析，一个控制器内部添加两个表格控制器是没有问题的</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>What is lazy loading?</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">延迟加载：比如控制器的view，在第一次用到view时才会调用loadView方法进行创建</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>链表不具备的特点是（）</li>
+</ul>
+<p>A. 可随机访问任何一个元素</p>
+<p>B. 插入，删除操作不需要移动元素</p>
+<p>C. 无需事先估计存储空间大小</p>
+<p>D. 所欲存储空间可以是不连续的</p>
+<p>参考答案： （A）<br>链表不同于数组。链表之所有叫链表，就是像一条链一样，要过到某个节点处，就得遍历着找；而数组才具备随机访问任何一个元素的能力，数组可以通过索引直接访问元素，时间复杂度为常量，效率非常高，因此在某些场合上，我们需要数组这样的数据结构。</p>
+<p>B. 链表的插入、删除都不需要移动元素，只需要修改指针的指向就可以了，因为链表上的每个节点都是动态分配的，分配在堆上，通过指针来指向每个节点的内存区，要获取某个节点的值，是需要遍历一遍才能找到对应的节点的。</p>
+<p>C. 因为链表上的每个节点是分配在堆上，需要开发人员手动申请内存空间的，因此不像数组在定义时就要指定存储空间大小。对于链表，需要增加一个节点时，直接在堆上申请。当需要删除某个节点时，可以直接将该节点的内存给释放掉。</p>
+<p>D. 因为链接中的节点都是存储在堆上的，而每个节点之间都有一个指向前一个节点和后一个节点的指针，只要知道链表头指针，就可以通过遍历查找到任何一个节点。因此，链表不同于数组，数组是要连续的内存存储空间，才能保证以常量时间复杂度快速访问任意元素；而链表不要求每个节点是连接，在堆上申请的内存空间很难得到连续的，而且空间产生内存碎片。</p>
+<ul>
+<li>关于多线程和多进程编程，下面描述正确的是（）</li>
+</ul>
+<p>A. 多进程里，子进程可获取父进程的所有堆和栈的数据；而线程会与同进程的其他线程共享数据，拥有自己的栈空间。</p>
+<p>B. 线程因为有自己的独立栈空间且共享数据，所有执行的开销相对较大，同时不利于资源管理和保护。</p>
+<p>C. 线程的通信速度更快，切换更快，因为他们在同一地址空间内。</p>
+<p>D. 线程使用公共变量&#x2F;内存时需要使用同步机制，因为他们在同一地址空间内。</p>
+<ul>
+<li>设两个变量a&#x3D;19;b&#x3D;29;在不创建新实例的情况下使a、b的值互换？</li>
+</ul>
+<p>参考答案：</p>
+<p>这道题要求不创建新的实例，只有a、b两个变量，要交换这两个变量的值，通常的做法是使用临时变量来临时存储，但是现在要求不使用新的实例，那么有什么办法呢？</p>
+<p>方法就是通过位运算来操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a ^ b;</span><br><span class="line">b = a ^ b;</span><br><span class="line">a = a ^ b;</span><br></pre></td></tr></table></figure>
+<p>对于题目中的a &#x3D; 19，也就是对应二进制00010011；而b&#x3D;29，也就是对应二进制00011101</p>
+<p>第一步：a &#x3D; 00010011 ^ 00011101 &#x3D;&gt; 00001110，将a、b的值都记录下来了</p>
+<p>第二步：b &#x3D; 00001110 ^ 00011101 &#x3D;&gt; 00010011（值为19，也就是b得到了原来的a的值）</p>
+<p>第三步：a &#x3D; 00001110 ^ 00010011 &#x3D;&gt; 00011101 (值为29，也就是a得到了原来的b的值)</p>
+<p>注意，符号表示按位异或。所谓按位异或是指对应位置上的二进制数值相同为0，不同为1。</p>
+<ul>
+<li>使用block时什么情况会发生引用循环，如何解决？</li>
+</ul>
+<p>参考答案：<a target="_blank" rel="noopener" href="http://www.henishuo.com/ios-block-memory-cycle">http://www.henishuo.com/ios-block-memory-cycle</a></p>
+<ul>
+<li>为什么要序列化，对象序列化方式？</li>
+</ul>
+<p>参考答案：</p>
+<p>将对象JSON序列化： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NSLog(@&quot;%s&quot;, __FUNCTION__);</span><br><span class="line">NSDictionary *dict = @&#123;@&quot;key&quot;  : @&quot;value&quot;,</span><br><span class="line">                     @&quot;key1&quot; : @&quot;value1&quot;,</span><br><span class="line">                     @&quot;key2&quot; : @&quot;value2&quot;&#125;;</span><br><span class="line">NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];</span><br><span class="line">NSLog(@&quot;%@&quot;, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);</span><br></pre></td></tr></table></figure>
+
+<p>将对象归档：需要遵守NSCoding协议，实现如下方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)encodeWithCoder:(NSCoder *)aCoder &#123;</span><br><span class="line">  [aCoder encodeObject:self.title forKey:@&quot;title&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>简述如何处理UI与耗时操作的通信，有哪些方式及各自的优缺点？</li>
+</ul>
+<p>参考答案：</p>
+<p>1）将耗时的计算和IO操作放在子线程去处理，然后到主线程更新UI。优点是采用预加载方式，将耗时操作提前处理。优点是可让UI更流畅；缺点是内存会增多，控制加载逻辑比较复杂。</p>
+<p>2）采用延迟加载方式，将耗时操作而不立刻使用时，采用延迟加载。优点是界面可提高流畅度；缺点是在需要显示时还需要加载才能显示，需要稍稍等待。</p>
+<ul>
+<li>如何优化一个TableView？</li>
+</ul>
+<p>参考答案：</p>
+<p>1）若高度一定，直接使用rowHeight属性而不是使用heightForRowAtIndexPath方法，以减少调用的消耗。若高度是不固定的，heightForRowAtIndexPath所计算的高度应该缓存起来，每次数据源发生变化时，比如删除、插入、更新行都会重新请求所有的高度。若有100个行，就会有调用100次，因为将高度缓存起来是应该的。同理，heightForHeaderInSection、heightForFooterInSection也应该缓存起来。</p>
+<p>2）不要在tableView:cellForRowAtIndexPath:中做太多的计算和IO操作，比如可以将需要的计算提前计算好、IO操作也提前计算好。它应该直接调用来显示就可以。</p>
+<p>3）将计算行高的时间提前到从服务器获取数据的时候，计算完了高度一并写回数据库或者通过转型为model，将高度放到模型中。但是，最好将高度缓存起来。若一个model的数据有不同的状态，比如展开与收起状态，应该也将高度都缓存起来。注意使用异步去计算，计算完成后再回到主线程显示。</p>
+<p>4）在设置显示图片时，不要直接设置UIImageView的contentMode属性自动适应，图片变形会计算transform，压缩时会乘以一个矩阵，消耗性能。对于要求性能较高的app，应该将得到的图片经过处理成UIImageView大小后再呈现。</p>
+<p>5）不要将视图的opaque属性设置为NO，默认为YES,它表示不透明度。当opque为NO的时候，图层的半透明取决于图片和其本身合成的图层为结果。</p>
+<p>6）layer添加圆角是比较耗时的，这样会离屏渲染，需要牺牲更多的性能。比如，图片显示有圆角时，可以通过core graphics来生成带圆角的图片等。</p>
+<p>7）手动绘制cell。绘制cell不建议使用UIView，建议使用CALayer。 UIView的绘制是建立在CoreGraphic上的，其使用的是CPU。CALayer使用的是Core Animation，CPU、GPU都可以使用且由系统自动决定使用哪一个。UIView的绘制，使用的是自下向上的一层一层的绘制，而后渲染。Layer处理的是纹理，利用GPU的 Texture Cache和独立的浮点数计算单元可以加速纹理的处理。</p>
+<p>8）重用cell。防止重复的绘制，减少渲染次数，可提高性能。</p>
+<p>9）减少subviews的数量。尽量放在同一层view上显示。</p>
+<p>10）尽量少动态给cell添加子view。用addView给Cell动态添加View，可以初始化时就添加，然后通过hide来控制是否显示。</p>
+<p>更多参看：<br><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/">http://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/</a></p>
+<h2 id="简答题"><a href="#简答题" class="headerlink" title="简答题"></a>简答题</h2><ul>
+<li>假设类SomeClass中声明了一个委托属性delegate，该属性遵守自定义委托协议SomeDelegate，请写出该类和对应委托协议的定义？</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@protocol SomeDelegate&lt;NSObject&gt;</span><br><span class="line">@required //必须要实现的方法</span><br><span class="line">@optional //可选实现的方法</span><br><span class="line">@end</span><br><span class="line">@interface SomeClass</span><br><span class="line">@property (nonatomic, assign)id &lt;SomeDelegate&gt; delegate;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>简述UITableView的重用机制，并写出实现该机制的关键代码？</li>
+</ul>
+<p>关键代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;cellId&quot;];</span><br><span class="line">    if (cell == nil) &#123;</span><br><span class="line">        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@&quot;cellId&quot;];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>简述推送实现步骤？</p>
+</li>
+<li><p>定义一个带参宏，返回两个参数中较小的那个？</p>
+</li>
+<li><p>strong和weak分别起什么作用？有什么区别？</p>
+</li>
+<li><p>执行下面程序后NSLog的输出结果为（  C  ）？</p>
+</li>
+</ul>
+<p>A.1，1    B.2，1    C.2，5    D.运行错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a[5] = &#123;1,2,3,4,5&#125;;</span><br><span class="line">int *ptr = (int *)(&amp;a+1);</span><br><span class="line">NSLog(@“%d,%d”, *(a+1), *(ptr-1));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行下面程序后NSLog的输出结果为（  B  ）？</li>
+</ul>
+<p>A.a，a1，a1    B.a1，a1，a1    C.a1，a，a    D.a1，a1，a</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, char *argv[])&#123;</span><br><span class="line">    NSArray *mArray1 = [NSMutableArray arrayWithObjects:[NSMutableString stringWithString:@&quot;a&quot;], @&quot;b&quot;, @&quot;c&quot;, nil];</span><br><span class="line">        NSArray *mArrayCopy2 = [mArray1 copy];</span><br><span class="line">        NSMutableArray *mArrayMCopy1 = [mArray1 mutableCopy];</span><br><span class="line">        NSMutableString *testString = [mArray1 objectAtIndex:0];</span><br><span class="line">        [testString appendString:@&quot;1&quot;];</span><br><span class="line">        NSLog(@&quot;%@,%@,%@&quot;, [mArray1 objectAtIndex:0],[mArrayCopy2 objectAtIndex:0],[mArrayMCopy1 objectAtIndex:0]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Cocoa中所有的类都是（  NSObject和NSProxy  ）的子类。</p>
+</li>
+<li><p>列举几个Cocoa Touch框架？</p>
+</li>
+</ul>
+<p>Foundation、UIKit、Core Data</p>
+<ul>
+<li>下面机型屏幕分辨率分别是多少？</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iPhone4、4S：960X640</span><br><span class="line">iPhone5、5S、5C：1136X640</span><br><span class="line">iPhone6：375X667</span><br><span class="line">iPhone6 Plus：414X736</span><br><span class="line">iPad mini：1024X768</span><br><span class="line">iPad mini 2：2048X1536</span><br><span class="line">iPad Air：2048X1536</span><br><span class="line">iPad Air 2：2048X1536</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Objective-C中的线程类是（   NSThread ），常见方法有哪些（  dispatch_async  ）、（  dispatch_sync  ），处理多线程同步有哪些类（    ）。</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>现有MySQL数据库，分别对下表写出要求的SQL语句，用到实例数据请自行给出即可。</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UserID</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>UserName</td>
+<td>varchar(20)</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>varchar(20)</td>
+</tr>
+</tbody></table>
+<p>创建表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE  TABLE `test`.`table_a` (</span><br><span class="line">  `UserID` INT NOT NULL ,</span><br><span class="line">  `UserName` VARCHAR(20) NULL ,</span><br><span class="line">  `Password` VARCHAR(20) NULL ,</span><br><span class="line">  PRIMARY KEY (`UserID`) );</span><br></pre></td></tr></table></figure>
+
+<p>增加记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into `test`.`table_a` ( `UserName`, `UserID`, `Password`) values ( &#x27;cd&#x27;, &#x27;10&#x27;, &#x27;123&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>删除记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from `test`.`table_a` where `UserID`=’10&#x27;</span><br><span class="line">修改记录：update `test`.`table_a` set `Password`=&#x27;12346&#x27; where `UserID`=&#x27;10&#x27; </span><br></pre></td></tr></table></figure>
+
+<h2 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h2><p>1.请通过接口“<a target="_blank" rel="noopener" href="http://someurl/somefunc%E2%80%9D%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%B9%B6%E5%9C%A8UI%E4%B8%8A%E6%98%BE%E7%A4%BA%E3%80%82%E6%8E%A5%E5%8F%A3%E5%85%A5%E5%8F%82argu%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%AD%97%E5%85%B8%E3%80%82">http://someurl/somefunc”获取数据，并在UI上显示。接口入参argu是一个字符串类型的变量，返回值是字典。</a></p>
+<p>1）使用NSURL相关API实现网络加载类，其中：通过post方法发送请求，建立异步连接；</p>
+<p>2）报文采用JSON格式；</p>
+<p>3）多线程采用GCD或NSOperation实现；</p>
+<p>4）以左边键右边值的格式在界面上显示结果。</p>
+<p>2.传入数组*array和数组长度length，实现冒泡排序算法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int *BubbleSort(int *array, int length);</span><br><span class="line"></span><br><span class="line">int *BubbleSort(int *array, int length) &#123;</span><br><span class="line">    int i = 0, j = 0, temp = 0;</span><br><span class="line">    if (NULL == array) &#123;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    for (i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        for (j = i; j &lt; length; j++) &#123;</span><br><span class="line">            if (*(array + i) &gt; *(array + j)) &#123;</span><br><span class="line">                temp = *(array + i);</span><br><span class="line">                *(array + i) = *(array + j);</span><br><span class="line">                *(array + j) = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag"># 碎碎念</a>
+              <a href="/tags/ios/" rel="tag"># ios</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-03-23-class-dump-using/" rel="prev" title="聊聊 class-dump 使用">
+                  <i class="fa fa-chevron-left"></i> 聊聊 class-dump 使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-03-15-objc-quote-count/" rel="next" title="Objective-C中的引用计数">
+                  Objective-C中的引用计数 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

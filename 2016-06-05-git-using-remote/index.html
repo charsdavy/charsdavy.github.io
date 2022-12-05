@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为&#x2F;gɪt&#x2F;。 Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。 Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 使用 - 远程操作">
+<meta property="og:url" content="https://chars.tech/2016-06-05-git-using-remote/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为&#x2F;gɪt&#x2F;。 Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。 Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/git-using-remote1.jpg">
+<meta property="article:published_time" content="2016-06-05T03:03:55.000Z">
+<meta property="article:modified_time" content="2018-12-08T02:17:19.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/git-using-remote1.jpg">
+
+
+<link rel="canonical" href="https://chars.tech/2016-06-05-git-using-remote/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-06-05-git-using-remote/","path":"2016-06-05-git-using-remote/","title":"Git 使用 - 远程操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git 使用 - 远程操作 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-clone"><span class="nav-number">1.</span> <span class="nav-text">git clone</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-remote"><span class="nav-number">2.</span> <span class="nav-text">git remote</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-fetch"><span class="nav-number">3.</span> <span class="nav-text">git fetch</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-pull"><span class="nav-number">4.</span> <span class="nav-text">git pull</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-push"><span class="nav-number">5.</span> <span class="nav-text">git push</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-fetch-1"><span class="nav-number">6.</span> <span class="nav-text">git fetch</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-06-05-git-using-remote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git 使用 - 远程操作 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git 使用 - 远程操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-06-05 11:03:55" itemprop="dateCreated datePublished" datetime="2016-06-05T11:03:55+08:00">2016-06-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pieces/" itemprop="url" rel="index"><span itemprop="name">pieces</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git的读音为&#x2F;gɪt&#x2F;。</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Git">Git</a>是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。</p>
+<p>Torvalds 开始着手开发 Git 是为了作为一种过渡方案来替代 BitKeeper，后者之前一直是Linux 内核开发人员在全球使用的主要源代码工具。开放源码社区中的有些人觉得 BitKeeper 的许可证并不适合开放源码社区的工作，因此 Torvalds 决定着手研究许可证更为灵活的版本控制系统。尽管最初 Git 的开发是为了辅助 Linux 内核开发的过程，但是我们已经发现在很多其他自由软件项目中也使用了 Git。例如 最近就迁移到 Git 上来了，很多 Freedesktop 的项目也迁移到了 Git 上。</p>
+<p>Git有很多优势，其中之一就是远程操作非常简单。但是，Git也是一把双刃剑，使用得当，将会尽享Git的便利与强大。本文将主要介绍几个常用的Git远程操作命令。</p>
+<p><img src="/assets/images/tech/git-using-remote1.jpg" alt="introduction"></p>
+<span id="more"></span>
+
+<h1 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h1><p>远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到<code>git clone</code>命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;版本库的网址&gt;</span><br></pre></td></tr></table></figure>
+
+<p>比如，克隆Weibo的版本库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/charsdavy/iWeibo.git</span><br></pre></td></tr></table></figure>
+
+<p>该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为<code>git clone</code>命令的第二个参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</span><br></pre></td></tr></table></figure>
+<p><code>git clone</code>支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git clone http[s]://example.com/path/to/repo.git/</span><br><span class="line">$ git clone ssh://example.com/path/to/repo.git/</span><br><span class="line">$ git clone git://example.com/path/to/repo.git/</span><br><span class="line">$ git clone /opt/git/project.git </span><br><span class="line">$ git clone file:///opt/git/project.git</span><br><span class="line">$ git clone ftp[s]://example.com/path/to/repo.git/</span><br><span class="line">$ git clone rsync://example.com/path/to/repo.git/</span><br></pre></td></tr></table></figure>
+<p>SSH协议还有另一种写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone [user@]example.com:path/to/repo.git/</span><br></pre></td></tr></table></figure>
+<p>通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考<a target="_blank" rel="noopener" href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols">官方文档</a>。</p>
+<h1 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h1><p>为了便于管理，Git要求每个远程主机都必须指定一个主机名。<code>git remote</code>命令就用于管理主机名。</p>
+<p>不带选项的时候，<code>git remote</code>命令列出所有远程主机。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git remote</span><br><span class="line">origin</span><br></pre></td></tr></table></figure>
+<p>使用-v选项，可以参看远程主机的网址。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin  git@github.com:charsdavy/iWeibo.git (fetch)</span><br><span class="line">origin  git@github.com:charsdavy/iWeibo.git (push)</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。</p>
+<p>克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用<code>git clone</code>命令的-o选项指定。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git clone -o Weibo https://github.com/charsdavy/iWeibo.git</span><br><span class="line">$ git remote</span><br><span class="line">Weibo</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，克隆的时候，指定远程主机叫做Weibo。</p>
+<ul>
+<li><p>git remote show命令加上主机名，可以查看该主机的详细信息。</p>
+<p>  <code>$ git remote show &lt;主机名&gt;</code></p>
+</li>
+<li><p>git remote add命令用于添加远程主机。</p>
+<p>  <code>$ git remote add &lt;主机名&gt; &lt;网址&gt;</code></p>
+</li>
+<li><p>git remote rm命令用于删除远程主机。</p>
+<p>  <code>$ git remote rm &lt;主机名&gt;</code></p>
+</li>
+<li><p>git remote rename命令用于远程主机的改名。</p>
+<p>  <code>$ git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p>
+</li>
+</ul>
+<h1 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h1><p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到<code>git fetch</code>命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch &lt;远程主机名&gt;</span><br></pre></td></tr></table></figure>
+<p>上面命令将某个远程主机的更新，全部取回本地。</p>
+<p><code>git fetch</code>命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
+<p>默认情况下，<code>git fetch</code>取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</span><br></pre></td></tr></table></figure>
+<p>比如，取回origin主机的master分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch origin master</span><br></pre></td></tr></table></figure>
+<p>所取回的更新，在本地主机上要用”远程主机名&#x2F;分支名”的形式读取。比如origin主机的master，就要用origin&#x2F;master读取。</p>
+<p><code>git branch</code>命令的-r选项，可以用来查看远程分支，-a选项查看所有分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -r</span><br><span class="line">origin/master</span><br><span class="line"></span><br><span class="line">$ git branch -a</span><br><span class="line">* master</span><br><span class="line">  remotes/origin/master</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，本地主机的当前分支是master，远程分支是origin&#x2F;master。</p>
+<p>取回远程主机的更新以后，可以在它的基础上，使用<code>git checkout</code>命令创建一个新的分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b newBrach origin/master</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，在origin&#x2F;master的基础上，创建一个新分支。</p>
+<p>此外，也可以使用<code>git merge</code>命令或者<code>git rebase</code>命令，在本地分支上合并远程分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git merge origin/master</span><br><span class="line"># 或者</span><br><span class="line">$ git rebase origin/master</span><br></pre></td></tr></table></figure>
+<p>上面命令表示在当前分支上，合并origin&#x2F;master。</p>
+<h1 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h1><p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+<p>比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin next:master</span><br></pre></td></tr></table></figure>
+<p>如果远程分支是与当前分支合并，则冒号后面的部分可以省略。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin next</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，取回origin&#x2F;next分支，再与当前分支合并。实质上，这等同于先做<code>git fetch</code>，再做<code>git merge</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch origin</span><br><span class="line">$ git merge origin/next</span><br></pre></td></tr></table></figure>
+<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在<code>git clone</code>的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动”追踪”origin&#x2F;master分支。</p>
+<p>Git也允许手动建立追踪关系。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream master origin/next</span><br></pre></td></tr></table></figure>
+<p>上面命令指定master分支追踪origin&#x2F;next分支。</p>
+<p>如果当前分支与远程分支存在追踪关系，<code>git pull</code>就可以省略远程分支名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，本地的当前分支自动与对应的origin主机”追踪分支”（remote-tracking branch）进行合并。</p>
+<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，当前分支自动与唯一一个追踪分支进行合并。</p>
+<p>如果合并需要采用rebase模式，可以使用–rebase选项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+<p>如果远程主机删除了某个分支，默认情况下，<code>git pull</code> 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止由于其他人操作了远程主机，导致<code>git pull</code>不知不觉删除了本地分支。</p>
+<p>但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git pull -p</span><br><span class="line"># 等同于下面的命令</span><br><span class="line">$ git fetch --prune origin </span><br><span class="line">$ git fetch -p</span><br></pre></td></tr></table></figure>
+<h1 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h1><p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
+<p>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
+<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin :master</span><br><span class="line"># 等同于</span><br><span class="line">$ git push origin --delete master</span><br></pre></td></tr></table></figure>
+<p>上面命令表示删除origin主机的master分支。</p>
+<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，将当前分支推送到origin主机的对应分支。</p>
+<p>如果当前分支只有一个追踪分支，那么主机名都可以省略。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用<code>git push</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用<code>git push</code>了。</p>
+<p>不带任何参数的<code>git push</code>，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用<code>git config</code>命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global push.default matching</span><br><span class="line"># 或者</span><br><span class="line">$ git config --global push.default simple</span><br></pre></td></tr></table></figure>
+<p>还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用–all选项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push --all origin</span><br></pre></td></tr></table></figure>
+<p>上面命令表示，将所有本地分支都推送到origin主机。</p>
+<p>如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做<code>git pull</code>合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用–force选项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push --force origin </span><br></pre></td></tr></table></figure>
+<p>上面命令使用–force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用–force选项。</p>
+<p>最后，<code>git push</code>不会推送标签（tag），除非使用–tags选项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --tags</span><br></pre></td></tr></table></figure>
+
+<h1 id="git-fetch-1"><a href="#git-fetch-1" class="headerlink" title="git fetch"></a>git fetch</h1><p>最近工作上有点忙，不免回家之后还需要办公，可是工作用公司的设备。回家之后只能使用自己的MAC。不过，如何在两台设备同步代码就成了问题。需要能够在一个文件夹不断的同步新的分支，而不会产生新的文件夹。这里，分享博主的解决办法。</p>
+<p>1）从远端获取分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch origin</span><br></pre></td></tr></table></figure>
+
+<p>2）基于远端分支创建本地分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b local_branch_name origin/remote_branch_name</span><br></pre></td></tr></table></figure>
+<p>这样，就会在本地创建一个基于远端分支的分支。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-06-10-state-pattern/" rel="prev" title="State 模式">
+                  <i class="fa fa-chevron-left"></i> State 模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-06-02-qiniu-using/" rel="next" title="七牛云存储应用">
+                  七牛云存储应用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

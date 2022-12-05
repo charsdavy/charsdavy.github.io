@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。 文章主要分享记录博主自己搭建环境的过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="打造自己的 Mac 环境">
+<meta property="og:url" content="https://chars.tech/2016-07-17-custom-myself-develop-tool/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。 文章主要分享记录博主自己搭建环境的过程。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/custom-myself-develop-tool-subl-1.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/custom-myself-develop-tool-subl-2.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/custom-myself-develop-tool-subl-3.png">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/custom-myself-develop-tool-subl-4.png">
+<meta property="article:published_time" content="2016-07-17T02:23:26.000Z">
+<meta property="article:modified_time" content="2018-12-08T02:08:12.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/custom-myself-develop-tool-subl-1.png">
+
+
+<link rel="canonical" href="https://chars.tech/2016-07-17-custom-myself-develop-tool/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-07-17-custom-myself-develop-tool/","path":"2016-07-17-custom-myself-develop-tool/","title":"打造自己的 Mac 环境"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>打造自己的 Mac 环境 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%85%E5%8D%95"><span class="nav-number">1.</span> <span class="nav-text">清单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sublime-Text"><span class="nav-number">2.</span> <span class="nav-text">Sublime Text</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">2.0.1.</span> <span class="nav-text">JSON代码格式化</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-07-17-custom-myself-develop-tool/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="打造自己的 Mac 环境 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          打造自己的 Mac 环境
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-07-17 10:23:26" itemprop="dateCreated datePublished" datetime="2016-07-17T10:23:26+08:00">2016-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pieces/" itemprop="url" rel="index"><span itemprop="name">pieces</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>作为一个程序猿，每天接触最多的就是自己的“女朋友”，那么猿们肯定都有自己的一套撸具，我们都会根据自己的喜好配置自己的万能功能。无非是对于terminal的使用与配置。</p>
+<p>文章主要分享记录博主自己搭建环境的过程。</p>
+<span id="more"></span>
+
+<h1 id="清单"><a href="#清单" class="headerlink" title="清单"></a>清单</h1><p>罗列一下博主 Mac 上的盆友们，顺便来个简要介绍。</p>
+<p>1）开发类</p>
+<ul>
+<li>Xcode：苹果官方开发工具</li>
+<li>PaintCode：可视化设计转代码神器</li>
+<li>GitX：git可视化工具，<strong>开源</strong></li>
+<li>SimPholders：直接打开模拟器App文件神器</li>
+</ul>
+<p>2）工具类</p>
+<ul>
+<li>奇妙清单：云记事本</li>
+<li>Beyond Compare：文件比较神器，<strong>付费</strong></li>
+<li>Charles：网络抓包神器，<strong>付费</strong></li>
+<li>Go2Shell：命令行打开工具，可以实现Finder下打开terminal</li>
+<li>Navicat Premium：数据库可视化工具，<strong>付费</strong></li>
+<li>Chrome：谷歌浏览器</li>
+<li>The Unarchiver：文件解压缩工具</li>
+<li>DaisyDisk：磁盘清理工具，<strong>付费</strong></li>
+<li>MindNode Pro：思维导图，<strong>付费</strong></li>
+</ul>
+<p>3）文本编辑类</p>
+<ul>
+<li>Sublime Text：文本编辑神器</li>
+<li>Pages：苹果官方办公工具</li>
+<li>Mou：markdown语法文本编辑器</li>
+</ul>
+<p>4）阅读类</p>
+<ul>
+<li>Reeder：博客订阅</li>
+<li>Pocket：文章收藏</li>
+<li>Dash：离线开发文档阅读</li>
+<li>Skim：PDF阅读，<strong>开源</strong></li>
+<li>CHM View：chm文件阅读</li>
+</ul>
+<p>5）图像类</p>
+<ul>
+<li>Acorn：轻量级PhotoShop</li>
+<li>ScreenFlow：录屏，生成视频文件，<strong>付费</strong></li>
+<li>licecap：录屏，生成.gif文件</li>
+<li>Snip：截图</li>
+</ul>
+<h1 id="Sublime-Text"><a href="#Sublime-Text" class="headerlink" title="Sublime Text"></a>Sublime Text</h1><p>配置命令打开 Sublime Text</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&quot; /usr/local/bin/subl</span><br></pre></td></tr></table></figure>
+
+<p>之后使用时，使用如下命令即可打开：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ subl</span><br></pre></td></tr></table></figure>
+
+<p>实际上这就是一个软链接的应用。</p>
+<h3 id="JSON代码格式化"><a href="#JSON代码格式化" class="headerlink" title="JSON代码格式化"></a>JSON代码格式化</h3><p>网上有很多工具可用，博主自己现在使用一个 Tidy 的插件，效果还是蛮不错的。</p>
+<p><img src="/assets/images/tech/custom-myself-develop-tool-subl-1.png" alt="效果图"></p>
+<p>1.打开链接<a target="_blank" rel="noopener" href="https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be">https://gist.github.com/charsdavy/cd2324f9483ff83425bbacf85a6ea9be</a>，下载文件。</p>
+<p>2.将解压后的文件夹中的 <code>prettify_json.py</code> 和 <code>tidy_xml.py</code> 问价拷贝到 <code>~/Library/Application Support/Sublime Text 2/Packages/User</code> 路径</p>
+<p><img src="/assets/images/tech/custom-myself-develop-tool-subl-2.png" alt="路径文件夹"></p>
+<p>3.打开 Sublime Text，从菜单中打开“Key-Bindings Default”文件</p>
+<p><img src="/assets/images/tech/custom-myself-develop-tool-subl-3.png" alt="打开Key-Bindings Default文件"></p>
+<p>4.添加快捷键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;keys&quot;: [&quot;ctrl+shift+x&quot;], &quot;command&quot;: &quot;tidy_xml&quot; &#125;,</span><br><span class="line">&#123; &quot;keys&quot;: [&quot;ctrl+shift+j&quot;], &quot;command&quot;: &quot;prettify_json&quot; &#125;, </span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/images/tech/custom-myself-develop-tool-subl-4.png" alt="添加快捷键"></p>
+<p>5.使用</p>
+<p>全选，然后按下 <code>Control + shift + j</code> 键即可。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/mac/" rel="tag"># mac</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-07-21-ios-app-distribution/" rel="prev" title="谈谈iOS App打包发布">
+                  <i class="fa fa-chevron-left"></i> 谈谈iOS App打包发布
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-07-17-git-auto-completion-mac/" rel="next" title="Mac 中 Git 命令自动补全">
+                  Mac 中 Git 命令自动补全 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

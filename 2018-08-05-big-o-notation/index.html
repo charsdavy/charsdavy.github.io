@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是大 O 表示法">
+<meta property="og:url" content="https://chars.tech/2018-08-05-big-o-notation/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/Q811237468.jpg">
+<meta property="article:published_time" content="2018-08-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-10-08T16:23:38.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="概念">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/Q811237468.jpg">
+
+
+<link rel="canonical" href="https://chars.tech/2018-08-05-big-o-notation/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2018-08-05-big-o-notation/","path":"2018-08-05-big-o-notation/","title":"什么是大 O 表示法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什么是大 O 表示法 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E4%B8%8D%E5%90%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%A2%9E%E5%8A%A0"><span class="nav-number">1.</span> <span class="nav-text">算法的运行时间以不同的速度增加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%B3%9F%E7%B3%95%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="nav-number">2.</span> <span class="nav-text">最糟糕情况下的运行时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E5%A4%A7O%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="nav-number">3.</span> <span class="nav-text">一些常见的大O运行时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">5.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2018-08-05-big-o-notation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="什么是大 O 表示法 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是大 O 表示法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-08-05 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-05T00:00:00+08:00">2018-08-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>“大O表示法”是一种特殊的表示法，指出了算法的速度有多快。但是它却不是指具体的时间，那么该如何正确理解它呢？</p>
+<span id="more"></span>
+
+<h2 id="算法的运行时间以不同的速度增加"><a href="#算法的运行时间以不同的速度增加" class="headerlink" title="算法的运行时间以不同的速度增加"></a>算法的运行时间以不同的速度增加</h2><p>“算法的运行时间以不同的速度增加”这句话应该如何理解呢？下面我们通过🌰来看看这句话到底想表达什么。</p>
+<p>小明现在需要编写一个查找算法，这个算法服务于学校图书馆，目的是帮助童鞋们能够快速的找到自己需要的书籍所在位置。</p>
+<p>假设小明现在只会“二分查找”和“简单查找”。一方面，二分查找的速度很快，小明必须在 10 秒钟内找到书籍所在位置，否则童鞋们没有更多耐心等待。另一方面，简单查找算法编写起来更容易，因此出现 bug 的可能性更小。</p>
+<p>为了检验这两种算法的耗时，小明决定计算两种算法在列表包含 100 个元素的情况下需要的时间。</p>
+<p>假设检查一个元素需要 1 毫秒。使用简单查找时，小明必须检查 100 个元素，因此需要 100 毫秒才能查找完毕。而使用二分查找时，只需检查 7 个元素（log2 100大约为7），因此需要 7 毫秒就能查找完毕。然而，实际要查找的列表可能包含 10 亿个元素，在这种情况下，简单查找需要多长时间呢？二分查找又需要多长时间呢？</p>
+<p>小明使用包含 10 亿个元素的列表运行二分查找，运行时间为 30 毫秒（log2 1 000 000 000大约为30）。他心里想，二分查找的速度大约为简单查找的 15 倍，因为列表包含 100 个元素时，简单查找需要 100 毫秒，而二分查找需要 7 毫秒。因此，列表包含 10 亿个元素时，简单查找需要 30 × 15 &#x3D; 450 毫秒，完全符合在 10 秒内查找完毕的要求。小明决定使用简单查找。这是正确的选择吗？</p>
+<p>不是。实际上，小明错了，而且错得离谱。列表包含 10 亿个元素时，简单查找需要 10 亿毫秒，相当于 11 天！为什么会这样呢？因为二分查找和简单查找的运行时间的增速不同。</p>
+<table>
+<thead>
+<tr>
+<th>简单查找</th>
+<th>二分查找</th>
+<th>元素个数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100 毫秒</td>
+<td>7 毫秒</td>
+<td>100</td>
+</tr>
+<tr>
+<td>10 秒</td>
+<td>14 毫秒</td>
+<td>10 000</td>
+</tr>
+<tr>
+<td>11 天</td>
+<td>30 毫秒</td>
+<td>1 000 000 000</td>
+</tr>
+</tbody></table>
+<p>随着元素数量的增加，二分查找需要的额外时间并不多，而简单查找需要的额外时间却很多。因此，随着列表的增长，二分查找的速度比简单查找快得多。小明以为二分查找速度为简单查找的 15 倍，这不对：列表包含 10 亿个元素时，为 3300 万倍。有鉴于此，仅知道算法需要多长时间才能运行完毕还不够，还需知道运行时间如何随列表增长而增加。这正是大O表示法的用武之地。</p>
+<p>大O表示法指出了算法有多快。例如，假设列表包含 n 个元素。简单查找需要检查每个元素，因此需要执行 n 次操作。使用大O表示法，这个运行时间为 O(n)。单位秒呢？没有！大O表示法指的并非以秒为单位的速度。大O表示法让你能够比较操作数，它指出了算法运行时间的增速。</p>
+<h2 id="最糟糕情况下的运行时间"><a href="#最糟糕情况下的运行时间" class="headerlink" title="最糟糕情况下的运行时间"></a>最糟糕情况下的运行时间</h2><p>假设你使用简单查找在电话簿中找人。你知道，简单查找的运行时间为 O(n)，这意味着在最糟情况下，必须查看电话簿中的每个条目。如果要查找的是 Chars ——电话簿中的第一个人，一次就能找到，无需查看每个条目。考虑到一次就找到了 Chars，请问这种算法的运行时间是 O(n)还是 O(1) 呢？</p>
+<p>简单查找的运行时间总是为 O(n)。查找 Chars 时，一次就找到了，这是最佳的情形，但大O表示法说的是最糟的情形。因此，你可以说，在最糟情况下，必须查看电话簿中的每个条目，对应的运行时间为 O(n)。这是一个保证——你知道简单查找的运行时间不可能超过 O(n)。</p>
+<blockquote>
+<p>说明</p>
+<p>除最糟情况下的运行时间外，还应考虑平均情况的运行时间，这很重要。最糟情况和平均情况将在第4章讨论。</p>
+</blockquote>
+<h2 id="一些常见的大O运行时间"><a href="#一些常见的大O运行时间" class="headerlink" title="一些常见的大O运行时间"></a>一些常见的大O运行时间</h2><p>下面按从快到慢的顺序列出了你经常会遇到的5种大O运行时间。</p>
+<ul>
+<li>O (log n )，也叫对数时间 ，这样的算法包括二分查找。</li>
+<li>O (n )，也叫线性时间 ，这样的算法包括简单查找。</li>
+<li>O (n * log n )，这样的算法包括快速排序——一种速度较快的排序算法。</li>
+<li>O (n 2 )，这样的算法包括选择排序——一种速度较慢的排序算法。</li>
+<li>O (n !)，这样的算法包括旅行商问题的解决方案——一种非常慢的算法。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1、算法的速度指的并非时间，而是操作数的增速。</p>
+<p>2、谈论算法的速度时，说的是随着输入的增加，其运行时间将以什么样的速度增加。</p>
+<p>3、算法的运行时间用大O表示法表示。</p>
+<p>4、O(log n) 比 O(n)快，当需要搜索的元素越多时，前者比后者快得越多。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>对算法有兴趣的童鞋可以关注专栏<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>，也欢迎大家多多投稿分享。</p>
+<p>同时欢迎大家加入移动开发交流Q群交流讨论，Q群号：811237468</p>
+<p><img src="/assets/images/Q811237468.jpg" alt="Q811237468"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E5%BF%B5/" rel="tag"># 概念</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018-08-09-yunnan-travel-notes/" rel="prev" title="云南，一片上天眷顾的土地">
+                  <i class="fa fa-chevron-left"></i> 云南，一片上天眷顾的土地
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018-01-29-data-link-layer-lldp/" rel="next" title="数据链路层之 LLDP">
+                  数据链路层之 LLDP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="均匀分布随机函数的实现">
+<meta property="og:url" content="https://chars.tech/2016-04-30-uniform-random/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/uniform-random-1.jpg">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/uniform-random-2.jpg">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/uniform-random-3.jpg">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/uniform-random-4.jpg">
+<meta property="og:image" content="https://chars.tech/assets/images/Q811237468.jpg">
+<meta property="article:published_time" content="2016-04-30T01:37:10.000Z">
+<meta property="article:modified_time" content="2019-10-08T16:22:25.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="c">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/uniform-random-1.jpg">
+
+
+<link rel="canonical" href="https://chars.tech/2016-04-30-uniform-random/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-04-30-uniform-random/","path":"2016-04-30-uniform-random/","title":"均匀分布随机函数的实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>均匀分布随机函数的实现 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">函数简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">均匀分布随机函数实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">4.1.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.2.</span> <span class="nav-text">实现步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">实现效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">7.1.</span> <span class="nav-text">写在最后</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-04-30-uniform-random/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="均匀分布随机函数的实现 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          均匀分布随机函数的实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-04-30 09:37:10" itemprop="dateCreated datePublished" datetime="2016-04-30T09:37:10+08:00">2016-04-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>随机函数可以说是用途很广。可是，系统提供的random函数，一般符合正态分布，所以说，这是伪随机函数。甚至在一些场合是非随机函数。为了满足项目需要，必须实现均匀分布。在此，分享博主实现均匀随机函数的实现过程与方法。</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随机函数就是产生数的函数，C语言里使用rand(),srand()等随机函数实现随机数生成。
+ </p>
+<h1 id="函数简介"><a href="#函数简介" class="headerlink" title="函数简介"></a>函数简介</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int rand( void );</span><br></pre></td></tr></table></figure>
+
+<p>返回的是一个界于0～32767（0x7FFF）之间的伪随机数，包括0和32767。<br>C预先生成一组随机数，每次调用随机函数时从指针所指向的位置开始取值，因此使用rand()重复运行程序产生的随机数都是相同的，可以通过srand()函数来改变指针位置。<br>srand()会设置供rand()使用的随机数种子。如果在第一次使用rand()之前没有调用srand()，那么系统会自动调用srand()。而使用同种子相同的数调用 rand()会导致相同的随机数序列被生成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void srand( unsigned int seed );</span><br></pre></td></tr></table></figure>
+<p>改变随机数表的指针位置（用seed变量控制）。<br>使用系统定时&#x2F;计数器的值作为随机种子。每个种子对应一组根据算法预先生成的随机数，所以，在相同的平台环境下，不同时间产生的随机数会是不同的，相应的，若将srand（unsigned）time(NULL)改为srand(TP)（TP为任一常量），则无论何时运行、运行多少次得到的“随机数”都会是一组固定的序列，因此srand生成的随机数是伪随机数。<br>一般配合time(NULL)使用，因为时间每时每刻都在改变，产生的seed值都不同。
+ </p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>使用rand函数生成的随机数严格满足正态分布。而在很多时候，我们希望随机数的生成不要满足正态分布，特别是在处理网络通信报文的时候。<br>例如，我们需要在交换机处理到海量报文时，能够使远端的从设备尽可能的分段同时向局端回应报文，以减轻局<del>部</del>端报文处理压力。
+ </p>
+<h1 id="均匀分布随机函数实现"><a href="#均匀分布随机函数实现" class="headerlink" title="均匀分布随机函数实现"></a>均匀分布随机函数实现</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p><img src="/assets/images/tech/uniform-random-1.jpg" alt="开发环境"></p>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>1）打开Qt Creater，创建GUI工程</p>
+<p><img src="/assets/images/tech/uniform-random-2.jpg" alt="创建GUI工程"></p>
+<p><img src="/assets/images/tech/uniform-random-3.jpg" alt="项目文件结构"></p>
+<p>2）在mainwindow.h中添加函数声明</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void paintEvent(QPaintEvent *);</span><br></pre></td></tr></table></figure>
+
+<p>3）在mainwindow.cpp中添加函数实现</p>
+<p>导入头文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;QPainter&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <br>实现<code>void paintEvent(QPaintEvent *)</code>函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> *Qt中函数paintEvent(QPaintEvent*)是被系统自动调用。</span><br><span class="line"> *paintEvent(QPaintEvent *)函数是QWidget类中的虚函数，用于ui的绘制，会在多种情况下被其他函数自动调用。</span><br><span class="line">*/</span><br><span class="line">void MainWindow::paintEvent(QPaintEvent *)</span><br><span class="line">&#123;</span><br><span class="line">    QPainter painter(this);</span><br><span class="line">    QPen pen; //画笔</span><br><span class="line">    pen.setColor(QColor(255,0,0)); //设置画笔颜色</span><br><span class="line">    painter.setPen(pen); //添加画笔</span><br><span class="line"></span><br><span class="line">    long int r[kSum] = &#123;0&#125;;</span><br><span class="line">    int i = 0;</span><br><span class="line">    int j = 0;</span><br><span class="line"></span><br><span class="line">    do&#123;</span><br><span class="line">        r[i] = Uniform(0, 300);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;while(i &lt; kSum);</span><br><span class="line"></span><br><span class="line">    while((j + 30) &lt; (kSum + 30))&#123;</span><br><span class="line">        painter.drawPoint(j, r[j]);</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <br>4）添加随机函数实现代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line"></span><br><span class="line">#define kSum 1000</span><br><span class="line">//算法一</span><br><span class="line">/*</span><br><span class="line"> *均匀分布随机函数均匀化</span><br><span class="line">*/</span><br><span class="line">double _uniform(double min, double max, long int *seed) &#123;</span><br><span class="line">    double t = 0;</span><br><span class="line">    *seed = 2045 * (*seed) + 1;</span><br><span class="line">    *seed = *seed - (*seed / 1048576) * 1048576;</span><br><span class="line">    t = (*seed) / 1048576.0;</span><br><span class="line">    t = min + (max - min) * t;</span><br><span class="line">    return t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *均匀分布随机函数产生随机数</span><br><span class="line">*/</span><br><span class="line">long int Uniform(double min, double max) &#123;</span><br><span class="line">    long int s = 0;</span><br><span class="line">    double r = 0;</span><br><span class="line"></span><br><span class="line">    //srand((unsigned int)time(NULL)); /*同一个时间种子可能会从产生相同的随机数列*/</span><br><span class="line">    s = rand();</span><br><span class="line">    r = _uniform(min, max, &amp;s);</span><br><span class="line"></span><br><span class="line">    return ((long int)r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//算法二</span><br><span class="line">double AverageRandom(double min, double max) &#123;</span><br><span class="line">    int minInteger = (int)(min * 10000);</span><br><span class="line">    int maxInteger = (int)(max * 10000);</span><br><span class="line">    int randInteger = rand() * rand();</span><br><span class="line">    int diffInteger = maxInteger - minInteger;</span><br><span class="line">    int resultInteger = randInteger % diffInteger + minInteger;</span><br><span class="line"></span><br><span class="line">    return (resultInteger/10000.0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> </p>
+<h1 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h1><p><img src="/assets/images/tech/uniform-random-4.jpg" alt="实现效果">
+ </p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>从图中可以看出，使用上述函数生成的随机数符合均匀分布。<br>本案例主要使用了Qt的绘图功能，用来直观展示生成随机数的效果。检验随机函数生成随机数的效果。
+ </p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>最后附上该算法实现的全部代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//mainwindow.h</span><br><span class="line">#ifndef MAINWINDOW_H</span><br><span class="line">#define MAINWINDOW_H</span><br><span class="line"></span><br><span class="line">#include &lt;QMainWindow&gt;</span><br><span class="line"></span><br><span class="line">namespace Ui &#123;</span><br><span class="line">class MainWindow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MainWindow : public QMainWindow</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    explicit MainWindow(QWidget *parent = 0);</span><br><span class="line">    ~MainWindow();</span><br><span class="line">    void paintEvent(QPaintEvent *);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    Ui::MainWindow *ui;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif // MAINWINDOW_H</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">//mainwindow.cpp</span><br><span class="line">#include &quot;mainwindow.h&quot;</span><br><span class="line">#include &quot;ui_mainwindow.h&quot;</span><br><span class="line">#include &lt;QPainter&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line"></span><br><span class="line">#define kSum 1000</span><br><span class="line"></span><br><span class="line">MainWindow::MainWindow(QWidget *parent) :</span><br><span class="line">    QMainWindow(parent),</span><br><span class="line">    ui(new Ui::MainWindow)</span><br><span class="line">&#123;</span><br><span class="line">    ui-&gt;setupUi(this);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MainWindow::~MainWindow()</span><br><span class="line">&#123;</span><br><span class="line">    delete ui;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *均匀分布随机函数均匀化</span><br><span class="line">*/</span><br><span class="line">double _uniform(double min, double max, long int *seed) &#123;</span><br><span class="line">    double t = 0;</span><br><span class="line">    *seed = 2045 * (*seed) + 1;</span><br><span class="line">    *seed = *seed - (*seed / 1048576) * 1048576;</span><br><span class="line">    t = (*seed) / 1048576.0;</span><br><span class="line">    t = min + (max - min) * t;</span><br><span class="line">    return t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *均匀分布随机函数产生随机数</span><br><span class="line">*/</span><br><span class="line">long int Uniform(double min, double max) &#123;</span><br><span class="line">    long int s = 0;</span><br><span class="line">    double r = 0;</span><br><span class="line"></span><br><span class="line">    //srand((unsigned int)time(NULL)); /*同一个时间种子可能会从产生相同的随机数列*/</span><br><span class="line">    s = rand();</span><br><span class="line">    r = _uniform(min, max, &amp;s);</span><br><span class="line"></span><br><span class="line">    return ((long int)r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *Qt中函数paintEvent(QPaintEvent*)是被系统自动调用。</span><br><span class="line"> *paintEvent(QPaintEvent *)函数是QWidget类中的虚函数，用于ui的绘制，会在多种情况下被其他函数自动调用。</span><br><span class="line">*/</span><br><span class="line">void MainWindow::paintEvent(QPaintEvent *)</span><br><span class="line">&#123;</span><br><span class="line">    QPainter painter(this);</span><br><span class="line">    QPen pen; //画笔</span><br><span class="line">    pen.setColor(QColor(255,0,0)); //设置画笔颜色</span><br><span class="line">    painter.setPen(pen); //添加画笔</span><br><span class="line"></span><br><span class="line">    long int r[kSum] = &#123;0&#125;;</span><br><span class="line">    int i = 0;</span><br><span class="line">    int j = 0;</span><br><span class="line"></span><br><span class="line">    do&#123;</span><br><span class="line">        r[i] = Uniform(0, 300);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;while(i &lt; kSum);</span><br><span class="line"></span><br><span class="line">    while((j + 30) &lt; (kSum + 30))&#123;</span><br><span class="line">        painter.drawPoint(j, r[j]);</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//main.cpp</span><br><span class="line">#include &quot;mainwindow.h&quot;</span><br><span class="line">#include &lt;QApplication&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    QApplication a(argc, argv);</span><br><span class="line">    MainWindow w;</span><br><span class="line">    w.show();</span><br><span class="line"></span><br><span class="line">    return a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>欢迎大家加入移动开发交流Q群交流讨论，Q群号：811237468</p>
+<p><img src="/assets/images/Q811237468.jpg" alt="Q811237468"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-05-05-flappy-bird-game/" rel="prev" title="flappy bird 游戏实现">
+                  <i class="fa fa-chevron-left"></i> flappy bird 游戏实现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-04-17-VFL-introduction/" rel="next" title="VFL 语言简介">
+                  VFL 语言简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

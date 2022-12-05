@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="作为iOS开发，作品App肯定需要提交到App Store审核。平心而论，App Store确实成功地将许多恶意软件拒之门外。但是，对开发者而言，应用程序的审核流程是令人沮丧的黑箱操作。 当然，什么是恶意程序是由Apple来定义。因为App Store的存在，所以，如果想要实现某些特定的功能，唯一的手段就是将设备越狱或者骗过App Store的审查。 官方的App审查永远无法抓到那些钻空子的恶意程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是iOS的安全模式">
+<meta property="og:url" content="https://chars.tech/2017-04-19-ios-security-pattern/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="作为iOS开发，作品App肯定需要提交到App Store审核。平心而论，App Store确实成功地将许多恶意软件拒之门外。但是，对开发者而言，应用程序的审核流程是令人沮丧的黑箱操作。 当然，什么是恶意程序是由Apple来定义。因为App Store的存在，所以，如果想要实现某些特定的功能，唯一的手段就是将设备越狱或者骗过App Store的审查。 官方的App审查永远无法抓到那些钻空子的恶意程">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/ios-security-pattarn-01.png">
+<meta property="article:published_time" content="2017-04-19T15:18:42.000Z">
+<meta property="article:modified_time" content="2018-12-08T01:27:54.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="读书笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/ios-security-pattarn-01.png">
+
+
+<link rel="canonical" href="https://chars.tech/2017-04-19-ios-security-pattern/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2017-04-19-ios-security-pattern/","path":"2017-04-19-ios-security-pattern/","title":"什么是iOS的安全模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什么是iOS的安全模式 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%90%AF%E5%8A%A8"><span class="nav-number">1.</span> <span class="nav-text">安全启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%99%E7%9B%92%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">沙盒机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%85%A8%E7%9B%98%E5%8A%A0%E5%AF%86"><span class="nav-number">3.</span> <span class="nav-text">数据保护和全盘加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E5%AF%86%E9%92%A5%E7%9A%84%E5%B1%82%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">加密密钥的层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASLR%E5%92%8CXN%E5%8F%8A%E5%85%B6%E5%AE%83%E6%9C%BA%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">ASLR和XN及其它机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%8A%E7%8B%B1%E6%A3%80%E6%B5%8B"><span class="nav-number">6.</span> <span class="nav-text">越狱检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BF%AE%E5%A4%8D"><span class="nav-number">7.</span> <span class="nav-text">动态修复</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2017-04-19-ios-security-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="什么是iOS的安全模式 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是iOS的安全模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-04-19 23:18:42" itemprop="dateCreated datePublished" datetime="2017-04-19T23:18:42+08:00">2017-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pieces/" itemprop="url" rel="index"><span itemprop="name">pieces</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>作为iOS开发，作品App肯定需要提交到App Store审核。平心而论，App Store确实成功地将许多恶意软件拒之门外。但是，对开发者而言，应用程序的审核流程是令人沮丧的黑箱操作。</p>
+<p>当然，什么是恶意程序是由Apple来定义。因为App Store的存在，所以，如果想要实现某些特定的功能，唯一的手段就是将设备越狱或者骗过App Store的审查。</p>
+<p>官方的App审查永远无法抓到那些钻空子的恶意程序，所以需要另外一套高效的机制，来阻止恶意程序破坏整个操作系统的安全。</p>
+<span id="more"></span>
+
+<h2 id="安全启动"><a href="#安全启动" class="headerlink" title="安全启动"></a>安全启动</h2><p>当启动一台iOS设备时，系统首先会从只读的引导ROM中读取初始化指令，即系统引导程序。这个引导ROM包含Apple官方权威认证的公钥，它会验证底层启动加载器（LLB）的签名，一旦通过验证就启动它。</p>
+<p>然后验证第二级引导程序iBoot，iBoot启动后设备就可以进入恢复模式或启动内核。在iBoot验证完成内核签名的合法性之后，整个启动程序开始步入正轨：加载驱动程序、检测设备、启动系统守护进程。</p>
+<p>这个信任链确保所有的系统组件都由Apple写入、签名、分发，不能来自第三方机构，特别是那些恶意的攻击者以及企图越狱设备的黑客。App启动时也会用信任链去审查签名。所有的App都必须直接或间接由Apple签名。</p>
+<p>越狱工作的原理正是攻击这一信任链。越狱工具的作者需要找到这一信任链条上的漏洞，从而禁掉链条中负责验证的组件。破解引导ROM通常是最可取的方法，因为该组件不会因Apple今后的软件更新而改变。</p>
+<p>有关更多签名知识可以参看：</p>
+<p><a target="_blank" rel="noopener" href="http://wereadteam.github.io/2017/03/13/Signature/">《iOS App 签名的原理》</a></p>
+<h2 id="沙盒机制"><a href="#沙盒机制" class="headerlink" title="沙盒机制"></a>沙盒机制</h2><p>App的沙盒机制是一种基于FreeBSD系统TrustedBSD框架的强制访问控制（MAC）机制，它采用一种类似于Lisp的配置语言来描述哪些资源系统可以访问，哪些禁止访问。这些资源主要包括文件、系统服务、网络连接、内存资源等。</p>
+<p>MAC机制不同于传统的访问控制机制（比如自主访问控制（DAC）），它不允许主体（比如用户进程）操作对象（文件、套接字等）。DAC最常见的形式就是UNIX系统上的用户、组和其它权限，所有这些都可以被授予读、写或执行的权限。在DAC系统中，用户如果拥有一个对象的所有权，也就拥有该对象的修改权限。</p>
+<p>MAC在沙盒中意味着App被关进了一个虚拟的容器。该容器遵循一系列的特定规则，即哪些系统资源可以访问。</p>
+<p>在文件访问方面，一般只能访问App的包目录；App可以读写存储在该位置的文件。</p>
+<p>Android的访问控制机制与MAC不同。Android实现了一个更加传统的DAC模型，App都有自己的用户ID和属于该ID的文件夹，其权限管理严格按照传统的UNIX文件权限管理运作。虽然这两项机制工作起来都没有问题，但MAC的扩展性总体来说还是更强一些。比如，除了App目录隔离，MAC机制还可以限制网络访问或系统守护进程的操作。</p>
+<h2 id="数据保护和全盘加密"><a href="#数据保护和全盘加密" class="headerlink" title="数据保护和全盘加密"></a>数据保护和全盘加密</h2><p>数据保护和全盘加密两机制可以实现远程抹除设备数据，在设备丢失的情况下保护用户数据免于泄漏。</p>
+<p>文件系统加密并不能防止从一个正在运行的设备上窃取数据的行为。如果一个App可以从磁盘中读取一个文件，那文件系统加密并没有任何用武之处，因为内核对于任何尝试读取这些文件的进程都是透明解密的。换句话说，相比那些读取文件的调用行为，文件系统加密工作都是更底层。一旦攻破者攻破了系统验证，那就能无障碍地读取任意文件。</p>
+<p>全盘加密对于以下两个安全特性是必要的：安全删除文件、远程设备擦出。iOS中使用的加密密钥是分层级的，只需要简单丢弃一个加密密钥就能彻底销毁整层的数据，甚至是销毁整个文件系统。</p>
+<h2 id="加密密钥的层级"><a href="#加密密钥的层级" class="headerlink" title="加密密钥的层级"></a>加密密钥的层级</h2><p>iOS文件系统中用于数据加密的密钥是分等级的，即用密钥来加密其它密钥，这样Apple就能更精确的控制数据什么时候可用。</p>
+<p><img src="/assets/images/tech/ios-security-pattarn-01.png" alt="加密密钥层级图"></p>
+<p>文件密钥（File Key）针对每个文件独立生成，存储在文件的元数据中。</p>
+<p>层级密钥（Class Key）为数据提供不同级别的保护。</p>
+<p>文件系统密钥（Filesystem Key）是一种全局加密密钥，当元数据被层级密钥加密后，使用文件系统密钥来加密涉及文件安全的元数据。</p>
+<p>设备密钥（Device Key）通常被称为UID密钥，每台设备唯一，只能通过硬件的AES引擎访问，操作系统无法直接获取。它是系统的主密钥，用来加密文件系统密钥和层级密钥。</p>
+<p>用户密码（User Passcode），可与设备密钥结合起来加密层级密钥。</p>
+<p>一旦设置密码，这个密钥等级也允许开发者自己决定本地存储的数据该如何保护，包括在设备锁定时是否能被访问、数据能否备份到其它设备等。</p>
+<h2 id="ASLR和XN及其它机制"><a href="#ASLR和XN及其它机制" class="headerlink" title="ASLR和XN及其它机制"></a>ASLR和XN及其它机制</h2><p>iOS用两套标准机制来预防代码执行攻击：地址空间结构随机化（ASLR）和XN bit（eXecute Never，标记该段内存区域不包含可执行代码）。</p>
+<p>每次执行程序时，ASLR都会随机分配程序、数据、堆和栈的内存位置。而共享库的内存地址只在每次系统重启时随机设置，因为共享库需要在多个进程中使用。ALSR机制可以预防缓存区移除攻击（return-to-libc），因为函数和库的内存地址随机，而这种攻击依赖于基本库和函数的已知地址。</p>
+<p>XN bit，一般对应非ARM平台的NX（No-eXecute）bit，允许操作系统将某段内存标记为不可执行，这由CPU来控制。在iOS中，这个机制默认应用在程序的栈和堆上。</p>
+<p>每个程序都有一段可写可执行的内存，但是它必须是经过Apple官方签名授权系统的签名。Safari浏览器中的JavaScript即时（JIT, Just-in-time）编译器会用到这段内存。而WebView并不具备JIT功能，这样虽然可以避免代码执行攻击，但是也使得iOS平台上的Chrome无法做到像Safari那样好用。</p>
+<h2 id="越狱检测"><a href="#越狱检测" class="headerlink" title="越狱检测"></a>越狱检测</h2><p>越狱的本质就是通过一系列步骤来禁掉签名机制，从而允许设备运行未经Apple官方审核的应用。黑箱测试应用程序是越狱的重要能力。</p>
+<p>其实，越狱不一定要禁掉iOS的沙盒机制，它只是允许你在沙盒外安装App。安装在移动用户主目录下的App（即通过App Store安装）仍然受到沙盒限制。第三方的App需要安装在越狱设备中权限更高的<code>/Applications</code>目录下，与Apple股票应用安装在一起。</p>
+<h2 id="动态修复"><a href="#动态修复" class="headerlink" title="动态修复"></a>动态修复</h2><p>一般来说，如果一段原生代码没有经过Apple发布的密钥签名认证，App则无法运行它。如果Apple的签名验证逻辑中存在bug或漏洞，可能会允许下载和执行原生代码。</p>
+<p>iOS有一个特性，可以让程序分配一段没有NX保护的内存区块（该内存区块可读、可写，甚至可执行），里面运行的代码也不需要经过签名认证。这个机制在Safari上的JIT编译器上使用。这个运用场景中，就可能会产生漏洞，业界著名的例子就是Charlie Miller。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ios/" rel="tag"># ios</a>
+              <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag"># 读书笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017-04-22-python-basic-knowledge/" rel="prev" title="Python 学习 基础篇">
+                  <i class="fa fa-chevron-left"></i> Python 学习 基础篇
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017-04-11-ios-lifecycle/" rel="next" title="聊一聊iOS的那些生命周期">
+                  聊一聊iOS的那些生命周期 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

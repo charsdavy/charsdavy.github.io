@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="https://chars.tech/2016-04-13-singleton-pattern/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/assets/images/tech/singleton-pattern-1.jpg">
+<meta property="article:published_time" content="2016-04-13T00:23:37.000Z">
+<meta property="article:modified_time" content="2018-12-08T02:38:38.000Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="objc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chars.tech/assets/images/tech/singleton-pattern-1.jpg">
+
+
+<link rel="canonical" href="https://chars.tech/2016-04-13-singleton-pattern/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://chars.tech/2016-04-13-singleton-pattern/","path":"2016-04-13-singleton-pattern/","title":"单例模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>单例模式 | Chars's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%90%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">问题的提出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">示例代码：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">应用案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-UIApplication"><span class="nav-number">4.1.</span> <span class="nav-text">1. UIApplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-UIAccelerometer"><span class="nav-number">4.2.</span> <span class="nav-text">2.   UIAccelerometer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-NSUserDefaults"><span class="nav-number">4.3.</span> <span class="nav-text">3.   NSUserDefaults</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-NSNotificationCenter"><span class="nav-number">4.4.</span> <span class="nav-text">4.   NSNotificationCenter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-NSFileManager"><span class="nav-number">4.5.</span> <span class="nav-text">5.   NSFileManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-NSBundle"><span class="nav-number">4.6.</span> <span class="nav-text">6.   NSBundle</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%BE%E5%A3%B0"><span class="nav-number">5.</span> <span class="nav-text">尾声</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://chars.tech/2016-04-13-singleton-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Chars">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="单例模式 | Chars's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          单例模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-04-13 08:23:37" itemprop="dateCreated datePublished" datetime="2016-04-13T08:23:37+08:00">2016-04-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pieces/" itemprop="url" rel="index"><span itemprop="name">pieces</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>单例模式的作用是解决“应用中只有一个实例”的一类问题。本文主要介绍单例模式所谓何物，以及如何实现。</p>
+<span id="more"></span>
+
+
+<h1 id="问题的提出"><a href="#问题的提出" class="headerlink" title="问题的提出"></a>问题的提出</h1><p>在一个iOS 应用的生命周期中，有时候我们只需要某个类的一个实例。例如，iOS 设备都有一个重力加速计硬件设备，要访问设备在x轴、y轴和z轴上的重力加速度，就必然要有一个类能够与硬件设备沟通来实时获得这些数据，这个类就是UIAccelerometer 。除了实时地获得数据，该类还能够保持x 轴、y轴和z 轴的状态。但是这个类只需要一个实例就够了，如果有多个实例，就会占用过多的内存。 再有，当应用程序启动时，应用的状态由UIApplication 类的一个实例维护，这个实例代表了整个“应用程序对象”，它只能是一个实例，其作用是实现应用程序中一些共享资源的访问和状态的保持等。</p>
+<h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><p>单例模式一般会封装一个静态属性，并提供静态实例的创建方法，其UML类图如图所示:</p>
+<p><img src="/assets/images/tech/singleton-pattern-1.jpg" alt="单例设计模式类图"></p>
+<h1 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//Singleton.h</span><br><span class="line">//</span><br><span class="line">@interface Singleton : NSObject</span><br><span class="line">+ (Singleton*)sharedManager;</span><br><span class="line">@property (nonatomic ,strong) NSString* singletonData;</span><br><span class="line">@end</span><br><span class="line">   </span><br><span class="line">//Singleton.m </span><br><span class="line">//</span><br><span class="line">#import &quot;Singleton.h&quot;</span><br><span class="line">@implementation Singleton</span><br><span class="line">@synthesize singletonData = _singletonData;</span><br><span class="line">static Singleton *sharedManager = nil;</span><br><span class="line">+ (Singleton*)sharedManager</span><br><span class="line">&#123;</span><br><span class="line">    static dispatch_once_t once;</span><br><span class="line">    dispatch_once(&amp;once, ^&#123;</span><br><span class="line">        sharedManager = [[self alloc] init];</span><br><span class="line">    &#125;);</span><br><span class="line">    return sharedManager;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>其中<code>static Singleton *sharedManager</code> 为静态变量，类方法为<code>+ (Singleton*)sharedManager</code>。sharedManager 方法采用了GCD（Grand Central Dispatch）技术，这是一种基于C语言的多线程访问技术。在上述代码中，<code>dispatch_once</code> 函数就是由GCD提供的，它的作用是在整个应用程序生命周期中只执行一次代码块（^{…}）。 <code>dispatch_once_t</code> 是GCD提供的结构体，使用时需要将GCD地址传给<code>dispatch_once</code> 函数。<code>dispatch_once</code> 函数能够记录该代码块是否被调用过。<code>dispatch_once</code>函数不仅意味着代码仅会被运行一次，而且还意味着此运行还是线程同步的。也就是说，当我们使用了<code>dispatch_once</code>函数时，就不再需要使用诸如<code>@synchronized</code>之类的语句。</p>
+<p>将以上单例实现代码，抽成宏，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// @interface</span><br><span class="line">#define singleton_interface(className) \</span><br><span class="line">+ (className *)shared##className;</span><br><span class="line"> </span><br><span class="line">// @implementation</span><br><span class="line">#define singleton_implementation(className) \</span><br><span class="line">static className *_instance; \</span><br><span class="line">+ (id)allocWithZone:(NSZone *)zone \</span><br><span class="line">&#123; \</span><br><span class="line">    static dispatch_once_t onceToken; \</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [super allocWithZone:zone]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    return _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">+ (className *)shared##className \</span><br><span class="line">&#123; \</span><br><span class="line">    static dispatch_once_t onceToken; \</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [[self alloc] init]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    return _instance; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h1><p>在Cocoa Touch框架中，有UIApplication、UIAccelerometer 、NSUserDefaults和NSNotificationCenter等单例类。另外，NSFileManager 和NSBundle 类虽然属于Cocoa框架的内容，但也可以在Cocoa Touch框架中使用（Cocoa框架中的单例类有NSFileManager 、NSBundle 、NSWorkspace和NSApplication 等）。 </p>
+<h2 id="1-UIApplication"><a href="#1-UIApplication" class="headerlink" title="1. UIApplication"></a>1. UIApplication</h2><p>UIApplication 类的实例提供了应用程序的集中控制点来保持应用的状态。UIApplication 实例总是分配给应用程序委托对象（UIApplicationDelegate ），通过应用程序委托对象来响应低内存、应用启动、后台运行和应用终止等事件。在HelloWorld 案例中，AppDelegate 就是这个应用程序的委托对象，它实现了UIApplicationDelegate协议。</p>
+<p>UIApplication 类有很多方法和属性，下面我们重点介绍其中几个：<br><code>+ sharedApplication</code> 方法。创建和获得UIApplication 实例的方法。<br><code>idleTimerDisabled</code>属性。设定和获得“空闲时间禁止”的状态。idleTimerDisabled属性的默认值是NO，即默认情况下系统会锁定屏幕。当idleTimerDisabled &#x3D; YES 时，则不会开启“空闲时间禁止”状态，系统不会锁定屏幕。开启这项设定需要谨慎，它会使你的应用比较耗电。<br><code>- openURL: </code>方法。可以打开一些内置的iOS 应用，其中包括打开浏览器、打开Google 地图、拨打电话、发送短信和发送E-mail 等。</p>
+<p>打开浏览器的示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url = [NSURL URLWithString:@&quot;http://www.cnblogs.com/chars&quot;];</span><br><span class="line">[[UIApplication sharedApplication] openURL:url];</span><br></pre></td></tr></table></figure>
+<p>打开Google 地图时，实际上是通过内置浏览器来打开，示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSString* searchQuery = @&quot;清华大学&quot;;</span><br><span class="line">searchQuery = [searchQuery stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];</span><br><span class="line">NSString* urlString = [NSString stringWithFormat: @&quot;http://maps.google.com/maps?q=%@&quot;, searchQuery];</span><br><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];</span><br></pre></td></tr></table></figure>
+<p>其中NSString 的<code>stringByAddingPercentEscapesUsingEncoding</code>方法将字符串转换为URL编码，例如 “%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6 ”是“清华大学”的 URL 编码。 拨打电话时，苹果官方要求使用该方法调用内置拨号程序，示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;tel://10010&quot;]];</span><br></pre></td></tr></table></figure>
+<p>发送短信时，苹果官方要求使用该方法调用内置发送短信程序，示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;sms:10010&quot;]];</span><br></pre></td></tr></table></figure>
+<p>发送E-mail 时，这种方式可以发送简单的不带附件的E-mail ，示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;mailto://eorient@sina.com&quot;]];</span><br></pre></td></tr></table></figure>
+<h2 id="2-UIAccelerometer"><a href="#2-UIAccelerometer" class="headerlink" title="2.   UIAccelerometer"></a>2.   UIAccelerometer</h2><p>单例类UIAccelerometer 前面也讲过，它可以访问重力加速计硬件设备，实时获得设备在x 轴、y轴和z 轴方向上的重力加速度。<br><code>+ sharedAccelerometer</code>方法是创建和获得UIAccelerometer实例的共享方法。</p>
+<p>与UIApplication类似，UIAccelerometer也有对应的委托对象，其委托对象为UIAccelerometerDelegate。UIAccelerometer 将实例分配给委托对象UIAccelerometerDelegate ，然后由委托对象响应重力加速计事件。</p>
+<h2 id="3-NSUserDefaults"><a href="#3-NSUserDefaults" class="headerlink" title="3.   NSUserDefaults"></a>3.   NSUserDefaults</h2><p>单例类NSUserDefaults可以很方便地读取应用设置项目。<br><code>+ standardUserDefaults</code>方法是创建和获得NSUserDefaults实例的静态方法。</p>
+<h2 id="4-NSNotificationCenter"><a href="#4-NSNotificationCenter" class="headerlink" title="4.   NSNotificationCenter"></a>4.   NSNotificationCenter</h2><p>单例类NSNotificationCenter提供信息广播通知，它采用观察者模式的通知机制。<br><code>+ defaultCenter </code>方法是创建和获得NSNotificationCenter实例的共享方法。</p>
+<h2 id="5-NSFileManager"><a href="#5-NSFileManager" class="headerlink" title="5.   NSFileManager"></a>5.   NSFileManager</h2><p>NSFileManager 提供了访问文件系统的通用操作，可以定位、创建、复制文件和文件夹。在iOS 5和Mac OS X v10.7之后，它还可以管理存储在iCloud 上的数据。</p>
+<p><code>+ defaultManager </code>方法是创建和获得NSFileManager 实例的方法。除了该方法外，创建NSFileMa nager对象时还可以使用实例构造方法– init。这两种方法有着比较大的差别，+ defaultManager方法总是返回相同的NSFileManager 对象，但如果要使用委托（NSFileManagerDelegate）完成基于文件的操作并接收通知，应该使用– init 方法创建一个新的实例，而不是使用共享的对象。</p>
+<h2 id="6-NSBundle"><a href="#6-NSBundle" class="headerlink" title="6.   NSBundle"></a>6.   NSBundle</h2><p>NSBundle 提供了动态加载（或卸载）可执行代码、定位资源文件以及资源本地化、访问文件系统等功能。<br><code>+ mainBundle</code>方法是创建和获得NSBundle 实例的共享方法。
+ </p>
+<h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><p>单例模式无疑是Cocoa框架下最重要的设计模式之一。灵活而有机地运用设计模式，意味着编程工作的高效性和产品健壮性、安全性的提高。因此，我们应该要善于使用设计模式，将自己的开发经验与代码、设计模式完美融合起来，提高软件代码质量。
+ </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/objc/" rel="tag"># objc</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016-04-13-ruby-regular-expression/" rel="prev" title="Ruby 正则表达式">
+                  <i class="fa fa-chevron-left"></i> Ruby 正则表达式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016-04-12-design-pattern-introduction/" rel="next" title="设计模式 - 概述">
+                  设计模式 - 概述 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chars</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

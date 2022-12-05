@@ -1,706 +1,310 @@
-
-<!doctype html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html class="theme-next mist use-motion" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G-FD56VNK157">
 
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"chars.tech","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="UA-80507808-1" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Chars, Blog" />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="Chars's Blog" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="![pic05](/assets/images/pic05.jpg) 毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 `嵌入式 C 语言` 开发，没办法，大学时代选择了 `C` 体系的开发工作。主要工作内容就是实现设备支持各种 `IEEE` 的网络协议。每天对着交换机、路由器等硬件设备，不断联调，再编写。 大概过了两年时间，发现自己并不是爱好这样的开发。那么，自己到底喜欢什么呢？不断的问自己，最后选择了 `iOS 开发`，就这样，开启了自己的自学和就业的道路。想起那时候真的很满足。每天白天上班，晚上下班回到住处。舍友开始打游戏，我就只好默默打开电脑，默默打开视频播放器，继续看视频教程。就这样，牺牲早睡和周末活动时间。终于，完成了转型，成功来到 `iOS 开发` 领域。 ![pic04](/assets/images/pic04.jpg) 现在每天除了工作，更多时候在思考什么东西好用，什么东西可以更好用。希望可以在细微之中找到爆点，培养自己的产品眼光和思维。现在的我做着自己喜欢的事情，平时写写自己的小应用，看看自己感兴趣的技术，周末学学日语。偶尔和同学朋友们聊聊自己的想法，一起头脑风暴。最近更大的愿望就是长找到自己的归处。一个可以让自己安静下来、让自己沉淀下来的地方。或许想就这样扎根下去，静心营造自己的梦想世界。 ### 个人兴趣作品 专栏:[《通俗易懂的算法》](https://zhuanlan.zhihu.com/easy-to-understand-algorithm)、[《如何独立开发一个完整应用》](https://zhuanlan.zhihu.com/health-go) Apps: Piclip、今日账单 [作品详细介绍](/blog/personal-projects) 公众号：程序员俱乐部 ![程序员俱乐部](/assets/images/qrcode.jpg) 移动开发交流 811237468 ![Q811237468](/assets/images/Q811237468.jpg) 欢迎大家加入Q群交流讨论，关注公众号分享更多技术知识。 ### 联系 GitHub: [@charsdavy](https://github.com/charsdavy) Twitter: [@charsdavy](https://twitter.com/charsdavy) Weibo: [@行走的马小尾](https://weibo.com/u/3875245858) Zhihu: [@马小尾](https://www.zhihu.com/people/chars/) E-mail: [chars.davy@gmail.com](mailto:chars.davy@gmail.com) ### 友链 * TensorFlow 社区：[http://www.tensorfly.cn](http://www.tensorfly.cn) * TensorFlow：[https://www.tensorflow.org](https://www.tensorflow.org) * LeetCode：[https://leetcode.com](https://leetcode.com) * ObjC 中国：[https://objccn.io](https://objccn.io) * WeRead 团队：[http://wereadteam.github.io](http://wereadteam.github.io) * Hope：[http://leohope.com](http://leohope.com) 欢迎交换友链！ ### 特别说明 若无特殊说明，本站所有文章均为原创文章，转载请注明文章地址及出处。">
-<meta name="keywords" content="Chars, Blog">
+    <meta name="description" content="毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 嵌入式 C 语言 开发，没办法，大学时代选择了 C 体系的开发工作。主要工作内容就是实现设备支持各种 IE">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Chars's Blog">
-<meta property="og:url" content="http://localhost:4000/about/">
-<meta property="og:site_name" content="Chars's Blog">
-<meta property="og:description" content="![pic05](/assets/images/pic05.jpg) 毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 `嵌入式 C 语言` 开发，没办法，大学时代选择了 `C` 体系的开发工作。主要工作内容就是实现设备支持各种 `IEEE` 的网络协议。每天对着交换机、路由器等硬件设备，不断联调，再编写。 大概过了两年时间，发现自己并不是爱好这样的开发。那么，自己到底喜欢什么呢？不断的问自己，最后选择了 `iOS 开发`，就这样，开启了自己的自学和就业的道路。想起那时候真的很满足。每天白天上班，晚上下班回到住处。舍友开始打游戏，我就只好默默打开电脑，默默打开视频播放器，继续看视频教程。就这样，牺牲早睡和周末活动时间。终于，完成了转型，成功来到 `iOS 开发` 领域。 ![pic04](/assets/images/pic04.jpg) 现在每天除了工作，更多时候在思考什么东西好用，什么东西可以更好用。希望可以在细微之中找到爆点，培养自己的产品眼光和思维。现在的我做着自己喜欢的事情，平时写写自己的小应用，看看自己感兴趣的技术，周末学学日语。偶尔和同学朋友们聊聊自己的想法，一起头脑风暴。最近更大的愿望就是长找到自己的归处。一个可以让自己安静下来、让自己沉淀下来的地方。或许想就这样扎根下去，静心营造自己的梦想世界。 ### 个人兴趣作品 专栏:[《通俗易懂的算法》](https://zhuanlan.zhihu.com/easy-to-understand-algorithm)、[《如何独立开发一个完整应用》](https://zhuanlan.zhihu.com/health-go) Apps: Piclip、今日账单 [作品详细介绍](/blog/personal-projects) 公众号：程序员俱乐部 ![程序员俱乐部](/assets/images/qrcode.jpg) 移动开发交流 811237468 ![Q811237468](/assets/images/Q811237468.jpg) 欢迎大家加入Q群交流讨论，关注公众号分享更多技术知识。 ### 联系 GitHub: [@charsdavy](https://github.com/charsdavy) Twitter: [@charsdavy](https://twitter.com/charsdavy) Weibo: [@行走的马小尾](https://weibo.com/u/3875245858) Zhihu: [@马小尾](https://www.zhihu.com/people/chars/) E-mail: [chars.davy@gmail.com](mailto:chars.davy@gmail.com) ### 友链 * TensorFlow 社区：[http://www.tensorfly.cn](http://www.tensorfly.cn) * TensorFlow：[https://www.tensorflow.org](https://www.tensorflow.org) * LeetCode：[https://leetcode.com](https://leetcode.com) * ObjC 中国：[https://objccn.io](https://objccn.io) * WeRead 团队：[http://wereadteam.github.io](http://wereadteam.github.io) * Hope：[http://leohope.com](http://leohope.com) 欢迎交换友链！ ### 特别说明 若无特殊说明，本站所有文章均为原创文章，转载请注明文章地址及出处。">
-<meta property="og:locale" content="en">
+<meta property="og:title" content="Chars&#39;s Blog">
+<meta property="og:url" content="https://chars.tech/about/index.html">
+<meta property="og:site_name" content="Chars&#39;s Blog">
+<meta property="og:description" content="毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 嵌入式 C 语言 开发，没办法，大学时代选择了 C 体系的开发工作。主要工作内容就是实现设备支持各种 IE">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://chars.tech/images/pic05.jpg">
+<meta property="og:image" content="https://chars.tech/images/pic04.jpg">
+<meta property="og:image" content="https://chars.tech/images/qrcode.jpg">
+<meta property="og:image" content="https://chars.tech/images/Q811237468.jpg">
+<meta property="article:published_time" content="2022-12-05T09:02:05.774Z">
+<meta property="article:modified_time" content="2022-12-05T09:02:05.762Z">
+<meta property="article:author" content="Chars">
+<meta property="article:tag" content="Chars, Blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chars's Blog">
-<meta name="twitter:description" content="![pic05](/assets/images/pic05.jpg) 毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 `嵌入式 C 语言` 开发，没办法，大学时代选择了 `C` 体系的开发工作。主要工作内容就是实现设备支持各种 `IEEE` 的网络协议。每天对着交换机、路由器等硬件设备，不断联调，再编写。 大概过了两年时间，发现自己并不是爱好这样的开发。那么，自己到底喜欢什么呢？不断的问自己，最后选择了 `iOS 开发`，就这样，开启了自己的自学和就业的道路。想起那时候真的很满足。每天白天上班，晚上下班回到住处。舍友开始打游戏，我就只好默默打开电脑，默默打开视频播放器，继续看视频教程。就这样，牺牲早睡和周末活动时间。终于，完成了转型，成功来到 `iOS 开发` 领域。 ![pic04](/assets/images/pic04.jpg) 现在每天除了工作，更多时候在思考什么东西好用，什么东西可以更好用。希望可以在细微之中找到爆点，培养自己的产品眼光和思维。现在的我做着自己喜欢的事情，平时写写自己的小应用，看看自己感兴趣的技术，周末学学日语。偶尔和同学朋友们聊聊自己的想法，一起头脑风暴。最近更大的愿望就是长找到自己的归处。一个可以让自己安静下来、让自己沉淀下来的地方。或许想就这样扎根下去，静心营造自己的梦想世界。 ### 个人兴趣作品 专栏:[《通俗易懂的算法》](https://zhuanlan.zhihu.com/easy-to-understand-algorithm)、[《如何独立开发一个完整应用》](https://zhuanlan.zhihu.com/health-go) Apps: Piclip、今日账单 [作品详细介绍](/blog/personal-projects) 公众号：程序员俱乐部 ![程序员俱乐部](/assets/images/qrcode.jpg) 移动开发交流 811237468 ![Q811237468](/assets/images/Q811237468.jpg) 欢迎大家加入Q群交流讨论，关注公众号分享更多技术知识。 ### 联系 GitHub: [@charsdavy](https://github.com/charsdavy) Twitter: [@charsdavy](https://twitter.com/charsdavy) Weibo: [@行走的马小尾](https://weibo.com/u/3875245858) Zhihu: [@马小尾](https://www.zhihu.com/people/chars/) E-mail: [chars.davy@gmail.com](mailto:chars.davy@gmail.com) ### 友链 * TensorFlow 社区：[http://www.tensorfly.cn](http://www.tensorfly.cn) * TensorFlow：[https://www.tensorflow.org](https://www.tensorflow.org) * LeetCode：[https://leetcode.com](https://leetcode.com) * ObjC 中国：[https://objccn.io](https://objccn.io) * WeRead 团队：[http://wereadteam.github.io](http://wereadteam.github.io) * Hope：[http://leohope.com](http://leohope.com) 欢迎交换友链！ ### 特别说明 若无特殊说明，本站所有文章均为原创文章，转载请注明文章地址及出处。">
+<meta name="twitter:image" content="https://chars.tech/images/pic05.jpg">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: 'EGR8BZH56W',
-      apiKey: 'ba13aeae485a8654534d0442996ab261',
-      indexName: 'Chars_Blog',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="canonical" href="https://chars.tech/about/">
 
 
 
-  <link rel="canonical" href="http://localhost:4000/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":true,"permalink":"https://chars.tech/about/index.html","path":"about/index.html","title":""}</script>
 
-
-
-
-
-  <title>              About | Chars's Blog      </title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | Chars's Blog
+</title>
   
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80507808-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=65957271";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD56VNK157"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-FD56VNK157","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
 
 
 
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Chars's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">好好学习、天天向上</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chars's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Never stop living and learning</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  
-  <div class="algolia-popup popup search-popup">
-    <div class="algolia-search">
-      <div class="algolia-search-input-icon">
-        <i class="fa fa-search"></i>
-      </div>
-      <div class="algolia-search-input" id="algolia-search-input"></div>
-    </div>
-
-    <div class="algolia-results">
-      <div id="algolia-stats"></div>
-      <div id="algolia-hits"></div>
-      <div id="algolia-pagination" class="algolia-pagination"></div>
-    </div>
-
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-  </div>
-
-
-
-
-    </div>
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-<div id="posts" class="posts-expand">
-<header class="post-header">
+    </div>
+  </div>
 
-	<h2 class="post-title" itemprop="name headline">
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E5%85%B4%E8%B6%A3%E4%BD%9C%E5%93%81"><span class="nav-number">1.</span> <span class="nav-text">个人兴趣作品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8B%E9%93%BE"><span class="nav-number">3.</span> <span class="nav-text">友链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%88%AB%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">特别说明</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chars"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Chars</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/charsdavy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;charsdavy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3875245858" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3875245858" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/chars.davy" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;chars.davy" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
     
-      About
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
     
-  </h2>
+    
+    
+    <div class="post-block" lang="en"><header class="post-header">
 
+<h1 class="post-title" itemprop="name headline">
+</h1>
 
+<div class="post-meta-container">
+</div>
 
 </header>
 
-  
-  
-    <p><img src="/assets/images/pic05.jpg" alt="pic05" /></p>
-
-<p>毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 <code class="highlighter-rouge">嵌入式 C 语言</code> 开发，没办法，大学时代选择了 <code class="highlighter-rouge">C</code> 体系的开发工作。主要工作内容就是实现设备支持各种 <code class="highlighter-rouge">IEEE</code> 的网络协议。每天对着交换机、路由器等硬件设备，不断联调，再编写。</p>
-
-<p>大概过了两年时间，发现自己并不是爱好这样的开发。那么，自己到底喜欢什么呢？不断的问自己，最后选择了 <code class="highlighter-rouge">iOS 开发</code>，就这样，开启了自己的自学和就业的道路。想起那时候真的很满足。每天白天上班，晚上下班回到住处。舍友开始打游戏，我就只好默默打开电脑，默默打开视频播放器，继续看视频教程。就这样，牺牲早睡和周末活动时间。终于，完成了转型，成功来到 <code class="highlighter-rouge">iOS 开发</code> 领域。</p>
-
-<p><img src="/assets/images/pic04.jpg" alt="pic04" /></p>
-
+      
+      
+      <div class="post-body">
+          <p><img src="/images/pic05.jpg" alt="pic05"></p>
+<p>毕业至今已经好几年了，在这段时间里最大的感触就是“学生时代真的很舒服”。没错，很怀念学生时代，一心只要学习就好，每天拿着父母的钱，做着自己的事情。可以说，作息规律是发生在工作之后。每天必定早起，晚上必定需要多加学习。刚毕业的时候，向往着北京生活，最终也得偿所愿在一家北京通信设备公司，从事着 <code>嵌入式 C 语言</code> 开发，没办法，大学时代选择了 <code>C</code> 体系的开发工作。主要工作内容就是实现设备支持各种 <code>IEEE</code> 的网络协议。每天对着交换机、路由器等硬件设备，不断联调，再编写。</p>
+<p>大概过了两年时间，发现自己并不是爱好这样的开发。那么，自己到底喜欢什么呢？不断的问自己，最后选择了 <code>iOS 开发</code>，就这样，开启了自己的自学和就业的道路。想起那时候真的很满足。每天白天上班，晚上下班回到住处。舍友开始打游戏，我就只好默默打开电脑，默默打开视频播放器，继续看视频教程。就这样，牺牲早睡和周末活动时间。终于，完成了转型，成功来到 <code>iOS 开发</code> 领域。</p>
+<p><img src="/images/pic04.jpg" alt="pic04"></p>
 <p>现在每天除了工作，更多时候在思考什么东西好用，什么东西可以更好用。希望可以在细微之中找到爆点，培养自己的产品眼光和思维。现在的我做着自己喜欢的事情，平时写写自己的小应用，看看自己感兴趣的技术，周末学学日语。偶尔和同学朋友们聊聊自己的想法，一起头脑风暴。最近更大的愿望就是长找到自己的归处。一个可以让自己安静下来、让自己沉淀下来的地方。或许想就这样扎根下去，静心营造自己的梦想世界。</p>
-
-<h3 id="个人兴趣作品">个人兴趣作品</h3>
-
-<p>专栏:<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
-
-<p>Apps: <a href="https://itunes.apple.com/cn/app/id1188174656">Piclip</a>、<a href="https://itunes.apple.com/cn/app/id1176787145">今日账单</a></p>
-
+<h3 id="个人兴趣作品"><a href="#个人兴趣作品" class="headerlink" title="个人兴趣作品"></a>个人兴趣作品</h3><p>专栏:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
+<p>Apps: <a target="_blank" rel="noopener" href="https://itunes.apple.com/cn/app/id1188174656">Piclip</a>、<a target="_blank" rel="noopener" href="https://itunes.apple.com/cn/app/id1176787145">今日账单</a></p>
 <p><a href="/blog/personal-projects">作品详细介绍</a></p>
-
 <p>公众号：程序员俱乐部</p>
-
-<p><img src="/assets/images/qrcode.jpg" alt="程序员俱乐部" /></p>
-
+<p><img src="/images/qrcode.jpg" alt="程序员俱乐部"></p>
 <p>移动开发交流 811237468</p>
-
-<p><img src="/assets/images/Q811237468.jpg" alt="Q811237468" /></p>
-
+<p><img src="/images/Q811237468.jpg" alt="Q811237468"></p>
 <p>欢迎大家加入Q群交流讨论，关注公众号分享更多技术知识。</p>
-
-<h3 id="联系">联系</h3>
-
-<p>GitHub: <a href="https://github.com/charsdavy">@charsdavy</a></p>
-
-<p>Twitter: <a href="https://twitter.com/charsdavy">@charsdavy</a></p>
-
-<p>Weibo: <a href="https://weibo.com/u/3875245858">@行走的马小尾</a></p>
-
-<p>Zhihu: <a href="https://www.zhihu.com/people/chars/">@马小尾</a></p>
-
+<h3 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h3><p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/charsdavy">@charsdavy</a></p>
+<p>Weibo: <a target="_blank" rel="noopener" href="https://weibo.com/u/3875245858">@行走的马小尾</a></p>
+<p>Zhihu: <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/chars/">@马小尾</a></p>
 <p>E-mail: <a href="mailto:chars.davy@gmail.com">chars.davy@gmail.com</a></p>
-
-<h3 id="友链">友链</h3>
-
-<ul>
-  <li>TensorFlow 社区：<a href="http://www.tensorfly.cn">http://www.tensorfly.cn</a></li>
-  <li>TensorFlow：<a href="https://www.tensorflow.org">https://www.tensorflow.org</a></li>
-  <li>LeetCode：<a href="https://leetcode.com">https://leetcode.com</a></li>
-  <li>ObjC 中国：<a href="https://objccn.io">https://objccn.io</a></li>
-  <li>WeRead 团队：<a href="http://wereadteam.github.io">http://wereadteam.github.io</a></li>
-  <li>Hope：<a href="http://leohope.com">http://leohope.com</a></li>
+<h3 id="友链"><a href="#友链" class="headerlink" title="友链"></a>友链</h3><ul>
+<li>TensorFlow 社区：<a target="_blank" rel="noopener" href="http://www.tensorfly.cn/">http://www.tensorfly.cn</a></li>
+<li>TensorFlow：<a target="_blank" rel="noopener" href="https://www.tensorflow.org/">https://www.tensorflow.org</a></li>
+<li>LeetCode：<a target="_blank" rel="noopener" href="https://leetcode.com/">https://leetcode.com</a></li>
+<li>ObjC 中国：<a target="_blank" rel="noopener" href="https://objccn.io/">https://objccn.io</a></li>
+<li>WeRead 团队：<a target="_blank" rel="noopener" href="http://wereadteam.github.io/">http://wereadteam.github.io</a></li>
+<li>Hope：<a target="_blank" rel="noopener" href="http://leohope.com/">http://leohope.com</a></li>
 </ul>
-
 <p>欢迎交换友链！</p>
+<h3 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h3><p>若无特殊说明，本站所有文章均为原创文章，转载请注明文章地址及出处。</p>
 
-<h3 id="特别说明">特别说明</h3>
-
-<p>若无特殊说明，本站所有文章均为原创文章，转载请注明文章地址及出处。</p>
-
-  
-</div>
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/assets/images/avatar.jpg"
-               alt="Chars" />
-          <p class="site-author-name" itemprop="name">Chars</p>
-           
-              <p class="site-description motion-element" itemprop="description"><p>哈喽，我是 <a href="https://twitter.com/charsdavy">@Chars</a>，是一名来自中国的 iOS 开发者。</p> <p>业余时间参加 <a href="https://github.com/xitu/gold-miner">掘金翻译计划</a>，撰写知乎专栏<a href="https://zhuanlan.zhihu.com/easy-to-understand-algorithm">《通俗易懂的算法》</a>、<a href="https://zhuanlan.zhihu.com/health-go">《如何独立开发一个完整应用》</a></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">111</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/">
-                <span class="site-state-item-count">59</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-        
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              
-              
-              <span class="links-of-author-item">
-                <a href="https://github.com/charsdavy" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              
-              
-              <span class="links-of-author-item">
-                <a href="https://instagram.com/chars.davy" target="_blank" title="Instagram">
-                  
-                    <i class="fa fa-fw fa-instagram"></i>
-                  
-                  Instagram
-                </a>
-              </span>
-            
-              
-              
-              <span class="links-of-author-item">
-                <a href="https://www.twitter.com/charsdavy" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              
-              
-              <span class="links-of-author-item">
-                <a href="https://weibo.com/u/3875245858" target="_blank" title="Weibo">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  Weibo
-                </a>
-              </span>
-            
-              
-              
-              <span class="links-of-author-item">
-                <a href="https://www.zhihu.com/people/chars" target="_blank" title="Zhihu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Zhihu
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-        
       </div>
-    </main>
+      
+      
+      
+    </div>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  
-  &copy;  2016 - 
-  <span itemprop="copyrightYear">2020</span>
+    
+    
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zMzY4My8xMDIzOA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-fire"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Chars</span>
 </div>
-
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
+    </div>
+  </footer>
+
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-   
-  
-  
-  
-  
-  
-  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-  
-  
-  
-  
-  
-  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  
-  
-  
-  
-  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  
-  
-  
-  
-  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  
-  
-  
-  
-  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  
-  
-  
-  
-  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
-
-
-
-  
-  
-
-  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -711,77 +315,7 @@
 
 
 
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-
-    
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-  
-  
-  <link rel="stylesheet" href="/assets/lib/algolia-instant-search/instantsearch.min.css">
-
-  
-  
-  <script src="/assets/lib/algolia-instant-search/instantsearch.min.js"></script>
-  
-
-  <script src="/assets/js/src/algolia-search.js?v=5.1.1"></script>
-
-
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-
-  
-
-  
-
-  
+<script src="/js/third-party/comments/livere.js"></script>
 
 </body>
 </html>
-
