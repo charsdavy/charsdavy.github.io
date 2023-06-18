@@ -21222,10 +21222,11 @@
     <title>NearSend 中常见问题</title>
     <url>/2023-03-24-nearsend-faq-cn/</url>
     <content><![CDATA[<p><strong>NearSend</strong> 通过蓝牙等近场通信技术，实现对文件、图片、文件夹的传输共享。在使用过程中，难免会遇到一些问题，本文的目的在于解决用户在使用过程中遇到的常见问题。</p>
-<p>支持平台：iOS、iPadOS、macOS</p>
+<p>在 2.0+ 版本支持通过局域网进行跨平台、跨设备、跨系统分享传输数据。</p>
+<p>支持平台：iOS、iPadOS、macOS、Browser</p>
 <span id="more"></span>
 
-<h1 id="如何发送数据"><a href="#如何发送数据" class="headerlink" title="如何发送数据"></a>如何发送数据</h1><p><strong>注意：</strong>数据的发送与接收，此功能需要两台设备才能进行操作。</p>
+<h1 id="如何使用蓝牙发送数据"><a href="#如何使用蓝牙发送数据" class="headerlink" title="如何使用蓝牙发送数据"></a>如何使用蓝牙发送数据</h1><p><strong>注意：</strong>数据的发送与接收，此功能需要两台设备才能进行操作。</p>
 <p>举个例子：</p>
 <p>接收设备：一台 iPad</p>
 <p>发送设备：一台 iPhone</p>
@@ -21250,6 +21251,17 @@
 <li>NearSend 下载</li>
 </ul>
 <p><a href="itms-apps://itunes.apple.com/app/id6446226378">https://itunes.apple.com/app/id6446226378</a></p>
+<h1 id="如何通过局域网分享数据"><a href="#如何通过局域网分享数据" class="headerlink" title="如何通过局域网分享数据"></a>如何通过局域网分享数据</h1><p><strong>注意</strong> 需要将应用版本升级到 2.0 及以上。</p>
+<ul>
+<li>1、开启应用中的接收面板。</li>
+</ul>
+<p><img src="/assets/images/nearsend/cn_receive_iphone.png" alt="浏览界面"></p>
+<ul>
+<li>2、输入接收设备的内网 IP 地址。</li>
+</ul>
+<p>例如：使用 iPhone 设备上的 Safari 打开 <code>http://192.168.1.102/</code></p>
+<p><img src="/assets/images/nearsend/cn_browser_iphone.png" alt="浏览界面"></p>
+<p>根据界面按钮进行操作，即可分享数据。</p>
 <h1 id="为什么不能进行文件传输"><a href="#为什么不能进行文件传输" class="headerlink" title="为什么不能进行文件传输"></a>为什么不能进行文件传输</h1><p>因为现在数据都是通过蓝牙模块进行传输，因此，如果蓝牙模块没有开启或者损坏，则无法进行传输。</p>
 <p>问题解决方法：</p>
 <ul>
@@ -21272,10 +21284,11 @@
     <url>/2023-03-24-nearsend-faq-en/</url>
     <content><![CDATA[<p><strong>NearSend</strong> Through Bluetooth and other near-field communication technologies, the transmission and sharing of files, pictures, and folders can be realized. </p>
 <p>In the process of use, it is inevitable to encounter some problems, the purpose of this article is to solve the common problems encountered by users in the process of use.</p>
-<p>Supported platforms: iOS, iPadOS, macOS</p>
+<p>In version 2.0+, data sharing and transmission over LAN is supported across platforms, devices, and systems.</p>
+<p>Supported platforms: iOS, iPadOS, macOS, Browser</p>
 <span id="more"></span>
 
-<h1 id="How-to-send-data"><a href="#How-to-send-data" class="headerlink" title="How to send data"></a>How to send data</h1><p><strong>Notice：</strong>Data transmission and reception, this function requires two devices to operate.</p>
+<h1 id="How-to-send-data-using-Bluetooth"><a href="#How-to-send-data-using-Bluetooth" class="headerlink" title="How to send data using Bluetooth"></a>How to send data using Bluetooth</h1><p><strong>Notice：</strong>Data transmission and reception, this function requires two devices to operate.</p>
 <p>For example: </p>
 <p>Receiving device: An iPad </p>
 <p>Sending device: An iPhone</p>
@@ -21315,6 +21328,23 @@
 <li>NearSend Download</li>
 </ul>
 <p><a href="itms-apps://itunes.apple.com/app/id6446226378">https://itunes.apple.com/app/id6446226378</a></p>
+<h1 id="How-to-share-data-over-a-local-area-network"><a href="#How-to-share-data-over-a-local-area-network" class="headerlink" title="How to share data over a local area network"></a>How to share data over a local area network</h1><p><strong>Note</strong> You need to upgrade your app version to 2.0 and above.</p>
+<ul>
+<li><ol>
+<li>Open the receiving panel in the app.</li>
+</ol>
+</li>
+</ul>
+<p><img src="/assets/images/nearsend/en_receive_iphone.png" alt="浏览界面"></p>
+<ul>
+<li><ol start="2">
+<li>Enter the private IP address of the receiving device.</li>
+</ol>
+</li>
+</ul>
+<p>Example: Open <code>http://192.168.1.102/</code> using Safari on your iPhone device.</p>
+<p><img src="/assets/images/nearsend/en_browser_iphone.png" alt="浏览界面"></p>
+<p>Follow the interface buttons to share data.</p>
 <h1 id="Why-can’t-file-transfer-be-done"><a href="#Why-can’t-file-transfer-be-done" class="headerlink" title="Why can’t file transfer be done"></a>Why can’t file transfer be done</h1><p>Because data is now transmitted through the Bluetooth module, if the Bluetooth module is not turned on or damaged, it cannot be transmitted.  </p>
 <p>Problem Resolution:  </p>
 <ul>
@@ -21327,7 +21357,7 @@
 </ol>
 </li>
 </ul>
-<h1 id="Where-is-the-received-file"><a href="#Where-is-the-received-file" class="headerlink" title="Where is the received file"></a>Where is the received file</h1><p><img src="/assets/images/nearsend/browser-cn.png" alt="浏览界面"></p>
+<h1 id="Where-is-the-received-file"><a href="#Where-is-the-received-file" class="headerlink" title="Where is the received file"></a>Where is the received file</h1><p><img src="/assets/images/nearsend/browser-en.png" alt="浏览界面"></p>
 <p>As shown in the preceding figure, the default receive file is stored in the NearSend sandbox.</p>
 <h1 id="Why-does-the-file-show-0-bytes"><a href="#Why-does-the-file-show-0-bytes" class="headerlink" title="Why does the file show 0 bytes"></a>Why does the file show 0 bytes</h1><p>Because the receiving file is written in real time, that is, when the sender device transfers the file, the receiving device will create a file in the corresponding location for receive &amp; write, so it will see that the file is 0 bytes during the transfer, and once the file is received, the file is written and the size is updated.</p>
 ]]></content>
@@ -21446,10 +21476,11 @@
     <title>NearSend for Mac 中常见问题</title>
     <url>/2023-04-12-nearsend-mac-faq-cn/</url>
     <content><![CDATA[<p><strong>NearSend</strong> 通过蓝牙等近场通信技术，实现对文件、文本、文件夹的传输共享。在使用过程中，难免会遇到一些问题，本文的目的在于解决用户在使用过程中遇到的常见问题。</p>
-<p>支持平台：iOS、iPadOS、macOS</p>
+<p>在 2.0+ 版本支持通过局域网进行跨平台、跨设备、跨系统分享传输数据。</p>
+<p>支持平台：iOS、iPadOS、macOS、Browser</p>
 <span id="more"></span>
 
-<h1 id="如何发送数据"><a href="#如何发送数据" class="headerlink" title="如何发送数据"></a>如何发送数据</h1><p><strong>注意：</strong>数据的发送与接收，此功能需要两台设备才能进行操作。</p>
+<h1 id="如何使用蓝牙发送数据"><a href="#如何使用蓝牙发送数据" class="headerlink" title="如何使用蓝牙发送数据"></a>如何使用蓝牙发送数据</h1><p><strong>注意：</strong>数据的发送与接收，此功能需要两台设备才能进行操作。</p>
 <p>举个例子：</p>
 <p>接收设备：一台 MacBook Air</p>
 <p>发送设备：一台 MacBook Pro</p>
@@ -21477,6 +21508,17 @@
 <li>NearSend 下载</li>
 </ul>
 <p><a href="itms-apps://itunes.apple.com/app/id6446226378">https://itunes.apple.com/app/id6446226378</a></p>
+<h1 id="如何通过局域网分享数据"><a href="#如何通过局域网分享数据" class="headerlink" title="如何通过局域网分享数据"></a>如何通过局域网分享数据</h1><p><strong>注意</strong> 需要将应用版本升级到 2.0 及以上。</p>
+<ul>
+<li>1、开启应用中的接收面板。</li>
+</ul>
+<p><img src="/assets/images/nearsend/cn_receive_mac.jpg" alt="浏览界面"></p>
+<ul>
+<li>2、输入接收设备的内网 IP 地址。</li>
+</ul>
+<p>例如：使用 iPhone 设备上的 Safari 打开 <code>http://192.168.1.102/</code></p>
+<p><img src="/assets/images/nearsend/cn_browser_iphone.png" alt="浏览界面"></p>
+<p>根据界面按钮进行操作，即可分享数据。</p>
 <h1 id="为什么不能进行文件传输"><a href="#为什么不能进行文件传输" class="headerlink" title="为什么不能进行文件传输"></a>为什么不能进行文件传输</h1><p>因为现在数据都是通过蓝牙模块进行传输，因此，如果蓝牙模块没有开启或者损坏，则无法进行传输。</p>
 <p>问题解决方法：</p>
 <ul>
@@ -21499,10 +21541,11 @@
     <url>/2023-04-12-nearsend-mac-faq-en/</url>
     <content><![CDATA[<p><strong>NearSend</strong> Through Bluetooth and other near-field communication technologies, the transmission and sharing of files, pictures, and folders can be realized. </p>
 <p>In the process of use, it is inevitable to encounter some problems, the purpose of this article is to solve the common problems encountered by users in the process of use.</p>
-<p>Supported platforms: iOS, iPadOS, macOS</p>
+<p>In version 2.0+, data sharing and transmission over LAN is supported across platforms, devices, and systems.</p>
+<p>Supported platforms: iOS, iPadOS, macOS, Browser</p>
 <span id="more"></span>
 
-<h1 id="How-to-send-data"><a href="#How-to-send-data" class="headerlink" title="How to send data"></a>How to send data</h1><p><strong>Notice：</strong>Data transmission and reception, this function requires two devices to operate.</p>
+<h1 id="How-to-send-data-using-Bluetooth"><a href="#How-to-send-data-using-Bluetooth" class="headerlink" title="How to send data using Bluetooth"></a>How to send data using Bluetooth</h1><p><strong>Notice：</strong>Data transmission and reception, this function requires two devices to operate.</p>
 <p>For example: </p>
 <p>Receiving device: An MacBook Air</p>
 <p>Sending device: An MacBook Pro</p>
@@ -21548,6 +21591,23 @@
 <li>NearSend Download</li>
 </ul>
 <p><a href="itms-apps://itunes.apple.com/app/id6446226378">https://itunes.apple.com/app/id6446226378</a></p>
+<h1 id="How-to-share-data-over-a-local-area-network"><a href="#How-to-share-data-over-a-local-area-network" class="headerlink" title="How to share data over a local area network"></a>How to share data over a local area network</h1><p><strong>Note</strong> You need to upgrade your app version to 2.0 and above.</p>
+<ul>
+<li><ol>
+<li>Open the receiving panel in the app.</li>
+</ol>
+</li>
+</ul>
+<p><img src="/assets/images/nearsend/en_receive_mac.jpg" alt="浏览界面"></p>
+<ul>
+<li><ol start="2">
+<li>Enter the private IP address of the receiving device.</li>
+</ol>
+</li>
+</ul>
+<p>Example: Open <code>http://192.168.1.102/</code> using Safari on your iPhone device.</p>
+<p><img src="/assets/images/nearsend/en_browser_iphone.png" alt="浏览界面"></p>
+<p>Follow the interface buttons to share data.</p>
 <h1 id="Why-can’t-file-transfer-be-done"><a href="#Why-can’t-file-transfer-be-done" class="headerlink" title="Why can’t file transfer be done"></a>Why can’t file transfer be done</h1><p>Because data is now transmitted through the Bluetooth module, if the Bluetooth module is not turned on or damaged, it cannot be transmitted.  </p>
 <p>Problem Resolution:  </p>
 <ul>
@@ -21560,7 +21620,7 @@
 </ol>
 </li>
 </ul>
-<h1 id="Where-is-the-received-file"><a href="#Where-is-the-received-file" class="headerlink" title="Where is the received file"></a>Where is the received file</h1><p><img src="/assets/images/nearsend/setting-mac-cn.png" alt="浏览界面"></p>
+<h1 id="Where-is-the-received-file"><a href="#Where-is-the-received-file" class="headerlink" title="Where is the received file"></a>Where is the received file</h1><p><img src="/assets/images/nearsend/setting-mac-en.png" alt="浏览界面"></p>
 <p>As shown in the image above, the default receive file is stored under the <code>~/Downloads/NearSend</code> folder.</p>
 <h1 id="Why-does-the-file-show-0-bytes"><a href="#Why-does-the-file-show-0-bytes" class="headerlink" title="Why does the file show 0 bytes"></a>Why does the file show 0 bytes</h1><p>Because the receiving file is written in real time, that is, when the sender device transfers the file, the receiving device will create a file in the corresponding location for receive &amp; write, so it will see that the file is 0 bytes during the transfer, and once the file is received, the file is written and the size is updated.</p>
 ]]></content>
