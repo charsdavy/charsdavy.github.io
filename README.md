@@ -1,5 +1,5 @@
 # Chars's Tech Blog
 
-[https://chars.tech](https://chars.tech)
+[https://charsdavy.top](https://charsdavy.top)
 
 无所谓的态度, 过着随遇而安的生活
